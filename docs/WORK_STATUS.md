@@ -14,6 +14,15 @@ Godot 4.0+ distribution/release gate. Check live GitHub state and #51 before
 starting; do not treat historical hidden-tab FAIL as a successful test.
 T09 stays queued; physical/manual keyboard tests are not required.
 
+**Owner verification policy (2026-11-02):** The only routine Godot
+versions for local/Codex, CI, PR and release tests are **4.0.4** and
+pinned **4.7.0**. No other versions and no all-minor/nine-engine sweeps
+are required or permitted as routine verification. Use targeted tests
+while coding and a bounded one- or two-engine acceptance check once.
+See [standing rules](../AGENTS.md), [owner decision](DECISIONS.md),
+[tests](TESTING.md), and C01-H [#51](https://github.com/resistdesign/Estragon/issues/51).
+Previously published nine-engine results stay archived, not rerun.
+
 ## Current plan register
 
 | ID | Status in this snapshot | Work | Live issue / relevant umbrella | Accepted completion evidence |
