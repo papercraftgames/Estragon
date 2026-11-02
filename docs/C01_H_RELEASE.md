@@ -29,11 +29,31 @@ Native numeric conversion/old arity differences and observed filtered-tab FAIL
 remain separate from their explicit owner dispositions. Physical keypress
 absence is not a required stage. Native graphics remains separately required.
 
-CI retains one 4.0.4 macOS Godot job and the existing 4.7.0 Linux job. Each now
-collects distribution/graphics evidence and runs strict release assessment after
-its lifecycle/Play probes. Linux graphics uses X11/Xvfb and software Mesa. Required
-release assessment is expected to reject unresolved boundaries; do not weaken it
-or automatically merge this infrastructure PR to claim compatibility.
+CI retains one 4.0.4 macOS Godot job and the existing 4.7.0 Linux job.
+Ordinary PR/push verification invokes **development mode**: it validates all
+matching clean-source/engine artifacts and accepts only precisely known release
+blocker outcomes. It still writes a truthful **BLOCKED** release report alongside
+an independent development-check PASS. This is not release authorization.
+
+The accepted development baseline, derived from CI at head 5a47e3e:
+
+| Engine | Allowed development-only release blockers |
+| --- | --- |
+| 4.0.4 | HybridEdges FAIL (#61), cold missing-generated scene FAIL, resource-pack export cleanup FAIL (#65), standalone executable export UNTESTED |
+| 4.7.0 | Standalone executable export UNTESTED |
+
+Known FAIL allowances require exact diagnostic/error fingerprints and execution
+outcomes, with no timeout or extra errors. Missing stage/log evidence, changed
+failure outcomes, unexpected required non-PASS observations or provenance mismatch
+fail development checks. A blocker fixed to PASS is welcome and remains truthful.
+The #44 exception and accepted numeric/arity capabilities remain separate.
+
+**Publishing boundary:** assert-release.ts defaults to strict release mode and
+exits nonzero on BLOCKED. Workflow dispatch verification_mode=release selects
+that strict command in each approved-engine job; publishing/support certification
+must require success for both. There is no publisher in this PR. Future delivery
+steps must depend on those strict results, never development CI alone. No blanket
+continue-on-error or ignored native exits are used. See permanent AGENTS.md policy.
 
 ## Actual local evidence and provenance
 

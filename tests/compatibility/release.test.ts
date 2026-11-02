@@ -99,3 +99,114 @@ test("CI visual probe needs no host audio device", () => {
   const collector = fs.readFileSync(new URL("../../tools/check-distribution.ts", import.meta.url), "utf8");
   assert.match(collector, /sandbox\.binary, "--audio-driver", "Dummy", "--path"/);
 });
+
+import { assessDevelopment } from "../../tools/development-policy.ts";
+function knownDevelopment() {
+  const reports = complete();
+  reports.core.stages.filtered_highlighting = { status: "FAIL" };
+  reports.core.stages.numeric_native_conversion = { status: "BLOCKED" };
+  reports.core.stages.callback_arity_api = { status: "BLOCKED" };
+  reports.core.stages.hybrid_runtime = { status: "FAIL", exit_code: null, timeout: false,
+    aborted_on_error: true, diagnostics: ["SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.",
+      "          at: _run (res://tests/godot/hybrid_gogo.gd:54)"] };
+  reports.distribution.stages.resource_pack_export = { status: "FAIL", exit_code: 0, timeout: false,
+    aborted_on_error: false, diagnostics: ['ERROR: Condition "_first != nullptr" is true.',
+      "ERROR: Resources still in use at exit (run with --verbose for details)."] };
+  reports.distribution.stages.cold_scene_restore = { status: "FAIL", exit_code: 0, timeout: false,
+    aborted_on_error: false, diagnostics: ["ERROR: Attempt to open script 'res://examples/counter/generated/Counter.gd' resulted in error 'File not found'."] };
+  reports.distribution.stages.executable_export = { status: "UNTESTED",
+    reason: "Resource-pack evidence does not verify standalone executable export" };
+  return reports;
+}
+test("known release blockers permit development while release remains BLOCKED", () => {
+  const reports = knownDevelopment();
+  assert.equal(assessDevelopment(reports, "4.0.4").status, "PASS");
+  assert.equal(assessRelease(reports).status, "BLOCKED");
+  assert.equal(reports.core.stages.hybrid_runtime?.status, "FAIL");
+  assert.equal(assessDevelopment(reports, "4.7").status, "FAIL", "4.0-only failures cannot leak to 4.7");
+});
+test("new failures, changed known diagnostics, timeout and missing evidence reject development", () => {
+  for (const mutate of [
+    (r: ReturnType<typeof knownDevelopment>) => { r.core.stages.frontend = { status: "FAIL" }; },
+    (r: ReturnType<typeof knownDevelopment>) => { delete r.distribution.stages.cold_scene_restore; },
+    (r: ReturnType<typeof knownDevelopment>) => { r.core.stages.hybrid_runtime!.timeout = true; },
+    (r: ReturnType<typeof knownDevelopment>) => { r.distribution.stages.resource_pack_export!.diagnostics!.push("ERROR: unrelated"); },
+    (r: ReturnType<typeof knownDevelopment>) => { r.core.stages.hybrid_runtime!.diagnostics = ["SCRIPT ERROR: another error"]; },
+    (r: ReturnType<typeof knownDevelopment>) => { r.distribution.stages.executable_export = { status: "BLOCKED" }; },
+    (r: ReturnType<typeof knownDevelopment>) => { r.core.stages.new_probe = { status: "UNTESTED" }; },
+  ]) {
+    const reports = knownDevelopment(); mutate(reports);
+    assert.equal(assessDevelopment(reports, "4.0.4").status, "FAIL");
+    assert.equal(assessRelease(reports).status, "BLOCKED");
+  }
+});
+test("fixed blockers and fully passing release requirements pass both policies", () => {
+  const reports = knownDevelopment();
+  for (const name of ["hybrid_runtime"]) reports.core.stages[name] = { status: "PASS" };
+  for (const name of ["resource_pack_export", "cold_scene_restore", "executable_export"]) reports.distribution.stages[name] = { status: "PASS" };
+  assert.equal(assessDevelopment(reports, "4.0.4").status, "PASS");
+  assert.equal(assessRelease(reports).status, "PASS");
+});
+
+import { spawnSync } from "node:child_process";
+test("CLI development/release exits stay separate and reject bad artifacts in both modes", () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), "estragon-cli-release-"));
+  const files = ["core", "distribution", "lifecycle", "play"].map(name => path.join(temp, name + ".json"));
+  const save = (reports: ReturnType<typeof complete>) => {
+    Object.values(reports).forEach((engine, i) => {
+      engine.version = "4.0.4.stable.official.fc0b241c9";
+      engine.input_binary_sha256 = "same-input";
+      // These synthetic policy fixtures have no executed command/log claims.
+      fs.writeFileSync(files[i]!, JSON.stringify({ source_commit: "same", source_dirty: false, engines: [engine] }));
+    });
+  };
+  const run = (mode?: string) => spawnSync(process.execPath, ["--experimental-strip-types",
+    path.resolve("tools/assert-release.ts"), ...(mode ? ["--mode", mode] : []),
+    ...files, path.join(temp, "assessment.json")], { encoding: "utf8", timeout: 10000 });
+  try {
+    save(knownDevelopment());
+    assert.equal(run("development").status, 0);
+    const report = JSON.parse(fs.readFileSync(path.join(temp, "assessment.json"), "utf8"));
+    assert.equal(report.engines[0].status, "BLOCKED");
+    assert.equal(report.engines[0].development_check.status, "PASS");
+    assert.equal(run().status, 1, "strict release is the default");
+    assert.equal(run("release").status, 1);
+    const passing = complete();
+    passing.core.stages.filtered_highlighting = { status: "FAIL" };
+    passing.core.stages.numeric_native_conversion = { status: "PASS" };
+    passing.core.stages.callback_arity_api = { status: "PASS" };
+    save(passing);
+    assert.equal(run("development").status, 0);
+    assert.equal(run().status, 0);
+    for (const mode of ["development", "release"]) {
+      save(knownDevelopment());
+      const value = JSON.parse(fs.readFileSync(files[3]!, "utf8"));
+      value.source_commit = "different";
+      fs.writeFileSync(files[3]!, JSON.stringify(value));
+      assert.equal(run(mode).status, 1);
+      save(knownDevelopment());
+      const broken = knownDevelopment();
+      broken.core.stages.frontend = { status: "FAIL" };
+      save(broken);
+      assert.equal(run(mode).status, 1);
+      save(knownDevelopment());
+      fs.rmSync(files[3]!);
+      assert.equal(run(mode).status, 1);
+      save(passing);
+      passing.core.stages.frontend = { status: "PASS", command: ["godot"], log: "absent.log" };
+      save(passing);
+      assert.equal(run(mode).status, 1, "missing executed log fails even when status claims PASS");
+      delete passing.core.stages.frontend!.command;
+      delete passing.core.stages.frontend!.log;
+    }
+  } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});
+
+test("non-FAIL unexpected required outcomes still block development", () => {
+  for (const status of ["BLOCKED", "UNTESTED"] as const) {
+    const reports = knownDevelopment();
+    reports.core.stages.frontend = { status };
+    assert.equal(assessDevelopment(reports, "4.0.4").status, "FAIL");
+    assert.equal(assessRelease(reports).status, "BLOCKED");
+  }
+});

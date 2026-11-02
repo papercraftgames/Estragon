@@ -415,3 +415,23 @@ Prefer a focused, reviewable PR over a sweeping rewrite. Do not merge it yoursel
 - **Contributing and verification:** `CONTRIBUTING.md` and `docs/TESTING.md`.
 
 If sources disagree, do not paper over the discrepancy. Identify whether it is a code bug, documentation drift, or an unresolved design decision, and resolve only what the task authorizes.
+
+## Development CI versus publishing authorization
+
+Ordinary PR/development CI verifies regression and evidence integrity; it is not
+release authorization. `tools/assert-release.ts --mode development` preserves
+the truthful release verdict and permits only the exact engine/stage/outcome
+expectations documented in `tools/development-policy.ts` and the scoped issue.
+Known release blockers may coexist with green development checks; unknown
+failures, changed diagnostic fingerprints, missing evidence and source/engine
+mismatch must fail. Updating development expectations requires explicit review;
+never blanket-ignore failures or relabel observed FAIL/BLOCKED/UNTESTED as PASS.
+
+Actual release/publishing/support certification must first run the strict
+`tools/assert-release.ts` command (default, or `--mode release`) on matching clean
+source/engine artifacts and require exit zero with every required release stage
+PASS. Development success, a merged infrastructure PR or collection exit zero
+cannot authorize publishing. Manual workflow dispatch `verification_mode=release`
+selects this fail-closed boundary in both approved-engine jobs; no publishing
+step exists yet. Any future publisher must depend on the strict results for both
+approved engines and may not use development mode to authorize delivery.

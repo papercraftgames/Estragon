@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      verification_mode:
+        description: "Development integrity or strict release authorization (no publishing)"
+        type: choice
+        options: [development, release]
+        default: development
 
 concurrency:
   group: core-ci-${{ github.event.pull_request.number || github.ref }}
@@ -85,9 +92,10 @@ jobs:
           xvfb-run -a node --experimental-strip-types tools/check-distribution.ts
           --engine '4.7=${{ env.GODOT_BIN }}'
           --output '${{ runner.temp }}/distribution' --graphics --collect-only
-      - name: C01-H strict release assessment (unresolved requirements block release)
+      - name: C01-H development integrity or explicit strict release gate
         run: >-
           node --experimental-strip-types tools/assert-release.ts
+          --mode "${{ inputs.verification_mode || 'development' }}"
           '${{ runner.temp }}/compatibility/results.json'
           '${{ runner.temp }}/distribution/results.json'
           '${{ runner.temp }}/editor-lifecycle/results.json'

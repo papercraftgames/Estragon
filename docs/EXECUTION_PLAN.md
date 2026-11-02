@@ -343,3 +343,9 @@ The strict gate remains blocking until their requirements are verified or an
 explicit owner disposition is recorded; no new exception is assumed.
 Only 4.0.4 + pinned 4.7.0 are authorized. No competing implementation PR,
 automatic merge, Python, syntax reduction or intermediate-minor certification.
+
+Owner-directed PR #66 follow-through separates development verification from
+publishing authorization. Ordinary CI checks exact known-blocker expectations
+and evidence integrity while retaining release BLOCKED; strict release mode
+remains mandatory before publishing. This does not waive the serial #61/cold
+scene/#65/export prerequisites or advance T09. See C01_H_RELEASE.md and #51.

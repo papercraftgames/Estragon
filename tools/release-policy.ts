@@ -16,7 +16,7 @@ export const LIFECYCLE_REQUIRED = ["engine_identity", "lifecycle_1", "runtime_af
   "lifecycle_2", "runtime_after_2"] as const;
 export const PLAY_REQUIRED = ["engine_identity", "play_1", "play_2"] as const;
 
-type Reports = { core?: EngineRecord; distribution?: EngineRecord; lifecycle?: EngineRecord; play?: EngineRecord };
+export type Reports = { core?: EngineRecord; distribution?: EngineRecord; lifecycle?: EngineRecord; play?: EngineRecord };
 export type ReleaseAssessment = { status: "PASS" | "BLOCKED"; requirements: Array<{
   name: string; observed: string; required: boolean; disposition: string; reason?: string }>; };
 export function assessRelease(reports: Reports): ReleaseAssessment {
@@ -37,9 +37,12 @@ export function assessRelease(reports: Reports): ReleaseAssessment {
   require("executable_export", reports.distribution?.stages.executable_export);
   for (const [group, report] of Object.entries(reports)) {
     for (const [name, stage] of Object.entries(report?.stages ?? {})) {
-      const approved = group === "core" && name === "filtered_highlighting";
-      if (!approved && stage.status === "FAIL" &&
-          !requirements.some(row => row.name === group + "." + name)) require(group + "." + name, stage);
+      const approved = (group === "core" && ["filtered_highlighting", "numeric_native_conversion", "callback_arity_api", "native_graphics", "graphics_physical_keys"].includes(name)) ||
+        (group === "distribution" && name === "other_platforms");
+      const alreadyRequired = requirements.some(row => row.name === group + "." + name ||
+        group === "distribution" && row.name === name && row.required);
+      if ((!approved && stage.status !== "PASS" || stage.status === "FAIL" && name !== "filtered_highlighting") &&
+          !alreadyRequired) require(group + "." + name, stage);
     }
   }
   const filtered = reports.core?.stages.filtered_highlighting;

@@ -740,3 +740,23 @@ behavior block release. Collection exit zero is not certification. Preserve
 #44 as observed FAIL with a separate owner-approved exception; absent physical
 keypress testing is not a gate. CI runs only the two approved engine jobs and
 uploads raw stage results plus the explicit blocking release assessment.
+
+### Development verification and strict publishing checks
+
+Ordinary PR/push CI uses tools/assert-release.ts --mode development with the same
+CORE DISTRIBUTION LIFECYCLE PLAY OUTPUT absolute paths. The complete release
+assessment stays BLOCKED for the documented C01-H blockers; a separate
+development_check passes only exact engine/stage/outcome/failure fingerprints
+from tools/development-policy.ts. Missing artifacts/logs, mismatched provenance,
+unknown failures and newly unavailable requirements reject development CI.
+Fixed blockers can become PASS without weakening any release requirement.
+
+Strict tools/assert-release.ts (default or --mode release) must still exit
+nonzero for BLOCKED. Manual workflow dispatch verification_mode=release runs this
+strict publishing boundary on the same two approved jobs. No publishing exists
+yet; any future publisher must require both strict jobs, never development PASS.
+No continue-on-error, shell masking, extra engine or physical-key gate is used.
+Cheap TypeScript tests verify mode exit codes, preserved BLOCKED reports,
+known failure fingerprints, regression/missing-evidence rejection and all-PASS
+behavior. Reuse archived real CI artifacts for policy checks without new engine
+execution; do not change their original source/provenance.
