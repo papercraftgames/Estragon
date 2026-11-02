@@ -1,6 +1,6 @@
 # Estragon execution plan — Codex-sized delivery
 
-**Plan version:** 6, 2026-10-29. **Status:** N01–N03 and T01–T08 are merged; Godot-only Gogo compilation/editor Play is shipped. **R01 #38 and architecture PR #39 are merged**, documenting why ordinary authored `.gd` custom annotations are not supported. **The owner chose Gogo-only lowercase `@bindable` on 2026-10-29 (ADR-0013).** E01 automatic Gogo highlighting's narrow fix is merged (PR #40); filtered-tab acceptance stays in #44. C01-A #42 establishes the measured audit and issue-only follow-up sequence; **C01 #41 now establishes required Godot 4.0+ compatibility and is a release/support gate**; T09-A through T09-D are planned incremental slices for observable Gogo models, bindings/layout, collections/repeaters and two-way/cycle hardening. See [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md), [T09 issue #5](https://github.com/resistdesign/Estragon/issues/5) and [WORK_STATUS.md](WORK_STATUS.md) for accepted scope and live handoffs.
+**Plan version:** 6, 2026-10-29. **Status:** N01–N03 and T01–T08 are merged; Godot-only Gogo compilation/editor Play is shipped. **R01 #38 and architecture PR #39 are merged**, documenting why ordinary authored `.gd` custom annotations are not supported. **The owner chose Gogo-only lowercase `@bindable` on 2026-10-29 (ADR-0013).** E01 automatic Gogo highlighting's narrow fix is merged (PR #40); E01-F #44's narrowly accepted hidden-tab exception was recorded in merged PR #64 and #44 is closed not planned. C01-A #42 establishes the measured audit and issue-only follow-up sequence; **C01 #41 now establishes required Godot 4.0+ compatibility and is a release/support gate**; T09-A through T09-D are planned incremental slices for observable Gogo models, bindings/layout, collections/repeaters and two-way/cycle hardening. See [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md), [T09 issue #5](https://github.com/resistdesign/Estragon/issues/5) and [WORK_STATUS.md](WORK_STATUS.md) for accepted scope and live handoffs.
 
 ## Outcome: an actual Gogo UI in Godot
 
@@ -250,7 +250,7 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. **E01-F #44 has owner-approved accepted limitation** ([decision](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818)); its focused evidence/decision PR must merge before **C01-H #51** starts. T09 and later work remain queued.
+C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 is Ready**. T09 and later work remain queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
@@ -324,5 +324,5 @@ nine-engine editor/child-game evidence. Require actual newest unsaved foreground
 background execution with autosave off, pathless/unsavable/markup/semantic/type
 failure blocking and repair, no-op outputs/maps/UIDs/timestamps and lifecycle
 regressions. C01-H/#44/#61/T09 remained outside merged PR #63.
-No physical/manual keypress gate. E01-F #44 has explicit owner disposition;
-C01-H #51 follows its review PR merge.
+No physical/manual keypress gate. E01-F #44's accepted exception is closed and
+PR #64 merged; C01-H #51 is the current Ready task (no implementation PR yet).
