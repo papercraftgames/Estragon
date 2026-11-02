@@ -1,5 +1,12 @@
 # C01-F native editor startup and lifecycle
 
+**Current testing policy (2026-11-02): This is archived nine-engine
+evidence, not instructions to rerun the matrix.** For all new local,
+Codex and CI work use **only 4.0.4 and pinned 4.7.0**. Earlier
+"run all nine" directions below are superseded by
+[AGENTS.md](../AGENTS.md) and [TESTING.md](TESTING.md); original results
+and failures remain historical facts.
+
 C01-F [#49](https://github.com/resistdesign/Estragon/issues/49) merged in
 [PR #62](https://github.com/resistdesign/Estragon/pull/62) at `95efa45`, based
 on C01-E merge `c17902a`. This is a scoped editor fix, not full Godot 4.0+ certification.
