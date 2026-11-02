@@ -1,5 +1,23 @@
 # Tests and verification
 
+## Current two-version test budget (owner decision, 2026-11-02)
+
+**Applies everywhere: local work, Codex, CI, PRs and release testing.**
+Use only **Godot 4.0.4** (oldest supported) and the pinned **Godot 4.7.0**.
+No other 4.x versions and no eight/nine-engine sweep, including locally.
+Python runners refuse more than two engine arguments. Use focused tests
+during editing and, where appropriate, run the affected one or both engines
+once for review. The owner alone can authorize swapping one version;
+never add a third.
+
+In CI, `.github/workflows/compatibility.yml` runs **4.0.4 on macOS** and
+`.github/workflows/ci.yml` runs **4.7.0 on Linux**. No other versions,
+redundant push+PR launches or historical full-matrix reruns.
+The preserved nine-engine manifest, logs and result tables are **historical
+research, not current test instructions**. The new budget supersedes older
+directions below and prior issue acceptance text. Target support stays
+Godot 4.0+, but no untested minor may be claimed freshly verified.
+
 ## Native Godot compiler/editor acceptance (N01–N03)
 
 Normal Godot authoring uses the bundled native compiler and editor build gate;
@@ -543,15 +561,15 @@ above is historical focused evidence, not the full audit.
 python3 -m unittest discover -s tests/compatibility -p 'test_*.py'
 python3 tools/check-compatibility.py \
   --engine 4.0.4=/absolute/official/godot-4.0.4 \
-  --engine 4.7.2=/absolute/official/godot-4.7.2 \
-  --output /new/result-directory --editor
+  --engine 4.7=/absolute/official/godot-4.7.0 \
+  --output /new/result-directory --editor --collect-only
 ```
 
 Python 3.9+ is contributor orchestration only; actual Godot processes have empty
 PATH and isolated self-contained settings/projects. No Bun/Node is used. Supply
 verified executables matching `tests/compatibility/engines.json`; macOS hashes refer to
-verified pre-signing bytes; only the copied test binary is signed. Repeat `--engine` for each
-minor. Results/logs are written incrementally; output directories cannot already
+verified pre-signing bytes; only the copied test binary is signed. Use only
+4.0.4 and pinned 4.7.0 (or just the affected one). Results/logs are written incrementally; output directories cannot already
 exist. Engine errors, nonzero exits, deadlines and missing markers are failures,
 including errors printed before an exit-zero success marker.
 
@@ -560,8 +578,8 @@ stage, including historical unproved graphics/manual-interaction results;
 **C01-H #51 must remove the obsolete physical-keypress-only release gate**
 without erasing past evidence. **`--collect-only` is an informational
 collection mode**, preserving all red JSON results. Its zero exit is never a
-compatibility pass. `.github/workflows/compatibility.yml` runs official latest
-selected patches for each minor on macOS, checks archive/executable checksums,
+compatibility pass. `.github/workflows/compatibility.yml` runs only official 4.0.4 on macOS,
+while `.github/workflows/ci.yml` pins 4.7.0 on Linux. Both verify executable checksums,
 rejects infrastructure failures and uploads every stage log/result. The existing
 required 4.7 Linux job remains required; C01-H will establish the final supported
 release gate after defects are fixed and remaining evidence is supplied.
@@ -578,8 +596,8 @@ GPU pixels remain separately UNTESTED. Preserve #44's explicit filtered-tab FAIL
 
 For a compact committed snapshot, pass the complete nonoverlapping raw reports
 to `python3 tools/summarize-compatibility.py --report /run/results.json --output
-tests/compatibility/results.json` (repeat `--report` for split runs). It requires
-all pinned manifest versions, preserves every stage and per-file parse outcome,
+tests/compatibility/results.json` (repeat `--report` for split runs). It accepts one or two selected versions for new snapshots, preserving every
+stage and per-file parse outcome,
 and fingerprints the raw reports/logs. CI artifacts retain the full commands and
 logs. Local and CI fingerprints differ when temporary paths or script IDs differ.
 
@@ -630,11 +648,11 @@ The native generation harness also runs this probe with Bun/Node unavailable;
 its semantic suite checks real component properties. Collector unit tests detect
 missing records, corrupted oracles, false PASS claims and extra emission loss.
 
-To preserve numeric details in a committed nine-engine snapshot, use
+To preserve numeric details in a committed new two-engine snapshot, use
 `python3 tools/summarize-compatibility.py --report /run/results.json --output
  tests/compatibility/c01-d-results.json --scope "C01-D native numeric semantics;
- not full-addon certification"` (repeat `--report` for split runs). All pinned
-engines are required, every stage remains intact and logs/reports are hashed.
+ not full-addon certification"` (repeat `--report` for split runs). Only the selected one or two engines are required for new reports; older
+nine-engine evidence remains intact. Stages and logs remain accurately hashed.
 
 ## C01-E isolated path/cache research
 
@@ -678,13 +696,12 @@ python3 tools/check-editor-lifecycle.py \
   --output /tmp/estragon-lifecycle-new
 ```
 
-Repeat `--engine` for more pinned versions; the output directory must be new.
+Run only 4.0.4 and pinned 4.7.0 as needed; the output directory must be new.
 The harness verifies official version/provenance, copies/signs only its temporary
 binary, isolates projects/settings, removes tools from PATH, and runs two real
 editor processes plus fresh runtime checks. Every lifecycle/runtime stage must
 PASS; unlike the audit collector this command exits nonzero on failure. Raw logs
-and structured results retain errors. CI requires this on all pinned engines,
-including baseline 4.7 and latest tested 4.7.2. See [C01_F_EDITOR.md](C01_F_EDITOR.md).
+and structured results retain errors. CI requires this only on 4.0.4 and pinned 4.7.0. See [C01_F_EDITOR.md](C01_F_EDITOR.md).
 Saved-resource signal tests exercise the plugin notification contract using
 current disk bytes; they do not emulate or certify native unsaved-buffer Play.
 The unchanged 4.7 editor/Play suite remains a separate regression gate.
@@ -697,7 +714,7 @@ python3 tools/check-editor-play.py \
   --output /tmp/estragon-play-new
 ```
 
-Repeat `--engine` for all nine pinned engines. Both process phases must PASS;
+Run only 4.0.4 and pinned 4.7.0, never the older nine-engine matrix. Both process phases must PASS;
 missing markers, unexpected engine errors or timeouts fail the command. The
 actual editor and child game run with no tools on PATH, isolated settings and
 pre-Play autosave disabled. [C01_G_PLAY.md](C01_G_PLAY.md) documents native dirty
