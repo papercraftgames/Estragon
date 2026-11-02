@@ -1,9 +1,24 @@
 # C01-H distribution evidence and strict release gate
 
-[C01-H #51](https://github.com/resistdesign/Estragon/issues/51). This review slice
-implements release assessment and fresh-distribution verification. **Release
-status is BLOCKED; C01-H is not done and T09 remains queued.** No owner exception
-beyond the already accepted #44/capability decisions is inferred.
+[C01-H #51](https://github.com/resistdesign/Estragon/issues/51). The
+distribution/strict release assessment infrastructure **merged as
+[PR #66](https://github.com/resistdesign/Estragon/pull/66) on 2026-11-02 UTC**
+(merge `ecee892d407c27b0b9c915f80ac589fdc9620b89`). The focused
+[4.0.4 macOS](https://github.com/resistdesign/Estragon/actions/runs/41390753704)
+and [4.7.0 Linux](https://github.com/resistdesign/Estragon/actions/runs/41390753660)
+development CI jobs passed. **Strict release remains BLOCKED** in both reports;
+C01-H's overall certification is **not done**, and T09 remains queued. The
+only prior approved scope exceptions remain #44/numeric/arity, not additional
+waivers.
+
+**Next Ready: [#61 generated lambda-helper compatibility](https://github.com/resistdesign/Estragon/issues/61)**,
+to be implemented in a separate review PR. After #61, independently resolve
+4.0.4 cold missing-generated scene restoration, [#65 selected-resource pack
+export cleanup](https://github.com/resistdesign/Estragon/issues/65), and the
+standalone executable/platform release boundary. Archived runs/logs below are
+provenance, **not instructions for a fresh full suite**: all future runs
+use only the owner's selected 4.0.4 and pinned 4.7.0 engines, TypeScript-only
+contributor tooling and Godot-native compiler/Play.
 
 ## What changed
 
@@ -165,6 +180,9 @@ record **development exit 0 / release exit 1 on both engines**, with release
 status **BLOCKED** unchanged. Provenance records the assessment implementation
 revision, original native execution revision, CI links and input report hashes.
 This is reassessment of existing evidence, not execution at a new source head.
-Final-head CI checks the new implementation and workflows directly; see #51/#66
-for the final run links and handoff. This PR is reviewable when development CI
-passes; it does not resolve the release blockers or authorize publishing.
+Final-head CI checks for PR #66 **passed and were merged**. See
+[#51](https://github.com/resistdesign/Estragon/issues/51) and
+[merged PR #66](https://github.com/resistdesign/Estragon/pull/66) for exact
+native provenance and the cross-session handoff. This documents completed gate
+infrastructure **only**; the strict release assessment still blocks publishing.
+The next scoped implementation is [#61](https://github.com/resistdesign/Estragon/issues/61).
