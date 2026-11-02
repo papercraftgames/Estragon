@@ -449,6 +449,9 @@ def main():
     parser.add_argument("--editor", action="store_true", help="also run isolated real headless editors")
     parser.add_argument("--collect-only", action="store_true", help="audit lane only; red JSON remains red")
     args = parser.parse_args()
+    # Owner budget: never run more than two Godot versions locally or in CI.
+    if len(args.engine) > 2:
+        parser.error("Maximum two Godot engines per run (routine: 4.0.4 and 4.7.0)")
     labels = [value.split("=", 1)[0] for value in args.engine]
     if len(set(labels)) != len(labels) or any(not re.fullmatch(r"[\w.-]+", label) for label in labels):
         parser.error("engine labels must be unique simple filenames")
