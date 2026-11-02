@@ -1,14 +1,18 @@
 # Estragon work status and session handoff
 
-**Snapshot:** 2026-11-01. T01–T08 and native planning PR #31 are merged. N01 is merged in PR #32 (`efaad96`). N02 is merged in PR #34 (`8a864a2`). N03 is merged in PR #36 (`a87c33b`). R01 research PR #38 is merged; its negative native `.gd` annotation result is documented. The owner **has made the authoring decision**: lowercase `@bindable` in authored Gogo only (ADR-0013). T09 will cover bindable model objects, reactive layout and observable collections, not just UI text. Normal addon editing/Play uses only Godot; TypeScript/Bun is optional reference tooling. **Owner amendment:** ADR-0014 requires Godot 4.0+; until C01 is verified, shipped compatibility is not certified by the 4.7 suite.
+**Snapshot:** 2026-11-02 UTC. T01–T08 and native planning PR #31 are merged. N01 is merged in PR #32 (`efaad96`). N02 is merged in PR #34 (`8a864a2`). N03 is merged in PR #36 (`a87c33b`). R01 research PR #38 is merged; its negative native `.gd` annotation result is documented. The owner **has made the authoring decision**: lowercase `@bindable` in authored Gogo only (ADR-0013). T09 will cover bindable model objects, reactive layout and observable collections, not just UI text. Normal addon editing/Play uses only Godot; TypeScript/Bun is optional reference tooling. **Owner amendment:** ADR-0014 requires Godot 4.0+; until C01 is verified, shipped compatibility is not certified by the 4.7 suite.
 
 **Milestone:** interactive Gogo/GDScript `Counter.gogo` compiled to GDScript, built from independent Estragon components, running and resizing in Godot 4.7. See [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
-**Start here:** C01-F #49 / PR #62 merged at `95efa45`. C01-G #50 is
-in review in unmerged PR #63 on `codex/c01-g-unsaved-play`, based on latest main
-`393e91c`. Read the live issue/PR and [C01-G evidence](C01_G_PLAY.md) before
-resuming. C01-H #51, #44 disposition and T09 remain queued. The owner testing
-policy requires automated real-editor Play, not physical keyboard checks.
+**Start here:** C01-G #50 / PR #63 merged 2026-11-02 UTC at
+`110c9b7` after C01-F #62. The nine-engine [Play evidence](C01_G_PLAY.md)
+shows 18/18 Play phases, 864 native assertions and 36/36 lifecycle stages
+PASS. **Next Ready: E01-F #44**, the never-associated Gogo highlighter
+identity problem for filtered Script Editor tabs. Read the live
+[issue #44](https://github.com/resistdesign/Estragon/issues/44), its handoff,
+[E01 evidence](E01_COMPATIBILITY.md) and AGENTS.md before pickup.
+Check current main and open PRs. C01-H #51 follows #44 resolution or
+owner disposition. T09 remains queued. No physical keyboard testing is required.
 
 ## Current plan register
 
@@ -36,8 +40,9 @@ policy requires automated real-editor Play, not physical keyboard checks.
 | **C01-D** | **Done (merged PR #59)** | Canonical numeric tokens and native-value preservation | [#47](https://github.com/resistdesign/Estragon/issues/47) | [Nine-engine evidence](C01_D_NUMBERS.md): numeric/native-preservation and C01-B/C gates pass; native conversion limits stay explicit. Required CI and native graphics pass. |
 | **C01-E** | **Done (merged PR #60, `c17902a`)** | Native semantic validation, resource paths and script identity | [#48](https://github.com/resistdesign/Estragon/issues/48) | [Nine-engine evidence](C01_E_VALIDATION.md): native semantics, Counter, registered/cached identity, transactional rollback/recovery and cold runtime gates PASS; owner-approved preflight availability differs by engine. Other editor/grammar limits remain explicit. |
 | **C01-F** | **Done (merged PR #62, `95efa45`)** | Native editor startup and plugin lifecycle | [#49](https://github.com/resistdesign/Estragon/issues/49) | [Nine-engine lifecycle evidence](C01_F_EDITOR.md): 36/36 required stages PASS, clean editor startup/refresh/restart, real saved-source builds. Older unsaved Play remains C01-G. |
-| **C01-G** | **In review (PR #63; unmerged)** | Unsaved/unsavable Gogo F5/F6 fail-closed Play and recovery | [#50](https://github.com/resistdesign/Estragon/issues/50) | [Play evidence](C01_G_PLAY.md); 18/18 Play phases, 864 native assertions and 36/36 lifecycle stages PASS; final CI/handoff in #50/#63. |
-| C01-H | Queued after C01-G and E01-F disposition | Distribution, cross-version release gate | [#51](https://github.com/resistdesign/Estragon/issues/51), [#44](https://github.com/resistdesign/Estragon/issues/44) | Release evidence and remaining unrelated gaps to be handled separately; physical/manual keypress tests are not required per AGENTS.md. |
+| **C01-G** | **Done (merged PR #63, `110c9b7`)** | Unsaved/unsavable Gogo F5/F6 fail-closed Play and recovery | [#50](https://github.com/resistdesign/Estragon/issues/50) | [Nine-engine Play evidence](C01_G_PLAY.md): 18/18 Play phases, 864 assertions, 36/36 lifecycle stages and 20/20 final CI checks PASS. |
+| **E01-F** | **Ready** | Filtered, never-associated Gogo-tab highlighter identity: correct fix or evidence-backed owner decision | [#44](https://github.com/resistdesign/Estragon/issues/44) | [Existing E01 negative probe](E01_COMPATIBILITY.md) and issue #44 define scope; no implementation started. |
+| C01-H | Queued after E01-F disposition | Distribution, cross-version release gate | [#51](https://github.com/resistdesign/Estragon/issues/51), [#44](https://github.com/resistdesign/Estragon/issues/44) | Remaining integration/platform/graphics and red audit stages stay scoped here; physical/manual keypress tests not required. |
 | R02 | Deferred | Renderer-backend research | [#2](https://github.com/resistdesign/Estragon/issues/2) | Pending |
 
 **Statuses:** `Queued` = waiting on planned predecessor(s); `Ready` = actionable and unclaimed; `Active` = owned issue + branch with work underway; `Blocked` = evidence and decision/unblock step required; `In review` = PR open and awaiting approval/checks; `Done` = verified, approved and merged; `Deferred` = explicitly outside the current milestone. Never mark `Done` on an unmerged branch. A research task may complete with a well-evidenced negative feasibility finding.
@@ -52,7 +57,7 @@ policy requires automated real-editor Play, not physical keyboard checks.
 - Future work belongs in issues while the current PR is active. A blocked PR
   needs documented evidence and an owner decision, not another PR. No automatic
   merges. Every task has a durable issue, checkpoints, verification and handoff.
-- Queue: C01-F #49/#62 merged → **C01-G #50/#63 active** → E01-F #44 disposition → C01-H #51 → T09-A #43 →
+- Queue: C01-G #50/#63 merged → **E01-F #44 Ready** → C01-H #51 → T09-A #43 →
   T09-B/C/D #5. #40 merged. Check live issues before advancing.
 
 - **One work ID per focused implementation PR.** A planning/ADR/process-only PR may be unassigned if it is explicitly labeled as such and includes no implementation work. The task issue is the durable conversation: scope, current owner/session or branch, plan/checklist, evidence, blockers, handoffs and linked PR.
