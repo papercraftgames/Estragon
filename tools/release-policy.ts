@@ -5,6 +5,7 @@ export const CORE_REQUIRED = [
   "engine_identity", "import", "frontend", "emission_maps", "generated_import",
   "legacy_scene", "components", "layout", "input_text", "cold_text", "generated_layout",
   "hybrid_runtime", "generated_signals", "native_counter", "semantic_identity",
+  "helper_calls", "helper_negative_argument", "helper_negative_return",
   "numeric_literals", "numeric_native_preservation", "callback_metadata_probe",
   "semantic_baseline_valid", "semantic_baseline_invalid",
   "publication_import", "native_publication_registered", "native_publication_positive",

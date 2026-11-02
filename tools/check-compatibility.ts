@@ -5,6 +5,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
+import { typingErrorsAreExpected } from "./check-helper-calls.ts";
 import { validateCallableMetadata, validateNumeric } from "./compat-evidence.ts";
 import { ROOT, ERROR, copyFile, copyTree, engineRecord, freshProject, indexProject,
   newSandbox, parseCLI, readJSON, recordHasFailure, reportMetadata, runCommand,
@@ -91,6 +92,16 @@ export async function audit(selection: EngineSelection, output: string, editor: 
     } else {
       for (const name of ["generated_layout", "hybrid_runtime", "generated_signals",
         "native_counter", "semantic_identity"]) stages[name] = unavailable("Native emission failed");
+    }
+
+    // #61 has a raw-free execution gate independent of HybridEdges raw syntax.
+    copyFile(path.join(ROOT, "tests/compatibility/helper_calls/driver.gd"), path.join(project, "tests/godot/helper_calls.gd"));
+    await runNative("helper_calls", "helper_calls", "C61_HELPER_CALLS_OK");
+    for (const mode of ["argument", "return"]) {
+      const name = "helper_negative_" + mode;
+      await run(name, ["--script", "res://tests/godot/helper_calls.gd", "--", mode],
+        "C61_NEGATIVE_" + mode.toUpperCase() + "_OK", { expectedErrors: true });
+      if (!typingErrorsAreExpected(fs.readFileSync(logPath(name), "utf8"), mode)) stages[name]!.status = "FAIL";
     }
 
     // Actual-path publication/cache checks run in isolated projects, independent

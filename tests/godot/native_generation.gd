@@ -31,7 +31,7 @@ func _run() -> void:
 		var repeated := Compiler.compile(case.source, case.id)
 		_check(result.code == repeated.code and result.source_map.serialize() == repeated.source_map.serialize(), "deterministic code/map " + case.id)
 		_maps(result)
-	var outputs := {"examples/compiled/Layout.gogo": "examples/compiled/generated/Layout.gd", "examples/mixed/Mixed.gogo": "examples/mixed/generated/Mixed.gd", "examples/counter/Counter.gogo": "examples/counter/generated/Counter.gd", "tests/fixtures/hybrid-edges.gogo": "tests/godot/generated/HybridEdges.gd", "tests/fixtures/signal-edges.gogo": "tests/godot/generated/SignalEdges.gd", "tests/fixtures/native-named.gogo": "tests/godot/generated/NativeNamed.gd"}
+	var outputs := {"examples/compiled/Layout.gogo": "examples/compiled/generated/Layout.gd", "examples/mixed/Mixed.gogo": "examples/mixed/generated/Mixed.gd", "examples/counter/Counter.gogo": "examples/counter/generated/Counter.gd", "tests/fixtures/hybrid-edges.gogo": "tests/godot/generated/HybridEdges.gd", "tests/fixtures/signal-edges.gogo": "tests/godot/generated/SignalEdges.gd", "tests/fixtures/native-named.gogo": "tests/godot/generated/NativeNamed.gd", "tests/fixtures/helper-calls.gogo": "tests/godot/generated/HelperCalls.gd"}
 	var reference = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/native-generation.json"))
 	for case in reference:
 		_check(FileAccess.get_file_as_string("res://" + case.name) == case.source, "reference source matches authored example " + case.name)

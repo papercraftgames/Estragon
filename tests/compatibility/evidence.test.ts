@@ -64,3 +64,14 @@ test("archived native callback metadata has consistent exact control observation
     assert.throws(() => validateCallableMetadata(invalid, minor));
   }
 });
+
+import { typingErrorsAreExpected } from "../../tools/check-helper-calls.ts";
+test("#61 requires exact native type diagnostics, never reload-only or unrelated errors", () => {
+  const argument = 'SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".\nSCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "float" but is "String".\n';
+  assert.equal(typingErrorsAreExpected(argument, "argument"), true);
+  assert.equal(typingErrorsAreExpected(argument + "ERROR: unrelated\n", "argument"), false);
+  assert.equal(typingErrorsAreExpected("C61_NEGATIVE_ARGUMENT_OK\n", "argument"), false);
+  const returns = 'SCRIPT ERROR: Parse Error: Cannot return value of type "EstragonRect" because the function return type is "int".\n';
+  assert.equal(typingErrorsAreExpected(returns, "return"), true);
+  assert.equal(typingErrorsAreExpected(argument, "return"), false);
+});
