@@ -1,0 +1,30 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+C01_F_CHECK empty executable PATH: true
+C01_F_CHECK native output published: true
+C01_F_CHECK existing preference values preserved/additive registration: true
+C01_F_CHECK exactly one _schedule hook: true
+C01_F_CHECK exactly one _sources_changed hook: true
+C01_F_CHECK exactly one _resource_saved hook: true
+C01_F_CHECK exactly one _script_changed hook: true
+C01_F_CHECK diagnostics panel attached: true
+C01_F_CHECK one coalescing timer: true
+C01_F_CHECK filesystem/build notifications settle within 15 seconds: true
+C01_F_CHECK no idle build loop: true
+C01_F_CHECK restart builds current saved source: true
+C01_F_CHECK normal Gogo tab opens: true
+C01_F_CHECK normal automatic highlighting preserved: true
+C01_F_CHECK exactly one _schedule hook: true
+C01_F_CHECK exactly one _sources_changed hook: true
+C01_F_CHECK exactly one _resource_saved hook: true
+C01_F_CHECK exactly one _script_changed hook: true
+C01_F_CHECK diagnostics panel attached: true
+C01_F_CHECK one coalescing timer: true
+C01_F_CHECK filesystem/build notifications settle within 15 seconds: true
+C01_F_CHECK no idle build loop: true
+C01_F_ASSERTIONS 22
+C01_F_LIFECYCLE_PHASE_2_OK

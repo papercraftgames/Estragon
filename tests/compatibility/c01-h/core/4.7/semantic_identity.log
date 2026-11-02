@@ -1,0 +1,154 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC syntax.gogo:3:1: Parse Error: Expected expression after "+" operator.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "float" but is "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC type.gogo:3:1: Parse Error: Cannot pass a value of type "String" as "float".
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "EstragonDisplayObject" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC child.gogo:3:1: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "EstragonDisplayObject" but is "int".
+SCRIPT ERROR: Parse Error: Identifier "missing_value" not declared in the current scope.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC unknown.gogo:3:1: Parse Error: Identifier "missing_value" not declared in the current scope.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-call.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "Callable".
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-missing.gogo:3:1: Parse Error: Identifier "missing_handler" not declared in the current scope.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-type.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "Callable".
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC text-type.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "String".
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "bool".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "bool" but is "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC disabled-type.gogo:3:1: Parse Error: Cannot pass a value of type "String" as "bool".
+ERROR: arity.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:12)
+       [1] build (res://Generated.gd:4)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION arity
+ERROR: optional.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:12)
+       [1] build (res://Generated.gd:4)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION optional
+ERROR: empty.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:11)
+       [1] build (res://Generated.gd:3)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION empty
+ERROR: invalid.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:11)
+       [1] build (res://Generated.gd:3)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION invalid
+ERROR: NullChild.gogo:3:18: Gogo child must be a live, uniquely owned component
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:10)
+       [1] build (res://Generated.gd:3)
+       [2] _runtime_children (res://tests/godot/native_semantics.gd:164)
+       [3] _run (res://tests/godot/native_semantics.gd:90)
+ERROR: Disposed.gogo:9:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:19)
+       [1] build (res://Generated.gd:9)
+       [2] _runtime_children (res://tests/godot/native_semantics.gd:177)
+       [3] _run (res://tests/godot/native_semantics.gd:90)
+EXPECTED_NATIVE_ERROR_COUNT 20
+Native semantic assertions: 149
+ESTRAGON_NATIVE_SEMANTICS_OK

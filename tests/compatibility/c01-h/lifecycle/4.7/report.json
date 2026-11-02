@@ -1,0 +1,85 @@
+{
+  "label": "4.7",
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "input_binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+  "provenance": {
+    "minor": "4.7",
+    "version": "4.7.stable.official.5b4e0cb0f",
+    "provenance": "Installed official macOS Godot.app; CI separately pins the official Linux archive checksum in .github/workflows/ci.yml.",
+    "binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+    "patch_selection": "Existing required CI baseline; latest patch is 4.7.2"
+  },
+  "stages": {
+    "engine_identity": {
+      "status": "PASS"
+    },
+    "lifecycle_1": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 30.47,
+      "log": "lifecycle_1.log",
+      "diagnostics": [
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+      ]
+    },
+    "runtime_after_1": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/project",
+        "--script",
+        "res://tests/lifecycle/runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.54,
+      "log": "runtime_after_1.log",
+      "diagnostics": []
+    },
+    "lifecycle_2": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 12.43,
+      "log": "lifecycle_2.log",
+      "diagnostics": []
+    },
+    "runtime_after_2": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-r0BrVq/project",
+        "--script",
+        "res://tests/lifecycle/runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.75,
+      "log": "runtime_after_2.log",
+      "diagnostics": []
+    }
+  }
+}

@@ -1,0 +1,6 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "missing_semantic_value" not declared in the current scope.
+          at: GDScript::reload (res://SemanticBaseline.gd:3)
+SEMANTIC_BASELINE_DIAGNOSTIC Invalid.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+ESTRAGON_SEMANTIC_BASELINE_OK

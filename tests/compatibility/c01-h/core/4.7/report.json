@@ -1,0 +1,1586 @@
+{
+  "label": "4.7",
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "input_binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+  "provenance": {
+    "minor": "4.7",
+    "version": "4.7.stable.official.5b4e0cb0f",
+    "provenance": "Installed official macOS Godot.app; CI separately pins the official Linux archive checksum in .github/workflows/ci.yml.",
+    "binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+    "patch_selection": "Existing required CI baseline; latest patch is 4.7.2"
+  },
+  "stages": {
+    "engine_identity": {
+      "status": "PASS"
+    },
+    "import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 6.62,
+      "log": "import.log",
+      "diagnostics": [],
+      "evidence": {
+        "class_registry_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+        "class_registry_log": "import.classes.json"
+      }
+    },
+    "frontend": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/native_frontend.gd",
+        "--",
+        "--require-no-bun"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.17,
+      "log": "frontend.log",
+      "diagnostics": []
+    },
+    "emission_maps": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/native_generation.gd",
+        "--",
+        "--require-no-bun"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.73,
+      "log": "emission_maps.log",
+      "diagnostics": []
+    },
+    "generated_import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 5.86,
+      "log": "generated_import.log",
+      "diagnostics": [],
+      "evidence": {
+        "class_registry_sha256": "9700b573f58be758a1020859759a7bfab83c9d6e90c7784314eaf07f75fa69fd",
+        "class_registry_log": "generated_import.classes.json"
+      }
+    },
+    "legacy_scene": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/smoke.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.43,
+      "log": "legacy_scene.log",
+      "diagnostics": []
+    },
+    "components": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/components.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.54,
+      "log": "components.log",
+      "diagnostics": []
+    },
+    "layout": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/layout.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.63,
+      "log": "layout.log",
+      "diagnostics": []
+    },
+    "input_text": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/interaction.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.55,
+      "log": "input_text.log",
+      "diagnostics": []
+    },
+    "cold_text": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/cold_text.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.54,
+      "log": "cold_text.log",
+      "diagnostics": []
+    },
+    "generated_layout": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/generated_gogo.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.66,
+      "log": "generated_layout.log",
+      "diagnostics": []
+    },
+    "hybrid_runtime": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/hybrid_gogo.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.55,
+      "log": "hybrid_runtime.log",
+      "diagnostics": []
+    },
+    "generated_signals": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/generated_signals.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.76,
+      "log": "generated_signals.log",
+      "diagnostics": []
+    },
+    "native_counter": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/native_counter.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.63,
+      "log": "native_counter.log",
+      "diagnostics": []
+    },
+    "semantic_identity": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/native_semantics.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.75,
+      "log": "semantic_identity.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Expected expression after \"+\" operator.",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC syntax.gogo:3:1: Parse Error: Expected expression after \"+\" operator.",
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"float\" but is \"String\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC type.gogo:3:1: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"EstragonDisplayObject\" but is \"int\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC child.gogo:3:1: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"EstragonDisplayObject\" but is \"int\".",
+        "SCRIPT ERROR: Parse Error: Identifier \"missing_value\" not declared in the current scope.",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC unknown.gogo:3:1: Parse Error: Identifier \"missing_value\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"Callable\" but is \"int\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC callback-call.gogo:3:1: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+        "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC callback-missing.gogo:3:1: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"Callable\" but is \"int\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "EXPECTED_NATIVE_DIAGNOSTIC callback-type.gogo:3:1: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"String\".",
+        "          at: GDScript::reload (res://Generated.gd:3)",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"String\" but is \"int\"."
+      ],
+      "reason": "Native semantic error transcript differs from expected"
+    },
+    "publication_import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/publication-template",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.71,
+      "log": "publication_import.log",
+      "diagnostics": [],
+      "evidence": {
+        "class_registry_sha256": "9ceeee71ded5d9934bf2deaad9f5ea5e3aac1aa66db683f3cc68522f55e76069",
+        "class_registry_log": "publication_import.classes.json"
+      }
+    },
+    "native_publication_registered": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/publication-registered",
+        "--script",
+        "res://tests/godot/native_publication.gd",
+        "--",
+        "registered"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.73,
+      "log": "native_publication_registered.log",
+      "diagnostics": []
+    },
+    "native_publication_positive": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/publication-positive",
+        "--script",
+        "res://tests/godot/native_publication.gd",
+        "--",
+        "positive"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.63,
+      "log": "native_publication_positive.log",
+      "diagnostics": []
+    },
+    "native_publication_rollback": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/publication-rollback",
+        "--script",
+        "res://tests/godot/native_publication.gd",
+        "--",
+        "rollback"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.74,
+      "log": "native_publication_rollback.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Cannot return value of type \"String\" because the function return type is \"int\".",
+        "          at: GDScript::reload (res://dependency/generated/B.gd:4)"
+      ]
+    },
+    "native_publication_fresh_failure": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/publication-fresh_failure",
+        "--script",
+        "res://tests/godot/native_publication.gd",
+        "--",
+        "fresh_failure"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.65,
+      "log": "native_publication_fresh_failure.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Identifier \"missing_publication_value\" not declared in the current scope.",
+        "          at: GDScript::reload (res://fresh_failure/generated/Bad.gd:2)"
+      ]
+    },
+    "numeric_literals": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://numeric_literals.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.63,
+      "log": "numeric_literals.log",
+      "diagnostics": []
+    },
+    "numeric_native_preservation": {
+      "status": "PASS"
+    },
+    "numeric_native_conversion": {
+      "status": "BLOCKED",
+      "reason": "Godot native numeric conversion limits; original oracle retained"
+    },
+    "callback_metadata_probe": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://callback_metadata.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.53,
+      "log": "callback_metadata_probe.log",
+      "diagnostics": []
+    },
+    "callback_arity_api": {
+      "status": "PASS"
+    },
+    "semantic_baseline_valid": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/semantic_baseline.gd",
+        "--quit-after",
+        "120",
+        "--",
+        "valid"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.54,
+      "log": "semantic_baseline_valid.log",
+      "diagnostics": []
+    },
+    "semantic_baseline_invalid": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-kVVDju/project",
+        "--script",
+        "res://tests/godot/semantic_baseline.gd",
+        "--quit-after",
+        "120",
+        "--",
+        "invalid"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.55,
+      "log": "semantic_baseline_invalid.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Identifier \"missing_semantic_value\" not declared in the current scope.",
+        "          at: GDScript::reload (res://SemanticBaseline.gd:3)",
+        "SEMANTIC_BASELINE_DIAGNOSTIC Invalid.gogo:3:1: Parse Error: Identifier \"missing_semantic_value\" not declared in the current scope."
+      ]
+    },
+    "filtered_highlighting": {
+      "status": "FAIL",
+      "reason": "Owner-accepted invisible never-associated tab limitation (#44)"
+    },
+    "native_graphics": {
+      "status": "UNTESTED",
+      "reason": "Headless runner cannot certify pixels; native capture is separate"
+    }
+  },
+  "numeric_evidence": {
+    "cases": [
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "0000000000000000",
+        "source": "0",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "0000000000000080",
+        "runtime_bits": "0000000000000000",
+        "source": "-0",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000080",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "0000000000000080",
+        "runtime_bits": "0000000000000000",
+        "source": "-0.0",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000080",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "0000000000000080",
+        "runtime_bits": "0000000000000000",
+        "source": "-0e-20",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "0000000000000000",
+        "source": "+0.0",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "000000000000e03f",
+        "expected_bits": "000000000000e03f",
+        "model_bits": "000000000000e03f",
+        "raw_conversion_bits": "000000000000e03f",
+        "runtime_bits": "000000000000e03f",
+        "source": ".5",
+        "status": "PASS",
+        "storage_bits": "000000000000e03f",
+        "token": "0.5"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000001440",
+        "expected_bits": "0000000000001440",
+        "model_bits": "0000000000001440",
+        "raw_conversion_bits": "0000000000001440",
+        "runtime_bits": "0000000000001440",
+        "source": "5.",
+        "status": "PASS",
+        "storage_bits": "0000000000001440",
+        "token": "5.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "000000000000f43f",
+        "expected_bits": "000000000000f43f",
+        "model_bits": "000000000000f43f",
+        "raw_conversion_bits": "000000000000f43f",
+        "runtime_bits": "000000000000f43f",
+        "source": "+1.25",
+        "status": "PASS",
+        "storage_bits": "000000000000f43f",
+        "token": "1.25"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "2342920ca19cc73b",
+        "expected_bits": "2342920ca19cc73b",
+        "model_bits": "2342920ca19cc73b",
+        "raw_conversion_bits": "2342920ca19cc73b",
+        "runtime_bits": "2342920ca19cc73b",
+        "source": "1e-20",
+        "status": "PASS",
+        "storage_bits": "2342920ca19cc73b",
+        "token": "1e-20"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "2342920ca19cc73b",
+        "model_bits": "2342920ca19cc73b",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "2342920ca19cc73b",
+        "source": "0.00000000000000000001",
+        "status": "PASS",
+        "storage_bits": "2342920ca19cc73b",
+        "token": "1e-20"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "f9ff2a478126cd3b",
+        "expected_bits": "f9ff2a478126cd3b",
+        "model_bits": "f9ff2a478126cd3b",
+        "raw_conversion_bits": "f9ff2a478126cd3b",
+        "runtime_bits": "f9ff2a478126cd3b",
+        "source": "1.2345678901234567e-20",
+        "status": "PASS",
+        "storage_bits": "f9ff2a478126cd3b",
+        "token": "1.2345678901234567e-20"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "f9ff2a478126cd3b",
+        "model_bits": "f9ff2a478126cd3b",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "f9ff2a478126cd3b",
+        "source": "0.000000000000000000012345678901234567",
+        "status": "PASS",
+        "storage_bits": "f9ff2a478126cd3b",
+        "token": "1.2345678901234567e-20"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "408cb5781daf1544",
+        "expected_bits": "408cb5781daf1544",
+        "model_bits": "408cb5781daf1544",
+        "raw_conversion_bits": "408cb5781daf1544",
+        "runtime_bits": "408cb5781daf1544",
+        "source": "1e20",
+        "status": "PASS",
+        "storage_bits": "408cb5781daf1544",
+        "token": "100000000000000000000.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "010000000000f03f",
+        "expected_bits": "010000000000f03f",
+        "model_bits": "010000000000f03f",
+        "raw_conversion_bits": "010000000000f03f",
+        "runtime_bits": "010000000000f03f",
+        "source": "1.0000000000000002",
+        "status": "PASS",
+        "storage_bits": "010000000000f03f",
+        "token": "1.0000000000000002"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "182d4454fb210940",
+        "expected_bits": "182d4454fb210940",
+        "model_bits": "182d4454fb210940",
+        "raw_conversion_bits": "182d4454fb210940",
+        "runtime_bits": "182d4454fb210940",
+        "source": "3.141592653589793",
+        "status": "PASS",
+        "storage_bits": "182d4454fb210940",
+        "token": "3.141592653589793"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "000000e0ffff6f41",
+        "expected_bits": "000000e0ffff6f41",
+        "model_bits": "000000e0ffff6f41",
+        "raw_conversion_bits": "000000e0ffff6f41",
+        "runtime_bits": "000000e0ffff6f41",
+        "source": "16777215",
+        "status": "PASS",
+        "storage_bits": "000000e0ffff6f41",
+        "token": "16777215.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000007041",
+        "expected_bits": "0000000000007041",
+        "model_bits": "0000000000007041",
+        "raw_conversion_bits": "0000000000007041",
+        "runtime_bits": "0000000000007041",
+        "source": "16777216",
+        "status": "PASS",
+        "storage_bits": "0000000000007041",
+        "token": "16777216.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000001000007041",
+        "expected_bits": "0000001000007041",
+        "model_bits": "0000001000007041",
+        "raw_conversion_bits": "0000001000007041",
+        "runtime_bits": "0000001000007041",
+        "source": "16777217",
+        "status": "PASS",
+        "storage_bits": "0000001000007041",
+        "token": "16777217.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "34b886d5ffffef47",
+        "expected_bits": "34b886d5ffffef47",
+        "model_bits": "34b886d5ffffef47",
+        "raw_conversion_bits": "34b886d5ffffef47",
+        "runtime_bits": "34b886d5ffffef47",
+        "source": "3.4028234e38",
+        "status": "PASS",
+        "storage_bits": "34b886d5ffffef47",
+        "token": "3.4028234e38"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "a8db9fffffff0f38",
+        "expected_bits": "a8db9fffffff0f38",
+        "model_bits": "a8db9fffffff0f38",
+        "raw_conversion_bits": "a8db9fffffff0f38",
+        "runtime_bits": "a8db9fffffff0f38",
+        "source": "1.17549435e-38",
+        "status": "PASS",
+        "storage_bits": "a8db9fffffff0f38",
+        "token": "1.17549435e-38"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "000000000000a036",
+        "expected_bits": "000000000000a036",
+        "model_bits": "000000000000a036",
+        "raw_conversion_bits": "000000000000a036",
+        "runtime_bits": "000000000000a036",
+        "source": "1.401298464324817e-45",
+        "status": "PASS",
+        "storage_bits": "000000000000a036",
+        "token": "1.401298464324817e-45"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "9c577727266ca137",
+        "expected_bits": "9c577727266ca137",
+        "model_bits": "9c577727266ca137",
+        "raw_conversion_bits": "9c577727266ca137",
+        "runtime_bits": "9c577727266ca137",
+        "source": "1e-40",
+        "status": "PASS",
+        "storage_bits": "9c577727266ca137",
+        "token": "1e-40"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "59f3f8c21f6ea501",
+        "expected_bits": "59f3f8c21f6ea501",
+        "model_bits": "59f3f8c21f6ea501",
+        "raw_conversion_bits": "59f3f8c21f6ea501",
+        "runtime_bits": "59f3f8c21f6ea501",
+        "source": "1e-300",
+        "status": "PASS",
+        "storage_bits": "59f3f8c21f6ea501",
+        "token": "1e-300"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0000000000002940",
+        "model_bits": "0000000000002940",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "0000000000002940",
+        "source": "000000000000000000000012.5",
+        "status": "PASS",
+        "storage_bits": "0000000000002940",
+        "token": "12.5"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "97d44646f50e673c",
+        "model_bits": "97d44646f50e673c",
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "97d44646f50e673c",
+        "source": "0.00000000000000000001e+000003",
+        "status": "PASS",
+        "storage_bits": "97d44646f50e673c",
+        "token": "1e-17"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000001038",
+        "expected_bits": "0000000000001038",
+        "model_bits": "0000000000001038",
+        "raw_conversion_bits": "0000000000001038",
+        "runtime_bits": "0000000000001038",
+        "source": "1.1754943508222875e-38",
+        "status": "PASS",
+        "storage_bits": "0000000000001038",
+        "token": "1.1754943508222875e-38"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "000000000000f03f",
+        "expected_bits": "0000000000000000",
+        "model_bits": "0000000000000000",
+        "raw_conversion_bits": "000000000000f03f",
+        "runtime_bits": "0000000000000000",
+        "source": "1e-4294967296",
+        "status": "PASS",
+        "storage_bits": "0000000000000000",
+        "token": "0.0"
+      }
+    ],
+    "native_parser_limits": [
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0000000000001000",
+        "model_bits": "0000000000000000",
+        "native_value_preserved": true,
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "0000000000000000",
+        "source": "2.2250738585072014e-308",
+        "status": "BLOCKED",
+        "storage_bits": "0000000000001000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "0000000000000000",
+        "expected_bits": "0100000000000000",
+        "model_bits": "0000000000000000",
+        "native_value_preserved": true,
+        "raw_conversion_bits": "0000000000000000",
+        "runtime_bits": "0000000000000000",
+        "source": "4.9406564584124654e-324",
+        "status": "BLOCKED",
+        "storage_bits": "0100000000000000",
+        "token": "0.0"
+      },
+      {
+        "deterministic_and_mapped": true,
+        "direct_literal_bits": "010000e0ffffef47",
+        "expected_bits": "000000e0ffffef47",
+        "model_bits": "010000e0ffffef47",
+        "native_value_preserved": true,
+        "raw_conversion_bits": "010000e0ffffef47",
+        "runtime_bits": "010000e0ffffef47",
+        "source": "3.4028234663852886e38",
+        "status": "BLOCKED",
+        "storage_bits": "000000e0ffffef47",
+        "token": "3.4028234663852886e38"
+      }
+    ],
+    "rejected_cases": [
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e39",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e400",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e4294967296",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e2147483648",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "0.00000000000000000001e4294967296",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e999999999999999999999",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width requires a finite nonnegative number or auto",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "NaN",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "-1",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width requires a finite nonnegative number or auto",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "2px",
+        "source_located": true
+      },
+      {
+        "diagnostic": "width requires a finite nonnegative number or auto",
+        "finite_domain_diagnostic": true,
+        "no_output": true,
+        "rejected": true,
+        "source": "1e",
+        "source_located": true
+      }
+    ]
+  },
+  "callback_metadata": {
+    "observations": [
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": false,
+        "display": "SceneTree(callback_metadata.gd)::zero",
+        "method": "zero",
+        "name": "method_zero",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "zero",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "zero",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": false,
+        "display": "SceneTree(callback_metadata.gd)::required",
+        "method": "required",
+        "name": "method_required",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "required",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "required",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": false,
+        "display": "SceneTree(callback_metadata.gd)::optional",
+        "method": "optional",
+        "name": "method_optional",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [
+              "default"
+            ],
+            "flags": 1,
+            "id": 0,
+            "name": "optional",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [
+              "default"
+            ],
+            "flags": 1,
+            "id": 0,
+            "name": "optional",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [
+          "bound"
+        ],
+        "bound_count": 1,
+        "connect_error": 0,
+        "custom": true,
+        "display": "SceneTree(callback_metadata.gd)::required",
+        "method": "required",
+        "name": "method_bound",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "required",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "required",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [
+          "bound"
+        ],
+        "bound_count": 1,
+        "connect_error": 0,
+        "custom": true,
+        "display": "SceneTree(callback_metadata.gd)::optional",
+        "method": "optional",
+        "name": "method_optional_bound",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [
+              "default"
+            ],
+            "flags": 1,
+            "id": 0,
+            "name": "optional",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [
+              {
+                "class_name": "",
+                "hint": 0,
+                "hint_string": "",
+                "name": "value",
+                "type": 4,
+                "usage": 0
+              }
+            ],
+            "default_args": [
+              "default"
+            ],
+            "flags": 1,
+            "id": 0,
+            "name": "optional",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "SceneTree(callback_metadata.gd)::zero",
+        "method": "zero",
+        "name": "method_unbound",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [
+          {
+            "args": [],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "zero",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "script_method_metadata": [
+          {
+            "args": [],
+            "default_args": [],
+            "flags": 1,
+            "id": 0,
+            "name": "zero",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": false,
+        "display": "GDScript::static_zero",
+        "method": "static_zero",
+        "name": "static_zero",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [
+          {
+            "args": [],
+            "default_args": [],
+            "flags": 33,
+            "id": 0,
+            "name": "static_zero",
+            "return": {
+              "class_name": "",
+              "hint": 0,
+              "hint_string": "",
+              "name": "",
+              "type": 0,
+              "usage": 0
+            }
+          }
+        ],
+        "target_class": "GDScript",
+        "target_id": -9223372010883644000,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "lambda_zero",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(lambda)",
+        "method": "<anonymous lambda>",
+        "name": "lambda_captureless",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "GDScript",
+        "target_id": -9223372010883644000,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "lambda_required",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "lambda_optional",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "lambda_captured",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "same_name(self lambda)",
+        "method": "same_name",
+        "name": "named_lambda_zero",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "same_name(self lambda)",
+        "method": "same_name",
+        "name": "named_lambda_required",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "returned_lambda_zero",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "<anonymous lambda>(self lambda)",
+        "method": "<anonymous lambda>",
+        "name": "returned_lambda_required",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [
+          "bound"
+        ],
+        "bound_count": 1,
+        "connect_error": 0,
+        "custom": true,
+        "display": "same_name(self lambda)",
+        "method": "same_name",
+        "name": "bound_lambda",
+        "native_count": 0,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": 0,
+        "custom": true,
+        "display": "same_name(self lambda)",
+        "method": "same_name",
+        "name": "unbound_lambda",
+        "native_count": 1,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": true
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": -1,
+        "custom": false,
+        "display": "null::null",
+        "method": "",
+        "name": "empty",
+        "native_count": null,
+        "null": true,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "none",
+        "target_id": 0,
+        "valid": false
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": -1,
+        "custom": false,
+        "display": "SceneTree(callback_metadata.gd)::missing",
+        "method": "missing",
+        "name": "missing",
+        "native_count": null,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "SceneTree",
+        "target_id": 26206012859,
+        "valid": false
+      },
+      {
+        "bound_arguments": [],
+        "bound_count": 0,
+        "connect_error": -1,
+        "custom": false,
+        "display": "null::get_name",
+        "method": "get_name",
+        "name": "freed_target",
+        "native_count": null,
+        "null": false,
+        "object_method_metadata": [],
+        "script_method_metadata": [],
+        "target_class": "none",
+        "target_id": 26440893898,
+        "valid": false
+      }
+    ],
+    "expected_metadata_errors": 0,
+    "legacy_reflection_strategy": "BLOCKED",
+    "reason": "Opaque lambda required/optional arity is absent from legacy public reflection.",
+    "unchanged_native_count_guard": "AVAILABLE"
+  }
+}

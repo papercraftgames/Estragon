@@ -193,3 +193,14 @@ frees that timer, removes the diagnostics panel and unregisters highlighting;
 re-enable reconstructs the integration and rebuilds saved sources. Existing
 editor extension preferences are retained. [Scoped tests](C01_F_EDITOR.md)
 separate this saved-disk lifecycle from older-engine unsaved Play (C01-G).
+
+### Distribution boundary (C01-H review)
+
+The shipped project declares the 4.0 baseline. Fresh addon/example import and
+native source-only builds pass on the two approved engines; overall release
+acceptance remains [blocked under C01-H](C01_H_RELEASE.md). On 4.0.4, keep current
+generated scripts alongside scenes that reference them when opening a cold
+project: scene restoration can otherwise report an absent script before native
+generation is ready. Later successful compilation does not erase that diagnostic.
+Resource-pack runtime verification is separate from standalone executable export
+and from other platform support; no new export or all-minor guarantee is made.

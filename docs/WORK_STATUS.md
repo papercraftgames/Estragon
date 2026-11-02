@@ -4,18 +4,15 @@
 
 **Milestone:** interactive Gogo/GDScript `Counter.gogo` compiled to GDScript, built from independent Estragon components, running and resizing in Godot 4.7. See [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
-**Start here:** **C01-H #51 is Ready**, the next release/distribution
-acceptance milestone. C01-G #50 / PR #63 is merged; E01-F #44 is
-**closed not planned with the owner's accepted narrow hidden-tab exception**,
-and its [evidence/TypeScript-only CI PR #64](https://github.com/resistdesign/Estragon/pull/64)
-**merged at `e837557` on 2026-11-02 UTC**, with [4.0.4 macOS](https://github.com/resistdesign/Estragon/actions/runs/41386795432)
-and [4.7.0 Linux](https://github.com/resistdesign/Estragon/actions/runs/41386795477)
-required CI green. **Zero open PRs** at this handoff. At pickup read
-`AGENTS.md`, [issue #51](https://github.com/resistdesign/Estragon/issues/51),
-its latest comments, this file and [the execution plan](EXECUTION_PLAN.md);
-verify latest origin/main/open PRs and start **only C01-H**, without
-merging. Preserve E01-F historical FAILs as measured, separate from the
-approved release-scope exclusion; T09 remains queued.
+**Start here:** **C01-H #51 gate/distribution slice is in review; overall release
+remains BLOCKED.** Read [the release report](C01_H_RELEASE.md), live
+[issue #51](https://github.com/resistdesign/Estragon/issues/51) and its linked PR
+for current status/handoff. PR #64 merged at `e837557`; #44 is closed not planned
+under the narrow owner-approved hidden-tab exception. Historical observed FAILs
+remain separate from that disposition. Review the current single PR rather than
+starting a competing implementation; never merge automatically. #61, #65,
+cold scene restoration and standalone-export/platform disposition remain release
+dependencies. T09 is queued. Check live main/open PRs before continuation.
 
 **Owner verification policy (2026-11-02):** The only routine Godot
 versions for local/Codex, CI, PR and release tests are **4.0.4** and
@@ -54,7 +51,7 @@ Previously published nine-engine results stay archived, not rerun.
 | **C01-F** | **Done (merged PR #62, `95efa45`)** | Native editor startup and plugin lifecycle | [#49](https://github.com/resistdesign/Estragon/issues/49) | [Nine-engine lifecycle evidence](C01_F_EDITOR.md): 36/36 required stages PASS, clean editor startup/refresh/restart, real saved-source builds. Older unsaved Play remains C01-G. |
 | **C01-G** | **Done (merged PR #63, `110c9b7`)** | Unsaved/unsavable Gogo F5/F6 fail-closed Play and recovery | [#50](https://github.com/resistdesign/Estragon/issues/50) | [Nine-engine Play evidence](C01_G_PLAY.md): 18/18 Play phases, 864 assertions, 36/36 lifecycle stages and 20/20 final CI checks PASS. |
 | **E01-F** | **Disposition complete (closed not planned; merged PR #64)** | Owner-approved exception: unknown hidden never-associated Gogo tab defers highlighting until revealed and activated | [#44](https://github.com/resistdesign/Estragon/issues/44), [PR #64](https://github.com/resistdesign/Estragon/pull/64) | [Archived negative evidence](E01_F_FILTERED.md); **not a hidden-tab fix or PASS**. `e837557` also ships the Python-free TypeScript tooling and reduced two-version CI. |
-| **C01-H** | **Ready; no work PR open** | Distribution, cross-version release acceptance gate | [#51](https://github.com/resistdesign/Estragon/issues/51) | Implement the scoped release gate after checking current main/issues. Enforce the owner's **only 4.0.4 + 4.7.0** tests, no Python, and separately report other release blockers. |
+| **C01-H** | **In review; release BLOCKED** | Distribution and strict release gate; [current evidence](C01_H_RELEASE.md), #61/#65/cold-scene/export dispositions outstanding | [#51](https://github.com/resistdesign/Estragon/issues/51) | Review the focused gate/distribution slice via live #51; do not mark release-ready until remaining requirements have owner-reviewed resolutions. Enforce the owner's **only 4.0.4 + 4.7.0** tests, no Python, and separately report other release blockers. |
 | R02 | Deferred | Renderer-backend research | [#2](https://github.com/resistdesign/Estragon/issues/2) | Pending |
 
 **Statuses:** `Queued` = waiting on planned predecessor(s); `Ready` = actionable and unclaimed; `Active` = owned issue + branch with work underway; `Blocked` = evidence and decision/unblock step required; `In review` = PR open and awaiting approval/checks; `Done` = verified, approved and merged; `Deferred` = explicitly outside the current milestone. Never mark `Done` on an unmerged branch. A research task may complete with a well-evidenced negative feasibility finding.
@@ -69,7 +66,7 @@ Previously published nine-engine results stay archived, not rerun.
 - Future work belongs in issues while the current PR is active. A blocked PR
   needs documented evidence and an owner decision, not another PR. No automatic
   merges. Every task has a durable issue, checkpoints, verification and handoff.
-- Queue: C01-G #50/#63 merged → E01-F #44 accepted/closed and PR #64 merged → **C01-H #51 Ready** → T09-A #43 →
+- Queue: C01-G #50/#63 merged → E01-F #44 accepted/closed and PR #64 merged → **C01-H #51 in review / release blocked** → T09-A #43 →
   T09-B/C/D #5. #40 merged. Check live issues before advancing.
 
 - **One work ID per focused implementation PR.** A planning/ADR/process-only PR may be unassigned if it is explicitly labeled as such and includes no implementation work. The task issue is the durable conversation: scope, current owner/session or branch, plan/checklist, evidence, blockers, handoffs and linked PR.

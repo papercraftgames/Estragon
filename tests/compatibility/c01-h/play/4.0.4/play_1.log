@@ -1,0 +1,193 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+C01_G_CHECK no Bun/Node/tool PATH: true
+C01_G_CHECK real native foreground/background Gogo editors: true
+C01_G_CHECK clean native CRLF buffer remains valid: true
+C01_G_CHECK authored edit remains unsaved before Play: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK Play persists both authored snapshots: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:23:14: Unknown component "Unknown"; expected VBox, HBox, Rect, Text or Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK project blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK project reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://ui/generated/Counter.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK project blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK project reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://ui/generated/Counter.gd:3)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://ui/generated/Counter.gd:3)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK project blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK project reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://ui/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK project blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK project reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK restore source for next mode: true
+C01_G_CHECK authored edit remains unsaved before Play: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK Play persists both authored snapshots: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:23:14: Unknown component "Unknown"; expected VBox, HBox, Rect, Text or Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK current blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK current reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://ui/generated/Counter.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK current blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK current reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://ui/generated/Counter.gd:3)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://ui/generated/Counter.gd:3)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+ui/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK current blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK current reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://ui/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK current blocks stale child execution: Counter.gogo:: true
+C01_G_CHECK current reports useful failure: Counter.gogo:: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK restore source for next mode: true
+C01_G_PATHLESS_RESOURCE TextFile res://ui/Background.gogo
+C01_G_CHECK native TextFile resource available for pathless probe: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+<unidentified editor buffer>:1:1: Cannot identify this buffer safely; save or close it before Play.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK project blocks stale child execution: buffer: true
+C01_G_CHECK project reports useful failure: buffer: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+<unidentified editor buffer>:1:1: Cannot identify this buffer safely; save or close it before Play.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+C01_G_CHECK current blocks stale child execution: buffer: true
+C01_G_CHECK current reports useful failure: buffer: true
+C01_G_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C01_G_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK new/pathless repair persists source: true
+C01_G_CHECK restore native source identity after pathless probe: true
+C01_G_CHECK no-op preserves output/map/UID/timestamp/cache identity: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49830 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_CHECK prepare valid restart state: true
+C01_G_ASSERTIONS 87
+C01_G_PLAY_PHASE_1_OK
+WARNING: Scan thread aborted...
+     at: _notification (editor/editor_file_system.cpp:1224)

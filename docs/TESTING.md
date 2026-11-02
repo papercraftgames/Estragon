@@ -722,3 +722,21 @@ foreground/background source, pathless/new state, inaccessible saves, markup and
 native semantic/type failures, output/cache protection, repair and restart.
 CI requires this separately from the informational full collector and C01-F
 saved-disk lifecycle suite. Physical/manual keypress tests are not required.
+
+## C01-H release/distribution gate
+
+Use the TypeScript commands and exact limitations in
+[C01_H_RELEASE.md](C01_H_RELEASE.md). `check-distribution.ts` verifies cache-free
+addon/examples, scene format/path/UID resources, native editor script loading,
+selected-resource pack runtime and optional `--graphics` Counter captures.
+A selected-resource export must include all `addons/estragon/runtime/*.gd`
+global dependencies and use explicit Gogo/JSON include filters. Source project
+features stay at 4.0; exported project.binary is stamped by its producing engine.
+
+`assert-release.ts` takes absolute CORE, DISTRIBUTION, LIFECYCLE, PLAY and OUTPUT
+paths. All input reports must describe the same clean source and approved
+engine set. Missing evidence, genuine failures and untested required export
+behavior block release. Collection exit zero is not certification. Preserve
+#44 as observed FAIL with a separate owner-approved exception; absent physical
+keypress testing is not a gate. CI runs only the two approved engine jobs and
+uploads raw stage results plus the explicit blocking release assessment.

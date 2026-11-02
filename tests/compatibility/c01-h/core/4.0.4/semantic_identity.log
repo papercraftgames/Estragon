@@ -1,0 +1,54 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator."
+          at: GDScript::reload (res://semantic-fixtures/Candidate1.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC syntax.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://semantic-fixtures/Candidate2.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "float" but is "String".
+          at: GDScript::reload (res://semantic-fixtures/Candidate2.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC type.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "EstragonDisplayObject" but is "int".
+          at: GDScript::reload (res://semantic-fixtures/Candidate3.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC child.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Identifier "missing_value" not declared in the current scope.
+          at: GDScript::reload (res://semantic-fixtures/Candidate4.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC unknown.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://semantic-fixtures/Candidate5.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://semantic-fixtures/Candidate5.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC callback-call.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://semantic-fixtures/Candidate6.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC callback-missing.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://semantic-fixtures/Candidate7.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://semantic-fixtures/Candidate7.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC callback-type.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://semantic-fixtures/Candidate8.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://semantic-fixtures/Candidate8.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC text-type.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "bool".
+          at: GDScript::reload (res://semantic-fixtures/Candidate9.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "bool" but is "String".
+          at: GDScript::reload (res://semantic-fixtures/Candidate9.gd:3)
+EXPECTED_NATIVE_DIAGNOSTIC disabled-type.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+EXPECTED_NATIVE_CALLBACK_DEFERRED arity
+EXPECTED_NATIVE_CALLBACK_DEFERRED optional
+ERROR: empty.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:903)
+EXPECTED_NATIVE_CALLBACK_REJECTION empty
+ERROR: invalid.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:903)
+EXPECTED_NATIVE_CALLBACK_REJECTION invalid
+ERROR: NullChild.gogo:3:18: Gogo child must be a live, uniquely owned component
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Disposed.gogo:9:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:903)
+EXPECTED_NATIVE_ERROR_COUNT 18
+Native semantic assertions: 118
+ESTRAGON_NATIVE_SEMANTICS_OK

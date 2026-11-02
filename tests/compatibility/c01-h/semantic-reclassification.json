@@ -1,0 +1,47 @@
+[
+  {
+    "stage": "semantic_identity",
+    "execution_source_commit": "0df7c24a3232c6aeda12cfa84c0b960a9fa1d5ef",
+    "classification_source_commit": "af2cd061f3af68939c40f5693a5abb1992faf109",
+    "original_collector_status": "FAIL",
+    "cause": "Old classifier counted mapped Logger diagnostic repetitions",
+    "native_error_count": 20,
+    "native_transcript_count_matches": true,
+    "raw_log_sha256": "14f176aa836dbf3aa309f15ea43404f80d72f31c209ac2bb0bf70d46de0de755",
+    "native_diagnostics": [
+      "SCRIPT ERROR: Parse Error: Expected expression after \"+\" operator.",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"float\" but is \"String\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"EstragonDisplayObject\" but is \"int\".",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_value\" not declared in the current scope.",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"Callable\" but is \"int\".",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"Callable\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"Callable\" but is \"int\".",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"int\" as \"String\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"String\" but is \"int\".",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"bool\".",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"bool\" but is \"String\".",
+      "ERROR: arity.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target",
+      "ERROR: optional.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target",
+      "ERROR: empty.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target",
+      "ERROR: invalid.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target",
+      "ERROR: NullChild.gogo:3:18: Gogo child must be a live, uniquely owned component",
+      "ERROR: Disposed.gogo:9:28: Button.pressed requires a valid zero-argument Callable with a live target"
+    ]
+  },
+  {
+    "stage": "semantic_baseline_invalid",
+    "execution_source_commit": "0df7c24a3232c6aeda12cfa84c0b960a9fa1d5ef",
+    "classification_source_commit": "af2cd061f3af68939c40f5693a5abb1992faf109",
+    "original_collector_status": "FAIL",
+    "cause": "Old classifier counted mapped Logger diagnostic repetitions",
+    "native_error_count": 1,
+    "native_transcript_count_matches": true,
+    "raw_log_sha256": "a2869a27e54a300e0736865ae87a17ab51049bb6780430990e30b070d1b06807",
+    "native_diagnostics": [
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_semantic_value\" not declared in the current scope."
+    ]
+  }
+]

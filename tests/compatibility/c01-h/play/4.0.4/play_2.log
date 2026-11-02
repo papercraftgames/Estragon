@@ -1,0 +1,23 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+C01_G_CHECK no Bun/Node/tool PATH: true
+C01_G_CHECK real native foreground/background Gogo editors: true
+C01_G_CHECK clean native CRLF buffer remains valid: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49966 res://ui/Counter.tscn --headless
+C01_G_CHECK project executes newest foreground/background buffers: true
+C01_G_CHECK project current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot --path /private/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 49966 res://ui/Counter.tscn --headless
+C01_G_CHECK current executes newest foreground/background buffers: true
+C01_G_CHECK current current text and independent components: true
+C01_G_CHECK native pre-Play autosave stays disabled: true
+C01_G_ASSERTIONS 9
+C01_G_PLAY_PHASE_2_OK

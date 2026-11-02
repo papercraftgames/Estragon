@@ -1,0 +1,208 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK Gogo opens while plugin disabled: true
+E01_PLAIN_RESOURCE <Object#null>
+EDITOR_CHECK reproduction: untagged plain Gogo tab: true
+EDITOR_CHECK reproduction: native Gogo build succeeded: true
+EDITOR_CHECK association preserves existing extension preference: true
+EDITOR_CHECK already-open untagged Gogo attached Gogo highlighter: true
+EDITOR_CHECK already-open untagged Gogo actual declaration token color: true
+EDITOR_CHECK already-open untagged Gogo actual markup token color: true
+EDITOR_CHECK already-open background Gogo attached Gogo highlighter: true
+EDITOR_CHECK already-open background Gogo actual declaration token color: true
+EDITOR_CHECK already-open background Gogo actual markup token color: true
+EDITOR_CHECK one highlighter per Gogo editor: true
+EDITOR_CHECK unrelated file retains exact highlighter instance: true
+EDITOR_CHECK unrelated file retains exact highlighter instance: true
+EDITOR_CHECK plugin enabled: true
+EDITOR_CHECK fresh project has no repository toolchain: true
+EDITOR_CHECK no executable configuration: true
+EDITOR_CHECK editor and games have no tool executables: true
+Highlighter checks: 16
+ESTRAGON_HIGHLIGHTER_OK
+EDITOR_CHECK mixed-language token highlighting: true
+EDITOR_CHECK build passes: true
+BUILD_REPORT { "ok": true, "outputs": ["examples/counter/generated/Background.gd", "examples/counter/generated/Counter.gd", "examples/counter/generated/Disabled.gd"], "changed": ["examples/counter/generated/Background.gd", "examples/counter/generated/Background.gd.map.json", "examples/counter/generated/Counter.gd", "examples/counter/generated/Counter.gd.map.json"], "diagnostics": [], "isolated_preflight": { "status": "PASS", "reason": "" }, "symlink_checks": { "status": "PASS", "reason": "Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced." } }
+SELECTED @Tree@6441 res://examples/counter/Counter.gogo
+EDITOR_CHECK native text editor opens gogo: true
+HIGHLIGHTER ():<EditorSyntaxHighlighter#-9223369101714316799>
+EDITOR_CHECK automatic extension highlighter: true
+EDITOR_CHECK saved source compiles automatically before Play: true
+BUFFER_PROOF true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+PROOF_F5 true GENERATED_READY true
+EDITOR_CHECK F5 starts project: true
+EDITOR_CHECK F5 saves buffer and executes new generated expression: true
+EDITOR_CHECK launched game reports all interaction assertions: true
+EDITOR_CHECK launched Counter button_layout: true
+EDITOR_CHECK launched Counter cleanup: true
+EDITOR_CHECK launched Counter increment: true
+EDITOR_CHECK launched Counter one_connection: true
+EDITOR_CHECK launched Counter one_host: true
+EDITOR_CHECK launched Counter reset: true
+EDITOR_CHECK launched Counter resize: true
+EDITOR_CHECK editor resource reflects newest generated source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK F6 starts current scene: true
+EDITOR_CHECK F6 executes newest generated state/text: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:5: Unknown component "Bogus"; expected VBox, HBox, Rect, Text or Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _run (res://tests/editor/driver/driver.gd:108)
+         [4] _wait (res://tests/editor/driver/driver.gd:21)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/editor/driver/driver.gd:108)
+       [1] _wait (res://tests/editor/driver/driver.gd:21)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:5: Unknown component "Bogus"; expected VBox, HBox, Rect, Text or Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+EDITOR_CHECK invalid Gogo blocks F5 and stale execution: true
+EDITOR_CHECK authored diagnostic shown: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:5: Unknown component "Bogus"; expected VBox, HBox, Rect, Text or Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _run (res://tests/editor/driver/driver.gd:112)
+         [4] _wait (res://tests/editor/driver/driver.gd:21)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/editor/driver/driver.gd:112)
+       [1] _wait (res://tests/editor/driver/driver.gd:21)
+EDITOR_CHECK invalid Gogo blocks F6: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK fix allows F6 recovery: true
+EDITOR_CHECK recovery runs fixed code: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:26)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _run (res://tests/editor/driver/driver.gd:126)
+              [7] _wait (res://tests/editor/driver/driver.gd:21)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:22:3: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _run (res://tests/editor/driver/driver.gd:126)
+         [4] _wait (res://tests/editor/driver/driver.gd:21)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/editor/driver/driver.gd:126)
+       [1] _wait (res://tests/editor/driver/driver.gd:21)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:26)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:22:3: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+EDITOR_CHECK semantic error blocks F5 without stale execution: true
+EDITOR_CHECK Godot diagnostic mapped to Gogo: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:26)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _run (res://tests/editor/driver/driver.gd:130)
+              [7] _wait (res://tests/editor/driver/driver.gd:21)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:22:3: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _run (res://tests/editor/driver/driver.gd:130)
+         [4] _wait (res://tests/editor/driver/driver.gd:21)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/editor/driver/driver.gd:130)
+       [1] _wait (res://tests/editor/driver/driver.gd:21)
+EDITOR_CHECK semantic error blocks F6 without stale execution: true
+EDITOR_CHECK semantic failure retains previous generated bytes: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK semantic repair allows F5 recovery: true
+EDITOR_CHECK semantic repair executes current code: true
+EDITOR_CHECK launched game reports all interaction assertions: true
+EDITOR_CHECK launched Counter button_layout: true
+EDITOR_CHECK launched Counter cleanup: true
+EDITOR_CHECK launched Counter increment: true
+EDITOR_CHECK launched Counter one_connection: true
+EDITOR_CHECK launched Counter one_host: true
+EDITOR_CHECK launched Counter reset: true
+EDITOR_CHECK launched Counter resize: true
+EDITOR_CHECK restore after semantic repair: true
+EDITOR_CHECK external changed source compiles after filesystem scan: true
+EDITOR_CHECK restore after external edit: true
+EDITOR_CHECK new Gogo file compiles automatically: true
+EDITOR_CHECK generated class identity recognized: true
+EDITOR_CHECK new generated class registered at its resource path: true
+EDITOR_CHECK named Script identity retained with current generated code: true
+EDITOR_CHECK new Gogo tab while enabled attached Gogo highlighter: true
+EDITOR_CHECK new Gogo tab while enabled actual declaration token color: true
+EDITOR_CHECK new Gogo tab while enabled actual markup token color: true
+EDITOR_CHECK plugin disables: true
+EDITOR_CHECK disable detaches highlighter: true
+EDITOR_CHECK disable preserves user extension settings: true
+EDITOR_CHECK disabled plugin has no stale new-tab association hook: true
+EDITOR_CHECK plugin re-enables cleanly: true
+EDITOR_CHECK extension registration preserves existing CSV verbatim: true
+EDITOR_CHECK Gogo tab on second re-enable attached Gogo highlighter: true
+EDITOR_CHECK Gogo tab on second re-enable actual declaration token color: true
+EDITOR_CHECK Gogo tab on second re-enable actual markup token color: true
+EDITOR_CHECK new plain tab on second re-enable attached Gogo highlighter: true
+EDITOR_CHECK new plain tab on second re-enable actual declaration token color: true
+EDITOR_CHECK new plain tab on second re-enable actual markup token color: true
+EDITOR_CHECK unrelated file retains exact highlighter instance: true
+EDITOR_CHECK unrelated file retains exact highlighter instance: true
+EDITOR_CHECK no endless generated-file rebuild loop: true
+EDITOR_CHECK prepare restart with latest source: true
+Editor checks: 80
+ESTRAGON_EDITOR_PHASE_1_OK
+WARNING: Scan thread aborted...
+     at: _notification (editor/file_system/editor_file_system.cpp:1757)

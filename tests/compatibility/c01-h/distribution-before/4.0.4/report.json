@@ -1,0 +1,273 @@
+{
+  "label": "4.0.4",
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "input_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+  "provenance": {
+    "minor": "4.0",
+    "version": "4.0.4.stable.official.fc0b241c9",
+    "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_macos.universal.zip",
+    "archive_sha256": "a345a0777652323b24497b19c34bfea363cf1ed496dd2eb86befbdab287ab747",
+    "binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+    "patch_selection": "Latest stable patch in official godot-builds releases API, 2026-10-29"
+  },
+  "stages": {
+    "engine_identity": {
+      "status": "PASS"
+    },
+    "package_layout": {
+      "status": "PASS",
+      "evidence": {
+        "scenes": [
+          "hello/Hello",
+          "layout/Layout",
+          "compiled/Compiled",
+          "mixed/Mixed",
+          "interactive/Interactive",
+          "counter/Counter"
+        ],
+        "uid_sidecars": {
+          "addons/estragon/compiler/compiler.gd.uid": "e321fd04d174c1efe862a4662874fa08a3eef0db763bf0481ffeb6fee2a6b14d",
+          "addons/estragon/compiler/emitter.gd.uid": "5b15993cfba86b92faa774460871668c920e9000da448fc338293e46eaa97c61",
+          "addons/estragon/compiler/frontend.gd.uid": "1087c35ab037185bbfa3d2f1c05cb2134d32c211d4ab0b67e0fcad2fcca18b86",
+          "addons/estragon/compiler/lexer.gd.uid": "4cdd9b23f601ac4b6737822a7167473654c41ad4dfb33723b0935cb6182475aa",
+          "addons/estragon/compiler/model.gd.uid": "e36dfabd842aab4b262b032b5f0573348e11752c216f76a95c829fe20db2df26",
+          "addons/estragon/compiler/parser.gd.uid": "c23d91341abf81aa03a6423977d64250a9080c516c32ffed8a932c9f5b5a07bd",
+          "addons/estragon/compiler/script_validation.gd.uid": "caeeca1990c195a8c6fd3a92a04232b18a13f464a80587c2f6fe47c5242164b4",
+          "addons/estragon/compiler/source.gd.uid": "e05a98f103343f728a585e5881ca9833470730d61984d82f8b0446dba8b24b3f",
+          "addons/estragon/compiler/source_map.gd.uid": "c8e9a3074e63dd0ac4a21b66c8496287445ea8784ba40a5c92dae0eec48008a2",
+          "addons/estragon/compiler/validator.gd.uid": "3ce0cc2ea323ef9e255ab8294fabd0312cec9de3d049b6317308ca9b41feff4e",
+          "addons/estragon/editor/build_service.gd.uid": "f51e0ccd50a9a989b9725c63ac8e6955fbb7d2b4e129465efa6680e368d88bd7",
+          "addons/estragon/editor/highlighter.gd.uid": "2df74913996c7d58c044075060cf13b914140b6e7fc0ae77d4ca7a70edd645ec",
+          "addons/estragon/editor/highlighter_association.gd.uid": "ca05f0ea71d6f21b4faa5578923804c29032b64f5bf4e69f0c1e6e41f8c208a4",
+          "addons/estragon/editor/plugin.gd.uid": "cf81dc0d3ceab32da2699a838d683c829bf4d14cff2afc1c1ab9e80b8248e008",
+          "addons/estragon/editor/script_dependencies.gd.uid": "50edb23d544f640dc54f857a3615690f56416a9ecc883241477564cb1804d0f6",
+          "addons/estragon/runtime/button.gd.uid": "0922cb20635a34fd1d4fb0f1fec1d6eadec88eb2cd987fd8b743808f547a341b",
+          "addons/estragon/runtime/canvas_renderer.gd.uid": "64f9e1b6ccc32804774f7fca0cf5ec09cfa3fe611a9b26b42d2cc88225dbc6f6",
+          "addons/estragon/runtime/container.gd.uid": "b4335b4502d5241a343badd5b4aabebe4e0706e8fefa13d5cdc065a5a4896b5a",
+          "addons/estragon/runtime/display_object.gd.uid": "0ac25561f5c21d7dc1688f353d0deba280f830f5aba0cb7748c4bc978d31ba07",
+          "addons/estragon/runtime/gogo_view.gd.uid": "ea3fdcc8450e40e811f0b607b027c7ebe6faf49248396020b3ff151a14452f79",
+          "addons/estragon/runtime/hbox.gd.uid": "0d8b9195a21e4d061bbfccf2885a762cac97e53d13d1d98b15bcda9eeb9ad08b",
+          "addons/estragon/runtime/paint_list.gd.uid": "a382fb7fae646b06989d47c6040a529acd6d589c829f0148b0aead04cf720ef1",
+          "addons/estragon/runtime/pointer_dispatcher.gd.uid": "2820b4e0bd5b4aa12606884495cd0107a1e67676ee16e0aabe89cfd88b4dd0f2",
+          "addons/estragon/runtime/rect.gd.uid": "b36c3f27f819348aea6e74b692d3d46759a3880caa1d5c5764383bc43b29bfc8",
+          "addons/estragon/runtime/stack.gd.uid": "c3566c95a0e3e461d46abf3964c074771a12d228ce391d164264eeb6e638bb02",
+          "addons/estragon/runtime/surface.gd.uid": "4977dc0209c3f29945f55c087acc0bb8d52100a4252fa8fd2e6b400587dc314e",
+          "addons/estragon/runtime/text.gd.uid": "6bd278d5e215ba632cfe4cdfd82a0ae680214b80577c1a6cc0e10643f717915d",
+          "addons/estragon/runtime/vbox.gd.uid": "4ed7fb54a6043a0684e55ab512ff0ee4a970fe1983031984bcc203fd7b7e5eae",
+          "examples/compiled/generated/Layout.gd.uid": "e8315ace66277a731d6eb24bfb0ff35a3d8523d6e7d631eeb52fda22e7d6b713",
+          "examples/counter/generated/Counter.gd.uid": "c0948dde69c990ce8728719129d789147b7ca7d90f7f815b77df44c3d6c6ac60",
+          "examples/interactive/Interactive.gd.uid": "ce0cfb97f7fb22091ecc7431dd28ecf4bc83f2b3040ed7fb4c652daa982f7a56",
+          "examples/layout/Layout.gd.uid": "924f8607a81a67678bee29ea2d317a7aedad747940f8f84792c9491b4159ee7c",
+          "examples/mixed/generated/Mixed.gd.uid": "3a597d5b3220069c0799fb68bcc35fd0dd0cc25d140352139f474b5a354cbc82"
+        },
+        "cache_free": true
+      }
+    },
+    "distribution_import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/project",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 9.68,
+      "log": "distribution_import.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+      ],
+      "evidence": {
+        "class_registry_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+        "class_registry_log": "distribution_import.classes.json"
+      }
+    },
+    "distribution_scenes": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/project",
+        "--script",
+        "res://tests/distribution/scenes.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.03,
+      "log": "distribution_scenes.log",
+      "diagnostics": []
+    },
+    "shipped_scripts_editor": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 9.11,
+      "log": "shipped_scripts_editor.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+      ]
+    },
+    "resource_pack_export": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/project",
+        "--export-pack",
+        "C01 resource pack",
+        "/tmp/c01-h-final-distribution/4.0.4/examples.pck"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 10.5,
+      "log": "resource_pack_export.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+        "ERROR: Condition \"_first != nullptr\" is true.",
+        "   at: ~List (./core/templates/self_list.h:106)",
+        "     at: cleanup (core/object/object.cpp:1982)",
+        "ERROR: Resources still in use at exit (run with --verbose for details).",
+        "   at: clear (core/io/resource.cpp:489)"
+      ],
+      "evidence": {
+        "sha256": "4f330a993b1be28eb0bfdc9e8b1ad8116ea779e037bcd732c9256e53aa7c4939",
+        "bytes": 78096
+      }
+    },
+    "resource_pack_runtime": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/empty-runtime",
+        "--main-pack",
+        "/tmp/c01-h-final-distribution/4.0.4/examples.pck",
+        "--script",
+        "res://tests/distribution/scenes.gd",
+        "--",
+        "--pack"
+      ],
+      "exit_code": null,
+      "timeout": false,
+      "aborted_on_error": true,
+      "seconds": 0.76,
+      "log": "resource_pack_runtime.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Could not resolve super class \"EstragonSurface\".",
+        "          at: GDScript::reload (res://examples/layout/Layout.gd:0)"
+      ]
+    },
+    "cold_scene_restore": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/cold-scene",
+        "--editor",
+        "res://examples/counter/Counter.tscn"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 9.29,
+      "log": "cold_scene_restore.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+        "ERROR: Attempt to open script 'res://examples/counter/generated/Counter.gd' resulted in error 'File not found'.",
+        "   at: load_source_code (modules/gdscript/gdscript.cpp:1045)"
+      ],
+      "evidence": {
+        "class_registry_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+        "class_registry_log": "cold_scene_restore.classes.json"
+      }
+    },
+    "source_only_build": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/cold-scene",
+        "--script",
+        "res://build.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.21,
+      "log": "source_only_build.log",
+      "diagnostics": []
+    },
+    "native_graphics": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/godot",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-xwZ6R3/project",
+        "--script",
+        "res://native_counter.gd",
+        "--",
+        "--visual"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 2.28,
+      "log": "native_graphics.log",
+      "diagnostics": [],
+      "evidence": {
+        "images": [
+          {
+            "file": "native-counter-zero.png",
+            "sha256": "7ed8e5b8592463e513d83f80b050e8d50411cdf8dde2e54ac03a3c870a7efc24",
+            "width": 640,
+            "height": 360
+          },
+          {
+            "file": "native-counter-one.png",
+            "sha256": "25b47c295946931b81d2fa322142141eb797c178c9c2ac99e011adedadb820cd",
+            "width": 640,
+            "height": 360
+          },
+          {
+            "file": "native-counter-reset-resized.png",
+            "sha256": "7d984b47455bca8c7fba0b420d012aec8a0b7ee5bbe06212493354fcac355e91",
+            "width": 800,
+            "height": 400
+          }
+        ],
+        "scope": "darwin native GPU Counter input/resize; visual review is separate"
+      }
+    },
+    "executable_export": {
+      "status": "UNTESTED",
+      "reason": "Resource-pack evidence does not verify standalone executable export"
+    },
+    "other_platforms": {
+      "status": "UNTESTED",
+      "reason": "Only the executing OS/engine is exercised"
+    }
+  }
+}

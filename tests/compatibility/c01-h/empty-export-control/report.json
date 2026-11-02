@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "source_commit": "af2cd061f3af68939c40f5693a5abb1992faf109",
+  "source_dirty": false,
+  "platform": "darwin 25.6.0",
+  "collected_at": "2026-11-02T04:28:06.405Z",
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "input_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+  "stages": {
+    "import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf/project",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.91,
+      "log": "import.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+      ],
+      "evidence": {
+        "class_registry_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "class_registry_log": "import.classes.json"
+      }
+    },
+    "export": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf/project",
+        "--export-pack",
+        "C01 resource pack",
+        "/tmp/c01-h-pack-control/control.pck"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 7.65,
+      "log": "export.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+        "     at: cleanup (core/object/object.cpp:1982)"
+      ]
+    },
+    "runtime": {
+      "status": "FAIL",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-rlUibf",
+        "--main-pack",
+        "/tmp/c01-h-pack-control/control.pck",
+        "--quit"
+      ],
+      "exit_code": 1,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.75,
+      "log": "runtime.log",
+      "diagnostics": []
+    }
+  }
+}
