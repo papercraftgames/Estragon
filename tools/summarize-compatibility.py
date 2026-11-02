@@ -52,9 +52,11 @@ for path in args.report:
         snapshot["engines"].append(row)
 # Owner policy: new snapshots summarize at most two selected engines.
 # The nine-engine historical snapshots remain committed and unchanged.
-known = {item["version"] for item in json.loads((ROOT / "tests/compatibility/engines.json").read_text())}
+manifest = json.loads((ROOT / "tests/compatibility/engines.json").read_text())
+allowed = {item["version"] for item in manifest
+           if item["version"].startswith(("4.0.4.stable.", "4.7.stable."))}
 assert 1 <= len(versions) <= 2, "owner budget: at most two engines per new snapshot"
-assert versions <= known, "snapshot has unverified engine identities: " + repr(versions - known)
+assert versions <= allowed, "only approved 4.0.4 / pinned 4.7.0 allowed: " + repr(versions - allowed)
 snapshot["engines"].sort(key=lambda item: [int(part) for part in item["version"].split(".stable")[0].split(".")])
 args.output.write_text(json.dumps(snapshot, indent=2) + "\n")
 print("Wrote", len(versions), "engine records to", args.output)
