@@ -79,6 +79,8 @@ def main():
     # Owner budget: never run more than two Godot versions per invocation.
     if len(args.engine) > 2:
         parser.error("Maximum two Godot engines (routine: 4.0.4 and 4.7.0)")
+    if any(value.split("=", 1)[0] not in {"4.0.4", "4.7"} for value in args.engine):
+        parser.error("Only the approved Godot 4.0.4 and pinned 4.7.0 are allowed")
     args.output.mkdir(parents=True, exist_ok=False)
     records = [collect(engine, args.output) for engine in args.engine]
     (args.output / "results.json").write_text(json.dumps(records, indent=2) + "\n")
