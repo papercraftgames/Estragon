@@ -1,0 +1,60 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (4 steps)
+[   0% ] update_scripts_classes | 
+[  20% ] update_scripts_classes | 
+[  40% ] update_scripts_classes | 
+[  60% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+E01_F_ENGINE 4.7-stable (official) restart=false
+E01_COMPAT_CHECK exact native list/tab identity before filtering: true
+E01_COMPAT_CHECK both never-associated Plain Text before enable, including restart: true
+E01_COMPAT_CHECK no earlier association or stale Gogo path metadata: true
+E01_COMPAT_CHECK native filter exists: true
+E01_COMPAT_CHECK never-associated background genuinely filtered out: true
+E01_F_IDENTITY {"adapter_path_without_cache":"","cached_gogo_path":"","context":"before enable","editor_class":"TextEditor","editor_meta":["_tab_index","__editor_pass"],"highlighter_resource":"<Object#null>","native_path_meta":"","native_resource_path":"","open_script_count":0,"resource_getter_bound":false,"resource_properties":{"scene_file_path":""}}
+E01_F_IDENTITY {"adapter_path_without_cache":"","cached_gogo_path":"","context":"after enable","editor_class":"TextEditor","editor_meta":["_tab_index","__editor_pass"],"highlighter_resource":"<Object#null>","native_path_meta":"","native_resource_path":"","open_script_count":0,"resource_getter_bound":false,"resource_properties":{"scene_file_path":""}}
+E01_COMPAT_CHECK background remains excluded after association: true
+E01_F_HIDDEN_ACCEPTANCE FAIL
+E01_COMPAT_CHECK association leaves filter unchanged: true
+E01_COMPAT_CHECK hidden text and edit version unchanged: true
+E01_COMPAT_CHECK identical-content unrelated txt unchanged while hidden: true
+E01_F_REVEALED_BEFORE_ACTIVATION false
+E01_COMPAT_CHECK revealed Counter editor exists: true
+E01_COMPAT_CHECK revealed Counter Gogo attached automatically: true
+E01_COMPAT_CHECK revealed Counter declaration color: true
+E01_COMPAT_CHECK revealed Counter markup color: true
+E01_COMPAT_CHECK revealed Background editor exists: true
+E01_COMPAT_CHECK revealed Background Gogo attached automatically: true
+E01_COMPAT_CHECK revealed Background declaration color: true
+E01_COMPAT_CHECK revealed Background markup color: true
+E01_COMPAT_CHECK independent highlighters: true
+E01_COMPAT_CHECK previously associated filtered Background editor exists: true
+E01_COMPAT_CHECK previously associated filtered Background Gogo attached automatically: true
+E01_COMPAT_CHECK previously associated filtered Background declaration color: true
+E01_COMPAT_CHECK previously associated filtered Background markup color: true
+E01_COMPAT_CHECK known association leaves filter unchanged: true
+E01_COMPAT_CHECK re-enabled Background editor exists: true
+E01_COMPAT_CHECK re-enabled Background Gogo attached automatically: true
+E01_COMPAT_CHECK re-enabled Background declaration color: true
+E01_COMPAT_CHECK re-enabled Background markup color: true
+E01_COMPAT_CHECK unrelated txt unchanged after lifecycle: true
+E01_COMPAT_CHECK association preserves preferences: true
+E01_COMPAT_CHECK source unchanged after lifecycle: true
+E01_F_INVARIANTS 30 PASS
+E01_F_RESULT FAIL
