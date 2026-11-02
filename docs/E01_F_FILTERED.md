@@ -1,5 +1,12 @@
 # E01-F filtered never-associated tab investigation
 
+**Current testing policy (2026-11-02): This is archived nine-engine
+evidence, not instructions to rerun the matrix.** For all new local,
+Codex and CI work use **only 4.0.4 and pinned 4.7.0**. Earlier
+"run all nine" directions below are superseded by
+[AGENTS.md](../AGENTS.md) and [TESTING.md](TESTING.md); original results
+and failures remain historical facts.
+
 Work ID E01-F, [issue #44](https://github.com/resistdesign/Estragon/issues/44).
 This is an evidence branch, **not a resolved implementation or release acceptance**.
 Production addon files are unchanged from main `17a7d9b`. The exact hidden-tab
