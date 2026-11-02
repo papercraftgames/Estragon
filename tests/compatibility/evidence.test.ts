@@ -24,12 +24,12 @@ test("numeric oracle, source mapping and native preservation reject corrupted ev
       finite_domain_diagnostic: true,
     })), "C01_NUMERIC_REJECTION "),
   ].join("\n");
-  const good = fixture.cases.map(item => ({
+  const good: Row[] = fixture.cases.map(item => ({
     ...item, model_bits: item.expected_bits, runtime_bits: item.expected_bits,
     storage_bits: item.expected_bits, deterministic_and_mapped: true, status: "PASS",
   }));
   assert.equal(validateNumeric(rows(good), fixture).cases.length, fixture.cases.length);
-  const corrupt = good.map(item => ({ ...item }));
+  const corrupt: Row[] = good.map(item => ({ ...item }));
   corrupt[0]!.storage_bits = "0000000000000000";
   if (corrupt[0]!.expected_bits === "0000000000000000") corrupt[0]!.storage_bits = "ffffffffffffffff";
   assert.throws(() => validateNumeric(rows(corrupt), fixture));

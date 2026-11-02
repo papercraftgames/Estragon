@@ -69,7 +69,7 @@ export function validateCallableMetadata(log: string, minor: number): EvidenceRo
     ["lambda_zero", "lambda_required"], ["lambda_zero", "lambda_optional"],
     ["named_lambda_zero", "named_lambda_required"],
     ["returned_lambda_zero", "returned_lambda_required"],
-  ]) {
+  ] as const) {
     const omit = (row: EvidenceRow): string =>
       JSON.stringify(Object.fromEntries(Object.entries(row)
         .filter(([key]) => key !== "name" && key !== "native_count").sort()));
