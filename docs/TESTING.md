@@ -760,3 +760,14 @@ Cheap TypeScript tests verify mode exit codes, preserved BLOCKED reports,
 known failure fingerprints, regression/missing-evidence rejection and all-PASS
 behavior. Reuse archived real CI artifacts for policy checks without new engine
 execution; do not change their original source/provenance.
+
+## #61 raw-free generated-helper gate
+
+See [C01_HELPER_CALLS.md](C01_HELPER_CALLS.md) for the isolated TypeScript
+check-helper-calls.ts runner and exact evidence. Core compatibility now requires
+helper_calls, helper_negative_argument and helper_negative_return on the two
+approved engines. The driver exercises actual lambda return values, static and
+instance contexts, nested captures/markup, initializer/inheritance, callback
+identity/cleanup and copied/generated maps. Separate native type-error processes
+require exact expected diagnostics; reload success alone cannot pass the gate.
+HybridEdges/raw syntax remains an independent full-runtime release outcome.

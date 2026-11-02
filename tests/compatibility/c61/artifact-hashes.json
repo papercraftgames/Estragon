@@ -1,0 +1,122 @@
+{
+  "before/4.0.4/helper_calls.log": {
+    "raw_sha256": "ebe1f141033dd3c110adcb5790b54ecc37f637449e64d2d882ba57e2021041bb",
+    "published_sha256": "7252229525dcb2aad7738c470f3c3d2052ce23993ae587391bab20729a0fe0ae"
+  },
+  "before/4.0.4/import.classes.json": {
+    "raw_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+    "published_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e"
+  },
+  "before/4.0.4/import.log": {
+    "raw_sha256": "9971ac318c22f41317ad449890a56f0ca9324093fa29d828612cb3ecb2a1fa96",
+    "published_sha256": "e516895831e0e74cac1e62948adf78bebe27c4a7014f365c9de130c609493534"
+  },
+  "before/4.0.4/report.json": {
+    "raw_sha256": "1d6165413b621d12b59e0371fcca50498ad86177de5d2f7597fa09da6289397c",
+    "published_sha256": "1d6165413b621d12b59e0371fcca50498ad86177de5d2f7597fa09da6289397c"
+  },
+  "before/results.json": {
+    "raw_sha256": "0a67e34a3d42c35667ae88e091c9a0c3ff191d5f4b8b253984ac337090d3ecf8",
+    "published_sha256": "0a67e34a3d42c35667ae88e091c9a0c3ff191d5f4b8b253984ac337090d3ecf8"
+  },
+  "acceptance/4.0.4/helper_calls.log": {
+    "raw_sha256": "a24bfa4b4464f3600ae3de901eab4bf2c603bc529beb76bd9baf83e06c9529b4",
+    "published_sha256": "2d39f44472e7de255cbc777d546c5cc53d0022a49dc8d4d32d78cbaaecd47a85"
+  },
+  "acceptance/4.0.4/import.classes.json": {
+    "raw_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+    "published_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e"
+  },
+  "acceptance/4.0.4/import.log": {
+    "raw_sha256": "9971ac318c22f41317ad449890a56f0ca9324093fa29d828612cb3ecb2a1fa96",
+    "published_sha256": "e516895831e0e74cac1e62948adf78bebe27c4a7014f365c9de130c609493534"
+  },
+  "acceptance/4.0.4/negative_argument.log": {
+    "raw_sha256": "ed313e74b634ef7cfb1d594141c428267c9f9bcf9665bad15085831ee43452a0",
+    "published_sha256": "de192a636e217b5dbc1482aadba84503e2d8ebfd39c43188ed64fac388e7601d"
+  },
+  "acceptance/4.0.4/negative_return.log": {
+    "raw_sha256": "6175f31a028619aaa070ab3daa794855ddb596dc0ebb68d7b0b9033b29abc763",
+    "published_sha256": "284bb07b4694feb0bec28700599950ab2fa4088cdaf9bb65fcbbf432999a2ff9"
+  },
+  "acceptance/4.0.4/report.json": {
+    "raw_sha256": "7168d179bc863b908eff9084e4f9c1b231ed5c86fa7a3ea4d9838e401eba7bde",
+    "published_sha256": "7168d179bc863b908eff9084e4f9c1b231ed5c86fa7a3ea4d9838e401eba7bde"
+  },
+  "acceptance/4.7/helper_calls.log": {
+    "raw_sha256": "73d08cfe3e3c62b080ab290de4e3dc239147f5feed3eb96bd195c273ffc76ac9",
+    "published_sha256": "73d08cfe3e3c62b080ab290de4e3dc239147f5feed3eb96bd195c273ffc76ac9"
+  },
+  "acceptance/4.7/import.classes.json": {
+    "raw_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+    "published_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e"
+  },
+  "acceptance/4.7/import.log": {
+    "raw_sha256": "99ad94119c597b3ce3a04212a6dc8440f71e948c85f3acbc2ae555e9ff836a57",
+    "published_sha256": "6ec8cbfc66c700954f33379f0dd2efd860b9b690d2c1d349cae41f9bf36601c9"
+  },
+  "acceptance/4.7/negative_argument.log": {
+    "raw_sha256": "be36125adb894a24495b67455cfaf351bb2d4acd8eed5635f6ecb13942b9aad2",
+    "published_sha256": "be36125adb894a24495b67455cfaf351bb2d4acd8eed5635f6ecb13942b9aad2"
+  },
+  "acceptance/4.7/negative_return.log": {
+    "raw_sha256": "0146bfdec1ebe8c421b54df417c594c0f47b65ec9e05976125711f8eeb028fd3",
+    "published_sha256": "0146bfdec1ebe8c421b54df417c594c0f47b65ec9e05976125711f8eeb028fd3"
+  },
+  "acceptance/4.7/report.json": {
+    "raw_sha256": "e89397cc1f0945f999aaa07a3b125e1475dbf23f5d38cf8455b51f8144482183",
+    "published_sha256": "e89397cc1f0945f999aaa07a3b125e1475dbf23f5d38cf8455b51f8144482183"
+  },
+  "acceptance/results.json": {
+    "raw_sha256": "036559d801882131e7ff30b06ac155d5612796dc1eaa8a1daa4c313b4c5831f4",
+    "published_sha256": "036559d801882131e7ff30b06ac155d5612796dc1eaa8a1daa4c313b4c5831f4"
+  },
+  "before/helper-calls.gogo": {
+    "raw_sha256": "bf0d4dfa82e07cd36a1f0685118103744da7080d79519ba10c087ae663237eac",
+    "published_sha256": "bf0d4dfa82e07cd36a1f0685118103744da7080d79519ba10c087ae663237eac"
+  },
+  "before/driver.gd.txt": {
+    "raw_sha256": "498baca0426918553d2a467e7c7b5a6b08bba7fdb23d4282b1c4ba014672011c",
+    "published_sha256": "498baca0426918553d2a467e7c7b5a6b08bba7fdb23d4282b1c4ba014672011c"
+  },
+  "before/check-helper-calls.ts.txt": {
+    "raw_sha256": "53664cb56968d5a0a14136bd65bfa4d9aceb844123588535c036af222eae8c87",
+    "published_sha256": "53664cb56968d5a0a14136bd65bfa4d9aceb844123588535c036af222eae8c87"
+  },
+  "native-generation-before-correction.log": {
+    "raw_sha256": "f87b9b35852425560f5328dd3d51f15469b68b515fdf67a28aba49df177e6c6c",
+    "published_sha256": "386c33d4c1e4642f69f54de8dbb5c42a9bd9f6ae9b10110dbf86151fb553af43"
+  },
+  "native-generation.log": {
+    "raw_sha256": "2eb6a8b4f0f363ca0aa8acd44091d49d4dc1cad9f979053cd71ff8846ecc9527",
+    "published_sha256": "98d30f7873b65a1712dbb5aed1d5dd1346afcdf584924ba34540cbf83ceccc47"
+  },
+  "editor/output-1.log": {
+    "raw_sha256": "26968494eae0d300be19700001068001e80724c6f86312c50dd2cc621bf4e534",
+    "published_sha256": "26968494eae0d300be19700001068001e80724c6f86312c50dd2cc621bf4e534"
+  },
+  "editor/output-2.log": {
+    "raw_sha256": "62433b13f7a19d7166519de1a822d2f62014f140340bf4debdd791cf6a7e7f4f",
+    "published_sha256": "62433b13f7a19d7166519de1a822d2f62014f140340bf4debdd791cf6a7e7f4f"
+  },
+  "editor/build.log": {
+    "raw_sha256": "905edbd1edfd13e4416c94a9d0e8f33fcbf9ec3ef9a72931a442e135b4d22c49",
+    "published_sha256": "905edbd1edfd13e4416c94a9d0e8f33fcbf9ec3ef9a72931a442e135b4d22c49"
+  },
+  "editor/editor-highlight.png": {
+    "raw_sha256": "05bc72d7f8e72dd1b2cc23b64e3986ed66bd5c463a17717138eb1d968e3c39be",
+    "published_sha256": "05bc72d7f8e72dd1b2cc23b64e3986ed66bd5c463a17717138eb1d968e3c39be"
+  },
+  "editor/game-0-initial.png": {
+    "raw_sha256": "433bb5e124a224e674d84c6a2e5b57a5e49b4c171a2138a9a31ddd1bafa8036f",
+    "published_sha256": "433bb5e124a224e674d84c6a2e5b57a5e49b4c171a2138a9a31ddd1bafa8036f"
+  },
+  "editor/game-0-increment.png": {
+    "raw_sha256": "fc05c3b0ce29ad649b811202b1f49288fb5fedb88a044990f33d1fabb558a6a6",
+    "published_sha256": "fc05c3b0ce29ad649b811202b1f49288fb5fedb88a044990f33d1fabb558a6a6"
+  },
+  "editor/game-0-reset-resized.png": {
+    "raw_sha256": "80cfbf0e5ee805ec90dc206111bb1997284c7373d5960c060d2f298df9d14659",
+    "published_sha256": "80cfbf0e5ee805ec90dc206111bb1997284c7373d5960c060d2f298df9d14659"
+  }
+}

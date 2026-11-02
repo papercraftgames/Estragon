@@ -1,0 +1,36 @@
+extends RefCounted
+# Collisions must not capture generated class or helper references.
+const _GogoFactories_0 = 91
+static func _gogo_build_0() -> int: return 99
+var events: Array[int] = []
+var initial: EstragonRect = <Rect width="2" height="3"/>
+var initializer_callback: Callable = func(): return <Rect width={4.0}/>
+
+func mark(value: int) -> float:
+    events.append(value)
+    return float(value)
+
+func instance_lambda() -> EstragonRect:
+    var callback: Callable = func() -> EstragonRect:
+        return <Rect width={7.0}/>
+    return callback.call()
+
+static func static_lambda() -> EstragonRect:
+    var callback: Callable = func() -> EstragonRect:
+        return <Rect width={8.0}/>
+    return callback.call()
+
+static func static_method() -> EstragonRect:
+    return <Rect width={9.0}/>
+
+func nested() -> EstragonVBox:
+    var callback: Callable = func():
+        return <VBox gap={mark(1)}>{<Rect width={mark(2)}/>}<Rect width={mark(3)}/></VBox>
+    return callback.call()
+
+func on_pressed() -> void:
+    events.append(4)
+
+func button() -> EstragonButton:
+    var callback: Callable = func(): return <Button pressed={on_pressed}/>
+    return callback.call()

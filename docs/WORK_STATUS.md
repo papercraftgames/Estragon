@@ -11,7 +11,7 @@ passes on the **only approved engines, 4.0.4 and pinned 4.7.0**, while strict
 release certification remains **BLOCKED** by independently documented
 requirements. Read [C01-H evidence](C01_H_RELEASE.md), live
 [issue #51](https://github.com/resistdesign/Estragon/issues/51) and its
-final handoff. **Next Ready: [#61](https://github.com/resistdesign/Estragon/issues/61)**,
+final handoff. **Current review: [#61](https://github.com/resistdesign/Estragon/issues/61)**,
 generated static-helper lambda invocation compatibility. Read `AGENTS.md`
 first and all of #61 before coding; check current `main`, the full open-PR
 list and any resumable worktree. At this checkpoint **zero PRs are open**.
@@ -59,7 +59,7 @@ Previously published nine-engine results stay archived, not rerun.
 | **C01-G** | **Done (merged PR #63, `110c9b7`)** | Unsaved/unsavable Gogo F5/F6 fail-closed Play and recovery | [#50](https://github.com/resistdesign/Estragon/issues/50) | [Nine-engine Play evidence](C01_G_PLAY.md): 18/18 Play phases, 864 assertions, 36/36 lifecycle stages and 20/20 final CI checks PASS. |
 | **E01-F** | **Disposition complete (closed not planned; merged PR #64)** | Owner-approved exception: unknown hidden never-associated Gogo tab defers highlighting until revealed and activated | [#44](https://github.com/resistdesign/Estragon/issues/44), [PR #64](https://github.com/resistdesign/Estragon/pull/64) | [Archived negative evidence](E01_F_FILTERED.md); **not a hidden-tab fix or PASS**. `e837557` also ships the Python-free TypeScript tooling and reduced two-version CI. |
 | **C01-H** | **Gate slice merged PR #66; release BLOCKED** | Strict release gate, scoped development CI, distribution and evidence landed; #61/cold-scene/#65/export still prevent certification | [#51](https://github.com/resistdesign/Estragon/issues/51), [PR #66](https://github.com/resistdesign/Estragon/pull/66) | [Actual release report](C01_H_RELEASE.md); development PASS does not authorize publishing. C01-H overall release acceptance remains incomplete. |
-| **C01 static-helper lambda** | **Ready** | Fix generated static helper calls inside lambdas on 4.0.4 while preserving native typing and source-map correctness | [#61](https://github.com/resistdesign/Estragon/issues/61) | Full cold-start handoff, historical native repro and scoped two-version acceptance are in #61. Next review PR unclaimed; no Python. |
+| **C01 static-helper lambda** | **In review; scoped fix pending merge** | Fix generated static helper calls inside lambdas on 4.0.4 while preserving native typing and source-map correctness | [#61](https://github.com/resistdesign/Estragon/issues/61) | [Scoped fix/evidence](C01_HELPER_CALLS.md): typed factory namespace, raw-free actual runtime and negative typing on 4.0.4/4.7.0. See #61 for current PR/CI/handoff. Full raw-syntax/release acceptance remains blocked. |
 | R02 | Deferred | Renderer-backend research | [#2](https://github.com/resistdesign/Estragon/issues/2) | Pending |
 
 **Statuses:** `Queued` = waiting on planned predecessor(s); `Ready` = actionable and unclaimed; `Active` = owned issue + branch with work underway; `Blocked` = evidence and decision/unblock step required; `In review` = PR open and awaiting approval/checks; `Done` = verified, approved and merged; `Deferred` = explicitly outside the current milestone. Never mark `Done` on an unmerged branch. A research task may complete with a well-evidenced negative feasibility finding.
@@ -74,7 +74,7 @@ Previously published nine-engine results stay archived, not rerun.
 - Future work belongs in issues while the current PR is active. A blocked PR
   needs documented evidence and an owner decision, not another PR. No automatic
   merges. Every task has a durable issue, checkpoints, verification and handoff.
-- Queue: C01-H gate PR #66 merged / release BLOCKED → **#61 Ready** → cold 4.0.4 scene restore → #65 export cleanup → standalone-export disposition → C01-H release acceptance → T09-A #43 →
+- Queue: C01-H gate PR #66 merged / release BLOCKED → **#61 review** → cold 4.0.4 scene restore → #65 export cleanup → standalone-export disposition → C01-H release acceptance → T09-A #43 →
   T09-B/C/D #5. #40 merged. Check live issues before advancing.
 
 - **One work ID per focused implementation PR.** A planning/ADR/process-only PR may be unassigned if it is explicitly labeled as such and includes no implementation work. The task issue is the durable conversation: scope, current owner/session or branch, plan/checklist, evidence, blockers, handoffs and linked PR.

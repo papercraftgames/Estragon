@@ -1,0 +1,25 @@
+{
+  "baseline": {
+    "source_commit": "b1e252c162edba130692317e03871ea898b7f449",
+    "source_dirty": true,
+    "note": "Main emitter unchanged; new test fixture/harness added in isolated detached worktree. Actual callback fails despite reload OK. Baseline source/harness snapshots included."
+  },
+  "acceptance": {
+    "source_commit": "32a5f4c83703819adc70169f77db45a27f306c2c",
+    "source_dirty": false,
+    "engines": [
+      "4.0.4",
+      "4.7"
+    ],
+    "note": "Raw-free focused runtime, typing/source maps/inheritance. Both engines PASS."
+  },
+  "native_generation": {
+    "source_commit": "24b22c3",
+    "note": "Guard-indentation parity correction; same semantic namespace lowering. Broader native generation/runtime/negative gates PASS. Original 32a5f4c parity failure retained separately."
+  },
+  "editor": {
+    "source_commit": "32a5f4c83703819adc70169f77db45a27f306c2c",
+    "engine": "4.7",
+    "note": "Native graphical isolated real-editor Play/restart/transactions. Before indentation-only parity correction; not relabeled execution of new source. Captures inspected separately."
+  }
+}

@@ -1,0 +1,297 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (31 steps)
+[   0% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  31% ] update_scripts_classes |
+[  34% ] update_scripts_classes | EstragonButton
+[  37% ] update_scripts_classes | EstragonCanvasRenderer
+[  40% ] update_scripts_classes | EstragonContainer
+[  43% ] update_scripts_classes | EstragonDisplayObject
+[  46% ] update_scripts_classes |
+[  50% ] update_scripts_classes | EstragonHBox
+[  53% ] update_scripts_classes | EstragonPaintList
+[  56% ] update_scripts_classes | EstragonPointerDispatcher
+[  59% ] update_scripts_classes | EstragonRect
+[  62% ] update_scripts_classes | EstragonStack
+[  65% ] update_scripts_classes | EstragonSurface
+[  68% ] update_scripts_classes | EstragonText
+[  71% ] update_scripts_classes | EstragonVBox
+[  75% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  87% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+NATIVE_GENERATION_NO_BUN
+Native generation assertions: 3670
+ESTRAGON_NATIVE_GENERATION_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (10 steps)
+[   0% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  36% ] update_scripts_classes |
+[  45% ] update_scripts_classes |
+[  54% ] update_scripts_classes | EstragonNativeNamedProbe
+[  63% ] update_scripts_classes |
+[  72% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Generated Gogo checks: 21
+ESTRAGON_GENERATED_GOGO_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Hybrid Gogo checks: 29
+ESTRAGON_HYBRID_GOGO_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ESTRAGON_NATIVE_COUNTER_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Generated signal checks: 49
+ESTRAGON_SIGNALS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC syntax.gogo:3:1: Parse Error: Expected expression after "+" operator.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "float" but is "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC type.gogo:3:1: Parse Error: Cannot pass a value of type "String" as "float".
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "EstragonDisplayObject" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC child.gogo:3:1: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "EstragonDisplayObject" but is "int".
+SCRIPT ERROR: Parse Error: Identifier "missing_value" not declared in the current scope.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC unknown.gogo:3:1: Parse Error: Identifier "missing_value" not declared in the current scope.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-call.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "Callable".
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-missing.gogo:3:1: Parse Error: Identifier "missing_handler" not declared in the current scope.
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC callback-type.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "Callable".
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC text-type.gogo:3:1: Parse Error: Cannot pass a value of type "int" as "String".
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "bool".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "bool" but is "String".
+          at: GDScript::reload (res://Generated.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _validate (res://tests/godot/native_semantics.gd:26)
+              [3] _run (res://tests/godot/native_semantics.gd:57)
+EXPECTED_NATIVE_DIAGNOSTIC disabled-type.gogo:3:1: Parse Error: Cannot pass a value of type "String" as "bool".
+ERROR: arity.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:14)
+       [1] build (res://Generated.gd:4)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION arity
+ERROR: optional.gogo:4:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:14)
+       [1] build (res://Generated.gd:4)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION optional
+ERROR: empty.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:13)
+       [1] build (res://Generated.gd:3)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION empty
+ERROR: invalid.gogo:3:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:13)
+       [1] build (res://Generated.gd:3)
+       [2] _run (res://tests/godot/native_semantics.gd:77)
+EXPECTED_NATIVE_CALLBACK_REJECTION invalid
+ERROR: NullChild.gogo:3:18: Gogo child must be a live, uniquely owned component
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:12)
+       [1] build (res://Generated.gd:3)
+       [2] _runtime_children (res://tests/godot/native_semantics.gd:164)
+       [3] _run (res://tests/godot/native_semantics.gd:90)
+ERROR: Disposed.gogo:9:28: Button.pressed requires a valid zero-argument Callable with a live target
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _gogo_build_0 (res://Generated.gd:21)
+       [1] build (res://Generated.gd:9)
+       [2] _runtime_children (res://tests/godot/native_semantics.gd:177)
+       [3] _run (res://tests/godot/native_semantics.gd:90)
+EXPECTED_NATIVE_ERROR_COUNT 20
+Native semantic assertions: 149
+ESTRAGON_NATIVE_SEMANTICS_OK
+ESTRAGON_NATIVE_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"0000000000000000","runtime_bits":"0000000000000000","source":"0","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"0000000000000080","runtime_bits":"0000000000000000","source":"-0","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000080","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"0000000000000080","runtime_bits":"0000000000000000","source":"-0.0","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000080","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"0000000000000080","runtime_bits":"0000000000000000","source":"-0e-20","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"0000000000000000","runtime_bits":"0000000000000000","source":"+0.0","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"000000000000e03f","expected_bits":"000000000000e03f","model_bits":"000000000000e03f","raw_conversion_bits":"000000000000e03f","runtime_bits":"000000000000e03f","source":".5","status":"PASS","storage_bits":"000000000000e03f","token":"0.5"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000001440","expected_bits":"0000000000001440","model_bits":"0000000000001440","raw_conversion_bits":"0000000000001440","runtime_bits":"0000000000001440","source":"5.","status":"PASS","storage_bits":"0000000000001440","token":"5.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"000000000000f43f","expected_bits":"000000000000f43f","model_bits":"000000000000f43f","raw_conversion_bits":"000000000000f43f","runtime_bits":"000000000000f43f","source":"+1.25","status":"PASS","storage_bits":"000000000000f43f","token":"1.25"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"2342920ca19cc73b","expected_bits":"2342920ca19cc73b","model_bits":"2342920ca19cc73b","raw_conversion_bits":"2342920ca19cc73b","runtime_bits":"2342920ca19cc73b","source":"1e-20","status":"PASS","storage_bits":"2342920ca19cc73b","token":"1e-20"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"2342920ca19cc73b","model_bits":"2342920ca19cc73b","raw_conversion_bits":"0000000000000000","runtime_bits":"2342920ca19cc73b","source":"0.00000000000000000001","status":"PASS","storage_bits":"2342920ca19cc73b","token":"1e-20"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"f9ff2a478126cd3b","expected_bits":"f9ff2a478126cd3b","model_bits":"f9ff2a478126cd3b","raw_conversion_bits":"f9ff2a478126cd3b","runtime_bits":"f9ff2a478126cd3b","source":"1.2345678901234567e-20","status":"PASS","storage_bits":"f9ff2a478126cd3b","token":"1.2345678901234567e-20"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"f9ff2a478126cd3b","model_bits":"f9ff2a478126cd3b","raw_conversion_bits":"0000000000000000","runtime_bits":"f9ff2a478126cd3b","source":"0.000000000000000000012345678901234567","status":"PASS","storage_bits":"f9ff2a478126cd3b","token":"1.2345678901234567e-20"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"408cb5781daf1544","expected_bits":"408cb5781daf1544","model_bits":"408cb5781daf1544","raw_conversion_bits":"408cb5781daf1544","runtime_bits":"408cb5781daf1544","source":"1e20","status":"PASS","storage_bits":"408cb5781daf1544","token":"100000000000000000000.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"010000000000f03f","expected_bits":"010000000000f03f","model_bits":"010000000000f03f","raw_conversion_bits":"010000000000f03f","runtime_bits":"010000000000f03f","source":"1.0000000000000002","status":"PASS","storage_bits":"010000000000f03f","token":"1.0000000000000002"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"182d4454fb210940","expected_bits":"182d4454fb210940","model_bits":"182d4454fb210940","raw_conversion_bits":"182d4454fb210940","runtime_bits":"182d4454fb210940","source":"3.141592653589793","status":"PASS","storage_bits":"182d4454fb210940","token":"3.141592653589793"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"000000e0ffff6f41","expected_bits":"000000e0ffff6f41","model_bits":"000000e0ffff6f41","raw_conversion_bits":"000000e0ffff6f41","runtime_bits":"000000e0ffff6f41","source":"16777215","status":"PASS","storage_bits":"000000e0ffff6f41","token":"16777215.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000007041","expected_bits":"0000000000007041","model_bits":"0000000000007041","raw_conversion_bits":"0000000000007041","runtime_bits":"0000000000007041","source":"16777216","status":"PASS","storage_bits":"0000000000007041","token":"16777216.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000001000007041","expected_bits":"0000001000007041","model_bits":"0000001000007041","raw_conversion_bits":"0000001000007041","runtime_bits":"0000001000007041","source":"16777217","status":"PASS","storage_bits":"0000001000007041","token":"16777217.0"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"34b886d5ffffef47","expected_bits":"34b886d5ffffef47","model_bits":"34b886d5ffffef47","raw_conversion_bits":"34b886d5ffffef47","runtime_bits":"34b886d5ffffef47","source":"3.4028234e38","status":"PASS","storage_bits":"34b886d5ffffef47","token":"3.4028234e38"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"a8db9fffffff0f38","expected_bits":"a8db9fffffff0f38","model_bits":"a8db9fffffff0f38","raw_conversion_bits":"a8db9fffffff0f38","runtime_bits":"a8db9fffffff0f38","source":"1.17549435e-38","status":"PASS","storage_bits":"a8db9fffffff0f38","token":"1.17549435e-38"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"000000000000a036","expected_bits":"000000000000a036","model_bits":"000000000000a036","raw_conversion_bits":"000000000000a036","runtime_bits":"000000000000a036","source":"1.401298464324817e-45","status":"PASS","storage_bits":"000000000000a036","token":"1.401298464324817e-45"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"9c577727266ca137","expected_bits":"9c577727266ca137","model_bits":"9c577727266ca137","raw_conversion_bits":"9c577727266ca137","runtime_bits":"9c577727266ca137","source":"1e-40","status":"PASS","storage_bits":"9c577727266ca137","token":"1e-40"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"59f3f8c21f6ea501","expected_bits":"59f3f8c21f6ea501","model_bits":"59f3f8c21f6ea501","raw_conversion_bits":"59f3f8c21f6ea501","runtime_bits":"59f3f8c21f6ea501","source":"1e-300","status":"PASS","storage_bits":"59f3f8c21f6ea501","token":"1e-300"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0000000000002940","model_bits":"0000000000002940","raw_conversion_bits":"0000000000000000","runtime_bits":"0000000000002940","source":"000000000000000000000012.5","status":"PASS","storage_bits":"0000000000002940","token":"12.5"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"97d44646f50e673c","model_bits":"97d44646f50e673c","raw_conversion_bits":"0000000000000000","runtime_bits":"97d44646f50e673c","source":"0.00000000000000000001e+000003","status":"PASS","storage_bits":"97d44646f50e673c","token":"1e-17"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000001038","expected_bits":"0000000000001038","model_bits":"0000000000001038","raw_conversion_bits":"0000000000001038","runtime_bits":"0000000000001038","source":"1.1754943508222875e-38","status":"PASS","storage_bits":"0000000000001038","token":"1.1754943508222875e-38"}
+C01_NUMERIC_CASE {"deterministic_and_mapped":true,"direct_literal_bits":"000000000000f03f","expected_bits":"0000000000000000","model_bits":"0000000000000000","raw_conversion_bits":"000000000000f03f","runtime_bits":"0000000000000000","source":"1e-4294967296","status":"PASS","storage_bits":"0000000000000000","token":"0.0"}
+C01_NUMERIC_NATIVE_LIMIT {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0000000000001000","model_bits":"0000000000000000","native_value_preserved":true,"raw_conversion_bits":"0000000000000000","runtime_bits":"0000000000000000","source":"2.2250738585072014e-308","status":"BLOCKED","storage_bits":"0000000000001000","token":"0.0"}
+C01_NUMERIC_NATIVE_LIMIT {"deterministic_and_mapped":true,"direct_literal_bits":"0000000000000000","expected_bits":"0100000000000000","model_bits":"0000000000000000","native_value_preserved":true,"raw_conversion_bits":"0000000000000000","runtime_bits":"0000000000000000","source":"4.9406564584124654e-324","status":"BLOCKED","storage_bits":"0100000000000000","token":"0.0"}
+C01_NUMERIC_NATIVE_LIMIT {"deterministic_and_mapped":true,"direct_literal_bits":"010000e0ffffef47","expected_bits":"000000e0ffffef47","model_bits":"010000e0ffffef47","native_value_preserved":true,"raw_conversion_bits":"010000e0ffffef47","runtime_bits":"010000e0ffffef47","source":"3.4028234663852886e38","status":"BLOCKED","storage_bits":"000000e0ffffef47","token":"3.4028234663852886e38"}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e39","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e400","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e4294967296","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e2147483648","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"0.00000000000000000001e4294967296","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e999999999999999999999","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width requires a finite nonnegative number or auto","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"NaN","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width must be nonnegative and finite in runtime geometry; use auto for intrinsic sizing","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"-1","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width requires a finite nonnegative number or auto","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"2px","source_located":true}
+C01_NUMERIC_REJECTION {"diagnostic":"width requires a finite nonnegative number or auto","finite_domain_diagnostic":true,"no_output":true,"rejected":true,"source":"1e","source_located":true}
+C01_NUMERIC_OK

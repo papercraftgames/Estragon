@@ -107,7 +107,12 @@ source discovery, transactional publication, resource refresh and compile-before
 see EDITOR.
 
 Hybrid output preserves authored ranges and uses collision-safe `_gogo_build_N`
-static factories with typed arguments. Dynamic property/child/Callable expressions
+static factories with typed arguments in a collision-checked `_GogoFactories_N`
+class. Calls explicitly name that class so native 4.0.4 lambdas resolve helpers
+without `self` or untyped Callable dispatch. Instance/static methods, initializers
+and nested lambdas retain ordinary argument/return type checking. Authored code
+remains copied unchanged; raw-string availability is still determined by the
+engine and is not made portable by helper qualification (#61). Dynamic property/child/Callable expressions
 are evaluated once at the original call site in source traversal order; native
 conditionals remain lazy. Callback expressions are passed as Callables, checked
 before connecting, and disconnected by the existing runtime on unmount/target
@@ -298,7 +303,7 @@ errors are source-located; other GDScript grammar is checked by Godot.
 ### Emission, type checking and source maps
 
 The compiler retains authored source ranges and lowers component AST nodes to
-calls to collision-free typed static factories appended to the same script.
+calls to collision-free typed static factories in an appended compiler-owned class.
 Factories construct Estragon objects directly; no interpreter, closure-capture
 rewriter or regex source replacement is used. Helpers follow authored indentation.
 Their typed return permits ordinary `var box := <VBox/>` inference. Generated
