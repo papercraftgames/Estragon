@@ -188,8 +188,15 @@ This is the sequential delivery order, not a request to implement everything in 
 
 - Audit GDScript syntax, plugin lifecycle, all compiler/emitter/validation methods, editor APIs, generated resource/UID/scene formats, and runtime component/graphics APIs using **Godot 4.0 as the minimum**. Known gaps: `ScriptEditor.save_all_scripts()`, `get_unsaved_files()` and `Resource.set_path_cache()` are documented in 4.7 but not 4.0; the E01 4.7 editor association adapter reaches undocumented UI internals; `project.godot` advertises a 4.7 feature.
 - Implement public-API 4.0-compatible paths where possible; version-gate any unavoidable private adapter with real-engine proof. Never compromise source freshness, F5/F6 fail-closed behavior, generated-script/class identity, startup/restart highlighting, component lifecycle or user configuration.
-- Run native Gogo + editor + runtime tests on actual latest patches of Godot 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6 and 4.7. Maintain an automated multi-version matrix when feasible; report GUI/manual checks separately. Verify fresh install with only Godot/addon, no Bun/Node.
+- **Owner verification cap (2026-11-02): run only official Godot 4.0.4 and pinned 4.7.0**, both locally and in CI; this replaces every-minor testing requirements for C01-H, T09 and later work. Never require complete/nine-version local, agent, CI or release suites. Run focused tests during edits and one relevant two-version verification before review. Preserve archived nine-version evidence and actual failure statuses without reruns; only tested engines can be claimed as freshly verified. Verify fresh install with only Godot/addon, no Bun/Node.
 - E01 PR #40 merged with its narrow measured scope; remaining compatibility evidence is a shipping gate for T09/Estragon releases; do not silently raise the minimum engine. Keep C01 as separate scoped work as needed, with issue/PR and durable handoff.
+
+**Verification-budget precedence:** The [owner's 2026-11-02 decision](DECISIONS.md)
+supersedes any earlier C01 issue, historical evidence report, test recipe or
+PR acceptance text demanding all eight/nine minor versions. Maintain only
+**4.0.4 + 4.7.0** as selected engines; do not run others locally or in CI.
+C01-H still owns the distribution/graphics/release work and must not falsely
+claim proof for untested versions. Keep stage-level evidence truthful.
 
 ### C01-A — Compatibility audit and reusable test matrix
 
