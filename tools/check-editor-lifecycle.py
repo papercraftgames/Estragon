@@ -102,6 +102,8 @@ def main():
     # Owner budget: never run more than two Godot versions locally or in CI.
     if len(args.engine) > 2:
         parser.error("Maximum two Godot engines per run (routine: 4.0.4 and 4.7.0)")
+    if any(value.split("=", 1)[0] not in {"4.0.4", "4.7"} for value in args.engine):
+        parser.error("Only the approved Godot 4.0.4 and pinned 4.7.0 are allowed")
     labels = [item.split("=", 1)[0] for item in args.engine]
     if len(labels) != len(set(labels)) or any(not label or "/" in label or "\\" in label or label in [".", ".."] for label in labels):
         parser.error("engine labels must be unique plain directory names")
