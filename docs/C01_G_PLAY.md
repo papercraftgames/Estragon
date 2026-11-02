@@ -49,7 +49,7 @@ saved source; this is not incremental compilation or live game hot reload.
 ## Reproduction and verification
 
 ```sh
-python3 tools/check-editor-play.py \
+node --experimental-strip-types tools/check-editor-play.ts \
   --engine 4.0.4=/absolute/path/to/official/godot \
   --engine 4.7=/absolute/path/to/pinned/godot \
   --output /tmp/estragon-play-new
@@ -78,7 +78,7 @@ not claim a native New File dialog creates that exact intermediate state.
 The runner rejects missing completion markers, assertion failures, unexpected
 engine errors and timeouts. Only the specified native negative-test diagnostics
 and build-callback rejection are allowed; mapped diagnostics are limited to the
-Counter fixture. Python tests explicitly verify rejection of unrelated failures.
+Counter fixture. TypeScript tests verify rejection of unrelated failures.
 The full compatibility collector remains separate: a successful `--collect-only`
 exit does not certify any failing/unavailable stage.
 
@@ -132,14 +132,14 @@ bun install --frozen-lockfile
 bun run check
 GODOT_BIN=/absolute/isolated/godot bun run check:godot
 bun run test:godot-harness
-python3 -m unittest discover -s tests/compatibility
+node --experimental-strip-types --test tests/compatibility/runner.test.ts
 GODOT_BIN=/absolute/isolated/godot sh tools/check-editor.sh
 ESTRAGON_EDITOR_NATIVE=1 ESTRAGON_KEEP_EDITOR_TEST=1 \
   GODOT_BIN=/absolute/isolated/godot sh tools/check-editor.sh
 ```
 
 Results: native frontend 103 cases/558 assertions; generation 3632 assertions;
-native semantics 149 assertions; 180 reference tests/663 expectations; 20 Python
+native semantics 149 assertions; 180 reference tests/663 expectations; 20 historical collector
 tests; runtime positive/negative checks and intentional failure/timeout probes
 PASS. Headless and graphical native editor/Play/transaction/restart suites print
 `ESTRAGON_EDITOR_OK`; graphics captures were inspected. CI separately requires

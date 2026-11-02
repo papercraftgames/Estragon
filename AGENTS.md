@@ -65,6 +65,23 @@ Do not modify the accepted architecture or silently reduce Gogo's language featu
 - **Prove on the two approved engines only:** official Godot **4.0.4** (oldest supported) and pinned **4.7.0** (current baseline). Never schedule all-minor/nine-engine local or CI matrices. Keep native negative diagnostics and no-Bun workflow; manual graphics evidence stays separate. Audit feature declarations and generated formats against the 4.0 minimum.
 - E01 [PR #40](https://github.com/resistdesign/Estragon/pull/40) has isolated highlighter evidence on 4.0–4.7 but full-addon older-version acceptance is blocked (see `docs/E01_COMPATIBILITY.md`); see #41 before claiming its behavior across 4.0+. Preserve ADR-0013 Gogo-only lowercase `@bindable` while designing T09 against the 4.0 baseline. **Do not auto-merge or silently downgrade support claims.**
 
+## Non-negotiable toolchain: native Godot/Gogo + TypeScript ONLY (2026-11-02)
+
+**Never add Python to Estragon, anywhere.** Production framework,
+compiler, runtime and editor integration are native **GDScript and Gogo**.
+Contributor scripts, test orchestration, evidence collectors, report
+formatters and CI logic must be **TypeScript**. No Python source files,
+Python test suites, Python inline shell snippets, Python setup actions,
+or Python runtime dependencies. Keep native Godot fixture/tests in GDScript.
+Small shell entrypoints may invoke engine or TypeScript tools, but must not
+hide a Python fallback. Prefer existing TypeScript tooling; do not
+introduce a new scripting language for convenience.
+
+The owner explicitly rejected Python on 2026-11-02. If old research
+docs describe historical Python evidence, preserve their facts but
+**use only the TypeScript replacements** for current work. No Codex
+session may reintroduce it, regardless of what an older issue says.
+
 ## Owner test and CI budget — strict two-version cap (2026-11-02)
 
 **Applies everywhere:** Codex/local development, pre-PR verification, CI,

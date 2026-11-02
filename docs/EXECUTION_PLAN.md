@@ -200,7 +200,7 @@ claim proof for untested versions. Keep stage-level evidence truthful.
 
 ### C01-A — Compatibility audit and reusable test matrix
 
-**Tracking:** [#42](https://github.com/resistdesign/Estragon/issues/42). **Predecessor:** E01 PR #40 merged `41b43b4`. **Scope:** audit, isolated test infrastructure and planning; no addon compatibility rewrite. [Measured report](C01_COMPATIBILITY.md), `tests/compatibility/{engines,results}.json`, selectable `tools/check-compatibility.py`, and informational macOS CI provide durable evidence. Actual latest patches 4.0–4.7 are tested, plus the required 4.7.0 regression pin.
+**Tracking:** [#42](https://github.com/resistdesign/Estragon/issues/42). **Predecessor:** E01 PR #40 merged `41b43b4`. **Scope:** audit, isolated test infrastructure and planning; no addon compatibility rewrite. [Measured report](C01_COMPATIBILITY.md), `tests/compatibility/{engines,results}.json`, selectable `tools/check-compatibility.ts`, and informational macOS CI provide durable evidence. Actual latest patches 4.0–4.7 are tested, plus the required 4.7.0 regression pin.
 
 - Native frontend/emission/maps pass on all tested minors; downstream generated validity, runtime, semantic identity and editor startup are independent stages with honest FAIL/BLOCKED/UNTESTED results.
 - Test clean product import before adding test fixtures, all 33 shipped scripts, existing runtime/compiler suites and actual isolated editor behavior with empty tool PATH. Existing required 4.7 Linux suites remain intact; graphics/manual/platform evidence is separate.

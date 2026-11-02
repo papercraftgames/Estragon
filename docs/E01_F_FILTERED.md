@@ -17,7 +17,7 @@ requirement remains in force pending explicit owner disposition.
 ```sh
 GODOT_BIN=/absolute/official/godot ESTRAGON_KEEP_COMPAT_TEST=1 \
   sh tools/check-highlighting-compat.sh
-python3 tools/check-filtered-highlighting.py \
+node --experimental-strip-types tools/check-filtered-highlighting.ts \
   --engine 4.7=/absolute/official/godot --output /tmp/e01-f-strict
 ```
 
@@ -30,7 +30,7 @@ repeatable; use all nine entries in `tests/compatibility/engines.json`.
 Both harnesses copy official binaries into self-contained temporary directories,
 ad-hoc sign only the copies on macOS and use an empty executable PATH. The new
 probe additionally verifies native version and input binary SHA-256 against the
-manifest. It changes only its own isolated settings/project. Python orchestrates
+manifest. It changes only its own isolated settings/project. TypeScript orchestrates
 contributor tests; the addon acquires no external dependency.
 
 The focused driver opens byte-identical Counter.gogo, Background.gogo and

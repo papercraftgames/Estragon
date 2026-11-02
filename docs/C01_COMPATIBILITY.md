@@ -36,12 +36,12 @@ untested minors cannot be newly certified.
 
 ## Reproduction and evidence
 
-Use Python 3.9+ as optional contributor orchestration, the standard system shell,
+Use Node 22+ with TypeScript contributor orchestration, the standard system shell,
 and official Godot editor executables. The addon still uses only Godot.
 
 ```sh
-python3 -m unittest discover -s tests/compatibility -p 'test_*.py'
-python3 tools/check-compatibility.py \
+node --experimental-strip-types --test tests/compatibility/runner.test.ts
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/path/to/official/godot-4.0.4 \
   --engine 4.7.2=/absolute/path/to/official/godot-4.7.2 \
   --output /new/empty/result-directory --editor
@@ -224,7 +224,7 @@ is distinct from compatibility green.
 To regenerate the committed compact snapshot after a complete multi-engine run:
 
 ```sh
-python3 tools/summarize-compatibility.py \
+node --experimental-strip-types tools/summarize-compatibility.ts \
   --report /first-run/results.json --report /second-run/results.json \
   --output tests/compatibility/results.json
 ```

@@ -55,9 +55,9 @@ not speculative language extensions.
 
 ## Reproducible capability experiment
 
-The existing `tools/check-compatibility.py` collector runs
+The existing `tools/check-compatibility.ts` collector runs
 `tests/compatibility/callback_metadata.gd` in an isolated minimal project, with
-external tools absent from Godot PATH. `tools/callback_metadata_evidence.py`
+external tools absent from Godot PATH. `tools/compat-evidence.ts`
 requires all **21** observations, completion and exact expected engine diagnostics.
 No application callback runs during inspection. A transient test signal is
 connected/disconnected without emission to test the native connection validator.
@@ -70,7 +70,7 @@ on 4.3+; no unsupported query is compiled on older engines. Existing production
 signal/lifecycle tests run separately and remain the behavioral authority.
 
 ```sh
-python3 tools/check-compatibility.py \
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/official/godot-4.0.4 \
   --engine 4.7.2=/absolute/official/godot-4.7.2 \
   --output /new/c01-c-evidence --editor --collect-only

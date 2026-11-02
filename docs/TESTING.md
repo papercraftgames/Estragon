@@ -5,7 +5,7 @@
 **Applies everywhere: local work, Codex, CI, PRs and release testing.**
 Use only **Godot 4.0.4** (oldest supported) and the pinned **Godot 4.7.0**.
 No other 4.x versions and no eight/nine-engine sweep, including locally.
-Python runners refuse more than two engine arguments. Use focused tests
+TypeScript runners reject unapproved engine selections before launching Godot. Use focused tests
 during editing and, where appropriate, run the affected one or both engines
 once for review. The owner alone can authorize swapping one version;
 never add a third.
@@ -547,7 +547,7 @@ See [exact 4.0–4.7 versions, checksums, results and limits](E01_COMPATIBILITY.
 
 ### E01-F accepted exception and honest regression reporting
 
-[Owner approval](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and [nine-engine evidence](E01_F_FILTERED.md) define a narrow exception. Fresh filtered never-associated Gogo highlighting still **FAILS on all nine engines**; restoring a hidden Plain Text tab also fails through 4.6.3. The focused `tools/check-filtered-highlighting.py` defaults to a strict nonzero result for these failures, while `--collect-only` preserves them in evidence. All 18 editor phases and 540 preservation/recovery assertions PASS separately.
+[Owner approval](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and [nine-engine evidence](E01_F_FILTERED.md) define a narrow exception. Fresh filtered never-associated Gogo highlighting still **FAILS on all nine engines**; restoring a hidden Plain Text tab also fails through 4.6.3. The focused `tools/check-filtered-highlighting.ts` defaults to a strict nonzero result for these failures, while `--collect-only` preserves them in evidence. All 18 editor phases and 540 preservation/recovery assertions PASS separately.
 
 The accepted behavior is to leave an unidentifiable hidden tab untouched until **revealed and activated**, when automatic highlighting must work. Previously-associated filtered tabs retain colors. **C01-H must classify this case as an explicit owner-accepted release-scope exception, not convert observed FAIL to PASS**; all other highlighter/editor/Play/graphics and platform verification stays required. No manual keyboard tests are required.
 
@@ -558,14 +558,14 @@ source-located failures, stage meanings and follow-up ordering. The E01 fixture
 above is historical focused evidence, not the full audit.
 
 ```sh
-python3 -m unittest discover -s tests/compatibility -p 'test_*.py'
-python3 tools/check-compatibility.py \
+node --experimental-strip-types --test tests/compatibility/runner.test.ts
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/official/godot-4.0.4 \
   --engine 4.7=/absolute/official/godot-4.7.0 \
   --output /new/result-directory --editor --collect-only
 ```
 
-Python 3.9+ is contributor orchestration only; actual Godot processes have empty
+Node 22+ runs TypeScript contributor orchestration only; actual Godot processes have empty
 PATH and isolated self-contained settings/projects. No Bun/Node is used. Supply
 verified executables matching `tests/compatibility/engines.json`; macOS hashes refer to
 verified pre-signing bytes; only the copied test binary is signed. Use only
@@ -595,7 +595,7 @@ version fallback. Physical F5/F6, other-platform older engines, export and older
 GPU pixels remain separately UNTESTED. Preserve #44's explicit filtered-tab FAIL.
 
 For a compact committed snapshot, pass the complete nonoverlapping raw reports
-to `python3 tools/summarize-compatibility.py --report /run/results.json --output
+to `node --experimental-strip-types tools/summarize-compatibility.ts --report /run/results.json --output
 tests/compatibility/results.json` (repeat `--report` for split runs). It accepts one or two selected versions for new snapshots, preserving every
 stage and per-file parse outcome,
 and fingerprints the raw reports/logs. CI artifacts retain the full commands and
@@ -649,14 +649,14 @@ its semantic suite checks real component properties. Collector unit tests detect
 missing records, corrupted oracles, false PASS claims and extra emission loss.
 
 To preserve numeric details in a committed new two-engine snapshot, use
-`python3 tools/summarize-compatibility.py --report /run/results.json --output
+`node --experimental-strip-types tools/summarize-compatibility.ts --report /run/results.json --output
  tests/compatibility/c01-d-results.json --scope "C01-D native numeric semantics;
  not full-addon certification"` (repeat `--report` for split runs). Only the selected one or two engines are required for new reports; older
 nine-engine evidence remains intact. Stages and logs remain accurately hashed.
 
 ## C01-E isolated path/cache research
 
-`python3 tools/check-script-context.py --engine label=/absolute/official/godot
+`node --experimental-strip-types tools/check-script-context.ts --engine label=/absolute/official/godot
 --output /new/results` runs independent native projects with verified engine
 provenance and isolated settings. Repeat `--engine` to select multiple pinned
 versions. See [C01_E_VALIDATION.md](C01_E_VALIDATION.md) for strategies and exact
@@ -691,7 +691,7 @@ All engine errors still fail import; index completion is not addon certification
 ### C01-F native editor lifecycle
 
 ```sh
-python3 tools/check-editor-lifecycle.py \
+node --experimental-strip-types tools/check-editor-lifecycle.ts \
   --engine 4.0.4=/absolute/path/to/official/godot \
   --output /tmp/estragon-lifecycle-new
 ```
@@ -709,7 +709,7 @@ The unchanged 4.7 editor/Play suite remains a separate regression gate.
 ## C01-G real unsaved-buffer Play
 
 ```sh
-python3 tools/check-editor-play.py \
+node --experimental-strip-types tools/check-editor-play.ts \
   --engine 4.0.4=/absolute/official/godot \
   --output /tmp/estragon-play-new
 ```

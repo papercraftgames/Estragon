@@ -53,7 +53,7 @@ transactional validation, rollback, source freshness and cached Script identity.
 ## Reproduce
 
 ```sh
-python3 tools/check-editor-lifecycle.py \
+node --experimental-strip-types tools/check-editor-lifecycle.ts \
   --engine 4.0.4=/absolute/path/to/official/godot \
   --engine 4.7=/absolute/path/to/pinned/godot \
   --output /tmp/estragon-c01-f-new
@@ -63,7 +63,7 @@ Use all nine versions in `tests/compatibility/engines.json`, including pinned
 4.7.0 and latest tested 4.7.2. The harness verifies exact native versions and
 pristine macOS executable hashes before signing only its temporary copies.
 Isolated projects/settings and an empty executable PATH prove no external
-compiler is used. Python is contributor orchestration, not an addon dependency.
+compiler is used. TypeScript is contributor orchestration; the addon itself needs only Godot.
 Every required stage must PASS and unexpected native errors fail the command.
 
 Two actual editor processes test cold build and restart. The scene fixture
@@ -145,14 +145,14 @@ GODOT_BIN=/absolute/isolated/godot bun run check:godot
 bun run test:godot-harness
 bun install --frozen-lockfile
 bun run check
-python3 -m unittest discover -s tests/compatibility
+node --experimental-strip-types --test tests/compatibility/runner.test.ts
 GODOT_BIN=/absolute/isolated/godot sh tools/check-editor.sh
 ESTRAGON_EDITOR_NATIVE=1 ESTRAGON_KEEP_EDITOR_TEST=1 \
   GODOT_BIN=/absolute/isolated/godot sh tools/check-editor.sh
 ```
 
 Results: frontend 103 cases/558 assertions; generation 3632 assertions; native
-semantics 149 assertions; 180 reference tests/663 expectations; 18 Python
+semantics 149 assertions; 180 reference tests/663 expectations; 18 historical collector
 collector tests; runtime positive/negative checks and deliberate harness
 failure-detection cases PASS. Both headless and native graphical editor suites
 print `ESTRAGON_EDITOR_OK`, including actual buffer saves, F5/F6 negative/recovery,
