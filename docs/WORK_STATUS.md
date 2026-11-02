@@ -4,15 +4,22 @@
 
 **Milestone:** interactive Gogo/GDScript `Counter.gogo` compiled to GDScript, built from independent Estragon components, running and resizing in Godot 4.7. See [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
-**Start here:** **C01-H #51 gate/distribution slice is in review; overall release
-remains BLOCKED.** Read [the release report](C01_H_RELEASE.md), live
-[issue #51](https://github.com/resistdesign/Estragon/issues/51) and its linked PR
-for current status/handoff. PR #64 merged at `e837557`; #44 is closed not planned
-under the narrow owner-approved hidden-tab exception. Historical observed FAILs
-remain separate from that disposition. Review the current single PR rather than
-starting a competing implementation; never merge automatically. #61, #65,
-cold scene restoration and standalone-export/platform disposition remain release
-dependencies. T09 is queued. Check live main/open PRs before continuation.
+**Start here:** [C01-H PR #66](https://github.com/resistdesign/Estragon/pull/66)
+**merged** on 2026-11-02 UTC at `ecee892`. The strict release and
+fresh-distribution infrastructure is now on `main`: ordinary development CI
+passes on the **only approved engines, 4.0.4 and pinned 4.7.0**, while strict
+release certification remains **BLOCKED** by independently documented
+requirements. Read [C01-H evidence](C01_H_RELEASE.md), live
+[issue #51](https://github.com/resistdesign/Estragon/issues/51) and its
+final handoff. **Next Ready: [#61](https://github.com/resistdesign/Estragon/issues/61)**,
+generated static-helper lambda invocation compatibility. Read `AGENTS.md`
+first and all of #61 before coding; check current `main`, the full open-PR
+list and any resumable worktree. At this checkpoint **zero PRs are open**.
+After #61, address cold 4.0.4 missing-generated scene restoration, #65
+resource-pack export cleanup, and standalone-executable export/platform
+disposition separately. The original filtered-tab owner exception remains
+measured FAIL, not a fabricated PASS. T09 stays queued; **no Python and no
+full historical nine-engine reruns**.
 
 **Owner verification policy (2026-11-02):** The only routine Godot
 versions for local/Codex, CI, PR and release tests are **4.0.4** and
@@ -51,7 +58,8 @@ Previously published nine-engine results stay archived, not rerun.
 | **C01-F** | **Done (merged PR #62, `95efa45`)** | Native editor startup and plugin lifecycle | [#49](https://github.com/resistdesign/Estragon/issues/49) | [Nine-engine lifecycle evidence](C01_F_EDITOR.md): 36/36 required stages PASS, clean editor startup/refresh/restart, real saved-source builds. Older unsaved Play remains C01-G. |
 | **C01-G** | **Done (merged PR #63, `110c9b7`)** | Unsaved/unsavable Gogo F5/F6 fail-closed Play and recovery | [#50](https://github.com/resistdesign/Estragon/issues/50) | [Nine-engine Play evidence](C01_G_PLAY.md): 18/18 Play phases, 864 assertions, 36/36 lifecycle stages and 20/20 final CI checks PASS. |
 | **E01-F** | **Disposition complete (closed not planned; merged PR #64)** | Owner-approved exception: unknown hidden never-associated Gogo tab defers highlighting until revealed and activated | [#44](https://github.com/resistdesign/Estragon/issues/44), [PR #64](https://github.com/resistdesign/Estragon/pull/64) | [Archived negative evidence](E01_F_FILTERED.md); **not a hidden-tab fix or PASS**. `e837557` also ships the Python-free TypeScript tooling and reduced two-version CI. |
-| **C01-H** | **In review; release BLOCKED** | Distribution and strict release gate; [current evidence](C01_H_RELEASE.md), #61/#65/cold-scene/export dispositions outstanding | [#51](https://github.com/resistdesign/Estragon/issues/51) | Review the focused gate/distribution slice via live #51; do not mark release-ready until remaining requirements have owner-reviewed resolutions. Enforce the owner's **only 4.0.4 + 4.7.0** tests, no Python, and separately report other release blockers. |
+| **C01-H** | **Gate slice merged PR #66; release BLOCKED** | Strict release gate, scoped development CI, distribution and evidence landed; #61/cold-scene/#65/export still prevent certification | [#51](https://github.com/resistdesign/Estragon/issues/51), [PR #66](https://github.com/resistdesign/Estragon/pull/66) | [Actual release report](C01_H_RELEASE.md); development PASS does not authorize publishing. C01-H overall release acceptance remains incomplete. |
+| **C01 static-helper lambda** | **Ready** | Fix generated static helper calls inside lambdas on 4.0.4 while preserving native typing and source-map correctness | [#61](https://github.com/resistdesign/Estragon/issues/61) | Full cold-start handoff, historical native repro and scoped two-version acceptance are in #61. Next review PR unclaimed; no Python. |
 | R02 | Deferred | Renderer-backend research | [#2](https://github.com/resistdesign/Estragon/issues/2) | Pending |
 
 **Statuses:** `Queued` = waiting on planned predecessor(s); `Ready` = actionable and unclaimed; `Active` = owned issue + branch with work underway; `Blocked` = evidence and decision/unblock step required; `In review` = PR open and awaiting approval/checks; `Done` = verified, approved and merged; `Deferred` = explicitly outside the current milestone. Never mark `Done` on an unmerged branch. A research task may complete with a well-evidenced negative feasibility finding.
@@ -66,7 +74,7 @@ Previously published nine-engine results stay archived, not rerun.
 - Future work belongs in issues while the current PR is active. A blocked PR
   needs documented evidence and an owner decision, not another PR. No automatic
   merges. Every task has a durable issue, checkpoints, verification and handoff.
-- Queue: C01-G #50/#63 merged → E01-F #44 accepted/closed and PR #64 merged → **C01-H #51 in review / release blocked** → T09-A #43 →
+- Queue: C01-H gate PR #66 merged / release BLOCKED → **#61 Ready** → cold 4.0.4 scene restore → #65 export cleanup → standalone-export disposition → C01-H release acceptance → T09-A #43 →
   T09-B/C/D #5. #40 merged. Check live issues before advancing.
 
 - **One work ID per focused implementation PR.** A planning/ADR/process-only PR may be unassigned if it is explicitly labeled as such and includes no implementation work. The task issue is the durable conversation: scope, current owner/session or branch, plan/checklist, evidence, blockers, handoffs and linked PR.
