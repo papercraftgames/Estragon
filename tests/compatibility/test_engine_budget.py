@@ -32,5 +32,18 @@ class TwoEngineLimitTests(unittest.TestCase):
                 self.assertFalse(output.exists())
 
 
+    def test_nonapproved_engine_is_rejected_even_when_only_one_is_requested(self):
+        for runner in RUNNERS:
+            with self.subTest(runner=runner), tempfile.TemporaryDirectory() as temp:
+                output = Path(temp) / "not-created"
+                command = [sys.executable, str(ROOT / "tools" / runner),
+                           "--engine", "4.4.1=/not/a/godot",
+                           "--output", str(output)]
+                process = subprocess.run(command, capture_output=True, text=True, timeout=10)
+                self.assertNotEqual(process.returncode, 0)
+                self.assertIn("Only the approved Godot", process.stderr)
+                self.assertFalse(output.exists())
+
+
 if __name__ == "__main__":
     unittest.main()
