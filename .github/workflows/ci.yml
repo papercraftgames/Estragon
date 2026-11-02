@@ -2,7 +2,12 @@ name: Compiler and Godot checks
 
 on:
   push:
+    branches: [main]
   pull_request:
+
+concurrency:
+  group: core-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   gogo-compiler:
