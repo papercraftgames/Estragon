@@ -1,5 +1,12 @@
 # C01-G native unsaved-buffer Play
 
+**Current testing policy (2026-11-02): This is archived nine-engine
+evidence, not instructions to rerun the matrix.** For all new local,
+Codex and CI work use **only 4.0.4 and pinned 4.7.0**. Earlier
+"run all nine" directions below are superseded by
+[AGENTS.md](../AGENTS.md) and [TESTING.md](TESTING.md); original results
+and failures remain historical facts.
+
 C01-G [#50](https://github.com/resistdesign/Estragon/issues/50) is active in
 [PR #63](https://github.com/resistdesign/Estragon/pull/63), from main `393e91c`
 after merged C01-F #62. Godot 4.0+ remains mandatory. This delivery addresses
