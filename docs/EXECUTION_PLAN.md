@@ -243,15 +243,15 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. **E01-F #44 is next Ready**, followed by C01-H #51 after #44 resolution or owner disposition. T09 and later milestones remain queued.
+C01-F #62 and C01-G #63 are merged. **E01-F #44 has owner-approved accepted limitation** ([decision](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818)); its focused evidence/decision PR must merge before **C01-H #51** starts. T09 and later work remain queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
-**Tracking:** [issue #37](https://github.com/resistdesign/Estragon/issues/37). **Prerequisite:** N03 merged. **State:** narrow fix merged in PR #40; remaining filtered-tab acceptance is #44, and older full-addon support remains C01. Do not mix E01 into T09.
+**Tracking:** [issue #37](https://github.com/resistdesign/Estragon/issues/37), focused [#44](https://github.com/resistdesign/Estragon/issues/44). **State:** normal fix merged PR #40; owner accepted a precisely bounded hidden never-associated case on 2026-11-02 ([evidence](E01_F_FILTERED.md)). Full release support remains C01-H #51. Do not mix E01 into T09.
 
 - Reproduce the owner-confirmed restored-tab activation bug; prove automatic selection for new, existing and restored Gogo tabs, disable/re-enable and restart. Preserve unrelated user settings.
 - Extend the real isolated editor tests to inspect actual highlighter attachment/colors without manual selection. PR #40 merged; future #44 delivery follows the one-open-PR rule.
-- [Measured E01 matrix](E01_COMPATIBILITY.md): isolated 4.0–4.7 normal/restart behavior verified; filtered unassociated identity and older full-addon startup remain unmet/blocked. PR #40 merged on 2026-10-29 with these limitations retained. C01-A #42 now records the broader matrix; C01 remains a release gate.
+- [Measured E01 matrix](E01_COMPATIBILITY.md): normal/restart behavior verified across the minors. Older full-addon startup and unsaved Play were fixed in C01-F/G. E01-F still measures fresh hidden/never-associated FAIL on all nine official engines; the owner **approves waiting until reveal and activation** rather than an unsafe private identity workaround. Preserve historical FAIL and a separate accepted-exception classification; normal, revealed/activated and already-associated highlighting remain required. C01-H's other release gates are unchanged.
 
 ### R01 — Research: `@Bindable` in ordinary authored `.gd`
 
@@ -317,5 +317,5 @@ nine-engine editor/child-game evidence. Require actual newest unsaved foreground
 background execution with autosave off, pathless/unsavable/markup/semantic/type
 failure blocking and repair, no-op outputs/maps/UIDs/timestamps and lifecycle
 regressions. C01-H/#44/#61/T09 remained outside merged PR #63.
-No physical/manual keypress gate. Next: E01-F #44. C01-H #51 follows
-#44 resolution or documented owner disposition.
+No physical/manual keypress gate. E01-F #44 has explicit owner disposition;
+C01-H #51 follows its review PR merge.
