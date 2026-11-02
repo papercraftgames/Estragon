@@ -22,6 +22,8 @@ C01-E [semantic/path/identity evidence](C01_E_VALIDATION.md) is merged in #60.
 C01-F [editor startup/lifecycle evidence](C01_F_EDITOR.md) is scoped to #49/#62;
 its separate snapshots preserve this original audit and remaining red stages.
 
+**Later owner disposition (2026-11-02):** [E01-F #44](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) now has a precisely documented exception: an invisible, never-associated `.gogo` tab without reliable TextFile identity may remain Plain Text until **revealed and activated**. [Nine-engine negative results](E01_F_FILTERED.md) are preserved as FAIL, not converted into PASS. After the E01-F evidence/decision PR merges, C01-H #51 can treat only that limited behavior as owner-accepted release scope. No other runtime/editor/distribution/export gate is waived; C01-G's unsaved Play fix is separately merged in PR #63.
+
 ## Reproduction and evidence
 
 Use Python 3.9+ as optional contributor orchestration, the standard system shell,
