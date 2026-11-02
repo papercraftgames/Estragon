@@ -41,11 +41,6 @@ export async function audit(selection: EngineSelection, output: string, editor: 
     for (const name of ["godot", "fixtures"]) {
       copyTree(path.join(ROOT, "tests", name), path.join(project, "tests", name));
     }
-    // native_build.gd is a standalone 4.5+ logger research fixture.
-    // Importing it as an unrelated script breaks 4.0's class-index probe,
-    // even though the shipped addon and the selected native suites are valid.
-    // Keep the source in the repository; exclude it only from this sandbox.
-    fs.rmSync(path.join(project, "tests/godot/native_build.gd"), { force: true });
     // native_semantics.gd reads this oracle during execution. Stage it before
     // generated import and all runtime probes, not after semantic_identity.
     copyFile(path.join(ROOT, "tests/compatibility/numeric_cases.json"),
@@ -94,6 +89,30 @@ export async function audit(selection: EngineSelection, output: string, editor: 
     } else {
       for (const name of ["generated_layout", "hybrid_runtime", "generated_signals",
         "native_counter", "semantic_identity"]) stages[name] = unavailable("Native emission failed");
+    }
+
+    // Actual-path publication/cache checks run in isolated projects, independent
+    // of unrelated hybrid fixture grammar. All modes retain native diagnostics.
+    const publication = path.join(sandbox.workspace, "publication-template");
+    copyTree(path.join(ROOT, "addons/estragon"), path.join(publication, "addons/estragon"));
+    copyFile(path.join(ROOT, "tests/godot/native_publication.gd"), path.join(publication, "tests/godot/native_publication.gd"));
+    copyFile(path.join(ROOT, "tests/compatibility/publication/Registered.gd"), path.join(publication, "ui/generated/Registered.gd"));
+    fs.writeFileSync(path.join(publication, "project.godot"),
+      'config_version=5\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+    stages["publication_import"] = await indexProject(sandbox, publication, logPath("publication_import"));
+    for (const mode of ["registered", "positive", "rollback", "fresh_failure"]) {
+      const candidate = path.join(sandbox.workspace, "publication-" + mode);
+      fs.cpSync(publication, candidate, { recursive: true });
+      const name = "native_publication_" + mode;
+      const expected = mode === "rollback" || mode === "fresh_failure";
+      stages[name] = await runCommand([sandbox.binary, "--headless", "--path", candidate,
+        "--script", "res://tests/godot/native_publication.gd", "--", mode],
+        sandbox.workspace, sandbox.env, logPath(name), "ESTRAGON_NATIVE_PUBLICATION_OK", { expectedErrors: expected });
+      if (expected) {
+        const errors = diagnosticLines(fs.readFileSync(logPath(name), "utf8"));
+        const expectedText = mode === "rollback" ? 'return type is "int"' : "missing_publication_value";
+        if (errors.length !== 1 || !errors[0]?.includes(expectedText)) stages[name]!.status = "FAIL";
+      }
     }
 
     // Independent exact numeric oracle, checked against real native Godot.
@@ -148,8 +167,8 @@ export async function audit(selection: EngineSelection, output: string, editor: 
     // and known accepted/unsupported capability probes in routine CI.
     stages["filtered_highlighting"] = unavailable(
       "Owner-accepted invisible never-associated tab limitation (#44)", "FAIL");
-    stages["graphics_physical_keys"] = unavailable(
-      "Headless runner cannot certify pixels; manual physical keyboard testing is not required", "UNTESTED");
+    stages["native_graphics"] = unavailable(
+      "Headless runner cannot certify pixels; native capture is separate", "UNTESTED");
     if (editor) {
       // Editor startup and both Play modes are verified by dedicated native
       // lifecycle/Play runners in CI, without invoking an additional full sweep.

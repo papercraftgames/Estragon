@@ -29,6 +29,7 @@ cp "$root/examples/counter/Counter.gogo" "$project/examples/counter/Counter.gogo
 printf '# Unrelated Markdown\n' > "$project/examples/counter/Notes.md"
 cp "$root/tests/editor/game_proof.txt" "$root/tests/editor/highlighter_tests.gd" "$root/tests/editor/seed_plain.gd" "$project/tests/editor/"
 cp "$root/tests/godot/native_build.gd" "$project/tests/godot/"
+cp "$root/tests/godot/semantic_capture.gd.txt" "$project/tests/godot/"
 cp "$root/tests/editor/driver.gd" "$project/tests/editor/driver/driver.gd"
 printf '[plugin]\nname="Isolated test driver"\ndescription="Test only"\nauthor="Estragon"\nversion="1"\nscript="driver.gd"\n' > "$project/tests/editor/driver/plugin.cfg"
 cat > "$project/project.godot" <<'PROJECT'
@@ -36,7 +37,7 @@ config_version=5
 [application]
 config/name="Native Estragon isolated proof"
 run/main_scene="res://examples/counter/Counter.tscn"
-config/features=PackedStringArray("4.7", "GL Compatibility")
+config/features=PackedStringArray("4.0", "GL Compatibility")
 [display]
 window/size/viewport_width=640
 window/size/viewport_height=360

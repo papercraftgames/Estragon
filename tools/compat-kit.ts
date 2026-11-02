@@ -17,17 +17,18 @@ export type Stage = { status: Outcome; reason?: string; command?: string[]; exit
   timeout?: boolean; aborted_on_error?: boolean; seconds?: number; log?: string;
   diagnostics?: string[]; evidence?: unknown; [key: string]: unknown };
 export type EngineSelection = { label: "4.0.4" | "4.7"; binary: string };
-export type CliArgs = { engines: EngineSelection[]; output: string; editor: boolean; collectOnly: boolean };
+export type CliArgs = { engines: EngineSelection[]; output: string; editor: boolean; graphics: boolean; collectOnly: boolean };
 export type Sandbox = { workspace: string; binary: string; env: NodeJS.ProcessEnv; version: string;
   known: Record<string, unknown>; inputHash: string; project: string; dispose: () => void };
 export type EngineRecord = { label: string; version?: string; input_binary_sha256?: string;
   provenance?: unknown; stages: Record<string, Stage>; [key: string]: unknown };
 
 export function fail(message: string): never { throw new Error(message); }
-export function parseCLI(argv: string[], options: { editor?: boolean; collectOnly?: boolean } = {}): CliArgs {
+export function parseCLI(argv: string[], options: { editor?: boolean; graphics?: boolean; collectOnly?: boolean } = {}): CliArgs {
   const engines: EngineSelection[] = [];
   let output = "";
   let editor = false;
+  let graphics = false;
   let collectOnly = false;
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i]!;
@@ -44,6 +45,8 @@ export function parseCLI(argv: string[], options: { editor?: boolean; collectOnl
       output = argv[++i] || "";
     } else if (arg === "--editor" && options.editor) {
       editor = true;
+    } else if (arg === "--graphics" && options.graphics) {
+      graphics = true;
     } else if (arg === "--collect-only" && options.collectOnly) {
       collectOnly = true;
     } else {
@@ -55,7 +58,7 @@ export function parseCLI(argv: string[], options: { editor?: boolean; collectOnl
   }
   if (!output || !path.isAbsolute(output)) fail("--output must be a new absolute directory");
   if (fs.existsSync(output)) fail("Output directory must be new: " + output);
-  return { engines, output, editor, collectOnly };
+  return { engines, output, editor, graphics, collectOnly };
 }
 
 export function sha256(file: string): string {
@@ -192,7 +195,7 @@ export function freshProject(sandbox: Sandbox, includeExamples = false): void {
   copyFile(path.join(ROOT, "project.godot"), path.join(sandbox.project, "project.godot"));
   copyFile(path.join(ROOT, "gogo.config.json"), path.join(sandbox.project, "gogo.config.json"));
 }
-export async function indexProject(sandbox: Sandbox, project: string, log: string): Promise<Stage> {
+export async function indexProject(sandbox: Sandbox, project: string, log: string, editorArgs: string[] = []): Promise<Stage> {
   // Godot 4.0/4.1 do not support --import. Use the existing native index observer.
   const configPath = path.join(project, "project.godot");
   const original = fs.readFileSync(configPath);
@@ -222,7 +225,7 @@ export async function indexProject(sandbox: Sandbox, project: string, log: strin
     const plugins = (enabled ? enabled + ", " : "") + '"res://tests/c01_index/plugin.cfg"';
     fs.writeFileSync(configPath, Buffer.concat([original,
       Buffer.from("\n[editor_plugins]\nenabled=PackedStringArray(" + plugins + ")\n")]));
-    const stage = await runCommand([sandbox.binary, "--headless", "--path", project, "--editor"],
+    const stage = await runCommand([sandbox.binary, "--headless", "--path", project, "--editor", ...editorArgs],
       sandbox.workspace, sandbox.env, log, "C01_PROJECT_INDEX_READY", { timeout: 90000 });
     const registry = path.join(driver, "classes.json");
     if (!fs.existsSync(registry)) return { ...stage, status: "FAIL", reason: "Missing indexed class registry" };
