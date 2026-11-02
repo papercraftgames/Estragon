@@ -1,6 +1,63 @@
 @tool
-extends "res://addons/probe/base.gd"
+extends EditorPlugin
 ## Research only: preserve FAIL when hidden association is unavailable.
+
+const Highlighter = preload("res://addons/estragon/editor/highlighter.gd")
+const Association = preload("res://addons/estragon/editor/highlighter_association.gd")
+var interface: EditorInterface
+var scripts: ScriptEditor
+var association: RefCounted
+var factory: EditorSyntaxHighlighter
+var failed: bool = false
+var checks: int = 0
+
+
+func check(condition: bool, message: String) -> void:
+	checks += 1
+	print("E01_COMPAT_CHECK ", message, ": ", condition)
+	failed = failed or not condition
+
+func wait() -> void:
+	await get_tree().create_timer(0.5).timeout
+
+func _enable() -> void:
+	factory = Highlighter.new()
+	scripts.register_syntax_highlighter(factory)
+	association = Association.new()
+	association.start(interface)
+
+func _disable() -> void:
+	association.stop()
+	scripts.unregister_syntax_highlighter(factory)
+	association = null
+	factory = null
+
+func _open(path: String) -> CodeEdit:
+	var dock := interface.get_file_system_dock()
+	dock.navigate_to_path(path)
+	await wait()
+	for tree in dock.find_children("*", "Tree", true, false):
+		var selected: TreeItem = tree.get_selected()
+		if selected != null and selected.get_metadata(0) is String and selected.get_metadata(0) == path:
+			tree.item_activated.emit()
+	await wait()
+	var editor := scripts.get_current_editor()
+	return editor.get_base_editor() as CodeEdit if editor != null else null
+
+func _colored(code: CodeEdit, context: String) -> void:
+	check(code != null, context + " editor exists")
+	if code == null: return
+	check(code.syntax_highlighter.get_script() == Highlighter, context + " Gogo attached automatically")
+	var declaration := code.syntax_highlighter.get_line_syntax_highlighting(0)
+	check(declaration.has(0) and declaration[0].color == Highlighter.KEYWORD, context + " declaration color")
+	var tag_found := false
+	for line in range(code.get_line_count()):
+		var column := code.get_line(line).find("<VBox")
+		if column >= 0:
+			var spans := code.syntax_highlighter.get_line_syntax_highlighting(line)
+			tag_found = spans.has(column) and spans[column].color == Highlighter.TAG
+	check(tag_found, context + " markup color")
+
 
 func _enter_tree() -> void:
 	interface = get_editor_interface()
@@ -65,6 +122,7 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	check(a.syntax_highlighter.get_script() == null and b.syntax_highlighter.get_script() == null, "both never-associated Plain Text before enable, including restart")
+	check(not b.has_meta("estragon_gogo_path"), "no earlier association or stale Gogo path metadata")
 	var original_text := b.text
 	var original_version := b.get_version()
 	var other_highlighter := other.syntax_highlighter

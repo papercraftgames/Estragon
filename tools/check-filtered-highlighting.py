@@ -53,7 +53,6 @@ def audit(selection, output):
             shutil.copy2(ROOT / "addons/estragon/editor" / name, editor / name)
         driver = project / "addons/probe"
         driver.mkdir()
-        shutil.copy2(ROOT / "tests/editor/compatibility/driver.gd", driver / "base.gd")
         shutil.copy2(ROOT / "tests/editor/filtered/driver.gd", driver / "driver.gd")
         shutil.copy2(ROOT / "tests/editor/seed_plain.gd", project / "seed.gd")
         sources = project / "examples/counter"
@@ -106,7 +105,7 @@ def main():
         parser.error("engine labels must be unique plain directory names")
     args.output.mkdir(parents=True, exist_ok=False)
     files = [Path(__file__), ROOT / "tools/check-compatibility.py", ROOT / "tests/editor/filtered/driver.gd",
-             ROOT / "tests/editor/compatibility/driver.gd", ROOT / "tests/editor/seed_plain.gd",
+             ROOT / "tests/editor/seed_plain.gd",
              ROOT / "addons/estragon/editor/highlighter.gd", ROOT / "addons/estragon/editor/highlighter_association.gd"]
     result = {"source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
               "source_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True)),
