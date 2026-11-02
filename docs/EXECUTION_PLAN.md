@@ -220,7 +220,8 @@ C01-A PR #52 merged `46bc752`. C01-B #45 now supplies the [focused runtime corre
 | C01-F [#49](https://github.com/resistdesign/Estragon/issues/49) | EditorInterface instance APIs, import lifecycle, actual plugin startup | C01-E |
 | C01-G [#50](https://github.com/resistdesign/Estragon/issues/50) | Unsaved/unsavable buffers, native fail-closed F5/F6 and recovery | C01-F |
 | E01-F [#44](https://github.com/resistdesign/Estragon/issues/44) | True positive filtered never-associated highlighter proof or owner disposition | Compatible editor foundation; coordinate after C01-G |
-| C01-H [#51](https://github.com/resistdesign/Estragon/issues/51) | 4.0 distribution features/resources, full integration/platform/graphics evidence, required matrix gate | C01-G and #44 disposition |
+| C01-H [#51](https://github.com/resistdesign/Estragon/issues/51) | Gate/distribution infrastructure **merged PR #66**, release BLOCKED pending #61, cold scene, #65 and standalone export scope | Infrastructure merged; #61 first |
+| **#61 static lambda-helper** | **Next Ready:** generated static helper invocation within lambdas on approved 4.0.4 + 4.7.0 only | C01-H strict gate merged PR #66 |
 
 Each issue contains measurable acceptance and exact evidence. Preserve semantic diagnostics, callback order, native no-tools workflow and framework-owned runtime. Do not replace unavailable APIs with unchecked no-ops. T09-A #43 remains queued behind blocking compatibility foundations; the lowercase Gogo-only annotation/model/Box/collection/two-way destination is unchanged.
 
@@ -250,7 +251,7 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 gate slice is in review; release remains blocked**. T09 and later work remain queued.
+C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 gate/distribution slice merged as PR #66** (`ecee892`), while strict release remains **BLOCKED**. **Next Ready: #61 generated static-helper lambda compatibility**. After its scoped disposition, separately tackle 4.0.4 cold-scene missing-generated restoration, #65 resource-pack export cleanup and standalone executable export/platform scope. The owner permits only 4.0.4 and pinned 4.7.0, no Python and no all-minor sweeps; T09 remains queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
@@ -304,9 +305,9 @@ rollback/recovery guarantees. See the live #48 decision and DECISIONS amendment.
 C01-E's final nine-engine snapshot verifies native semantics, Counter, actual
 registered/cached publication, dependency/inheritance updates, no-op freshness,
 rollback/recovery and cold Text loading. Keep optional capability observations
-and unrelated red editor/grammar stages separate. #61 is an issue-only generated
-lambda-helper follow-up for C01-H disposition, not authorization to start another
-implementation. C01-F #49 merged in PR #62 at `95efa45`. Its scoped acceptance is
+and unrelated red editor/grammar stages separate. With PR #66 now merged,
+#61 is **Ready** for one narrowly scoped generated static lambda-helper PR,
+subject to its live issue, two-version limit and no-Python policy. C01-F #49 merged in PR #62 at `95efa45`. Its scoped acceptance is
 actual native editor startup, saved-disk builds, filesystem/import recovery,
 coalescing, clean enable/disable/re-enable and restart on every pinned engine.
 See [C01_F_EDITOR.md](C01_F_EDITOR.md) and [C01_G_PLAY.md](C01_G_PLAY.md).
