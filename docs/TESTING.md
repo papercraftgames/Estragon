@@ -527,6 +527,12 @@ Run `GODOT_BIN=/path/to/official/godot ESTRAGON_KEEP_COMPAT_TEST=1 sh tools/chec
 See [exact 4.0–4.7 versions, checksums, results and limits](E01_COMPATIBILITY.md). Existing required compiler/runtime/editor/graphics checks still target 4.7. C01-A #42 owns the broader compatibility inventory/matrix after #40 merges or closes; this E01 fixture does not implement it.
 
 
+### E01-F accepted exception and honest regression reporting
+
+[Owner approval](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and [nine-engine evidence](E01_F_FILTERED.md) define a narrow exception. Fresh filtered never-associated Gogo highlighting still **FAILS on all nine engines**; restoring a hidden Plain Text tab also fails through 4.6.3. The focused `tools/check-filtered-highlighting.py` defaults to a strict nonzero result for these failures, while `--collect-only` preserves them in evidence. All 18 editor phases and 540 preservation/recovery assertions PASS separately.
+
+The accepted behavior is to leave an unidentifiable hidden tab untouched until **revealed and activated**, when automatic highlighting must work. Previously-associated filtered tabs retain colors. **C01-H must classify this case as an explicit owner-accepted release-scope exception, not convert observed FAIL to PASS**; all other highlighter/editor/Play/graphics and platform verification stays required. No manual keyboard tests are required.
+
 ## C01-A reusable compatibility matrix
 
 See [C01_COMPATIBILITY.md](C01_COMPATIBILITY.md) for exact engine provenance,
