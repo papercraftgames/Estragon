@@ -1,0 +1,165 @@
+/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/tmp.URLRdct0mc/godot: replacing existing signature
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (4 steps)
+[   0% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  40% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+E01_ENGINE 4.7-stable (official)
+E01_COMPAT_CHECK Bun/Node absent: true
+E01_COMPAT_CHECK native file opening: true
+E01_COMPAT_CHECK untagged plain tabs before enable: true
+E01_COMPAT_CHECK native script-list filter located: true
+E01_COMPAT_CHECK background path genuinely excluded by filter: true
+E01_COMPAT_CHECK negative probe: hidden unassociated tab is plain: true
+E01_FILTERED_UNASSOCIATED_UNMET
+E01_COMPAT_CHECK already open editor exists: true
+E01_COMPAT_CHECK already open Gogo attached automatically: true
+E01_COMPAT_CHECK already open declaration color: true
+E01_COMPAT_CHECK already open markup color: true
+E01_COMPAT_CHECK background editor exists: true
+E01_COMPAT_CHECK background Gogo attached automatically: true
+E01_COMPAT_CHECK background declaration color: true
+E01_COMPAT_CHECK background markup color: true
+E01_COMPAT_CHECK independent highlighter instances: true
+E01_COMPAT_CHECK Gogo-looking txt unchanged: true
+E01_COMPAT_CHECK new tab editor exists: true
+E01_COMPAT_CHECK new tab Gogo attached automatically: true
+E01_COMPAT_CHECK new tab declaration color: true
+E01_COMPAT_CHECK new tab markup color: true
+E01_COMPAT_CHECK known background while filtered editor exists: true
+E01_COMPAT_CHECK known background while filtered Gogo attached automatically: true
+E01_COMPAT_CHECK known background while filtered declaration color: true
+E01_COMPAT_CHECK known background while filtered markup color: true
+E01_COMPAT_CHECK adapter preserves active filter: true
+E01_COMPAT_CHECK disable detaches: true
+E01_COMPAT_CHECK re-enabled editor exists: true
+E01_COMPAT_CHECK re-enabled Gogo attached automatically: true
+E01_COMPAT_CHECK re-enabled declaration color: true
+E01_COMPAT_CHECK re-enabled markup color: true
+E01_COMPAT_CHECK re-enabled background editor exists: true
+E01_COMPAT_CHECK re-enabled background Gogo attached automatically: true
+E01_COMPAT_CHECK re-enabled background declaration color: true
+E01_COMPAT_CHECK re-enabled background markup color: true
+E01_COMPAT_CHECK re-enable preserves other file: true
+E01_COMPAT_CHECK adapter preserves preferences: true
+E01_COMPAT_RESULT 36 OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ESTRAGON_SEEDED_PLAIN_RESTORE
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[  33% ] loading_editor_layout | Reopening scenes...
+[  50% ] loading_editor_layout | Loading central editor layout...
+[  66% ] loading_editor_layout | Loading plugin window layout...
+[  83% ] loading_editor_layout | Editor layout ready.
+[ DONE ] loading_editor_layout
+
+E01_ENGINE 4.7-stable (official)
+E01_COMPAT_CHECK Bun/Node absent: true
+E01_COMPAT_CHECK restored res://examples/counter/Background.gogo editor exists: true
+E01_COMPAT_CHECK restored res://examples/counter/Background.gogo Gogo attached automatically: true
+E01_COMPAT_CHECK restored res://examples/counter/Background.gogo declaration color: true
+E01_COMPAT_CHECK restored res://examples/counter/Background.gogo markup color: true
+E01_COMPAT_CHECK restored res://examples/counter/Counter.gogo editor exists: true
+E01_COMPAT_CHECK restored res://examples/counter/Counter.gogo Gogo attached automatically: true
+E01_COMPAT_CHECK restored res://examples/counter/Counter.gogo declaration color: true
+E01_COMPAT_CHECK restored res://examples/counter/Counter.gogo markup color: true
+E01_COMPAT_CHECK both persisted plain tabs restored before navigation: true
+E01_COMPAT_RESULT 10 OK
+E01_ISOLATED_HIGHLIGHTING_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (30 steps)
+[   0% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  29% ] update_scripts_classes |
+[  32% ] update_scripts_classes |
+[  35% ] update_scripts_classes |
+[  38% ] update_scripts_classes |
+[  41% ] update_scripts_classes |
+[  45% ] update_scripts_classes |
+[  48% ] update_scripts_classes |
+[  51% ] update_scripts_classes |
+[  54% ] update_scripts_classes | EstragonButton
+[  58% ] update_scripts_classes | EstragonCanvasRenderer
+[  61% ] update_scripts_classes | EstragonContainer
+[  64% ] update_scripts_classes | EstragonDisplayObject
+[  67% ] update_scripts_classes |
+[  70% ] update_scripts_classes | EstragonHBox
+[  74% ] update_scripts_classes | EstragonPaintList
+[  77% ] update_scripts_classes | EstragonPointerDispatcher
+[  80% ] update_scripts_classes | EstragonRect
+[  83% ] update_scripts_classes | EstragonStack
+[  87% ] update_scripts_classes | EstragonSurface
+[  90% ] update_scripts_classes | EstragonText
+[  93% ] update_scripts_classes | EstragonVBox
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[  33% ] loading_editor_layout | Reopening scenes...
+[  50% ] loading_editor_layout | Loading central editor layout...
+[  66% ] loading_editor_layout | Loading plugin window layout...
+[  83% ] loading_editor_layout | Editor layout ready.
+[ DONE ] loading_editor_layout
+
+[   0% ] update_scripts_classes | Started Registering global classes... (3 steps)
+[   0% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  50% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+E01_ENGINE 4.7-stable (official)
+E01_COMPAT_CHECK Bun/Node absent: true
+E01_API save_all_scripts=true get_unsaved_files=true set_path_cache=true Logger=true
+E01_FULL_ADDON_SCRIPT_VALID true
+E01_FULL_ADDON_REPORT_VALID true
+E01_FULL_ADDON_STARTUP_OK
+E01_RETAINED /var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/tmp.URLRdct0mc

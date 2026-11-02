@@ -118,3 +118,9 @@ gate and filtered identity remains #44. [C01-A #42](C01_COMPATIBILITY.md) record
 the broader matrix and proposed sequential issues #45–51. T09-A #43 follows
 blocking compatibility foundations. No second PR or automatic merge bypasses
 that queue.
+
+## E01-F approved limitation (2026-11-02)
+
+The owner [approved deferral](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) of highlighting for a *never-associated Gogo tab hidden by a Script Editor filter* when Godot exposes no reliable edited-resource identity. Highlighting is required once that tab is **revealed and activated**. Already-associated filtered tabs retain their colors. Do not change filters, user preferences, or authored content, and do not guess the path.
+
+The [later E01-F evidence](E01_F_FILTERED.md) records the fresh hidden case **FAIL on all nine official engines**, with 18 native editor phases and 540 preservation/recovery assertions PASS independently. Two 4.7 engines pass restored hidden Plain Text; older engines do not. These measured failures remain recorded, not relabeled PASS. C01-F and C01-G later resolved the separate older startup and unsaved-Play blockers. C01-H may apply only this explicit owner-accepted release-scope exception once its documentation PR merges.

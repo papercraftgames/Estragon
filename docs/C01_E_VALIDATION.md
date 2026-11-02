@@ -32,7 +32,7 @@ logs plus structured results. Its successful exit means **evidence collected**;
 unsafe alternatives remain FAIL and missing capabilities remain BLOCKED.
 
 ```sh
-python3 tools/check-script-context.py \
+node --experimental-strip-types tools/check-script-context.ts \
   --engine 4.0.4=/absolute/official/godot \
   --engine 4.5.2=/absolute/official/godot \
   --engine 4.7.2=/absolute/official/godot \
@@ -168,7 +168,7 @@ CI remains visible as the evidence revealing native live-default behavior.
 
 - `bun install --frozen-lockfile && bun run check`: 180 tests, 663 expectations,
   typecheck, canonical IR and generated examples/maps PASS.
-- `python3 -m unittest discover -s tests/compatibility -p 'test_*.py'`: 18 PASS.
+- `node --experimental-strip-types --test tests/compatibility/runner.test.ts`: 18 PASS.
 - `GODOT_BIN=<4.7.0> sh tools/check-native-generation.sh`: native generation
   3632, semantic 149, signals 49, Counter/lifecycle/numeric suites PASS.
 - `GODOT_BIN=<4.7.0> bun run check:godot`: every-script parsing, full runtime,
@@ -185,7 +185,7 @@ CI remains visible as the evidence revealing native live-default behavior.
 Typical reproducible commands (fresh output directory required):
 
 ```sh
-python3 tools/check-compatibility.py \
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/official/godot \
   --engine 4.7.0=/absolute/official/godot \
   --engine 4.7.2=/absolute/official/godot \

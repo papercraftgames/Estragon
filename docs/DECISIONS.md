@@ -189,7 +189,7 @@ See EDITOR/TESTING for setup, API evidence, guarantees and manual procedures.
 
 **Current gap:** The published Godot 4.0 `ScriptEditor` API omits `save_all_scripts()` and `get_unsaved_files()` called by N03's F5/F6 build gate; the Godot 4.0 `Resource` API omits `set_path_cache()` used in native Gogo semantic validation. E01 #40 repairs 4.7 restored/highlighting tabs using a bound undocumented `_get_edited_resource()` plus ScriptEditor ItemList path/metadata; this is not evidence of older-version support. The repository's `project.godot` currently carries a `4.7` feature marker. These examples establish the need for a broader audit, not an exhaustive defect list.
 
-**Requirements:** Prefer stable public Godot 4.0 APIs; if an internal workaround is unavoidable, version/capability-gate its narrow adapter and test every supported engine version with real editors, without manipulating user preferences or discarding unsaved source. Preserve fail-closed compile-before-Play, source maps, native semantic validation, correct script/class identity, generated GDScript syntax, runtime layout/input/paint, and all E01 new/open/restored Gogo highlighting. Test real 4.0–4.7 engines and maintain a repeatable matrix, including source/scene versioning and plugin load/import evidence. Do not mislabel 4.7 CI green as 4.0+ certification.
+**Requirements (2026-10-29 historical verification scope; superseded on 2026-11-02 by the two-version testing amendment below):** Prefer stable public Godot 4.0 APIs; if an internal workaround is unavoidable, version/capability-gate its narrow adapter and test representative supported engines with real editors, without manipulating user preferences or discarding unsaved source. Preserve fail-closed compile-before-Play, source maps, native semantic validation, correct script/class identity, generated GDScript syntax, runtime layout/input/paint, and all E01 new/open/restored Gogo highlighting. Test real 4.0–4.7 engines and maintain a repeatable matrix, including source/scene versioning and plugin load/import evidence. Do not mislabel 4.7 CI green as 4.0+ certification.
 
 **Delivery:** Full cross-cutting compatibility gate [C01 issue #41](https://github.com/resistdesign/Estragon/issues/41). Highlighter E01 PR #40 must receive a specific 4.0+ compatibility review; the Godot-only T09 `@bindable` plan in ADR-0013 remains accepted but implementation must target the 4.0 baseline. No automatic merge, unsupported capability promises or unapproved minimum-version increases.
 
@@ -251,3 +251,34 @@ Preserve identity, live state, failure rollback and recovery. 4.4+ retains prove
 isolated path validation; Logger engines retain richer mapped diagnostics.
 See [C01_E_VALIDATION.md](C01_E_VALIDATION.md) and the live issue for evidence.
 This does not authorize C01-F/G startup/Play redesign or reactive/layout work.
+
+## E01-F filtered-tab identity — accepted exception (2026-11-02)
+
+**Status: accepted owner decision.** [Issue #44 approval](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and [reproducible nine-engine evidence](E01_F_FILTERED.md).
+
+A never-associated `.gogo` tab hidden by a Script Editor filter may remain Plain Text while Godot exposes no trustworthy edited TextFile identity. Once **revealed and activated**, it must receive normal Gogo highlighting; already-associated filtered tabs retain their colors. Never change the user's filter or preferences, guess path identity, or inject an unstable workaround. This defers only invisible, unidentifiable highlighting. It does not waive Godot 4.0+, normal editor highlighting, native fail-closed Play, or other C01 release gates.
+
+The hidden-tab observation remains FAIL on all nine tested official engines, not PASS; the owner-approved release-scope exception must be recorded separately from test outcomes. C01-H #51 may proceed once the focused evidence/decision PR merges. Reconsider with a new scoped issue if a stable native path API or a concrete interaction bug emerges.
+
+## Godot test matrix cost control — owner decision (2026-11-02)
+
+**Status: accepted.** Mandatory testing is capped at **two distinct engines across both local/Codex work and CI**: official **Godot 4.0.4**, the oldest supported patch, and the existing pinned **Godot 4.7.0** baseline. Do not execute routine nine-engine/all-minor sweeps, including 4.7.2, to support development, PRs, release gates, or evidence collection. No optional third engine is authorized. The owner may explicitly authorize replacing a version for an identified bug, but it still counts against the two-version maximum.
+
+**Reason:** all-minor matrices wasted AI usage, agent time, CPU, CI minutes and review effort without proportionate benefit. Prefer small targeted local checks during implementation and a single relevant two-version review/acceptance pass rather than repeated exhaustive runs. CI must contain only 4.0.4 (macOS) and 4.7.0 (Linux), with duplicate push+PR triggers and superseded runs canceled.
+
+**Scope of proof:** Godot **4.0+ remains the product target** under ADR-0014; this is a **testing-budget change**, not an increase in the supported minimum or a declaration that each untested 4.x minor passed. Historical nine-version results, SHA/provenance, and FAIL/BLOCKED/UNTESTED outcomes remain intact as archive, never relabeled or used to force a rerun. New reports/snapshots accept one or two engines. This decision supersedes the 2026-10-29 requirement to retest every minor in each C01 slice or release check. See `AGENTS.md` and `docs/TESTING.md` for the standing operative policy.
+
+## Native framework and TypeScript-only tooling — owner reaffirmation (2026-11-02)
+
+**Status: accepted and mandatory.** Estragon's product language/framework is
+**native Godot/GDScript and Gogo**. Every contributor-side script, test
+orchestrator, compatibility runner, evidence validator, report generator, and CI
+helper must be **TypeScript**. Python has **no place anywhere in the repository's
+source, tests, build scripts, or workflows**, including embedded snippets in YAML.
+
+This is a standing architectural boundary, not a task-specific preference.
+Previous C01 test automation violated it. PR #64 replaces the operating
+collectors and validators with TypeScript, retains native GDScript fixture
+tests and archived factual evidence, removes all Python files, and updates CI.
+Do not reintroduce Python as a shortcut for temporary research, compatibility,
+or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.

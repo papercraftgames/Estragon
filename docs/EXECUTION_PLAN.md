@@ -188,12 +188,19 @@ This is the sequential delivery order, not a request to implement everything in 
 
 - Audit GDScript syntax, plugin lifecycle, all compiler/emitter/validation methods, editor APIs, generated resource/UID/scene formats, and runtime component/graphics APIs using **Godot 4.0 as the minimum**. Known gaps: `ScriptEditor.save_all_scripts()`, `get_unsaved_files()` and `Resource.set_path_cache()` are documented in 4.7 but not 4.0; the E01 4.7 editor association adapter reaches undocumented UI internals; `project.godot` advertises a 4.7 feature.
 - Implement public-API 4.0-compatible paths where possible; version-gate any unavoidable private adapter with real-engine proof. Never compromise source freshness, F5/F6 fail-closed behavior, generated-script/class identity, startup/restart highlighting, component lifecycle or user configuration.
-- Run native Gogo + editor + runtime tests on actual latest patches of Godot 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6 and 4.7. Maintain an automated multi-version matrix when feasible; report GUI/manual checks separately. Verify fresh install with only Godot/addon, no Bun/Node.
+- **Owner verification cap (2026-11-02): run only official Godot 4.0.4 and pinned 4.7.0**, both locally and in CI; this replaces every-minor testing requirements for C01-H, T09 and later work. Never require complete/nine-version local, agent, CI or release suites. Run focused tests during edits and one relevant two-version verification before review. Preserve archived nine-version evidence and actual failure statuses without reruns; only tested engines can be claimed as freshly verified. Verify fresh install with only Godot/addon, no Bun/Node.
 - E01 PR #40 merged with its narrow measured scope; remaining compatibility evidence is a shipping gate for T09/Estragon releases; do not silently raise the minimum engine. Keep C01 as separate scoped work as needed, with issue/PR and durable handoff.
+
+**Verification-budget precedence:** The [owner's 2026-11-02 decision](DECISIONS.md)
+supersedes any earlier C01 issue, historical evidence report, test recipe or
+PR acceptance text demanding all eight/nine minor versions. Maintain only
+**4.0.4 + 4.7.0** as selected engines; do not run others locally or in CI.
+C01-H still owns the distribution/graphics/release work and must not falsely
+claim proof for untested versions. Keep stage-level evidence truthful.
 
 ### C01-A — Compatibility audit and reusable test matrix
 
-**Tracking:** [#42](https://github.com/resistdesign/Estragon/issues/42). **Predecessor:** E01 PR #40 merged `41b43b4`. **Scope:** audit, isolated test infrastructure and planning; no addon compatibility rewrite. [Measured report](C01_COMPATIBILITY.md), `tests/compatibility/{engines,results}.json`, selectable `tools/check-compatibility.py`, and informational macOS CI provide durable evidence. Actual latest patches 4.0–4.7 are tested, plus the required 4.7.0 regression pin.
+**Tracking:** [#42](https://github.com/resistdesign/Estragon/issues/42). **Predecessor:** E01 PR #40 merged `41b43b4`. **Scope:** audit, isolated test infrastructure and planning; no addon compatibility rewrite. [Measured report](C01_COMPATIBILITY.md), `tests/compatibility/{engines,results}.json`, selectable `tools/check-compatibility.ts`, and informational macOS CI provide durable evidence. Actual latest patches 4.0–4.7 are tested, plus the required 4.7.0 regression pin.
 
 - Native frontend/emission/maps pass on all tested minors; downstream generated validity, runtime, semantic identity and editor startup are independent stages with honest FAIL/BLOCKED/UNTESTED results.
 - Test clean product import before adding test fixtures, all 33 shipped scripts, existing runtime/compiler suites and actual isolated editor behavior with empty tool PATH. Existing required 4.7 Linux suites remain intact; graphics/manual/platform evidence is separate.
@@ -243,15 +250,15 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. **E01-F #44 is next Ready**, followed by C01-H #51 after #44 resolution or owner disposition. T09 and later milestones remain queued.
+C01-F #62 and C01-G #63 are merged. **E01-F #44 has owner-approved accepted limitation** ([decision](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818)); its focused evidence/decision PR must merge before **C01-H #51** starts. T09 and later work remain queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
-**Tracking:** [issue #37](https://github.com/resistdesign/Estragon/issues/37). **Prerequisite:** N03 merged. **State:** narrow fix merged in PR #40; remaining filtered-tab acceptance is #44, and older full-addon support remains C01. Do not mix E01 into T09.
+**Tracking:** [issue #37](https://github.com/resistdesign/Estragon/issues/37), focused [#44](https://github.com/resistdesign/Estragon/issues/44). **State:** normal fix merged PR #40; owner accepted a precisely bounded hidden never-associated case on 2026-11-02 ([evidence](E01_F_FILTERED.md)). Full release support remains C01-H #51. Do not mix E01 into T09.
 
 - Reproduce the owner-confirmed restored-tab activation bug; prove automatic selection for new, existing and restored Gogo tabs, disable/re-enable and restart. Preserve unrelated user settings.
 - Extend the real isolated editor tests to inspect actual highlighter attachment/colors without manual selection. PR #40 merged; future #44 delivery follows the one-open-PR rule.
-- [Measured E01 matrix](E01_COMPATIBILITY.md): isolated 4.0–4.7 normal/restart behavior verified; filtered unassociated identity and older full-addon startup remain unmet/blocked. PR #40 merged on 2026-10-29 with these limitations retained. C01-A #42 now records the broader matrix; C01 remains a release gate.
+- [Measured E01 matrix](E01_COMPATIBILITY.md): normal/restart behavior verified across the minors. Older full-addon startup and unsaved Play were fixed in C01-F/G. E01-F still measures fresh hidden/never-associated FAIL on all nine official engines; the owner **approves waiting until reveal and activation** rather than an unsafe private identity workaround. Preserve historical FAIL and a separate accepted-exception classification; normal, revealed/activated and already-associated highlighting remain required. C01-H's other release gates are unchanged.
 
 ### R01 — Research: `@Bindable` in ordinary authored `.gd`
 
@@ -317,5 +324,5 @@ nine-engine editor/child-game evidence. Require actual newest unsaved foreground
 background execution with autosave off, pathless/unsavable/markup/semantic/type
 failure blocking and repair, no-op outputs/maps/UIDs/timestamps and lifecycle
 regressions. C01-H/#44/#61/T09 remained outside merged PR #63.
-No physical/manual keypress gate. Next: E01-F #44. C01-H #51 follows
-#44 resolution or documented owner disposition.
+No physical/manual keypress gate. E01-F #44 has explicit owner disposition;
+C01-H #51 follows its review PR merge.

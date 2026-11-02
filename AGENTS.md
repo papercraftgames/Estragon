@@ -62,8 +62,50 @@ Do not modify the accepted architecture or silently reduce Gogo's language featu
 
 - **Audit before extending:** `ScriptEditor.save_all_scripts()`, `ScriptEditor.get_unsaved_files()` and `Resource.set_path_cache()` are used today but absent from the published 4.0 public APIs. The 4.7 syntax-highlighter association also uses an undocumented `_get_edited_resource()` plus native editor ItemList path/metadata. None may be assumed to function on 4.0 without equivalent tested compatibility behavior.
 - Prefer documented, stable Godot **4.0** public APIs. Isolate any indispensable version-specific editor adapter behind tested capability/version checks rather than depending on fixed UI hierarchy. Never silently sacrifice correctness, unsaved-buffer fail-closed F5/F6, script identity, cached resources, or syntax highlighting on older versions.
-- **Prove on actual engines**, ideally automated matrix of latest 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6 and 4.7 patches; preserve negative diagnostics and no-Bun user workflow. Keep manual editor/graphics checks distinct from automated evidence. Check project `config/features` and generated resource formats for 4.0.
+- **Prove on the two approved engines only:** official Godot **4.0.4** (oldest supported) and pinned **4.7.0** (current baseline). Never schedule all-minor/nine-engine local or CI matrices. Keep native negative diagnostics and no-Bun workflow; manual graphics evidence stays separate. Audit feature declarations and generated formats against the 4.0 minimum.
 - E01 [PR #40](https://github.com/resistdesign/Estragon/pull/40) has isolated highlighter evidence on 4.0–4.7 but full-addon older-version acceptance is blocked (see `docs/E01_COMPATIBILITY.md`); see #41 before claiming its behavior across 4.0+. Preserve ADR-0013 Gogo-only lowercase `@bindable` while designing T09 against the 4.0 baseline. **Do not auto-merge or silently downgrade support claims.**
+
+## Non-negotiable toolchain: native Godot/Gogo + TypeScript ONLY (2026-11-02)
+
+**Never add Python to Estragon, anywhere.** Production framework,
+compiler, runtime and editor integration are native **GDScript and Gogo**.
+Contributor scripts, test orchestration, evidence collectors, report
+formatters and CI logic must be **TypeScript**. No Python source files,
+Python test suites, Python inline shell snippets, Python setup actions,
+or Python runtime dependencies. Keep native Godot fixture/tests in GDScript.
+Small shell entrypoints may invoke engine or TypeScript tools, but must not
+hide a Python fallback. Prefer existing TypeScript tooling; do not
+introduce a new scripting language for convenience.
+
+The owner explicitly rejected Python on 2026-11-02. If old research
+docs describe historical Python evidence, preserve their facts but
+**use only the TypeScript replacements** for current work. No Codex
+session may reintroduce it, regardless of what an older issue says.
+
+## Owner test and CI budget — strict two-version cap (2026-11-02)
+
+**Applies everywhere:** Codex/local development, pre-PR verification, CI,
+release checks, research and handoffs. Test at most **two distinct Godot versions**
+per effort: official **4.0.4** and pinned **4.7.0**. These are the only routine
+versions. Do **not** test 4.1–4.6, 4.7.2 or any complete 4.x matrix locally
+or in CI. Do **not** download, launch or schedule extra engines as an
+"optional" sweep or completion gate. Only the owner can explicitly change this
+budget; a bug-specific substitution requires prior owner approval and must
+**replace**, not add to, the two-version selection.
+
+**Keep verification proportional:** run focused checks while developing, then
+the relevant two-version acceptance once for review, not full suites after
+every change. Do not demand hundreds of repeated cross-version assertions,
+repeated full-matrix logs or all-minor test evidence from agents. CI runs 4.0.4
+on macOS and the established 4.7.0 baseline on Linux; no redundant macOS
+4.7.2 or repeated push+PR workflow. Keep existing narrower single-version
+unit, runtime and native checks where useful.
+
+**Preserve historical evidence:** Old nine-version reports/manifest entries
+remain truthful archival research, **not instructions to rerun**. New snapshots
+can contain one or two versions; retain actual PASS/FAIL/BLOCKED/UNTESTED.
+Product target remains Godot 4.0+ without inventing full per-minor
+certification. Never claim untested minor versions were freshly verified.
 
 ## Compatibility engineering: pragmatic bridges and progressive enhancement
 

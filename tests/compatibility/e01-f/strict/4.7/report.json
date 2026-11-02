@@ -1,0 +1,79 @@
+{
+  "label": "4.7",
+  "stages": {
+    "phase_1_invariants": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 14.89,
+      "log": "phase_1.log",
+      "diagnostics": []
+    },
+    "phase_1_hidden_acceptance": {
+      "status": "FAIL",
+      "identity": [
+        "E01_F_IDENTITY {\"adapter_path_without_cache\":\"\",\"cached_gogo_path\":\"\",\"context\":\"before enable\",\"editor_class\":\"TextEditor\",\"editor_meta\":[\"_tab_index\",\"__editor_pass\"],\"highlighter_resource\":\"<Object#null>\",\"native_path_meta\":\"\",\"native_resource_path\":\"\",\"open_script_count\":0,\"resource_getter_bound\":false,\"resource_properties\":{\"scene_file_path\":\"\"}}",
+        "E01_F_IDENTITY {\"adapter_path_without_cache\":\"\",\"cached_gogo_path\":\"\",\"context\":\"after enable\",\"editor_class\":\"TextEditor\",\"editor_meta\":[\"_tab_index\",\"__editor_pass\"],\"highlighter_resource\":\"<Object#null>\",\"native_path_meta\":\"\",\"native_resource_path\":\"\",\"open_script_count\":0,\"resource_getter_bound\":false,\"resource_properties\":{\"scene_file_path\":\"\"}}"
+      ],
+      "observations": [
+        "E01_F_HIDDEN_ACCEPTANCE FAIL",
+        "E01_F_REVEALED_BEFORE_ACTIVATION false"
+      ]
+    },
+    "seed": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/project",
+        "--script",
+        "res://seed.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.42,
+      "log": "seed.log",
+      "diagnostics": []
+    },
+    "phase_2_invariants": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-filtered-lj_4b91x/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 10.4,
+      "log": "phase_2.log",
+      "diagnostics": []
+    },
+    "phase_2_hidden_acceptance": {
+      "status": "PASS",
+      "identity": [
+        "E01_F_IDENTITY {\"adapter_path_without_cache\":\"\",\"cached_gogo_path\":\"\",\"context\":\"before enable\",\"editor_class\":\"TextEditor\",\"editor_meta\":[\"_tab_index\",\"__editor_pass\"],\"highlighter_resource\":\"(res://examples/counter/Background.gogo):<TextFile#-9223370407149496668>\",\"native_path_meta\":\"\",\"native_resource_path\":\"res://examples/counter/Background.gogo\",\"open_script_count\":0,\"resource_getter_bound\":false,\"resource_properties\":{\"scene_file_path\":\"\"}}",
+        "E01_F_IDENTITY {\"adapter_path_without_cache\":\"\",\"cached_gogo_path\":\"res://examples/counter/Background.gogo\",\"context\":\"after enable\",\"editor_class\":\"TextEditor\",\"editor_meta\":[\"_tab_index\",\"__editor_pass\"],\"highlighter_resource\":\"<Object#null>\",\"native_path_meta\":\"\",\"native_resource_path\":\"\",\"open_script_count\":0,\"resource_getter_bound\":false,\"resource_properties\":{\"scene_file_path\":\"\"}}"
+      ],
+      "observations": [
+        "E01_F_HIDDEN_ACCEPTANCE PASS",
+        "E01_F_REVEALED_BEFORE_ACTIVATION true"
+      ]
+    }
+  },
+  "input_binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "provenance": "Installed official macOS Godot.app; CI separately pins the official Linux archive checksum in .github/workflows/ci.yml."
+}

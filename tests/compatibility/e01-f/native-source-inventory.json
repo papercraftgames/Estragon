@@ -1,0 +1,82 @@
+[
+  {
+    "file": "base-4.7.cpp",
+    "sha256": "7d9e738d2f507d8ce716ce275d14fc01a7e7ad1239498c693e1afd0cf6c56287",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": []
+  },
+  {
+    "file": "script_editor-4.0.cpp",
+    "sha256": "04e5c97e4efca41aba5147fa4895a6314e2ddcf2e1b4967f10129a492cf799eb",
+    "native_edit_res_path_occurrences": 3,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.1.4.cpp",
+    "sha256": "6bca76e542be4215a564dd87d584fc6b316de69db736ee2a7b6ab4949a5b4935",
+    "native_edit_res_path_occurrences": 3,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.2.2.cpp",
+    "sha256": "e1a4ff48afd12a9bcd12cd4e2de6a837aaf2326f69373fe1a192fb0d75fcdcda",
+    "native_edit_res_path_occurrences": 3,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.3.cpp",
+    "sha256": "1495d70eae4e92536aa9f9e76aeaa2dc7c411e7bae935462d24f27415a667de9",
+    "native_edit_res_path_occurrences": 3,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.4.1.cpp",
+    "sha256": "57d4d3e0fcdd92ef30b5880066810ab246c579a9737f822790dfc2cbc0f5d583",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.5.2.cpp",
+    "sha256": "319f455134e6dfec26fab1dd2060ff520c31a7a3b99cfb812ede7edfce7bfc52",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.6.3.cpp",
+    "sha256": "72725c421ca344240abecad2db13fa62ea7ed18007e52fef60364eae1228db35",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": [
+      "ClassDB::bind_method(D_METHOD(\"_get_edited_resource\"), &EditorSyntaxHighlighter::_get_edited_resource);"
+    ]
+  },
+  {
+    "file": "script_editor-4.7.2.cpp",
+    "sha256": "18e0bac3f5fa7c2fe8117907af86282b92855d283ae6ab79b6a0587a87560947",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": []
+  },
+  {
+    "file": "script_editor-4.7.cpp",
+    "sha256": "ccaa0f95a6e25e786245363eb5b54be84fb2ba3b55ab30ca1cf7f11bf04612c2",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": []
+  },
+  {
+    "file": "text_editor-4.0.cpp",
+    "sha256": "48269b9361260dde181e88ca607c126b4d236985b5948332c398e20a9a974196",
+    "native_edit_res_path_occurrences": 0,
+    "resource_getter_binding_lines": []
+  }
+]

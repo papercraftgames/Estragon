@@ -111,7 +111,7 @@ oracles and the three separate limitation controls. `numeric_literals.gd` checks
 native typed model and actual reloaded GDScript values, binary storage, repeatable
 code/maps and original literal spans. Limits additionally require source parsing,
 model and generated runtime to agree under the approved native semantics.
-`numeric_evidence.py` rejects missing/duplicate observations, poisoned oracles,
+`tools/compat-evidence.ts` rejects missing/duplicate observations, poisoned oracles,
 map/storage mismatches, false PASS claims and additional emission loss.
 
 - `numeric_literals=PASS`: all 27 ordinary cases match independent bytes, plus
@@ -126,8 +126,8 @@ missing Logger/path APIs still fail that suite under #48; the isolated probe
 has no such dependency. C01-B runtime and C01-C callback gates remain required.
 
 ```sh
-python3 -m unittest discover -s tests/compatibility -p 'test_*.py'
-python3 tools/check-compatibility.py \
+node --experimental-strip-types --test tests/compatibility/runner.test.ts
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/verified/godot-4.0.4 \
   --engine 4.7.2=/absolute/verified/godot-4.7.2 \
   --output /new/c01-d-results --editor --collect-only

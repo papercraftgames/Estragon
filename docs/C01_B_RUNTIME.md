@@ -54,7 +54,7 @@ collector runs also exercise every pinned version.
 Reproduce with verified binaries from the existing engine manifest:
 
 ```sh
-python3 tools/check-compatibility.py \
+node --experimental-strip-types tools/check-compatibility.ts \
   --engine 4.0.4=/absolute/official/godot-4.0.4 \
   --engine 4.7.2=/absolute/official/godot-4.7.2 \
   --output /new/c01-b-results --editor --collect-only

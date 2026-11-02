@@ -1,0 +1,14 @@
+{
+  "4.7/seed.log": {
+    "raw_sha256": "4ae20eed23a835feca9291ffbe5e32e2b8a27ad0c147df984da4af3eb13cf753",
+    "published_sha256": "4ae20eed23a835feca9291ffbe5e32e2b8a27ad0c147df984da4af3eb13cf753"
+  },
+  "4.7/phase_2.log": {
+    "raw_sha256": "e300905990a445a2ce3ecbf71d33b747a2d79bf0c2b44e320792d9d5f6eee056",
+    "published_sha256": "e300905990a445a2ce3ecbf71d33b747a2d79bf0c2b44e320792d9d5f6eee056"
+  },
+  "4.7/phase_1.log": {
+    "raw_sha256": "9298febeb75fe65bee30089f9f010f16419bb8701a036845773048b930a77430",
+    "published_sha256": "2751230b6d3a904e2751ab13a852872f217434f1b32fd0778e8861ba9e7fd85d"
+  }
+}
