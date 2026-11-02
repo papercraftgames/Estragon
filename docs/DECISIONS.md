@@ -251,3 +251,11 @@ Preserve identity, live state, failure rollback and recovery. 4.4+ retains prove
 isolated path validation; Logger engines retain richer mapped diagnostics.
 See [C01_E_VALIDATION.md](C01_E_VALIDATION.md) and the live issue for evidence.
 This does not authorize C01-F/G startup/Play redesign or reactive/layout work.
+
+## E01-F filtered-tab identity — accepted exception (2026-11-02)
+
+**Status: accepted owner decision.** [Issue #44 approval](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and [reproducible nine-engine evidence](E01_F_FILTERED.md).
+
+A never-associated `.gogo` tab hidden by a Script Editor filter may remain Plain Text while Godot exposes no trustworthy edited TextFile identity. Once **revealed and activated**, it must receive normal Gogo highlighting; already-associated filtered tabs retain their colors. Never change the user's filter or preferences, guess path identity, or inject an unstable workaround. This defers only invisible, unidentifiable highlighting. It does not waive Godot 4.0+, normal editor highlighting, native fail-closed Play, or other C01 release gates.
+
+The hidden-tab observation remains FAIL on all nine tested official engines, not PASS; the owner-approved release-scope exception must be recorded separately from test outcomes. C01-H #51 may proceed once the focused evidence/decision PR merges. Reconsider with a new scoped issue if a stable native path API or a concrete interaction bug emerges.
