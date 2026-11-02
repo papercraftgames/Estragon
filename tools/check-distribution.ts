@@ -57,7 +57,10 @@ export async function audit(selection: EngineSelection, output: string, graphics
     fs.writeFileSync(path.join(project, "export_presets.cfg"),
       '[preset.0]\nname="C01 resource pack"\nplatform="macOS"\nrunnable=true\n' +
       'export_filter="resources"\nexport_files=PackedStringArray(' +
-      [...scenes.map(scene => '"res://examples/' + scene + '.tscn"'), '"res://tests/distribution/scenes.gd"'].join(', ') + ')\ninclude_filter="*.json,*.gogo"\nexclude_filter=""\n' +
+      [...scenes.map(scene => '"res://examples/' + scene + '.tscn"'),
+        ...listGDScripts(path.join(project, "addons/estragon/runtime")).map(file =>
+          '"res://' + path.relative(project, file).split(path.sep).join("/") + '"'),
+        '"res://tests/distribution/scenes.gd"'].join(', ') + ')\ninclude_filter="*.json,*.gogo"\nexclude_filter=""\n' +
       'export_path=""\nscript_export_mode=1\n[preset.0.options]\napplication/bundle_identifier="org.estragon.c01h"\n');
     const pack = path.join(target, "examples.pck");
     record.stages.resource_pack_export = await runCommand(
