@@ -50,8 +50,11 @@ for path in args.report:
                                       for item in stage["scripts"]]
             row["stages"][name] = compact
         snapshot["engines"].append(row)
-expected = {item["version"] for item in json.loads((ROOT / "tests/compatibility/engines.json").read_text())}
-assert versions == expected, "snapshot must include every pinned engine: " + repr(expected - versions)
+# Owner policy: new snapshots summarize at most two selected engines.
+# The nine-engine historical snapshots remain committed and unchanged.
+known = {item["version"] for item in json.loads((ROOT / "tests/compatibility/engines.json").read_text())}
+assert 1 <= len(versions) <= 2, "owner budget: at most two engines per new snapshot"
+assert versions <= known, "snapshot has unverified engine identities: " + repr(versions - known)
 snapshot["engines"].sort(key=lambda item: [int(part) for part in item["version"].split(".stable")[0].split(".")])
 args.output.write_text(json.dumps(snapshot, indent=2) + "\n")
 print("Wrote", len(versions), "engine records to", args.output)
