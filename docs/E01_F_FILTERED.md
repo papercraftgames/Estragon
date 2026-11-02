@@ -131,18 +131,13 @@ editor state and require invasive internal UI behavior. These approaches were
 rejected before production implementation. No fake resources, per-frame polling,
 private memory access, engine fork or new native dependency was introduced.
 
-## Owner disposition required
+## Owner disposition — accepted limitation (2026-11-02)
 
-The safe current behavior is to leave an unknown hidden tab unmodified, then
-associate it when its native identity is exposed and the tab is activated.
-Already associated tabs retain colors while filtered. This is an available
-alternative, **not satisfaction of the exact issue acceptance**.
+The owner approved [option 1 in issue #44](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818): **defer automatic Gogo recoloring only for invisible, never-associated tabs whose edited native TextFile identity cannot be safely verified**. Leave unknown hidden tabs untouched; when such a tab is **revealed and activated**, it must receive normal Gogo highlighting. Previously associated filtered tabs retain their colors. Do not change the user's filter, guess identity from title/content/order, or alter authored text or preferences.
 
-The owner must choose whether to accept that limitation explicitly and defer
-invisible never-associated recoloring, allowing C01-H to proceed with the precise
-exception documented; or retain #44 as a blocking requirement pending a reliable
-native edited-TextFile identity API/bridge. No acceptance change, queue advance,
-PR or merge is authorized by this negative finding alone.
+This is a **scoped accepted limitation, not a PASS of the original requirement**. Fresh hidden FAIL on all nine engines, restored hidden Plain Text FAIL on 4.0.4–4.6.3 and PASS on pinned 4.7.0/4.7.2 remain exactly as recorded. The 18 editor phases / 540 preservation-and-recovery assertions PASS but do not certify hidden identity. C01-H #51 may explicitly exclude this **one** owner-accepted case from release requirements after the evidence/decision PR merges; it must not rewrite measured FAIL as PASS. Normal visible/revealed, already-associated filtered and unrelated-file behavior remain required.
+
+No production workaround was made. Reconsider only with a safe supported native identity API or a separately reported real-world bug. Related records: [E01 compatibility](E01_COMPATIBILITY.md), [editor behavior](EDITOR.md), and [C01-H #51](https://github.com/resistdesign/Estragon/issues/51).
 
 No production fix means no new positive hidden-tab acceptance or release claim.
 Full C01-F/G Play/lifecycle, native generation, runtime, graphical/manual smoke,
