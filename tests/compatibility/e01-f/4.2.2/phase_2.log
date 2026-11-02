@@ -1,5 +1,5 @@
 Godot Engine v4.2.2.stable.official.15073afe3 - https://godotengine.org
- 
+
 WARNING: Custom cursor shape not supported by this display server.
      at: cursor_set_custom_image (servers/display_server.cpp:505)
 WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.

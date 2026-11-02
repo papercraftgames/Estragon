@@ -10,10 +10,10 @@ first_scan_filesystem: begin: Project initialization steps: 5
 	first_scan_filesystem: step 5: Starting file scan...
 first_scan_filesystem: end
 update_scripts_classes: begin: Registering global classes... steps: 4
-	update_scripts_classes: step 0: 
-	update_scripts_classes: step 1: 
-	update_scripts_classes: step 2: 
-	update_scripts_classes: step 3: 
+	update_scripts_classes: step 0:
+	update_scripts_classes: step 1:
+	update_scripts_classes: step 2:
+	update_scripts_classes: step 3:
 update_scripts_classes: end
 update_script_paths_documentation: begin: Updating scripts documentation steps: 4
 	update_script_paths_documentation: step 0: highlighter.gd
@@ -108,28 +108,28 @@ first_scan_filesystem: begin: Project initialization steps: 5
 	first_scan_filesystem: step 5: Starting file scan...
 first_scan_filesystem: end
 update_scripts_classes: begin: Registering global classes... steps: 30
-	update_scripts_classes: step 0: 
-	update_scripts_classes: step 1: 
-	update_scripts_classes: step 2: 
-	update_scripts_classes: step 3: 
-	update_scripts_classes: step 4: 
-	update_scripts_classes: step 5: 
-	update_scripts_classes: step 6: 
-	update_scripts_classes: step 7: 
-	update_scripts_classes: step 8: 
-	update_scripts_classes: step 9: 
-	update_scripts_classes: step 10: 
-	update_scripts_classes: step 11: 
-	update_scripts_classes: step 12: 
-	update_scripts_classes: step 13: 
-	update_scripts_classes: step 14: 
-	update_scripts_classes: step 15: 
-	update_scripts_classes: step 16: 
+	update_scripts_classes: step 0:
+	update_scripts_classes: step 1:
+	update_scripts_classes: step 2:
+	update_scripts_classes: step 3:
+	update_scripts_classes: step 4:
+	update_scripts_classes: step 5:
+	update_scripts_classes: step 6:
+	update_scripts_classes: step 7:
+	update_scripts_classes: step 8:
+	update_scripts_classes: step 9:
+	update_scripts_classes: step 10:
+	update_scripts_classes: step 11:
+	update_scripts_classes: step 12:
+	update_scripts_classes: step 13:
+	update_scripts_classes: step 14:
+	update_scripts_classes: step 15:
+	update_scripts_classes: step 16:
 	update_scripts_classes: step 17: EstragonButton
 	update_scripts_classes: step 18: EstragonCanvasRenderer
 	update_scripts_classes: step 19: EstragonContainer
 	update_scripts_classes: step 20: EstragonDisplayObject
-	update_scripts_classes: step 21: 
+	update_scripts_classes: step 21:
 	update_scripts_classes: step 22: EstragonHBox
 	update_scripts_classes: step 23: EstragonPaintList
 	update_scripts_classes: step 24: EstragonPointerDispatcher
@@ -180,9 +180,9 @@ loading_editor_layout: begin: Loading editor steps: 5
 	loading_editor_layout: step 5: Editor layout ready.
 loading_editor_layout: end
 update_scripts_classes: begin: Registering global classes... steps: 3
-	update_scripts_classes: step 0: 
-	update_scripts_classes: step 1: 
-	update_scripts_classes: step 2: 
+	update_scripts_classes: step 0:
+	update_scripts_classes: step 1:
+	update_scripts_classes: step 2:
 update_scripts_classes: end
 update_script_paths_documentation: begin: Updating scripts documentation steps: 3
 	update_script_paths_documentation: step 0: Background.gd

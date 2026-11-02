@@ -9,10 +9,10 @@ first_scan_filesystem: begin: Project initialization steps: 5
 	first_scan_filesystem: step 5: Starting file scan...
 first_scan_filesystem: end
 update_scripts_classes: begin: Registering global classes... steps: 4
-	update_scripts_classes: step 0: 
-	update_scripts_classes: step 1: 
-	update_scripts_classes: step 2: 
-	update_scripts_classes: step 3: 
+	update_scripts_classes: step 0:
+	update_scripts_classes: step 1:
+	update_scripts_classes: step 2:
+	update_scripts_classes: step 3:
 update_scripts_classes: end
 update_script_paths_documentation: begin: Updating scripts documentation steps: 4
 	update_script_paths_documentation: step 0: highlighter.gd

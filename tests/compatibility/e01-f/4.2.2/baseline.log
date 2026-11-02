@@ -1,6 +1,6 @@
 /var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/tmp.dEZ4GfrUR2/godot: replacing existing signature
 Godot Engine v4.2.2.stable.official.15073afe3 - https://godotengine.org
- 
+
 WARNING: Custom cursor shape not supported by this display server.
      at: cursor_set_custom_image (servers/display_server.cpp:505)
 WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
@@ -45,10 +45,10 @@ E01_COMPAT_CHECK re-enable preserves other file: true
 E01_COMPAT_CHECK adapter preserves preferences: true
 E01_COMPAT_RESULT 36 OK
 Godot Engine v4.2.2.stable.official.15073afe3 - https://godotengine.org
- 
+
 ESTRAGON_SEEDED_PLAIN_RESTORE
 Godot Engine v4.2.2.stable.official.15073afe3 - https://godotengine.org
- 
+
 WARNING: Custom cursor shape not supported by this display server.
      at: cursor_set_custom_image (servers/display_server.cpp:505)
 WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
@@ -67,7 +67,7 @@ E01_COMPAT_CHECK both persisted plain tabs restored before navigation: true
 E01_COMPAT_RESULT 10 OK
 E01_ISOLATED_HIGHLIGHTING_OK
 Godot Engine v4.2.2.stable.official.15073afe3 - https://godotengine.org
- 
+
 WARNING: Custom cursor shape not supported by this display server.
      at: cursor_set_custom_image (servers/display_server.cpp:505)
 WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.

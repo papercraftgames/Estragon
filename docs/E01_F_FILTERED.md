@@ -53,7 +53,8 @@ not the current result.
 The final focused matrix executes clean `abc1d8d` (production unchanged from
 `17a7d9b`). [Full records and log hashes](../tests/compatibility/e01-f/results.json)
 and per-engine `baseline.log`, `phase_1.log`, `seed.log`, `phase_2.log` retain the
-actual observations. Each editor phase passes 30 invariant/color/recovery
+actual observations. Published logs remove terminal escapes/trailing whitespace;
+raw and published checksums remain recorded. Each editor phase passes 30 invariant/color/recovery
 assertions: **18 phases, 540 assertions**. These do not include successful
 acceptance of the hidden identity requirement.
 
