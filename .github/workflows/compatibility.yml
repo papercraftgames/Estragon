@@ -1,9 +1,13 @@
-name: C01 compatibility evidence (not release certification)
+name: C01 two-version compatibility evidence
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
+
+# Avoid wasting CI on superseded PR commits.
+concurrency:
+  group: c01-compat-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   compatibility-audit:
@@ -12,7 +16,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["4.0.4", "4.1.4", "4.2.2", "4.3", "4.4.1", "4.5.2", "4.6.3", "4.7.2"]
+        # Owner budget: only 4.0.4 here and pinned 4.7.0 in ci.yml.
+        # No per-minor/complete compatibility matrix in local or CI work.
+        version: ["4.0.4"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
