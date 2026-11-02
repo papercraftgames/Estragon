@@ -24,6 +24,16 @@ its separate snapshots preserve this original audit and remaining red stages.
 
 **Later owner disposition (2026-11-02):** [E01-F #44](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) now has a precisely documented exception: an invisible, never-associated `.gogo` tab without reliable TextFile identity may remain Plain Text until **revealed and activated**. [Nine-engine negative results](E01_F_FILTERED.md) are preserved as FAIL, not converted into PASS. After the E01-F evidence/decision PR merges, C01-H #51 can treat only that limited behavior as owner-accepted release scope. No other runtime/editor/distribution/export gate is waived; C01-G's unsaved Play fix is separately merged in PR #63.
 
+**Superseding test-budget decision (2026-11-02):** This document
+preserves the original **historical** full-minor audit and its actual
+FAIL/BLOCKED/UNTESTED outcomes. It is **not a recipe to rerun all
+engines**. Current Codex/local, CI, release and C01-H verification is
+limited to official **4.0.4** and pinned **4.7.0**.
+[AGENTS.md](../AGENTS.md), [decision log](DECISIONS.md) and
+[C01-H #51](https://github.com/resistdesign/Estragon/issues/51) control
+the new testing scope. Support for Godot 4.0+ remains the product goal;
+untested minors cannot be newly certified.
+
 ## Reproduction and evidence
 
 Use Python 3.9+ as optional contributor orchestration, the standard system shell,
