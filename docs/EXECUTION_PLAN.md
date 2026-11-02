@@ -243,7 +243,7 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 merged; C01-G #50/#63 is the sole active delivery. Later milestones remain issue-only.
+C01-F #62 and C01-G #63 are merged. **E01-F #44 is next Ready**, followed by C01-H #51 after #44 resolution or owner disposition. T09 and later milestones remain queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
@@ -302,18 +302,20 @@ lambda-helper follow-up for C01-H disposition, not authorization to start anothe
 implementation. C01-F #49 merged in PR #62 at `95efa45`. Its scoped acceptance is
 actual native editor startup, saved-disk builds, filesystem/import recovery,
 coalescing, clean enable/disable/re-enable and restart on every pinned engine.
-See [C01_F_EDITOR.md](C01_F_EDITOR.md). C01-G owns old-engine unsaved-buffer/Play
-bridges; #44 filtered tabs and #61 grammar remain separate. C01-G/H and T09
-must wait for sequential review/merge; no automatic merge.
+See [C01_F_EDITOR.md](C01_F_EDITOR.md) and [C01_G_PLAY.md](C01_G_PLAY.md).
+C01-G's native unsaved-buffer/Play bridge is merged; #44 filtered tabs and
+#61 grammar remain separate. C01-H and T09 still require sequential
+reviewed delivery; no automatic merges.
 
 ### C01-G unsaved-buffer delivery
 
-C01-G #50 is active in PR #63, base `393e91c`, after merged C01-F.
+C01-G #50 / PR #63 merged at `110c9b7`, after C01-F.
 Use a synchronous native buffer identity/save/verification boundary before both
 Play commands, preserving native semantic transactions and source/cache freshness.
 [C01_G_PLAY.md](C01_G_PLAY.md) records the minimal capability bridge and exact
 nine-engine editor/child-game evidence. Require actual newest unsaved foreground/
 background execution with autosave off, pathless/unsavable/markup/semantic/type
 failure blocking and repair, no-op outputs/maps/UIDs/timestamps and lifecycle
-regressions. C01-H/#44/#61/T09 remain excluded. No physical/manual keypress gate;
-no next implementation or automatic merge before owner review/merge or closure.
+regressions. C01-H/#44/#61/T09 remained outside merged PR #63.
+No physical/manual keypress gate. Next: E01-F #44. C01-H #51 follows
+#44 resolution or documented owner disposition.
