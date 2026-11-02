@@ -53,7 +53,9 @@ test("archived native callback metadata has consistent exact control observation
     const result = validateCallableMetadata(log, minor);
     assert.equal(result.expected_metadata_errors, count);
     const wrong = engine.callback_metadata.observations.map(row => ({ ...row }));
-    wrong[0]!.valid = !wrong[0]!.valid;
+    const invalidControl = wrong.find(row => row.name === "empty");
+    assert.ok(invalidControl);
+    invalidControl.valid = true;
     const invalid = [
       ...Array.from({ length: count },
         () => "ERROR: Can't get method on CallableCustom (lambda)"),
