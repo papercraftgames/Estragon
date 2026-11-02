@@ -6,13 +6,14 @@ Install Godot and the addon, enable the plugin, edit Gogo and press Play.
 required.** Repository TypeScript tools are optional contributor/reference tools.
 Completion, debugger remapping, live preview and bindings remain future work.
 
-**Compatibility:** ADR-0014 requires Godot 4.0+. C01-F / merged PR #62
-verified actual addon startup and saved-source lifecycle on nine official
-4.0–4.7 builds ([evidence](C01_F_EDITOR.md)). Unsaved F5/F6 Play on older
-versions is tracked in [C01-G #50/#63](C01_G_PLAY.md); full cross-version release acceptance
-remains C01-H #51. Isolated highlighting and filtered-tab limitations are
-in [E01_COMPATIBILITY](E01_COMPATIBILITY.md); see the
-[C01 matrix and queue](C01_COMPATIBILITY.md) for scoped results.
+**Compatibility:** ADR-0014 requires Godot 4.0+. C01-F / PR #62
+verified editor startup/lifecycle, and C01-G / PR #63 verified
+newest-unsaved-buffer Play across nine official 4.0–4.7 builds
+([startup](C01_F_EDITOR.md), [Play](C01_G_PLAY.md)).
+The owner-approved [E01-F exception](E01_F_FILTERED.md) permits
+unknown hidden tabs to remain Plain Text until **revealed and activated**.
+Full release acceptance remains C01-H #51; see
+[C01 evidence](C01_COMPATIBILITY.md).
 
 ## Getting started
 
@@ -160,8 +161,13 @@ without extensions. This small UI adapter and the bound underscore method are
 **Godot-version-sensitive**; it is capability-checked and its native-list fallback
 is gated to the actually tested 4.0–4.7 range. The real editor regression must run
 on upgrades. Isolated association success is not complete addon compatibility.
-Filtered-out never-associated tabs without resource metadata are deferred until
-the native list exposes their path; the plugin never changes the user's filter.
+**Owner-approved E01-F exception:** A filtered-out, never-associated Gogo
+tab with no safely identifiable native resource may remain Plain Text while
+hidden. Normal automatic highlighting applies once it is **revealed and
+activated**. Previously associated filtered tabs retain their colors;
+filters, preferences and authored contents are never modified. This
+accepted limitation is not a hidden-tab PASS; the nine-engine negative
+evidence is retained in [E01_F_FILTERED.md](E01_F_FILTERED.md).
 
 Relevant Godot contracts:
 
