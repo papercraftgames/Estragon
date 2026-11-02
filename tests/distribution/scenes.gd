@@ -14,10 +14,13 @@ func _check(value: bool, message: String) -> void:
 		push_error("Distribution: " + message)
 
 func _run() -> void:
-	_check(ProjectSettings.get_setting("application/config/features")[0] == "4.0", "project declares baseline 4.0")
 	var packed_mode := OS.get_cmdline_user_args().has("--pack")
 	if not packed_mode:
+		_check(ProjectSettings.get_setting("application/config/features")[0] == "4.0", "source project declares baseline 4.0")
 		_check(not DirAccess.dir_exists_absolute("res://tools") and not FileAccess.file_exists("res://package.json"), "distributed addon has no contributor toolchain")
+	else:
+		# Godot stamps its own engine feature into project.binary on export.
+		_check(ProjectSettings.get_setting("application/config/features").has("GL Compatibility"), "export retains renderer feature")
 	for scene in ["hello/Hello", "layout/Layout", "compiled/Compiled", "mixed/Mixed", "interactive/Interactive", "counter/Counter"]:
 		var location: String = "res://examples/" + scene + ".tscn"
 		var packed := load(location) as PackedScene
