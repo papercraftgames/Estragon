@@ -152,13 +152,13 @@ func _component(node: Model.Component, indentation: String) -> String:
 			var callback := "_gogo_callback_" + variable
 			_line("var %s: Variant = %s" % [callback, argument], value.span, indentation)
 			_line("if not %s.is_valid() or (Engine.get_version_info()[\"minor\"] >= 3 and %s.get_argument_count() != 0):" % [argument, callback], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 			_line("elif %s.get_object() is EstragonDisplayObject and (%s.get_object() as EstragonDisplayObject).is_disposed():" % [callback, callback], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 			_line("elif %s.pressed.connect(%s) != OK:" % [variable, argument], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 	for child in node.children:
 		var child_value: String = _arguments[child].name if child is Model.GdExpression else _component(child, indentation)
 		_line("if %s.add_child(%s) != OK:" % [variable, child_value], child.span, indentation)
-		_line(indentation + "push_error(%s)" % _string("%s:%d:%d: Gogo child must be a live, uniquely owned component" % [_file.name, child.span.start.line, child.span.start.column]), child.span, indentation)
+		_line(_module.indentation + "push_error(%s)" % _string("%s:%d:%d: Gogo child must be a live, uniquely owned component" % [_file.name, child.span.start.line, child.span.start.column]), child.span, indentation)
 	return variable
