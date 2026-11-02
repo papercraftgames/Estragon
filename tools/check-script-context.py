@@ -76,6 +76,9 @@ def main():
     parser.add_argument("--engine", action="append", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    # Owner budget: never run more than two Godot versions per invocation.
+    if len(args.engine) > 2:
+        parser.error("Maximum two Godot engines (routine: 4.0.4 and 4.7.0)")
     args.output.mkdir(parents=True, exist_ok=False)
     records = [collect(engine, args.output) for engine in args.engine]
     (args.output / "results.json").write_text(json.dumps(records, indent=2) + "\n")
