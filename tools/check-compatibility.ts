@@ -41,6 +41,15 @@ export async function audit(selection: EngineSelection, output: string, editor: 
     for (const name of ["godot", "fixtures"]) {
       copyTree(path.join(ROOT, "tests", name), path.join(project, "tests", name));
     }
+    // native_build.gd is a standalone 4.5+ logger research fixture.
+    // Importing it as an unrelated script breaks 4.0's class-index probe,
+    // even though the shipped addon and the selected native suites are valid.
+    // Keep the source in the repository; exclude it only from this sandbox.
+    fs.rmSync(path.join(project, "tests/godot/native_build.gd"), { force: true });
+    // native_semantics.gd reads this oracle during execution. Stage it before
+    // generated import and all runtime probes, not after semantic_identity.
+    copyFile(path.join(ROOT, "tests/compatibility/numeric_cases.json"),
+      path.join(project, "numeric_cases.json"));
     // Native editor import is the class-registry authority; do not spawn 33
     // independent --check-only processes for an identical clean source tree.
     await run("frontend", ["--script", "res://tests/godot/native_frontend.gd",
@@ -89,7 +98,6 @@ export async function audit(selection: EngineSelection, output: string, editor: 
 
     // Independent exact numeric oracle, checked against real native Godot.
     copyFile(path.join(ROOT, "tests/compatibility/numeric_literals.gd"), path.join(project, "numeric_literals.gd"));
-    copyFile(path.join(ROOT, "tests/compatibility/numeric_cases.json"), path.join(project, "numeric_cases.json"));
     await run("numeric_literals", ["--script", "res://numeric_literals.gd"], "C01_NUMERIC_OK");
     try {
       const evidence = validateNumeric(fs.readFileSync(logPath("numeric_literals"), "utf8"),
