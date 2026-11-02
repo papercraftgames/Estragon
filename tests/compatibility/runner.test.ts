@@ -12,6 +12,22 @@ const scripts = [
   "check-compatibility.ts", "check-editor-lifecycle.ts", "check-editor-play.ts",
   "check-filtered-highlighting.ts", "check-script-context.ts",
 ];
+test("repository must contain no Python source files", () => {
+  const found: string[] = [];
+  const walk = (directory: string): void => {
+    for (const item of fs.readdirSync(directory, { withFileTypes: true })) {
+      if ([".git", ".godot", "node_modules", "dist"].includes(item.name)) continue;
+      const filename = path.join(directory, item.name);
+      if (item.isDirectory()) walk(filename);
+      else if (item.isFile() && item.name.endsWith(".py")) {
+        found.push(path.relative(ROOT, filename));
+      }
+    }
+  };
+  walk(ROOT);
+  assert.deepEqual(found, [], "Python is prohibited in Estragon, including test tooling");
+});
+
 test("never start Godot for extra or non-approved engine versions", () => {
   for (const script of scripts) {
     for (const selections of [
