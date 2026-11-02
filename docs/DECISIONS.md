@@ -267,3 +267,18 @@ The hidden-tab observation remains FAIL on all nine tested official engines, not
 **Reason:** all-minor matrices wasted AI usage, agent time, CPU, CI minutes and review effort without proportionate benefit. Prefer small targeted local checks during implementation and a single relevant two-version review/acceptance pass rather than repeated exhaustive runs. CI must contain only 4.0.4 (macOS) and 4.7.0 (Linux), with duplicate push+PR triggers and superseded runs canceled.
 
 **Scope of proof:** Godot **4.0+ remains the product target** under ADR-0014; this is a **testing-budget change**, not an increase in the supported minimum or a declaration that each untested 4.x minor passed. Historical nine-version results, SHA/provenance, and FAIL/BLOCKED/UNTESTED outcomes remain intact as archive, never relabeled or used to force a rerun. New reports/snapshots accept one or two engines. This decision supersedes the 2026-10-29 requirement to retest every minor in each C01 slice or release check. See `AGENTS.md` and `docs/TESTING.md` for the standing operative policy.
+
+## Native framework and TypeScript-only tooling — owner reaffirmation (2026-11-02)
+
+**Status: accepted and mandatory.** Estragon's product language/framework is
+**native Godot/GDScript and Gogo**. Every contributor-side script, test
+orchestrator, compatibility runner, evidence validator, report generator, and CI
+helper must be **TypeScript**. Python has **no place anywhere in the repository's
+source, tests, build scripts, or workflows**, including embedded snippets in YAML.
+
+This is a standing architectural boundary, not a task-specific preference.
+Previous C01 test automation violated it. PR #64 replaces the operating
+collectors and validators with TypeScript, retains native GDScript fixture
+tests and archived factual evidence, removes all Python files, and updates CI.
+Do not reintroduce Python as a shortcut for temporary research, compatibility,
+or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.
