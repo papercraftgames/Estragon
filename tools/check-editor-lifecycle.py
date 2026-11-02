@@ -99,6 +99,9 @@ def main():
     parser.add_argument("--engine", action="append", required=True, help="unique-label=/absolute/godot")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    # Owner budget: never run more than two Godot versions locally or in CI.
+    if len(args.engine) > 2:
+        parser.error("Maximum two Godot engines per run (routine: 4.0.4 and 4.7.0)")
     labels = [item.split("=", 1)[0] for item in args.engine]
     if len(labels) != len(set(labels)) or any(not label or "/" in label or "\\" in label or label in [".", ".."] for label in labels):
         parser.error("engine labels must be unique plain directory names")
