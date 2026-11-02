@@ -1,0 +1,76 @@
+{
+  "assessment_source_commit": "e21c8dda1cbe6da1b6afeb36064653a009b75d66",
+  "scope": "Reassessment of existing CI artifacts only; no native engines rerun",
+  "engines": [
+    {
+      "label": "4.0.4",
+      "native_execution_source": "f088d94bfa0259ff70e4bb13414e1104f40d3725",
+      "ci_run": "https://github.com/resistdesign/Estragon/actions/runs/41389380959",
+      "inputs": [
+        {
+          "artifact_path": "compatibility/results.json",
+          "sha256": "ed0ccf207f5e215150ac44ca176bcd7fae15853e35ce5a14e183026e0d695377"
+        },
+        {
+          "artifact_path": "distribution/results.json",
+          "sha256": "49a32dbcc204c6ecfeeae8b7e1c7aa07b948abac89d704754f519042f4f28b8e"
+        },
+        {
+          "artifact_path": "editor-lifecycle/results.json",
+          "sha256": "5822f256406465b904c97cd19fed44b15631f9d03ec342bd02d9653bd615dc30"
+        },
+        {
+          "artifact_path": "editor-play/results.json",
+          "sha256": "967c2c3ef1a657cbc3607c600722cc173d51c14949f499f3fbd99cd3788f797f"
+        }
+      ],
+      "checks": [
+        {
+          "mode": "development",
+          "exit_code": 0,
+          "output": "4.0.4-development.json"
+        },
+        {
+          "mode": "release",
+          "exit_code": 1,
+          "output": "4.0.4-release.json"
+        }
+      ]
+    },
+    {
+      "label": "4.7",
+      "native_execution_source": "f088d94bfa0259ff70e4bb13414e1104f40d3725",
+      "ci_run": "https://github.com/resistdesign/Estragon/actions/runs/41389380918",
+      "inputs": [
+        {
+          "artifact_path": "compatibility/results.json",
+          "sha256": "e36cbfa0226e18a13d617fd6632fc0a265ba4e24c29f66a71f5840d180e7e438"
+        },
+        {
+          "artifact_path": "distribution/results.json",
+          "sha256": "43359352a2ef838ebd0cdc6892b6f22243d48274b369669d6882763a823e5769"
+        },
+        {
+          "artifact_path": "editor-lifecycle/results.json",
+          "sha256": "09729c7c0a25d6367608630fc712966678f2eb44cb22cd12f579d8098901474c"
+        },
+        {
+          "artifact_path": "editor-play/results.json",
+          "sha256": "839cbadf0f4766fe2d42f96c79878691d97cc192c2ff1ffd9beb841798685782"
+        }
+      ],
+      "checks": [
+        {
+          "mode": "development",
+          "exit_code": 0,
+          "output": "4.7-development.json"
+        },
+        {
+          "mode": "release",
+          "exit_code": 1,
+          "output": "4.7-release.json"
+        }
+      ]
+    }
+  ]
+}

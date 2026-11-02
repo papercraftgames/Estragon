@@ -1,0 +1,306 @@
+{
+  "verification_mode": "development",
+  "source_commit": "f088d94bfa0259ff70e4bb13414e1104f40d3725",
+  "engines": [
+    {
+      "label": "4.0.4",
+      "status": "BLOCKED",
+      "requirements": [
+        {
+          "name": "core.engine_identity",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.import",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.frontend",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.emission_maps",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.generated_import",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.legacy_scene",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.components",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.layout",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.input_text",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.cold_text",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.generated_layout",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.hybrid_runtime",
+          "observed": "FAIL",
+          "required": true,
+          "disposition": "RELEASE BLOCKER"
+        },
+        {
+          "name": "core.generated_signals",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.native_counter",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.semantic_identity",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.numeric_literals",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.numeric_native_preservation",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.callback_metadata_probe",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.semantic_baseline_valid",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.semantic_baseline_invalid",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.publication_import",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.native_publication_registered",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.native_publication_positive",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.native_publication_rollback",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "core.native_publication_fresh_failure",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.engine_identity",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.package_layout",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.distribution_import",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.distribution_scenes",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.shipped_scripts_editor",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.resource_pack_export",
+          "observed": "FAIL",
+          "required": true,
+          "disposition": "RELEASE BLOCKER"
+        },
+        {
+          "name": "distribution.resource_pack_runtime",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "distribution.source_only_build",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "lifecycle.engine_identity",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "lifecycle.lifecycle_1",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "lifecycle.runtime_after_1",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "lifecycle.lifecycle_2",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "lifecycle.runtime_after_2",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "play.engine_identity",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "play.play_1",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "play.play_2",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "native_graphics",
+          "observed": "PASS",
+          "required": true,
+          "disposition": "SATISFIED"
+        },
+        {
+          "name": "cold_scene_restore",
+          "observed": "FAIL",
+          "required": true,
+          "disposition": "RELEASE BLOCKER"
+        },
+        {
+          "name": "executable_export",
+          "observed": "UNTESTED",
+          "required": true,
+          "disposition": "RELEASE BLOCKER",
+          "reason": "Resource-pack evidence does not verify standalone executable export"
+        },
+        {
+          "name": "filtered_highlighting",
+          "observed": "FAIL",
+          "required": false,
+          "disposition": "OWNER-ACCEPTED EXCEPTION: unknown hidden tab waits for reveal AND activation (#44)",
+          "reason": "Owner-accepted invisible never-associated tab limitation (#44)"
+        },
+        {
+          "name": "numeric_native_conversion",
+          "observed": "BLOCKED",
+          "required": false,
+          "disposition": "OWNER-APPROVED CAPABILITY DIFFERENCE; mandatory preservation/guards remain required"
+        },
+        {
+          "name": "callback_arity_api",
+          "observed": "BLOCKED",
+          "required": false,
+          "disposition": "OWNER-APPROVED CAPABILITY DIFFERENCE; mandatory preservation/guards remain required"
+        }
+      ],
+      "development_check": {
+        "status": "PASS",
+        "problems": [],
+        "known_blockers": [
+          "core.hybrid_runtime",
+          "distribution.resource_pack_export",
+          "cold_scene_restore",
+          "executable_export"
+        ]
+      }
+    }
+  ]
+}

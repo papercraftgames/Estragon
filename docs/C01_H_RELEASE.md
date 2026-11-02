@@ -149,3 +149,22 @@ These are review recipes, not instructions to repeatedly rerun complete suites.
 Use the owner's bounded focused-test policy and preserve known failures. The
 `--graphics` path requires a native display (Xvfb/Mesa in Linux CI). Runtime
 engine/child processes have an empty executable PATH; no external compiler.
+
+## Owner-directed development/release separation verification
+
+The completed native CI runs at **5a47e3e**
+([4.0.4 macOS](https://github.com/resistdesign/Estragon/actions/runs/41389380959),
+[4.7 Linux](https://github.com/resistdesign/Estragon/actions/runs/41389380918))
+failed only at their then-strict release step. Their native checks, including
+Dummy-audio graphics, completed. The exact known blocker baseline above comes
+from those structured reports, rather than inferred green process exits.
+
+The reporting-only change was checked against those downloaded artifacts without
+rerunning Godot locally. [Preserved assessments](../tests/compatibility/c01-h/development-separation/)
+record **development exit 0 / release exit 1 on both engines**, with release
+status **BLOCKED** unchanged. Provenance records the assessment implementation
+revision, original native execution revision, CI links and input report hashes.
+This is reassessment of existing evidence, not execution at a new source head.
+Final-head CI checks the new implementation and workflows directly; see #51/#66
+for the final run links and handoff. This PR is reviewable when development CI
+passes; it does not resolve the release blockers or authorize publishing.
