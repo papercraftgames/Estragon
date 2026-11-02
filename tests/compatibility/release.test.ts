@@ -94,3 +94,8 @@ test("semantic error counts do not double-count mapped Logger diagnostics", () =
   assert.deepEqual(diagnosticLines(transcript), [native]);
   assert.deepEqual(diagnosticLines(transcript + 'ERROR: unrelated\n'), [native, 'ERROR: unrelated']);
 });
+
+test("CI visual probe needs no host audio device", () => {
+  const collector = fs.readFileSync(new URL("../../tools/check-distribution.ts", import.meta.url), "utf8");
+  assert.match(collector, /sandbox\.binary, "--audio-driver", "Dummy", "--path"/);
+});

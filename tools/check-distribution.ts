@@ -97,7 +97,8 @@ export async function audit(selection: EngineSelection, output: string, graphics
     if (graphics) {
       copyFile(path.join(ROOT, "tests/godot/native_counter.gd"), path.join(project, "native_counter.gd"));
       record.stages.native_graphics = await runCommand(
-        [sandbox.binary, "--path", project, "--script", "res://native_counter.gd", "--", "--visual"],
+        [sandbox.binary, "--audio-driver", "Dummy", "--path", project,
+          "--script", "res://native_counter.gd", "--", "--visual"],
         sandbox.workspace, sandbox.env, log("native_graphics"), "ESTRAGON_NATIVE_COUNTER_OK", { timeout: 90000, abortOnError: true });
       const images = [];
       for (const name of ["zero", "one", "reset-resized"]) {
