@@ -86,3 +86,11 @@ test("mismatched or dirty artifact provenance cannot authorize release", () => {
     assert.throws(() => assessFiles(files), /sets differ/);
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 });
+
+import { diagnosticLines } from "../../tools/check-compatibility.ts";
+test("semantic error counts do not double-count mapped Logger diagnostics", () => {
+  const native = 'SCRIPT ERROR: Parse Error: Identifier "missing_semantic_value" not declared.';
+  const transcript = native + '\nSEMANTIC_BASELINE_DIAGNOSTIC Invalid.gogo:3:1: Parse Error: Identifier "missing_semantic_value" not declared.\n';
+  assert.deepEqual(diagnosticLines(transcript), [native]);
+  assert.deepEqual(diagnosticLines(transcript + 'ERROR: unrelated\n'), [native, 'ERROR: unrelated']);
+});

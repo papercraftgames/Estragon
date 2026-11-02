@@ -11,8 +11,10 @@ import { ROOT, ERROR, copyFile, copyTree, engineRecord, freshProject, indexProje
   stageStatus, unavailable, writeJSON } from "./compat-kit.ts";
 import type { EngineRecord, EngineSelection, Sandbox, Stage } from "./compat-kit.ts";
 
-function diagnosticLines(log: string): string[] {
-  return log.split(/\r?\n/).filter(line => ERROR.test(line));
+export function diagnosticLines(log: string): string[] {
+  // Count engine emissions, not the validator's structured/mapped repetitions
+  // containing the same words. Newer Logger engines produce both forms.
+  return log.split(/\r?\n/).filter(line => /^(?:SCRIPT ERROR:|ERROR:)/.test(line));
 }
 export async function audit(selection: EngineSelection, output: string, editor: boolean): Promise<EngineRecord> {
   const sandbox = newSandbox(selection);
