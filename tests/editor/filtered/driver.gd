@@ -80,7 +80,7 @@ func _listed(path: String) -> CodeEdit:
 					return editor.get_base_editor() as CodeEdit
 	return null
 
-func _identity(code: CodeEdit) -> void:
+func _identity(code: CodeEdit, context: String) -> void:
 	for editor in scripts.get_open_script_editors():
 		if editor.get_base_editor() != code: continue
 		var resource: Resource
@@ -91,11 +91,12 @@ func _identity(code: CodeEdit) -> void:
 			if "resource" in str(property.name) or "path" in str(property.name):
 				fields[str(property.name)] = str(editor.get(property.name))
 		print("E01_F_IDENTITY ", JSON.stringify({
+			"context": context, "native_resource_path": resource.resource_path if resource != null else "",
 			"editor_class": editor.get_class(), "open_script_count": scripts.get_open_scripts().size(), "editor_meta": editor.get_meta_list(),
 			"native_path_meta": editor.get_meta("_edit_res_path", ""),
 			"resource_getter_bound": editor.has_method("get_edited_resource"),
 			"resource_properties": fields, "highlighter_resource": str(resource),
-			"adapter_path_without_cache": association._path(editor, code, false),
+			"adapter_path_without_cache": association._path(editor, code, false) if association != null else "",
 			"cached_gogo_path": code.get_meta("estragon_gogo_path", "")}))
 
 func _run() -> void:
@@ -136,9 +137,11 @@ func _run() -> void:
 	filter.text_changed.emit(filter.text)
 	await wait()
 	check(_listed("res://examples/counter/Background.gogo") == null, "never-associated background genuinely filtered out")
+	_identity(b, "before enable")
 	_enable()
 	await wait()
-	_identity(b)
+	_identity(b, "after enable")
+	check(_listed("res://examples/counter/Background.gogo") == null, "background remains excluded after association")
 	var hidden_ok: bool = b.syntax_highlighter.get_script() == Highlighter
 	print("E01_F_HIDDEN_ACCEPTANCE ", "PASS" if hidden_ok else "FAIL")
 	check(filter.text == "~e01-f-no-match~", "association leaves filter unchanged")
