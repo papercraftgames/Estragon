@@ -87,7 +87,7 @@ class CollectorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             for collect_only in [False, True]:
                 output = Path(directory) / ("audit" if collect_only else "gate")
-                argv = ["collector", "--engine", "test=/unused", "--output", str(output)]
+                argv = ["collector", "--engine", "4.0.4=/unused", "--output", str(output)]
                 if collect_only:
                     argv.append("--collect-only")
                 with patch.object(sys, "argv", argv), patch.object(collector, "audit", return_value=observation), contextlib.redirect_stdout(io.StringIO()):
