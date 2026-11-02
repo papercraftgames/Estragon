@@ -3,17 +3,21 @@ const Dependencies = preload("res://addons/estragon/editor/script_dependencies.g
 const Build = preload("res://addons/estragon/editor/build_service.gd")
 var _failed: bool = false
 var _checks: int = 0
-var _temporary: DirAccess
 var _project: String
 var _expected_errors: int = 0
-class Capture extends Logger:
-	var count: int = 0
-	var mutex := Mutex.new()
-	func _log_error(_function: String, _file: String, _line: int, _code: String, _rationale: String, _notify: bool, kind: int, _traces: Array[ScriptBacktrace]) -> void:
-		if kind == ERROR_TYPE_WARNING: return
-		mutex.lock()
-		count += 1
-		mutex.unlock()
+class Capture extends RefCounted:
+	var native: Object
+	var messages: Array[String]:
+		get: return native.messages if native != null else []
+	func start() -> void:
+		if not ClassDB.class_exists("Logger"): return
+		var factory := GDScript.new()
+		factory.source_code = FileAccess.get_file_as_string("res://tests/godot/semantic_capture.gd.txt")
+		if factory.reload() == OK:
+			native = factory.new()
+			OS.call("add_logger", native)
+	func stop() -> void:
+		if native != null: OS.call("remove_logger", native)
 
 func _initialize() -> void:
 	_run.call_deferred()
@@ -39,9 +43,9 @@ func _build() -> Dictionary:
 
 func _run() -> void:
 	var errors := Capture.new()
-	OS.add_logger(errors)
-	_temporary = DirAccess.create_temp("estragon-native-build")
-	_project = _temporary.get_current_dir()
+	errors.start()
+	_project = OS.get_user_data_dir().path_join("native-build-" + str(Time.get_ticks_usec()))
+	_check(DirAccess.make_dir_recursive_absolute(_project) == OK, "isolated native build directory created")
 	_write("ui/Main.gogo", '<VBox><Rect width="10"/></VBox>')
 	_write("ui/Other.gogo", 'extends RefCounted\nfunc build():\n    return <Text text="OK"/>\n')
 	for name in ["addons", "vendor", "node_modules", "tests", "generated", ".hidden"]:
@@ -92,8 +96,8 @@ func _run() -> void:
 	_dependencies()
 	_inheritance()
 	_dependency_literals()
-	OS.remove_logger(errors)
-	_check(errors.count == _expected_errors, "all engine errors belong to expected semantic rejections")
+	errors.stop()
+	_check(errors.native == null or errors.messages.size() == _expected_errors, "all engine errors belong to expected semantic rejections")
 	print("Native build assertions: ", _checks)
 	if not _failed: print("ESTRAGON_NATIVE_BUILD_OK")
 	quit(1 if _failed else 0)

@@ -250,7 +250,7 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 is Ready**. T09 and later work remain queued.
+C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 gate slice is in review; release remains blocked**. T09 and later work remain queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
@@ -325,4 +325,27 @@ background execution with autosave off, pathless/unsavable/markup/semantic/type
 failure blocking and repair, no-op outputs/maps/UIDs/timestamps and lifecycle
 regressions. C01-H/#44/#61/T09 remained outside merged PR #63.
 No physical/manual keypress gate. E01-F #44's accepted exception is closed and
-PR #64 merged; C01-H #51 is the current Ready task (no implementation PR yet).
+PR #64 merged; C01-H #51 has a gate/distribution review slice; release remains blocked. See C01_H_RELEASE.md and the live issue for continuation.
+
+### C01-H gate/distribution slice — review scope, release still blocked
+
+C01-H #51 now has a focused release-gate/distribution implementation. See
+[C01_H_RELEASE](C01_H_RELEASE.md) for actual two-engine evidence and preserved
+failures. This slice corrects baseline project features and obsolete test
+contexts, verifies fresh examples/UIDs/native graphics/resource packs, and
+requires explicit matching source/engine artifacts for release assessment.
+It does **not** complete C01-H or advance T09-A.
+
+**Proposed serial continuation for owner review:** review this focused gate PR,
+then resolve #61, #65, cold missing-generated-scene restoration and explicit
+standalone-export/platform scope in separately reviewable steps under #51.
+The strict gate remains blocking until their requirements are verified or an
+explicit owner disposition is recorded; no new exception is assumed.
+Only 4.0.4 + pinned 4.7.0 are authorized. No competing implementation PR,
+automatic merge, Python, syntax reduction or intermediate-minor certification.
+
+Owner-directed PR #66 follow-through separates development verification from
+publishing authorization. Ordinary CI checks exact known-blocker expectations
+and evidence integrity while retaining release BLOCKED; strict release mode
+remains mandatory before publishing. This does not waive the serial #61/cold
+scene/#65/export prerequisites or advance T09. See C01_H_RELEASE.md and #51.

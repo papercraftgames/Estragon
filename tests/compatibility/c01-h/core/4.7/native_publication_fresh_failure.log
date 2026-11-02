@@ -1,0 +1,14 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "missing_publication_value" not declared in the current scope.
+          at: GDScript::reload (res://fresh_failure/generated/Bad.gd:2)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _build (res://tests/godot/native_publication.gd:29)
+              [5] _fresh_failure (res://tests/godot/native_publication.gd:125)
+              [6] _run (res://tests/godot/native_publication.gd:37)
+Native publication assertions: 6
+ESTRAGON_NATIVE_PUBLICATION_OK

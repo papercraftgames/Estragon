@@ -1,0 +1,22 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+C01_H_CHECK project declares baseline 4.0: true
+C01_H_CHECK distributed addon has no contributor toolchain: true
+C01_H_CHECK scene/dependencies load: hello/Hello: true
+C01_H_CHECK single host, independent components: hello/Hello: true
+C01_H_CHECK scene/dependencies load: layout/Layout: true
+C01_H_CHECK single host, independent components: layout/Layout: true
+C01_H_CHECK scene/dependencies load: compiled/Compiled: true
+C01_H_CHECK single host, independent components: compiled/Compiled: true
+C01_H_CHECK scene/dependencies load: mixed/Mixed: true
+C01_H_CHECK single host, independent components: mixed/Mixed: true
+C01_H_CHECK scene/dependencies load: interactive/Interactive: true
+C01_H_CHECK single host, independent components: interactive/Interactive: true
+C01_H_CHECK scene/dependencies load: counter/Counter: true
+C01_H_CHECK single host, independent components: counter/Counter: true
+C01_H_CHECK shipped generated Counter executes: true
+C01_H_CHECK shipped generated callback: true
+C01_H_CHECK shipped generated reset: true
+C01_H_CHECK legacy JSON included: true
+C01_H_DISTRIBUTION_ASSERTIONS 18
+C01_H_DISTRIBUTION_OK

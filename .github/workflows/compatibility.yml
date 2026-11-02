@@ -3,6 +3,12 @@ name: C01 native Godot compatibility (two versions total)
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      verification_mode:
+        description: "Development integrity or strict release authorization (no publishing)"
+        type: choice
+        options: [development, release]
+        default: development
 
 concurrency:
   group: c01-compat-${{ github.event.pull_request.number || github.ref }}
@@ -45,6 +51,20 @@ jobs:
           tools/check-editor-play.ts
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output '${{ runner.temp }}/editor-play'
+      - name: Fresh distribution, resource pack and native graphics
+        run: >-
+          node --experimental-strip-types tools/check-distribution.ts
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output '${{ runner.temp }}/distribution' --graphics --collect-only
+      - name: C01-H development integrity or explicit strict release gate
+        run: >-
+          node --experimental-strip-types tools/assert-release.ts
+          --mode "${{ inputs.verification_mode || 'development' }}"
+          '${{ runner.temp }}/compatibility/results.json'
+          '${{ runner.temp }}/distribution/results.json'
+          '${{ runner.temp }}/editor-lifecycle/results.json'
+          '${{ runner.temp }}/editor-play/results.json'
+          '${{ runner.temp }}/release-assessment.json'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -53,4 +73,6 @@ jobs:
             ${{ runner.temp }}/compatibility
             ${{ runner.temp }}/editor-lifecycle
             ${{ runner.temp }}/editor-play
+            ${{ runner.temp }}/distribution
+            ${{ runner.temp }}/release-assessment.json
           if-no-files-found: warn

@@ -722,3 +722,41 @@ foreground/background source, pathless/new state, inaccessible saves, markup and
 native semantic/type failures, output/cache protection, repair and restart.
 CI requires this separately from the informational full collector and C01-F
 saved-disk lifecycle suite. Physical/manual keypress tests are not required.
+
+## C01-H release/distribution gate
+
+Use the TypeScript commands and exact limitations in
+[C01_H_RELEASE.md](C01_H_RELEASE.md). `check-distribution.ts` verifies cache-free
+addon/examples, scene format/path/UID resources, native editor script loading,
+selected-resource pack runtime and optional `--graphics` Counter captures.
+A selected-resource export must include all `addons/estragon/runtime/*.gd`
+global dependencies and use explicit Gogo/JSON include filters. Source project
+features stay at 4.0; exported project.binary is stamped by its producing engine.
+
+`assert-release.ts` takes absolute CORE, DISTRIBUTION, LIFECYCLE, PLAY and OUTPUT
+paths. All input reports must describe the same clean source and approved
+engine set. Missing evidence, genuine failures and untested required export
+behavior block release. Collection exit zero is not certification. Preserve
+#44 as observed FAIL with a separate owner-approved exception; absent physical
+keypress testing is not a gate. CI runs only the two approved engine jobs and
+uploads raw stage results plus the explicit blocking release assessment.
+
+### Development verification and strict publishing checks
+
+Ordinary PR/push CI uses tools/assert-release.ts --mode development with the same
+CORE DISTRIBUTION LIFECYCLE PLAY OUTPUT absolute paths. The complete release
+assessment stays BLOCKED for the documented C01-H blockers; a separate
+development_check passes only exact engine/stage/outcome/failure fingerprints
+from tools/development-policy.ts. Missing artifacts/logs, mismatched provenance,
+unknown failures and newly unavailable requirements reject development CI.
+Fixed blockers can become PASS without weakening any release requirement.
+
+Strict tools/assert-release.ts (default or --mode release) must still exit
+nonzero for BLOCKED. Manual workflow dispatch verification_mode=release runs this
+strict publishing boundary on the same two approved jobs. No publishing exists
+yet; any future publisher must require both strict jobs, never development PASS.
+No continue-on-error, shell masking, extra engine or physical-key gate is used.
+Cheap TypeScript tests verify mode exit codes, preserved BLOCKED reports,
+known failure fingerprints, regression/missing-evidence rejection and all-PASS
+behavior. Reuse archived real CI artifacts for policy checks without new engine
+execution; do not change their original source/provenance.

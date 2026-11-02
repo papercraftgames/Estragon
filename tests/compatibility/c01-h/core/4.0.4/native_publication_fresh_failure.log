@@ -1,0 +1,6 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Identifier "missing_publication_value" not declared in the current scope.
+          at: GDScript::reload (res://fresh_failure/generated/Bad.gd:2)
+Native publication assertions: 6
+ESTRAGON_NATIVE_PUBLICATION_OK

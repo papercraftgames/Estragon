@@ -1,0 +1,91 @@
+{
+  "label": "4.0.4",
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "input_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+  "provenance": {
+    "minor": "4.0",
+    "version": "4.0.4.stable.official.fc0b241c9",
+    "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_macos.universal.zip",
+    "archive_sha256": "a345a0777652323b24497b19c34bfea363cf1ed496dd2eb86befbdab287ab747",
+    "binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+    "patch_selection": "Latest stable patch in official godot-builds releases API, 2026-10-29"
+  },
+  "stages": {
+    "engine_identity": {
+      "status": "PASS"
+    },
+    "lifecycle_1": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 27.42,
+      "log": "lifecycle_1.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+        "     at: push_warning (core/variant/variant_utility.cpp:923)"
+      ]
+    },
+    "runtime_after_1": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/project",
+        "--script",
+        "res://tests/lifecycle/runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.91,
+      "log": "runtime_after_1.log",
+      "diagnostics": []
+    },
+    "lifecycle_2": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/godot",
+        "--headless",
+        "--editor",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/project"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 18.5,
+      "log": "lifecycle_2.log",
+      "diagnostics": [
+        "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+        "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+      ]
+    },
+    "runtime_after_2": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-4n4FnW/project",
+        "--script",
+        "res://tests/lifecycle/runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1,
+      "log": "runtime_after_2.log",
+      "diagnostics": []
+    }
+  }
+}

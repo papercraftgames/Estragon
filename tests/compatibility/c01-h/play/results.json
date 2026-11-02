@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "source_commit": "0df7c24a3232c6aeda12cfa84c0b960a9fa1d5ef",
+  "source_dirty": false,
+  "platform": "darwin 25.6.0",
+  "collected_at": "2026-11-02T04:24:42.784Z",
+  "source_hashes": {
+    "addons/estragon/editor/plugin.gd": "ce541049b29391a1ece0138c9ae29573b96a8f3de47ce9a79bf9d0c2ba8dfa16",
+    "addons/estragon/editor/buffer_guard.gd": "951e8dae4f0612c227b44651ec2abd74499bbb1332afb038daf40a18e79383de",
+    "tools/check-editor-play.ts": "8bbec43de8e6764b8e83d913dfdfa5cec9d3b299a7ec512d0abfd47a2060475e",
+    "tests/editor/play/driver.gd": "1efee1d67c78788e1611e175a61b4022c1f4618594cecc0c2c15763f747fb25b",
+    "tests/editor/play/proof.gd.txt": "eaab6cddb90c045b608bca3ce048a14488b2616ae7eed668c43a5e1566bbd938"
+  },
+  "engines": [
+    {
+      "label": "4.0.4",
+      "version": "4.0.4.stable.official.fc0b241c9",
+      "input_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+      "provenance": {
+        "minor": "4.0",
+        "version": "4.0.4.stable.official.fc0b241c9",
+        "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_macos.universal.zip",
+        "archive_sha256": "a345a0777652323b24497b19c34bfea363cf1ed496dd2eb86befbdab287ab747",
+        "binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+        "patch_selection": "Latest stable patch in official godot-builds releases API, 2026-10-29"
+      },
+      "stages": {
+        "engine_identity": {
+          "status": "PASS"
+        },
+        "play_1": {
+          "status": "PASS",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot",
+            "--headless",
+            "--editor",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 41.07,
+          "log": "play_1.log",
+          "diagnostics": [
+            "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+            "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:26)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:26)",
+            "     at: push_warning (core/variant/variant_utility.cpp:923)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:6553)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)"
+          ],
+          "checks_total": 87,
+          "failed_checks": [],
+          "unexpected_errors": []
+        },
+        "play_2": {
+          "status": "PASS",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/godot",
+            "--headless",
+            "--editor",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-W6ZkXG/project"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 15.95,
+          "log": "play_2.log",
+          "diagnostics": [
+            "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+            "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+          ],
+          "checks_total": 9,
+          "failed_checks": [],
+          "unexpected_errors": []
+        }
+      }
+    },
+    {
+      "label": "4.7",
+      "version": "4.7.stable.official.5b4e0cb0f",
+      "input_binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+      "provenance": {
+        "minor": "4.7",
+        "version": "4.7.stable.official.5b4e0cb0f",
+        "provenance": "Installed official macOS Godot.app; CI separately pins the official Linux archive checksum in .github/workflows/ci.yml.",
+        "binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+        "patch_selection": "Existing required CI baseline; latest patch is 4.7.2"
+      },
+      "stages": {
+        "engine_identity": {
+          "status": "PASS"
+        },
+        "play_1": {
+          "status": "PASS",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-duGXw2/godot",
+            "--headless",
+            "--editor",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-duGXw2/project"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 34.12,
+          "log": "play_1.log",
+          "diagnostics": [
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:7679)",
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:26)",
+            "ui/Counter.gogo:22:3: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:7679)",
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:26)",
+            "ui/Counter.gogo:22:3: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "ui/Counter.gogo:3:1: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "ui/Counter.gogo:3:1: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+            "ERROR: An EditorPlugin build callback failed.",
+            "   at: call_build (editor/editor_node.cpp:7679)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+            "          at: GDScript::reload (res://ui/generated/Counter.gd:3)",
+            "ui/Counter.gogo:3:1: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+            "ui/Counter.gogo:3:1: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+            "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+          ],
+          "checks_total": 87,
+          "failed_checks": [],
+          "unexpected_errors": []
+        },
+        "play_2": {
+          "status": "PASS",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-duGXw2/godot",
+            "--headless",
+            "--editor",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-duGXw2/project"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 11.38,
+          "log": "play_2.log",
+          "diagnostics": [],
+          "checks_total": 9,
+          "failed_checks": [],
+          "unexpected_errors": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot return value of type "String" because the function return type is "int".
+          at: GDScript::reload (res://dependency/generated/B.gd:4)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _build (res://tests/godot/native_publication.gd:29)
+              [5] _dependencies (res://tests/godot/native_publication.gd:87)
+              [6] _run (res://tests/godot/native_publication.gd:38)
+NATIVE_INHERITED_DEFAULTS_EVIDENCE {"existing_first":17,"existing_second":null,"existing_value":17,"expected_initialized_value":19,"fresh_second":2,"fresh_value":3,"status":"BLOCKED"}
+Native publication assertions: 17
+ESTRAGON_NATIVE_PUBLICATION_OK

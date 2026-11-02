@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      verification_mode:
+        description: "Development integrity or strict release authorization (no publishing)"
+        type: choice
+        options: [development, release]
+        default: development
 
 concurrency:
   group: core-ci-${{ github.event.pull_request.number || github.ref }}
@@ -34,9 +41,12 @@ jobs:
 
   godot-validation:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: "1.4.4"
@@ -66,3 +76,39 @@ jobs:
         run: bun run test:godot-harness
       - name: Verify fresh native editor Play, transactions and restart without Bun or Node
         run: sh tools/check-editor.sh
+      - name: C01-H baseline compiler and publication evidence
+        run: >-
+          node --experimental-strip-types tools/check-compatibility.ts
+          --engine '4.7=${{ env.GODOT_BIN }}'
+          --output '${{ runner.temp }}/compatibility' --collect-only
+      - name: C01-H baseline lifecycle and unsaved Play evidence
+        run: |
+          node --experimental-strip-types tools/check-editor-lifecycle.ts --engine '4.7=${{ env.GODOT_BIN }}' --output '${{ runner.temp }}/editor-lifecycle'
+          node --experimental-strip-types tools/check-editor-play.ts --engine '4.7=${{ env.GODOT_BIN }}' --output '${{ runner.temp }}/editor-play'
+      - name: C01-H native X11/Mesa graphics and fresh distribution
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: >-
+          xvfb-run -a node --experimental-strip-types tools/check-distribution.ts
+          --engine '4.7=${{ env.GODOT_BIN }}'
+          --output '${{ runner.temp }}/distribution' --graphics --collect-only
+      - name: C01-H development integrity or explicit strict release gate
+        run: >-
+          node --experimental-strip-types tools/assert-release.ts
+          --mode "${{ inputs.verification_mode || 'development' }}"
+          '${{ runner.temp }}/compatibility/results.json'
+          '${{ runner.temp }}/distribution/results.json'
+          '${{ runner.temp }}/editor-lifecycle/results.json'
+          '${{ runner.temp }}/editor-play/results.json'
+          '${{ runner.temp }}/release-assessment.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: godot-4.7.0-release-evidence
+          path: |
+            ${{ runner.temp }}/compatibility
+            ${{ runner.temp }}/distribution
+            ${{ runner.temp }}/editor-lifecycle
+            ${{ runner.temp }}/editor-play
+            ${{ runner.temp }}/release-assessment.json
+          if-no-files-found: warn

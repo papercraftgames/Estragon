@@ -1,0 +1,56 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+savepack: begin: Packing steps: 102
+	savepack: step 2: Storing File: res://.godot/global_script_class_cache.cfg
+	savepack: step 4: Storing File: res://.godot/exported/133200997/export-38e3d9fddc2311e9cb75eabc1c7a74d3-Hello.scn
+	savepack: step 7: Storing File: res://addons/estragon/runtime/gogo_view.gd
+	savepack: step 10: Storing File: res://.godot/exported/133200997/export-51d70b50606b51969c22f3111e6c0bd1-Layout.scn
+	savepack: step 13: Storing File: res://examples/layout/Layout.gd
+	savepack: step 16: Storing File: res://.godot/exported/133200997/export-cb9b711e1c6b278e0c5fe2be1f22ad3c-Compiled.scn
+	savepack: step 19: Storing File: res://examples/compiled/generated/Layout.gd
+	savepack: step 22: Storing File: res://.godot/exported/133200997/export-ff608e6f36e175329a7eb76499c3a5d2-Mixed.scn
+	savepack: step 24: Storing File: res://examples/mixed/generated/Mixed.gd
+	savepack: step 27: Storing File: res://.godot/exported/133200997/export-ce028f1cb48d2ab2e52f85402e203b44-Interactive.scn
+	savepack: step 30: Storing File: res://examples/interactive/Interactive.gd
+	savepack: step 33: Storing File: res://.godot/exported/133200997/export-c6564702c8655ed8e294bd0fe84b7df8-Counter.scn
+	savepack: step 36: Storing File: res://examples/counter/generated/Counter.gd
+	savepack: step 39: Storing File: res://addons/estragon/runtime/button.gd
+	savepack: step 42: Storing File: res://addons/estragon/runtime/canvas_renderer.gd
+	savepack: step 44: Storing File: res://addons/estragon/runtime/container.gd
+	savepack: step 47: Storing File: res://addons/estragon/runtime/display_object.gd
+	savepack: step 50: Storing File: res://addons/estragon/runtime/hbox.gd
+	savepack: step 53: Storing File: res://addons/estragon/runtime/paint_list.gd
+	savepack: step 56: Storing File: res://addons/estragon/runtime/pointer_dispatcher.gd
+	savepack: step 59: Storing File: res://addons/estragon/runtime/rect.gd
+	savepack: step 62: Storing File: res://addons/estragon/runtime/stack.gd
+	savepack: step 64: Storing File: res://addons/estragon/runtime/surface.gd
+	savepack: step 67: Storing File: res://addons/estragon/runtime/text.gd
+	savepack: step 70: Storing File: res://addons/estragon/runtime/vbox.gd
+	savepack: step 73: Storing File: res://tests/distribution/scenes.gd
+	savepack: step 76: Storing File: res://gogo.config.json
+	savepack: step 79: Storing File: res://shipped-scripts.json
+	savepack: step 82: Storing File: res://examples/mixed/Mixed.gogo
+	savepack: step 84: Storing File: res://examples/mixed/generated/Mixed.gd.map.json
+	savepack: step 87: Storing File: res://examples/compiled/Layout.gogo
+	savepack: step 90: Storing File: res://examples/hello/Main.gogo
+	savepack: step 93: Storing File: res://examples/hello/generated/Main.gogo.json
+	savepack: step 96: Storing File: res://examples/counter/Counter.gogo
+	savepack: step 99: Storing File: res://examples/counter/generated/Counter.gd.map.json
+	savepack: step 102: Storing File: res://examples/hello/Hello.tscn.remap
+	savepack: step 102: Storing File: res://examples/layout/Layout.tscn.remap
+	savepack: step 102: Storing File: res://examples/compiled/Compiled.tscn.remap
+	savepack: step 102: Storing File: res://examples/mixed/Mixed.tscn.remap
+	savepack: step 102: Storing File: res://examples/interactive/Interactive.tscn.remap
+	savepack: step 102: Storing File: res://examples/counter/Counter.tscn.remap
+	savepack: step 102: Storing File: res://project.binary
+savepack: end
+ERROR: Condition "_first != nullptr" is true.
+   at: ~List (./core/templates/self_list.h:106)
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:1982)
+ERROR: Resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:489)
