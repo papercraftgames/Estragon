@@ -67,7 +67,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
-          vulkan_icd=$(rg --files /usr/share/vulkan/icd.d | rg '/lvp_icd[^/]*\.json$')
+          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test "${#vulkan_icds[@]}" -eq 1
+          vulkan_icd="${vulkan_icds[0]}"
           test -f "$vulkan_icd"
           echo "vulkan_icd=$vulkan_icd" >> "$GITHUB_OUTPUT"
           mkdir -m 700 "$RUNNER_TEMP/b1-xdg-runtime"
