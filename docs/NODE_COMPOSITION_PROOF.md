@@ -67,6 +67,8 @@ Compiler determinism is asserted before editor persistence. The 4.0.4 editor may
 
 The existing full pinned regression command `GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot bun run check:godot` also passed: project import, every-script parse (including proof scripts), native frontend/runtime/layout/interaction/signals and mapped negative cases. Its exact log is [existing-regression.log](../tests/compatibility/b1/4.7.0/existing-regression.log).
 
+Raw Godot logs retain engine-emitted trailing whitespace; source/docs hygiene uses `git diff --check origin/main...HEAD -- . ':!*.log'`. Logs are not rewritten merely to satisfy whitespace checks.
+
 ## Release boundary and next task
 
 Strict C01 release remains **BLOCKED**. Raw-string/hybrid findings are outside this proof's bounded syntax; cold missing-generated scene restoration is not fixed (the explicit builder runs before scene loading); #65 resource-pack exporter cleanup is not certified by PackedScene serialization; standalone executable/platform scope remains open. Existing C01 fingerprints, results and release gates are unchanged. Development/PR success does not authorize publishing or claim full Godot 4.0+ certification.
