@@ -10,6 +10,8 @@
 
 Lowercase `@bindable` in Gogo only, including code-only non-Node models, is accepted but not implemented. Native Gogo editing/build/Play needs only Godot and the addon; no external compiler. See [design direction](docs/DESIGN_DIRECTION.md) and the [supported language subset](docs/GOGO_LANGUAGE.md).
 
+A separate [B2 layout example](examples/layout_proof/README.md) now demonstrates explicit pixel/world-unit entries, shared row measurement/arrangement and event-driven reflow in native 2D and camera-backed 3D. These bounded proofs do not migrate the existing component library or implement native layout adapters.
+
 ## Godot-only authoring
 
 Copy `addons/estragon` into Godot 4.7 and enable **Estragon (experimental)**.

@@ -88,6 +88,18 @@ jobs:
         run: |
           xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
           xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
+      - name: B2 shared 2D/3D layout, native runtime and graphics proof
+        working-directory: ${{ runner.temp }}
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          VK_DRIVER_FILES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          VK_ICD_FILENAMES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/b1-xdg-runtime
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-layout-proof.ts"
+          --engine '4.7=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/ggx-b2" --graphics
       - name: R01 stock Godot annotation and real-editor feasibility probes
         run: sh tools/check-bindable.sh
       - name: E01 isolated highlighting and full-addon startup diagnostic (4.7 only)
@@ -127,6 +139,12 @@ jobs:
           '${{ runner.temp }}/editor-lifecycle/results.json'
           '${{ runner.temp }}/editor-play/results.json'
           '${{ runner.temp }}/release-assessment.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: godot-4.7-ggx-b2
+          path: ${{ runner.temp }}/ggx-b2
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: always()
         with:

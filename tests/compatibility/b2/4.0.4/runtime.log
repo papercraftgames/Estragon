@@ -1,0 +1,11 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+ 
+B2_IDLE_COUNTERS 2 before=[1, 1, 1] after=[1, 1, 1]
+B2_DPI_SIGNAL_AVAILABLE true
+B2_REFLOW_COUNTERS 2 root_flush_delta=1 sibling_measure_delta=0 sibling_arrange_delta=0
+B2_IDLE_COUNTERS 3 before=[1, 1, 1] after=[1, 1, 1]
+B2_DPI_SIGNAL_AVAILABLE true
+B2_REFLOW_COUNTERS 3 root_flush_delta=1 sibling_measure_delta=0 sibling_arrange_delta=0
+B2_RUNTIME_ASSERTIONS 69
+GGX_B2_RUNTIME_OK
