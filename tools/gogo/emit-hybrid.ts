@@ -11,6 +11,10 @@ export function emitHybrid(module: HybridModule, file: SourceFile) {
     const writer = new MappedWriter(file);
     const factories: Factory[] = [];
     let sequence = 0;
+    // Qualify static lookup without erasing argument types or requiring self.
+    let namespaceIndex = 0;
+    while (module.identifiers.has(`_GogoFactories_${namespaceIndex}`)) namespaceIndex++;
+    const factoryClass = `_GogoFactories_${namespaceIndex}`;
     const argumentByExpression = new Map<GdscriptExpression, Argument>();
     const collect = (node: HybridComponentExpression, factory: Factory) => {
         const argument = (expression: GdscriptExpression, type: string) => {
@@ -41,7 +45,7 @@ export function emitHybrid(module: HybridModule, file: SourceFile) {
         let indentationEnd = lineStart;
         while (file.text[indentationEnd] === " " || file.text[indentationEnd] === "\t") indentationEnd++;
         const baseIndent = file.text.slice(lineStart, indentationEnd);
-        writer.append(`${name}(`, node.span);
+        writer.append(`${factoryClass}.${name}(`, node.span);
         factory.arguments.forEach((argument, index) => {
             if (index) writer.append(multiline ? "," : ", ", node.span);
             if (multiline) writer.append(`\n${baseIndent}${module.indentation}`, node.span);
@@ -53,17 +57,18 @@ export function emitHybrid(module: HybridModule, file: SourceFile) {
     };
     parts(module.parts);
     writer.append("\n");
+    if (factories.length) writer.append(`\n\nclass ${factoryClass}:`, factories[0]!.root.span);
     // Nested markup inside arguments can add factories while calls are emitted.
     for (const factory of factories) {
-        writer.append(`\n\nstatic func ${factory.name}(`, factory.root.span);
+        writer.append(`\n\n${module.indentation}static func ${factory.name}(`, factory.root.span);
         const multiline = factory.arguments.length > 3;
         factory.arguments.forEach((argument, index) => {
             if (index) writer.append(multiline ? "," : ", ", argument.expression.span);
-            writer.append(`${multiline ? "\n" + module.indentation : ""}${argument.name}: ${argument.type}`, argument.expression.span);
+            writer.append(`${multiline ? "\n" + module.indentation.repeat(2) : ""}${argument.name}: ${argument.type}`, argument.expression.span);
         });
-        writer.append(`${multiline ? "\n" : ""}) -> ${COMPONENT_CLASSES[factory.root.component]}:\n`, factory.root.span);
+        writer.append(`${multiline ? "\n" + module.indentation : ""}) -> ${COMPONENT_CLASSES[factory.root.component]}:\n`, factory.root.span);
         let next = 0;
-        const line = (text: string, span: Span) => writer.append(`${module.indentation}${text}\n`, span);
+        const line = (text: string, span: Span) => writer.append(`${module.indentation.repeat(2)}${text}\n`, span);
         const emit = (node: HybridComponentExpression): string => {
             const variable = `component_${next++}`, type = COMPONENT_CLASSES[node.component];
             line(`var ${variable}: ${type} = ${type}.new()`, node.span);

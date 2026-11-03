@@ -26,7 +26,7 @@ describe("T05 lexical composition", () => {
         const result = compileGogo(source);
         expect(result.mode).toBe("hybrid");
         expect(result.code).toStartWith(source.slice(0, source.indexOf("<Rect")));
-        expect(result.code).toContain('return _gogo_build_0((scale * count), (Color.RED))');
+        expect(result.code).toContain('return _GogoFactories_0._gogo_build_0((scale * count), (Color.RED))');
         expect(result.code).toContain('static func _gogo_build_0(_gogo_value_0: float, _gogo_value_1: Color) -> EstragonRect:');
         expect(result.code).not.toContain(".call()");
         expect(result.code).toContain("    var component_0:");
@@ -69,13 +69,13 @@ describe("T05 lexical composition", () => {
     });
     test("avoids authored identifier collisions and keeps static factory calls typed", () => {
         const source = 'extends RefCounted\nstatic func _gogo_build_0():\n\treturn 2\nfunc build():\n\tvar _gogo_build_1 = 3\n\treturn <Rect/>\n';
-        expect(compileGogo(source).code).toContain('return _gogo_build_2()');
+        expect(compileGogo(source).code).toContain('return _GogoFactories_0._gogo_build_2()');
         expect(compileGogo(source).code).toContain('static func _gogo_build_2() -> EstragonRect:');
     });
     test("detects tab or space indentation without reading indentation inside strings", () => {
         const source = 'extends RefCounted\nconst TEXT = """\n    indentation in a string\n"""\nfunc build():\n\treturn <Rect/>\n';
         expect(compileGogo(source).code).toContain('\tvar component_0:');
-        expect(compileGogo(module('<Rect/>', '  ')).code).toContain('\n  var component_0:');
+        expect(compileGogo(module('<Rect/>', '  ')).code).toContain('\n    var component_0:');
     });
     test("rejects invalid tags/properties/children and unsupported markup extensions", () => {
         for (const [body, detail] of [
@@ -102,7 +102,7 @@ describe("T05 lexical composition", () => {
         const prefix = 'extends RefCounted\nclass Data:\n    func value() -> int:\n        return 42\n';
         expect(compileGogo(prefix).code).toBe(prefix + "\n");
         expect(error('extends RefCounted\nclass Data:\n    func build():\n        return <Rect/>\n').message).toContain('named inner classes');
-        expect(compileGogo(prefix + '\nfunc outer():\n    return <Rect/>\n').code).toContain('return _gogo_build_0()');
+        expect(compileGogo(prefix + '\nfunc outer():\n    return <Rect/>\n').code).toContain('return _GogoFactories_0._gogo_build_0()');
     });
     test("does not claim to typecheck/interpret GDScript expressions in TypeScript", () => {
         expect(compileGogo(module('<Rect width={unknown_name +}/>', '    ')).mode).toBe('hybrid');
@@ -171,4 +171,20 @@ describe("T05 CLI maps", () => {
         expect(run().exitCode).toBe(0);
         expect(await Bun.file(output + '.map.json').exists()).toBe(false);
     });
+});
+
+// #61: explicit static class lookup retains native typed calls inside old lambdas.
+test("hybrid factories use a collision-safe typed namespace and preserve copied ranges", () => {
+    const source = 'extends RefCounted\nconst _GogoFactories_0 = 1\nfunc invoke():\n    var callback = func(): return <Rect width={7.0}/>\n    return callback.call()\n';
+    const result = compileGogo(source, "Helper.gogo");
+    expect(result.code).toContain("class _GogoFactories_1:");
+    expect(result.code).toContain("return _GogoFactories_1._gogo_build_0((7.0))");
+    expect(result.code).toContain("static func _gogo_build_0(_gogo_value_0: float) -> EstragonRect:");
+    const line = result.code.split("\n").findIndex(line => line.includes("return _GogoFactories_1."));
+    const point = originalPosition(result, line + 1, result.code.split("\n")[line]!.indexOf("_GogoFactories_1.") + 1)!;
+    expect(source.slice(point.offset)).toStartWith("<Rect");
+    for (const segment of result.sourceMap.segments.filter(s => s.kind === "copied")) {
+        expect(result.code.slice(segment.generated.start.offset, segment.generated.end.offset)).toBe(source.slice(segment.original.start.offset, segment.original.end.offset));
+    }
+    expect(compileGogo(source, "Helper.gogo")).toEqual(result);
 });

@@ -22,11 +22,19 @@ var _factories: Array[Factory] = []
 var _arguments: Dictionary = {}
 var _sequence: int = 0
 var _variable: int = 0
+var _factory_class: String
 
 func _init(module: Model.Module, file: Source) -> void:
 	_module = module
 	_file = file
 	_writer = MappedWriter.new(file)
+	# Explicit class lookup avoids old native lambda resolution of bare static
+	# methods. Arguments still use ordinary typed calls in authored scope.
+	var index := 0
+	while true:
+		_factory_class = "_GogoFactories_%d" % index
+		if not _module.identifiers.has(_factory_class): break
+		index += 1
 
 func emit() -> MappedWriter:
 	if _module.mode == "markup":
@@ -37,6 +45,8 @@ func emit() -> MappedWriter:
 	else:
 		_parts(_module.parts)
 		_writer.append("\n")
+		if not _factories.is_empty():
+			_writer.append("\n\nclass " + _factory_class + ":", _factories[0].root.span)
 		# Calls in argument expressions may append additional factories.
 		var index: int = 0
 		while index < _factories.size():
@@ -103,7 +113,7 @@ func _call(node: Model.Component) -> void:
 	var end := start
 	while end < _file.text.length() and _file.text[end] in [" ", "\t"]: end += 1
 	var base := _file.text.substr(start, end - start)
-	_writer.append(factory.name + "(", node.span)
+	_writer.append(_factory_class + "." + factory.name + "(", node.span)
 	for index in range(factory.arguments.size()):
 		var argument := factory.arguments[index]
 		if index > 0: _writer.append("," if multiline else ", ", node.span)
@@ -114,16 +124,16 @@ func _call(node: Model.Component) -> void:
 	_writer.append(("\n" + base if multiline else "") + ")", node.span)
 
 func _factory(factory: Factory) -> void:
-	_writer.append("\n\nstatic func " + factory.name + "(", factory.root.span)
+	_writer.append("\n\n" + _module.indentation + "static func " + factory.name + "(", factory.root.span)
 	var multiline := factory.arguments.size() > 3
 	for index in range(factory.arguments.size()):
 		var argument := factory.arguments[index]
 		if index > 0: _writer.append("," if multiline else ", ", argument.expression.span)
-		_writer.append(("\n" + _module.indentation if multiline else "") + argument.name + ": " + argument.type_name, argument.expression.span)
-	_writer.append(("\n" if multiline else "") + ") -> " + factory.root.runtime_class + ":\n", factory.root.span)
+		_writer.append(("\n" + _module.indentation.repeat(2) if multiline else "") + argument.name + ": " + argument.type_name, argument.expression.span)
+	_writer.append(("\n" + _module.indentation if multiline else "") + ") -> " + factory.root.runtime_class + ":\n", factory.root.span)
 	_variable = 0
-	var variable := _component(factory.root, _module.indentation)
-	_writer.append(_module.indentation + "return " + variable + "\n", factory.root.span)
+	var variable := _component(factory.root, _module.indentation.repeat(2))
+	_writer.append(_module.indentation.repeat(2) + "return " + variable + "\n", factory.root.span)
 
 func _line(text: String, span: Model.Span, indentation: String) -> void:
 	_writer.append(indentation + text + "\n", span)
@@ -142,13 +152,13 @@ func _component(node: Model.Component, indentation: String) -> String:
 			var callback := "_gogo_callback_" + variable
 			_line("var %s: Variant = %s" % [callback, argument], value.span, indentation)
 			_line("if not %s.is_valid() or (Engine.get_version_info()[\"minor\"] >= 3 and %s.get_argument_count() != 0):" % [argument, callback], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 			_line("elif %s.get_object() is EstragonDisplayObject and (%s.get_object() as EstragonDisplayObject).is_disposed():" % [callback, callback], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 			_line("elif %s.pressed.connect(%s) != OK:" % [variable, argument], value.span, indentation)
-			_line(indentation + "push_error(" + error + ")", value.span, indentation)
+			_line(_module.indentation + "push_error(" + error + ")", value.span, indentation)
 	for child in node.children:
 		var child_value: String = _arguments[child].name if child is Model.GdExpression else _component(child, indentation)
 		_line("if %s.add_child(%s) != OK:" % [variable, child_value], child.span, indentation)
-		_line(indentation + "push_error(%s)" % _string("%s:%d:%d: Gogo child must be a live, uniquely owned component" % [_file.name, child.span.start.line, child.span.start.column]), child.span, indentation)
+		_line(_module.indentation + "push_error(%s)" % _string("%s:%d:%d: Gogo child must be a live, uniquely owned component" % [_file.name, child.span.start.line, child.span.start.column]), child.span, indentation)
 	return variable

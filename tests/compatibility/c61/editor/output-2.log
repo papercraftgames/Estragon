@@ -1,0 +1,27 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK restored res://examples/counter/Background.gogo attached Gogo highlighter: true
+EDITOR_CHECK restored res://examples/counter/Background.gogo actual declaration token color: true
+EDITOR_CHECK restored res://examples/counter/Background.gogo actual markup token color: true
+EDITOR_CHECK restored res://examples/counter/Counter.gogo attached Gogo highlighter: true
+EDITOR_CHECK restored res://examples/counter/Counter.gogo actual declaration token color: true
+EDITOR_CHECK restored res://examples/counter/Counter.gogo actual markup token color: true
+EDITOR_CHECK restored unrelated file retains native highlighter: true
+EDITOR_CHECK restored unrelated file retains native highlighter: true
+EDITOR_CHECK both persisted plain Gogo tabs restored without reopening: true
+EDITOR_CHECK editor restart builds with Godot alone: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+EDITOR_CHECK restart F5 runs: true
+EDITOR_CHECK restart executes current generated code: true
+EDITOR_CHECK launched game reports all interaction assertions: true
+EDITOR_CHECK launched Counter button_layout: true
+EDITOR_CHECK launched Counter cleanup: true
+EDITOR_CHECK launched Counter increment: true
+EDITOR_CHECK launched Counter one_connection: true
+EDITOR_CHECK launched Counter one_host: true
+EDITOR_CHECK launched Counter reset: true
+EDITOR_CHECK launched Counter resize: true
+ESTRAGON_EDITOR_PHASE_2_OK

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "source_commit": "b1e252c162edba130692317e03871ea898b7f449",
+  "source_dirty": true,
+  "platform": "darwin 25.6.0",
+  "collected_at": "2026-11-02T05:07:24.078Z",
+  "source_hashes": {
+    "addons/estragon/compiler/emitter.gd": "7b81cf1f64fbfe12fd1ef8598402b367abe6c186ffed30623e2013bf2072f7cd",
+    "tests/fixtures/helper-calls.gogo": "bf0d4dfa82e07cd36a1f0685118103744da7080d79519ba10c087ae663237eac",
+    "tests/compatibility/helper_calls/driver.gd": "498baca0426918553d2a467e7c7b5a6b08bba7fdb23d4282b1c4ba014672011c",
+    "tools/check-helper-calls.ts": "53664cb56968d5a0a14136bd65bfa4d9aceb844123588535c036af222eae8c87"
+  },
+  "engines": [
+    {
+      "label": "4.0.4",
+      "version": "4.0.4.stable.official.fc0b241c9",
+      "input_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+      "provenance": {
+        "minor": "4.0",
+        "version": "4.0.4.stable.official.fc0b241c9",
+        "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_macos.universal.zip",
+        "archive_sha256": "a345a0777652323b24497b19c34bfea363cf1ed496dd2eb86befbdab287ab747",
+        "binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+        "patch_selection": "Latest stable patch in official godot-builds releases API, 2026-10-29"
+      },
+      "stages": {
+        "engine_identity": {
+          "status": "PASS"
+        },
+        "import": {
+          "status": "PASS",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-3LXBI7/godot",
+            "--headless",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-3LXBI7/project",
+            "--editor"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 10.49,
+          "log": "import.log",
+          "diagnostics": [
+            "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+            "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+          ],
+          "evidence": {
+            "class_registry_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+            "class_registry_log": "import.classes.json"
+          }
+        },
+        "helper_calls": {
+          "status": "FAIL",
+          "command": [
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-3LXBI7/godot",
+            "--headless",
+            "--path",
+            "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-3LXBI7/project",
+            "--script",
+            "res://driver.gd"
+          ],
+          "exit_code": null,
+          "timeout": false,
+          "aborted_on_error": true,
+          "seconds": 0.84,
+          "log": "helper_calls.log",
+          "diagnostics": [
+            "SCRIPT ERROR: Invalid call. Nonexistent function '_gogo_build_3' in base 'Nil'.",
+            "          at: <anonymous lambda> (res://HelperCalls.gd:15)",
+            "ERROR: Helper calls: instance lambda returns actual component",
+            "   at: push_error (core/variant/variant_utility.cpp:903)"
+          ]
+        }
+      }
+    }
+  ]
+}

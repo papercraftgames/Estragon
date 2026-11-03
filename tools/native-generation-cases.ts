@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { compileGogo } from "./transpile-gogo.ts";
 
 const root = resolve(import.meta.dir, "..");
-const cases = ["examples/compiled/Layout.gogo", "examples/mixed/Mixed.gogo", "examples/counter/Counter.gogo", "tests/fixtures/hybrid-edges.gogo", "tests/fixtures/signal-edges.gogo", "tests/fixtures/native-named.gogo"];
+const cases = ["examples/compiled/Layout.gogo", "examples/mixed/Mixed.gogo", "examples/counter/Counter.gogo", "tests/fixtures/hybrid-edges.gogo", "tests/fixtures/signal-edges.gogo", "tests/fixtures/native-named.gogo", "tests/fixtures/helper-calls.gogo"];
 const transcript = [];
 for (const name of cases) {
     const source = await readFile(resolve(root, name), "utf8");

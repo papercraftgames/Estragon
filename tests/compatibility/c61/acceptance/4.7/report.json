@@ -1,0 +1,107 @@
+{
+  "label": "4.7",
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "input_binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+  "provenance": {
+    "minor": "4.7",
+    "version": "4.7.stable.official.5b4e0cb0f",
+    "provenance": "Installed official macOS Godot.app; CI separately pins the official Linux archive checksum in .github/workflows/ci.yml.",
+    "binary_sha256": "445c6f95030e2ca767dd921be1e91bd99e50c3703f91d22a22cd31216c93a80f",
+    "patch_selection": "Existing required CI baseline; latest patch is 4.7.2"
+  },
+  "stages": {
+    "engine_identity": {
+      "status": "PASS"
+    },
+    "import": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/project",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.82,
+      "log": "import.log",
+      "diagnostics": [],
+      "evidence": {
+        "class_registry_sha256": "fd6c08d1a0646f4daf93fa5684f1821f7dbe27e7d36aac58508aa4b8d6e8a79e",
+        "class_registry_log": "import.classes.json"
+      }
+    },
+    "helper_calls": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/project",
+        "--script",
+        "res://driver.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.62,
+      "log": "helper_calls.log",
+      "diagnostics": []
+    },
+    "negative_argument": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/project",
+        "--script",
+        "res://driver.gd",
+        "--",
+        "argument"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.53,
+      "log": "negative_argument.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+        "          at: GDScript::reload (res://Negative.gd:4)",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"float\" but is \"String\".",
+        "          at: GDScript::reload (res://Negative.gd:4)"
+      ],
+      "native_errors": [
+        "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+        "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 1 should be \"float\" but is \"String\"."
+      ]
+    },
+    "negative_return": {
+      "status": "PASS",
+      "command": [
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/godot",
+        "--headless",
+        "--path",
+        "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-wnJlNX/project",
+        "--script",
+        "res://driver.gd",
+        "--",
+        "return"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.53,
+      "log": "negative_return.log",
+      "diagnostics": [
+        "SCRIPT ERROR: Parse Error: Cannot return value of type \"EstragonRect\" because the function return type is \"int\".",
+        "          at: GDScript::reload (res://Negative.gd:4)"
+      ],
+      "native_errors": [
+        "SCRIPT ERROR: Parse Error: Cannot return value of type \"EstragonRect\" because the function return type is \"int\"."
+      ]
+    }
+  }
+}

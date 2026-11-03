@@ -1,0 +1,32 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (/Users/ryan/Library/Application Support/Godot/app_userdata/Native Estragon isolated proof/native-build-436720/ui/generated/Other.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _build (res://tests/godot/native_build.gd:42)
+              [5] _run (res://tests/godot/native_build.gd:69)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (/Users/ryan/Library/Application Support/Godot/app_userdata/Native Estragon isolated proof/native-build-436720/ui/generated/Other.gd:3)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _build (res://tests/godot/native_build.gd:42)
+              [5] _run (res://tests/godot/native_build.gd:69)
+SCRIPT ERROR: Parse Error: Cannot return value of type "String" because the function return type is "int".
+          at: GDScript::reload (/Users/ryan/Library/Application Support/Godot/app_userdata/Native Estragon isolated proof/native-build-436720/dependency/generated/B.gd:4)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _build (res://tests/godot/native_build.gd:42)
+              [5] _dependencies (res://tests/godot/native_build.gd:115)
+              [6] _run (res://tests/godot/native_build.gd:96)
+Native build assertions: 32
+ESTRAGON_NATIVE_BUILD_OK

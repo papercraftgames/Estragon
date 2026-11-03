@@ -9,6 +9,7 @@ const required = [
   "numeric_literals", "numeric_native_preservation", "callback_metadata_probe",
   "semantic_baseline_valid", "semantic_baseline_invalid",
   "generated_signals", "native_counter", "semantic_identity",
+  "helper_calls", "helper_negative_argument", "helper_negative_return",
 ];
 function main(): void {
   const filename = process.argv[2];

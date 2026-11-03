@@ -10,7 +10,7 @@ import { unexpectedErrors } from "../../tools/check-editor-play.ts";
 
 const scripts = [
   "check-compatibility.ts", "check-editor-lifecycle.ts", "check-editor-play.ts",
-  "check-filtered-highlighting.ts", "check-script-context.ts", "check-distribution.ts",
+  "check-filtered-highlighting.ts", "check-script-context.ts", "check-distribution.ts", "check-helper-calls.ts",
 ];
 test("repository must contain no Python source files", () => {
   const found: string[] = [];

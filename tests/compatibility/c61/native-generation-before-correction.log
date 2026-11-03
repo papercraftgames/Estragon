@@ -1,0 +1,104 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (31 steps)
+[   0% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  31% ] update_scripts_classes |
+[  34% ] update_scripts_classes | EstragonButton
+[  37% ] update_scripts_classes | EstragonCanvasRenderer
+[  40% ] update_scripts_classes | EstragonContainer
+[  43% ] update_scripts_classes | EstragonDisplayObject
+[  46% ] update_scripts_classes |
+[  50% ] update_scripts_classes | EstragonHBox
+[  53% ] update_scripts_classes | EstragonPaintList
+[  56% ] update_scripts_classes | EstragonPointerDispatcher
+[  59% ] update_scripts_classes | EstragonRect
+[  62% ] update_scripts_classes | EstragonStack
+[  65% ] update_scripts_classes | EstragonSurface
+[  68% ] update_scripts_classes | EstragonText
+[  71% ] update_scripts_classes | EstragonVBox
+[  75% ] update_scripts_classes |
+[  78% ] update_scripts_classes |
+[  81% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  87% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ERROR: Native generation: hybrid reference output examples/mixed/Mixed.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:45)
+ERROR: Native generation: hybrid reference source map examples/mixed/Mixed.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:46)
+ERROR: Native generation: hybrid reference output examples/counter/Counter.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:45)
+ERROR: Native generation: hybrid reference source map examples/counter/Counter.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:46)
+ERROR: Native generation: hybrid reference output tests/fixtures/hybrid-edges.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:45)
+ERROR: Native generation: hybrid reference source map tests/fixtures/hybrid-edges.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:46)
+ERROR: Native generation: hybrid reference output tests/fixtures/signal-edges.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:45)
+ERROR: Native generation: hybrid reference source map tests/fixtures/signal-edges.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:46)
+ERROR: Native generation: hybrid reference output tests/fixtures/helper-calls.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:45)
+ERROR: Native generation: hybrid reference source map tests/fixtures/helper-calls.gogo
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/godot/native_generation.gd:15)
+       [1] _run (res://tests/godot/native_generation.gd:46)
+NATIVE_GENERATION_NO_BUN
+Native generation assertions: 3670

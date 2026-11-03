@@ -1,0 +1,11 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+C61_CHECK negative frontend compiles before native typing: true
+SCRIPT ERROR: Parse Error: Cannot return value of type "EstragonRect" because the function return type is "int".
+          at: GDScript::reload (res://Negative.gd:4)
+          GDScript backtrace (most recent call first):
+              [0] _negative (res://driver.gd:77)
+              [1] _run (res://driver.gd:15)
+C61_CHECK native typed return rejection remains: true
+C61_CHECK native rejection line maps to authored callback: true
+C61_NEGATIVE_RETURN_OK
