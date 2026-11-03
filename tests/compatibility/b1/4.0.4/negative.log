@@ -1,0 +1,24 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+ 
+B1 native Timer.timeout: 18
+B1_EXPECTED_SEMANTIC_REJECTION 0
+B1 native Timer.timeout: 19
+B1_EXPECTED_SEMANTIC_REJECTION 1
+B1 native Timer.timeout: 20
+B1_EXPECTED_SEMANTIC_REJECTION 2
+B1_EXPECTED_CALLBACK_REJECTION
+B1_NEGATIVE_ASSERTIONS 72
+GGX_B1_NEGATIVE_OK
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Vector2".
+          at: GDScript::reload (res://examples/node_proof/generated/Composition.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Vector2" but is "int".
+          at: GDScript::reload (res://examples/node_proof/generated/Composition.gd:3)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "Callable".
+          at: GDScript::reload (res://examples/node_proof/generated/Composition.gd:3)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 1 should be "Callable" but is "int".
+          at: GDScript::reload (res://examples/node_proof/generated/Composition.gd:3)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/node_proof/generated/Composition.gd:3)
+ERROR: invalid-callable.gogo:3:33: B1 signal timeout requires a valid Callable/connection
+   at: push_error (core/variant/variant_utility.cpp:903)

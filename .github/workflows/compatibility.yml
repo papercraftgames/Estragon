@@ -27,6 +27,11 @@ jobs:
         run: node --disable-warning=ExperimentalWarning --experimental-strip-types --test tests/compatibility/*.test.ts
       - name: Download and verify pinned official Godot 4.0.4
         run: node --disable-warning=ExperimentalWarning --experimental-strip-types tools/download-compat-engine.ts
+      - name: B1 native GGX composition, signals and editor persistence
+        working-directory: ${{ runner.temp }}
+        run: |
+          corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
+          corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
       - name: Collect actual native compiler/runtime evidence
         run: >-
           node --disable-warning=ExperimentalWarning --experimental-strip-types
@@ -75,4 +80,7 @@ jobs:
             ${{ runner.temp }}/editor-play
             ${{ runner.temp }}/distribution
             ${{ runner.temp }}/release-assessment.json
+            ${{ runner.temp }}/ggx-b1/*.log
+            ${{ runner.temp }}/ggx-b1/provenance.json
+            ${{ runner.temp }}/ggx-b1/project/b1-*.png
           if-no-files-found: warn

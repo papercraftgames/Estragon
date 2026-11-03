@@ -1,0 +1,128 @@
+$ bun run tools/check-godot.ts
+PASS Godot version command
+PASS project import
+PASS parse res://addons/estragon/compiler/compiler.gd
+PASS parse res://addons/estragon/compiler/emitter.gd
+PASS parse res://addons/estragon/compiler/frontend.gd
+PASS parse res://addons/estragon/compiler/lexer.gd
+PASS parse res://addons/estragon/compiler/model.gd
+PASS parse res://addons/estragon/compiler/node_proof/compiler.gd
+PASS parse res://addons/estragon/compiler/node_proof/emitter.gd
+PASS parse res://addons/estragon/compiler/node_proof/validator.gd
+PASS parse res://addons/estragon/compiler/numeric_literal.gd
+PASS parse res://addons/estragon/compiler/parser.gd
+PASS parse res://addons/estragon/compiler/script_validation.gd
+PASS parse res://addons/estragon/compiler/source.gd
+PASS parse res://addons/estragon/compiler/source_map.gd
+PASS parse res://addons/estragon/compiler/validator.gd
+PASS parse res://addons/estragon/editor/buffer_guard.gd
+PASS parse res://addons/estragon/editor/build_service.gd
+PASS parse res://addons/estragon/editor/highlighter.gd
+PASS parse res://addons/estragon/editor/highlighter_association.gd
+PASS parse res://addons/estragon/editor/plugin.gd
+PASS parse res://addons/estragon/editor/script_dependencies.gd
+PASS parse res://addons/estragon/runtime/button.gd
+PASS parse res://addons/estragon/runtime/canvas_renderer.gd
+PASS parse res://addons/estragon/runtime/container.gd
+PASS parse res://addons/estragon/runtime/display_object.gd
+PASS parse res://addons/estragon/runtime/gogo_view.gd
+PASS parse res://addons/estragon/runtime/hbox.gd
+PASS parse res://addons/estragon/runtime/paint_list.gd
+PASS parse res://addons/estragon/runtime/pointer_dispatcher.gd
+PASS parse res://addons/estragon/runtime/rect.gd
+PASS parse res://addons/estragon/runtime/stack.gd
+PASS parse res://addons/estragon/runtime/surface.gd
+PASS parse res://addons/estragon/runtime/text.gd
+PASS parse res://addons/estragon/runtime/vbox.gd
+PASS parse res://examples/compiled/generated/Layout.gd
+PASS parse res://examples/counter/generated/Counter.gd
+PASS parse res://examples/interactive/Interactive.gd
+PASS parse res://examples/layout/Layout.gd
+PASS parse res://examples/mixed/generated/Mixed.gd
+PASS parse res://examples/node_proof/build.gd
+PASS parse res://examples/node_proof/generated/Composition.gd
+PASS parse res://examples/node_proof/probe_2d.gd
+PASS parse res://examples/node_proof/probe_3d.gd
+PASS parse res://tests/compatibility/callback_metadata.gd
+PASS parse res://tests/compatibility/helper_calls/driver.gd
+PASS parse res://tests/compatibility/numeric_literals.gd
+PASS parse res://tests/compatibility/publication/Registered.gd
+PASS parse res://tests/compatibility/script_context/Dependency.gd
+PASS parse res://tests/compatibility/script_context/nested/Named.gd
+PASS parse res://tests/compatibility/script_context/probe.gd
+PASS parse res://tests/distribution/build.gd
+PASS parse res://tests/distribution/editor.gd
+PASS parse res://tests/distribution/scenes.gd
+PASS parse res://tests/editor/compatibility/driver.gd
+PASS parse res://tests/editor/driver.gd
+PASS parse res://tests/editor/filtered/driver.gd
+PASS parse res://tests/editor/highlighter_tests.gd
+PASS parse res://tests/editor/lifecycle/driver.gd
+PASS parse res://tests/editor/lifecycle/runtime.gd
+PASS parse res://tests/editor/play/driver.gd
+PASS parse res://tests/editor/seed_plain.gd
+PASS parse res://tests/godot/callback_guards.gd
+PASS parse res://tests/godot/cold_text.gd
+PASS parse res://tests/godot/components.gd
+PASS parse res://tests/godot/generated/Empty.gd
+PASS parse res://tests/godot/generated/HybridEdges.gd
+PASS parse res://tests/godot/generated/Numbers.gd
+PASS parse res://tests/godot/generated/Primitives.gd
+PASS parse res://tests/godot/generated/SignalEdges.gd
+PASS parse res://tests/godot/generated_gogo.gd
+PASS parse res://tests/godot/generated_signals.gd
+PASS parse res://tests/godot/hybrid_gogo.gd
+PASS parse res://tests/godot/interaction.gd
+PASS parse res://tests/godot/invalid_sizing.gd
+PASS parse res://tests/godot/invalid_text.gd
+PASS parse res://tests/godot/layout.gd
+PASS parse res://tests/godot/native_build.gd
+PASS parse res://tests/godot/native_counter.gd
+PASS parse res://tests/godot/native_frontend.gd
+PASS parse res://tests/godot/native_generation.gd
+PASS parse res://tests/godot/native_publication.gd
+PASS parse res://tests/godot/native_semantics.gd
+PASS parse res://tests/godot/semantic_baseline.gd
+PASS parse res://tests/godot/smoke.gd
+PASS parse res://tests/node_proof/editor/driver.gd
+PASS parse res://tests/node_proof/negative.gd
+PASS parse res://tests/node_proof/runtime.gd
+PASS parse res://tests/node_proof/visual.gd
+PASS parse res://tests/research/bindable/capture.gd
+PASS parse res://tests/research/bindable/editor.gd
+PASS parse res://tests/research/bindable/importer.gd
+PASS parse res://tests/research/bindable/language.gd
+PASS parse res://tests/research/bindable/loader.gd
+PASS parse res://tests/research/bindable/probe.gd
+PASS native Gogo frontend
+PASS runtime smoke
+PASS component foundations
+PASS cold Text-first dependencies
+PASS layout, rendering and lifecycle
+PASS fresh Gogo-generated GDScript
+PASS hybrid Gogo runtime
+PASS text, buttons and pointer dispatch
+PASS generated signals and Counter
+PASS rejected invalid width without mutating sizing
+PASS rejected invalid height without mutating sizing
+PASS rejected invalid negative without mutating sizing
+PASS rejected invalid gap without mutating sizing
+PASS rejected invalid geometry without mutating sizing
+PASS rejected invalid font without mutating text properties
+PASS rejected invalid font_size without mutating text properties
+PASS Godot rejected/mapped hybrid Syntax to tests/fixtures/negative-Syntax.gogo:3
+PASS Godot rejected/mapped hybrid Type to tests/fixtures/negative-Type.gogo:3
+PASS Godot rejected/mapped hybrid ChildType to tests/fixtures/negative-ChildType.gogo:3
+PASS Godot rejected/mapped hybrid Unknown to tests/fixtures/negative-Unknown.gogo:3
+PASS Godot rejected/mapped hybrid NullChild to tests/fixtures/negative-NullChild.gogo:3
+PASS Godot rejected/mapped hybrid Range to tests/fixtures/negative-Range.gogo:4
+PASS Godot rejected/mapped hybrid CallbackMissing to tests/fixtures/negative-CallbackMissing.gogo:3
+PASS Godot rejected/mapped hybrid CallbackType to tests/fixtures/negative-CallbackType.gogo:3
+PASS Godot rejected/mapped hybrid CallbackCall to tests/fixtures/negative-CallbackCall.gogo:4
+PASS Godot rejected/mapped hybrid TextType to tests/fixtures/negative-TextType.gogo:3
+PASS Godot rejected/mapped hybrid DisabledType to tests/fixtures/negative-DisabledType.gogo:3
+PASS Godot rejected/mapped hybrid CallbackArity to tests/fixtures/negative-CallbackArity.gogo:4
+PASS Godot rejected/mapped hybrid CallbackOptional to tests/fixtures/negative-CallbackOptional.gogo:4
+PASS Godot rejected/mapped hybrid CallbackEmpty to tests/fixtures/negative-CallbackEmpty.gogo:4
+PASS Godot rejected/mapped hybrid CallbackInvalid to tests/fixtures/negative-CallbackInvalid.gogo:4
+PASS Godot rejected/mapped hybrid CallbackDisposed to tests/fixtures/negative-CallbackDisposed.gogo:9

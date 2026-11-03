@@ -303,6 +303,8 @@ or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.
 
 **Status: accepted owner direction, 2026-11-02; NOT implemented.** Source: [architecture issue #68](https://github.com/resistdesign/Estragon/issues/68). Formalization: [ADR-0015-A #69](https://github.com/resistdesign/Estragon/issues/69). This documentation decision changes the target; it neither retroactively changes implementation nor certifies compatibility/release readiness.
 
+**Implementation note:** [B1 #71](https://github.com/resistdesign/Estragon/issues/71) adds only a separately selected [bounded native composition proof](NODE_COMPOSITION_PROOF.md). The full architecture remains unimplemented; current default compiler/runtime and release evidence remain distinct.
+
 ### Responsibilities and language
 
 Estragon supplies a Flex-inspired 2D UI suite replacing Godot Control UI for its intended uses, extending layout-first measurement, sizing, positioning, reactive changes and composition to 3D. Godot retains its SceneTree, lifetime, transforms, physics, rendering and platform/window events. Visual components use actual Godot drawing/presentation; Estragon need not own all graphics or implement a competing renderer.
