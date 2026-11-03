@@ -62,6 +62,11 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot-bin"
           chmod +x "$RUNNER_TEMP/godot-bin/Godot_v4.7-stable_linux.x86_64"
           echo "GODOT_BIN=$RUNNER_TEMP/godot-bin/Godot_v4.7-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: B1 native GGX composition, signals and editor persistence
+        working-directory: ${{ runner.temp }}
+        run: |
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
       - name: R01 stock Godot annotation and real-editor feasibility probes
         run: sh tools/check-bindable.sh
       - name: E01 isolated highlighting and full-addon startup diagnostic (4.7 only)
@@ -101,6 +106,15 @@ jobs:
           '${{ runner.temp }}/editor-lifecycle/results.json'
           '${{ runner.temp }}/editor-play/results.json'
           '${{ runner.temp }}/release-assessment.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: godot-4.7-ggx-b1
+          path: |
+            ${{ runner.temp }}/ggx-b1/*.log
+            ${{ runner.temp }}/ggx-b1/provenance.json
+            ${{ runner.temp }}/ggx-b1/project/b1-*.png
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: always()
         with:

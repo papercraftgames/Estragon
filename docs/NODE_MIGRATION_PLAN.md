@@ -1,6 +1,6 @@
 # ADR-0015 staged Node-native migration
 
-**Planning only; no successor implementation started.** [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
+**Staged plan:** ADR-0015-A merged in PR #70; [B1 #71](https://github.com/resistdesign/Estragon/issues/71) submits the separate bounded [composition proof](NODE_COMPOSITION_PROOF.md). B2/B3 and the broader migration remain unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
 
 ## Sequence and gates
 
@@ -13,6 +13,8 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 ## Proof tasks — each one reviewable PR
 
 ### ADR-0015-B1 — GGX native composition, signals and persistence
+
+**Tracking:** [#71](https://github.com/resistdesign/Estragon/issues/71); [bounded implementation/evidence](NODE_COMPOSITION_PROOF.md). Owner review/merge still required.
 
 **Prerequisite:** #69 merged; current main/open PRs/handoffs checked. **Layers:** isolated native compiler/type-resolution proof, fixtures, native tests and source maps. No new layout library or component migration.
 
