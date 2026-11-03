@@ -1,77 +1,34 @@
 # Roadmap and milestones
 
-All milestone statuses below describe *project work*, not a claim of features available today. **For the actionable Codex work breakdown, dependencies, completion gates, issue links and cross-session handoff workflow, use [EXECUTION_PLAN.md](EXECUTION_PLAN.md), [WORK_STATUS.md](WORK_STATUS.md) and [AGENTS.md](../AGENTS.md).** This file is the wider product roadmap, not a live task tracker.
+This is product direction, not a live implementation claim. [EXECUTION_PLAN](EXECUTION_PLAN.md) defines work packages, [WORK_STATUS](WORK_STATUS.md) records the reviewed snapshot, and live issues/PRs hold current ownership and evidence.
 
-## Immediate priority: Gogo compiled natively inside Godot
+## Existing baseline
 
-**Accepted owner decision (2026-10-28):** T01–T07 built a working interactive Gogo application. T08 [PR #29](https://github.com/resistdesign/Estragon/pull/29) implements working editor integration **using a temporary Bun subprocess**, and the owner manually verified a Gogo font-size change and Play. **Remove that runtime tooling dependency before expanding features.**
+T01–T08 and N01–N03 are merged: minimal RefCounted component ownership/stack layout, rectangle/text/button rendering, primary pointer input, hybrid Gogo-to-GDScript and generated pressed connections, native highlighting and fail-closed compile-before-Play without external tools. R01 is merged research; lowercase Gogo-only `@bindable` is accepted but not implemented. The old namespaced XML/JSON demo remains legacy.
 
-- [ ] **N01:** Native GDScript Gogo lexer/parser/typed frontend and native-only tests.
-- [ ] **N02:** Native GDScript emitter/source maps and current T04–T07 language/runtime parity, including Counter.
-- [ ] **N03:** Direct editor compilation, no Bun configuration/process, fail-closed F5/F6, fresh Godot-only install/play tests.
-- [ ] **After N03:** T09 observable bindings (subject to R01), T10 legacy JSON retirement and expanded UI/editor work.
+C01 gate infrastructure and scoped helper fix #67 are merged; **strict release remains BLOCKED**. Normal development success is not publishing authorization. Retain raw-syntax, cold-scene, #65 export cleanup, standalone executable/platform and other required release boundaries under #51. Historical nine-engine findings are archival; live verification uses only 4.0.4 and pinned 4.7.0.
 
-**Exit condition:** In a clean Godot 4.7 project, edit Gogo and run both Play modes with no Bun/Node installed; errors block stale output and fixing errors recovers. Bun remains only optional repository/CI reference tooling. See [execution plan](EXECUTION_PLAN.md) and [ADR-0012](DECISIONS.md).
+## Architecture and native proof — planned
 
-## P0 — Foundation (this scaffold)
+[ADR-0015 / #68](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) replaces the old independent-tree/no-Node/self-render-everything future direction. Gogo is the language; GGX is general-purpose Node composition. Estragon focuses on layout-first 2D UI and analogous 3D components, with Godot retaining native services.
 
-- [x] Record the vision: independent UI engine, no `Control`-based runtime.
-- [x] Name Estragon + Gogo (`.gogo`).
-- [x] Implement stage-0 Gogo parser to standalone versioned IR.
-- [x] Check in a low-level `RenderingServer` rectangle rendering example.
-- [x] Establish compiler tests and CI configuration.
-- [x] Capture architecture, binding and editor strategy.
-- [ ] Verify Godot demo visually on supported desktop platforms.
-- [x] Select and document a project license (MIT; see [LICENSE](../LICENSE)).
+1. **ADR-0015-A #69:** docs-only formalization, supersessions and staged plan, one owner-reviewed PR.
+2. **B1:** narrow GGX native Node composition, typed properties/named signals, transforms, lifetime and PackedScene persistence proof.
+3. **B2:** explicit 2D/3D entries, Node2D/Node3D participants and composed mathematical measure/arrange, retained identity and event-driven reflow.
+4. **B3:** Native2D/Native3D adapter bounds/authority, optional measurement, branch-local invalidation and feedback prevention.
 
-## P1 — Independent component runtime
+Exit: the complete minimal native proof is reviewed with actual automated runtime/editor and native graphics evidence where relevant. Partial proof is not migration. [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) defines per-PR acceptance, dependencies and open decisions. No successor is started by #69.
 
-- [ ] Design retained component objects and reconciliation, without a Godot node per component.
-- [ ] Introduce a renderer-independent display list and invalidation flags.
-- [ ] Separate the experimental `RenderingServer` adapter from the component runtime.
-- [ ] Add component identity, lifecycle hooks and deterministic test fixtures.
-- [ ] Build a measurement/layout engine (including nested containers and constraints).
-- [ ] Add scene-independent runtime unit tests and rendering snapshots.
+## Core migration — queued behind proof
 
-**Exit condition:** updating an Estragon component relayouts/repaints only necessary regions; no Godot `Control` node or stock `Container` participates.
+Separate reviewable slices introduce native component/lifecycle foundations, general GGX compiler rules, minimal component/example parity and eventual RefCounted retirement. Use only inherited Node.add_child for hierarchy elements. Ordinary Nodes do not tunnel Estragon layout; explicit entries and native adapters define participation. Do not rename superclasses mechanically or remove existing examples before proved replacements.
 
-## P2 — Useful pixels and interaction
+Resolve 3D units/axes/wrapping/overflow and coordinate/overlay policies in focused specifications. Native drawing remains component-specific; R02 universal-renderer research stays deferred rather than a mandatory milestone. T10 legacy JSON retirement needs consumer audit and equivalent working replacement.
 
-- [ ] Text/glyph shaping, font resources/fallback and DPI scaling strategy.
-- [ ] Styling, images, clipping and stacking/compositing.
-- [ ] Estragon-owned event dispatch, pointer hit testing and hover/pressed state.
-- [ ] Keyboard focus, navigation, IME, touch, scroll and accessibility design.
-- [ ] A genuine button/text field example built from Estragon components.
+## Reactivity and useful components — still planned
 
-**Exit condition:** a small interactive UI is fully owned and rendered by Estragon.
+T09 preserves lowercase Gogo-only annotations, typed non-Node models, scoped nested subscriptions, observable collection/item events, retained keyed Nodes and eventual two-way/cycle hardening. Rebase its Node lifecycle/layout dependencies before pickup; compatibility blockers remain. L01 pixel padding/margin maps onto the composed 2D core after proof; #54 conversion helpers remain deferred and do not define 3D units.
 
-## P3 — Compiler-assisted reactivity
+Broader text/fonts/localization, styles/images/clipping, keyboard/focus/IME/touch/scroll and accessibility require their own scoped contracts and demos. Native metadata completion/navigation, preview and debugger mapping follow proven compiler/editor interfaces. No full Flex, TSX or React compatibility is promised.
 
-- [ ] Prove a native-looking `@Bindable` source transformation path for ordinary `.gd` files (or record an explicitly approved alternative).
-- [ ] Produce observable model properties and test notifications.
-- [ ] Parse and validate binding expressions in Gogo.
-- [ ] Handle nested dependencies, two-way bindings and observable collections.
-- [ ] Integrate state changes with layout/paint invalidation.
-
-**Exit condition:** a model update changes pixels without manually wiring signals.
-
-## P4 — Native-feeling authoring
-
-- [ ] Mixed Gogo/GDScript syntax highlighting and reliable `.gogo` file association.
-- [ ] Diagnostics, completion, component/property checking and source maps.
-- [ ] Automatic Gogo-to-GDScript transpilation and error-gated run/build.
-- [ ] Live renderer preview and editor component inspector.
-- [ ] Examples and end-to-end developer onboarding.
-
-## P5 — GPU backend investigation and hardening
-
-- [ ] Benchmark `RenderingServer` against a suitable `RenderingDevice`/native approach.
-- [ ] Implement reusable batching, glyph atlas and composition strategy.
-- [ ] Verify platform/render-method compatibility and fallback.
-- [ ] Profiling, instrumentation, regression tests, documentation and API stabilization.
-
-**Sequencing can change as experiments reveal constraints.** In particular, prototype graphics/text and editor integration early to catch fundamental feasibility issues.
-
-## Definition of done for features
-
-A feature requires documented behavior, automated tests appropriate to its layer, evidence that it does not silently reintroduce `Control`-based rendering, and a reproducible demo. Unsupported syntax must yield a clear error rather than a half-working UI.
+A feature requires documented supported behavior, meaningful layer-specific automated tests, native graphics evidence where relevant, a working example, exact compatibility limitations and owner review. One open PR total, no automatic merge and no physical keypress acceptance gate.

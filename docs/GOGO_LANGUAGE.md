@@ -1,5 +1,7 @@
 # Gogo language: `*.gogo`
 
+**Terminology and target:** Gogo is the language; **GGX** is its embedded XML-like general-purpose Node composition syntax. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) / [#68](https://github.com/resistdesign/Estragon/issues/68) changes the target, not the implemented grammar below. The five-built-in RefCounted factory/child and Button signal rules remain current until a reviewed migration. Node-native GGX is **not implemented**; do not use target examples as executable syntax.
+
 **Status:** T04 implements a small namespace-free markup-to-GDScript slice targeting the independent component runtime. The legacy namespaced XML-to-JSON demo is preserved separately. T05 adds a GDScript-first hybrid subset with component/property/child expressions and range source maps. T07 adds Text/Button properties and generated pressed connections; T08 adds optional automatic editor compilation/highlighting; bindings and broader editor services remain future work.
 
 **Compiler migration:** N01/N02 implement bundled GDScript-native parsing, typed validation, generation and source maps. N03 integrates that compiler directly into the editor under ADR-0012, with no external compiler or executable setup. Supported Gogo syntax, generated signals and source maps must not change as a side effect. Bun remains optional developer/test reference tooling.
@@ -345,10 +347,10 @@ recompiles fresh source, then checks positive runtime cases and mapped negative
 syntax/type/runtime cases. Compilation failure preserves existing code/map;
 recompiling a standalone T04 file removes a stale hybrid map. The optional T08 plugin provides automatic editor compilation and stale-run blocking.
 
-**Still unsupported:** `@Bindable`, reactive bindings, signals beyond Button.pressed,
+**Still unsupported:** `@bindable` (the accepted spelling), `@Bindable` (not an approved annotation), reactive bindings, signals beyond Button.pressed,
 other widgets, arbitrary component imports, structural reconciliation,
 inline named-class markup, spread/array children, full source-language type
-inference, highlighting/editor builds or automatic subscriptions. The accepted
+inference or automatic subscriptions. Native highlighting/editor builds are implemented separately by T08/N03. The accepted
 larger design below remains a target, not a claim of these features.
 
 ## T07 generated signals and interactive Gogo (implemented)
@@ -441,33 +443,17 @@ T09 owns bindings. The old examples and JSON host remain unchanged. Source/maps
 are checked byte-for-byte; the Godot runner generates fresh code before import.
 The optional T08 plugin automates editor build/run; see EDITOR.md for setup.
 
-## Target: markup expressions mixed with GDScript
+## Target: GGX general-purpose Node composition (ADR-0015; planned)
 
-Gogo should look and feel like **TSX with GDScript as its programming language**, while keeping XML-like component syntax. Elements are **unprefixed**, and user components participate in the same type-resolved language as built-in components.
+Gogo retains GDScript/namespace-free markup interleaving. GGX hierarchy items must derive from Godot **Node**, including ordinary native/custom and Estragon Nodes. **Only inherited Node.add_child(Node)** attaches children, returning void. No JSX/GGX pragmas or configurable/type-specific child-adder protocols. Non-Node resources/models/Objects may be property/expression values, not hierarchy children.
 
-~~~text
-# Counter.gogo — proposed; NOT executable today
-extends VBox
+Typed native properties and native signal connections are not restricted to Estragon. Any referenced Godot Object with a signal can supply it, even when not a tree item. Event attributes refer to named handlers/Callable values; do not introduce inline anonymous function declarations in target GGX handler attributes. Ordinary functions may contain GGX; function-valued children are not required. Current T07 Callable/lambda support above is historical implemented behavior, whose transition must be explicitly reviewed.
 
-@Bindable var count: int = 0
+Target visual components use Node2D/Node3D branches and a composed layout core with explicit 2D/3D entry points and native adapters. Ordinary Nodes are legal children without automatic layout participation; re-enter through another entry. Node lifetime, transforms and PackedScene owner persistence need proofs separate from current RefCounted disposal and Error-returning child adoption. No virtual DOM or implicit full-tree render loop.
 
-func increment() -> void:
-    count += 1
+Lowercase **@bindable in authored Gogo only**, including code-only non-Node models, remains accepted and unimplemented. Existing braces are construction-time until a reviewed binding contract ships. Native type/import resolution, event syntax/signatures, refs, binding syntax, repeated keyed Nodes and ownership transitions need scoped specification; no new code-only model or arbitrary Node syntax is made executable by this document.
 
-func render() -> DisplayObject:
-    return (
-        <VBox gap={12}>
-            <Text value={"Count: %d" % count} />
-            <Button label="+" pressed={increment} />
-        </VBox>
-    )
-~~~
-
-No `<gogo:View>`, `<fx:Button>` or `xmlns` declarations in the target syntax. `<VBox>` and `<MyWidget>` resolve through an Estragon component registry/import system; exact import rules remain open. Curly-brace props and child expressions are GDScript expressions, **not TypeScript**, and must be type-checked. The signal/event name, IDs/refs, one-way/two-way binding syntax, conditional/repeated children, lifetime semantics, and the exact structure of a generated class still require language design and a parser prototype.
-
-**Important:** Gogo's source may be XML-*like* but cease to be a valid standalone XML *document* once GDScript and markup interleave. The language needs a coordinated lexer/parser, not regex hacks or the existing XML-only parser applied to the complete mixed file.
-
-Output is **ordinary generated GDScript**, with component construction, signal wiring, binding hooks, deterministic identifiers and source maps. The generated code creates Estragon's independent component objects, never a Godot `Control` tree. Read [the design direction](DESIGN_DIRECTION.md).
+Keep deterministic native GDScript generation, original-source maps and fail-closed actual-path Godot semantic validation. Compiler analysis/codegen may use Godot core data APIs but must not depend on a running SceneTree, renderer or EditorInterface; emitted application code can construct Nodes normally. [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) stages proof before general compiler/runtime migration. Preserve current examples, generated artifacts and compatibility evidence; no runtime XML/JSON interpretation or external compiler fallback.
 
 ## Stage-0 compiler syntax (IMPLEMENTED TODAY; temporary)
 

@@ -1,6 +1,23 @@
 # Estragon execution plan — Codex-sized delivery
 
-**Plan version:** 6, 2026-10-29. **Status:** N01–N03 and T01–T08 are merged; Godot-only Gogo compilation/editor Play is shipped. **R01 #38 and architecture PR #39 are merged**, documenting why ordinary authored `.gd` custom annotations are not supported. **The owner chose Gogo-only lowercase `@bindable` on 2026-10-29 (ADR-0013).** E01 automatic Gogo highlighting's narrow fix is merged (PR #40); E01-F #44's narrowly accepted hidden-tab exception was recorded in merged PR #64 and #44 is closed not planned. C01-A #42 establishes the measured audit and issue-only follow-up sequence; **C01 #41 now establishes required Godot 4.0+ compatibility and is a release/support gate**; T09-A through T09-D are planned incremental slices for observable Gogo models, bindings/layout, collections/repeaters and two-way/cycle hardening. See [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md), [T09 issue #5](https://github.com/resistdesign/Estragon/issues/5) and [WORK_STATUS.md](WORK_STATUS.md) for accepted scope and live handoffs.
+**Plan version:** 7, 2026-11-02 (ADR-0015-A #69). **Status:** N01–N03 and T01–T08 are merged; Godot-only Gogo compilation/editor Play is shipped. **R01 #38 and architecture PR #39 are merged**, documenting why ordinary authored `.gd` custom annotations are not supported. **The owner chose Gogo-only lowercase `@bindable` on 2026-10-29 (ADR-0013).** E01 automatic Gogo highlighting's narrow fix is merged (PR #40); E01-F #44's narrowly accepted hidden-tab exception was recorded in merged PR #64 and #44 is closed not planned. C01-A #42 establishes the measured audit and issue-only follow-up sequence; **C01 #41 now establishes required Godot 4.0+ compatibility and is a release/support gate**; T09-A through T09-D are planned incremental slices for observable Gogo models, bindings/layout, collections/repeaters and two-way/cycle hardening. See [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md), [T09 issue #5](https://github.com/resistdesign/Estragon/issues/5) and [WORK_STATUS.md](WORK_STATUS.md) for accepted scope and live handoffs.
+
+## Operative target and delivery queue — ADR-0015
+
+[ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) / [owner #68](https://github.com/resistdesign/Estragon/issues/68) supersedes conflicting no-per-component-Node, independent RefCounted target and mandatory self-rendering requirements below. **Gogo** is the language; **GGX** is general-purpose Node composition. Target: inherited Node.add_child only, typed native props/named signals, Node2D/Node3D visual branches with a composed measure/arrange core, explicit entries/native adapters, retained identity and event-driven reflow. Current RefCounted runtime/native compiler/editor remains implemented; Node-native migration remains planned.
+
+**Current task: ADR-0015-A #69**, docs/planning only, after merged PR #67 (base main `b488664`). No proof/migration implementation here. **[NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) is the detailed successor work-package/acceptance specification incorporated into this plan**:
+
+1. A formalization → B1 narrow native GGX composition/signals/persistence proof → B2 shared 2D/3D layout/entries → B3 native adapters and event/feedback proof.
+2. Only after B1–B3 are reviewed/merged: C1 runtime foundation → C2 general GGX compiler migration → C3 component/example parity → C4 RefCounted retirement, each a scoped serial PR.
+3. C01 #41/#51 strict release remains **BLOCKED**. #61 scoped fix merged/closed; raw-syntax findings, cold 4.0.4 scene restoration, #65 export cleanup and standalone export/platform disposition remain separate release work. Architecture/proof does not waive failures or alter gate expectations. Scope each proof's relevant blockers explicitly before implementation.
+4. T09-A #43 stays queued behind blocking compatibility foundations and reviewed compiler-contract mapping to C2; T09-B also needs C1–C3 layout/lifecycle, C/D follow B/collections. L01 #55 maps pixel padding/margin onto the composed 2D core after proof/C1; #54 helpers remain deferred. T10 retirement needs replacement parity/consumer audit and must coordinate with C4. R02 renderer research stays deferred.
+
+Open decision gates: coordinate/overlay boundaries, 3D units/axes/wrapping/overflow, bounds providers and native/layout authority, transform feedback, scene owner persistence and type/import resolution. See the staged plan for each decision's owning task, measurable proof and explicit non-goals. No new language/tooling migration code or release certification is authorized in #69.
+
+## Historical milestones and preserved acceptance contracts
+
+The T01–T08 and N01–N03 sections below preserve their original scope and implementation evidence. Past no-Node/RefCounted renderer requirements describe what was built, not the approved future. Subsequent C01 history is archival sequencing; use the operative queue above and live issues for pickup. Existing Bun commands/manifests remain historical tooling; future contributor tooling is TypeScript/Yarn, conversion separately scoped. Product compilation remains Godot-only. Only 4.0.4 and pinned 4.7.0 may be launched; physical keypresses are not acceptance requirements.
 
 ## Outcome: an actual Gogo UI in Godot
 
@@ -28,7 +45,7 @@ Write the production compiler **in GDScript, bundled in the addon**. It should w
 2. **N02:** native GDScript emitter and source maps; preserve T04–T07 language semantics and prove a generated interactive Counter executes in Godot. Differential parity against the TypeScript reference where useful.
 3. **N03:** switch editor save/build and both Play modes from Bun to **direct native compilation**. Eliminate user-facing Bun executable settings and subprocesses, preserve source discovery, diagnostics, pre-Play checks and recovery, and demonstrate a **fresh Godot-only installation with Bun absent**.
 
-**Acceptance gate for N03:** Fresh Godot 4.7 project + Estragon addon + Gogo sources; with Bun/Node unavailable (no PATH or configured executable), edit Gogo, press F5 and F6, and run the latest generated code. Deliberately break Gogo and prove both Play modes refuse stale output; repair it and confirm recovery. Run actual Godot-native tests without Bun. Bundled addon must work independently of the repository's optional development dependencies.
+**Acceptance gate for N03:** Fresh Godot 4.7 project + Estragon addon + Gogo sources; with Bun/Node unavailable (no PATH or configured executable), edit Gogo, invoke both Play modes through automated isolated editor/game tests, and run the latest generated code. Deliberately break Gogo and prove both Play modes refuse stale output; repair it and confirm recovery. Run actual Godot-native tests without Bun. Bundled addon must work independently of the repository's optional development dependencies.
 
 **Preserve the working T08 bridge until N03 is demonstrably ready.** Do not delete the current compiler, tests or generated fixtures prematurely. Bun/TypeScript may remain as **optional CI/reference/differential tooling** after cutover; there must be no silent Bun fallback in the editor. T09 reactive bindings and T10 legacy retirement are postponed until N03 passes. R01 may be researched independently and does not block this migration. One focused PR, tests, linked issue and durable handoff per task.
 
@@ -37,13 +54,13 @@ Write the production compiler **in GDScript, bundled in the addon**. It should w
 - Gogo is **TSX-like GDScript + XML-like markup**, transpiled to **GDScript**. No mandatory XML namespaces (`<fx:VBox>` / `xmlns`), no TypeScript/JavaScript embedded in Gogo.
 - Implement a real parser/typed representation with source positions; no regex replacement of mixed syntax or GDScript.
 - Preserve the functioning **stage-0 namespaced XML → JSON demo** until a GDScript-generated equivalent is running and tested. Do not build the new architecture around the old JSON contract.
-- Estragon owns component identity/lifecycle, layout, signals, input and painting. A Godot host is allowed; one Godot node or Control per UI component is not.
+- ADR-0015 targets native Node composition, Node2D/Node3D visual participants and composed layout, with Godot retaining native lifetime/transforms/rendering. The older no-per-component-Node constraint is superseded; preserve current runtime compatibility during migration.
 - Generated code is not hand-maintained. It must be deterministic, validated by Godot, and traceable to its authored Gogo source.
 - Each task below is a **reviewable PR** with tests, documentation and evidence appropriate to its scope. Do not merge on behalf of the user without explicit permission.
 - **Gate to start a dependent task:** its prerequisites and the current repository PR are merged/closed. Keep future research/dependencies in issues while the sole PR is active; do not start competing implementation.
 - If an acceptance criterion proves infeasible, record evidence and a blocker in the issue, propose options, and **stop rather than quietly change the product requirements**.
 
-## Dependency map
+## Historical dependency map (current successor gates above)
 
 ~~~text
 T01 → T02 → T03 → T04 → T05 → T06 → T07 (merged)
@@ -62,7 +79,7 @@ R01 #38 research: merged; historical evidence, no longer a T09 syntax blocker
 R02 graphics research: deferred
 ~~~
 
-This is the sequential delivery order, not a request to implement everything in one PR. Maintain issue-only research/backlog while the single PR is active; do not open stacked or competing PRs.
+This records the earlier sequential delivery order; the operative ADR-0015 queue and NODE_MIGRATION_PLAN now control successors. It is not a request to implement everything in one PR. Maintain issue-only research/backlog while the single PR is active; do not open stacked or competing PRs.
 
 ## Work packages and acceptance
 
@@ -165,14 +182,16 @@ This is the sequential delivery order, not a request to implement everything in 
 
 ### T09 — Native Gogo `@bindable`: models, UI/layout and observable collections
 
-**Umbrella:** [T09 #5](https://github.com/resistdesign/Estragon/issues/5). **Prerequisites:** N03 merged; R01 #38 findings reviewed/merged for historical record; **owner syntax decision is now made** (ADR-0013). E01 #37 is a separate next editor fix and must be merged before the final T09 integrated authoring milestone. See the [detailed staged contract](REACTIVITY_PLAN.md). Do not claim T09 complete from one implementation PR.
+**ADR-0015 amendment:** The old Box inheritance/no-Node requirements in this original T09 breakdown are superseded. Use composed shared layout and retained Node lifetimes; dependencies and proof gates are in NODE_MIGRATION_PLAN. The remaining model/binding/collection/cycle intent is preserved.
+
+**Umbrella:** [T09 #5](https://github.com/resistdesign/Estragon/issues/5). **Prerequisites:** N03 merged; R01 #38 findings reviewed/merged for historical record; **owner syntax decision is now made** (ADR-0013). E01 #40 is merged; preserve its scoped evidence and the accepted E01-F hidden-tab limitation for the final T09 integrated authoring milestone. See the [detailed staged contract](REACTIVITY_PLAN.md). Do not claim T09 complete from one implementation PR.
 
 - **T09-A: bindable property + data-model compiler foundation.** In compiler-owned Gogo only, recognize the **exact lowercase `@bindable`** declaration on typed properties, including code-only non-Node model `.gogo` modules. Generate valid native GDScript accessors, change notifications, correct initialization/equality and source maps; prove normal assignments, inheritance/custom setters as specified and editor fail-closed checks. No native `.gd` annotations or `.bgd` substitution.
-- **T09-B: dependent component props, layout and identity.** Compile explicit dependency-aware reactive expressions, subscribe/unsubscribe and automatically update affected component properties without `set_root(build_view())`; nested replacement, batching and lifecycle/transfer safety. Prove text, color, width/height, gap and geometry invalidation. **`x`/`y` are not implemented**: specify how positioned/absolute children interact with parent VBox/HBox layout before adding them. **Verified hierarchy:** `DisplayObject → Container → Stack → VBox/HBox`; target shared `EstragonBox extends EstragonContainer` with HBox/VBox extending Box. Refactor compatibly and test the existing Stack contract in a focused step.
+- **T09-B: dependent component props, layout and identity.** Compile explicit dependency-aware reactive expressions, subscribe/unsubscribe and automatically update affected component properties without `set_root(build_view())`; nested replacement, batching and lifecycle/transfer safety. Prove text, color, width/height, gap and geometry invalidation. **`x`/`y` are not implemented**: specify how positioned/absolute children interact with parent VBox/HBox layout before adding them. **Current hierarchy:** `DisplayObject → Container → Stack → VBox/HBox`; target Node2D/Node3D visual branches compose shared layout under ADR-0015. Preserve existing Stack consumers until reviewed migration.
 - **T09-C: ArrayCollection-like observable data and repeated content.** Typed observable collection reference and separate mutation events for add/insert/remove/replace/move/reset plus bindable item-property changes. Support stable keyed/list reconciliation, collection replacement, no duplicated updates or leaked subscriptions; a plain Array's mutation is not automatically observable.
 - **T09-D: assignable two-way bindings and edge semantics.** Event adapters, cycle/feedback guards, nested null paths, batched invalidation and integrated collection/layout/editor demonstration; split more PRs as appropriate.
 
-**Shared acceptance:** actual Godot 4.0+ compatibility (C01/ADR-0014), native Godot-only F5/F6, deterministic typed source maps, no per-frame polling, no per-component Godot Control/Node, proper tree/layout/paint dirty phases and framework-owned cleanup. Preserve supported Gogo/Counter behavior, tests and examples. Each slice gets a scoped task issue, focused PR, exact Godot-positive/negative tests and durable handoff; do not auto-merge.
+**Shared acceptance:** actual Godot 4.0+ compatibility (C01/ADR-0014), native Godot-only F5/F6, deterministic typed source maps, no per-frame polling, retained native Node identity, event-driven affected-branch measure/arrange and framework-owned cleanup. Preserve supported Gogo/Counter behavior, tests and examples. Each slice gets a scoped task issue, focused PR, exact Godot-positive/negative tests and durable handoff; do not auto-merge.
 
 ### T10 — Retire the legacy JSON prototype safely
 
@@ -221,9 +240,9 @@ C01-A PR #52 merged `46bc752`. C01-B #45 now supplies the [focused runtime corre
 | C01-G [#50](https://github.com/resistdesign/Estragon/issues/50) | Unsaved/unsavable buffers, native fail-closed F5/F6 and recovery | C01-F |
 | E01-F [#44](https://github.com/resistdesign/Estragon/issues/44) | True positive filtered never-associated highlighter proof or owner disposition | Compatible editor foundation; coordinate after C01-G |
 | C01-H [#51](https://github.com/resistdesign/Estragon/issues/51) | Gate/distribution infrastructure **merged PR #66**, release BLOCKED pending #61, cold scene, #65 and standalone export scope | Infrastructure merged; #61 first |
-| **#61 static lambda-helper** | **Next Ready:** generated static helper invocation within lambdas on approved 4.0.4 + 4.7.0 only | C01-H strict gate merged PR #66 |
+| **#61 static lambda-helper** | **Scoped Done:** merged PR #67; full raw-syntax/release boundary remains blocked | C01-H strict gate merged PR #66 |
 
-Each issue contains measurable acceptance and exact evidence. Preserve semantic diagnostics, callback order, native no-tools workflow and framework-owned runtime. Do not replace unavailable APIs with unchecked no-ops. T09-A #43 remains queued behind blocking compatibility foundations; the lowercase Gogo-only annotation/model/Box/collection/two-way destination is unchanged.
+Each issue contains measurable acceptance and exact evidence. Preserve semantic diagnostics, callback order, native no-tools workflow and framework-owned runtime. Do not replace unavailable APIs with unchecked no-ops. T09-A #43 remains queued behind blocking compatibility foundations; the lowercase Gogo-only annotation/model/collection/two-way intent remains, with Box behavior adapted to composed Node-native layout by ADR-0015.
 
 ### C01-C progressive diagnostics
 
@@ -251,7 +270,7 @@ The correctly-rounded conversion capability remains BLOCKED where measured;
 that diagnostic is distinct from approved native-value preservation acceptance.
 Preserve zero policy, float32 finite validation, maps, callbacks and Godot-only
 workflow. C01-D is merged in #59; C01-E subsequently merged in #60.
-C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 gate/distribution slice merged as PR #66** (`ecee892`), while strict release remains **BLOCKED**. **Next Ready: #61 generated static-helper lambda compatibility**. After its scoped disposition, separately tackle 4.0.4 cold-scene missing-generated restoration, #65 resource-pack export cleanup and standalone executable export/platform scope. The owner permits only 4.0.4 and pinned 4.7.0, no Python and no all-minor sweeps; T09 remains queued.
+C01-F #62 and C01-G #63 are merged. E01-F #44 has an [owner-approved accepted limitation](https://github.com/resistdesign/Estragon/issues/44#issuecomment-6568383818) and is **closed not planned**, with [PR #64 merged](https://github.com/resistdesign/Estragon/pull/64) at `e837557`. The two-version **4.0.4 / 4.7.0** CI and TypeScript-only tooling are now on `main`. **C01-H #51 gate/distribution slice merged as PR #66** (`ecee892`), while strict release remains **BLOCKED**. **#61 scoped helper fix merged as PR #67; #61 closed completed. ADR-0015-A #69 is current docs-only work.** Remaining separate release tasks include 4.0.4 cold-scene missing-generated restoration, #65 resource-pack export cleanup and standalone executable export/platform scope. The owner permits only 4.0.4 and pinned 4.7.0, no Python and no all-minor sweeps; T09 remains queued.
 
 ### E01 — Automatic Gogo highlighting activation (separate editor fix)
 
@@ -290,7 +309,7 @@ A task begins by checking the *latest* main branch, its tracking issue, open PRs
 - GitHub issues/PRs hold **live execution state and session handoffs**; [WORK_STATUS.md](WORK_STATUS.md) is the concise, reviewed snapshot updated when plan/task completions land on `main`.
 - Completing a task requires its acceptance tests and human-approved merged PR, not merely a Codex message that it is finished.
 
-**Delivery queue:** one open PR total, including drafts/docs/research. C01-A #42 → C01-B…H #45–51 with E01-F #44 → T09-A #43 → T09-B/C/D #5. E01 #40 is merged. Future tasks remain issues until the current PR merges or closes; a blocked PR requires an owner decision, never a bypass PR.
+**Historical delivery queue (superseded by the operative ADR-0015 sequence above):** C01-A #42 → focused C01 work → T09-A #43 → T09-B/C/D #5. One open PR total, including drafts/docs/research; E01 #40 is merged. Future tasks remain issues until the current PR merges or closes; a blocked PR requires an owner decision, never a bypass PR.
 
 ### C01-E delivery and accepted compatibility contract
 
@@ -305,9 +324,7 @@ rollback/recovery guarantees. See the live #48 decision and DECISIONS amendment.
 C01-E's final nine-engine snapshot verifies native semantics, Counter, actual
 registered/cached publication, dependency/inheritance updates, no-op freshness,
 rollback/recovery and cold Text loading. Keep optional capability observations
-and unrelated red editor/grammar stages separate. With PR #66 now merged,
-#61 is **Ready** for one narrowly scoped generated static lambda-helper PR,
-subject to its live issue, two-version limit and no-Python policy. C01-F #49 merged in PR #62 at `95efa45`. Its scoped acceptance is
+and unrelated red editor/grammar stages separate. PR #66 and scoped helper PR #67 are merged; #61 is closed completed for that scope. Full raw-syntax/release acceptance remains separate under #51. C01-F #49 merged in PR #62 at `95efa45`. Its scoped acceptance is
 actual native editor startup, saved-disk builds, filesystem/import recovery,
 coalescing, clean enable/disable/re-enable and restart on every pinned engine.
 See [C01_F_EDITOR.md](C01_F_EDITOR.md) and [C01_G_PLAY.md](C01_G_PLAY.md).
@@ -337,8 +354,8 @@ contexts, verifies fresh examples/UIDs/native graphics/resource packs, and
 requires explicit matching source/engine artifacts for release assessment.
 It does **not** complete C01-H or advance T09-A.
 
-**Proposed serial continuation for owner review:** review this focused gate PR,
-then resolve #61, #65, cold missing-generated-scene restoration and explicit
+**Historical gate continuation, amended by ADR-0015:** PR #66 and scoped #61/PR #67 are merged.
+Remaining release work includes #65, cold missing-generated-scene restoration and explicit
 standalone-export/platform scope in separately reviewable steps under #51.
 The strict gate remains blocking until their requirements are verified or an
 explicit owner disposition is recorded; no new exception is assumed.

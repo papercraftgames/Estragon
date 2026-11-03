@@ -4,6 +4,8 @@ This file is a lightweight decision log. Decisions marked **provisional** are no
 
 ## ADR-0001 — Own the UI stack
 
+**2026-11-02 supersession note:** The self-rendering mandate and prohibition on per-component Nodes are superseded by ADR-0015. The paragraph below records the original decision.
+
 **Status: accepted. 2026-10-25.**
 
 Estragon is **not** a declarative generator for Godot `Control` nodes. Estragon manages its own components, layout, styling, input handling, observable state and graphics rendering. Godot provides hosting, platform/window/input facilities and graphics APIs. A small host node is acceptable. Per-component node adapters, if they are ever introduced, must be **optional**.
@@ -15,6 +17,8 @@ Estragon is **not** a declarative generator for Godot `Control` nodes. Estragon 
 Estragon names the framework. Gogo names the language and its compiler; markup files end in `.gogo`. Inspiration comes from Adobe Flex's MXML and bindability, but the actual markup is a new language, not MXML compatibility mode.
 
 ## ADR-0003 — Graphics API and backends
+
+**2026-11-02 supersession note:** The requirement to choose a framework-wide competing renderer is superseded by ADR-0015. RenderingServer implementation and historical research remain factual.
 
 **Status: provisional. 2026-10-25.**
 
@@ -42,6 +46,8 @@ Estragon is distributed under the [MIT License](../LICENSE).
 
 ## ADR-0007 — Gogo generates GDScript with TSX-like authoring
 
+**2026-11-02 supersession note:** ADR-0015 broadens component expressions to general-purpose Node composition named GGX; native generation and namespace-free authoring remain accepted.
+
 **Status: accepted direction. 2026-10-26.**
 
 Gogo (`.gogo`) should support **XML-like component expressions directly mixed with GDScript**, borrowing TSX's compositional authoring model and Flex 4's runtime/component principles. Component tags are **unprefixed** (`<VBox>`, `<Button>`); mandatory XML namespace prefixes and `xmlns` declarations are rejected as the product direction. The transpiler generates valid GDScript for typed Estragon components, automatic event/signal wiring, and later bindings. The first prototype's JSON output and namespaced XML are **temporary scaffolding**, not the final language contract.
@@ -50,6 +56,8 @@ The *experience* is accepted; precise grammar, imports, binding semantics, parse
 
 
 ## ADR-0008 — Framework-owned automatic component lifecycle
+
+**2026-11-02 supersession note:** ADR-0015 supersedes the target RefCounted surface/dispose ownership model and no-Node rule. This remains the current runtime lifecycle contract until reviewed migration; native Node lifetime/persistence must be proved separately.
 
 **Status: accepted user requirement, 2026-10-26; T03 implementation reviewed in its PR.**
 
@@ -74,6 +82,8 @@ broader sizing/alignment remains an open future design.
 
 ## ADR-0009 — Minimal GDScript-first hybrid composition
 
+**2026-11-02 supersession note:** ADR-0015 replaces the target Estragon-only factory/child and surface-mount assumptions. The implemented T05 semantics below remain compatibility evidence.
+
 **Status: T05 implementation contract, reviewed with its implementation PR.**
 
 T05 composes lexically retained GDScript with parsed component expressions and
@@ -97,6 +107,8 @@ editor/debugger integration. Named inner-class markup, collection expansion,
 bindings, widget/signal features and full semantic analysis remain outside T05.
 
 ## ADR-0010 — Minimal generated Button signal connections
+
+**2026-11-02 supersession note:** ADR-0015 broadens target signal sources and requires named handlers/Callable references rather than inline anonymous GGX handler declarations. The implemented T07 callback/lifecycle contract below is preserved pending migration.
 
 **Status: T07 implementation contract, reviewed with its implementation PR.**
 
@@ -153,6 +165,8 @@ See EDITOR/TESTING for setup, API evidence, guarantees and manual procedures.
 
 ## ADR-0012 — Gogo compilation must run natively inside Godot
 
+**2026-11-02 supersession note:** ADR-0015 supersedes only the prohibition on per-component Godot Nodes and the independent-runtime target. Bundled native compilation, parser separation, source maps and fail-closed validation remain mandatory.
+
 **Status: accepted owner decision, 2026-10-28; N01–N03 native compiler/editor implemented.**
 
 **Decision:** Users installing and working with Estragon in Godot require **only Godot and the addon**. The Gogo compiler must be bundled and authored in **GDScript**, supporting native lexical/semantic markup processing, GDScript generation, source maps and editor build/Play diagnostics **without Bun/Node/TypeScript installed, configured or spawned**. No new external compiler process, runtime markup/JSON interpreter, engine fork, GDExtension binary or per-component Godot Node/Control is an acceptable substitute without another explicit decision.
@@ -168,6 +182,8 @@ See EDITOR/TESTING for setup, API evidence, guarantees and manual procedures.
 **Cost/constraints:** Temporary compiler duplication is acceptable to establish semantic parity. Keep codegen independent of EditorInterface, renderer and application scene tree. Preserve accepted Gogo syntax, deterministic output, authored source maps, event/callback semantics, lifecycle and fail-closed builds. GDScript type semantics remain Godot's responsibility. This does not solve arbitrary `@Bindable` annotations in ordinary authored `.gd`; R01/T09 remain separate.
 
 ## ADR-0013 — Lowercase `@bindable` belongs to Gogo; observable models, collections and layout
+
+**2026-11-02 supersession note:** ADR-0015 supersedes the no-Node/shared RefCounted Box target and adapts geometry/lifecycle/repeaters to retained native Nodes and a composed layout core. Lowercase Gogo-only @bindable, non-Node models and observable collections remain accepted.
 
 **Status: accepted owner decision, 2026-10-29. Implementation remains planned. Supersedes ADR-0004's authoring-boundary requirement.**
 
@@ -227,10 +243,10 @@ introduce a runtime numeric adapter, or authorize C01-E/reactive/unit-helper wor
 
 ## Unresolved, intentionally not invented
 
-- **Final rendering implementation:** RenderingServer vs RenderingDevice/native backend, multi-platform strategy.
+- **Visual implementation:** per-component native drawing/presentation choices and platform proof under ADR-0015; no mandatory competing renderer.
 - **Bindable semantics and staged integration:** implement approved Gogo-only `@bindable` in code-only models and UI classes, generated setters/notifications, nested dependencies, observable collections, reactive geometry and lifecycle. See ADR-0013 and [REACTIVITY_PLAN](REACTIVITY_PLAN.md).
 - **Gogo language:** TSX-like GDScript/markup grammar, component import/resolution, typed expression/event/binding semantics and optional markup-only shorthand.
-- **Node integration:** which components, if any, deserve optional Godot node wrappers.
+- **Node integration:** coordinate boundaries, native adapter authority/measurement, transform feedback and PackedScene ownership under ADR-0015.
 - **Layout/style semantics:** borrow selected Flex ideas, establish a new model, or align with modern UI layouts.
 - **Text and accessibility:** text shaper/platform integration, IME, screen readers and testable semantics.
 - **Editor architecture:** ScriptEditor plugin vs standalone Gogo authoring surface vs language server.
@@ -282,3 +298,45 @@ collectors and validators with TypeScript, retains native GDScript fixture
 tests and archived factual evidence, removes all Python files, and updates CI.
 Do not reintroduce Python as a shortcut for temporary research, compatibility,
 or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.
+
+## ADR-0015 — GGX Node-native composition and layout-first Estragon
+
+**Status: accepted owner direction, 2026-11-02; NOT implemented.** Source: [architecture issue #68](https://github.com/resistdesign/Estragon/issues/68). Formalization: [ADR-0015-A #69](https://github.com/resistdesign/Estragon/issues/69). This documentation decision changes the target; it neither retroactively changes implementation nor certifies compatibility/release readiness.
+
+### Responsibilities and language
+
+Estragon supplies a Flex-inspired 2D UI suite replacing Godot Control UI for its intended uses, extending layout-first measurement, sizing, positioning, reactive changes and composition to 3D. Godot retains its SceneTree, lifetime, transforms, physics, rendering and platform/window events. Visual components use actual Godot drawing/presentation; Estragon need not own all graphics or implement a competing renderer.
+
+Gogo is the GDScript-like language in authored `.gogo`. **GGX** names its embedded XML-like general-purpose Node composition syntax, in the role of JSX/TSX. Keep namespace-free interleaving, deterministic typed GDScript generation, source maps and bundled Godot-only fail-closed compilation. No virtual DOM or React render loop is implied.
+
+### One creation/child contract and native signals
+
+GGX hierarchy elements must be Godot **Node or subclasses**, including ordinary native/custom Nodes and Estragon Nodes. The sole child-attachment API is inherited **Node.add_child(Node)**. No JSX/GGX pragmas, configurable or type-specific child-adder protocols. Non-Node resources/Objects (meshes, materials, shapes, models) may be property/expression values; they are not tree children.
+
+Typed native properties, Gogo bindings and native signals apply beyond Estragon. **Any referenced Godot Object with a signal may be a signal source**, even though only Nodes may be hierarchy elements. Handler attributes refer to named handlers/Callable values; do not introduce inline anonymous function declarations in GGX handler attributes. Ordinary functions may contain GGX; function-valued children are not required.
+
+Node.add_child returns void, unlike today's EstragonContainer Error contract. Native Node parentage, reparenting/freeing, signal cleanup and PackedScene `owner` persistence must be designed and tested deliberately. A superclass rename cannot provide this migration.
+
+### Visual inheritance, layout and boundaries
+
+2D visual Estragon components inherit appropriate **Node2D** types; 3D layout participants inherit **Node3D**. Share the mathematical layout model/algorithms **via composition**; a plain Node base inserted above both spatial branches is not the intended visual hierarchy. Explicit 2D/3D entry points have working names **Estragon2D/Estragon3D**; exact class names remain TBD.
+
+An ordinary Godot Node is allowed anywhere in GGX and retains native behavior, but is not automatically an Estragon layout participant. Re-enter layout beneath it using another explicit entry point. Do not tunnel layout through arbitrary Nodes. 2D/3D spatial chains differ and plain Nodes can interrupt transforms; coordinate conversions, boundaries and any 2D overlay in a 3D scene require an explicit supported approach.
+
+Retain actual Node identity and subscriptions. Measure → arrange operates on affected participants without rebuilding/reconciling the full tree. 2D supports Flex-like rows/columns, sizes, alignment, gap/padding and responsive layout; 3D extends measurement/arrangement to width/height/depth and native spatial transforms. A possible volumetric RowBox/ColBox fills two axes and layers along the third. The overall model is accepted; **axes, wrap order, spacing, units, constraints and overflow need a focused specification**. Existing 2D pixel decisions stand; pixels are not assumed to be 3D world units.
+
+### Native adapters and event-driven updates
+
+Working **Native2D/Native3D** adapters expose explicit bounds/position and optionally measure/observe native children while preserving their native renderer/behavior. Generic Node/Node3D has no universal size; use an appropriate bounds provider, geometry/rect, mesh AABB or authored size. Specify native-controlled versus layout-controlled geometry. Signals, applicable notifications, bindings or explicit invalidation can request remeasurement when desired. Animated geometry may use fixed/deferred snapshots or opt-in observation, never compulsory per-frame polling.
+
+Cache measurements, invalidate affected branches and batch/coalesce updates. Guard Estragon-authored transform/bounds writes against observer feedback loops. Events include bindable/collection changes, native signals, tree/child changes, explicit adapter invalidation and viewport size changes. Treat relevant Window DPI/scaling changes separately; do not assume they always resize the viewport. Theme changes flow through observable/bound theme data. Collections/repeaters update retained keyed Nodes incrementally and need no function-valued GGX children.
+
+### Supersessions, preservation and delivery
+
+This ADR explicitly supersedes the conflicting future requirements of **ADR-0001** (all rendering/no Nodes), **ADR-0003** (mandatory independent renderer direction), **ADR-0008** (RefCounted surface lifecycle as the future model), **ADR-0012** (per-component Node prohibition), and **ADR-0013** (RefCounted Box hierarchy/no Nodes). It also broadens **ADR-0007/-0009** Estragon-only construction/child assumptions and **ADR-0010** target signal/handler scope. Original text and historical tests remain below their supersession notes as evidence of what was decided/implemented then. Compiler separation does not prohibit generated code constructing Nodes; it prohibits compiler dependence on a live SceneTree.
+
+Preserve ADR-0013's **exact lowercase Gogo-only @bindable**, code-only non-Node models, observable collection/item events and scoped dependency tracking. Preserve native-only product compilation, Godot 4.0+ target, live test cap **4.0.4 + pinned 4.7.0**, TypeScript/Yarn-only future contributor tooling, no Python, no physical-key gate, one PR at a time, durable handoffs and owner-controlled merges. Existing Bun scripts remain unchanged historical contributor tooling in this docs-only task; their conversion needs separate scope.
+
+Today RefCounted components/private child lists/RenderingServer surface and the native compiler/editor remain implemented. No Node-native GGX, 3D layout, adapters or reactivity is claimed. All existing examples/evidence and actual FAIL/BLOCKED/UNTESTED results remain. **Strict release remains BLOCKED**; development CI success is not publishing authorization.
+
+First formalize and plan (#69), then prove minimal native composition, shared 2D/3D layout and adapters in small serial PRs before broader runtime/compiler migration. [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) defines prerequisites, acceptance and unresolved decisions; C01, #65, L01 and T09 are not silently completed or waived.

@@ -1,42 +1,21 @@
 # Estragon vision
 
-## One sentence
+**Estragon provides Flex-inspired, layout-first 2D UI components and extends the same approach to 3D, using Godot's native scene and rendering systems.** This is accepted future direction under [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), not a claim that the current runtime is migrated.
 
-**Estragon is a new, self-rendered, reactive UI engine that runs inside Godot, not a wrapper around Godot's GUI system.**
+Gogo is the GDScript-like language in `.gogo`. GGX is its embedded XML-like general-purpose Node composition syntax, borrowing TSX authoring ergonomics without React's render loop or virtual DOM. It compiles to ordinary typed GDScript through the bundled Godot-only compiler. GGX supports ordinary/custom Nodes as well as Estragon components, with inherited Node.add_child as the sole child rule, native typed properties and named-handler/Callable native signals. Referenced non-Node Objects can be values/signal sources, never hierarchy children.
 
-Its source language is Gogo (`.gogo`): **XML-like component expressions woven directly into GDScript, inspired by TSX, and transpiled into runnable GDScript**. Flex 4 informs its component system, automatic event wiring and bindable state. No XML namespace prefixes are required in the target language. See the [design direction](DESIGN_DIRECTION.md). T05 implements a minimal hybrid authoring subset; T06 adds basic text/buttons and primary-mouse input using ordinary GDScript. The full reactive UI/editor vision remains future work.
+## Responsibilities
 
-## Why build it?
+Estragon's UI suite replaces Godot Control UI for its intended uses, providing its own Flex-style measurement, layout, sizing, positioning and reactive composition. Visual 2D components derive from Node2D and 3D participants from Node3D, sharing a mathematical layout core through composition. Godot retains SceneTree identity/lifetime, transforms, physics, rendering and platform/window services. Actual drawing/presentation belongs to the respective native visual components.
 
-The purpose is to own the design and behavior of the UI stack instead of inheriting the constraints, layout model, styling model or widget behavior of Godot's `Control` system. This is a deliberate architectural independence goal, not a claim that the stock system is unusable for every project.
+Explicit spatial entries establish layout boundaries. Ordinary Nodes remain native and do not automatically participate; another entry re-enters Estragon beneath them. Native2D/Native3D adapters can expose explicit or suitably measured bounds and authority. Specify coordinates, owner persistence and feedback guards deliberately.
 
-Writing markup should be a convenient way to construct **Estragon components**. Those components should be rendered by **Estragon**, through a lower-level graphics interface supplied by Godot, with the minimum amount of Godot scene machinery necessary to host them.
+Retain Node identity. Use event-driven affected-branch measure/arrange, cached bounds and coalesced updates, not full-tree rebuilding or compulsory polling. Theme, model and collection changes should flow through observable data. Lowercase Gogo-only `@bindable`, typed non-Node models and observable collections remain planned requirements. 2D uses pixels; 3D units, axes, wrapping and overflow need focused specifications.
 
-## Principles
+## Quality and delivery
 
-1. **Render ourselves.** No conversion of Gogo components into Godot `Control` widgets. Estragon owns paint, composition and visual behavior.
-2. **Own a logical UI tree.** Component identity, lifecycle, layout, hit testing and accessibility must not depend on a Godot node per visual element.
-3. **Reactive by default, explicit when necessary.** Observed properties and dependency expressions should work without manual signal glue or per-frame binding polling.
-4. **Declarative authoring, generated GDScript execution.** Compile typed Gogo markup and GDScript expressions into ordinary GDScript before runtime; never interpret XML or a serialized JSON UI tree on each frame.
-5. **A real editor experience.** Mixed GDScript/markup highlighting, errors tied to authored source, completion, navigation, automatic compilation and previews are product features. Native-looking `@Bindable` in authored `.gd` files remains a separate technical challenge.
-6. **Separate concerns.** Parser, semantic model, runtime components, layout, binding graph, input routing and renderer must have clean interfaces.
-7. **Make backend choices by evidence.** Design a renderer abstraction; benchmark available graphics paths instead of prematurely claiming one is best.
+Current code uses RefCounted components and a RenderingServer surface; native compiler/editor, minimal stack layout, text/buttons and primary pointer input are implemented. Node-native GGX, 3D layout, adapters, bindings and repeaters are not. [The migration plan](NODE_MIGRATION_PLAN.md) proves native composition, layout and adapters before broader migration, preserving working examples and honest compatibility evidence.
 
-## What Flex contributes
+Text shaping, font fallback, localization/RTL, clipping, advanced layout, high-DPI scaling, focus/keyboard/IME, touch/scroll, accessibility and richer widgets still need scoped implementation and evidence. Completion/navigation, live preview and debugger remapping remain future work. Do not claim performance, platform coverage or release readiness before testing; C01 strict release remains BLOCKED.
 
-We want **TSX-like GDScript/markup composition** with unprefixed component names, typed expressions and callbacks, combined with Flex 4-inspired component classes, generated signal connections, `[Bindable]`-style observables and one-/two-way binding. We are **not** promising direct MXML, ActionScript, TSX, React or Spark compatibility, or React's runtime rerender model.
-
-## Explicit non-goals
-
-- Generating `.tscn` trees of `Control`, `Label`, `Button`, etc.
-- Depending on Godot's GUI focus, layout, input, theme and widget implementations for Estragon UI.
-- Requiring one `Node` per Estragon component. Optional node adapters may exist later, if useful.
-- Building a web browser or blindly adopting CSS/HTML semantics.
-- Maintaining a fork of Godot before it is actually needed.
-- Claiming performance, accessibility or platform coverage before it has been tested.
-
-## Quality bar for a real UI engine
-
-Beyond drawing colored rectangles, Estragon must eventually handle text shaping, font fallback, localization and RTL, layout constraints and measurement, high-DPI scaling, animation, clipping, focus/navigation, keyboard/IME, pointer/touch/drag, scrolling, hit testing, accessible semantics, data binding and efficient redraw.
-
-These are **requirements to research and implement**, not capabilities of the current prototype.
+The Godot 4.0+ target, only 4.0.4/4.7.0 live verification, native product compilation, TypeScript/Yarn future tooling, no Python, one reviewed PR at a time and durable handoffs remain guardrails. See [design direction](DESIGN_DIRECTION.md), [architecture](ARCHITECTURE.md) and [work status](WORK_STATUS.md).
