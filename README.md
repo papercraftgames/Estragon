@@ -1,18 +1,14 @@
 # Estragon
 
-**An independent, graphics-rendered UI framework for Godot.**
+**A Flex-inspired, layout-first 2D/3D component framework for Godot.**
 
 *No more waiting for Godot. Gogo!*
 
-Estragon is inspired by the declarative markup, data binding, and developer experience of Adobe Flex 3/4. Its markup language is **Gogo** (`.gogo`). Estragon **does not** compile markup to Godot's `Control` tree, use the stock GUI layout/rendering/widgets, or require one Godot node per UI component.
+**Accepted target, not implemented:** [ADR-0015](docs/DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) defines **Gogo** as the GDScript-like language in `.gogo` and **GGX** as its embedded XML-like general-purpose Node composition syntax. GGX uses inherited Node.add_child as the sole child rule, native typed properties and named-handler/Callable signals. Estragon's intended UI suite replaces Godot Control UI for its uses, with Node2D/Node3D visual branches composing shared measure/arrange. Godot retains SceneTree, lifetime, transforms, physics and rendering. Explicit entries/native adapters define layout participation; ordinary Nodes are not automatically laid out.
 
-The design is a **standalone UI stack hosted by Godot**: Estragon owns its logical component tree, layout, styles, input/focus, accessibility semantics, reactive state and drawing. Godot provides application hosting and low-level graphics access. Optional bridges to Godot nodes may be considered, but are not the default representation of UI elements.
+**Today:** the runtime still uses RefCounted components, a private child list and a RenderingServer surface. The bundled native Gogo compiler/editor, minimal stack layout, text/buttons and generated pressed connections work; Node-native GGX, 3D layout, native layout adapters and reactivity remain planned. Preserve current examples and evidence during [staged proof/migration](docs/NODE_MIGRATION_PLAN.md). Strict C01 release certification remains **BLOCKED**; Godot 4.0+ is the target, not a newly verified claim.
 
-## Where we're going
-
-**Gogo is XML-like markup with TSX-style GDScript composition.** Developers should be able to write unprefixed components such as `<VBox>` and `<Button>`, combine them directly with GDScript expressions and methods in `.gogo`, and have the compiler generate ordinary GDScript that instantiates Estragon's independent runtime objects and wires signals/bindings. **No `xmlns` or `<fx:...` prefixes** in the intended language. Minimal independent runtime/stack classes exist; a fuller component suite and broader editor services remain planned. The desired `@Bindable` experience in ordinary `.gd` files requires a separate feasibility investigation.
-
-Native Gogo-to-GDScript compilation, editor builds, independent layout and interactive generated signal wiring work with **Godot and the addon alone**. Read the [Gogo-to-GDScript design direction](docs/DESIGN_DIRECTION.md) for the remaining decisions and technical constraints.
+Lowercase `@bindable` in Gogo only, including code-only non-Node models, is accepted but not implemented. Native Gogo editing/build/Play needs only Godot and the addon; no external compiler. See [design direction](docs/DESIGN_DIRECTION.md) and the [supported language subset](docs/GOGO_LANGUAGE.md).
 
 ## Godot-only authoring
 
@@ -42,7 +38,7 @@ The earlier namespaced XML → JSON rectangle demo is preserved separately and
 remains the configured main scene. It is temporary compatibility scaffolding,
 not the new compiler's runtime format.
 
-`RenderingServer` is the initial low-level graphics adapter. The intended render backend is pluggable; a more direct `RenderingDevice`/shader-driven backend is a future investigation, not a completed feature or final decision.
+`RenderingServer` is the current low-level adapter. ADR-0015 delegates native rendering to the respective components; a competing renderer is not a migration requirement.
 
 ## Try the Gogo-to-GDScript slice
 
@@ -112,12 +108,13 @@ extension settings. See [editor setup and verified limits](docs/EDITOR.md).
 
 ## Picking up development with Codex
 
-**One task per PR.** Check the live [work register](docs/WORK_STATUS.md) and the latest [T08 handoff](https://github.com/resistdesign/Estragon/issues/28) before choosing work (or research [R01: `@Bindable` feasibility](https://github.com/resistdesign/Estragon/issues/4) in parallel). Point Codex to `AGENTS.md`, `docs/EXECUTION_PLAN.md`, `docs/WORK_STATUS.md` and the chosen issue ID. Those files define what to build, how to track progress, and how another session continues. **Do not ask Codex to implement the whole roadmap in one PR.**
+**One open PR total, one scoped task at a time.** Read [work status](docs/WORK_STATUS.md), `AGENTS.md`, the execution plan and the selected issue's latest handoff. ADR-0015-A [#69](https://github.com/resistdesign/Estragon/issues/69) formalizes architecture [#68](https://github.com/resistdesign/Estragon/issues/68); successors stay queued until owner review/merge. Never auto-merge or implement the whole roadmap in one PR.
 
 ## Naming
 
 - **Estragon:** the overall framework and runtime
-- **Gogo:** the declarative UI language and compiler; files end in `.gogo`
-- **Godot:** the host engine, not the component library
+- **Gogo:** the GDScript-like language and compiler; files end in `.gogo`
+- **GGX:** embedded XML-like Node composition syntax within Gogo
+- **Godot:** native scene, rendering, transform, physics and platform services
 
 This project is at the prototype stage; all syntax not explicitly described as supported is a **proposal**, not a working feature. Estragon is released under the [MIT License](LICENSE). See [Assets](Assets/) for the original logo files.

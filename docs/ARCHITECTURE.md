@@ -1,8 +1,24 @@
-# Architecture: a UI engine, not a scene generator
+# Architecture: Node-native composition and layout-first components
 
-## Invariant
+**Accepted target: ADR-0015; not implemented.** [Owner #68](https://github.com/resistdesign/Estragon/issues/68), [formalization #69](https://github.com/resistdesign/Estragon/issues/69), [staged proof/migration](NODE_MIGRATION_PLAN.md). Target requirements below supersede conflicting independent-tree/no-Node/render-everything direction; existing runtime contracts remain in force until reviewed migration.
 
-**No Estragon visual component maps by default to a Godot `Control` or `Node`.** The Godot scene tree may contain a single Estragon host, multiple UI surfaces or optional integration adapters. The UI component tree is an independent data structure managed by Estragon.
+## Target responsibilities and boundaries
+
+Gogo is the GDScript-like language; GGX is its embedded XML-like general-purpose Node composition syntax. GGX constructs Node-derived hierarchy elements using only inherited **Node.add_child(Node)** (void), with native typed properties and named-handler/Callable signal connections. No pragmas or configurable/type-specific child adders. Resources/models/other Objects may be values, never hierarchy children. Any referenced Object with a signal may supply it; signals are not restricted to Estragon Nodes. No inline anonymous function declarations in target GGX event attributes; ordinary functions may contain GGX. Function-valued children are not required.
+
+Estragon provides Flex-inspired 2D UI replacing Control UI for its intended uses, and analogous 3D layout. Godot provides SceneTree lifetime, transforms, native rendering, physics and platform/window events. Ordinary Nodes, including native UI Nodes, are valid GGX elements; they do not thereby become Estragon layout participants or define Estragon's UI semantics.
+
+2D visual participants derive from Node2D; 3D participants derive from Node3D. Both compose one mathematical measure/arrange core. No shared plain Node visual base is imposed. Explicit entries (working Estragon2D/Estragon3D names) establish layout roots. An ordinary Node boundary stops automatic layout; nest an explicit entry to re-enter. Specify native spatial chains and conversion boundaries, including any future 2D overlay in 3D, rather than assuming transforms propagate across arbitrary Node types.
+
+Working Native2D/Native3D adapters expose explicit bounds/position with optional suitable measurement/observation. Native children retain rendering/behavior. Generic Node/Node3D has no universal size; choose authored bounds, rect/geometry or mesh AABB providers deliberately. Specify native versus layout authority, cache bounds, coalesce affected-branch invalidation and suppress feedback from Estragon's own writes. Animation may use fixed/deferred snapshots or opt-in observation; no compulsory per-frame polling.
+
+Retain actual Node identities and subscriptions through event-driven measure → arrange. Inputs include state/collection/native signals, child changes, explicit invalidation and viewport resize. Treat relevant Window DPI/scaling separately; theme changes use observable/bound data. No virtual DOM, full-tree rebuild or global poll. 2D pixel units stand; 3D width/height/depth units, axis/wrap/layer order, constraints and overflow require focused specification. Parentage, PackedScene owner persistence, reparent/free and native signal cleanup are distinct proof obligations.
+
+## Current implementation and preserved contracts
+
+Today EstragonDisplayObject extends RefCounted; EstragonContainer owns a private child list and returns Error from add_child; EstragonSurface is a Node with one RenderingServer canvas item. Existing generated code targets those APIs. Native GGX composition, Node-based participants/entries/adapters, 3D layout and reactivity remain planned. Do not mechanically rename superclasses or reinterpret old ownership tests as Node-lifetime proof.
+
+The compiler/editor sections and T02–T08 runtime descriptions below document current implementation and historical development, not future no-Node constraints. Existing examples and measured evidence remain valid for their stated scope. C01 release certification stays **BLOCKED**; merged development infrastructure is not authorization to publish.
 
 ## Compatibility principle: pragmatic progressive enhancement
 
@@ -27,7 +43,7 @@ The compiler remains independent of rendering and editor APIs.
 
 N03 replaces the former T08 external build with the **bundled GDScript-native compiler**: Gogo source → native lexer/parser/typed model (N01) → native GDScript emission/source maps (N02) → direct EditorPlugin build/validation on F5/F6 (N03) → generated ordinary `.gd` → Estragon's independent runtime.
 
-No Bun/Node is required to **use** the final addon, and no runtime XML/JSON interpreter, engine fork, native extension dependency or per-component Godot Node/Control is introduced. Keep compiler logic separate from editor UI, scene tree and renderer; retain current supported syntax and generated signal semantics. Fresh-project Godot-only editor tests exercise Play with tools absent, error blocking and recovery. Existing TypeScript tests may remain optional CI/reference tooling.
+No Bun/Node is required to **use** the final addon, and no runtime XML/JSON interpreter, engine fork or native extension dependency is introduced by the current compiler migration. ADR-0015 separately approves Node-based target components. Keep compiler logic separate from editor UI, scene tree and renderer; retain current supported syntax and generated signal semantics. Fresh-project Godot-only editor tests exercise Play with tools absent, error blocking and recovery. Existing TypeScript tests may remain optional CI/reference tooling.
 
 N01 lives entirely in `addons/estragon/compiler/`: `source.gd` indexes source,
 `lexer.gd` scans tokens at explicit offsets, `parser.gd` composes balanced GDScript
@@ -53,95 +69,30 @@ candidate. Publication synchronizes cached Scripts even when source bytes match,
 because source equality alone cannot prove bytecode freshness. See
 [C01_E_VALIDATION.md](C01_E_VALIDATION.md) and [GOGO_LANGUAGE.md](GOGO_LANGUAGE.md).
 
-## Mixed-source direction (T05 subset implemented; later services planned)
+## Target pipeline and layer responsibilities
 
-The [design direction](DESIGN_DIRECTION.md) is **Gogo's XML-like markup and GDScript mixed in one authored `.gogo` source**, transpiled to GDScript—not JSON UI data interpreted by Godot.
+`Gogo + GGX → native lexer/parser → typed model → GDScript + source maps → Godot semantic validation → retained native Nodes and model Objects`
 
-~~~text
-        Authored *.gogo (UI + code-only data/model modules)
-          GDScript-like source, <Component>, @bindable (planned)
-                              |
-                 native Gogo lexer/parser
-                              |
-              typed components / model members
-                  expressions, source spans
-                              |
-          Gogo emitter: typed GDScript + source maps
-                              |
-               Godot's native GDScript parser
-                              |
-          Estragon component tree + observable models
-                  /          |           \
-              layout    dependency graph   input
-                  \          |           /
-                    paint / display list
-                              |
-                  renderer backend
-                     /             \
-             RenderingServer   RenderingDevice
-                 current          research
-                     \             /
-                      Godot Viewport
-~~~
+The compiler uses an internal typed model, never runtime markup interpretation. Analysis/codegen are independent of EditorInterface, rendering and a running SceneTree; generated applications use native Nodes normally.
 
-A typed *compiler-internal* AST or intermediate model is useful; that is **not** a mandate for serialized JSON as the runtime format. Component construction, typed references and signal connections should be produced as **GDScript code**. Estragon's component tree remains independent of Godot's `Control`/`Node` hierarchy.
+| Layer | Responsibility / current boundary |
+| --- | --- |
+| Native compiler/editor | Implemented parser, typed built-ins, code/maps and fail-closed actual-path transactions; general Node type/property/signal resolution needs reviewed migration. |
+| Bindings/models | Planned Gogo-only lowercase @bindable, non-Node typed models, observable collection/item events and scoped subscriptions. |
+| Layout | Current RefCounted fixed/auto/fill stacks; target composed mathematical 2D/3D measure/arrange with event-driven invalidation. |
+| Visual components | Current display-list text/rectangle primitives and primary pointer dispatch; target native Node2D/Node3D participants using Godot presentation. |
+| Entries/adapters | Current surface host; target explicit spatial entries and native bounds/authority adapters, with no automatic layout through ordinary Nodes. |
+| Godot | Native scene ownership/lifetime, transforms, physics, rendering and platform/window services. |
 
-## Planned reactivity and inheritance invariants (ADR-0013)
+[REACTIVITY_PLAN](REACTIVITY_PLAN.md) preserves lowercase Gogo-only annotations and data-model requirements while adapting layout/lifecycle/repeaters to retained Nodes. The earlier RefCounted Box target is superseded; share future box behavior through composition. No new reactive behavior is implemented.
 
-**Source boundary:** only `@bindable` in compiler-owned `.gogo` is accepted; code-only data/model `.gogo` modules must become ordinary typed generated `.gd` scripts. [R01](BINDABLE_FEASIBILITY.md) documents why ordinary native authored `.gd` annotations are not an addon feature. Generated source should provide property change notifications, collection events, dependent subscriptions, and fail-closed native semantic validation. None of this new reactive behavior is implemented today.
+### Historical rendering implementation and research
 
-**Layout reactivity:** property bindings should update the existing measured/arranged/painted component properties using correct dirty phases, **including eventual x/y positioning**. Current `EstragonDisplayObject` has width, height and fill sizing flags but no public x/y properties. Decide whether x/y are layout-managed positions or offsets/absolute positions, and validate nested layout, hit-testing and resize behavior rather than implicitly overriding parent Box positioning.
+Stage-0 and the current surface use RenderingServer canvas primitives, with one surface canvas item and ordered display commands. This remains tested implementation, not an obligation to build a competing renderer. Earlier proposals for a universal versioned display list, RenderingDevice/GDExtension backend and optional-only Node adapters are superseded as architectural requirements by ADR-0015; backend-specific optimizations can be proposed later with measurements. Godot-native visual components may choose appropriate drawing/presentation APIs without a universal per-Node drawing requirement.
 
-**Implemented inheritance:** `EstragonDisplayObject → EstragonContainer → EstragonStack → EstragonVBox/EstragonHBox`. Stack owns shared layout policy, orientation and gap. **Accepted target:** `EstragonDisplayObject → EstragonContainer → EstragonBox → EstragonVBox/EstragonHBox`. Consolidate shared layout code in Box, retain existing Stack compatibility where necessary and demonstrate tests for current generated examples. Do not duplicate code in subclasses or use a Godot `Control`/`Node` per component.
+### Implemented language/runtime history
 
-**Data and collection boundary:** `@bindable` on a collection reference is separate from mutations to collection contents. A dedicated observable ArrayCollection-like class will publish structural and bindable item changes; typed repeater/list consumers must retain item identity and unsubscribe automatically. [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md) records ordered T09 acceptance cases. E01 [#37](https://github.com/resistdesign/Estragon/issues/37) separately fixes automatic highlighting before the final editor demonstration.
-
-**Current state:** the first prototype uses `tools/gogo.ts` to emit `*.gogo.json` for a minimal `RenderingServer` host. Keep this stage-0 demo working until a new Gogo-to-GDScript vertical slice is proven, then migrate it deliberately. Its namespace-prefixed XML is **not** the intended new Gogo syntax.
-
-## Layer responsibilities
-
-| Layer | Owns | Does not own |
-| --- | --- | --- |
-| Gogo frontend/codegen (T04/T05 subset implemented) | Hybrid GDScript/markup parsing, component/type resolution, diagnostics, generated GDScript and source maps | Rendering, Godot nodes |
-| Gogo binding compiler (planned) | Lowercase `@bindable` in `.gogo`, typed model accessors, property/collection dependency tracking and source maps | Native `.gd` annotations, runtime markup interpretation or per-frame polling |
-| Component runtime (foundations implemented; reconciliation planned) | Independent objects, identity, ownership, disposal and dirty flags | Godot scene tree |
-| Layout engine (minimal stacks implemented) | Natural/fixed/fill sizes and nested VBox/HBox; broader layout planned | `Container` nodes |
-| Input system (primary mouse implemented) | Reverse-order hit testing/capture; propagation/focus/keyboard/IME planned | `Control` event routing |
-| Paint system (rectangles/text implemented) | Ordered rectangle/text commands; broader display lists/clipping planned | Specific graphics API |
-| Renderer backends | Translate display list to GPU drawing | Component semantics |
-| Godot host | Surface/viewport hookup, input source, lifecycle, platform integration | Widget behavior |
-
-## Low-level graphics choices
-
-**Stage 0:** `RenderingServer` canvas items are used to prove that an independent source tree can cause pixels to be drawn in Godot **without Godot UI components**. One server-side canvas item is parented to the viewport's 2D canvas; rectangle primitives are submitted directly. `RenderingServer` is the engine's low-level rendering API, but it still uses Godot's 2D rendering pipeline; it is *not the same* as issuing raw Vulkan/Metal/OpenGL commands.
-
-**Future investigation:** A `RenderingDevice` backend, potentially implemented through a GDExtension/native module, could issue lower-level GPU work and enable a custom batching/composition/text strategy. Render-to-viewport/presentation integration, hardware/platform support, synchronization and fallback paths must be designed and tested. Do not promise a zero-overhead or universal raw-GPU path before a prototype.
-
-**Design requirement:** The retained tree, layout and bindings must not depend on which graphics backend paints the display list.
-
-Official Godot references:
-- [RenderingServer](https://docs.godotengine.org/en/stable/classes/class_renderingserver.html)
-- [RenderingDevice](https://docs.godotengine.org/en/stable/classes/class_renderingdevice.html)
-- [Optimization using servers](https://docs.godotengine.org/en/stable/tutorials/performance/using_servers.html)
-
-## Planned render contract (illustrative, not yet code)
-
-A backend should receive a **versioned display list** with commands such as fill rectangle, textured quad, glyph run, clip push/pop and compositing layer. It should not receive XML tags or component objects. Eventually the compiler/runtime should distinguish structure, style, geometry and paint so changes can invalidate only the necessary work.
-
-## Node adapters: optional, not architectural
-
-A Godot `Node` can host an Estragon root, expose state to a Godot scene or bridge an external event stream. If individual Estragon components later become optional Godot nodes, that must remain an opt-in adapter: component meaning, layout and rendering must still be implemented by Estragon, not by `Control`.
-
-## What is actually implemented today?
-
-- Strict TypeScript Gogo XML parser executed at build time by Bun.
-- Tiny, versioned JSON IR: `View` root + absolute-positioned `Rect` leaves.
-- A checked-in sample IR and a Godot host `Node` that submits rectangles through `RenderingServer.canvas_item_add_rect()`.
-- Compiler unit tests and pinned Godot 4.7 headless import/parse/runtime checks.
-- Independent component ownership, stack layout, rectangle rendering and automatic lifecycle.
-- T04 namespace-free markup-to-GDScript compiler and runnable generated surface.
-
-The host renders **temporary JSON IR** positions directly. It does **not** compile Gogo into GDScript and is **not yet** the retained component tree, layout engine or event/binding system described above. Basic text and primary-pointer buttons are implemented in the independent runtime; reactive compilation, hot reload, preview and other rendering backends remain planned.
+The following T04–T08 sections describe supported examples and current RefCounted APIs. Their no-per-component-Node statements describe that implementation only. Preserve tests, code, source maps and archival FAIL/BLOCKED/UNTESTED results until each replacement is reviewed and proved.
 
 ## Markup-to-GDScript vertical slice (T04)
 
@@ -384,7 +335,7 @@ visible to metadata checks. Full GDScript semantics remain Godot's responsibilit
 No callback wrapper interpreter, per-component Node or new subscription service
 is used. See GOGO_LANGUAGE/ADR-0010 for validation limits and TESTING for the gate.
 
-## Performance model to implement later
+## Historical performance proposal (revisit per native component)
 
 Track independently dirtied state, layout and paint; retain component identities; batch paint primitives; minimize allocations and GPU submissions; manage scissoring/clips and cache glyphs/resources. Measure CPU and GPU cost, startup time, frame pacing and memory on concrete workloads instead of assuming lower-level drawing automatically means faster rendering.
 

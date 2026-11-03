@@ -1,6 +1,6 @@
 # AGENTS.md — Working on Estragon
 
-> Repository-wide instructions for AI coding agents and automated contributors. Read this before editing code or opening a PR. These instructions describe the **current repository**, not an imaginary finished framework.
+> Repository-wide instructions for AI coding agents and automated contributors. Read this before editing code or opening a PR. These instructions distinguish the **current repository** from owner-approved future architecture; target approval is not implementation evidence.
 
 ## Standing authorization: local repository cleanup
 
@@ -18,33 +18,28 @@ checkout: **do not destroy unfinished Codex implementation work, committed work
 on remote branches, or anything in unrelated repositories.** It does not authorize
 force-pushing, remote branch deletion or merging PRs.
 
-## Mission
+## Mission and accepted architecture (ADR-0015)
 
-**Estragon is an independent, self-rendered UI engine hosted by Godot.** Its declarative language is **Gogo** (`.gogo`), inspired by the authoring ergonomics of Adobe Flex 3/4. Gogo builds *Estragon* components—not Godot widgets or scene nodes.
+**Estragon provides Flex-inspired, layout-first 2D UI components and extends the same model to 3D.** Its intended UI suite replaces Godot Control UI for its uses. Godot supplies the SceneTree, Node lifetime, transforms, rendering, physics and platform/window events. Estragon is not a competing renderer or virtual DOM.
 
-The **accepted target** is **TSX-like GDScript and XML-like component expressions interleaved in `.gogo`**, transpiled into valid GDScript that creates independent Estragon runtime components and wires signals/bindings. Independent ownership, minimal stack layout, rectangle rendering and a GDScript-first hybrid authoring subset are implemented. Basic text/buttons and primary-mouse input are implemented in ordinary GDScript. T07 adds Gogo Text/Button and generated pressed connections; T08 adds optional native editor highlighting and automatic compile-before-Play; reactivity, broader widgets and advanced editor services remain planned. **The existing JSON compiler is a stage-0 proof of concept**, not the final language architecture. Read [the design direction](docs/DESIGN_DIRECTION.md) and ADR-0007.
+**Gogo** is the GDScript-like language in `.gogo`; **GGX** is its general-purpose embedded XML-like **Node composition syntax**, not just Estragon markup. Compile to typed native GDScript using the bundled Godot-only compiler, source maps and fail-closed validation. Read [ADR-0015](docs/DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) and [the staged migration plan](docs/NODE_MIGRATION_PLAN.md), derived from [owner architecture #68](https://github.com/resistdesign/Estragon/issues/68).
 
-```text
-T04/T05: namespace-free markup + GDScript → typed compiler IR → generated GDScript
-                                                          ↓
-                                  EstragonSurface → components → renderer
+**Present implementation is different:** `EstragonDisplayObject extends RefCounted`, containers own private child lists, and `EstragonSurface extends Node` draws through a RenderingServer canvas item. T04–T07 compile five Estragon built-ins; N01–N03 provide the native compiler/editor. Basic text/buttons and pointer input work; Node-native GGX, 3D layout, adapters, bindable properties and repeaters are **not implemented**. Preserve existing examples/evidence during reviewed migration. The namespaced XML/JSON demo remains stage-0 legacy.
 
-Legacy: namespaced .gogo XML → JSON IR → prototype host → RenderingServer
-```
+## Target authoring and runtime contract (planned, not shipped)
 
-The legacy host still reads **temporary JSON IR** and renders fixed rectangles directly. A separate GDScript component/layout surface and minimal GDScript-first hybrid compiler also work; full binding/widget/editor features remain **planned**.
-
-## Target authoring and implementation direction (full target NOT implemented yet)
-
-- **No mandatory XML namespaces or prefixed element names.** Target Gogo uses `<VBox>`, `<Button>` and `<MyWidget>`, not `<fx:VBox>` or `xmlns` declarations. The **current stage-0 XML parser still needs its legacy namespace**, but that requirement must not be carried into the new grammar.
-- **TSX-like single-file mixing:** the preferred experience is GDScript declarations, functions, expressions and callbacks interleaved with XML-like component expressions inside an authored `.gogo` source. Braces contain GDScript, not JavaScript or TypeScript. T05 supports a specified hybrid subset with braced construction-time expressions and source maps. T07 adds zero-argument Button callbacks; bindings and broader editor tooling remain future work.
-- **Generated GDScript:** emit deterministic, valid `.gd` constructing Estragon's component hierarchy and automatically connecting typed signal handlers and, later, observable bindings. Generated files are not hand-edited, and no Godot UI widget tree is produced.
-- **Owner-approved reactivity syntax (ADR-0013, 2026-10-29):** the official annotation is **exactly lowercase `@bindable`, supported in authored `.gogo` only**, including code-only data/model modules. The Gogo compiler lowers it into valid GDScript; ordinary `.gd` does NOT gain addon-defined annotations, and `.bgd` is not approved. Consult [REACTIVITY_PLAN.md](docs/REACTIVITY_PLAN.md) and [T09 #5](https://github.com/resistdesign/Estragon/issues/5).
-- **Real runtime components and shared inheritance:** verified current chain is `EstragonDisplayObject → EstragonContainer → EstragonStack → EstragonVBox/EstragonHBox`. Owner's target is a canonical `EstragonBox` common base directly below `EstragonContainer`, with HBox/VBox sharing layout behavior. Migrate with compatibility tests instead of duplicating the stack algorithm or creating Godot `Control`/`Node` components.
+- No mandatory namespaces, JSX/GGX pragmas or configurable/type-specific child-adder protocols. Every GGX tree item must derive from Godot `Node`; the **only attachment API is inherited `Node.add_child(Node)`**, which returns void. Do not retain the old Error-returning EstragonContainer convention for Node code. Non-Node resources/models/Objects belong in property/expression values, never tree children.
+- Typed native properties and native signal connections apply to ordinary Nodes too. Any referenced Godot Object may be a signal source. GGX event attributes refer to named handlers/Callable values; do not introduce inline anonymous function declarations there. Ordinary functions may contain GGX; function-valued children are not required. Preserve historical callback support until a reviewed migration explicitly replaces it.
+- Visual 2D components derive from Node2D; 3D participants derive from Node3D. Share mathematical measure/arrange through **composition**, not a plain Node visual base or multiple inheritance. Working entry-point names are Estragon2D/Estragon3D; exact names remain open.
+- An ordinary Node may appear anywhere in GGX but does not automatically participate in layout. Re-enter layout below it using another explicit 2D/3D entry point. Specify spatial/coordinate boundaries and 2D overlays explicitly; arbitrary Node ancestry may interrupt transforms.
+- Native2D/Native3D adapters (working names) expose explicit bounds/position, with optional suitable native measurement. Generic Nodes have no universal size. Specify layout/native authority, cached measurements, affected-branch invalidation, batching and transform-write feedback guards. Animated geometry uses explicit opt-in observation or fixed/deferred snapshots, never compulsory per-frame polling.
+- Retain Node identity and subscriptions across layout; use event-driven measure → arrange, not full-tree rebuilding or virtual DOM. Native signals, child changes, bindable/collection changes, explicit invalidation and viewport resize are inputs; consider Window DPI changes only where relevant. Observable theme data drives theme updates.
+- Lowercase `@bindable` remains **Gogo-only**, including code-only non-Node models; no ordinary `.gd` annotations or `.bgd`. Collections/repeaters use retained keyed Nodes and incremental updates. 2D pixel units remain; 3D units/axes/wrapping/overflow require a focused specification.
+- Native lifetime, reparenting, signal cleanup and PackedScene `owner` persistence require explicit proofs. Never mechanically rename RefCounted superclasses or assume current disposal rules equal Node removal/freeing.
 
 ## Highest priority: native Godot Gogo compiler and editor (N01–N03 implemented)
 
-**Owner decision, 2026-10-28, ADR-0012:** Estragon users must compile and run Gogo with **Godot and the bundled addon alone**. No Bun, Node, TypeScript, external compiler processes, shell setup, separate language server or GDExtension binary may be required for normal editing or Play. The former T08 Bun bridge has been replaced by direct native compilation/validation in N03.
+**Owner decision, 2026-10-28, ADR-0012:** Estragon users must compile and run Gogo with **Godot and the bundled addon alone**. No Bun, Node.js, TypeScript, external compiler processes, shell setup, separate language server or GDExtension binary may be required for normal editing or Play. The former T08 Bun bridge has been replaced by direct native compilation/validation in N03.
 
 **N01/N02/N03, R01 #38 and the narrow E01 #40 fix are merged.** R01's unsupported ordinary-`.gd` requirement is superseded by ADR-0013. The C01 compatibility and release track is defined by [the measured evidence](docs/C01_COMPATIBILITY.md), [current work status](docs/WORK_STATUS.md) and **live scoped GitHub issues**, not stale task assignments in this standing file. The E01-F hidden-tab exception is an [accepted decision](docs/DECISIONS.md) rather than a corrected hidden-tab test. Follow the current task issue and one-PR handoff procedure. The native compiler/editor must stay independent of Bun/Node.
 
@@ -52,7 +47,7 @@ The legacy host still reads **temporary JSON IR** and renders fixed rectangles d
 - **N02:** GDScript-native emitter, source maps, full current Gogo semantic parity and an interactive native-generated Counter; use Bun/TypeScript only for optional reference checks.
 - **N03:** Replace editor Bun subprocess and executable setting with direct bundled native compilation/validation, preserving highlighting, saved/unsaved edits, F5/F6 fail-closed checks, diagnostics and recovery. Prove use in a fresh Godot project **without Bun installed or available**.
 
-Preserve the native editor workflow; never reintroduce a Bun fallback. The native compiler may use Godot core string/array/value APIs but **must not depend on EditorInterface, rendering, or a running scene tree**; keep parsing, typed model, codegen and source maps separate. Preserve supported Gogo syntax, callback order and automatic lifecycle. No runtime XML/JSON interpreter or Godot Control tree. Existing TypeScript/Bun scripts/tests may remain as **optional developer/CI tools**, never as the app's required build process or fallback.
+Preserve the native editor workflow; never reintroduce a Bun fallback. The native compiler may use Godot core string/array/value APIs but **must not depend on EditorInterface, rendering, or a running scene tree**; keep parsing, typed model, codegen and source maps separate. Preserve supported Gogo syntax, callback order and automatic lifecycle. No runtime XML/JSON interpreter; GGX targets Node composition under ADR-0015. Existing TypeScript/Bun scripts/tests may remain as **optional developer/CI tools**, never as the app's required build process or fallback.
 
 Do not modify the accepted architecture or silently reduce Gogo's language features to simplify the port. Checkpoint progress in issues/PRs, run Godot-only positive/negative tests, and leave durable session handoffs.
 
@@ -70,7 +65,7 @@ Do not modify the accepted architecture or silently reduce Gogo's language featu
 **Never add Python to Estragon, anywhere.** Production framework,
 compiler, runtime and editor integration are native **GDScript and Gogo**.
 Contributor scripts, test orchestration, evidence collectors, report
-formatters and CI logic must be **TypeScript**. No Python source files,
+formatters and CI logic must be **TypeScript**, using **Yarn** for future contributor tooling. Existing Bun manifests/scripts are historical tooling, not a product dependency; converting them requires a separate scoped task, not incidental architecture changes. No Python source files,
 Python test suites, Python inline shell snippets, Python setup actions,
 or Python runtime dependencies. Keep native Godot fixture/tests in GDScript.
 Small shell entrypoints may invoke engine or TypeScript tools, but must not
@@ -130,14 +125,14 @@ diagnostic degradation does not permit stale source or cache takeover.
 
 ## Non-negotiable architecture
 
-1. **Own the UI.** Never implement Gogo by generating Godot `Control`, `Container`, `Label`, `Button`, or `.tscn` widget trees. Do not delegate Estragon's application layout, styling, hit testing, focus, or visual semantics to Godot's GUI system.
-2. **No node per component.** Estragon components must not require a corresponding Godot `Node` or `CanvasItem`. A small Godot host, multiple surfaces, and optional integration adapters are acceptable; they must not define the UI model.
-3. **Separate the layers.** Keep parsing, validation, typed compiler model, codegen/source maps, component identity, bindings, layout, input, paint/display lists, and renderer backends independently testable. The native GDScript compiler may use Godot core APIs but must not depend on EditorInterface, the runtime scene tree or Estragon renderer.
-4. **Compile and validate source.** The target is **Gogo → GDScript**, not JSON UI interpretation at runtime. No per-frame XML parsing, implicit Godot widget fallback, silently ignored attributes, or runtime interpretation of unsupported syntax.
-5. **Choose graphics backends with evidence.** `RenderingServer` is the existing prototype backend, **not** an irreversible architecture decision. `RenderingDevice`, shaders, batching, and native extensions remain research topics. Keep backend-specific code behind clear boundaries.
-6. **Reactivity must be real.** If implementing bindings, use dependency tracking and scoped subscriptions, not frame-by-frame expression polling or manual signal glue imposed on each consumer.
-7. **Keep the editor exception clear.** Godot `Control` nodes are fine for *editor tooling UI*; they are not a substitute for Estragon's runtime renderer or application preview.
-8. **Do not change accepted decisions by accident.** Read `docs/DECISIONS.md`. Treat provisional proposals as open questions; propose a focused decision instead of quietly redefining the architecture.
+1. **Follow ADR-0015.** Use native Node composition and Node2D/Node3D visuals for the target; Estragon owns measurement/layout/component semantics while Godot supplies rendering and native services. GGX can compose native Controls as ordinary Nodes; that does not make them automatic Estragon participants or replace Estragon's UI suite with stock Controls.
+2. **One child rule.** Only inherited Node.add_child(Node); no pragmas or type-specific adders. Treat owner/persistence separately from parentage.
+3. **Separate layers.** Keep parser, typed model, emitter/maps, bindings, mathematical layout and native visual/adapters independently testable. Compiler analysis/codegen must not depend on EditorInterface, rendering or a running SceneTree.
+4. **Compile source.** Generate deterministic valid GDScript; no runtime XML/JSON interpreter, regex mixed-language rewriting, ignored attributes or stale-source fallback.
+5. **Preserve the present.** Existing RefCounted ownership, lifecycle and RenderingServer evidence describe current code. Replace them only through scoped compatibility-tested migration; do not erase history or claim the target shipped.
+6. **Real reactivity and retained identity.** Scoped subscriptions and event-driven affected-branch measure/arrange; no compulsory polling, full-tree refresh or virtual DOM.
+7. **Explicit boundaries.** Ordinary Nodes do not tunnel Estragon layout. Specify entry points, native adapters, coordinates, native/layout authority and feedback prevention.
+8. **No accidental decisions.** Follow [DECISIONS](docs/DECISIONS.md) and live task scope. Open 3D units/wrapping, transforms and ownership questions require reviewed specifications. No automatic merge or release claims.
 
 ## Reality check: what exists today
 
@@ -154,6 +149,8 @@ diagnostic degradation does not permit stale source or cache takeover.
 - `EstragonDisplayObject` / `EstragonContainer` RefCounted foundations: ordered ownership, weak parent links, disposal and dirty flags; plus minimal fixed/auto/fill VBox/HBox layout, rectangle paint commands and a RenderingServer surface, alongside the unchanged JSON host. T06 adds independent Text/Button, ordered text/rectangle paint and surface-owned primary-mouse capture; T07 adds generated Gogo Button.pressed wiring with native Callable guards and automatic connection cleanup.
 
 **Not implemented:**
+
+- ADR-0015 Node-native GGX composition, Node2D/Node3D participants, explicit layout entries, native layout adapters and shared 2D/3D composed measure/arrange.
 
 - Reconciliation, generalized layout beyond the minimal stack rules, general styling, keyboard/touch input, focus, accessibility, or a broader widget catalog.
 - Gogo-only lowercase `@bindable` compilation, code-only bindable model classes, one-/two-way Gogo bindings, ArrayCollection-like observable collections, keyed list reconciliation, reactive position/layout properties or a dependency graph.
@@ -181,7 +178,8 @@ Do not write new examples, PR descriptions, or documentation that imply these pr
 | `docs/ARCHITECTURE.md`, `docs/VISION.md` | System boundaries and direction |
 | `docs/BINDING.md`, `docs/EDITOR.md` | Planned reactivity and editor work |
 | `docs/DECISIONS.md`, `docs/ROADMAP.md` | Accepted/provisional decisions and milestones |
-| `docs/DESIGN_DIRECTION.md` | Target language/renderer architecture, mixed GDScript, signal generation and unresolved Godot constraints |
+| `docs/DESIGN_DIRECTION.md` | Target Gogo/GGX Node-native composition, layout and unresolved Godot boundaries |
+| `docs/NODE_MIGRATION_PLAN.md` | ADR-0015 serial proof/migration tasks, acceptance, dependencies and open specifications |
 | `docs/EXECUTION_PLAN.md` | Stable scoped Codex tasks, dependencies, acceptance criteria and gates |
 | `docs/WORK_STATUS.md` | Reviewed task status snapshot and cross-session handoff/resume template |
 | `docs/REACTIVITY_PLAN.md`, `docs/BINDING.md` | Accepted Gogo-only bindable/data/collection/layout contracts and staged T09 scope |
@@ -201,8 +199,9 @@ merged or closed. Finish or close it before opening the next PR. A blocked PR
 must record evidence and be presented for an owner decision; do not bypass it with
 another PR. **Never merge automatically.** Every task requires an issue,
 actionable plan, implementation checkpoints, exact verification evidence and a
-cross-session handoff. The queue after E01 #40 is C01-A #42, then focused C01
-fixes and T09-A #43 as verified dependencies permit.
+cross-session handoff. Follow ADR-0015-A #69 and the staged Node migration queue in
+[EXECUTION_PLAN](docs/EXECUTION_PLAN.md); C01 release blockers remain separate.
+Do not start a successor while the current review PR is open.
 
 **This protocol is mandatory for Codex and other contributors working on planned features.** Session/chat context is temporary; **GitHub issues/PRs and committed repository files are the durable team memory**.
 
@@ -297,24 +296,24 @@ If an IR change is incompatible, deliberately define/version the new contract an
 
 - Legacy work uses `tools/gogo.ts` / `tests/gogo.test.ts`; T04–T07 use `tools/gogo/`, `tools/transpile-gogo.ts`, `tests/transpile-gogo.test.ts`, `tests/hybrid-gogo.test.ts` and `tests/signal-gogo.test.ts`. Keep both compilers independent of the running Godot editor.
 - Preserve strict schema/type validation and deterministic output. Test both valid examples and malformed/unsupported input.
-- Prefer minimal, pinned dependencies; use strict TypeScript types and a real namespace-aware XML parser. Keep the compiler independent of Godot.
+- Prefer minimal, pinned dependencies and strict TypeScript for contributor tools. The legacy XML reference needs its namespace-aware parser; GGX uses the real native mixed-language parser. Keep compiler analysis/codegen independent of editor/runtime state.
 - For syntax changes, update `docs/GOGO_LANGUAGE.md`, any example `.gogo`, and checked-in generated IR. Mark proposed syntax as non-executable until it actually compiles.
 - Do not implement expressions with JavaScript `eval`, `new Function`, ad-hoc string substitution, or regex rewriting of GDScript. Parser/source-location and type semantics matter.
 
-### Runtime, components, and rendering
+### Runtime, components, and rendering — preserve current contracts during migration
 
 - Application code must never need manual disposal in normal usage. Surface/container owners automatically clean unmounted/replaced components and renderer resources; reparent directly to transfer ownership without cleanup (ADR-0008).
-- Keep logical UI state independent of the host `Node` and graphics API. New component/display-list systems should be testable without creating a Godot scene tree.
+- Keep model state and mathematical layout testable without drawing; target visual components use native Nodes. Native lifecycle/transforms require real SceneTree tests.
 - The current host allocates one `RenderingServer` canvas RID, clears it before redraw, and frees it in `_exit_tree()`. Preserve resource ownership and cleanup.
 - Treat `RenderingServer` as a backend adapter. Do not spread direct canvas calls through future layout/binding/component layers.
-- Do not introduce one node or RID per logical component as an unquestioned default; justify representation and performance tradeoffs with measurements.
+- ADR-0015 accepts Node-based visual components. Do not impose one RID or universal drawing implementation per Node; use native rendering and measure performance.
 - For visual/runtime changes, include a repeatable Godot smoke test. A green compiler CI run does not prove rendering works.
 
 ### Reactive state (future work)
 
 - R01's Godot 4.7 findings live in `docs/BINDABLE_FEASIBILITY.md` and `sh tools/check-bindable.sh`; they explain why native `.gd` annotations are not supported. The owner has settled the authoring boundary: `@bindable` **only in Gogo**, transpiled to typed GDScript; there is no approved `.bgd` alternative. See ADR-0013 and `docs/REACTIVITY_PLAN.md`.
-- Implement reactive visual/layout properties as well as model data properties. `x`/`y` do not yet exist and require explicit parent-layout semantics; bindable data models and observable ArrayCollection-like contents (including item mutations) are required. No per-frame polling or full-tree refresh for routine property changes. E01 #37 is still a separately tracked editor fix.
-- Before implementation, establish observable-property semantics, typed setters, initialization/equality behavior, and inheritance/custom-accessor behavior.
+- Implement reactive visual/layout properties as well as model data properties. `x`/`y` do not yet exist and require explicit parent-layout semantics; bindable data models and observable ArrayCollection-like contents (including item mutations) are required. No per-frame polling or full-tree refresh for routine property changes. E01 #40 is merged; preserve the accepted E01-F hidden-tab limitation.
+- Before implementation, establish observable-property semantics, typed setters, initialization/equality behavior, and inheritance/custom-accessor behavior. Adapt T09 to retained Nodes and a composed layout core; the older RefCounted Box inheritance target is superseded by ADR-0015.
 - Account for nested path replacement, subscriptions and disposal, collection mutation, cycles, two-way feedback protection, and batched invalidation.
 - Keep observable models usable without inheriting from a Godot `Node`. Test state changes independently from drawing.
 
@@ -324,7 +323,7 @@ If an IR change is incompatible, deliberately define/version the new contract an
 - Stage/validate multi-file outputs and restore old code/maps/timestamps on failure. Preserve no-op bytes/UIDs. Explicitly refresh generated GDScript resources in place; filesystem records alone do not guarantee current cached bytecode. Test dependent scripts and class identity.
 - Before both Play paths save native Gogo buffers; unsavable or invalid source must block stale execution. Keep automatic highlighting, diagnostics, saved/external-source notifications and clean disable/re-enable/restart behavior.
 - The text-extension editor preference is **global and persists after disabling the plugin**. Never erase existing values, force-enable the plugin in the owner's checkout, or silently change user preferences in tests. Real-editor tests use a copied self-contained binary/project and empty executable PATH.
-- Keep editable Gogo accessible. Completion/navigation, debugger remapping and live preview remain future work. No Godot Controls or component Nodes at runtime.
+- Keep editable Gogo accessible. Completion/navigation, debugger remapping and live preview remain future work. Target GGX composes native Nodes; preserve current runtime contracts until reviewed migration.
 
 ### Documentation, examples, and assets
 
@@ -335,7 +334,9 @@ If an IR change is incompatible, deliberately define/version the new contract an
 
 ## Verification commands (repository root)
 
-**Current contributor/test workflow only:** Bun 1.4.4 runs existing TypeScript tools and tests. These may remain optional CI/reference tools; normal Gogo compilation/editing/Play is already Godot-native under N01–N03. The TypeScript compiler checks do **not** require Godot:
+For documentation/planning-only tasks, use proportional document/link/scope checks and report runtime/visual suites not run. Do not install dependencies or launch engines solely for prose changes. The commands below apply when their implementation layers change.
+
+**Historical existing contributor/test workflow (not a new tooling prescription):** Bun 1.4.4 runs existing TypeScript tools and tests. These may remain optional CI/reference tools; normal Gogo compilation/editing/Play is already Godot-native under N01–N03. The TypeScript compiler checks do **not** require Godot:
 
 ```sh
 bun install --frozen-lockfile
@@ -395,7 +396,7 @@ Before calling work complete, check:
 - [ ] `docs/WORK_STATUS.md` is updated when completion or plan change is being merged (or status changes are explained in the linked live issue).
 
 - [ ] The change matches the user's request and does not introduce unrelated churn.
-- [ ] The independent-component / self-rendered architecture remains intact.
+- [ ] ADR-0015 Node-native target and current-runtime compatibility boundaries are respected.
 - [ ] Existing implemented behavior is preserved, or a deliberate compatibility change is described.
 - [ ] New behavior has positive, negative, and edge-case tests where appropriate.
 - [ ] Example source and committed IR agree whenever either changes.

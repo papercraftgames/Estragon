@@ -4,6 +4,8 @@
 
 Read the [T09 implementation contract](REACTIVITY_PLAN.md) for accepted goals, staging and tests, and the [live umbrella issue #5](https://github.com/resistdesign/Estragon/issues/5) for work status. Source examples below are **proposed, not executable**.
 
+**ADR-0015 amendment (2026-11-02):** Keep these data/binding requirements, but target retained Node2D/Node3D components with a composed layout core and native lifetime, not an independent RefCounted Box hierarchy. GGX is general-purpose Node composition; ordinary Nodes do not automatically join layout. See [migration gates](NODE_MIGRATION_PLAN.md). Older surface examples below illustrate binding intent, not a new Node entry API. C01 strict release stays BLOCKED.
+
 ## Gogo authoring
 
 A model may be a **code-only `.gogo` module**, not just a visual component:
@@ -53,13 +55,13 @@ Bindings should update **all supported typed component properties**, including t
 
 ### Future unit-to-pixel helpers (deferred)
 
-The core layout/spacing API accepts **numeric pixels**, not percentages or unit strings. Later, an ordinary helper such as `to_pixels(parent, child, 50, "%", "height")` (conceptual API, not implemented) may compute pixels from parent/child geometry and an explicit reference dimension; the preferred shorter `to_pixels(parent, child, 50, "%")` form requires unambiguous axis context. Standard Gogo property bindings will use the returned pixel number and react to observed geometry changes through the **normal dependency system**, with no special unit-binding subsystem. Optional markup syntactic sugar may be designed afterward; `height="50%"` remains unsupported now. The full owner-approved direction and unresolved measurement/axis/cycle requirements are recorded in [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md#deferred-pixel-conversion-helpers-and-possible-syntactic-sugar-owner-decision-2026-10-30) and [#54](https://github.com/resistdesign/Estragon/issues/54).
+The 2D core layout/spacing API accepts **numeric pixels**, not percentages or unit strings. Later, an ordinary helper such as `to_pixels(parent, child, 50, "%", "height")` (conceptual API, not implemented) may compute pixels from parent/child geometry and an explicit reference dimension; the preferred shorter `to_pixels(parent, child, 50, "%")` form requires unambiguous axis context. Standard Gogo property bindings will use the returned pixel number and react to observed geometry changes through the **normal dependency system**, with no special unit-binding subsystem. Optional markup syntactic sugar may be designed afterward; `height="50%"` remains unsupported now. The full owner-approved direction and unresolved measurement/axis/cycle requirements are recorded in [REACTIVITY_PLAN.md](REACTIVITY_PLAN.md#deferred-pixel-conversion-helpers-and-possible-syntactic-sugar-owner-decision-2026-10-30) and [#54](https://github.com/resistdesign/Estragon/issues/54).
 
 ## Engineering contracts and explicit boundaries
 
 - Generate deterministic, valid GDScript and source maps from the bundled native Godot-only Gogo compiler. Invalid declarations fail closed in the editor before F5/F6.
 - Define property initialization, equality suppression, custom setter composition, nested dependency replacement, null/re-entrant states, batched notification and cycle/feedback behavior with native Godot tests.
-- Keep Estragon runtime components independent of Godot `Control`/`Node`. For layout inheritance, the implemented shared `EstragonStack` already sits under `EstragonContainer` and above HBox/VBox; the approved target abstraction is a named `EstragonBox` base, introduced compatibly in its own tested checkpoint.
-- E01 [issue #37](https://github.com/resistdesign/Estragon/issues/37) fixes automatic Gogo syntax-highlighter selection separately, before T09's final integrated authoring check.
+- Target Node2D/Node3D visual branches compose shared measure/arrange. Preserve the implemented RefCounted Stack contract until reviewed migration; the older RefCounted Box target is superseded by ADR-0015. Native scene ownership, transform authority, affected-branch invalidation and feedback guards require proof.
+- E01 #40 is merged; preserve the accepted E01-F hidden-tab limitation and queued T09 dependencies.
 
 **Do not** revive custom annotations in ordinary `.gd`, silently select `.bgd`, implement regex rewriting or require Bun/Node for user compilation. Use [R01 evidence](BINDABLE_FEASIBILITY.md) to explain the old parser limitation, not as a blocker to the accepted Gogo-only path.
