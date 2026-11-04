@@ -1,20 +1,20 @@
 # Estragon work status and session handoff
 
-**Snapshot:** 2026-11-03 UTC. T01–T08 and native planning PR #31 are merged. N01 is merged in PR #32 (`efaad96`). N02 is merged in PR #34 (`8a864a2`). N03 is merged in PR #36 (`a87c33b`). R01 research PR #38 is merged; its negative native `.gd` annotation result is documented. The owner **has made the authoring decision**: lowercase `@bindable` in authored Gogo only (ADR-0013). T09 will cover bindable model objects, reactive layout and observable collections, not just UI text. Normal addon editing/Play uses only Godot; existing TypeScript/Bun is optional historical reference tooling; future contributor tooling is TypeScript/Yarn, with conversion separately scoped. **Owner amendment:** ADR-0014 requires Godot 4.0+; until C01 is verified, shipped compatibility is not certified by the 4.7 suite.
+**Snapshot:** 2026-11-04 UTC. T01–T08 and native planning PR #31 are merged. N01 is merged in PR #32 (`efaad96`). N02 is merged in PR #34 (`8a864a2`). N03 is merged in PR #36 (`a87c33b`). R01 research PR #38 is merged; its negative native `.gd` annotation result is documented. The owner **has made the authoring decision**: lowercase `@bindable` in authored Gogo only (ADR-0013). T09 will cover bindable model objects, reactive layout and observable collections, not just UI text. Normal addon editing/Play uses only Godot; existing TypeScript/Bun is optional historical reference tooling; future contributor tooling is TypeScript/Yarn, with conversion separately scoped. **Owner amendment:** ADR-0014 requires Godot 4.0+; until C01 is verified, shipped compatibility is not certified by the 4.7 suite.
 
 **Milestone:** interactive Gogo/GDScript `Counter.gogo` compiled to GDScript, built from independent Estragon components, running and resizing in Godot 4.7. See [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
-**Start here: ADR-0015-C2 [#79](https://github.com/resistdesign/Estragon/issues/79)**, normal native GGX compilation after C1 [PR #78](https://github.com/resistdesign/Estragon/pull/78) merged at `fd90c5e`. C2 is a review submission, **not Done until owner approval/merge**. Read #79 for the sole PR, latest handoff and exact evidence; check live PRs before pickup.
+**Start here: ADR-0015-C3 [#81](https://github.com/resistdesign/Estragon/issues/81)**, native 2D components and Gogo Counter after C2 [PR #80](https://github.com/resistdesign/Estragon/pull/80) merged at `d023d9d`. C3 is submitted in [PR #82](https://github.com/resistdesign/Estragon/pull/82), **not Done until owner approval/merge**. Read #81/#82 for current checks, exact evidence and handoff; no second PR.
 
-**Present versus target:** [C1 runtime](NODE_RUNTIME.md) adds usable native entries/participants/adapters alongside RefCounted. [C2](NODE_GGX.md) adds native Node trees to the normal bundled Gogo compiler/editor, with Gogo-authored 2D/3D demos. Legacy Counter/Mixed/Compiled short tags, leaf rules and callbacks remain preserved; B1/B2/B3 proofs stay separately selected. C3 native widget parity, C4 retirement and reactivity are not implemented.
+**Present versus target:** [C1 runtime](NODE_RUNTIME.md) adds usable native entries/participants/adapters alongside RefCounted. [C2](NODE_GGX.md) adds native Node trees to the normal bundled Gogo compiler/editor, with Gogo-authored 2D/3D demos. Legacy Counter/Mixed/Compiled short tags, leaf rules and callbacks remain preserved; B1/B2/B3 proofs stay separately selected. [C3](NODE_UI.md) supplies native Rect/Text/Button/HBox/VBox and the retained Counter. Broader widgets, C4 retirement and reactivity remain unimplemented.
 
-**Next planned sequence:** owner review/merge C2 → separately selected C3 → C4. C3 is unstarted; do not advance while C2's PR remains open.
+**Next planned sequence:** owner review/merge C3 → separately selected C4. C4 must remove replaced legacy classes, shims, paths and obsolete tests using the [consumer inventory](NODE_UI.md#c4-removal-inventory); compatibility is temporary. Do not start C4 while C3 is in review.
 
 C01-H strict release remains **BLOCKED**. Raw-syntax/hybrid findings, cold missing-generated scene restoration, #65 resource-pack export cleanup and standalone executable/platform requirements remain separate under #51. The proof does not change release results/fingerprints or certify full Godot 4.0+ support. T09/L01/T10 dependencies remain as recorded in [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md); E01-F remains an observed FAIL with accepted scope.
 
 **Owner verification policy (2026-11-02):** The only routine Godot
 versions for local/Codex, CI, PR and release tests are **4.0.4** and
-pinned **4.7.0**. No other versions and no all-minor/nine-engine sweeps
+pinned **4.7.0**, both on Linux in CI (owner #81, 2026-11-04). No macOS runner remains. No other versions and no all-minor/nine-engine sweeps
 are required or permitted as routine verification. Use targeted tests
 while coding and a bounded one- or two-engine acceptance check once.
 See [standing rules](../AGENTS.md), [owner decision](DECISIONS.md),

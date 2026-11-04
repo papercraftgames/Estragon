@@ -164,8 +164,4 @@ commands/provenance, PASS/FAIL evidence and inspected captures are recorded unde
 `tests/compatibility/c2`. Only official 4.0.4 and pinned 4.7.0 are used. No physical
 keypress requirement or all-minor/platform certification is implied.
 
-C3 native widgets/parity, C4 retirement, generalized borrowed children/import
-namespaces/construction and external-script dependency refresh are not silently
-implemented. The small C2 migration contract was posted on #79 before code;
-review this concrete implementation and recorded limits. No C3 starts while the
-sole C2 PR is open; do not merge automatically.
+C2 merged in PR #80 (`d023d9d`). [C3](NODE_UI.md) subsequently adds the bounded native 2D widget slice and retained Counter. C4 retirement, generalized borrowed children/import namespaces/construction and external-script dependency refresh remain outside C2/C3. The original C2 migration contract and evidence remain historical facts; no automatic merge or successor work while C3 is in review.
