@@ -13,6 +13,7 @@ test('native addon requirements replace obsolete legacy and standalone gates',()
 });
 test('logs fail closed for errors, missing markers and timeouts',()=>{
  assert.equal(classify(0,'SCRIPT ERROR: failure','DONE'),'FAIL');assert.equal(classify(0,'','DONE'),'FAIL');assert.equal(classify(0,'DONE','DONE',true),'FAIL');assert.equal(classify(0,'DONE','DONE'),'PASS');
+ assert.equal(classify(0,'WARNING: ObjectDB instances leaked\nDONE','DONE'),'FAIL');
 });
 test('engine budget rejects additional or unsupported versions',()=>{
  assert.throws(()=>parseCLI(['--engine','4.7.2=/tmp/x','--output','/tmp/not-created-c4']));

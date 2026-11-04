@@ -10,7 +10,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-export const ERROR = /SCRIPT ERROR:|(?:^|\n)ERROR:|Parse Error:|Assertion failed:/;
+export const ERROR = /SCRIPT ERROR:|(?:^|\n)ERROR:|Parse Error:|Assertion failed:|ObjectDB instances leaked|Resources still in use/;
 const ANSI = /\x1b\[[0-9;]*m/g;
 export type Outcome = "PASS" | "FAIL" | "BLOCKED" | "UNTESTED";
 export type Stage = { status: Outcome; reason?: string; command?: string[]; exit_code?: number | null;
