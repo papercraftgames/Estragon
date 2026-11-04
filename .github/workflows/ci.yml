@@ -8,7 +8,7 @@ on:
       verification_mode:
         description: Full two-engine addon acceptance or focused 4.7 development
         type: choice
-        options: [acceptance, focused]
+        options: [acceptance, focused, distribution]
         default: acceptance
 concurrency:
   group: native-addon-${{ github.event.pull_request.number || github.ref }}
@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ${{ fromJSON(inputs.verification_mode == 'focused' && '["4.7"]' || '["4.0.4", "4.7"]') }}
+        version: ${{ fromJSON(inputs.verification_mode != 'acceptance' && github.event_name == 'workflow_dispatch' && '["4.7"]' || '["4.0.4", "4.7"]') }}
     env:
       LIBGL_ALWAYS_SOFTWARE: '1'
       GODOT_VERSION: ${{ matrix.version }}
@@ -65,7 +65,7 @@ jobs:
           "$GITHUB_WORKSPACE/tools/check-native-addon.ts"
           --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/native-addon"
-          ${{ inputs.verification_mode == 'focused' && '--focused' || '' }}
+          ${{ inputs.verification_mode == 'focused' && '--focused' || inputs.verification_mode == 'distribution' && '--distribution-only' || '' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

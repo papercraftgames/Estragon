@@ -170,7 +170,7 @@ func _run() -> Dictionary:
 				if not checked.ok:
 					_report.isolated_preflight.status = "FAIL"
 					break
-			# Owner-approved legacy contract: isolated validation is unavailable,
+			# Owner-approved older-engine capability contract: isolated validation is unavailable,
 			# never simulated with a cached Script. Native actual-path reload is
 			# mandatory, including no-op builds, before this transaction can commit.
 			_refresh_cache(item, cache_state)

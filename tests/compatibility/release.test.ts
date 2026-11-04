@@ -27,3 +27,7 @@ test('matching native evidence passes; dirty, missing, mismatched or forged evid
  writeJSON(f.file,f.report);fs.appendFileSync(path.join(f.root,'compiler/4.7/results.json'),' ');assert.throws(()=>assessFile(f.file));
  }finally{fs.rmSync(f.root,{recursive:true,force:true});}
 });
+
+test('single native architecture, canonical UIDs/references and authored maps stay consistent',async()=>{
+ const {auditNativeSource}=await import('../../tools/audit-native-source.ts');assert(auditNativeSource().active_scripts>0);
+});

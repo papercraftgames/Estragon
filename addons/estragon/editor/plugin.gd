@@ -28,9 +28,6 @@ func _enter_tree() -> void:
 	_interface = get_editor_interface()
 	_active = true
 	_extensions_pending = true
-	# Retire only Estragon-owned legacy setup; never rewrite user preferences.
-	for key in ["estragon/editor/bun_executable", "estragon/editor/build_timeout_seconds"]:
-		if ProjectSettings.has_setting(key): ProjectSettings.clear(key)
 	var settings := _interface.get_editor_settings()
 	if settings.has_setting(TEXT_EXTENSIONS_SETTING):
 		var existing := str(settings.get_setting(TEXT_EXTENSIONS_SETTING))
