@@ -36,7 +36,8 @@ func _set_pointer_state(hovered: bool, held: bool) -> void:
 	queue_redraw()
 func _pointer_contains(position_in_viewport: Vector2) -> bool:
 	var transform := get_global_transform_with_canvas()
-	if is_zero_approx(transform.determinant()): return false
+	# Transform2D.determinant() is absent from the 4.0 public API.
+	if is_zero_approx(transform.x.cross(transform.y)): return false
 	return Rect2(Vector2.ZERO,layout_size).has_point(transform.affine_inverse()*position_in_viewport)
 func _measure_native() -> Vector2:
 	return _measure_label()+PADDING*2
