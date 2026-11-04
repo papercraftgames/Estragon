@@ -4,6 +4,7 @@
     "examples/compiled",
     "examples/mixed",
     "examples/counter",
-    "examples/ggx"
+    "examples/ggx",
+    "examples/native_counter"
   ]
 }

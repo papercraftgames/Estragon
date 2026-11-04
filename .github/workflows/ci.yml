@@ -9,7 +9,7 @@ on:
       verification_mode:
         description: "Development integrity or strict release authorization (no publishing)"
         type: choice
-        options: [development, release]
+        options: [development, release, c3-focused]
         default: development
 
 concurrency:
@@ -18,6 +18,7 @@ concurrency:
 
 jobs:
   gogo-compiler:
+    if: inputs.verification_mode != 'c3-focused'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,6 +41,7 @@ jobs:
         run: bun run verify:gdscript
 
   godot-validation:
+    if: inputs.verification_mode != 'c3-focused'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
@@ -136,6 +138,18 @@ jobs:
           "$GITHUB_WORKSPACE/tools/check-ggx.ts"
           --engine '4.7=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/native-ggx-c2" --graphics
+      - name: C3 native widgets and Counter, input/editor/graphics
+        working-directory: ${{ runner.temp }}
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          VK_DRIVER_FILES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          VK_ICD_FILENAMES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/b1-xdg-runtime
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-native-ui.ts"
+          --engine '4.7=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/native-ui-c3" --graphics
       - name: Godot source UID and clean-editor metadata audit
         working-directory: ${{ runner.temp }}
         run: >-
@@ -211,6 +225,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
+          name: godot-4.7-native-ui-c3
+          path: ${{ runner.temp }}/native-ui-c3
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
           name: godot-4.7-ggx-b1
           path: |
             ${{ runner.temp }}/ggx-b1/*.log
@@ -227,4 +247,57 @@ jobs:
             ${{ runner.temp }}/editor-lifecycle
             ${{ runner.temp }}/editor-play
             ${{ runner.temp }}/release-assessment.json
+          if-no-files-found: warn
+
+  c3-focused:
+    if: github.event_name == 'workflow_dispatch' && inputs.verification_mode == 'c3-focused'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+      - name: Install official Godot 4.7 stable editor
+        env:
+          GODOT_URL: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
+        run: |
+          curl --fail --location --retry 3 "$GODOT_URL" --output "$RUNNER_TEMP/godot.zip"
+          echo "0b1a6c54c2c619c12e169fe9241edda4b81080b519451cec2984bf0d2c6cb73c  $RUNNER_TEMP/godot.zip" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/godot-bin"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot-bin"
+          chmod +x "$RUNNER_TEMP/godot-bin/Godot_v4.7-stable_linux.x86_64"
+          echo "GODOT_BIN=$RUNNER_TEMP/godot-bin/Godot_v4.7-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Install and verify B1 software graphics drivers
+        id: b1-graphics
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
+          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test "${#vulkan_icds[@]}" -eq 1
+          vulkan_icd="${vulkan_icds[0]}"
+          test -f "$vulkan_icd"
+          echo "vulkan_icd=$vulkan_icd" >> "$GITHUB_OUTPUT"
+          mkdir -m 700 "$RUNNER_TEMP/b1-xdg-runtime"
+          # The editor uses OpenGL but can also probe Vulkan. Xvfb provides
+          # X11, not a Vulkan ICD; select lavapipe instead of a hardware ICD.
+          VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
+            XDG_RUNTIME_DIR="$RUNNER_TEMP/b1-xdg-runtime" \
+            xvfb-run -a vulkaninfo --summary
+      - name: Focused native C3 development check (4.7 only)
+        working-directory: ${{ runner.temp }}
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          VK_DRIVER_FILES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          VK_ICD_FILENAMES: ${{ steps.b1-graphics.outputs.vulkan_icd }}
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/b1-xdg-runtime
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-native-ui.ts"
+          --engine '4.7=${{ env.GODOT_BIN }}' --output "$RUNNER_TEMP/native-ui-c3" --runtime-only --graphics
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: c3-focused-evidence
+          path: ${{ runner.temp }}/native-ui-c3
           if-no-files-found: warn

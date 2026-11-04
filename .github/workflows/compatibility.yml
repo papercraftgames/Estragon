@@ -16,8 +16,10 @@ concurrency:
 
 jobs:
   oldest-supported:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 18
+    env:
+      LIBGL_ALWAYS_SOFTWARE: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,45 +27,73 @@ jobs:
           node-version: "22.16.0"
       - name: Validate TypeScript tooling without starting Godot
         run: node --disable-warning=ExperimentalWarning --experimental-strip-types --test tests/compatibility/*.test.ts
-      - name: Download and verify pinned official Godot 4.0.4
+      - name: Install and verify B1 software graphics drivers
+        id: b1-graphics
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
+          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test "${#vulkan_icds[@]}" -eq 1
+          vulkan_icd="${vulkan_icds[0]}"
+          test -f "$vulkan_icd"
+          echo "vulkan_icd=$vulkan_icd" >> "$GITHUB_OUTPUT"
+          mkdir -m 700 "$RUNNER_TEMP/b1-xdg-runtime"
+          # The editor uses OpenGL but can also probe Vulkan. Xvfb provides
+          # X11, not a Vulkan ICD; select lavapipe instead of a hardware ICD.
+          VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
+            XDG_RUNTIME_DIR="$RUNNER_TEMP/b1-xdg-runtime" \
+            xvfb-run -a vulkaninfo --summary
+      - name: Download and verify pinned official Godot 4.0.4 Linux
         run: node --disable-warning=ExperimentalWarning --experimental-strip-types tools/download-compat-engine.ts
+      - name: Configure isolated software graphics
+        run: |
+          echo "VK_DRIVER_FILES=${{ steps.b1-graphics.outputs.vulkan_icd }}" >> "$GITHUB_ENV"
+          echo "VK_ICD_FILENAMES=${{ steps.b1-graphics.outputs.vulkan_icd }}" >> "$GITHUB_ENV"
+          echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/b1-xdg-runtime" >> "$GITHUB_ENV"
       - name: B1 native GGX composition, signals and editor persistence
         working-directory: ${{ runner.temp }}
         run: |
-          corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
-          corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
       - name: B2 shared 2D/3D layout, native runtime and graphics proof
         working-directory: ${{ runner.temp }}
         run: >-
-          corepack yarn@1.22.22 node --experimental-strip-types
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-layout-proof.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/ggx-b2" --graphics
       - name: B3 native adapters, editor persistence and graphics proof
         working-directory: ${{ runner.temp }}
         run: >-
-          corepack yarn@1.22.22 node --experimental-strip-types
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-adapter-proof.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/ggx-b3" --graphics
       - name: C1 Node-native runtime, editor persistence and graphics
         working-directory: ${{ runner.temp }}
         run: >-
-          corepack yarn@1.22.22 node --experimental-strip-types
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-node-runtime.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/node-runtime-c1" --graphics
       - name: C2 Gogo native GGX, real editor Play and graphics
         working-directory: ${{ runner.temp }}
         run: >-
-          corepack yarn@1.22.22 node --experimental-strip-types
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-ggx.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/native-ggx-c2" --graphics
+      - name: C3 native widgets and Counter, input/editor/graphics
+        working-directory: ${{ runner.temp }}
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-native-ui.ts"
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/native-ui-c3" --graphics
       - name: Godot source UID and clean-editor metadata audit
         working-directory: ${{ runner.temp }}
         run: >-
-          corepack yarn@1.22.22 node --experimental-strip-types
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-godot-metadata.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/godot-metadata"
@@ -93,7 +123,7 @@ jobs:
           --output '${{ runner.temp }}/editor-play'
       - name: Fresh distribution, resource pack and native graphics
         run: >-
-          node --experimental-strip-types tools/check-distribution.ts
+          xvfb-run -a node --experimental-strip-types tools/check-distribution.ts
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output '${{ runner.temp }}/distribution' --graphics --collect-only
       - name: C01-H development integrity or explicit strict release gate
@@ -114,6 +144,8 @@ jobs:
             ${{ runner.temp }}/ggx-b3
             ${{ runner.temp }}/node-runtime-c1
             ${{ runner.temp }}/native-ggx-c2
+            ${{ runner.temp }}/native-ui-c3
+            ${{ runner.temp }}/official-4.0.4-SHA512-SUMS.txt
             ${{ runner.temp }}/godot-metadata
             ${{ runner.temp }}/compatibility
             ${{ runner.temp }}/editor-lifecycle
