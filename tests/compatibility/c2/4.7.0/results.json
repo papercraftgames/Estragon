@@ -1,0 +1,128 @@
+{
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/project",
+      "--script",
+      "res://tests/ggx/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.86,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/godot",
+      "--headless",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.41,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "34dc614663e641c68f997e43baa06a2586eb35f9e43a9aa410577870252c78ca",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/project",
+      "--script",
+      "res://tests/ggx/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.93,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 47.63,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 2 should be \"float\" but is \"String\".",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 2 should be \"float\" but is \"String\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 2 should be \"float\" but is \"String\".",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 2 should be \"float\" but is \"String\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ],
+    "unexpected_errors": []
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-qmZRUF/project",
+      "--script",
+      "res://tests/ggx/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.59,
+    "log": "visual.log",
+    "diagnostics": []
+  }
+}
