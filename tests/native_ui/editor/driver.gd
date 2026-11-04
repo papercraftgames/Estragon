@@ -3,7 +3,7 @@ extends EditorPlugin
 ## Real editor Play entry points and child-game proof, autosave disabled.
 var SOURCE := "res://examples/native_counter/Counter.gogo"
 
-var OUTPUT := "res://examples/ggx/generated/TwoD.gd"
+var OUTPUT := "res://examples/native_counter/generated/Counter.gd"
 const PROOF := "res://.godot/c3-play.json"
 var _interface: EditorInterface
 var _failed := false
