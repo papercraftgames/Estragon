@@ -81,7 +81,7 @@ func run() -> void:
 	receiver.free()
 	check(model.count_changed.get_connections().is_empty(),"receiver free cleans native connection")
 	model.count += 1
-	var weak := weakref(model)
+	var weak: WeakRef = weakref(model)
 	events.clear()
 	model = null
 	check(weak.get_ref()==null,"non-Node model releases without generated ownership cycles")
