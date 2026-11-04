@@ -39,6 +39,20 @@ jobs:
           "$GITHUB_WORKSPACE/tools/check-layout-proof.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/ggx-b2" --graphics
+      - name: B3 native adapters, editor persistence and graphics proof
+        working-directory: ${{ runner.temp }}
+        run: >-
+          corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-adapter-proof.ts"
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/ggx-b3" --graphics
+      - name: Godot source UID and clean-editor metadata audit
+        working-directory: ${{ runner.temp }}
+        run: >-
+          corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-godot-metadata.ts"
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/godot-metadata"
       - name: Collect actual native compiler/runtime evidence
         run: >-
           node --disable-warning=ExperimentalWarning --experimental-strip-types
@@ -83,6 +97,8 @@ jobs:
           name: godot-4.0.4-native-evidence
           path: |
             ${{ runner.temp }}/ggx-b2
+            ${{ runner.temp }}/ggx-b3
+            ${{ runner.temp }}/godot-metadata
             ${{ runner.temp }}/compatibility
             ${{ runner.temp }}/editor-lifecycle
             ${{ runner.temp }}/editor-play

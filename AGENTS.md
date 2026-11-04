@@ -440,3 +440,14 @@ cannot authorize publishing. Manual workflow dispatch `verification_mode=release
 selects this fail-closed boundary in both approved-engine jobs; no publishing
 step exists yet. Any future publisher must depend on the strict results for both
 approved engines and may not use development mode to authorize delivery.
+
+## Godot metadata policy
+
+Preserve and commit stable `.gd.uid` alongside every committed GDScript source,
+including generated examples and tests. Keep real assets' `.import` settings;
+never blanket-ignore either suffix. Only `.godot/` and other documented caches
+are disposable. Audit evidence directories for resources and references before
+adding a narrow `.gdignore`; existing B1/B2/B3/C01-H roots and C61 editor capture subtree are evidence-only.
+Do not hide live fixture resources. Include metadata pairing, uniqueness and
+approved-engine clean-import results in future task plans/PRs. Use the TypeScript
+metadata check documented in CONTRIBUTING.md, never temporary runner UIDs.

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dxab2yn4svs8p"]
+
+[ext_resource type="Script" uid="uid://bee1vvbanhyan" path="res://examples/adapter_proof/demo.gd" id="1_deso4"]
+[ext_resource type="Script" uid="uid://chg7khaptr3r2" path="res://addons/estragon/layout_proof/entry_3d.gd" id="2_5v362"]
+[ext_resource type="Script" uid="uid://ctlowoea6s0iy" path="res://addons/estragon/adapter_proof/native_3d.gd" id="3_ki82t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjiba"]
+albedo_color = Color(0.1882353, 0.7882353, 0.6901961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g8hba"]
+size = Vector3(1.5, 1.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n786q"]
+albedo_color = Color(0.52156866, 0.4, 0.8784314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v6qbx"]
+size = Vector3(1.5, 1.2, 1)
+
+[node name="AdapterProof3D" type="Node" unique_id=629492634]
+script = ExtResource("1_deso4")
+dimension = 3
+
+[node name="Entry" type="Node3D" parent="." unique_id=128323375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("2_5v362")
+gap = 0.5
+tint = Color(1, 1, 1, 0)
+metadata/_estragon_b2_coordinator = Object(WeakRef,"script":null)
+
+
+[node name="NativeA" type="Node3D" parent="Entry" unique_id=1256986170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6501668, 0.98327655, 0.36960354)
+script = ExtResource("3_ki82t")
+observe_native = true
+metadata/_estragon_b2_coordinator = Object(WeakRef,"script":null)
+
+
+[node name="Visual" type="MeshInstance3D" parent="Entry/NativeA" unique_id=1442075607]
+transform = Transform3D(0.9421547, -0.16088136, 0.29404384, 0.19767681, 0.9751704, -0.09983342, -0.2706815, 0.15218417, 0.95056385, 0.3, -0.2, 0.4)
+material_override = SubResource("StandardMaterial3D_sjiba")
+mesh = SubResource("BoxMesh_g8hba")
+
+[node name="NativeB" type="Node3D" parent="Entry" unique_id=1741999000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0505004, 0.98327655, 0.36960354)
+script = ExtResource("3_ki82t")
+observe_native = true
+metadata/_estragon_b2_coordinator = Object(WeakRef,"script":null)
+
+
+[node name="Visual" type="MeshInstance3D" parent="Entry/NativeB" unique_id=814908738]
+transform = Transform3D(0.9421547, -0.16088136, 0.29404384, 0.19767681, 0.9751704, -0.09983342, -0.2706815, 0.15218417, 0.95056385, 0.3, -0.2, 0.4)
+material_override = SubResource("StandardMaterial3D_n786q")
+mesh = SubResource("BoxMesh_v6qbx")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=2013557719]
+transform = Transform3D(0.99654573, -0.026179606, 0.07881104, 0, 0.9490106, 0.3152442, -0.08304548, -0.31415525, 0.9457325, 4, 5, 12)
+projection = 1
+current = true
+size = 10.0
+
+[node name="Light" type="DirectionalLight3D" parent="." unique_id=97370786]
+transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
