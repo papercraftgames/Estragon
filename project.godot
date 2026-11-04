@@ -27,3 +27,7 @@ window/size/viewport_height=540
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[editor]
+
+export/convert_text_resources_to_binary=false

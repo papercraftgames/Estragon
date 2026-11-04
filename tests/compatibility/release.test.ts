@@ -86,3 +86,5 @@ test('single native architecture, canonical UIDs/references and authored maps st
     const { auditNativeSource } = await import('../../tools/audit-native-source.ts');
     assert(auditNativeSource().active_scripts > 0);
 });
+
+test("sample native pack format explicitly avoids the 4.0 conversion leak",()=>{ assert(fs.readFileSync(path.join(ROOT,"project.godot"),"utf8").includes("export/convert_text_resources_to_binary=false")); });
