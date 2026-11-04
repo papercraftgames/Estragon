@@ -34,7 +34,7 @@ func cancel_button(button: Node2D) -> void:
 	button._set_pointer_state(false,false)
 func _z(button: CanvasItem) -> int:
 	var result: int = button.z_index
-	var parent := button.get_parent_item()
+	var parent: CanvasItem = button.get_parent_item()
 	while button.z_as_relative and parent != null:
 		result += parent.z_index
 		button = parent
