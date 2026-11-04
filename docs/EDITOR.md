@@ -204,3 +204,15 @@ project: scene restoration can otherwise report an absent script before native
 generation is ready. Later successful compilation does not erase that diagnostic.
 Resource-pack runtime verification is separate from standalone executable export
 and from other platform support; no new export or all-minor guarantee is made.
+
+## C2 native GGX in the same workflow
+
+The normal addon compiler now accepts [native GGX](NODE_GGX.md) alongside preserved
+legacy trees. `examples/ggx/TwoD.tscn` and `ThreeD.tscn` are Gogo-authored runnable
+scenes in the configured source roots: edit/save or Play normally, with Godot alone.
+Both F5/F6 validate latest native GGX buffers and block invalid/unsavable sources;
+rollback/cache guarantees above apply unchanged. No proof builder, external
+compiler or generated-script edits are required. See the linked contract for
+reserved legacy names, supported static imports and explicit stale external-script
+reload diagnostics. The existing cold missing-generated older-engine release
+limitation is separate; delivered examples retain native-generated initial output.

@@ -53,6 +53,7 @@ class Attribute extends RefCounted:
 	var type_name: String
 
 class Component extends SyntaxNode:
+	var native_node: bool = false
 	var name: String
 	var name_span: Span
 	var runtime_class: String

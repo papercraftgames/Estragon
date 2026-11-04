@@ -1,6 +1,6 @@
 # Gogo language: `*.gogo`
 
-**Terminology and target:** Gogo is the language; **GGX** is its embedded XML-like general-purpose Node composition syntax. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) / [#68](https://github.com/resistdesign/Estragon/issues/68) changes the target, not the implemented grammar below. The five-built-in RefCounted factory/child and Button signal rules remain current until a reviewed migration. General Node-native GGX migration is **not implemented**. The separate [B1 opt-in proof](NODE_COMPOSITION_PROOF.md) supports a bounded native type set; it does not change the default grammar or make target examples executable.
+**Terminology and implemented C2 migration:** Gogo is the language; GGX is its embedded Node composition syntax. [C2](NODE_GGX.md) integrates native Node trees into the normal bundled compiler/editor, using native classes, registered C1 types and explicit preload aliases. The five legacy short tags retain existing RefCounted semantics and historical callbacks; native/legacy tree children cannot mix. Read the exact type/import, signal, owner and limitation contract before using new GGX. The separate B1 API remains an experimental proof, not the normal user build path.
 
 **Status:** T04 implements a small namespace-free markup-to-GDScript slice targeting the independent component runtime. The legacy namespaced XML-to-JSON demo is preserved separately. T05 adds a GDScript-first hybrid subset with component/property/child expressions and range source maps. T07 adds Text/Button properties and generated pressed connections; T08 adds optional automatic editor compilation/highlighting; bindings and broader editor services remain future work.
 
@@ -24,8 +24,8 @@ else:
     print(result.diagnostics[0].format()) # original filename:line:column
 ```
 
-No imports, editor services, runtime components, external executables or packages
-are needed to analyze source. This frontend API does **not** emit or execute applications; the native compilation API below consumes the same model.
+Legacy analysis needs no imports or runtime components. Native GGX resolves project
+script metadata/preloads without editor services, external executables or packages. This frontend API does **not** emit or execute applications; the native compilation API below consumes the same model.
 The editor calls the native compilation/validation APIs below.
 
 `model.gd` defines typed RefCounted data: `Module` retains source-ordered `Code`
@@ -102,8 +102,8 @@ remains automatic through EstragonSurface.
 
 The compiler and validation require Godot alone, with no subprocesses, packages,
 Bun/Node, editor services or application scene tree. Runtime classes must be
-available through Godot's normal project import/class registration. Emission
-constructs the existing Estragon classes; it does not introduce an interpreter.
+available through Godot's normal project import/class registration. Emission constructs native Nodes or the existing legacy Estragon classes per tree;
+it does not introduce an interpreter.
 This compilation API does not write files. The native editor build service owns
 source discovery, transactional publication, resource refresh and compile-before-Play;
 see EDITOR.

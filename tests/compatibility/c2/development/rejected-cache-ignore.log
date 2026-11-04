@@ -1,0 +1,22 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_NEGATIVE legacy-alias negative.gogo:3:22: Preload alias conflicts with reserved legacy GGX tag Button
+C2_NEGATIVE non-node negative.gogo:2:22: Unknown or non-constructible Node GGX type Gradient
+C2_NEGATIVE unknown negative.gogo:2:22: Unknown component "NoSuchC2Node"; expected VBox, HBox, Rect, Text or Button
+C2_NEGATIVE duplicate negative.gogo:2:36: Duplicate Node property or signal name
+C2_NEGATIVE property negative.gogo:2:27: Unknown, read-only or reserved Node property/signal imaginary
+C2_NEGATIVE reserved negative.gogo:2:27: Unknown, read-only or reserved Node property/signal owner
+C2_NEGATIVE signal negative.gogo:2:37: Node signals require a named handler/Callable expression
+C2_NEGATIVE lambda negative.gogo:2:37: Inline anonymous GGX handlers are not supported; use a named handler/Callable
+C2_NEGATIVE mixed negative.gogo:2:28: Cannot mix Node and legacy children in one tree
+C2_NEGATIVE reverse-mixed negative.gogo:2:28: Cannot mix legacy and Node GGX children in one tree
+C2_NEGATIVE adoption negative.gogo:2:27: Node GGX children must be newly declared Node elements; expression adoption is unsupported
+C2_NEGATIVE typed-literal negative.gogo:2:39: Typed Node values require {GDScript expressions}; only strings may be quoted
+C2_NEGATIVE resource-alias negative.gogo:3:22: GGX hierarchy script must be a constructible Node: Data
+C2_NEGATIVE required-constructor negative.gogo:3:22: GGX construction requires a zero-argument initializer: Required
+C2_NEGATIVE ambiguous negative.gogo:3:22: Ambiguous GGX preload alias Node2D
+C2 ASSERTION FAILED: metadata does not take over or mutate application Script cache
+C2_POST_IMPORT_BUILD { "ok": true, "outputs": ["examples/ggx/generated/ThreeD.gd", "examples/ggx/generated/TwoD.gd"], "changed": [], "diagnostics": [], "isolated_preflight": { "status": "PASS", "reason": "" }, "symlink_checks": { "status": "PASS", "reason": "Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced." } }
+C2_NOOP report={ "ok": true, "outputs": ["examples/ggx/generated/ThreeD.gd", "examples/ggx/generated/TwoD.gd"], "changed": [], "diagnostics": [], "isolated_preflight": { "status": "PASS", "reason": "" }, "symlink_checks": { "status": "PASS", "reason": "Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced." } } identity=true code=true map=true
+C2_ASSERTIONS 51 failures=1

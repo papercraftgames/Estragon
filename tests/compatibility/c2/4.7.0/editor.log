@@ -1,0 +1,882 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK fresh project has no external compiler: true
+C2_EDITOR_CHECK real native Gogo CodeEdit: true
+C2_EDITOR_CHECK normal Gogo highlighter attached: true
+C2_EDITOR_CHECK native GGX edit is unsaved before Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+C2_EDITOR_CHECK Play saves authored GGX snapshot: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:121)
+         [6] _success (res://tests/ggx/editor/driver.gd:74)
+         [7] _stop (res://tests/ggx/editor/driver.gd:66)
+         [8] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:121)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:123)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:123)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:123)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:125)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:125)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+ERROR: Cannot save text file 'res://examples/ggx/TwoD.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build (res://addons/estragon/editor/plugin.gd:168)
+       [2] _play (res://tests/ggx/editor/driver.gd:61)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [4] _run (res://tests/ggx/editor/driver.gd:132)
+       [5] _success (res://tests/ggx/editor/driver.gd:74)
+       [6] _stop (res://tests/ggx/editor/driver.gd:66)
+       [7] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/ggx/TwoD.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _build (res://addons/estragon/editor/plugin.gd:173)
+         [2] _play (res://tests/ggx/editor/driver.gd:61)
+         [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [4] _run (res://tests/ggx/editor/driver.gd:132)
+         [5] _success (res://tests/ggx/editor/driver.gd:74)
+         [6] _stop (res://tests/ggx/editor/driver.gd:66)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:132)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+C2_EDITOR_CHECK project blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+C2_EDITOR_CHECK native GGX edit is unsaved before Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+C2_EDITOR_CHECK Play saves authored GGX snapshot: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:121)
+         [6] _success (res://tests/ggx/editor/driver.gd:74)
+         [7] _stop (res://tests/ggx/editor/driver.gd:66)
+         [8] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:121)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:123)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:123)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:123)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:125)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:125)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/TwoD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+ERROR: Cannot save text file 'res://examples/ggx/TwoD.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build (res://addons/estragon/editor/plugin.gd:168)
+       [2] _play (res://tests/ggx/editor/driver.gd:62)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [4] _run (res://tests/ggx/editor/driver.gd:132)
+       [5] _success (res://tests/ggx/editor/driver.gd:74)
+       [6] _stop (res://tests/ggx/editor/driver.gd:66)
+       [7] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/ggx/TwoD.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _build (res://addons/estragon/editor/plugin.gd:173)
+         [2] _play (res://tests/ggx/editor/driver.gd:62)
+         [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [4] _run (res://tests/ggx/editor/driver.gd:132)
+         [5] _success (res://tests/ggx/editor/driver.gd:74)
+         [6] _stop (res://tests/ggx/editor/driver.gd:66)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:132)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+C2_EDITOR_CHECK current blocks stale child execution: TwoD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: TwoD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+C2_EDITOR_CHECK real native Gogo CodeEdit: true
+C2_EDITOR_CHECK normal Gogo highlighter attached: true
+C2_EDITOR_CHECK native GGX edit is unsaved before Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+C2_EDITOR_CHECK Play saves authored GGX snapshot: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:121)
+         [6] _success (res://tests/ggx/editor/driver.gd:74)
+         [7] _stop (res://tests/ggx/editor/driver.gd:66)
+         [8] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:121)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:123)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:123)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:123)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:61)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:61)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:125)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:125)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK project blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+ERROR: Cannot save text file 'res://examples/ggx/ThreeD.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build (res://addons/estragon/editor/plugin.gd:168)
+       [2] _play (res://tests/ggx/editor/driver.gd:61)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [4] _run (res://tests/ggx/editor/driver.gd:132)
+       [5] _success (res://tests/ggx/editor/driver.gd:74)
+       [6] _stop (res://tests/ggx/editor/driver.gd:66)
+       [7] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/ggx/ThreeD.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _build (res://addons/estragon/editor/plugin.gd:173)
+         [2] _play (res://tests/ggx/editor/driver.gd:61)
+         [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [4] _run (res://tests/ggx/editor/driver.gd:132)
+         [5] _success (res://tests/ggx/editor/driver.gd:74)
+         [6] _stop (res://tests/ggx/editor/driver.gd:66)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:61)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:132)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+C2_EDITOR_CHECK project blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK project reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK project executes newest Gogo native layout: true
+C2_EDITOR_CHECK native GGX edit is unsaved before Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+C2_EDITOR_CHECK Play saves authored GGX snapshot: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:121)
+         [6] _success (res://tests/ggx/editor/driver.gd:74)
+         [7] _stop (res://tests/ggx/editor/driver.gd:66)
+         [8] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:121)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:4: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:123)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:123)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:123)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _build (res://addons/estragon/editor/plugin.gd:175)
+              [6] _play (res://tests/ggx/editor/driver.gd:62)
+              [7] _blocked (res://tests/ggx/editor/driver.gd:84)
+              [8] _run (res://tests/ggx/editor/driver.gd:125)
+              [9] _blocked (res://tests/ggx/editor/driver.gd:89)
+              [10] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/ggx/editor/driver.gd:62)
+         [4] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [5] _run (res://tests/ggx/editor/driver.gd:125)
+         [6] _blocked (res://tests/ggx/editor/driver.gd:89)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:125)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:89)
+       [4] _wait (res://tests/ggx/editor/driver.gd:27)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:10)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:168)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:18)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:182)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Cannot pass a value of type "String" as "float".
+
+examples/ggx/ThreeD.gogo:8:9: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 2 should be "float" but is "String".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:183)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:161)
+C2_EDITOR_CHECK current blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+ERROR: Cannot save text file 'res://examples/ggx/ThreeD.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build (res://addons/estragon/editor/plugin.gd:168)
+       [2] _play (res://tests/ggx/editor/driver.gd:62)
+       [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [4] _run (res://tests/ggx/editor/driver.gd:132)
+       [5] _success (res://tests/ggx/editor/driver.gd:74)
+       [6] _stop (res://tests/ggx/editor/driver.gd:66)
+       [7] _wait (res://tests/ggx/editor/driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/ggx/ThreeD.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:200)
+         [1] _build (res://addons/estragon/editor/plugin.gd:173)
+         [2] _play (res://tests/ggx/editor/driver.gd:62)
+         [3] _blocked (res://tests/ggx/editor/driver.gd:84)
+         [4] _run (res://tests/ggx/editor/driver.gd:132)
+         [5] _success (res://tests/ggx/editor/driver.gd:74)
+         [6] _stop (res://tests/ggx/editor/driver.gd:66)
+         [7] _wait (res://tests/ggx/editor/driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/ggx/editor/driver.gd:62)
+       [1] _blocked (res://tests/ggx/editor/driver.gd:84)
+       [2] _run (res://tests/ggx/editor/driver.gd:132)
+       [3] _success (res://tests/ggx/editor/driver.gd:74)
+       [4] _stop (res://tests/ggx/editor/driver.gd:66)
+       [5] _wait (res://tests/ggx/editor/driver.gd:27)
+C2_EDITOR_CHECK current blocks stale child execution: ThreeD.gogo:: true
+C2_EDITOR_CHECK current reports useful failure: ThreeD.gogo:: true
+C2_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+C2_EDITOR_CHECK failed Play preserves Script identity/source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+
+C2_EDITOR_CHECK current executes newest Gogo native layout: true
+C2_EDITOR_ASSERTIONS 89
+GGX_C2_EDITOR_OK
