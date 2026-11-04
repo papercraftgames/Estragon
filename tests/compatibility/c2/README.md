@@ -95,3 +95,7 @@ Those observed failures are not relabeled PASS. Automatic external-script reload
 borrowed child adoption, dynamic/dotted imports, C3 widgets and C4 retirement are
 explicit remaining boundaries in the contract. Strict C01 release stays
 **BLOCKED** with fingerprints and old evidence unchanged. No C3 or merge.
+
+Committed generated evidence is stored as `.gd.txt` plus source-map JSON; sandbox
+UID copies are excluded. Canonical executable examples alone own their tracked
+UIDs, so evidence never creates duplicate resource identities or extra scripts.
