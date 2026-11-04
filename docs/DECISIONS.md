@@ -303,7 +303,7 @@ or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.
 
 **Status: accepted owner direction, 2026-11-02; NOT implemented.** Source: [architecture issue #68](https://github.com/resistdesign/Estragon/issues/68). Formalization: [ADR-0015-A #69](https://github.com/resistdesign/Estragon/issues/69). This documentation decision changes the target; it neither retroactively changes implementation nor certifies compatibility/release readiness.
 
-**Implementation note:** [B1 #71](https://github.com/resistdesign/Estragon/issues/71) adds only a separately selected [bounded native composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) adds a separate [composed spatial entry/row-layout proof](NODE_LAYOUT_PROOF.md), using proposed bounded coordinates/authority recorded in its task. The full architecture remains unimplemented; current default compiler/runtime and release evidence remain distinct.
+**Implementation note:** [B1 #71](https://github.com/resistdesign/Estragon/issues/71) adds only a separately selected [bounded native composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) adds a separate [composed spatial entry/row-layout proof](NODE_LAYOUT_PROOF.md), using proposed bounded coordinates/authority recorded in its task. [B3 #75](https://github.com/resistdesign/Estragon/issues/75) adds the separately bounded [native adapter/metadata proof](NODE_ADAPTER_PROOF.md) for review. The full architecture remains unimplemented; current default compiler/runtime and release evidence remain distinct.
 
 ### Responsibilities and language
 

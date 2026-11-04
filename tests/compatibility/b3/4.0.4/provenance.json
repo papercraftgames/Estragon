@@ -1,0 +1,33 @@
+{
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "original_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+  "sourceHead": "a92e82a9dab13b1dfd3b5a6fe73b7555a9bd8983",
+  "sourceDirty": true,
+  "sourceHashes": {
+    "addons/estragon/layout_proof/coordinator.gd": "e06fb2d0a7d360d3804e57664cde5a18ccf4db1fa8652b027e733cf34381835f",
+    "addons/estragon/layout_proof/core.gd": "93655cc96d29df95fcfb63c156e206c4b98f9032739176b4027c4187f8203f72",
+    "addons/estragon/layout_proof/entry_2d.gd": "1fa44f42eff0134daa91dbc6a6577721abc9b9464c1c06bc50603e2aec150c92",
+    "addons/estragon/layout_proof/entry_3d.gd": "f0b4c8f689da3c1bbb10cc347d0e1af4155a7ee14cb2f0d8099fadfd7c4d8f37",
+    "addons/estragon/adapter_proof/bounds.gd": "b742c92629c1e6866724004aca5f89baa6623a0488af09bd6f3b2b53e32a05f3",
+    "addons/estragon/adapter_proof/native_2d.gd": "b13b83fb42c991582c0a7654d253e761e480cff7430a1c2fa47c8f178b834905",
+    "addons/estragon/adapter_proof/native_3d.gd": "9548f1ec550e662b2065b060eec39dbe45d7c09f32033bf30aeed59ab2b67de9",
+    "examples/adapter_proof/demo.gd": "25befc21edf826752e1737764c49e7cf888f61b29ead3526d0a436580872d4c4",
+    "tests/adapter_proof/editor/driver.gd": "c169923df1b7a3d83dcab3cc7d93cb3ff1fbafc9625cd3d009979fe9b5138df3",
+    "tests/adapter_proof/metadata.gd": "9fcfb43c2c72bdfe9f740dcb6f80acaec7a245345c79e1255a0873b6eb14625a",
+    "tests/adapter_proof/runtime.gd": "947c567a6ca4d2cc8a99533ee44401ebb971159e105f2c94a9211930ffe9cccd",
+    "tests/adapter_proof/visual.gd": "4bb9f3e7578b2020d560dfbd6b38ae68596bf67de6d6b4159ee97e0eb5704e7a",
+    "tools/check-adapter-proof.ts": "2a4e2c56c222f45941f792c9a96f8a709773fe026a84d86a5a50dba94e8e7f3e",
+    "tools/compat-kit.ts": "b949159a883abe02da1d4c0c96320134387887284ca3f8f43289df4ac932dc34"
+  },
+  "command": [
+    "/Users/ryan/.nvm/versions/node/v24.16.0/bin/node",
+    "/Users/ryan/Projects/Estragon/tools/check-adapter-proof.ts",
+    "--engine",
+    "4.0.4=/Users/ryan/Library/Caches/Estragon/compatibility-engines/4.0.4/godot",
+    "--engine",
+    "4.7=/Applications/Godot.app/Contents/MacOS/Godot",
+    "--output",
+    "/tmp/estragon-b3-final",
+    "--graphics"
+  ]
+}

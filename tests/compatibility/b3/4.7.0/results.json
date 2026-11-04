@@ -1,0 +1,94 @@
+{
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/project",
+      "--script",
+      "res://tests/adapter_proof/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.91,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/godot",
+      "--headless",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.27,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor-1": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.79,
+    "log": "editor-1.log",
+    "diagnostics": []
+  },
+  "editor-2": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 9.33,
+    "log": "editor-2.log",
+    "diagnostics": []
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-HRx1ys/project",
+      "--script",
+      "res://tests/adapter_proof/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.5,
+    "log": "visual.log",
+    "diagnostics": []
+  }
+}
