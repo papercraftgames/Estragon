@@ -111,7 +111,8 @@ func _run() -> void:
 		_counter.text = _source.replace("count += 1",'count += "bad"')
 		await _blocked(mode,"Model.gogo:")
 		_counter.text = _source.replace("count: int = 3",'count: int = "wrong type"')
-		await _blocked(mode,"Model.gogo:4:")
+		var mapped := ClassDB.class_exists("Logger") and ClassDB.class_exists("ScriptBacktrace") and OS.has_method("add_logger") and OS.has_method("remove_logger")
+		await _blocked(mode,"Model.gogo:4:" if mapped else "exact authored location unavailable")
 		_counter.text = _source
 		await _success(mode,3)
 		var moved := SOURCE+".backup"
