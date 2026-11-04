@@ -13,3 +13,20 @@ func _is_layout_entry() -> bool:
 
 func _layout_viewport_scale() -> float:
 	return viewport_width_scale
+
+const Pointer = preload("res://addons/estragon/runtime/node/internal/pointer_2d.gd")
+var _pointer = Pointer.new(self)
+
+func _get_pointer_router():
+	return _pointer
+
+func _enter_tree() -> void:
+	_pointer.start()
+	super._enter_tree()
+
+func _exit_tree() -> void:
+	_pointer.stop()
+	super._exit_tree()
+
+func _input(event: InputEvent) -> void:
+	if _pointer.input(event): get_viewport().set_input_as_handled()

@@ -280,7 +280,7 @@ The hidden-tab observation remains FAIL on all nine tested official engines, not
 
 **Status: accepted.** Mandatory testing is capped at **two distinct engines across both local/Codex work and CI**: official **Godot 4.0.4**, the oldest supported patch, and the existing pinned **Godot 4.7.0** baseline. Do not execute routine nine-engine/all-minor sweeps, including 4.7.2, to support development, PRs, release gates, or evidence collection. No optional third engine is authorized. The owner may explicitly authorize replacing a version for an identified bug, but it still counts against the two-version maximum.
 
-**Reason:** all-minor matrices wasted AI usage, agent time, CPU, CI minutes and review effort without proportionate benefit. Prefer small targeted local checks during implementation and a single relevant two-version review/acceptance pass rather than repeated exhaustive runs. CI must contain only 4.0.4 (macOS) and 4.7.0 (Linux), with duplicate push+PR triggers and superseded runs canceled.
+**Reason:** all-minor matrices wasted AI usage, agent time, CPU, CI minutes and review effort without proportionate benefit. Prefer small targeted local checks during implementation and a single relevant two-version review/acceptance pass rather than repeated exhaustive runs. CI must contain only 4.0.4 and 4.7.0 on Linux (owner #81, 2026-11-04 supersedes the former macOS 4.0.4 lane), with duplicate push+PR triggers and superseded runs canceled.
 
 **Scope of proof:** Godot **4.0+ remains the product target** under ADR-0014; this is a **testing-budget change**, not an increase in the supported minimum or a declaration that each untested 4.x minor passed. Historical nine-version results, SHA/provenance, and FAIL/BLOCKED/UNTESTED outcomes remain intact as archive, never relabeled or used to force a rerun. New reports/snapshots accept one or two engines. This decision supersedes the 2026-10-29 requirement to retest every minor in each C01 slice or release check. See `AGENTS.md` and `docs/TESTING.md` for the standing operative policy.
 
@@ -342,3 +342,9 @@ Preserve ADR-0013's **exact lowercase Gogo-only @bindable**, code-only non-Node 
 Today RefCounted components/private child lists/RenderingServer surface and the native compiler/editor remain implemented. No Node-native GGX, 3D layout, adapters or reactivity is claimed. All existing examples/evidence and actual FAIL/BLOCKED/UNTESTED results remain. **Strict release remains BLOCKED**; development CI success is not publishing authorization.
 
 First formalize and plan (#69), then prove minimal native composition, shared 2D/3D layout and adapters in small serial PRs before broader runtime/compiler migration. [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) defines prerequisites, acceptance and unresolved decisions; C01, #65, L01 and T09 are not silently completed or waived.
+
+### ADR-0015 C3 owner amendment — 2026-11-04
+
+Accepted in [#81](https://github.com/resistdesign/Estragon/issues/81): both approved engines run on **Linux only** in GitHub Actions. Authenticate official Linux archives/executables and retain actual failures and graphics-backed tests. Historical macOS/nine-engine evidence remains archival, not a current matrix or fresh certification.
+
+Legacy is a temporary migration dependency. C3 introduces explicitly named native 2D widgets without reinterpreting legacy short tags. C4 removes replaced legacy production classes, compatibility shims, obsolete compiler paths and tests after consumer replacement; no permanent dual API. The [removal inventory and canonical-name transition](NODE_UI.md#c4-removal-inventory) define the handoff, not authorization to execute C4. C01 release remains BLOCKED; no architecture task waives it.

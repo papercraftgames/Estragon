@@ -126,12 +126,12 @@ export function newSandbox(selection: EngineSelection): Sandbox {
     }
     const version = execFileSync(binary, ["--headless", "--version"],
       { cwd: workspace, env, encoding: "utf8", timeout: 60000 }).trim();
-    const manifest = readJSON<Array<Record<string, unknown>>>(path.join(ROOT, "tests/compatibility/engines.json"));
+    const manifest = readJSON<Array<Record<string, unknown>>>(path.join(ROOT, process.platform === "linux" ? "tests/compatibility/linux-engines.json" : "tests/compatibility/engines.json"));
     const known = manifest.find(item => item.version === version);
     if (!known || !String(version).startsWith(selection.label === "4.7" ? "4.7.stable." : "4.0.4.stable.")) {
       fail("Official engine identity mismatch: requested " + selection.label + ", got " + version);
     }
-    if (process.platform === "darwin" && inputHash !== known.binary_sha256) {
+    if (inputHash !== known.binary_sha256) {
       fail("Official engine binary SHA mismatch: " + version);
     }
     return { workspace, binary, env, version, known, inputHash,

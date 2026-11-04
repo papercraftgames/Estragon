@@ -14,6 +14,16 @@ const Coordinator = preload("res://addons/estragon/runtime/node/internal/coordin
 		if not valid_length(value) or height == value: return
 		height = value
 		_changed()
+@export var fill_width: bool = false:
+	set(value):
+		if fill_width == value: return
+		fill_width = value
+		_changed()
+@export var fill_height: bool = false:
+	set(value):
+		if fill_height == value: return
+		fill_height = value
+		_changed()
 @export var gap: float = 0.0:
 	set(value):
 		if not is_finite(value) or value < 0 or value == gap: return
@@ -42,6 +52,16 @@ func set_extent(value: Vector2) -> Error:
 
 func requested_extent() -> Vector3:
 	return Vector3(width, height, 0.0)
+
+func _layout_axis() -> int:
+	return 0
+
+func _measure_native() -> Vector2:
+	return Vector2.ZERO
+
+func _layout_options() -> Dictionary:
+	var natural := _measure_native()
+	return {"axis":_layout_axis(),"fill":Vector3(1 if fill_width else 0,1 if fill_height else 0,0),"intrinsic":Vector3(natural.x,natural.y,0)}
 
 func _is_layout_entry() -> bool:
 	return false

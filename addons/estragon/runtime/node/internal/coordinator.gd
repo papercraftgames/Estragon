@@ -104,7 +104,11 @@ func _sync() -> void:
 
 func changed() -> void:
 	var host = _host.get_ref()
-	if host != null: model.configure(host.requested_extent(), host.gap, host.center)
+	if host == null: return
+	if host.has_method("_layout_options"):
+		var options: Dictionary = host._layout_options()
+		model.configure(host.requested_extent(),host.gap,host.center,options.axis,options.fill,options.intrinsic)
+	else: model.configure(host.requested_extent(), host.gap, host.center)
 
 func _viewport_changed() -> void:
 	var host = _host.get_ref()

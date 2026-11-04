@@ -1,0 +1,20 @@
+[
+  {
+    "minor": "4.0",
+    "version": "4.0.4.stable.official.fc0b241c9",
+    "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_linux.x86_64.zip",
+    "archive_file": "Godot_v4.0.4-stable_linux.x86_64",
+    "archive_sha256": "6fc1529998a976f250bbce78c851a91f1c346712e3f27ab341a13a049a9905e4",
+    "binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+    "official_checksums_url": "https://github.com/godotengine/godot/releases/download/4.0.4-stable/SHA512-SUMS.txt",
+    "archive_sha512": "815b1664fc1173c09871d9868807ed31be8e7ab4e043aea479f81249440f28c7ce63797cc564ec52f6730e11b98dec82768ee64df36b926ac4f8580bfb208331"
+  },
+  {
+    "minor": "4.7",
+    "version": "4.7.stable.official.5b4e0cb0f",
+    "official_archive_url": "https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip",
+    "archive_file": "Godot_v4.7-stable_linux.x86_64",
+    "archive_sha256": "0b1a6c54c2c619c12e169fe9241edda4b81080b519451cec2984bf0d2c6cb73c",
+    "binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75"
+  }
+]

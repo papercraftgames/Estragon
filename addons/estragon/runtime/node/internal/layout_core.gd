@@ -7,6 +7,9 @@ signal arranged(size)
 var requested := Vector3(-1, -1, -1)
 var gap: float = 0.0
 var center: bool = false
+var axis: int = 0
+var fill := Vector3.ZERO
+var intrinsic := Vector3.ZERO
 var children: Array = []
 var measured := Vector3.ZERO
 var size := Vector3.ZERO
@@ -22,9 +25,14 @@ static func valid_extent(value: Vector3) -> bool:
 		if not is_finite(value[axis]) or value[axis] < 0 and value[axis] != -1: return false
 	return true
 
-func configure(extent: Vector3, spacing: float, centered: bool) -> Error:
-	if not valid_extent(extent) or not is_finite(spacing) or spacing < 0: return ERR_INVALID_PARAMETER
-	if requested == extent and gap == spacing and center == centered: return OK
+func configure(extent: Vector3, spacing: float, centered: bool, stack_axis: int = 0, fills: Vector3 = Vector3.ZERO, content: Vector3 = Vector3.ZERO) -> Error:
+	if not valid_extent(extent) or not is_finite(spacing) or spacing < 0 or stack_axis < 0 or stack_axis > 2: return ERR_INVALID_PARAMETER
+	for index in range(3):
+		if fills[index] not in [0.0,1.0] or not is_finite(content[index]) or content[index] < 0: return ERR_INVALID_PARAMETER
+	if requested == extent and gap == spacing and center == centered and axis == stack_axis and fill == fills and intrinsic == content: return OK
+	axis = stack_axis
+	fill = fills
+	intrinsic = content
 	requested = extent
 	gap = spacing
 	center = centered
@@ -62,10 +70,11 @@ func measure() -> Vector3:
 	var natural := Vector3.ZERO
 	for child in children:
 		var child_size: Vector3 = child.measure()
-		natural.x += child_size.x
-		natural.y = maxf(natural.y, child_size.y)
-		natural.z = maxf(natural.z, child_size.z)
-	if children.size() > 1: natural.x += gap * (children.size() - 1)
+		for index in range(3):
+			if index == axis: natural[index] += child_size[index]
+			else: natural[index] = maxf(natural[index],child_size[index])
+	if children.size() > 1: natural[axis] += gap * (children.size() - 1)
+	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
 	measured = natural
 	for axis in range(3):
 		if requested[axis] >= 0: measured[axis] = requested[axis]
@@ -80,14 +89,24 @@ func arrange(available: Vector3) -> void:
 	# Clear before callbacks so a signal-triggered change queues a genuine
 	# follow-up instead of being overwritten when this pass finishes.
 	_arrange_dirty = false
-	var natural_width: float = gap * maxi(0, children.size() - 1)
-	for child in children: natural_width += child.measured.x
-	var cursor: float = (available.x - natural_width) * 0.5 if center else 0.0
+	var fixed: float = gap * maxi(0, children.size() - 1)
+	var flexible: int = 0
 	for child in children:
-		var next := Vector3(cursor, 0, 0)
+		if child.fill[axis] > 0 and child.requested[axis] < 0: flexible += 1
+		else: fixed += child.measured[axis]
+	var share: float = maxf(0,available[axis] - fixed) / maxi(1,flexible)
+	var row_extent: float = fixed + share * flexible
+	var cursor: float = (available[axis] - row_extent) * 0.5 if center else 0.0
+	for child in children:
+		var allocation: Vector3 = child.measured
+		for index in range(3):
+			if child.fill[index] > 0 and child.requested[index] < 0:
+				allocation[index] = share if index == axis else available[index]
+		var next := Vector3.ZERO
+		next[axis] = cursor
 		if child.offset != next or child.arrange_count == 0:
 			child.offset = next
 			child.placed.emit(next)
-		child.arrange(child.measured)
-		cursor += child.measured.x + gap
+		child.arrange(allocation)
+		cursor += allocation[axis] + gap
 	arranged.emit(size)

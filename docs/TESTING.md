@@ -10,7 +10,7 @@ during editing and, where appropriate, run the affected one or both engines
 once for review. The owner alone can authorize swapping one version;
 never add a third.
 
-In CI, `.github/workflows/compatibility.yml` runs **4.0.4 on macOS** and
+In CI, `.github/workflows/compatibility.yml` runs **4.0.4 on Linux** and
 `.github/workflows/ci.yml` runs **4.7.0 on Linux**. No other versions,
 redundant push+PR launches or historical full-matrix reruns.
 The preserved nine-engine manifest, logs and result tables are **historical
@@ -567,7 +567,7 @@ node --experimental-strip-types tools/check-compatibility.ts \
 
 Node 22+ runs TypeScript contributor orchestration only; actual Godot processes have empty
 PATH and isolated self-contained settings/projects. No Bun/Node is used. Supply
-verified executables matching `tests/compatibility/engines.json`; macOS hashes refer to
+verified Linux executables matching `tests/compatibility/linux-engines.json`; archived macOS hashes in `engines.json` refer to
 verified pre-signing bytes; only the copied test binary is signed. Use only
 4.0.4 and pinned 4.7.0 (or just the affected one). Results/logs are written incrementally; output directories cannot already
 exist. Engine errors, nonzero exits, deadlines and missing markers are failures,
@@ -578,7 +578,7 @@ stage, including historical unproved graphics/manual-interaction results;
 **C01-H #51 must remove the obsolete physical-keypress-only release gate**
 without erasing past evidence. **`--collect-only` is an informational
 collection mode**, preserving all red JSON results. Its zero exit is never a
-compatibility pass. `.github/workflows/compatibility.yml` runs only official 4.0.4 on macOS,
+compatibility pass. `.github/workflows/compatibility.yml` runs only official 4.0.4 on Linux,
 while `.github/workflows/ci.yml` pins 4.7.0 on Linux. Both verify executable checksums,
 rejects infrastructure failures and uploads every stage log/result. The existing
 required 4.7 Linux job remains required; C01-H will establish the final supported
@@ -771,3 +771,17 @@ instance contexts, nested captures/markup, initializer/inheritance, callback
 identity/cleanup and copied/generated maps. Separate native type-error processes
 require exact expected diagnostics; reload success alone cannot pass the gate.
 HybridEdges/raw syntax remains an independent full-runtime release outcome.
+
+## C3 native 2D components and Counter
+
+Both Linux lanes run the normal Godot-only build, native geometry/input/lifetime assertions, isolated actual editor save/unsaved F5/F6 rejection/repair, and graphics captures through Xvfb/Mesa. No physical keypress gate. Use a new output directory:
+
+```sh
+corepack yarn@1.22.22 node --experimental-strip-types tools/check-native-ui.ts \
+  --engine 4.0.4=/absolute/official/linux/godot \
+  --engine 4.7=/absolute/pinned/linux/godot --output /tmp/c3-acceptance --graphics
+```
+
+Run under `xvfb-run -a` with the workflow software-graphics environment on Linux. For focused development, select just the affected approved engine; `--runtime-only` skips editor acceptance and cannot replace the final full run. `ci.yml` exposes `c3-focused` for this purpose. Logs reject unexpected errors, missing markers and native leaks; intentional semantic/save errors are matched to the exact negative fixtures. Generated output, canonical UID candidates, logs, source/executable provenance and Counter captures are artifacts. See [API/demo and C4 inventory](NODE_UI.md).
+
+Official Linux pins live in `tests/compatibility/linux-engines.json`. The downloader verifies archive and executable SHA-256, exact reported version, and the 4.0.4 archive against the official SHA-512 manifest. No macOS CI remains (owner #81). Archived macOS reports retain their original findings; Linux development success does not certify platforms or clear the strict C01 release blockers.
