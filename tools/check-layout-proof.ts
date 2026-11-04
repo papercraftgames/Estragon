@@ -9,12 +9,12 @@ for(const selection of options.engines) {
  const sandbox=newSandbox(selection), output=path.join(options.output,selection.label);
  fs.mkdirSync(output,{recursive:true});
  try {
-  for(const dir of ['addons/estragon/compiler','addons/estragon/layout_proof','examples/node_proof','examples/layout_proof','tests/layout_proof']) copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
+  for(const dir of ['addons/estragon/runtime/node/internal','addons/estragon/compiler','addons/estragon/layout_proof','examples/node_proof','examples/layout_proof','tests/layout_proof']) copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
   // The explicit native build must produce output from authored source, even
   // when the example includes a checked generated script for easy inspection.
   fs.rmSync(path.join(sandbox.project,'examples/layout_proof/generated'),{recursive:true,force:true});
   fs.writeFileSync(path.join(sandbox.project,'project.godot'),'config_version=5\n[application]\nconfig/name="B2 isolated proof"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=360\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
-  const sources=[...listGDScripts(path.join(ROOT,'addons/estragon/compiler')),...listGDScripts(path.join(ROOT,'addons/estragon/layout_proof')),...listGDScripts(path.join(ROOT,'examples/node_proof')).filter(p=>!p.includes('/generated/')),...listGDScripts(path.join(ROOT,'tests/layout_proof')), ...listGDScripts(path.join(ROOT,'examples/layout_proof')).filter(p=>!p.includes('/generated/')),path.join(ROOT,'examples/layout_proof/.proof/Layout.gogo'),path.join(ROOT,'tools/check-layout-proof.ts'),path.join(ROOT,'tools/compat-kit.ts')].map(p=>path.relative(ROOT,p));
+  const sources=[...listGDScripts(path.join(ROOT,'addons/estragon/runtime/node/internal')),...listGDScripts(path.join(ROOT,'addons/estragon/compiler')),...listGDScripts(path.join(ROOT,'addons/estragon/layout_proof')),...listGDScripts(path.join(ROOT,'examples/node_proof')).filter(p=>!p.includes('/generated/')),...listGDScripts(path.join(ROOT,'tests/layout_proof')), ...listGDScripts(path.join(ROOT,'examples/layout_proof')).filter(p=>!p.includes('/generated/')),path.join(ROOT,'examples/layout_proof/.proof/Layout.gogo'),path.join(ROOT,'tools/check-layout-proof.ts'),path.join(ROOT,'tools/compat-kit.ts')].map(p=>path.relative(ROOT,p));
   const stages:Record<string,unknown>={};
   writeJSON(path.join(output,'provenance.json'),{version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),sourceHashes:sourceHashes(sources),command:process.argv});
   async function run(name:string,script:string,marker:string,graphics=false) {

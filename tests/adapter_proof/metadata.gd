@@ -1,7 +1,7 @@
 extends SceneTree
 func _initialize() -> void:
 	var failures: int = 0
-	for path in ["res://addons/estragon/adapter_proof/native_2d.gd", "res://addons/estragon/adapter_proof/native_3d.gd", "res://addons/estragon/compiler/compiler.gd", "res://examples/counter/generated/Counter.gd"]:
+	for path in ["res://addons/estragon/runtime/node/estragon_2d.gd", "res://addons/estragon/runtime/node/estragon_3d.gd", "res://addons/estragon/runtime/node/component_2d.gd", "res://addons/estragon/runtime/node/component_3d.gd", "res://addons/estragon/runtime/node/native_2d.gd", "res://addons/estragon/runtime/node/native_3d.gd", "res://addons/estragon/adapter_proof/native_2d.gd", "res://addons/estragon/adapter_proof/native_3d.gd", "res://addons/estragon/compiler/compiler.gd", "res://examples/counter/generated/Counter.gd"]:
 		var first = load(path)
 		if first == null or first != load(path): failures += 1
 		if Engine.get_version_info().minor >= 4:
