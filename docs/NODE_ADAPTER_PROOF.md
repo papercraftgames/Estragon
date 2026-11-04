@@ -63,7 +63,7 @@ The runtime never assigns scene ownership implicitly.
 
 ## Metadata policy and audit
 
-The starting checkout had three disposable native-generated outputs, 51 new script
+The starting checkout had three disposable native-generated outputs, 47 new script
 UID sidecars and 30 screenshot import sidecars. The outputs were restored; valid
 unique script UIDs were preserved. New B3 UIDs were obtained from the pinned native
 editor at the corresponding canonical project paths, never temporary drivers.
@@ -92,7 +92,15 @@ Known full-checkout editor limitation: R01 research `tests/research/bindable`
 uses 4.7 Logger APIs and produces parse diagnostics on 4.0.4. The metadata runner
 retains those actual editor stages as **FAIL** with exact raw diagnostics and a
 named limitation; only the measured diagnostic set is accepted for this metadata
-check. Any other error, timeout, UID/settings change or unexpected sidecar fails.
+check. Any other error, timeout, unexpected UID/settings change or unexpected sidecar fails.
+The five real asset settings are serialized differently by 4.0.4: it removes six
+newer default texture compression/channel-remap fields and three newer font fields,
+while retaining every UID and all older settings. The audit records the exact
+before/after text and hashes, allows only these measured removals on first import,
+and requires the second import to be byte-stable. Canonical 4.7 settings remain
+committed; switching to 4.0 can leave those five tracked settings modified. Restore
+them before committing unrelated work. No unexpected untracked sidecars remain.
+
 This does not certify the complete repository/editor on 4.0.4 and is not a C01
 repair. Live research fixtures were not hidden. Normal addon compile-on-open can
 still update checked generated code/maps; this is independent of sidecar hygiene.

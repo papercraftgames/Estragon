@@ -31,6 +31,8 @@ for(const selection of options.engines) {
   fs.appendFileSync(config,'\n[editor_plugins]\nenabled=PackedStringArray()\n');
   const original=new Map(files.filter(p=>p.endsWith('.gd.uid')||p.endsWith('.import')).map(p=>[p,sha256(path.join(sandbox.project,p))]));
   const stages=[];
+  const baseline=new Map(original);
+  const importNormalizations:unknown[]=[];
   for(const pass of [1,2]) {
    const stage=await indexProject(sandbox,sandbox.project,path.join(output,`editor-${pass}.log`),['--audio-driver','Dummy']);
    stages.push(stage);
@@ -47,11 +49,25 @@ for(const selection of options.engines) {
      'SCRIPT ERROR: Parse Error: Static function "remove_logger()" not found in base "OS".',
      "SCRIPT ERROR: Parse Error: Cannot infer the type of \"diagnostics\" variable because the value doesn't have a set type."
     ];
-    if(selection.label!=='4.0.4'||stage.exit_code!==0||stage.timeout||!log.includes('C01_PROJECT_INDEX_READY')||!errors.length||errors.some(e=>!expected.includes(e)))throw Error('Metadata import failed: '+JSON.stringify(stage));
+    if(selection.label!=='4.0.4'||stage.exit_code!==0||stage.timeout||!log.includes('C01_PROJECT_INDEX_READY')||!errors.length||errors.some(e=>!expected.includes(e))||[...log.matchAll(/^SCRIPT ERROR:.*\n([^\n]*)/gm)].some(m=>!/^\s+at: GDScript::reload \(res:\/\/tests\/research\/bindable\/(capture|probe)\.gd:\d+\)$/.test(m[1]!)))throw Error('Metadata import failed: '+JSON.stringify(stage));
     stage.known_limitation='Existing R01 Logger-based research is 4.7-only; editor diagnostic result remains FAIL, metadata assertions are separate.';
     console.log('KNOWN_4_0_RESEARCH_EDITOR_FAIL '+errors.length+' diagnostics (raw log retained)');
    }
-   for(const [p,hash] of original)if(sha256(path.join(sandbox.project,p))!==hash)throw Error('Metadata rewritten: '+p);
+   const rewritten=[...baseline].filter(([p,hash])=>sha256(path.join(sandbox.project,p))!==hash).map(([p])=>({path:p,before:fs.readFileSync(path.join(ROOT,p),'utf8'),after:fs.readFileSync(path.join(sandbox.project,p),'utf8')}));
+   if(rewritten.length) {
+    writeJSON(path.join(output,'rewritten.json'),rewritten);
+    const textureDefaults=['compress/uastc_level=0','compress/rdo_quality_loss=0.0','process/channel_remap/red=0','process/channel_remap/green=1','process/channel_remap/blue=2','process/channel_remap/alpha=3'];
+    const fontDefaults=['disable_embedded_bitmaps=true','modulate_color_glyphs=false','keep_rounding_remainders=true'];
+    const texturePaths=['Assets/Estragon Centered Logo.png.import','Assets/Estragon Centered Logo.svg.import','Assets/Estragon Horizontal Logo Black.svg.import','Assets/Estragon Horizontal Logo White.svg.import'];
+    for(const change of rewritten) {
+     const defaults=texturePaths.includes(change.path)?textureDefaults:change.path==='Assets/Fonts/LondonTwo.ttf.import'?fontDefaults:[];
+     const expected=change.before.split('\n').filter(line=>!defaults.includes(line)).join('\n');
+     if(selection.label!=='4.0.4'||pass!==1||!defaults.length||change.after!==expected)throw Error('Unexpected metadata rewrite: '+change.path);
+     importNormalizations.push({path:change.path,before_sha256:original.get(change.path),after_sha256:sha256(path.join(sandbox.project,change.path)),removed_defaults:defaults});
+     baseline.set(change.path,sha256(path.join(sandbox.project,change.path)));
+    }
+    console.log('KNOWN_4_0_ASSET_NORMALIZATION '+rewritten.length+' settings files; UIDs unchanged, second import must be stable');
+   }
   }
   const identity=await runCommand([sandbox.binary,'--headless','--path',sandbox.project,'--script','res://tests/adapter_proof/metadata.gd'],sandbox.workspace,sandbox.env,path.join(output,'identity.log'),'GODOT_METADATA_IDENTITY_OK',{abortOnError:true});
   stages.push(identity);
@@ -75,7 +91,7 @@ for(const selection of options.engines) {
   if(unexpected.length)throw Error('Unexpected sidecars: '+unexpected.join(', '));
   // Godot 4.7 UID resolution and older path loading are covered by native tests;
   // this audit also proves none of those identities/settings changed on import.
-  writeJSON(path.join(output,'results.json'),{status:'PASS',version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),command:process.argv,scripts:scripts.length,uid_count:seen.size,sidecar_hashes:Object.fromEntries(original),stages,unexpected,write_missing_uids:write});
+  writeJSON(path.join(output,'results.json'),{status:'PASS',version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),command:process.argv,scripts:scripts.length,uid_count:seen.size,import_normalizations:importNormalizations,editor_health:stages.some(s=>s.status==='FAIL')?'KNOWN_EXISTING_FAIL':'PASS',sidecar_hashes:Object.fromEntries(original),stages,unexpected,write_missing_uids:write});
   console.log('GODOT_METADATA_PASS '+sandbox.version+' scripts='+scripts.length);
  } finally {sandbox.dispose();}
 }

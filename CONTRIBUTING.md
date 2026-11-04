@@ -46,7 +46,10 @@ moving a script. Never copy UIDs from temporary test drivers or unrelated sandbo
 files. Commit regular assets' `.import` settings (the five current settings in
 `Assets/` remain versioned); `.godot/` is disposable cache. Do not globally ignore
 `*.uid` or `*.import`. Godot 4.0.4 uses path-based script references and leaves these
-newer sidecars intact; verify with both approved editors when changing this policy.
+newer sidecars intact; verify with both approved editors when changing this policy. The five real asset
+settings have a measured 4.0 normalization difference (newer default fields removed),
+so switching engines can modify those tracked files; preserve canonical settings
+before unrelated commits. See [exact limitations](docs/NODE_ADAPTER_PROOF.md#metadata-policy-and-audit).
 See [Godot's script UID explanation](https://godotengine.org/article/uid-changes-coming-to-godot-4-4/)
 and [import documentation](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/import_process.html).
 
