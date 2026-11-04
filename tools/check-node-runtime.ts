@@ -26,6 +26,7 @@ for(const selection of options.engines) {
    writeJSON(path.join(output,'results.json'),stages);
    if(stage.status!=='PASS')throw Error('C1 '+name+' failed');
   }
+  await run('core',['--script','res://tests/node_runtime/core.gd'],'GGX_B2_CORE_OK',false);
   await run('runtime',['--script','res://tests/node_runtime/runtime.gd'],'GGX_C1_RUNTIME_OK');
   if(!runtimeOnly) {
    stages.import=await indexProject(sandbox,sandbox.project,path.join(output,'import.log'),['--audio-driver','Dummy']);

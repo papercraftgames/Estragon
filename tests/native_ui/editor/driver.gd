@@ -1,9 +1,9 @@
 @tool
 extends EditorPlugin
 ## Real editor Play entry points and child-game proof, autosave disabled.
-var SOURCE := "res://examples/native_counter/Counter.gogo"
+var SOURCE := "res://examples/counter/Counter.gogo"
 
-var OUTPUT := "res://examples/native_counter/generated/Counter.gd"
+var OUTPUT := "res://examples/counter/generated/Counter.gd"
 const PROOF := "res://.godot/c3-play.json"
 var _interface: EditorInterface
 var _failed := false
@@ -100,14 +100,16 @@ func _run() -> void:
 	if _counter==null:
 		_finish()
 		return
+	_check(preload("res://tests/native_ui/highlighter.gd").new().run(),"native highlighting lexical cases")
+	_check(_counter.syntax_highlighter != null and _counter.syntax_highlighter.get_script().resource_path == "res://addons/estragon/editor/highlighter.gd","real Gogo tab associated with native highlighter")
 	_source = FileAccess.get_file_as_string(SOURCE)
-	_interface.open_scene_from_path("res://examples/native_counter/Counter.tscn")
+	_interface.open_scene_from_path("res://examples/counter/Counter.tscn")
 	await _wait(0.5)
 	for mode in ["project","current"]:
 		_counter.text = _source.replace("var count: int = 0","var count: int = 7")
 		await _success(mode,7)
 		_check(FileAccess.get_file_as_string(SOURCE)==_counter.text,"normal Play saves latest native Counter")
-		_counter.text = _source.replace("<Button2D name=","<Gradient name=")
+		_counter.text = _source.replace("<UiButton name=","<Gradient name=")
 		await _blocked(mode,"Counter.gogo:")
 		_counter.text = _source.replace("pressed={increment}","pressed={missing_handler}")
 		await _blocked(mode,"Counter.gogo:")

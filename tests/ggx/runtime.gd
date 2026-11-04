@@ -67,10 +67,8 @@ func run() -> void:
 	# Native registry accepts other real Godot Nodes and registered C1 types too.
 	for source in ['extends Node\nfunc make(): return <Marker2D />\n','extends Node\nfunc make(): return <Estragon2D />\n']:
 		check(Compiler.compile(source,"test.gogo").ok,"general native/registered type resolution")
-	var mixed_module := Compiler.compile('extends Node\nfunc legacy(): return <Button text="kept" pressed={func(): pass} />\nfunc native_tree(): return <Node />\n',"mixed.gogo")
-	check(mixed_module.ok and mixed_module.code.contains("EstragonButton.new()") and mixed_module.code.contains("Node.new()"),"legacy inline callbacks and native trees coexist in distinct expressions")
 	var negative := {
-		"legacy-alias":"extends Node\nconst Button = preload(\"res://examples/ggx/probe_2d.gd\")\nfunc make(): return <Button />\n",
+		"native-name-conflict":"extends Node\nconst Button = preload(\"res://examples/ggx/probe_2d.gd\")\nfunc make(): return <Button />\n",
 		"non-node":"extends Node\nfunc make(): return <Gradient />\n",
 		"unknown":"extends Node\nfunc make(): return <NoSuchC2Node />\n",
 		"duplicate":"extends Node\nfunc make(): return <Node name=\"a\" name=\"b\" />\n",
@@ -78,8 +76,6 @@ func run() -> void:
 		"reserved":"extends Node\nfunc make(): return <Node owner={self} />\n",
 		"signal":"extends Node\nfunc make(): return <Timer timeout=\"on_timeout\" />\n",
 		"lambda":"extends Node\nfunc make(): return <Timer timeout={func(): pass} />\n",
-		"mixed":"extends Node\nfunc make(): return <Node><Rect width=\"1\" height=\"1\" fill=\"#ffffff\" /></Node>\n",
-		"reverse-mixed":"extends Node\nfunc make(): return <VBox><Node /></VBox>\n",
 		"adoption":"extends Node\nfunc make(): return <Node>{Node.new()}</Node>\n",
 		"typed-literal":"extends Node\nfunc make(): return <Node2D position=\"wrong\" />\n",
 		"resource-alias":"extends Node\nconst Data = preload(\"res://tests/ggx/data.gd\")\nfunc make(): return <Data />\n",

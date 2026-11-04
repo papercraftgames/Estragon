@@ -22,16 +22,12 @@ func parse() -> Model.Module:
 	var first: int = 0
 	const TRIM := "\u0009\u000a\u000b\u000c\u000d \u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\ufeff"
 	while first < file.text.length() and file.text[first] in TRIM: first += 1
-	module.mode = "markup" if first == file.text.length() or file.text[first] == "<" else "hybrid"
-	if module.mode == "markup":
-		var root := _component(0)
-		_trivia()
-		if file.diagnostics.is_empty() and _cursor != file.text.length():
-			file.fail("Expected one component expression; trailing source is not supported in standalone markup", _cursor)
-		if root != null: module.parts.append(root)
-	else:
-		var scanned := _scan(0, false)
-		module.parts.assign(scanned.parts)
+	if first < file.text.length() and file.text[first] == "<":
+		file.fail("Gogo requires a GDScript-first module",first)
+		return null
+	module.mode = "hybrid"
+	var scanned := _scan(0, false)
+	module.parts.assign(scanned.parts)
 	return module if file.diagnostics.is_empty() else null
 
 func _at(value: String) -> bool:
@@ -104,12 +100,12 @@ func _component(depth: int) -> Model.Component:
 		var attribute := Model.Attribute.new()
 		attribute.name = attribute_name.text
 		attribute.name_span = attribute_name.span
-		if _at("{") and module.mode == "hybrid":
+		if _at("{"):
 			attribute.value = _expression()
 		else:
 			var quote := lexer.char_at(_cursor)
 			if quote not in ['"', "'"]:
-				file.fail("Expected a quoted literal or {GDScript expression} property value" if module.mode == "hybrid" else "Expected a quoted literal property value; expressions require a GDScript-first module", _cursor)
+				file.fail("Expected a quoted string or {GDScript expression} property value", _cursor)
 				return null
 			var quote_start := _cursor
 			_cursor += 1
@@ -136,10 +132,10 @@ func _component(depth: int) -> Model.Component:
 			file.fail("Missing closing tag </%s>" % node.name, _cursor)
 			return null
 		var child: Model.SyntaxNode
-		if _at("{") and module.mode == "hybrid": child = _expression()
+		if _at("{"): child = _expression()
 		elif _at("<"): child = _component(depth + 1)
 		else:
-			file.fail("Only component children are supported; use {...} for a component-valued GDScript expression" if module.mode == "hybrid" else "Only component children are supported; text requires a Text component", _cursor)
+			file.fail("GGX children must be Node elements", _cursor)
 			return null
 		if child == null: return null
 		node.children.append(child)

@@ -67,7 +67,7 @@ func _enter_tree() -> void:
 
 func _runtime_registered() -> bool:
 	for entry in ProjectSettings.get_global_class_list():
-		if entry["class"] == "EstragonSurface" and entry.path == "res://addons/estragon/runtime/surface.gd":
+		if entry["class"] == "Estragon2D" and entry.path == "res://addons/estragon/runtime/node/estragon_2d.gd":
 			return true
 	return false
 

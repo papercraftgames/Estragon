@@ -14,8 +14,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Estragon (prototype)"
-run/main_scene="res://examples/hello/Hello.tscn"
+config/name="Estragon"
+run/main_scene="res://examples/counter/Counter.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 
 [display]

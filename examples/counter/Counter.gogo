@@ -1,31 +1,57 @@
-extends EstragonSurface
-
+extends Node2D
+const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
 var count: int = 0
+var ui: Node
 
+func _ready() -> void:
+    ui = get_node_or_null("UI")
+    if ui == null:
+        ui = build_view()
+        add_child(ui)
+        persist(ui)
+    refresh()
+    if OS.get_environment("ESTRAGON_C3_PROOF") == "1": write_proof.call_deferred()
 
-func _init() -> void:
-    set_root(build_view())
+func build_view() -> Node:
+    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
+        <VBox name="Panel" fill_width={true} gap={16.0}>
+            <Rect name="Accent" height={8.0} fill_width={true} fill={Color(0.2,0.8,0.6)} />
+            <Text name="Title" text="Estragon native Gogo Counter" font_size={28} color={Color(0.74,0.64,0.94)} />
+            <Text name="Count" text="Count: 0" font_size={26} />
+            <HBox name="Actions" fill_width={true} gap={12.0}>
+                <UiButton name="Increment" text="+" fill_width={true} pressed={increment} />
+                <UiButton name="Reset" text="Reset" fill_width={true} disabled={true} pressed={reset_count} />
+            </HBox>
+            <VBox name="Details" fill_width={true} gap={6.0}>
+                <Text name="Hint" text="Click + to update retained Nodes." font_size={18} />
+                <Text name="Resize" text="Resize the window: nested native stacks reflow." font_size={18} />
+            </VBox>
+        </VBox>
+    </Entry>
 
+func persist(node: Node) -> void:
+    node.owner = self
+    for child in node.get_children(): persist(child)
 
 func increment() -> void:
     count += 1
-    set_root(build_view())
-
+    refresh()
 
 func reset_count() -> void:
     count = 0
-    set_root(build_view())
+    refresh()
 
+func refresh() -> void:
+    ui.get_node("Panel/Count").text = "Count: %d" % count
+    ui.get_node("Panel/Actions/Reset").disabled = count == 0
 
-func build_view() -> EstragonVBox:
-    return (
-        <VBox gap={12}>
-            <Text text="Estragon Gogo Counter" font_size="26" color="#bba2ef" />
-            <Text text={"Count: %d" % count} font_size={24} />
-            <HBox gap="12" fill_width="true">
-                <Button text="+" fill_width="true" pressed={increment} />
-                <Button text="Reset" fill_width="true" disabled={count == 0} pressed={reset_count} />
-            </HBox>
-            <Text text="Gogo generates the signal connections. Explicit rebuild; automatic cleanup." font_size="16" />
-        </VBox>
-    )
+func write_proof() -> void:
+    await get_tree().process_frame
+    await get_tree().process_frame
+    var file := FileAccess.open("res://.godot/c3-play.json",FileAccess.WRITE)
+    file.store_string(JSON.stringify({"count":count,"text":ui.get_node("Panel/Count").text,"native":ui.get_layout_root()==ui}))
