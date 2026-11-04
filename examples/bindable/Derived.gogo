@@ -1,0 +1,4 @@
+extends "Model.gd"
+@bindable var enabled: bool = true
+func rename() -> void:
+    title = "Derived"

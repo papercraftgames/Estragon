@@ -33,6 +33,17 @@ class Code extends SyntaxNode:
 	func _init() -> void:
 		kind = "gdscript-source"
 
+class Bindable extends SyntaxNode:
+	var name: String
+	var name_span: Span
+	var type_span: Span
+	var type_name: String
+	var signal_name: String
+	var declaration_span: Span
+	var comment_span: Span
+	func _init() -> void:
+		kind = "bindable-property"
+
 class GdExpression extends SyntaxNode:
 	var parts: Array[SyntaxNode] = []
 	func _init() -> void:

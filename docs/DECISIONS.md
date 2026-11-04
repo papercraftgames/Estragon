@@ -197,6 +197,8 @@ See EDITOR/TESTING for setup, API evidence, guarantees and manual procedures.
 
 **Delivery:** Fix automatic Gogo highlighting separately in [E01 #37](https://github.com/resistdesign/Estragon/issues/37). Stage T09 across reviewable property/model, component/layout, collection/repeater, and two-way/cycle-hardening slices. The [T09 live issue #5](https://github.com/resistdesign/Estragon/issues/5) and [REACTIVITY_PLAN](REACTIVITY_PLAN.md) contain the detailed contracts. Do not claim these features implemented or merge automatically.
 
+**T09-A implementation scope (2026-11-04, #43):** [Observable properties/models](BINDABLE_PROPERTIES.md) supplies the bounded declaration, native signal, initialization, equality, reentrancy and inheritance contract. Custom annotated accessors reject explicitly. This property foundation does not implement automatic GGX dependencies, collections/repeaters or two-way bindings. Review/merge state and measured engine evidence remain in the live issue/PR.
+
 ## ADR-0014 — Support Godot 4.0 and all subsequent 4.x versions
 
 **Status: accepted owner requirement, 2026-10-29. Implementation/verification in progress; 4.0 compatibility is NOT yet established.**

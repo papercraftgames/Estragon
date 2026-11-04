@@ -1,17 +1,17 @@
 # Estragon reactivity and component architecture contract
 
-**Owner direction accepted 2026-10-29, adapted by ADR-0015 on 2026-11-02; implementation pending.** This document is the durable brief for staged T09 delivery. It extends [the binding design](BINDING.md), [the execution plan](EXECUTION_PLAN.md), [accepted decisions](DECISIONS.md), and the live [T09 umbrella issue #5](https://github.com/resistdesign/Estragon/issues/5). It does **not** claim that reactivity, collections, x/y positioning, keyed repeaters or `EstragonBox` exist yet. **Version baseline:** ADR-0014 requires Godot **4.0+** for all future implementations. [C01 #41](https://github.com/resistdesign/Estragon/issues/41) must close current API gaps and prove native editor/runtime/compiler compatibility before releases claim 4.0+. Current 4.7 checks are insufficient.
+**Owner direction accepted 2026-10-29, adapted by ADR-0015 on 2026-11-02; T09-A property/model foundation implemented for review; later binding/collection stages pending.** This document is the durable brief for staged T09 delivery. It extends [the binding design](BINDING.md), [the execution plan](EXECUTION_PLAN.md), [accepted decisions](DECISIONS.md), and the live [T09 umbrella issue #5](https://github.com/resistdesign/Estragon/issues/5). It does **not** claim that reactivity, collections, x/y positioning, keyed repeaters or `EstragonBox` exist yet. **Version baseline:** ADR-0014 requires Godot **4.0+** for all future implementations. [C01 #41](https://github.com/resistdesign/Estragon/issues/41) must close current API gaps and prove native editor/runtime/compiler compatibility before releases claim 4.0+. Current 4.7 checks are insufficient.
 
 ## Node-native target and current implementation
 
 [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) / [#68](https://github.com/resistdesign/Estragon/issues/68) supersedes the earlier independent-tree/RefCounted Box target. Gogo is the language; GGX is general-purpose Node composition with inherited Node.add_child as the only child rule. Visual branches use Node2D/Node3D and compose shared layout. Non-Node models remain supported as a requirement, not hierarchy children. Any referenced Object can supply a native signal; target GGX handlers reference named handlers/Callable values, not inline anonymous declarations.
 
-Today the runtime remains RefCounted with a RenderingServer surface, construction-time expressions and explicit Counter root rebuilding. The proposed source below illustrates older binding intent, not an accepted Node entry API. The [staged migration plan](NODE_MIGRATION_PLAN.md) controls proof, lifecycle and compiler dependencies before T09 pickup. C01 strict release remains BLOCKED.
+C4 PR #84 is merged (`402480f8`): one canonical native Node UI/compiler/editor/runtime replaces the old RefCounted display/surface tree. T09-A #43 now adds [observable typed Gogo properties and non-Node models](BINDABLE_PROPERTIES.md). GGX expressions remain construction-time; the source sketch below illustrates future binding intent and is historical, not a shipped surface API. Current-addon strict C4 acceptance passed on both approved Linux engines; T09-A has its own live issue/PR evidence.
 
 ## Language boundary and authoring
 
 - **Only official annotation:** `@bindable`, exactly lowercase, **in authored `.gogo` files only**. This intentionally supersedes the former `@Bindable` in arbitrary authored `.gd` requirement. Gogo is a GDScript-like source language with XML-like component expressions; generated `.gd` must remain ordinary Godot-parseable GDScript. No Godot parser patches, native custom annotation registration, `.bgd` requirement, Bun/Node compiler, authored-source replacement or runtime Gogo interpreter.
-- `@bindable` may annotate typed properties in a Gogo component/surface **or a code-only Gogo model class**, with no markup required. Model objects are not Estragon display components and must not require Godot `Node` inheritance (at minimum, typed `RefCounted`; investigate appropriate `Resource` semantics).
+- `@bindable` may annotate typed properties in a Gogo component/surface **or a code-only Gogo model class**, with no markup required. The supported T09-A declaration/accessor/equality/inheritance contract is [BINDABLE_PROPERTIES](BINDABLE_PROPERTIES.md); custom accessors reject explicitly. Model objects are not Estragon display components and must not require Godot `Node` inheritance (at minimum, typed `RefCounted`; investigate appropriate `Resource` semantics).
 - The compiler generates typed property storage/accessors/change notifications. Ordinary operations such as `count += 1` and assignments to another Gogo model's bindable property must notify relevant subscribers without manual signals, setter invocation or complete UI reconstruction. Initial values do not spuriously fire change notifications; equal-value assignments can be suppressed under a defined equality contract.
 - `@bindable` is an authoring/compiler feature, **not a claim that native Godot accepts the annotation in `.gd`**. R01 [research PR #38](https://github.com/resistdesign/Estragon/pull/38) contains the stock-Godot counterevidence.
 
@@ -69,7 +69,7 @@ See [deferred helper issue #54](https://github.com/resistdesign/Estragon/issues/
 
 ## Inheritance and shared component behavior
 
-**Verified existing Godot classes:**
+**Retired pre-C4 Godot classes (archival context, no supported executable path):**
 
 ```text
 EstragonDisplayObject
@@ -79,7 +79,7 @@ EstragonDisplayObject
                 └── EstragonHBox
 ```
 
-The earlier proposed RefCounted `EstragonBox extends EstragonContainer` hierarchy is **superseded as the future design** by ADR-0015. Current Stack shares measurement/arrangement and gap and remains a compatibility contract until migration. Future 2D and 3D visual components inherit Node2D and Node3D respectively, sharing box/measure/arrange behavior through composition, not a plain Node visual base. Do not duplicate algorithms or rename current superclasses mechanically.
+The earlier proposed RefCounted `EstragonBox extends EstragonContainer` hierarchy is **superseded as the future design** by ADR-0015. C4 removed that display hierarchy. Canonical EstragonRect/Text/Button/HBox/VBox now inherit Node2D; bounded 3D participants inherit Node3D. They share measurement/arrangement through composition. The former Stack compatibility path is retired; do not recreate it.
 
 Native2D/Native3D adapters expose explicit or suitable provider-measured bounds. Ordinary Nodes are legal GGX children but not automatic layout participants; explicit entries re-enter below boundaries. Binding subscriptions must respect native Node lifetime/reparenting and separate PackedScene owner semantics. Preserve instance identity and native signals, invalidate only affected branches, coalesce updates and prevent feedback from layout-authored transforms. Animated geometry observation is explicit opt-in, not compulsory polling.
 
@@ -87,7 +87,7 @@ Observe viewport resize as a root layout input; handle relevant Window DPI/scali
 
 ## Recommended task boundaries and proofs
 
-**Prerequisites:** E01 #40 is merged; E01-F #44 is closed not planned with an accepted hidden-tab limitation, not a PASS. T09-A #43 remains queued behind blocking compatibility work and a reviewed compiler-contract mapping to ADR-0015-C2. T09-B also needs the Node component/layout migration; C/D follow the prior reactive slices. See NODE_MIGRATION_PLAN for exact gates.
+**Prerequisites:** E01 #40 is merged; E01-F #44 is closed not planned with an accepted hidden-tab limitation, not a PASS. T09-A #43 is the active scoped property/model implementation after merged C4; see the current contract and live issue/PR. T09-B also needs the Node component/layout migration; C/D follow the prior reactive slices. See NODE_MIGRATION_PLAN for exact gates.
 
 **T09-A — observable Gogo property and data-model foundation:** code-only Gogo modules, explicit lowercase annotation parsing/typechecking, generated setters/notifications, typed non-Node model proof and native editor/semantic tests. Confirm no implicit UI rebuild is needed to observe a plain property. Define/verify custom accessors, inheritance and equality. One scoped issue/PR.
 
@@ -103,4 +103,4 @@ Observe viewport resize as a root layout input; handle relevant Window DPI/scali
 - Keep native compiler, source maps, callback evaluation semantics while migrating to retained native Nodes. Stage only supported properties/syntax; unknown types and unsupported mutations should fail visibly rather than pretend to be reactive.
 - Protect the shipped Counter and legacy demo during migration. Never merge on behalf of the user. Maintain linked GitHub issues, scoped PRs, CI, checked acceptance evidence and durable session handoffs per `AGENTS.md`.
 
-**Status/merge ordering:** N01–N03/R01/E01 and C01 gate infrastructure PR #66 plus scoped helper PR #67 are merged. ADR-0015-A #69 is the docs-only task; its successor proofs/migration remain queued. T09 remains queued, not implicitly unblocked by this architectural decision. One PR at a time; no automatic merges, proof implementation or release authorization here.
+**Status/merge ordering:** ADR-0015-A and B1–C4 are merged through PR #84. T09-A #43 is the active property/model slice; T09-B/C/D remain queued. Consult the live issue/sole PR for verification and review state. One PR at a time; no automatic merges or successor implementation.
