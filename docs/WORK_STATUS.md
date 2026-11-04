@@ -4,7 +4,7 @@
 
 **Milestone:** interactive Gogo/GDScript `Counter.gogo` compiled to GDScript, built from independent Estragon components, running and resizing in Godot 4.7. See [EXECUTION_PLAN.md](EXECUTION_PLAN.md).
 
-**Start here: ADR-0015-C4 [#83](https://github.com/resistdesign/Estragon/issues/83)** after C3 PR #82 merged (`ef1d713`). Canonical native cutover and retirement are submitted for review; Done only upon owner merge. Read the live issue/sole PR for exact verification/handoff.
+**Start here: ADR-0015-C4 [#83](https://github.com/resistdesign/Estragon/issues/83)** after C3 PR #82 merged (`ef1d713`). Canonical native cutover and retirement are submitted for review; Done only upon owner merge. [PR #84](https://github.com/resistdesign/Estragon/pull/84) is the sole review PR; read #83/#84 for final checks and exact handoff.
 
 **Present:** one Node-native compiler/editor/runtime/UI with canonical widgets, retained Counter and Gogo 2D/3D demos. The old production runtime, stage-0 JSON/reference compilers and temporary shims are retired in the C4 branch; [removal mapping](NODE_UI.md#c4-removal-inventory). Broader widgets and reactivity remain future work.
 

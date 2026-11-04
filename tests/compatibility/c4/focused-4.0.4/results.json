@@ -1,0 +1,159 @@
+{
+  "package_layout": {
+    "status": "PASS"
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.08,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "c5b16b4b874719b2b0f90f5e43de81685cf7fb6594e42ef4913d4bd75e03de96",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "scenes": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/project",
+      "--script",
+      "res://tests/distribution/scenes.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.35,
+    "log": "scenes.log",
+    "diagnostics": []
+  },
+  "cold_build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/cold",
+      "--script",
+      "res://tests/distribution/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.55,
+    "log": "cold_build.log",
+    "diagnostics": []
+  },
+  "cold_scenes": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/cold",
+      "--script",
+      "res://tests/distribution/scenes.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.35,
+    "log": "cold_scenes.log",
+    "diagnostics": []
+  },
+  "cold_editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/cold-editor",
+      "--editor",
+      "--audio-driver",
+      "Dummy",
+      "res://examples/counter/Counter.tscn"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.38,
+    "log": "cold_editor.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "c5b16b4b874719b2b0f90f5e43de81685cf7fb6594e42ef4913d4bd75e03de96",
+      "class_registry_log": "cold_editor.classes.json"
+    }
+  },
+  "pack_export": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--verbose",
+      "--audio-driver",
+      "Dummy",
+      "--editor",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/project",
+      "--export-pack",
+      "Native addon runtime",
+      "/home/runner/work/_temp/native-addon/4.0.4/distribution/4.0.4/addon.pck"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.43,
+    "log": "pack_export.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "pack_runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xoP39Q/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xoP39Q/pack-runtime",
+      "--main-pack",
+      "/home/runner/work/_temp/native-addon/4.0.4/distribution/4.0.4/addon.pck",
+      "--script",
+      "res://tests/distribution/scenes.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.35,
+    "log": "pack_runtime.log",
+    "diagnostics": []
+  }
+}
