@@ -1,0 +1,31 @@
+extends Node
+const Entry2D = preload("res://addons/estragon/layout_proof/entry_2d.gd")
+const Entry3D = preload("res://addons/estragon/layout_proof/entry_3d.gd")
+
+func make_2d() -> Node2D:
+    return <Entry2D name="Layout2D" position={Vector2(0, 50)} height={70.0} gap={20.0} center={true} viewport_width_scale={1.0} tint={Color.TRANSPARENT}>
+        <Entry2D name="Left" width={100.0} height={70.0} />
+        <Entry2D name="Branch" gap={10.0} tint={Color.TRANSPARENT}>
+            <Entry2D name="InnerA" width={50.0} height={45.0} tint={Color(0.6, 0.3, 0.9)} />
+            <Entry2D name="InnerB" width={50.0} height={70.0} tint={Color(0.3, 0.55, 0.95)} />
+        </Entry2D>
+        <Node2D name="NativeBoundary" position={Vector2(30, 180)}>
+            <Entry2D name="Reentry" gap={8.0} tint={Color.TRANSPARENT}>
+                <Entry2D name="Independent" width={80.0} height={35.0} tint={Color(1, 0.65, 0.2)} />
+            </Entry2D>
+        </Node2D>
+    </Entry2D>
+
+func make_3d() -> Node3D:
+    return <Entry3D name="Layout3D" position={Vector3(-4, 0, 0)} height={1.4} depth={1.0} gap={0.4} center={true} viewport_width_scale={0.0125} tint={Color.TRANSPARENT}>
+        <Entry3D name="Left" width={1.5} height={1.4} depth={1.0} />
+        <Entry3D name="Branch" gap={0.2} tint={Color.TRANSPARENT}>
+            <Entry3D name="InnerA" width={0.8} height={0.8} depth={0.8} tint={Color(0.6, 0.3, 0.9)} />
+            <Entry3D name="InnerB" width={0.8} height={1.4} depth={1.0} tint={Color(0.3, 0.55, 0.95)} />
+        </Entry3D>
+        <Node3D name="NativeBoundary" position={Vector3(0.6, -2, 0)}>
+            <Entry3D name="Reentry" tint={Color.TRANSPARENT}>
+                <Entry3D name="Independent" width={1.2} height={0.5} depth={0.6} tint={Color(1, 0.65, 0.2)} />
+            </Entry3D>
+        </Node3D>
+    </Entry3D>

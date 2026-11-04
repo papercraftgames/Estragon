@@ -1,0 +1,76 @@
+{
+  "core": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/project",
+      "--script",
+      "res://tests/layout_proof/core.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.57,
+    "log": "core.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/project",
+      "--script",
+      "res://examples/layout_proof/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.65,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/project",
+      "--script",
+      "res://tests/layout_proof/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.02,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-FgDheR/project",
+      "--script",
+      "res://tests/layout_proof/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.68,
+    "log": "visual.log",
+    "diagnostics": []
+  }
+}

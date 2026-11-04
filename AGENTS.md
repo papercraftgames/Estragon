@@ -24,7 +24,7 @@ force-pushing, remote branch deletion or merging PRs.
 
 **Gogo** is the GDScript-like language in `.gogo`; **GGX** is its general-purpose embedded XML-like **Node composition syntax**, not just Estragon markup. Compile to typed native GDScript using the bundled Godot-only compiler, source maps and fail-closed validation. Read [ADR-0015](docs/DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) and [the staged migration plan](docs/NODE_MIGRATION_PLAN.md), derived from [owner architecture #68](https://github.com/resistdesign/Estragon/issues/68).
 
-**Present implementation is different:** `EstragonDisplayObject extends RefCounted`, containers own private child lists, and `EstragonSurface extends Node` draws through a RenderingServer canvas item. T04–T07 compile five Estragon built-ins; N01–N03 provide the native compiler/editor. Basic text/buttons and pointer input work. A separately selected [B1 native Node composition proof](docs/NODE_COMPOSITION_PROOF.md) is implemented experimentally; general Node-native GGX, 3D layout, adapters, bindable properties and repeaters remain **not implemented**. Preserve existing examples/evidence during reviewed migration. The namespaced XML/JSON demo remains stage-0 legacy.
+**Present implementation is different:** `EstragonDisplayObject extends RefCounted`, containers own private child lists, and `EstragonSurface extends Node` draws through a RenderingServer canvas item. T04–T07 compile five Estragon built-ins; N01–N03 provide the native compiler/editor. Basic text/buttons and pointer input work. Separate experimental [B1 composition](docs/NODE_COMPOSITION_PROOF.md) and [B2 composed 2D/3D layout](docs/NODE_LAYOUT_PROOF.md) proofs work through explicitly selected APIs. General Node-native compiler/component migration, B3 native layout adapters, bindable properties and repeaters remain **not implemented**. Preserve existing examples/evidence during reviewed migration. The namespaced XML/JSON demo remains stage-0 legacy.
 
 ## Target authoring and runtime contract (planned, not shipped)
 
@@ -138,6 +138,8 @@ diagnostic degradation does not permit stale source or cache takeover.
 
 **Implemented:**
 
+- `addons/estragon/layout_proof/`: experimental B2 Node2D/Node3D entries/participants sharing one pure row-layout core and native event coordinator. See [B2 contract](docs/NODE_LAYOUT_PROOF.md) and 2D/3D `examples/layout_proof` demos. Bounded proof defaults are proposed for review, not a full component migration or B3 adapters.
+
 - `addons/estragon/compiler/node_proof/`: opt-in ADR-0015-B1 compiler proof, separate from default frontend/editor builds. See [B1 contract/evidence](docs/NODE_COMPOSITION_PROOF.md) and `examples/node_proof/Main.tscn`; no B2/B3 layout or adapters.
 
 - `addons/estragon/compiler/`: N01 native GDScript lexer, hybrid parser, typed built-in validation and source diagnostics, independent of editor/runtime/Bun. N02 adds native emission/maps and explicit Godot semantic validation; N03 uses them directly for native editor builds, transactional publication and Script refresh; no executable setup is needed. See GOGO_LANGUAGE and the Godot-only `sh tools/check-native-frontend.sh` and `sh tools/check-native-generation.sh` harnesses. Native compile API: `compiler.gd`; semantic validation: `script_validation.gd`; no external process or file publication is involved.
@@ -152,7 +154,7 @@ diagnostic degradation does not permit stale source or cache takeover.
 
 **Not implemented:**
 
-- General ADR-0015 Node-native GGX/compiler migration, Estragon Node2D/Node3D layout participants, explicit layout entries, native layout adapters and shared 2D/3D composed measure/arrange. B1 only proves bounded native composition through an opt-in API.
+- General ADR-0015 Node-native GGX/compiler/component migration and B3 native layout adapters. B1/B2 prove bounded native composition and explicit spatial entries with composed row measurement/arrangement only.
 
 - Reconciliation, generalized layout beyond the minimal stack rules, general styling, keyboard/touch input, focus, accessibility, or a broader widget catalog.
 - Gogo-only lowercase `@bindable` compilation, code-only bindable model classes, one-/two-way Gogo bindings, ArrayCollection-like observable collections, keyed list reconciliation, reactive position/layout properties or a dependency graph.
@@ -201,7 +203,7 @@ merged or closed. Finish or close it before opening the next PR. A blocked PR
 must record evidence and be presented for an owner decision; do not bypass it with
 another PR. **Never merge automatically.** Every task requires an issue,
 actionable plan, implementation checkpoints, exact verification evidence and a
-cross-session handoff. Follow ADR-0015-A #69 and the staged Node migration queue in
+cross-session handoff. Follow the active issue and staged Node migration queue in
 [EXECUTION_PLAN](docs/EXECUTION_PLAN.md); C01 release blockers remain separate.
 Do not start a successor while the current review PR is open.
 

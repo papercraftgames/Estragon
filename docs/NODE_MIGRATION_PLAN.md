@@ -1,6 +1,6 @@
 # ADR-0015 staged Node-native migration
 
-**Staged plan:** ADR-0015-A merged in PR #70; [B1 #71](https://github.com/resistdesign/Estragon/issues/71) submits the separate bounded [composition proof](NODE_COMPOSITION_PROOF.md). B2/B3 and the broader migration remain unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
+**Staged plan:** ADR-0015-A merged in PR #70; B1 #71 merged in PR #72 with its bounded [composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) submits the [shared spatial layout proof](NODE_LAYOUT_PROOF.md). B3 and broader migration remain unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
 
 ## Sequence and gates
 
@@ -14,7 +14,7 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 
 ### ADR-0015-B1 — GGX native composition, signals and persistence
 
-**Tracking:** [#71](https://github.com/resistdesign/Estragon/issues/71); [bounded implementation/evidence](NODE_COMPOSITION_PROOF.md). Owner review/merge still required.
+**Tracking:** [#71](https://github.com/resistdesign/Estragon/issues/71); [bounded implementation/evidence](NODE_COMPOSITION_PROOF.md). Merged PR #72; scope remains bounded.
 
 **Prerequisite:** #69 merged; current main/open PRs/handoffs checked. **Layers:** isolated native compiler/type-resolution proof, fixtures, native tests and source maps. No new layout library or component migration.
 
@@ -27,6 +27,8 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 **Acceptance:** automated actual runtime values, tree types/order, connection counts, instance IDs before/after native moves, cleanup and saved/reloaded scene assertions on 4.0.4/4.7.0; isolated editor persistence test; fresh Godot-only compile/validation with tools absent. Attach exact commands/logs/provenance and relevant negative outcomes. Native graphics evidence is separate when the fixture presents visuals. Existing release verdict remains unchanged.
 
 ### ADR-0015-B2 — Explicit entries and composed measure/arrange
+
+**Tracking:** [#73](https://github.com/resistdesign/Estragon/issues/73); [bounded proof contract and evidence](NODE_LAYOUT_PROOF.md). Proposed X-row/local-space/authority defaults were recorded before code; owner review/merge still required.
 
 **Prerequisite:** B1 merged; reviewed bounded coordinate/authority contract in the task issue. **Layers:** pure mathematical layout core plus minimal Node2D/Node3D entry/participant proof; no broader widgets, bindings or wrapping engine.
 

@@ -13,8 +13,8 @@ C01 gate infrastructure and scoped helper fix #67 are merged; **strict release r
 [ADR-0015 / #68](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) replaces the old independent-tree/no-Node/self-render-everything future direction. Gogo is the language; GGX is general-purpose Node composition. Estragon focuses on layout-first 2D UI and analogous 3D components, with Godot retaining native services.
 
 1. **ADR-0015-A #69:** docs-only formalization merged in PR #70.
-2. **B1 #71:** [bounded opt-in proof/example](NODE_COMPOSITION_PROOF.md) submitted for review: native composition, typed values/named signals, transforms, lifecycle and scene/editor persistence; default compiler/runtime unchanged.
-3. **B2:** explicit 2D/3D entries, Node2D/Node3D participants and composed mathematical measure/arrange, retained identity and event-driven reflow.
+2. **B1 #71:** [bounded opt-in proof/example](NODE_COMPOSITION_PROOF.md) merged in PR #72: native composition, typed values/named signals, transforms, lifecycle and scene/editor persistence; default compiler/runtime unchanged.
+3. **B2 #73:** [shared spatial entry/row-layout proof](NODE_LAYOUT_PROOF.md) submitted for review, with proposed bounded units/authority, retained identity and event-driven reflow. B3 remains unstarted.
 4. **B3:** Native2D/Native3D adapter bounds/authority, optional measurement, branch-local invalidation and feedback prevention.
 
 Exit: the complete minimal native proof is reviewed with actual automated runtime/editor and native graphics evidence where relevant. Partial proof is not migration. [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) defines per-PR acceptance, dependencies and open decisions. No successor is started by #69.

@@ -32,6 +32,13 @@ jobs:
         run: |
           corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1"
           corepack yarn@1.22.22 node --experimental-strip-types "$GITHUB_WORKSPACE/tools/check-node-proof.ts" --engine "$GODOT_BIN" --output "$RUNNER_TEMP/ggx-b1" --phase visual
+      - name: B2 shared 2D/3D layout, native runtime and graphics proof
+        working-directory: ${{ runner.temp }}
+        run: >-
+          corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-layout-proof.ts"
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/ggx-b2" --graphics
       - name: Collect actual native compiler/runtime evidence
         run: >-
           node --disable-warning=ExperimentalWarning --experimental-strip-types
@@ -75,6 +82,7 @@ jobs:
         with:
           name: godot-4.0.4-native-evidence
           path: |
+            ${{ runner.temp }}/ggx-b2
             ${{ runner.temp }}/compatibility
             ${{ runner.temp }}/editor-lifecycle
             ${{ runner.temp }}/editor-play
