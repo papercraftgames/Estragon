@@ -16,8 +16,14 @@ for(const selection of options.engines){const box=newSandbox(selection),output=p
   for(const name of ['counter','ggx'])fs.rmSync(path.join(cold,'examples',name,'generated'),{recursive:true,force:true});
   await run('cold_build',cold,'res://tests/distribution/build.gd','ADDON_COLD_BUILD_OK');
   await run('cold_scenes',cold,'res://tests/distribution/scenes.gd','ADDON_DISTRIBUTION_OK');
+  const coldEditor=path.join(box.workspace,'cold-editor');fs.cpSync(cold,coldEditor,{recursive:true});
+  fs.rmSync(path.join(coldEditor,'.godot'),{recursive:true,force:true});
+  for(const name of ['counter','ggx'])fs.rmSync(path.join(coldEditor,'examples',name,'generated'),{recursive:true,force:true});
+  fs.appendFileSync(path.join(coldEditor,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://addons/estragon/editor/plugin.cfg")\n');
+  stages.cold_editor=await indexProject(box,coldEditor,path.join(output,'cold_editor.log'),['--audio-driver','Dummy','res://examples/counter/Counter.tscn']);
+  if(stages.cold_editor.status!=='PASS')throw Error('Native cold editor scene restoration failed');
   const resources=['examples/counter/Counter.tscn','examples/ggx/TwoD.tscn','examples/ggx/ThreeD.tscn','tests/distribution/scenes.gd',...listGDScripts(path.join(box.project,'addons/estragon/runtime')).map(f=>path.relative(box.project,f))];
-  fs.writeFileSync(path.join(box.project,'export_presets.cfg'),'[preset.0]\nname="Native addon runtime"\nplatform="Linux/X11"\nrunnable=true\nexport_filter="resources"\nexport_files=PackedStringArray('+resources.map(p=>'"res://'+p+'"').join(',')+')\ninclude_filter="*.gogo,*.json"\nexclude_filter=""\nexport_path=""\nscript_export_mode=1\n[preset.0.options]\n');
+  fs.writeFileSync(path.join(box.project,'export_presets.cfg'),'[preset.0]\nname="Native addon runtime"\nplatform="Linux/X11"\nrunnable=true\nexport_filter="resources"\nexport_files=PackedStringArray('+resources.map(p=>'"res://'+p+'"').join(',')+')\ninclude_filter="*.gogo,*.json"\nexclude_filter=""\nexport_path=""\nscript_export_mode=1\n[preset.0.options]\nbinary_format/architecture="x86_64"\n');
   const pack=path.join(output,'addon.pck');
   stages.pack_export=await runCommand([box.binary,'--headless','--audio-driver','Dummy','--editor','--path',box.project,'--export-pack','Native addon runtime',pack],box.workspace,box.env,path.join(output,'pack_export.log'),undefined,{abortOnError:true,timeout:90000});
   process.stdout.write(fs.readFileSync(path.join(output,'pack_export.log'),'utf8'));

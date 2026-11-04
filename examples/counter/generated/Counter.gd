@@ -159,11 +159,11 @@ class _GogoFactories_0:
         component_8.owner = component_0
         component_1.owner = component_0
         if not _gogo_value_13.is_valid() or component_6.pressed.connect(_gogo_value_13, Object.CONNECT_PERSIST) != OK:
-            push_error("examples/native_counter/Counter.gogo:27:79: Node GGX signal pressed requires a valid Callable/connection")
+            push_error("examples/counter/Counter.gogo:27:79: Node GGX signal pressed requires a valid Callable/connection")
             component_0.free()
             return null
         if not _gogo_value_16.is_valid() or component_7.pressed.connect(_gogo_value_16, Object.CONNECT_PERSIST) != OK:
-            push_error("examples/native_counter/Counter.gogo:28:95: Node GGX signal pressed requires a valid Callable/connection")
+            push_error("examples/counter/Counter.gogo:28:95: Node GGX signal pressed requires a valid Callable/connection")
             component_0.free()
             return null
         return component_0

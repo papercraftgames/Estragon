@@ -5,7 +5,7 @@ export const REQUIRED = [
  'runtime.core','runtime.runtime','runtime.import','runtime.editor-1','runtime.editor-2','runtime.visual',
  'ggx.build','ggx.import','ggx.runtime','ggx.editor','ggx.visual',
  'ui.build','ui.import','ui.runtime','ui.editor','ui.visual',
- 'metadata','distribution.package_layout','distribution.import','distribution.scenes','distribution.cold_build','distribution.cold_scenes','distribution.pack_export','distribution.pack_runtime'
+ 'metadata','distribution.package_layout','distribution.import','distribution.scenes','distribution.cold_editor','distribution.cold_build','distribution.cold_scenes','distribution.pack_export','distribution.pack_runtime'
 ] as const;
 export function assessRelease(stages:Record<string,Stage>){
  const missing=REQUIRED.filter(name=>stages[name]?.status!=='PASS');

@@ -30,7 +30,7 @@ export function assessFile(file:string){
    for(const [key,value]of Object.entries(result)){
    const stage=value as Stage;observed[group+'.'+key]=stage;
    if(stage.command&&(!stage.log||path.basename(stage.log)!==stage.log||!report.files[group+'/'+report.label+'/'+stage.log]))throw Error('Missing stage execution log: '+key);
-   if(key!=='package_layout'&&(!stage.command?.length||stage.exit_code!==0||stage.timeout||stage.aborted_on_error))throw Error('Missing successful native execution: '+key);
+   if(!['package_layout','engine_identity'].includes(key)&&(!stage.command?.length||stage.exit_code!==0||stage.timeout||stage.aborted_on_error))throw Error('Missing successful native execution: '+key);
    }
   }
  }

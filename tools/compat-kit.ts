@@ -111,6 +111,9 @@ export function newSandbox(selection: EngineSelection): Sandbox {
     const binary = path.join(workspace, "godot");
     copyFile(path.resolve(selection.binary), binary);
     fs.chmodSync(binary, 0o755);
+    // All editor entry points use self-contained settings, including focused
+    // compiler/distribution runs; XDG alone does not isolate macOS preferences.
+    fs.writeFileSync(path.join(workspace, "_sc_"), "");
     const inputHash = sha256(binary);
     // macOS executables are verified *before* ad-hoc signing copies.
     if (process.platform === "darwin") {
@@ -204,6 +207,7 @@ export async function indexProject(sandbox: Sandbox, project: string, log: strin
   try {
     const expected: Record<string, string> = {};
     const scan = (folder: string): void => {
+      if (fs.existsSync(path.join(folder, ".gdignore"))) return;
       for (const item of fs.readdirSync(folder, { withFileTypes: true })) {
         if (item.name === ".godot") continue;
         const full = path.join(folder, item.name);
