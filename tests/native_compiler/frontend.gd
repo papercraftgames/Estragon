@@ -9,6 +9,8 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 func _initialize() -> void:
 	var examples := [
+		'extends Node\nfunc make(): return <EstragonVBox><EstragonText text="native" /><EstragonButton text="framework" /></EstragonVBox>\n',
+		'extends Node\nfunc make(): return <Button text="Godot" />\n',
 		'extends Node\nfunc make(): return <Node name="root"><Node2D position={Vector2(1,2)} /><Timer wait_time={0.5} /></Node>\n',
 		'extends Node\n# <ignored/>\nvar text = "<ignored>"\nvar multi = """<ignored>\n# quoted\n"""\nfunc make():\n\treturn <Node name={"a" if 1 < 2 else "b"} />\n',
 		'extends Node\nfunc make():\n\tvar create := func(value: String): return <Node name={value} />\n\treturn create.call("lambda")\n',
@@ -23,6 +25,7 @@ func _initialize() -> void:
 		check(first.ok,"valid lexical/native expression: "+str(first.diagnostics))
 		if not first.ok: continue
 		check(first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"deterministic code/maps")
+		if source.contains('<Button '): check(first.code.contains('Button.new()') and not first.code.contains('EstragonButton.new()'),"Button retains ordinary Godot class meaning")
 		check(not first.code.contains("!= OK:\n\t\t\tpush_error(\"test.gogo:1"),"no obsolete Error-returning child attachment")
 		var script := GDScript.new()
 		script.source_code = first.code
