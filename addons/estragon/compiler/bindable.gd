@@ -23,7 +23,7 @@ func _collect(parts: Array) -> void:
 			var token = lexer.next_token(cursor)
 			if token == null: return
 			cursor = token.span.end.index
-			if token.kind == "identifier" and token.text in ["var","signal","const","func","class"] and token.span.start.column == 1:
+			if token.kind == "identifier" and token.text in ["var","signal","const","func","class"] and (token.span.start.column == 1 or file.text[file.line_start(token.span.start.line)] == "@"):
 				var name = lexer.next_token(cursor)
 				while name != null and name.kind == "whitespace": name = lexer.next_token(name.span.end.index)
 				if name != null and name.kind == "identifier": members[name.text] = name.span
@@ -52,7 +52,7 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 				var name = lexer.next_token(cursor)
 				if name == null: break
 				if name.text.to_lower() == "bindable":
-					if file.name.ends_with(".gd") or file.name.ends_with(".bgd"):
+					if file.name.get_extension().to_lower() in ["gd","bgd"]:
 						file.fail("@bindable is supported only in Gogo source",token.span.start.index,name.span.end.index)
 						break
 					if name.text != "bindable":
@@ -72,7 +72,7 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 					copied = cursor
 					pending_annotation = false
 					continue
-				if token.span.start.column == 1: pending_annotation = true
+				if token.span.start.column == 1: pending_annotation = name.text not in ["tool","icon","static_unload"]
 			elif token.text == "var" or token.kind not in ["whitespace","comment","newline"] and token.span.start.column == 1: pending_annotation = false
 		if copied < part.span.end.index:
 			var after := Model.Code.new()

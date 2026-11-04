@@ -70,7 +70,7 @@ func _success(mode: String, value: int) -> void:
 	_play(mode)
 	if await _until(func(): return FileAccess.file_exists(PROOF), mode + " child executes current GGX"):
 		var proof = JSON.parse_string(FileAccess.get_file_as_string(PROOF))
-		_check(_interface.is_playing_scene() and proof.initial==value and proof.count==value+2 and proof.events==[[value,value+1],[value+1,value+2]], mode+" executes newest Gogo native layout")
+		_check(_interface.is_playing_scene() and proof.initial==value and proof.count==value+2 and proof.events.size()==2 and int(proof.events[0][0])==value and int(proof.events[0][1])==value+1 and int(proof.events[1][0])==value+1 and int(proof.events[1][1])==value+2, mode+" executes newest Gogo native layout")
 	await _stop()
 
 func _blocked(mode: String, diagnostic: String) -> void:
@@ -113,7 +113,7 @@ func _run() -> void:
 		_counter.text = _source.replace("count += 1",'count += "bad"')
 		await _blocked(mode,"Model.gogo:")
 		_counter.text = _source.replace("count: int = 3",'count: int = "wrong type"')
-		await _blocked(mode,"Model.gogo:")
+		await _blocked(mode,"Model.gogo:4:")
 		_counter.text = _source
 		await _success(mode,3)
 		var moved := SOURCE+".backup"

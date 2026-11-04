@@ -1,3 +1,5 @@
+**Current implementation:** T09-A #43 implements [observable typed Gogo properties/code-only models](BINDABLE_PROPERTIES.md), not automatic UI bindings. C4 is merged; the canonical runtime is native Node2D/Node3D with composed layout, and RefCounted data models are values, never UI hierarchy elements. Remaining dependency/nested-path/collection/two-way proposals below are future T09-B/C/D. Historical surface/Box/no-Node statements are superseded by ADR-0015/C4.
+
 # Bindable properties and reactivity
 
 **Status: planned; owner-approved source boundary 2026-10-29.** Only `@bindable` (lowercase) in **authored `.gogo`** is an accepted annotation. Ordinary authored `.gd` remains normal GDScript; it must not contain a custom Estragon annotation. The prior `@Bindable`-in-`.gd` direction is superseded by [ADR-0013](DECISIONS.md). [R01 research](BINDABLE_FEASIBILITY.md) is retained as evidence explaining why native Godot 4.7 did not support the old proposal. No observable property transformation or reactive binding is implemented yet.

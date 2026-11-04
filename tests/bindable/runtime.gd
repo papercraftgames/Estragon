@@ -48,6 +48,13 @@ func run() -> void:
 	model.enabled = false
 	check(events==[[true,false]],"derived property has independent typed notification")
 	model.enabled_changed.disconnect(record)
+	events.clear()
+	model.amount_changed.connect(record)
+	model.amount = 1.0
+	model.amount = 1.0
+	model.amount = 1.0000000001
+	check(events.size()==2,"native exact value equality, not approximate float suppression")
+	model.amount_changed.disconnect(record)
 	model.items_changed.connect(record)
 	events.clear()
 	var items: Array[int] = []
@@ -85,6 +92,7 @@ func run() -> void:
 	events.clear()
 	model = null
 	check(weak.get_ref()==null,"non-Node model releases without generated ownership cycles")
+	events.clear()
 	# Code-only module imports, native property initialization and typed Node scope.
 	var source := 'extends RefCounted\nvar seen: Array = []\n@bindable var count: int = 3 # keep comment\nfunc _init():\n\tcount_changed.connect(changed)\n\tcount = 4\nfunc changed(a: int,b: int): seen.append([a,b])\n'
 	var output := Compiler.compile(source,"init.gogo")
@@ -96,6 +104,10 @@ func run() -> void:
 	check(initialized.count==4 and initialized.seen==[[3,4]],"declaration quiet, _init assignment observes initialized value")
 	var again := Compiler.compile(source,"init.gogo")
 	check(output.code==again.code and output.source_map.serialize()==again.source_map.serialize(),"deterministic bindable emission/maps")
+	for line in range(output.code.split("\n").size()):
+		if output.code.split("\n")[line].begins_with("var count:"):
+			var original = output.source_map.original_position(line+1,1)
+			check(original != null and original.line==3 and original.column==11,"typed declaration maps to authored inline var, not generated signal/setter")
 	check(not output.code.contains("@bindable") and output.code.contains("signal count_changed"),"ordinary GDScript only")
 	var node_compiled := Compiler.compile('extends Node\n@bindable var score: int = 1\n',"node.gogo")
 	script = GDScript.new()
@@ -119,6 +131,10 @@ func run() -> void:
 		var result := Compiler.compile('extends RefCounted\n'+bad+'\n',"negative.gogo")
 		check(not result.ok and result.diagnostics.size()==1,"source annotation/declaration collision rejection: "+bad)
 		if not result.ok: check(result.diagnostics[0].span.start.line>=2,"authored annotation diagnostic line")
+	var forbidden := Compiler.compile("extends RefCounted\n@bindable var count: int = 0\n","ordinary.gd")
+	check(not forbidden.ok and forbidden.diagnostics[0].span.start.line==2,"annotation never added to ordinary .gd")
+	var crlf := Compiler.compile("extends RefCounted\r\n# 😀 unicode comment\r\n@Bindable var count: int = 0\r\n","crlf.gogo")
+	check(not crlf.ok and crlf.diagnostics[0].span.start.line==3 and crlf.diagnostics[0].span.start.column==1,"CRLF/Unicode authored annotation span")
 	var ordinary := Compiler.compile('extends RefCounted\n# @bindable var fake\nvar text = "@bindable var fake"\n',"ordinary.gogo")
 	check(ordinary.ok and not ordinary.code.contains("fake_changed"),"strings/comments are lexical, never annotations")
 	print("BINDABLE_ASSERTIONS ",checks," failures=",failures)
