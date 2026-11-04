@@ -41,7 +41,9 @@ for (const selection of options.engines) {
         const resources = ['examples/counter/Counter.tscn', 'examples/ggx/TwoD.tscn', 'examples/ggx/ThreeD.tscn', 'tests/distribution/scenes.gd', ...[...listGDScripts(path.join(box.project, 'addons/estragon/runtime')), ...listGDScripts(path.join(box.project, 'examples'))].map(f => path.relative(box.project, f))];
         fs.writeFileSync(path.join(box.project, 'export_presets.cfg'), '[preset.0]\nname="Native addon runtime"\nplatform="Linux/X11"\nrunnable=true\nexport_filter="resources"\nexport_files=PackedStringArray(' + resources.map(p => '"res://' + p + '"').join(',') + ')\ninclude_filter="*.gogo,*.json"\nexclude_filter=""\nexport_path=""\nscript_export_mode=1\n[preset.0.options]\nbinary_format/architecture="x86_64"\n');
         const pack = path.join(output, 'addon.pck');
-        stages.pack_export = await runCommand([box.binary, '--headless', '--audio-driver', 'Dummy', '--editor', '--path', box.project, '--export-pack', 'Native addon runtime', pack], box.workspace, box.env, path.join(output, 'pack_export.log'), undefined, { abortOnError: true, timeout: 90000 });
+        // Let the engine finish cleanup so diagnostics identify retained resources;
+        // runCommand still rejects every native error/leak even with exit zero.
+        stages.pack_export = await runCommand([box.binary, '--headless', '--verbose', '--audio-driver', 'Dummy', '--editor', '--path', box.project, '--export-pack', 'Native addon runtime', pack], box.workspace, box.env, path.join(output, 'pack_export.log'), undefined, { timeout: 90000 });
         process.stdout.write(fs.readFileSync(path.join(output, 'pack_export.log'), 'utf8'));
         if (!fs.existsSync(pack) || fs.statSync(pack).size === 0 || stages.pack_export.status !== 'PASS')
             throw Error('Native addon consumer editor pack export failed');
