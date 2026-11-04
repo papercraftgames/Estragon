@@ -36,23 +36,7 @@ for(const selection of options.engines) {
   for(const pass of [1,2]) {
    const stage=await indexProject(sandbox,sandbox.project,path.join(output,`editor-${pass}.log`),['--audio-driver','Dummy']);
    stages.push(stage);
-   if(stage.status!=='PASS') {
-    // Full repository includes intentionally 4.7-only R01 research. Keep its
-    // actual FAIL evidence, allow only the measured 4.0 diagnostics.
-    const log=fs.readFileSync(path.join(output,`editor-${pass}.log`),'utf8');
-    const errors=log.split(/\r?\n/).filter(line=>line.startsWith('SCRIPT ERROR:')||line.startsWith('ERROR:'));
-    const expected=[
-     'SCRIPT ERROR: Parse Error: Could not find base class "Logger".',
-     'SCRIPT ERROR: Parse Error: Could not resolve script "res://tests/research/bindable/capture.gd".',
-     "SCRIPT ERROR: Parse Error: Cannot infer the type of \"capture\" variable because the value doesn't have a set type.",
-     'SCRIPT ERROR: Parse Error: Static function "add_logger()" not found in base "OS".',
-     'SCRIPT ERROR: Parse Error: Static function "remove_logger()" not found in base "OS".',
-     "SCRIPT ERROR: Parse Error: Cannot infer the type of \"diagnostics\" variable because the value doesn't have a set type."
-    ];
-    if(selection.label!=='4.0.4'||stage.exit_code!==0||stage.timeout||!log.includes('C01_PROJECT_INDEX_READY')||!errors.length||errors.some(e=>!expected.includes(e))||[...log.matchAll(/^SCRIPT ERROR:.*\n([^\n]*)/gm)].some(m=>!/^\s+at: GDScript::reload \(res:\/\/tests\/research\/bindable\/(capture|probe)\.gd:\d+\)$/.test(m[1]!)))throw Error('Metadata import failed: '+JSON.stringify(stage));
-    stage.known_limitation='Existing R01 Logger-based research is 4.7-only; editor diagnostic result remains FAIL, metadata assertions are separate.';
-    console.log('KNOWN_4_0_RESEARCH_EDITOR_FAIL '+errors.length+' diagnostics (raw log retained)');
-   }
+   if(stage.status!=='PASS')throw Error('Clean native-addon import failed: '+JSON.stringify(stage));
    const rewritten=[...baseline].filter(([p,hash])=>sha256(path.join(sandbox.project,p))!==hash).map(([p])=>({path:p,before:fs.readFileSync(path.join(ROOT,p),'utf8'),after:fs.readFileSync(path.join(sandbox.project,p),'utf8')}));
    if(rewritten.length) {
     writeJSON(path.join(output,'rewritten.json'),rewritten);
@@ -69,7 +53,7 @@ for(const selection of options.engines) {
     console.log('KNOWN_4_0_ASSET_NORMALIZATION '+rewritten.length+' settings files; UIDs unchanged, second import must be stable');
    }
   }
-  const identity=await runCommand([sandbox.binary,'--headless','--path',sandbox.project,'--script','res://tests/adapter_proof/metadata.gd'],sandbox.workspace,sandbox.env,path.join(output,'identity.log'),'GODOT_METADATA_IDENTITY_OK',{abortOnError:true});
+  const identity=await runCommand([sandbox.binary,'--headless','--path',sandbox.project,'--script','res://tests/metadata/identity.gd'],sandbox.workspace,sandbox.env,path.join(output,'identity.log'),'GODOT_METADATA_IDENTITY_OK',{abortOnError:true});
   stages.push(identity);
   if(identity.status!=='PASS')throw Error('Metadata identity/import failed: '+JSON.stringify(identity));
   const allowed=new Set(files);

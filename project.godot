@@ -14,8 +14,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Estragon (prototype)"
-run/main_scene="res://examples/hello/Hello.tscn"
+config/name="Estragon"
+run/main_scene="res://examples/counter/Counter.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 
 [display]
@@ -27,3 +27,7 @@ window/size/viewport_height=540
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[editor]
+
+export/convert_text_resources_to_binary=false

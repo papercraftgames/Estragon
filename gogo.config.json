@@ -1,10 +1,7 @@
 {
   "version": 1,
   "source_roots": [
-    "examples/compiled",
-    "examples/mixed",
     "examples/counter",
-    "examples/ggx",
-    "examples/native_counter"
+    "examples/ggx"
   ]
 }

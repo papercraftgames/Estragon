@@ -1,46 +1,29 @@
 extends SceneTree
-## Runs from a cache-free distributed project and from an exported resource pack.
-var _failed := false
-var _checks := 0
-
-func _initialize() -> void:
-	_run.call_deferred()
-
-func _check(value: bool, message: String) -> void:
-	_checks += 1
-	print("C01_H_CHECK ", message, ": ", value)
+var failures: int = 0
+func check(value: bool, message: String) -> void:
 	if not value:
-		_failed = true
-		push_error("Distribution: " + message)
-
-func _run() -> void:
-	var packed_mode := OS.get_cmdline_user_args().has("--pack")
-	if not packed_mode:
-		_check(ProjectSettings.get_setting("application/config/features")[0] == "4.0", "source project declares baseline 4.0")
-		_check(not DirAccess.dir_exists_absolute("res://tools") and not FileAccess.file_exists("res://package.json"), "distributed addon has no contributor toolchain")
-	else:
-		# Godot stamps its own engine feature into project.binary on export.
-		_check(ProjectSettings.get_setting("application/config/features").has("GL Compatibility"), "export retains renderer feature")
-	for scene in ["hello/Hello", "layout/Layout", "compiled/Compiled", "mixed/Mixed", "interactive/Interactive", "counter/Counter"]:
-		var location: String = "res://examples/" + scene + ".tscn"
-		var packed := load(location) as PackedScene
-		_check(packed != null and packed.can_instantiate(), "scene/dependencies load: " + scene)
-		if packed == null or not packed.can_instantiate(): continue
-		var host := packed.instantiate()
-		root.add_child(host)
-		await process_frame
-		_check(host.get_child_count() == 0 and not host is Control, "single host, independent components: " + scene)
-		if scene == "counter/Counter":
-			_check(host.count == 0 and host.get_root().get_children()[1].text == "Count: 0", "shipped generated Counter executes")
-			host.increment()
-			await process_frame
-			_check(host.count == 1, "shipped generated callback")
-			host.reset_count()
-			_check(host.count == 0, "shipped generated reset")
-		host.free()
-	_check(FileAccess.file_exists("res://examples/hello/generated/Main.gogo.json"), "legacy JSON included")
-	if packed_mode:
-		_check(FileAccess.file_exists("res://examples/counter/Counter.gogo"), "authored Gogo included by explicit export filter")
-	print("C01_H_DISTRIBUTION_ASSERTIONS ", _checks)
-	if not _failed: print("C01_H_DISTRIBUTION_OK")
-	quit(1 if _failed else 0)
+		failures += 1
+		push_error(message)
+func _initialize() -> void:
+	run.call_deferred()
+func run() -> void:
+	check(not DirAccess.dir_exists_absolute("res://tools") and not FileAccess.file_exists("res://package.json"),"addon distribution has no contributor compiler/toolchain")
+	for name in ["counter/Counter","ggx/TwoD","ggx/ThreeD"]:
+		var packed: PackedScene = load("res://examples/"+name+".tscn")
+		check(packed!=null and packed.can_instantiate(),"distributed native scene loads: "+name)
+		if packed==null: continue
+		var scene: Node = packed.instantiate()
+		root.add_child(scene)
+		for index in range(6): await process_frame
+		if name=="counter/Counter":
+			check(scene.ui is Node2D and scene.count==0,"native Counter hierarchy")
+			scene.increment()
+			check(scene.count==1 and scene.ui.get_node("Panel/Count").text=="Count: 1","source-authored native Counter executes")
+			scene.reset_count()
+			check(scene.count==0,"native reset")
+		else:
+			check(scene.entry is Node2D if name=="ggx/TwoD" else scene.entry is Node3D,"native dimensional scene hierarchy")
+		scene.free()
+	check(FileAccess.file_exists("res://examples/counter/Counter.gogo"),"authored source included")
+	if failures==0: print("ADDON_DISTRIBUTION_OK")
+	quit(0 if failures==0 else 1)

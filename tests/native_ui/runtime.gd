@@ -1,11 +1,11 @@
 extends SceneTree
 const Component = preload("res://addons/estragon/runtime/node/component_2d.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const HBox = preload("res://addons/estragon/runtime/node/hbox_2d.gd")
-const VBox = preload("res://addons/estragon/runtime/node/vbox_2d.gd")
-const Rect = preload("res://addons/estragon/runtime/node/rect_2d.gd")
-const Text = preload("res://addons/estragon/runtime/node/text_2d.gd")
-const NativeButton = preload("res://addons/estragon/runtime/node/button_2d.gd")
+const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
+const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
+const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const NativeButton = preload("res://addons/estragon/runtime/node/button.gd")
 var failed: int = 0
 var assertions: int = 0
 var activations: int = 0
@@ -102,7 +102,7 @@ func run() -> void:
 	text.free()
 	entry.free()
 	# Actual native input routing and visual Counter behavior.
-	var scene: Node = load("res://examples/native_counter/Counter.tscn").instantiate()
+	var scene: Node = load("res://examples/counter/Counter.tscn").instantiate()
 	root.add_child(scene)
 	await settle()
 	var plus = scene.ui.get_node("Panel/Actions/Increment")

@@ -21,9 +21,4 @@ Checked generated scripts let the scenes resolve on initial open; compiler outpu
 is derived from authored `.gogo`. The existing older-engine cold missing-generated
 scene issue remains tracked under C01; this demo does not claim that release fix.
 
-Short legacy names VBox/HBox/Rect/Text/Button retain their existing RefCounted
-semantics and inline callbacks. Native trees use other Godot class names,
-registered C1 classes or top-level `const Alias = preload("res://...gd")` aliases.
-Never mix legacy and native tree children. Values/resources stay in expression
-properties, not hierarchy tags. Native event attributes use named/Callable
-references, not inline function declarations. See the [C2 language contract](../../docs/NODE_GGX.md).
+Canonical UI components are EstragonRect/Text/Button/HBox/VBox. Use native class names or explicit unambiguous preload aliases; Button retains Godot semantics. No legacy short-tag factories, namespace pragmas or custom child-adders remain. See ../../docs/GOGO_LANGUAGE.md and ../../docs/TESTING.md for current authoring/acceptance; C2 evidence is historical.

@@ -1,3 +1,5 @@
+**Current C4 note:** the native C1 API below remains the production runtime. C4 #83 removes its old B2/B3 forwarders/proof duplicates and the separate RefCounted UI. Canonical 2D widgets and current Counter paths are in [NODE_UI](NODE_UI.md). C1/B2/B3 evidence paths/commands below are historical, not live compatibility requirements; use [TESTING](TESTING.md) for current acceptance.
+
 # C1 Node-native runtime foundation
 
 [ADR-0015-C1 #77](https://github.com/resistdesign/Estragon/issues/77) implements

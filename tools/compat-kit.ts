@@ -10,7 +10,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-export const ERROR = /SCRIPT ERROR:|(?:^|\n)ERROR:|Parse Error:|Assertion failed:/;
+export const ERROR = /SCRIPT ERROR:|(?:^|\n)ERROR:|Parse Error:|Assertion failed:|ObjectDB instances leaked|Resources still in use/;
 const ANSI = /\x1b\[[0-9;]*m/g;
 export type Outcome = "PASS" | "FAIL" | "BLOCKED" | "UNTESTED";
 export type Stage = { status: Outcome; reason?: string; command?: string[]; exit_code?: number | null;
@@ -111,6 +111,9 @@ export function newSandbox(selection: EngineSelection): Sandbox {
     const binary = path.join(workspace, "godot");
     copyFile(path.resolve(selection.binary), binary);
     fs.chmodSync(binary, 0o755);
+    // All editor entry points use self-contained settings, including focused
+    // compiler/distribution runs; XDG alone does not isolate macOS preferences.
+    fs.writeFileSync(path.join(workspace, "_sc_"), "");
     const inputHash = sha256(binary);
     // macOS executables are verified *before* ad-hoc signing copies.
     if (process.platform === "darwin") {
@@ -204,6 +207,7 @@ export async function indexProject(sandbox: Sandbox, project: string, log: strin
   try {
     const expected: Record<string, string> = {};
     const scan = (folder: string): void => {
+      if (fs.existsSync(path.join(folder, ".gdignore"))) return;
       for (const item of fs.readdirSync(folder, { withFileTypes: true })) {
         if (item.name === ".godot") continue;
         const full = path.join(folder, item.name);

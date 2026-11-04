@@ -17,7 +17,7 @@ func click(button: Node2D) -> void:
 		await process_frame
 func run() -> void:
 	root.size = Vector2i(640,420)
-	var scene: Node = load("res://examples/native_counter/Counter.tscn").instantiate()
+	var scene: Node = load("res://examples/counter/Counter.tscn").instantiate()
 	root.add_child(scene)
 	await capture("c3-zero")
 	await click(scene.ui.get_node("Panel/Actions/Increment"))

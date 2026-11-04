@@ -6,7 +6,6 @@ const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
 var file
 var aliases: Dictionary = {}
 var globals: Dictionary = {}
-const LEGACY := ["VBox", "HBox", "Rect", "Text", "Button"]
 
 func _init(source) -> void:
 	file = source
@@ -52,11 +51,11 @@ func scan(module: Model.Module) -> void:
 
 func resolve(name: String, span: Model.Span) -> Dictionary:
 	if aliases.has(name):
-		if name in LEGACY or ClassDB.class_exists(name) or globals.has(name) and globals[name] != aliases[name]:
+		if ClassDB.class_exists(name) or globals.has(name) and globals[name] != aliases[name]:
 			return _fail("Ambiguous GGX preload alias " + name, span)
 		return _script(name, aliases[name], span)
 	if globals.has(name): return _script(name, globals[name], span)
-	if not ClassDB.class_exists(name): return _fail("Unknown component %s; expected VBox, HBox, Rect, Text or Button" % JSON.stringify(name), span)
+	if not ClassDB.class_exists(name): return _fail("Unknown Node GGX component %s; use a native class or explicit preload alias" % JSON.stringify(name), span)
 	if not ClassDB.is_parent_class(name, "Node") or not ClassDB.can_instantiate(name):
 		return _fail("Unknown or non-constructible Node GGX type " + name, span)
 	return {"native": name, "script": null}

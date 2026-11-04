@@ -7,9 +7,9 @@ function unexpectedErrors(log:string):string[] {
  const lines=log.split(/\r?\n/);
  return lines.filter((line,i)=>{
   if(!/SCRIPT ERROR:|(?:^|\n)ERROR:|Parse Error:|Assertion failed:/.test(line))return false;
-  if(/^SCRIPT ERROR: Parse Error: (Identifier "missing_handler" not declared|Cannot pass a value of type "String" as "float"\.|Invalid argument for "_gogo_build_0\(\)" function: argument 5 should be "float" but is "String"\.)/.test(line)&&/at: GDScript::reload \(res:\/\/examples\/native_counter\/generated\/(Counter)\.gd:\d+\)/.test(lines[i+1]||''))return false;
-  if(/^examples\/native_counter\/(Counter)\.gogo:\d+:\d+: Parse Error: (Identifier "missing_handler" not declared|Cannot pass a value of type "String" as "float"\.|Invalid argument for "_gogo_build_0\(\)" function: argument 5 should be "float" but is "String"\.)/.test(line))return false;
-  return line!=='ERROR: An EditorPlugin build callback failed.'&&!/^ERROR: Cannot save text file 'res:\/\/examples\/native_counter\/(Counter)\.gogo'\.$/.test(line);
+  if(/^SCRIPT ERROR: Parse Error: (Identifier "missing_handler" not declared|Cannot pass a value of type "String" as "float"\.|Invalid argument for "_gogo_build_0\(\)" function: argument 5 should be "float" but is "String"\.)/.test(line)&&/at: GDScript::reload \(res:\/\/examples\/counter\/generated\/(Counter)\.gd:\d+\)/.test(lines[i+1]||''))return false;
+  if(/^examples\/counter\/(Counter)\.gogo:\d+:\d+: Parse Error: (Identifier "missing_handler" not declared|Cannot pass a value of type "String" as "float"\.|Invalid argument for "_gogo_build_0\(\)" function: argument 5 should be "float" but is "String"\.)/.test(line))return false;
+  return line!=='ERROR: An EditorPlugin build callback failed.'&&!/^ERROR: Cannot save text file 'res:\/\/examples\/counter\/(Counter)\.gogo'\.$/.test(line);
  });
 }
 const options=parseCLI(argv.filter(a=>a!=='--build-only'&&a!=='--runtime-only'),{graphics:true});
@@ -19,11 +19,11 @@ for(const selection of options.engines) {
  fs.mkdirSync(output,{recursive:true});
  fs.writeFileSync(path.join(sandbox.workspace,'_sc_'),'');
  try {
-  for(const dir of ['addons/estragon','examples/native_counter','tests/native_ui'])copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
-  fs.writeFileSync(path.join(sandbox.project,'gogo.config.json'),JSON.stringify({version:1,source_roots:['examples/native_counter']}));
-  const settings='config_version=5\n[application]\nconfig/name="C3 isolated GGX"\nrun/main_scene="res://examples/native_counter/Counter.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=360\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
+  for(const dir of ['addons/estragon','examples/counter','tests/native_ui'])copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
+  fs.writeFileSync(path.join(sandbox.project,'gogo.config.json'),JSON.stringify({version:1,source_roots:['examples/counter']}));
+  const settings='config_version=5\n[application]\nconfig/name="C3 isolated GGX"\nrun/main_scene="res://examples/counter/Counter.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=360\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
   fs.writeFileSync(path.join(sandbox.project,'project.godot'),settings);
-  const sources=['addons/estragon/compiler','addons/estragon/editor','addons/estragon/runtime/node','examples/native_counter','tests/native_ui'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(['examples/native_counter/Counter.gogo','examples/native_counter/Counter.tscn','addons/estragon/compiler/diagnostic_capture.gd.txt','gogo.config.json','tools/check-native-ui.ts','tools/compat-kit.ts']);
+  const sources=['addons/estragon/compiler','addons/estragon/editor','addons/estragon/runtime/node','examples/counter','tests/native_ui'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(['examples/counter/Counter.gogo','examples/counter/Counter.tscn','addons/estragon/compiler/diagnostic_capture.gd.txt','gogo.config.json','tools/check-native-ui.ts','tools/compat-kit.ts']);
   const stages:Record<string,unknown>={};
   writeJSON(path.join(output,'provenance.json'),{version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),sourceHashes:sourceHashes(sources),command:process.argv});
   async function run(name:string,args:string[],marker:string,graphics=false,expectedErrors=false) {
@@ -39,13 +39,13 @@ for(const selection of options.engines) {
    if(stage.status!=='PASS')throw Error('C3 '+name+' failed');
   }
   await run('build',['--script','res://tests/native_ui/build.gd'],'C3_BUILD_OK');
-  copyTree(path.join(sandbox.project,'examples/native_counter/generated'),path.join(output,'generated'));
+  copyTree(path.join(sandbox.project,'examples/counter/generated'),path.join(output,'generated'));
   if(!buildOnly) {
    stages.import=await indexProject(sandbox,sandbox.project,path.join(output,'import.log'),['--audio-driver','Dummy']);
    if((stages.import as {status:string}).status!=='PASS')throw Error('C3 import failed');
    // Preserve canonical script UID candidates from native editor import only;
    // never export the temporary indexing driver or arbitrary sandbox copies.
-   for(const file of sources.filter(p=>p.endsWith('.gd')).concat(['examples/native_counter/generated/Counter.gd'])) {
+   for(const file of sources.filter(p=>p.endsWith('.gd')).concat(['examples/counter/generated/Counter.gd'])) {
     const sidecar=path.join(sandbox.project,file+'.uid');
     if(fs.existsSync(sidecar)) {
      const target=path.join(output,'canonical-uids',file+'.uid');
