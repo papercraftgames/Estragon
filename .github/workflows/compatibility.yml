@@ -46,6 +46,13 @@ jobs:
           "$GITHUB_WORKSPACE/tools/check-adapter-proof.ts"
           --engine '4.0.4=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/ggx-b3" --graphics
+      - name: C1 Node-native runtime, editor persistence and graphics
+        working-directory: ${{ runner.temp }}
+        run: >-
+          corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-node-runtime.ts"
+          --engine '4.0.4=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/node-runtime-c1" --graphics
       - name: Godot source UID and clean-editor metadata audit
         working-directory: ${{ runner.temp }}
         run: >-
@@ -98,6 +105,7 @@ jobs:
           path: |
             ${{ runner.temp }}/ggx-b2
             ${{ runner.temp }}/ggx-b3
+            ${{ runner.temp }}/node-runtime-c1
             ${{ runner.temp }}/godot-metadata
             ${{ runner.temp }}/compatibility
             ${{ runner.temp }}/editor-lifecycle

@@ -14,7 +14,7 @@ Retain Node identity. Use event-driven affected-branch measure/arrange, cached b
 
 ## Quality and delivery
 
-Current code uses RefCounted components and a RenderingServer surface; native compiler/editor, minimal stack layout, text/buttons and primary pointer input are implemented. Node-native GGX, 3D layout, adapters, bindings and repeaters are not. [The migration plan](NODE_MIGRATION_PLAN.md) proves native composition, layout and adapters before broader migration, preserving working examples and honest compatibility evidence.
+Current code uses RefCounted components and a RenderingServer surface; native compiler/editor, minimal stack layout, text/buttons and primary pointer input are implemented. [C1](NODE_RUNTIME.md) adds native 2D/3D entries, layout-only participants and bounded native adapters alongside it. General Node-native GGX/default compiler cutover, full native widget parity, bindings and repeaters remain unimplemented. [The migration plan](NODE_MIGRATION_PLAN.md) proves native composition, layout and adapters before broader migration, preserving working examples and honest compatibility evidence.
 
 Text shaping, font fallback, localization/RTL, clipping, advanced layout, high-DPI scaling, focus/keyboard/IME, touch/scroll, accessibility and richer widgets still need scoped implementation and evidence. Completion/navigation, live preview and debugger remapping remain future work. Do not claim performance, platform coverage or release readiness before testing; C01 strict release remains BLOCKED.
 

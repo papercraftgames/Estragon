@@ -11,10 +11,10 @@ for(const selection of options.engines) {
  // Godot's self-contained mode isolates macOS editor settings as well as XDG.
  fs.writeFileSync(path.join(sandbox.workspace,'_sc_'),'');
  try {
-  for(const dir of ['addons/estragon/layout_proof','addons/estragon/adapter_proof','examples/adapter_proof','tests/adapter_proof']) copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
+  for(const dir of ['addons/estragon/runtime/node/internal','addons/estragon/layout_proof','addons/estragon/adapter_proof','examples/adapter_proof','tests/adapter_proof']) copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
   const settings='config_version=5\n[application]\nconfig/name="B3 isolated proof"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=360\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
   fs.writeFileSync(path.join(sandbox.project,'project.godot'),settings);
-  const sources=['addons/estragon/layout_proof','addons/estragon/adapter_proof','examples/adapter_proof','tests/adapter_proof'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(['tools/check-adapter-proof.ts','tools/compat-kit.ts']);
+  const sources=['addons/estragon/runtime/node/internal','addons/estragon/layout_proof','addons/estragon/adapter_proof','examples/adapter_proof','tests/adapter_proof'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(['tools/check-adapter-proof.ts','tools/compat-kit.ts']);
   const stages:Record<string,unknown>={};
   writeJSON(path.join(output,'provenance.json'),{version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),sourceHashes:sourceHashes(sources),command:process.argv});
   async function run(name:string,args:string[],marker:string,graphics=true) {
