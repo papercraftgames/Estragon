@@ -4,7 +4,7 @@ extends RefCounted
 const Model = preload("res://addons/estragon/compiler/model.gd")
 const Source = preload("res://addons/estragon/compiler/source.gd")
 const Frontend = preload("res://addons/estragon/compiler/frontend.gd")
-const Emitter = preload("res://addons/estragon/compiler/emitter.gd")
+const Emitter = preload("res://addons/estragon/compiler/native/emitter.gd")
 const SourceMap = preload("res://addons/estragon/compiler/source_map.gd")
 
 class Compilation extends RefCounted:

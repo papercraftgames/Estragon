@@ -24,7 +24,7 @@ force-pushing, remote branch deletion or merging PRs.
 
 **Gogo** is the GDScript-like language in `.gogo`; **GGX** is its general-purpose embedded XML-like **Node composition syntax**, not just Estragon markup. Compile to typed native GDScript using the bundled Godot-only compiler, source maps and fail-closed validation. Read [ADR-0015](docs/DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) and [the staged migration plan](docs/NODE_MIGRATION_PLAN.md), derived from [owner architecture #68](https://github.com/resistdesign/Estragon/issues/68).
 
-**Present implementation is different:** `EstragonDisplayObject extends RefCounted`, containers own private child lists, and `EstragonSurface extends Node` draws through a RenderingServer canvas item. T04–T07 compile five Estragon built-ins; N01–N03 provide the native compiler/editor. Basic text/buttons and pointer input work. Separate experimental [B1 composition](docs/NODE_COMPOSITION_PROOF.md) and [B2 composed 2D/3D layout](docs/NODE_LAYOUT_PROOF.md) proofs work through explicitly selected APIs. B3 native adapter proofs are merged. C1 adds [working Node-native runtime entries/participants and bounded adapters](docs/NODE_RUNTIME.md) alongside legacy, with shared internals and preserved proof paths. General Node-native compiler migration, full native widget parity, bindable properties and repeaters remain **not implemented**. Preserve existing examples/evidence during reviewed migration. The namespaced XML/JSON demo remains stage-0 legacy.
+**Present implementation is different:** `EstragonDisplayObject extends RefCounted`, containers own private child lists, and `EstragonSurface extends Node` draws through a RenderingServer canvas item. T04–T07 compile five Estragon built-ins; N01–N03 provide the native compiler/editor. Basic text/buttons and pointer input work. Separate experimental [B1 composition](docs/NODE_COMPOSITION_PROOF.md) and [B2 composed 2D/3D layout](docs/NODE_LAYOUT_PROOF.md) proofs work through explicitly selected APIs. B3 native adapter proofs are merged. C1 adds [working Node-native runtime entries/participants and bounded adapters](docs/NODE_RUNTIME.md) alongside legacy, with shared internals and preserved proof paths. C2 integrates [native GGX](docs/NODE_GGX.md) into normal bundled compiler/editor builds with explicit type imports and preserved legacy tags. Full native widget parity, bindable properties and repeaters remain **not implemented**. Preserve existing examples/evidence during reviewed migration. The namespaced XML/JSON demo remains stage-0 legacy.
 
 ## Target authoring and runtime contract (planned, not shipped)
 
@@ -138,6 +138,8 @@ diagnostic degradation does not permit stale source or cache takeover.
 
 **Implemented:**
 
+- `addons/estragon/compiler/native/`: C2 static Node type/import resolution, typed native validation and emission through normal frontend/compiler/editor builds. Legacy short-tag and callback semantics preserved; see docs/NODE_GGX.md and Gogo-authored examples/ggx. No C3 widget parity or legacy retirement.
+
 - `addons/estragon/runtime/node/`: C1 explicit Estragon2D/Estragon3D entries, layout-only same-dimensional participants and bounded native adapters alongside legacy. See docs/NODE_RUNTIME.md and runnable examples/node_runtime scenes. Shared internal layout/bounds bridges also serve B2/B3 compatibility paths; no default compiler/editor cutover.
 
 - `addons/estragon/layout_proof/`: experimental B2 Node2D/Node3D entries/participants sharing one pure row-layout core and native event coordinator. See [B2 contract](docs/NODE_LAYOUT_PROOF.md) and 2D/3D `examples/layout_proof` demos. Bounded proof defaults are proposed for review, not a full component migration or B3 adapters.
@@ -156,7 +158,7 @@ diagnostic degradation does not permit stale source or cache takeover.
 
 **Not implemented:**
 
-- General ADR-0015 Node-native GGX/compiler migration and native widget parity. B1/B2/B3 remain separately selected proofs; C1 supplies the bounded working runtime foundation, not C2/C3 migration.
+- Full native widget parity and legacy retirement. B1/B2/B3 remain separately selected proofs; C1 supplies the runtime and C2 the bounded native GGX compiler/editor integration. C3/C4 remain separate tasks.
 
 - Reconciliation, generalized layout beyond the minimal stack rules, general styling, keyboard/touch input, focus, accessibility, or a broader widget catalog.
 - Gogo-only lowercase `@bindable` compilation, code-only bindable model classes, one-/two-way Gogo bindings, ArrayCollection-like observable collections, keyed list reconciliation, reactive position/layout properties or a dependency graph.

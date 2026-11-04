@@ -4,7 +4,7 @@ extends RefCounted
 const Model = preload("res://addons/estragon/compiler/model.gd")
 const Source = preload("res://addons/estragon/compiler/source.gd")
 const Parser = preload("res://addons/estragon/compiler/parser.gd")
-const Validator = preload("res://addons/estragon/compiler/validator.gd")
+const Validator = preload("res://addons/estragon/compiler/native/validator.gd")
 
 static func analyze(text: String, source_name: String = "<source>") -> Model.Result:
 	var file := Source.new(text, source_name)

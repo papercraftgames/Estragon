@@ -1,0 +1,26 @@
+extends "res://examples/ggx/base.gd"
+const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const Native = preload("res://addons/estragon/runtime/node/native_2d.gd")
+const Custom = preload("res://examples/ggx/probe_2d.gd")
+
+func compose() -> Node:
+    dimension = 2
+    return <Entry name="Entry" position={Vector2(value("root",50),100)} gap={value("gap",30)}>
+        <Native name="First" width={value("first",120)} height={70.0}>
+            <Polygon2D name="Visual" polygon={PackedVector2Array([Vector2.ZERO,Vector2(100,0),Vector2(100,60),Vector2(0,60)])} color={Color(0.2,0.8,0.6)} />
+        </Native>
+        <Native name="Second">
+            <Polygon2D name="Visual" polygon={PackedVector2Array([Vector2.ZERO,Vector2(90,0),Vector2(90,60),Vector2(0,60)])} color={Color(0.55,0.35,0.9)} />
+        </Native>
+        <Timer name="Pulse" one_shot={true} timeout={on_timeout} />
+        <Custom name="Custom" amount={value("custom",7)} palette={palette} position={Vector2(10,150)}>
+            <Node2D name="Nested" position={Vector2(3,4)} />
+        </Custom>
+    </Entry>
+
+func _enter_tree() -> void:
+    palette.changed.connect(on_palette_changed)
+
+func _exit_tree() -> void:
+    if palette.changed.is_connected(on_palette_changed): palette.changed.disconnect(on_palette_changed)
+

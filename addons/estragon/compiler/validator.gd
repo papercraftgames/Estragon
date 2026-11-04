@@ -25,7 +25,21 @@ func _node(node: Model.SyntaxNode) -> void:
 func _error(message: String, span: Model.Span) -> void:
 	file.fail(message, span.start.index, span.end.index)
 
+# Extension hooks keep the legacy recursion depth and emitted contract unchanged.
+func _is_native(_node: Model.Component) -> bool:
+	return false
+
+func _native_component(_node: Model.Component) -> void:
+	pass
+
+func _legacy_check(_node: Model.Component) -> bool:
+	return true
+
 func _component(node: Model.Component) -> void:
+	if _is_native(node):
+		_native_component(node)
+		return
+	if not _legacy_check(node): return
 	if node.name.contains(":"):
 		_error("Namespace-prefixed components are not supported", node.name_span)
 		return
