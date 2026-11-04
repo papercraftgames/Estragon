@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
     inputs:
       verification_mode:
@@ -32,6 +33,7 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run check
   addon:
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
