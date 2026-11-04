@@ -1,6 +1,6 @@
 # ADR-0015 staged Node-native migration
 
-**Staged plan:** ADR-0015-A merged in PR #70; B1 #71 merged in PR #72 with its bounded [composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) submits the [shared spatial layout proof](NODE_LAYOUT_PROOF.md). B3 and broader migration remain unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
+**Staged plan:** ADR-0015-A merged in PR #70; B1 #71 merged in PR #72 with its bounded [composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) merged in PR #74 with the [shared spatial layout proof](NODE_LAYOUT_PROOF.md). [B3 #75](https://github.com/resistdesign/Estragon/issues/75) submits the [native adapter/metadata proof](NODE_ADAPTER_PROOF.md); broader migration remains unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
 
 ## Sequence and gates
 
@@ -40,6 +40,8 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 **Acceptance:** pure layout input/output tests plus native SceneTree/transform tests on the two approved engines. Counters prove no idle layout work, one coalesced scheduled reflow, unaffected-branch cache retention and stable identity. Include native graphics captures of both dimensions, resize and entry boundaries; headless results alone are not graphics proof. Check relevant window/DPI capability separately without assuming viewport resize. Keep full 3D wrapping/units design deferred.
 
 ### ADR-0015-B3 — Native2D/Native3D bounds and authority
+
+**Tracking:** [#75](https://github.com/resistdesign/Estragon/issues/75), [bounded contract/evidence](NODE_ADAPTER_PROOF.md). B2 PR #74 merged at `5921e96`; B3 requires owner review/merge before C1.
 
 **Prerequisite:** B2 merged; reviewed bounds-provider, transform-write and ownership rules. **Layers:** two minimal adapters, native examples and native tests; not a universal measurement framework.
 

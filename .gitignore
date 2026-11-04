@@ -16,5 +16,8 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Python contributor audit tooling
+# Keep *.gd.uid and asset *.import settings versioned.
+# Evidence-only folders use their own .gdignore (see CONTRIBUTING.md).
+
+# Disposable historical local caches (no Python tooling is supported).
 __pycache__/

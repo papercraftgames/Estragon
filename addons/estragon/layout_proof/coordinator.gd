@@ -98,7 +98,8 @@ func _flush() -> void:
 func _place(offset: Vector3) -> void:
 	var host = _host.get_ref()
 	if host == null: return
-	if _dimension == 2: host.position = Vector2(offset.x, offset.y)
+	if host.has_method("apply_layout_position"): host.apply_layout_position(offset)
+	elif _dimension == 2: host.position = Vector2(offset.x, offset.y)
 	else: host.position = offset
 
 func _arranged(size: Vector3) -> void:
