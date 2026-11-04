@@ -1,0 +1,34 @@
+{
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "original_binary_sha256": "da0fcddf2ab4a28fb8b0d370f287c4c3e166dc2205c49bbd42ecf95dc1595fad",
+  "sourceHead": "95a5e788b73b7f0c287d9f42a5a172a75947fe09",
+  "sourceDirty": false,
+  "sourceHashes": {
+    "addons/estragon/runtime/node/component_2d.gd": "db0f143405f81823b3d0bcde2ee4ef23903f4517b8075f889303d569d50df527",
+    "addons/estragon/runtime/node/component_3d.gd": "bad2118b57bcb99037cc2ab6468a5b5246a6bcca65b7f2a48b0eb87f7c018d2d",
+    "addons/estragon/runtime/node/estragon_2d.gd": "a11d8d25b25f051c522df3ce3514befc94cc6f59a347a3475c26e76b9092a525",
+    "addons/estragon/runtime/node/estragon_3d.gd": "a13943417a9c5b96af93057ad3da8c9a0980e6207f0ddf6fa381984ab5268b18",
+    "addons/estragon/runtime/node/internal/coordinator.gd": "90f90e2284ce5a091b8ac0fb493193c977bcadd88456ca1f02c08486bd50b24d",
+    "addons/estragon/runtime/node/internal/layout_core.gd": "c462a6a7e4dd961ce67cc906216594a223c604bc0e4d9639f21f9a0f44ea167e",
+    "addons/estragon/runtime/node/internal/native_bounds.gd": "985db172da84b6db823f3d5aa387b502b82eca44cfb4490613f530a0c420dd37",
+    "addons/estragon/runtime/node/native_2d.gd": "a8c678edebc8dae70db27d2d1159aee91ea6e92ebfb123e5fea1b6f6820c3f9b",
+    "addons/estragon/runtime/node/native_3d.gd": "39f968fc9803cef0c8afa808549a6222920152cfc31c6f4a9871d701229c4d35",
+    "examples/node_runtime/demo.gd": "e113fa43e402adee06c0445579af5b0ff89ea4cafeffef34e3adcf8139600f98",
+    "tests/node_runtime/editor/driver.gd": "6e644f286f546c2ac056e89b994130de36d561e79303bfdf01fed94b7c350e16",
+    "tests/node_runtime/runtime.gd": "f4144b5a1da11b47aee3f8682c40b54d916c062a76dd11608bb9a8fa90f9ba38",
+    "tests/node_runtime/visual.gd": "7a52dae31fdf6369a969e29ae7271aa873c979410d776f8694bacaaa4a636be7",
+    "tools/check-node-runtime.ts": "3e54ebf790ace4178c1c650eb71d0279dd09b845cda845bece7ad4d28009672e",
+    "tools/compat-kit.ts": "b949159a883abe02da1d4c0c96320134387887284ca3f8f43289df4ac932dc34"
+  },
+  "command": [
+    "/Users/ryan/.nvm/versions/node/v24.16.0/bin/node",
+    "/Users/ryan/Projects/Estragon/tools/check-node-runtime.ts",
+    "--engine",
+    "4.0.4=/Users/ryan/Library/Caches/Estragon/compatibility-engines/4.0.4/godot",
+    "--engine",
+    "4.7=/Applications/Godot.app/Contents/MacOS/Godot",
+    "--output",
+    "/tmp/estragon-c1-acceptance",
+    "--graphics"
+  ]
+}

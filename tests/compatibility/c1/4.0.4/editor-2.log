@@ -1,0 +1,8 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.1 ATI-7.1.6 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon Pro 5300M OpenGL Engine
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+C1_EDITOR_SCOPE_STATE phase=1 entry={ "measure": 2, "arrange": 2, "flush": 2, "active": true } mode=2 lifecycle=true reentry={ "measure": 1, "arrange": 1, "flush": 1, "active": true } mode=2 lifecycle=true participant={ "measure": 1, "arrange": 1, "flush": 0, "active": true } lifecycle=true inside=true tool=true
+C1_EDITOR_SCOPE_STATE phase=3 entry={ "measure": 4, "arrange": 4, "flush": 4, "active": true } mode=2 lifecycle=true reentry={ "measure": 2, "arrange": 2, "flush": 2, "active": true } mode=2 lifecycle=true participant={ "measure": 1, "arrange": 1, "flush": 0, "active": true } lifecycle=true inside=true tool=true
+GGX_C1_EDITOR_OK

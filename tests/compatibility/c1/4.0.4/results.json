@@ -1,0 +1,101 @@
+{
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/project",
+      "--script",
+      "res://tests/node_runtime/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 12.04,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/godot",
+      "--headless",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 10.03,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "57b3bdcba0d6aad28dcff0b6769356ba5783bc023b5c77d2e21af51e050113b0",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor-1": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.92,
+    "log": "editor-1.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "editor-2": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 12.51,
+    "log": "editor-2.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/var/folders/wd/9964gmj11p77sx25mlfv3r2r0000gn/T/estragon-native-teReSW/project",
+      "--script",
+      "res://tests/node_runtime/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.48,
+    "log": "visual.log",
+    "diagnostics": []
+  }
+}
