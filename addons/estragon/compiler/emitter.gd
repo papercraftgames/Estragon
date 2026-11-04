@@ -87,6 +87,7 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 func _parts(parts: Array[Model.SyntaxNode]) -> void:
 	for part in parts:
 		if part is Model.Code: _writer.append(_file.slice(part.span), part.span, true)
+		elif part is Model.Bindable: _bindable(part)
 		else: _call(part)
 
 func _call(node: Model.Component) -> void:
@@ -158,3 +159,27 @@ func _component(node: Model.Component, indentation: String) -> String:
 			_line(_module.indentation + variable + ".free()", event.span, indentation)
 			_line(_module.indentation + "return null", event.span, indentation)
 	return variable
+
+func _bindable(property: Model.Bindable) -> void:
+	var incoming := "_gogo_incoming_"+property.name
+	while _module.identifiers.has(incoming): incoming += "_"
+	var previous := "_gogo_previous_"+property.name
+	while _module.identifiers.has(previous): previous += "_"
+	var indent := _module.indentation
+	_writer.append("signal "+property.signal_name+"(previous: ",property.name_span)
+	_writer.append(_file.slice(property.type_span),property.type_span,true)
+	_writer.append(", value: ",property.name_span)
+	_writer.append(_file.slice(property.type_span),property.type_span,true)
+	_writer.append(")\n",property.name_span)
+	_writer.append(_file.slice(property.declaration_span),property.declaration_span,true)
+	_writer.append(":",property.name_span)
+	if property.comment_span != null:
+		_writer.append(" ")
+		_writer.append(_file.slice(property.comment_span),property.comment_span,true)
+	_writer.append("\n"+indent+"set("+incoming+"):\n",property.name_span)
+	# Use the native property backing slot: accesses inside its own setter are
+	# direct, and declaration initialization does not call the setter.
+	_writer.append(indent.repeat(2)+"if is_same("+property.name+", "+incoming+"): return\n",property.name_span)
+	_writer.append(indent.repeat(2)+"var "+previous+": "+property.type_name+" = "+property.name+"\n",property.name_span)
+	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
+	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)

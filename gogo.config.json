@@ -2,6 +2,7 @@
   "version": 1,
   "source_roots": [
     "examples/counter",
-    "examples/ggx"
+    "examples/ggx",
+    "examples/bindable"
   ]
 }
