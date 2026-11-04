@@ -153,7 +153,11 @@ GDScript/Gogo only. B1/B2/B3/C1 demos/APIs remain separately exercised.
 `tools/check-ggx.ts` isolates a fresh addon/project/editor, verifies official
 binaries, removes external compiler tools from child PATH, runs normal native
 builds, native runtime/negative/map/identity/owner tests, actual editor F5/F6
-failure/recovery and real graphics captures. Expected semantic-error diagnostics
+failure/recovery and real graphics captures. Isolated editor/child Play uses
+headless execution and explicit Dummy child audio, as in C01; separate runtime
+and graphics stages use the native renderer. This avoids testing nonexistent CI
+audio hardware/embedded X11 windows while retaining actual editor APIs, child
+execution and independent visual proof. Expected semantic-error diagnostics
 are matched only at the authored fixture/generated paths; unexpected errors,
 failed assertions, missing markers, timeouts and leaks fail the check. Exact
 commands/provenance, PASS/FAIL evidence and inspected captures are recorded under

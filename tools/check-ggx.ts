@@ -45,8 +45,12 @@ for(const selection of options.engines) {
    if((stages.import as {status:string}).status!=='PASS')throw Error('C2 import failed');
    await run('runtime',['--script','res://tests/ggx/runtime.gd'],'GGX_C2_RUNTIME_OK',true);
    fs.appendFileSync(path.join(sandbox.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://addons/estragon/editor/plugin.cfg", "res://tests/ggx/editor/plugin.cfg")\n');
+   // Match the established C01 Play harness: real editor APIs and actual
+   // child games, with no host audio device or embedded X11 game window.
+   // Runtime and visual stages above/below still use the native renderer.
+   fs.appendFileSync(path.join(sandbox.project,'project.godot'),'\n[editor]\nrun/main_run_args="--headless --audio-driver Dummy"\n');
    sandbox.env.ESTRAGON_C2_PROOF='1';
-   await run('editor',['--editor'],'GGX_C2_EDITOR_OK',true,true);
+   await run('editor',['--editor'],'GGX_C2_EDITOR_OK',false,true);
    delete sandbox.env.ESTRAGON_C2_PROOF;
    fs.writeFileSync(path.join(sandbox.project,'project.godot'),settings);
    if(options.graphics) {

@@ -15,7 +15,9 @@ and `ThreeD.tscn`; exact normal Godot save/Play instructions are in their README
 | UID/path/cache + PNG/font metadata audit | PASS with measured old-editor differences | PASS |
 
 Acceptance and metadata came from **clean committed source `f9431ce`**. All recorded
-C2 source hashes match delivered code. Both engines' native generated `.gd` and
+C2 product/demo/native-test source hashes match delivered code. The orchestration
+tool later received the isolated child audio/window fix described below; original
+provenance remains unmodified. Both engines' native generated `.gd` and
 `.map.json` outputs were compared byte-for-byte with the checked examples and
 matched. Native compiler determinism is independently asserted by compiling
 identical source twice. These are scoped development artifacts, not release
@@ -99,3 +101,15 @@ explicit remaining boundaries in the contract. Strict C01 release stays
 Committed generated evidence is stored as `.gd.txt` plus source-map JSON; sandbox
 UID copies are excluded. Canonical executable examples alone own their tracked
 UIDs, so evidence never creates duplicate resource identities or extra scripts.
+
+## Linux Play harness correction
+
+Initial Linux run [41772661540](https://github.com/resistdesign/Estragon/actions/runs/41772661540)
+failed despite all 89 editor assertions: graphical child games under Xvfb emitted
+three XServer BadWindow errors and twelve ALSA device-open errors. Raw logs/results
+are retained under `development/linux-x11-audio-*`; that run stays FAIL. The
+C2 runner now matches the established C01 Play setup: real editor APIs and real
+child-game execution headlessly, with explicit child Dummy audio. Renderer-backed
+runtime and native graphics stages remain separate and unchanged. The unexpected
+error filter is unchanged: audio/window errors are not accepted or suppressed.
+Final-head CI rechecks this orchestration on both approved engines.
