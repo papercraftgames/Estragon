@@ -10,6 +10,11 @@ on:
         type: choice
         options: [acceptance, focused, distribution]
         default: acceptance
+      engine:
+        description: Approved engine for focused development only
+        type: choice
+        options: ['4.7', '4.0.4']
+        default: '4.7'
 concurrency:
   group: native-addon-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -32,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ${{ fromJSON(inputs.verification_mode != 'acceptance' && github.event_name == 'workflow_dispatch' && '["4.7"]' || '["4.0.4", "4.7"]') }}
+        version: ${{ fromJSON(inputs.verification_mode != 'acceptance' && github.event_name == 'workflow_dispatch' && format('["{0}"]', inputs.engine || '4.7') || '["4.0.4", "4.7"]') }}
     env:
       LIBGL_ALWAYS_SOFTWARE: '1'
       GODOT_VERSION: ${{ matrix.version }}

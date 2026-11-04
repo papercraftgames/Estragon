@@ -55,23 +55,16 @@ func _enter_tree() -> void:
 	_interface.get_resource_filesystem().sources_changed.connect(_sources_changed)
 	resource_saved.connect(_resource_saved)
 	_interface.get_script_editor().editor_script_changed.connect(_script_changed)
-	# Newer editors load class names before plugins but may still be scanning.
-	# Publish before they restore scenes referring to generated scripts. Older
-	# cold editors need the initial class registration before native validation.
-	if _runtime_registered(): _compile()
+	# Native GGX with explicit imports can build before the editor restores
+	# scenes. Waiting for a specific framework class races missing generated
+	# scripts on cold 4.0 projects and couples plain-Node Gogo to the UI runtime.
+	_compile()
 	if last_report.is_empty() or not _apply_extension_setting(): _schedule()
-
-
-func _runtime_registered() -> bool:
-	for entry in ProjectSettings.get_global_class_list():
-		if entry["class"] == "Estragon2D" and entry.path == "res://addons/estragon/runtime/node/estragon_2d.gd":
-			return true
-	return false
 
 
 func _filesystem_busy() -> bool:
 	var filesystem := _interface.get_resource_filesystem()
-	if filesystem.is_scanning() or not _runtime_registered(): return true
+	if filesystem.is_scanning(): return true
 	# Older editors expose scanning but not a separate import-status query.
 	return filesystem.has_method("is_importing") and filesystem.call("is_importing")
 
