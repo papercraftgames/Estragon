@@ -1,0 +1,51 @@
+# Native 2D UI — C3
+
+[C3 #81](https://github.com/resistdesign/Estragon/issues/81) implements the existing minimal UI slice as production Node2D components. It builds on merged C1/C2 and the same shared mathematical core used by the 2D/3D runtime and proof paths. This is a bounded usable slice; broader widgets, focus/keyboard/touch, accessibility, rich text/wrapping, themes, bindings and general styling remain outside C3. Strict C01 release remains **BLOCKED**.
+
+## Run the Gogo Counter
+
+Open the repository in an approved Godot editor with the Estragon plugin enabled. Open `examples/native_counter/Counter.tscn` and Run Current Scene. Edit `examples/native_counter/Counter.gogo`; normal saved builds and compile-before-Play use only Godot and the bundled addon. Checked-in generated GDScript/maps let the scene open before the first rebuild. No Bun/Node/compiler executable setup is required by users.
+
+Click **+**: Count changes and Reset enables. Click **Reset**: Count returns to zero. Resize the window: the accent and nested action row follow the viewport; buttons share the available width. The label and buttons retain identity and subscriptions. These are explicit setters and named native `pressed` handlers, not T09 bindings. No full-tree rebuilding occurs. The example assigns `owner` separately from `add_child` and reuses a persisted subtree when loaded from a PackedScene.
+
+## Public components
+
+All paths below are relative to `addons/estragon/runtime/node/`. Use explicit preload aliases in `.gogo` as shown in the Counter; registered class names are also supported by C2. The legacy short tags stay reserved during C3 and are never silently reinterpreted.
+
+| Script / registered name | Contract |
+| --- | --- |
+| `rect_2d.gd` / `EstragonRect2D` | Native rectangle drawing with `fill: Color`; natural size zero, explicit/fill dimensions. |
+| `text_2d.gd` / `EstragonText2D` | Native `Font` measurement/drawing, `text`, `font`, positive `font_size`, `color`; explicit newlines only. |
+| `button_2d.gd` / `EstragonButton2D` | Text plus fixed 14×8 pixel internal padding, native `pressed` signal, `disabled`, background hover/held/disabled states. |
+| `hbox_2d.gd` / `EstragonHBox2D` | X-axis stack with `gap`; children use inherited void `Node.add_child`. |
+| `vbox_2d.gd` / `EstragonVBox2D` | Y-axis stack with the same core and child/lifetime rules. |
+
+These extend `EstragonComponent2D` directly or through Text. Use an explicit `Estragon2D` entry, same-dimensional immediate-parent scope and the [C1 boundaries/lifetime/authority contract](NODE_RUNTIME.md). Plain Nodes interrupt layout; another entry re-enters it. Godot owns rendering/transforms and Node lifetime. There is no Control substitution, RefCounted wrapper tree or custom child-adder.
+
+Width/height `-1` means natural; finite nonnegative values are fixed. A stack sums its children's natural main-axis sizes plus gaps, takes the cross-axis maximum, and includes its own intrinsic content. Fixed dimensions override natural measurement. `fill_width`/`fill_height` apply only on natural axes: main-axis fill children share nonnegative remaining space equally after fixed/natural siblings and gaps; cross-axis fill takes available space. Overflow remains visible, with no implicit clipping or negative allocation. This bounded rule is not CSS Flexbox. HBox selects X, VBox Y; existing proof/3D X defaults remain intact. No 3D wrapping/unit decision is implied.
+
+Text caches native Font metrics until text, font, font size or `Font.changed` invalidates them. Resource subscriptions connect/disconnect with native lifetime and font replacement. Layout changes invalidate the affected branch and coalesce on the existing coordinator; unrelated measurements stay cached. Paint-only colors and button pointer state queue redraw without layout. Idle trees do no layout work; no `_process` polling.
+
+Primary pointer press captures one live enabled button, then release over that same button emits once. Inverse native canvas transforms determine the hit. Entry-scoped weak registration avoids ownership cycles. Disabled buttons occlude lower buttons, and removal, visibility change, disabling and Window focus loss cancel capture. Effective native Z and tree order select overlapping buttons within one entry. This is bounded primary-mouse input, not focus/navigation or general input arbitration between multiple entries/CanvasLayers. Native signal connections and identity survive reflow and explicit scene ownership survives pack/reload.
+
+## Verification and evidence
+
+`tools/check-native-ui.ts` runs isolated Godot-only build, native runtime assertions, real editor save/unsaved main/current-scene Play and negative semantic/source-map/save-failure repair, then graphics-backed Counter captures. PATH contains no external compiler. Linux acceptance uses only official 4.0.4 and pinned 4.7.0 with Xvfb/Mesa. Unexpected errors, missing completion markers and native leaks fail the runner. See [commands](TESTING.md#c3-native-2d-components-and-counter). Current execution links and exact outcomes are recorded on #81 and its review PR; no untested platform/minor is certified. Captures cover zero, incremented, and reset/resized states. Headless editor assertions alone are not visual evidence.
+
+## C4 removal inventory
+
+**Queued after C3 review/merge, not executed here.** Owner #81 rejects a permanent dual API. C4 must replace remaining consumers and delete the obsolete implementation, compatibility branches and tests in one reviewed retirement scope. Preserve historical reports/results as facts; historical evidence need not remain executable production dependencies.
+
+| Remove/replace in C4 | Active consumers and required replacement gate |
+| --- | --- |
+| `addons/estragon/runtime/{display_object,container,stack,vbox,hbox,rect,text,button}.gd` and UID sidecars; old `EstragonDisplayObject`/container/Error-add/dispose API | Replace old component factories, surface fixtures and examples with retained native Nodes. Audit every preload/class reference, private child access, remove-to-dispose assumption and signal cleanup. Native free/reparent/owner proofs replace old ownership tests. |
+| `addons/estragon/runtime/{surface,canvas_renderer,paint_list,pointer_dispatcher}.gd` and sidecars | Replace remaining surface-owned drawing/input with native widget rendering and entry input. Remove old surface/paint/pointer-only assertions once native geometry, graphics and lifetime equivalents cover them. |
+| `addons/estragon/runtime/gogo_view.gd`, stage-0 XML/JSON runtime/IR path | Replace `examples/hello/Hello.tscn`, `Main.gogo` and generated JSON; coordinate the T10 retirement requirement explicitly. Preserve archived evidence, remove the active interpreter after consumer cutover. |
+| Legacy short-tag validation/factory emission/callback branches in `addons/estragon/compiler/{validator,emitter}.gd` and related model/frontend helpers | Audit exact live references (including native emission selectors) and delete old leaf/private-child/Error-return branches, legacy `native_node` selection where no longer needed, and compatibility-only anonymous-handler support once remaining source is migrated to named Callables. Keep native parsing, semantic rollback, maps and ordinary Node/Object signal support. |
+| `examples/{compiled,mixed,counter,layout,interactive,hello}` old scripts/scenes/generated maps/UIDs | Replace or retire active examples after native parity. Keep C1/C2 2D/3D demos operational and decide the main-scene cutover explicitly; do not retain old demos as production prerequisites. |
+| `tests/godot/{components,layout,interactive,generated_gogo,hybrid_gogo}.gd` and legacy portions of native frontend/generation/editor fixtures | Map each meaningful compiler/editor/runtime invariant onto native fixtures before removing obsolete tests and their UID/generated assets. Cold-start, cache identity, unsaved failure/repair and export checks must still test the actual product, never disappear to turn a failure green. |
+| `tools/gogo.ts`, legacy branches of `tools/gogo/`, `tools/{transpile-gogo,build-gogo,check-ir,check-gdscript,check-godot}.ts`, `tests/gogo.test.ts` legacy cases; manifests/package commands and workflow references | Audit optional reference tooling and remove obsolete stage-0/RefCounted paths/tests/commands after their supported semantics are accounted for. Keep useful native/reference checks; no incidental Yarn conversion, new language, or external end-user compiler. |
+| `addons/estragon/{layout_proof,adapter_proof}` compatibility forwarding files and proof runners/fixtures | Delete only forwards/shims proven obsolete after consumers move to the single runtime; retain meaningful mathematical/boundary/authority tests against the shared core. Preserve B1–C2 reports/captures/provenance even if obsolete proof executables retire. |
+| `tools/{check-compatibility,check-distribution,release-policy,development-policy}.ts` fixture lists and C01 fingerprints | Retarget genuine product checks to native consumers. Record changed inputs and actual outcomes; no stale exemptions, false PASS, or blanket waiver of the independent C01 blockers. |
+
+Canonical-name transition proposed for C4: after deleting old classes, move the native implementations into the canonical framework API (`EstragonRect`, `EstragonText`, `EstragonButton`, `EstragonHBox`, `EstragonVBox`) and resolve the short GGX component names to those native classes. `Button` alone cannot be a new global script class because Godot already owns that name. Update authored preload aliases/registered names and examples together, then remove transitional `*2D` aliases rather than maintaining shims. Every tree item still derives from Node and uses inherited `add_child`; legacy return-value checks disappear. C4 must review this exact cutover and inventory against then-current consumers before editing. C3 authoring remains explicit and stable until that review.

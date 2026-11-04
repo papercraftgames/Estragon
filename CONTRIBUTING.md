@@ -62,3 +62,5 @@ separate in every future issue/PR. `tools/check-godot-metadata.ts` checks metada
 uniqueness, pairing and stable imports in isolated approved-engine editors. Its
 explicit `--write-missing-uids` development mode obtains only missing script UIDs
 from the pinned 4.7 editor; normal checks never rewrite repository metadata.
+
+C3 native UI: open `examples/native_counter/Counter.tscn` and run the scene with the bundled addon; author `Counter.gogo`. See [native UI contract](docs/NODE_UI.md). Contributor acceptance uses only official 4.0.4 and pinned 4.7.0 on Linux (Xvfb/software graphics); no macOS CI or other-version sweep. Legacy is transitional: C4 removes replaced code, shims and obsolete tests after parity. Do not expand the dual API.
