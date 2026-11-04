@@ -112,7 +112,10 @@ packing a scene; unowned runtime children are intentionally absent after reload.
 Each participant scopes native child/order connections to enter/exit. Only entries
 subscribe to viewport resize. Exit disconnects and releases model membership;
 re-entry discovers the existing native children again. Pending deferred work checks
-active lifetime and queued deletion before applying anything. Native free cleans
+active lifetime and queued deletion before applying anything. Runtime membership
+resolves the live participant script field, so no coordinator WeakRef is stored
+in serialized Node metadata. PackedScene restores metadata after construction;
+the preserved proof-only registry is refreshed at enter-tree for that old API. Native free cleans
 up Nodes/signals. Node identity and authored connections survive reflow/removal/
 reparenting according to normal Godot rules. The proof's 4.0 moved-in-parent
 notification bridge remains capability-isolated from newer child-order signals.

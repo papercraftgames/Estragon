@@ -3,10 +3,8 @@ extends RefCounted
 ## Native event/lifetime adapter shared by both spatial branches. No layout math.
 const Core = preload("res://addons/estragon/runtime/node/internal/layout_core.gd")
 const META := "_estragon_b2_coordinator"
-const RUNTIME_META := "_estragon_c1_coordinator"
 enum Mode { PROOF, PARTICIPANT, ENTRY }
 var _mode: int
-var _metadata: String
 var model := Core.new()
 var active: bool = false
 var flush_count: int = 0
@@ -17,10 +15,9 @@ var _viewport: Viewport
 
 func _init(host: Node, dimension: int, mode: int = Mode.PROOF) -> void:
 	_mode = mode
-	_metadata = META if mode == Mode.PROOF else RUNTIME_META
 	_host = weakref(host)
 	_dimension = dimension
-	host.set_meta(_metadata, weakref(self))
+	if _mode == Mode.PROOF: host.set_meta(META, weakref(self))
 	model.invalidated.connect(_invalidated)
 	model.placed.connect(_place)
 	model.arranged.connect(_arranged)
@@ -31,8 +28,15 @@ func parent_coordinator():
 	return participant(host.get_parent())
 
 func participant(node: Node):
-	if node == null or not node.has_meta(_metadata): return null
-	var found = node.get_meta(_metadata).get_ref()
+	if node == null: return null
+	var found
+	if _mode == Mode.PROOF:
+		if not node.has_meta(META): return null
+		found = node.get_meta(META).get_ref()
+	else:
+		# Runtime references must never be serialized as Node metadata.
+		if not node.has_method("_get_layout_coordinator"): return null
+		found = node._get_layout_coordinator()
 	return found if found != null and found.active and found._dimension == _dimension else null
 
 func scope_root():
@@ -55,6 +59,9 @@ func _viewport_scale(host: Node) -> float:
 func start() -> void:
 	active = true
 	var host: Node = _host.get_ref()
+	# PackedScene restores metadata after construction. Refresh the proof-only
+	# weak registry at entry; C1 resolves the live script field instead.
+	if _mode == Mode.PROOF: host.set_meta(META, weakref(self))
 	host.child_entered_tree.connect(_child_changed)
 	host.child_exiting_tree.connect(_child_changed)
 	if host.has_signal("child_order_changed"): host.connect("child_order_changed", _sync)

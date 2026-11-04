@@ -72,6 +72,9 @@ func _exit_tree() -> void:
 func invalidate_layout() -> void:
 	layout.model.invalidate()
 
+func _get_layout_coordinator():
+	return layout
+
 func get_layout_root() -> Node:
 	return layout.root_host()
 

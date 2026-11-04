@@ -1,6 +1,6 @@
 # ADR-0015 staged Node-native migration
 
-**Staged plan:** ADR-0015-A merged in PR #70; B1 #71 merged in PR #72 with its bounded [composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) merged in PR #74 with the [shared spatial layout proof](NODE_LAYOUT_PROOF.md). [B3 #75](https://github.com/resistdesign/Estragon/issues/75) submits the [native adapter/metadata proof](NODE_ADAPTER_PROOF.md); broader migration remains unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
+**Staged plan:** ADR-0015-A merged in PR #70; B1 #71 merged in PR #72 with its bounded [composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) merged in PR #74 with the [shared spatial layout proof](NODE_LAYOUT_PROOF.md). [B3 #75](https://github.com/resistdesign/Estragon/issues/75) merged in PR #76 (`457f6b9`) with the [native adapter/metadata proof](NODE_ADAPTER_PROOF.md). [C1 #77](https://github.com/resistdesign/Estragon/issues/77) submits the [working native runtime foundation](NODE_RUNTIME.md); C2–C4 remain unstarted. [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon), owner [#68](https://github.com/resistdesign/Estragon/issues/68), formalization [#69](https://github.com/resistdesign/Estragon/issues/69). This is the successor work breakdown incorporated by [EXECUTION_PLAN](EXECUTION_PLAN.md). IDs below identify narrow proposed tasks, not shipped features or newly claimed assignments. Create/reuse a scoped GitHub issue on pickup and link its plan before code. Each arrow means predecessor reviewed and merged, not merely drafted. One open PR total; never auto-merge.
 
 ## Sequence and gates
 
@@ -28,7 +28,7 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 
 ### ADR-0015-B2 — Explicit entries and composed measure/arrange
 
-**Tracking:** [#73](https://github.com/resistdesign/Estragon/issues/73); [bounded proof contract and evidence](NODE_LAYOUT_PROOF.md). Proposed X-row/local-space/authority defaults were recorded before code; owner review/merge still required.
+**Tracking:** [#73](https://github.com/resistdesign/Estragon/issues/73); [bounded proof contract and evidence](NODE_LAYOUT_PROOF.md). Proposed X-row/local-space/authority defaults were recorded before code; B2 merged in PR #74.
 
 **Prerequisite:** B1 merged; reviewed bounded coordinate/authority contract in the task issue. **Layers:** pure mathematical layout core plus minimal Node2D/Node3D entry/participant proof; no broader widgets, bindings or wrapping engine.
 
@@ -41,7 +41,7 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 
 ### ADR-0015-B3 — Native2D/Native3D bounds and authority
 
-**Tracking:** [#75](https://github.com/resistdesign/Estragon/issues/75), [bounded contract/evidence](NODE_ADAPTER_PROOF.md). B2 PR #74 merged at `5921e96`; B3 requires owner review/merge before C1.
+**Tracking:** [#75](https://github.com/resistdesign/Estragon/issues/75), [bounded contract/evidence](NODE_ADAPTER_PROOF.md). B2 PR #74 merged at `5921e96`; B3 merged in PR #76 before C1 pickup.
 
 **Prerequisite:** B2 merged; reviewed bounds-provider, transform-write and ownership rules. **Layers:** two minimal adapters, native examples and native tests; not a universal measurement framework.
 
@@ -53,6 +53,8 @@ C01 #41/#51 remains the release gate for both existing and migrated products. Ow
 **Acceptance:** both-engine positive/negative runtime, bounds/authority/loop-count assertions, isolated editor persistence and visual captures. Record the complete B1–B3 proof checklist and remaining limitations before authorizing C1. No global observer or full-tree transform cascade.
 
 ## Migration after the complete proof
+
+**C1 tracking:** [#77](https://github.com/resistdesign/Estragon/issues/77), [runtime API/contract](NODE_RUNTIME.md), runnable `examples/node_runtime/TwoD.tscn` and `ThreeD.tscn`. Public entry/participant/native adapter code is separate from the experimental proof fixtures; shared internals are reused, not copied by dimension. C1 review/merge is required before any separately selected C2 task.
 
 | Task / one PR | Prerequisites and scope | Measurable acceptance / non-goals |
 | --- | --- | --- |

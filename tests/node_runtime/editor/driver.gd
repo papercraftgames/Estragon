@@ -28,6 +28,7 @@ func _process(_delta: float) -> void:
 			var entry = scene.get_node("Entry")
 			var reentry = entry.get_node("Boundary/Reentry")
 			var participant = reentry.get_node("Participant")
+			print("C1_EDITOR_SCOPE_STATE phase=",phase," entry=",entry.get_layout_stats()," mode=",entry.layout._mode," lifecycle=",entry.layout.active," reentry=",reentry.get_layout_stats()," mode=",reentry.layout._mode," lifecycle=",reentry.layout.active," participant=",participant.get_layout_stats()," lifecycle=",participant.layout.active," inside=",participant.is_inside_tree()," tool=",participant.get_script().is_tool())
 			check(entry.get_layout_root() == entry and participant.get_layout_root() == reentry, "real C1 runtime scopes survive editor reopen")
 			check(participant.owner == scene and participant.get_node("NativeDecoration").owner == scene, "C1 participant and native decoration owners persist")
 			check(participant.layout_size == (Vector2(70,40) if phase == 1 else Vector3(1,0.7,0.7)), "component recomputes layout from persisted properties")
