@@ -25,9 +25,13 @@ export function assessFile(file:string){
   if(group==='metadata'){
    if(result.sourceHead!==report.source_commit||result.sourceDirty!==false||result.version!==report.version||result.original_binary_sha256!==report.binary_sha256)throw Error('Metadata source/engine mismatch');
    observed.metadata={status:result.status};
-  }else for(const [key,value]of Object.entries(result)){
+  }else {
+   if(!report.files[group+'/'+report.label+'/provenance.json'])throw Error('Missing source/engine provenance: '+group);
+   for(const [key,value]of Object.entries(result)){
    const stage=value as Stage;observed[group+'.'+key]=stage;
    if(stage.command&&(!stage.log||path.basename(stage.log)!==stage.log||!report.files[group+'/'+report.label+'/'+stage.log]))throw Error('Missing stage execution log: '+key);
+   if(key!=='package_layout'&&(!stage.command?.length||stage.exit_code!==0||stage.timeout||stage.aborted_on_error))throw Error('Missing successful native execution: '+key);
+   }
   }
  }
  if(JSON.stringify(observed)!==JSON.stringify(report.stages))throw Error('Stage evidence summary mismatch');

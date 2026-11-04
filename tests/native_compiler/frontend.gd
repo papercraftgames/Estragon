@@ -14,6 +14,7 @@ func _initialize() -> void:
 		'extends Node\nfunc make():\n\tvar create := func(value: String): return <Node name={value} />\n\treturn create.call("lambda")\n',
 		'extends Node\nfunc make(): return <Node name={str({"nested": <Node name="inside" />}.size())} />\n',
 		'extends RefCounted\nvar value: float = 1.25e-2\nfunc count() -> int: return 7\n',
+		'extends RefCounted\nvar number: int = 9007199254740993\n',
 		'extends Node\r\nfunc make():\r\n    return <Node name="CRLF" />\r\n'
 	]
 	for source in examples:
@@ -26,6 +27,8 @@ func _initialize() -> void:
 		var script := GDScript.new()
 		script.source_code = first.code
 		check(script.reload()==OK,"native semantic acceptance of valid generated code")
+		if source.contains('9007199254740993'):
+			check(first.code.contains('9007199254740993') and str(script.new().number)=="9007199254740993","native integer tokens preserved without float conversion")
 		if source.contains('create := func'):
 			var instance = script.new()
 			var node: Node = instance.make()
