@@ -69,7 +69,7 @@ See [deferred helper issue #54](https://github.com/resistdesign/Estragon/issues/
 
 ## Inheritance and shared component behavior
 
-**Verified existing Godot classes:**
+**Retired pre-C4 Godot classes (archival context, no supported executable path):**
 
 ```text
 EstragonDisplayObject
@@ -79,7 +79,7 @@ EstragonDisplayObject
                 └── EstragonHBox
 ```
 
-The earlier proposed RefCounted `EstragonBox extends EstragonContainer` hierarchy is **superseded as the future design** by ADR-0015. Current Stack shares measurement/arrangement and gap and remains a compatibility contract until migration. Future 2D and 3D visual components inherit Node2D and Node3D respectively, sharing box/measure/arrange behavior through composition, not a plain Node visual base. Do not duplicate algorithms or rename current superclasses mechanically.
+The earlier proposed RefCounted `EstragonBox extends EstragonContainer` hierarchy is **superseded as the future design** by ADR-0015. C4 removed that display hierarchy. Canonical EstragonRect/Text/Button/HBox/VBox now inherit Node2D; bounded 3D participants inherit Node3D. They share measurement/arrangement through composition. The former Stack compatibility path is retired; do not recreate it.
 
 Native2D/Native3D adapters expose explicit or suitable provider-measured bounds. Ordinary Nodes are legal GGX children but not automatic layout participants; explicit entries re-enter below boundaries. Binding subscriptions must respect native Node lifetime/reparenting and separate PackedScene owner semantics. Preserve instance identity and native signals, invalidate only affected branches, coalesce updates and prevent feedback from layout-authored transforms. Animated geometry observation is explicit opt-in, not compulsory polling.
 
@@ -103,4 +103,4 @@ Observe viewport resize as a root layout input; handle relevant Window DPI/scali
 - Keep native compiler, source maps, callback evaluation semantics while migrating to retained native Nodes. Stage only supported properties/syntax; unknown types and unsupported mutations should fail visibly rather than pretend to be reactive.
 - Protect the shipped Counter and legacy demo during migration. Never merge on behalf of the user. Maintain linked GitHub issues, scoped PRs, CI, checked acceptance evidence and durable session handoffs per `AGENTS.md`.
 
-**Status/merge ordering:** N01–N03/R01/E01 and C01 gate infrastructure PR #66 plus scoped helper PR #67 are merged. ADR-0015-A #69 is the docs-only task; its successor proofs/migration remain queued. T09 remains queued, not implicitly unblocked by this architectural decision. One PR at a time; no automatic merges, proof implementation or release authorization here.
+**Status/merge ordering:** ADR-0015-A and B1–C4 are merged through PR #84. T09-A #43 is the active property/model slice; T09-B/C/D remain queued. Consult the live issue/sole PR for verification and review state. One PR at a time; no automatic merges or successor implementation.

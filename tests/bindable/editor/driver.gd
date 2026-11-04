@@ -9,9 +9,7 @@ var _interface: EditorInterface
 var _failed := false
 var _checks := 0
 var _counter: CodeEdit
-var _background: CodeEdit
 var _source: String
-var _background_source: String
 var _plugin: EditorPlugin
 
 func _enter_tree() -> void:
@@ -70,7 +68,7 @@ func _success(mode: String, value: int) -> void:
 	_play(mode)
 	if await _until(func(): return FileAccess.file_exists(PROOF), mode + " child executes current GGX"):
 		var proof = JSON.parse_string(FileAccess.get_file_as_string(PROOF))
-		_check(_interface.is_playing_scene() and proof.initial==value and proof.count==value+2 and proof.events.size()==2 and int(proof.events[0][0])==value and int(proof.events[0][1])==value+1 and int(proof.events[1][0])==value+1 and int(proof.events[1][1])==value+2, mode+" executes newest Gogo native layout")
+		_check(_interface.is_playing_scene() and proof.initial==value and proof.count==value+2 and proof.events.size()==2 and int(proof.events[0][0])==value and int(proof.events[0][1])==value+1 and int(proof.events[1][0])==value+1 and int(proof.events[1][1])==value+2, mode+" executes newest Gogo model and callbacks")
 	await _stop()
 
 func _blocked(mode: String, diagnostic: String) -> void:
@@ -125,6 +123,20 @@ func _run() -> void:
 		DirAccess.rename_absolute(moved,SOURCE)
 		_counter.text = _source
 		await _success(mode,3)
+	# Inherited names remain native semantic errors, with the same transaction
+	# guarantees as annotated initializer failures. Exercise the actual-path
+	# publication route on 4.0 too, where isolated preflight is unavailable.
+	SOURCE = "res://examples/bindable/Derived.gogo"
+	OUTPUT = "res://examples/bindable/generated/Derived.gd"
+	_counter = await _open(SOURCE)
+	_check(_counter != null,"derived model Gogo editor")
+	if _counter != null:
+		_source = FileAccess.get_file_as_string(SOURCE)
+		for declaration in ["@bindable var count: int = 2", "@bindable var count_changed: int = 2"]:
+			_counter.text = _source + "\n" + declaration + "\n"
+			await _blocked("project","Derived.gogo:")
+			_counter.text = _source
+			await _success("project",3)
 	_finish()
 func _finish() -> void:
 	print("BINDABLE_EDITOR_ASSERTIONS ",_checks)

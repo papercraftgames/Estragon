@@ -119,6 +119,19 @@ func run() -> void:
 	node.score += 1
 	check(events==[[1,2]],"Node property native signal")
 	node.free()
+	var imported := Compiler.compile('extends RefCounted\nconst Item = preload("res://examples/bindable/generated/Model.gd")\nvar _gogo_incoming_item: int = 1\nvar _gogo_previous_item: int = 2\n@bindable var item: Item = (\n\tItem.new()\n)\n',"imported.gogo")
+	script = GDScript.new()
+	script.source_code = imported.code
+	check(imported.ok and script.reload()==OK,"explicit imported script type, multiline initializer and hygienic generated locals")
+	var holder = script.new()
+	check(holder.item is Base and holder.item.count==3,"imported model initialized without wrappers")
+	holder.item_changed.connect(record)
+	events.clear()
+	var replacement := Base.new()
+	holder.item = replacement
+	check(holder.item==replacement and events.size()==1 and events[0][1]==replacement,"typed imported property emits actual model reference")
+	holder.item_changed.disconnect(record)
+	events.clear()
 	var negatives := [
 		'@Bindable var count: int = 0','@bindable(1) var count: int = 0','@bindable @bindable var count: int = 0',
 		'@bindable var count = 0','@bindable var count := 0','@bindable const count: int = 0',

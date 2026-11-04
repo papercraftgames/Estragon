@@ -30,6 +30,10 @@ for (const selection of options.engines) {
                         return false;
                     if (/^examples\/bindable\/Model\.gogo:\d+:\d+: Parse Error:/.test(l) && /(Cannot assign|Invalid operands|Cannot find|Invalid argument|Cannot convert|Cannot pass)/.test(l))
                         return false;
+                    // Only the deliberately authored inherited-name failures in
+                    // Derived are expected; unrelated parser errors still fail.
+                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/bindable\/generated\/Derived\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/bindable\/Derived\.gogo:\d+:\d+: Parse Error:/.test(l)) && /(?:count|count_changed).*already exists.*(?:parent|superclass)|(?:count|count_changed).*shadows.*(?:parent|superclass)/i.test(l))
+                        return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
