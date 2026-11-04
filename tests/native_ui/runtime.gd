@@ -60,7 +60,8 @@ func run() -> void:
 	entry.add_child(column)
 	root.add_child(entry)
 	await settle()
-	check(a is Node2D and a is Component and not a is Control,"production components are native Node2D participants")
+	var participant: Node = a
+	check(participant is Node2D and participant is Component and not participant is Control,"production components are native Node2D participants")
 	check(row.layout_size==Vector2(100,7) and b.layout_size==Vector2(88,7),"nested main/cross fill allocation")
 	check(column.layout_size==Vector2(100,14) and footer.position==Vector2(0,10),"shared vertical measurement and arrangement")
 	check(b.position==Vector2(12,0),"horizontal gap and order")
