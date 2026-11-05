@@ -8,7 +8,7 @@ func _initialize() -> void:
 	run.call_deferred()
 func run() -> void:
 	check(not DirAccess.dir_exists_absolute("res://tools") and not FileAccess.file_exists("res://package.json"),"addon distribution has no contributor compiler/toolchain")
-	for name in ["counter/Counter","ggx/TwoD","ggx/ThreeD","bindable/Demo"]:
+	for name in ["counter/Counter","ggx/TwoD","ggx/ThreeD","bindable/Demo","reactive/Demo"]:
 		var packed: PackedScene = load("res://examples/"+name+".tscn")
 		check(packed!=null and packed.can_instantiate(),"distributed native scene loads: "+name)
 		if packed==null: continue
@@ -24,6 +24,10 @@ func run() -> void:
 			check(scene.count==0,"native reset")
 		elif name=="bindable/Demo":
 			check(scene.model is RefCounted and scene.model.count==5 and scene.events==[[3,4],[4,5]],"source-authored observable model executes from native addon/pack")
+		elif name=="reactive/Demo":
+			scene.advance()
+			for index in range(6): await process_frame
+			check(scene.ui.get_node("Panel/Row/Bar").width==160.0 and scene.ui.get_node("Panel/Count").text=="Value: 2","pack contains automatic nested layout/property bindings")
 		else:
 			check(scene.entry is Node2D if name=="ggx/TwoD" else scene.entry is Node3D,"native dimensional scene hierarchy")
 		scene.free()

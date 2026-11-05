@@ -36,7 +36,7 @@ function fixture() {
     const label = '4.7';
     const pin = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/compatibility/linux-engines.json'), 'utf8')).find((p: any) => p.version.startsWith('4.7.'));
     const stages: Record<string, Stage> = {}, files: Record<string, string> = {};
-    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable']) {
+    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive']) {
         const p = group + '/' + label + '/results.json';
         const entries = Object.fromEntries(REQUIRED.filter(n => n.startsWith(group + '.')).map(n => [n.slice(group.length + 1), { status: 'PASS' }]));
         const result = group === 'metadata' ? { status: 'PASS', sourceHead: 'source', sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 } : entries;

@@ -29,7 +29,7 @@ export function auditNativeSource() {
                     throw Error('Dangling native source reference: ' + file + ' -> ' + match[1]);
         }
     }
-    for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo']) {
+    for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo','reactive/Model','reactive/State','reactive/Demo']) {
         const [dir, base] = name.split('/');
         const source = path.join(ROOT, 'examples', dir!, base! + '.gogo');
         const map = JSON.parse(fs.readFileSync(path.join(ROOT, 'examples', dir!, 'generated', base! + '.gd.map.json'), 'utf8'));

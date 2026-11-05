@@ -1,3 +1,5 @@
+**T09-B current contract:** [REACTIVE_GGX](REACTIVE_GGX.md) defines implemented explicit self-path properties, nested null/replacement, weak native lifetime and deferred batching. The older full-system sketches below are historical direction; collections/keyed repeaters and two-way binding remain unimplemented.
+
 **Current implementation:** T09-A #43 implements [observable typed Gogo properties/code-only models](BINDABLE_PROPERTIES.md), not automatic UI bindings. C4 is merged; the canonical runtime is native Node2D/Node3D with composed layout, and RefCounted data models are values, never UI hierarchy elements. Remaining dependency/nested-path/collection/two-way proposals below are future T09-B/C/D. Historical surface/Box/no-Node statements are superseded by ADR-0015/C4.
 
 # Bindable properties and reactivity

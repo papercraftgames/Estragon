@@ -111,16 +111,17 @@ func _run() -> void:
 		_counter.text = _source.replace("text={self.model.player.title}","text={self.model.player.title.to_upper()}")
 		await _blocked(mode,"Demo.gogo:")
 		_counter.text = _source.replace("text={self.model.player.title}","text={self.model.player.missing}")
-		await _blocked(mode,"Counter.gogo:")
+		await _blocked(mode,"Demo.gogo:")
 		_counter.text = _source.replace("width={self.model.player.width}", 'width={self.model.player.title}')
-		await _blocked(mode,"Counter.gogo:")
+		var mapped := ClassDB.class_exists("Logger") and ClassDB.class_exists("ScriptBacktrace")
+		await _blocked(mode,"Demo.gogo:27:" if mapped else "exact authored location unavailable")
 		_counter.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"
 		DirAccess.rename_absolute(SOURCE,moved)
 		DirAccess.make_dir_absolute(SOURCE)
 		_counter.text = _source.replace("var count: int = 0","var count: int = 99")
-		await _blocked(mode,"Counter.gogo:")
+		await _blocked(mode,"Demo.gogo:")
 		DirAccess.remove_absolute(SOURCE)
 		DirAccess.rename_absolute(moved,SOURCE)
 		_counter.text = _source
