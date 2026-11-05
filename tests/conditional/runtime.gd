@@ -55,6 +55,7 @@ func run() -> void:
 	events_removed.children[0].children[1].handlers.clear()
 	record._reconcile(events_removed,record.mounted,scene,scene)
 	check(action.pressed.get_connections().is_empty(),"removed handler set disconnects without replacing Node")
+	events_removed = null
 	scene.show_bonus = true
 	await settle()
 	var bonus = panel.get_node("Bonus")

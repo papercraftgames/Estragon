@@ -59,8 +59,8 @@ func build_view() -> Element:
         (12.0),
         ("Count: %d" % count),
         (_GogoFactories_0._gogo_build_1((increment)) if count > 2 else _GogoFactories_0._gogo_build_2((model.title))),
-        (_GogoFactories_0._gogo_build_3((4.0), (_GogoFactories_0._gogo_build_4((model.width), (8.0)) if count > 4 else _GogoFactories_0._gogo_build_5())) if show_bonus else null),
-        (_GogoFactories_0._gogo_build_6((model)) if show_child else null),
+        (_GogoFactories_0._gogo_build_3((4.0), ((_GogoFactories_0._gogo_build_4((model.width), (8.0)) if model.width < 160.0 else _GogoFactories_0._gogo_build_5((model.width), (8.0))) if count > 4 else _GogoFactories_0._gogo_build_6())) if show_bonus else null),
+        (_GogoFactories_0._gogo_build_7((model)) if show_child else null),
         (increment),
         (toggle_bonus),
         (toggle_child)
@@ -126,15 +126,20 @@ class _GogoFactories_0:
 
 
     static func _gogo_build_4(_gogo_value_0: float, _gogo_value_1: float) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Deep", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:20:18")
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Deep", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:20:19")
         return _gogo_element_0
 
 
-    static func _gogo_build_5() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Wait", "text": "Keep counting"}, {}, [], "examples/conditional/Counter.gogo:20:90")
+    static func _gogo_build_5(_gogo_value_0: float, _gogo_value_1: float) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Wide", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:20:101")
         return _gogo_element_0
 
 
-    static func _gogo_build_6(_gogo_value_0: Child.Model) -> _GogoElement_0:
+    static func _gogo_build_6() -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Wait", "text": "Keep counting"}, {}, [], "examples/conditional/Counter.gogo:20:174")
+        return _gogo_element_0
+
+
+    static func _gogo_build_7(_gogo_value_0: Child.Model) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Child, {"name": "Nested", "model": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:23:14")
         return _gogo_element_0
