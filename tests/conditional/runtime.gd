@@ -31,6 +31,9 @@ func run() -> void:
 	check(record.runs==1 and child_record.runs==1,"initial parent/independent nested computation once")
 	check(not panel.has_node("Bonus") and prompt is Node2D,"false branch and null hole initial state")
 	check(record.moves==0 and record.frees==0,"initial mount performs no moves or frees")
+	scene.unobserved = 1
+	await settle()
+	check(record.runs==1 and child_record.runs==1 and scene.unobserved_changed.get_connections().is_empty(),"class-wide unread host field emits without scheduling any computation")
 	scene.count = 1
 	await settle()
 	check(panel.get_node("Prompt")==prompt and record.allocations==allocated and child_record.runs==1,"false-to-false retains branch and does not recompose child")

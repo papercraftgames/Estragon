@@ -167,6 +167,8 @@ func _bindable(property: Model.Bindable) -> void:
 	_writer.append(", value: ",property.name_span)
 	_writer.append(_file.slice(property.type_span),property.type_span,true)
 	_writer.append(")\n",property.name_span)
+	if property.annotations_span != null:
+		_writer.append(_file.slice(property.annotations_span),property.annotations_span,true)
 	_writer.append(_file.slice(property.declaration_span),property.declaration_span,true)
 	_writer.append(":",property.name_span)
 	if property.comment_span != null:

@@ -113,7 +113,7 @@ func _run() -> void:
 		_counter.text = _source.replace("<Entry name=","<RefCounted name=")
 		await _blocked(mode,"Counter.gogo:")
 		_counter.text = _source.replace("else null}","else 7}")
-		await _blocked(mode,"Counter.gogo:21:")
+		await _blocked(mode,"Counter.gogo:22:")
 		_counter.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"

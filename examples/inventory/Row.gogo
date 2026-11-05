@@ -1,10 +1,11 @@
+@bindable
 extends "res://addons/estragon/runtime/node/hbox.gd"
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
 const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
-@bindable var item: Item = null
-@bindable var clicks: int = 0
+var item: Item = null
+var clicks: int = 0
 func build_view() -> Element:
     return <Text name="Caption" text={"%s | row state: %d" % [item.title,clicks] if item != null else "Empty"} />
 func increment() -> void:

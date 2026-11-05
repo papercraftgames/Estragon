@@ -150,6 +150,107 @@ func run() -> void:
 	check(not crlf.ok and crlf.diagnostics[0].span.start.line==3 and crlf.diagnostics[0].span.start.column==1,"CRLF/Unicode authored annotation span")
 	var ordinary := Compiler.compile('extends RefCounted\n# @bindable var fake\nvar text = "@bindable var fake"\n',"ordinary.gogo")
 	check(ordinary.ok and not ordinary.code.contains("fake_changed"),"strings/comments are lexical, never annotations")
+	class_wide_checks()
 	print("BINDABLE_ASSERTIONS ",checks," failures=",failures)
 	if failures==0: print("BINDABLE_RUNTIME_OK")
 	quit(1 if failures else 0)
+
+func class_wide_checks() -> void:
+	var source := '@bindable\n# marker belongs to the script, not its first field\nextends RefCounted\nvar _private: int = 1\n@bindable var score: int = 2\nvar tags: Array[String] = []\nvar ignored = 3\nvar inferred := 4\nconst FIXED: int = 5\nclass Inner:\n\tvar value: int = 6\nfunc local() -> int:\n\tvar local_value: int = 7\n\treturn local_value\n'
+	var first := Compiler.compile(source,"class.gogo")
+	var again := Compiler.compile(source,"class.gogo")
+	check(first.ok and first.code==again.code and first.source_map.serialize()==again.source_map.serialize(),"class-wide output/maps deterministic")
+	if not first.ok: return
+	check(first.code.count("signal score_changed(")==1 and first.code.count("set(_gogo_incoming_score)")==1,"class plus explicit property marker lowers exactly once")
+	check(not first.code.contains("ignored_changed") and not first.code.contains("inferred_changed") and not first.code.contains("local_value_changed") and not first.code.contains("value_changed") and not first.code.contains("FIXED_changed"),"untyped/inferred/local/inner/const fields remain ordinary")
+	var script := GDScript.new()
+	script.source_code = first.code
+	check(script.reload()==OK,"class-wide native RefCounted semantics")
+	var model = script.new()
+	check(model._private==1 and model.score==2 and model.tags.is_empty() and model.score_changed.get_connections().is_empty(),"class-wide initialization is quiet")
+	events.clear()
+	model.score_changed.connect(record)
+	model.score += 1
+	check(events==[[2,3]],"class plus property emits exactly one typed transition")
+	model.score_changed.disconnect(record)
+	events.clear()
+	model._private_changed.connect(record)
+	model._private = 8
+	check(events==[[1,8]],"private-by-convention typed fields are eligible")
+	model._private_changed.disconnect(record)
+	events.clear()
+	model.tags_changed.connect(record)
+	var tags: Array[String] = []
+	model.tags = tags
+	model.tags = tags
+	tags.append("native mutation")
+	check(events.size()==1 and model.tags==["native mutation"],"class-wide typed array uses the same reference equality boundary")
+	model.tags_changed.disconnect(record)
+	events.clear()
+	var exported := Compiler.compile('@tool\n@bindable\nextends Node\n@export var shown: int = 3\n@export_range(0,10,1)\nvar rating: int = 4\n',"export.gogo")
+	script = GDScript.new()
+	script.source_code = exported.code
+	check(exported.ok and script.reload()==OK,"native export modifiers remain attached to generated properties, not signals")
+	var node = script.new()
+	var exposed := {}
+	for property in node.get_property_list():
+		if property.name in ["shown","rating"]: exposed[property.name] = int(property.usage)&PROPERTY_USAGE_EDITOR!=0
+	check(exposed.get("shown",false) and exposed.get("rating",false) and not node.has_signal("position_changed"),"native export metadata preserved; inherited native properties not instrumented")
+	node.shown_changed.connect(record)
+	node.shown = 5
+	check(events==[[3,5]],"class-wide Node host native signal")
+	node.free()
+	events.clear()
+	for line in range(exported.code.split("\n").size()):
+		if exported.code.split("\n")[line].begins_with("@export var shown"):
+			var original = exported.source_map.original_position(line+1,1)
+			check(original!=null and original.line==4 and original.column==1,"native annotation source span copied exactly")
+		if exported.code.split("\n")[line].contains("var shown:"):
+			var column: int = exported.code.split("\n")[line].find("var shown:")+1
+			var original = exported.source_map.original_position(line+1,column)
+			check(original!=null and original.line==4 and original.column==9,"inline export property var maps to authored column")
+	var inherited := Compiler.compile('@bindable\nextends "res://examples/bindable/generated/Model.gd"\nvar extra: int = 8\n',"derived-class.gogo")
+	script = GDScript.new()
+	script.source_code = inherited.code
+	check(inherited.ok and script.reload()==OK and not inherited.code.contains("signal count_changed"),"annotated derived owns only new fields; base signals inherited once")
+	model = script.new()
+	model.count_changed.connect(record)
+	model.count += 1
+	check(events==[[3,4]] and model.extra==8 and model.has_signal("extra_changed"),"mixed base/derived setter contract preserved")
+	model.count_changed.disconnect(record)
+	events.clear()
+	var native_base := Compiler.compile('@bindable\nextends "res://examples/bindable/generated/Demo.gd"\nvar extra: int = 9\n',"ordinary-base.gogo")
+	script = GDScript.new()
+	script.source_code = native_base.code
+	check(native_base.ok and script.reload()==OK,"class-wide Gogo can extend an unannotated ordinary script")
+	node = script.new()
+	check(node.has_signal("extra_changed") and not node.has_signal("model_changed") and not node.has_signal("events_changed"),"unannotated base fields stay unmodified")
+	node.free()
+	var static_source := Compiler.compile(source+'@warning_ignore("unused_private_class_variable") static var cached: int = 4\nvar later: int = 5\n',"static.gogo")
+	check(static_source.ok and not static_source.code.contains("cached_changed") and static_source.code.contains("later_changed"),"static fields stay native and are never instance-observed")
+	var class_init := Compiler.compile('@bindable\nextends RefCounted\nvar value: int = 3\nvar seen: Array = []\nfunc _init() -> void:\n\tvalue_changed.connect(changed)\n\tvalue = 4\nfunc changed(a: int,b: int) -> void: seen.append([a,b])\n',"class-init.gogo")
+	script = GDScript.new()
+	script.source_code = class_init.code
+	check(class_init.ok and script.reload()==OK and script.new().seen==[[3,4]],"class-wide declaration quiet; _init writes use normal notification")
+	for bad in [
+		'@bindable\n@bindable\nextends RefCounted\nvar score: int = 0',
+		'@bindable(1)\nextends RefCounted\nvar score: int = 0',
+		'@Bindable\nextends RefCounted\nvar score: int = 0',
+		'@bindable extends RefCounted\nvar score: int = 0',
+		'var first: int = 0\n@bindable\nextends RefCounted',
+		'extends RefCounted\nclass Inner:\n\t@bindable\n\textends RefCounted',
+		'@bindable\nextends RefCounted\nvar score: int:\n\tget: return 1',
+		'@bindable\nextends RefCounted\nvar score: int = 0; var other: int = 1',
+		'@bindable\nextends RefCounted\nsignal score_changed\nvar score: int = 0',
+		'@bindable\nextends RefCounted\nstatic var score_changed: int = 0\nvar score: int = 0',
+		'@bindable\nextends Node\n@onready var score: int = 0',
+		'@bindable\nextends Node\nvar child: Node = <Node />',
+		'@bindable\nextends RefCounted\n@bindable var inferred = 0',
+		'@bindable\nextends RefCounted\nfunc local():\n\t@bindable var score: int = 0'
+	]:
+		var rejected := Compiler.compile(bad+"\n","class-negative.gogo")
+		check(not rejected.ok and rejected.diagnostics.size()==1 and rejected.diagnostics[0].span.start.line>=1,"class-wide invalid scope/accessor/annotation/collision rejects: "+bad)
+	var forbidden := Compiler.compile("@bindable\nextends RefCounted\nvar score: int = 0\n","class.gd")
+	check(not forbidden.ok and forbidden.diagnostics[0].span.start.line==1,"class marker is Gogo-only")
+	var crlf := Compiler.compile(source.replace("\n","\r\n"),"class-crlf.gogo")
+	check(crlf.ok and crlf.source_map.serialize().contains("\\r\\n"),"class-wide CRLF source retained")

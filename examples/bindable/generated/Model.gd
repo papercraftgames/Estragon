@@ -1,3 +1,4 @@
+
 class_name BindableExampleModel
 extends RefCounted
 ## Typed non-Node data; GGX and UI dependency bindings are unnecessary here.

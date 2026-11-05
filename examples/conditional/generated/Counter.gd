@@ -1,3 +1,4 @@
+
 extends Node2D
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
@@ -78,6 +79,18 @@ func write_proof() -> void:
     var file := FileAccess.open("res://.godot/conditional-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":get_node("UI/Panel/Always").text}))
 
+signal unobserved_changed(previous: int, value: int)
+var unobserved: int = 0:
+    set(_gogo_incoming_unobserved):
+        if is_same(unobserved, _gogo_incoming_unobserved): return
+        var _gogo_previous_unobserved: int = unobserved
+        unobserved = _gogo_incoming_unobserved
+        unobserved_changed.emit(_gogo_previous_unobserved, _gogo_incoming_unobserved)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"unobserved_changed")
+        return unobserved
+
+
 
 func _notification(_gogo_what: int) -> void:
     preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -100,46 +113,46 @@ class _GogoFactories_0:
         _gogo_value_9: Callable,
         _gogo_value_10: Callable
     ) -> _GogoElement_0:
-        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Always", "text": _gogo_value_4}, {}, [], "examples/conditional/Counter.gogo:17:13", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "After", "text": "Stable sibling after optional slot"}, {}, [], "examples/conditional/Counter.gogo:22:13", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_8}, [], "examples/conditional/Counter.gogo:24:13", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Toggle", "text": "Toggle bonus"}, {"pressed": _gogo_value_9}, [], "examples/conditional/Counter.gogo:25:13", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "ToggleChild", "text": "Toggle nested component"}, {"pressed": _gogo_value_10}, [], "examples/conditional/Counter.gogo:26:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_value_5, _gogo_value_6, _gogo_element_3, _gogo_value_7, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/conditional/Counter.gogo:16:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/conditional/Counter.gogo:15:12", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Always", "text": _gogo_value_4}, {}, [], "examples/conditional/Counter.gogo:18:13", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "After", "text": "Stable sibling after optional slot"}, {}, [], "examples/conditional/Counter.gogo:23:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_8}, [], "examples/conditional/Counter.gogo:25:13", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Toggle", "text": "Toggle bonus"}, {"pressed": _gogo_value_9}, [], "examples/conditional/Counter.gogo:26:13", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "ToggleChild", "text": "Toggle nested component"}, {"pressed": _gogo_value_10}, [], "examples/conditional/Counter.gogo:27:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_value_5, _gogo_value_6, _gogo_element_3, _gogo_value_7, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/conditional/Counter.gogo:17:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/conditional/Counter.gogo:16:12", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Callable) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(UiButton, {"name": "Action", "text": "Ready"}, {"pressed": _gogo_value_0}, [], "examples/conditional/Counter.gogo:18:14", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(UiButton, {"name": "Action", "text": "Ready"}, {"pressed": _gogo_value_0}, [], "examples/conditional/Counter.gogo:19:14", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_2(_gogo_value_0: String) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Prompt", "text": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:18:92", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Prompt", "text": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:19:92", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_3(_gogo_value_0: float, _gogo_value_1: Variant) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Bonus", "gap": _gogo_value_0}, {}, [_gogo_value_1], "examples/conditional/Counter.gogo:19:14", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Bonus", "gap": _gogo_value_0}, {}, [_gogo_value_1], "examples/conditional/Counter.gogo:20:14", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_4(_gogo_value_0: float, _gogo_value_1: float) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Deep", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:20:19", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Deep", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:21:19", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_5(_gogo_value_0: float, _gogo_value_1: float) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Wide", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:20:101", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Wide", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:21:101", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_6() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Wait", "text": "Keep counting"}, {}, [], "examples/conditional/Counter.gogo:20:174", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Wait", "text": "Keep counting"}, {}, [], "examples/conditional/Counter.gogo:21:174", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_7(_gogo_value_0: Child.Model) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Child, {"name": "Nested", "model": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:23:14", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Child, {"name": "Nested", "model": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:24:14", null, false)
         return _gogo_element_0
