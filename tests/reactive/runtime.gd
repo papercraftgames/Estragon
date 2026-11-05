@@ -150,6 +150,9 @@ func run() -> void:
 		check(not result.ok and result.diagnostics[0].span.start.line==3,"unsupported dependency diagnosed at authored line: "+bad)
 	var position := Compiler.compile(code.replace('name={String(self.value)}','position={Vector2(self.value,0)}').replace('<Node','<Node2D'),"position.gogo")
 	check(not position.ok and position.diagnostics[0].message.contains("deferred"),"reactive layout-controlled position explicitly deferred")
+	for member in ["rotation_degrees", "skew"]:
+		var transform := Compiler.compile(code.replace('name={String(self.value)}',member+'={self.value}').replace('<Node','<Node2D'),"transform.gogo")
+		check(not transform.ok and transform.diagnostics[0].message.contains("deferred"),"native transform alias cannot bypass deferral: "+member)
 	print("REACTIVE_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
 	if failures==0: print("REACTIVE_RUNTIME_OK")
 	quit(1 if failures else 0)

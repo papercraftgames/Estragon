@@ -70,7 +70,7 @@ func analyze(expression, property: String) -> void:
 	for token in tokens:
 		if token.kind == "identifier" and token.text == "self": opted = true
 	if not opted: return
-	if property in ["position", "global_position", "transform", "global_transform", "rotation", "scale", "x", "y"]:
+	if property in ["position", "global_position", "transform", "global_transform", "rotation", "rotation_degrees", "global_rotation", "global_rotation_degrees", "rotation_order", "quaternion", "basis", "global_basis", "scale", "global_scale", "skew", "top_level", "x", "y"]:
 		file.fail("Reactive transforms/position are deferred until layout authority is specified",expression.span.start.index,expression.span.end.index)
 		return
 	for part in expression.parts:
