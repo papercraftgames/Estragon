@@ -1,6 +1,7 @@
+@bindable
 extends RefCounted
 var id: int = 0
-@bindable var title: String = "Item"
+var title: String = "Item"
 func _init(identity: int = 0, caption: String = "Item") -> void:
     id = identity
     title = caption

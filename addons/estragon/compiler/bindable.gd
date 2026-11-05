@@ -1,6 +1,6 @@
 @tool
 extends RefCounted
-## T09-A lexical property declarations; never substitute mixed source with regexes.
+## One lexical property lowering for explicit and class-wide Gogo annotations.
 const Model = preload("res://addons/estragon/compiler/model.gd")
 const Source = preload("res://addons/estragon/compiler/source.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
@@ -8,12 +8,41 @@ var file: Source
 var module: Model.Module
 var members: Dictionary = {}
 var properties: Dictionary = {}
+var class_marker: Model.Span
 func _init(source: Source) -> void:
 	file = source
 func apply(value: Model.Module) -> void:
 	module = value
+	_class_scope(module.parts)
+	if not file.diagnostics.is_empty(): return
 	_collect(module.parts)
 	module.parts.assign(_parts(module.parts))
+# A class marker is unambiguous only in the script preamble, directly
+# before extends/class_name. Existing preceding-line property markers stay so.
+func _class_scope(parts: Array) -> void:
+	var preamble := true
+	for part in parts:
+		if not part is Model.Code: continue
+		var lexer := Lexer.new(file)
+		var cursor: int = part.span.start.index
+		while cursor<part.span.end.index:
+			var token = lexer.next_token(cursor)
+			if token==null: return
+			cursor = token.span.end.index
+			if token.span.start.column!=1: continue
+			if token.text in ["var","static","const","func","signal","class"]: preamble = false
+			if token.text!="@": continue
+			var name = lexer.next_token(cursor)
+			if name==null or name.text.to_lower()!="bindable": continue
+			var following = _next(lexer,name.span.end.index,true)
+			if following==null or following.text not in ["extends","class_name"]: continue
+			if not preamble or following.span.start.column!=1 or following.span.start.line==token.span.start.line:
+				file.fail("Class @bindable must be a standalone preamble annotation before extends or class_name",token.span.start.index,name.span.end.index)
+				return
+			if class_marker!=null:
+				file.fail("Duplicate class @bindable annotation",token.span.start.index,name.span.end.index)
+				return
+			class_marker = file.span(token.span.start.index,name.span.end.index)
 func _collect(parts: Array) -> void:
 	for part in parts:
 		if not part is Model.Code: continue
@@ -23,7 +52,7 @@ func _collect(parts: Array) -> void:
 			var token = lexer.next_token(cursor)
 			if token == null: return
 			cursor = token.span.end.index
-			if token.kind == "identifier" and token.text in ["var","signal","const","func","class"] and (token.span.start.column == 1 or file.text[file.line_start(token.span.start.line)] == "@"):
+			if token.kind == "identifier" and token.text in ["var","signal","const","func","class"] and (token.span.start.column == 1 or file.text[file.line_start(token.span.start.line)] == "@" or file.text.substr(file.line_start(token.span.start.line),token.span.start.index-file.line_start(token.span.start.line)).strip_edges()=="static"):
 				var name = lexer.next_token(cursor)
 				while name != null and name.kind == "whitespace": name = lexer.next_token(name.span.end.index)
 				if name != null and name.kind == "identifier": members[name.text] = name.span
@@ -44,6 +73,9 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 		var cursor: int = part.span.start.index
 		var copied := cursor
 		var pending_annotation: bool = false
+		var annotations_start := -1
+		var onready := false
+		var static_field := false
 		while cursor < part.span.end.index and file.diagnostics.is_empty():
 			var token = lexer.next_token(cursor)
 			if token == null: break
@@ -57,6 +89,17 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 						break
 					if name.text != "bindable":
 						file.fail("Only lowercase @bindable is supported",token.span.start.index,name.span.end.index)
+						break
+					if class_marker!=null and token.span.start.index==class_marker.start.index:
+						if copied<token.span.start.index:
+							var before := Model.Code.new()
+							before.span = file.span(copied,token.span.start.index)
+							result.append(before)
+						cursor = name.span.end.index
+						copied = cursor
+						continue
+					if class_marker!=null and _next(lexer,name.span.end.index,true).text=="@":
+						file.fail("Duplicate/conflicting @bindable annotation",token.span.start.index,name.span.end.index)
 						break
 					if token.span.start.column != 1 or pending_annotation:
 						file.fail("@bindable requires a top-level instance property without annotation composition",token.span.start.index)
@@ -72,8 +115,35 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 					copied = cursor
 					pending_annotation = false
 					continue
-				if token.span.start.column == 1: pending_annotation = name.text not in ["tool","icon","static_unload"]
-			elif token.text == "var" or token.kind not in ["whitespace","comment","newline"] and token.span.start.column == 1: pending_annotation = false
+				if token.span.start.column==1 and name.text not in ["tool","icon","static_unload"]:
+					pending_annotation = true
+					if annotations_start<0: annotations_start = token.span.start.index
+					onready = onready or name.text=="onready"
+			if token.text=="static": static_field = true
+			if class_marker!=null and not static_field and token.text=="var" and (token.span.start.column==1 or annotations_start>=0 and file.text[file.line_start(token.span.start.line)]=="@"):
+				var field = _next(lexer,token.span.end.index)
+				var colon = _next(lexer,field.span.end.index) if field!=null else null
+				# Untyped/inferred/static/local/inner fields are ordinary GDScript.
+				if colon!=null and colon.text==":":
+					if onready:
+						file.fail("Class @bindable does not support @onready fields; use selective property annotations",annotations_start,token.span.end.index)
+						break
+					var start: int = annotations_start if annotations_start>=0 else token.span.start.index
+					var property = _property(lexer,token.span.start.index,part.span.end.index,start)
+					if property==null: break
+					if start<token.span.start.index: property.annotations_span = file.span(start,token.span.start.index)
+					if copied<start:
+						var before := Model.Code.new()
+						before.span = file.span(copied,start)
+						result.append(before)
+					result.append(property)
+					cursor = property.span.end.index
+					copied = cursor
+			if token.text=="var" or token.span.start.column==1 and token.text in ["func","static","const","class","signal","extends","class_name"]:
+				pending_annotation = false
+				annotations_start = -1
+				onready = false
+				static_field = false
 		if copied < part.span.end.index:
 			var after := Model.Code.new()
 			after.span = file.span(copied,part.span.end.index)

@@ -39,6 +39,7 @@ class Bindable extends SyntaxNode:
 	var type_span: Span
 	var type_name: String
 	var signal_name: String
+	var annotations_span: Span # Native property annotations, never attached to generated signal.
 	var declaration_span: Span
 	var comment_span: Span
 	func _init() -> void:

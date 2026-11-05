@@ -1,3 +1,4 @@
+@bindable
 extends Node2D
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
@@ -7,10 +8,10 @@ const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
 const Child = preload("res://examples/conditional/generated/Child.gd")
 const Model = preload("res://examples/composition/generated/Model.gd")
-@bindable var count: int = 0
-@bindable var show_bonus: bool = false
-@bindable var show_child: bool = true
-@bindable var model: Model = Model.new()
+var count: int = 0
+var show_bonus: bool = false
+var show_child: bool = true
+var model: Model = Model.new()
 func build_view() -> Element:
     return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
         <VBox name="Panel" fill_width={true} gap={12.0}>
