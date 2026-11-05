@@ -59,8 +59,12 @@ func _component(node: Model.Component) -> void:
 			if attribute.value is Model.Literal:
 				if str(attribute.value.value).is_empty(): _error("GGX key must be an integer or nonempty String",attribute.value.span)
 			else:
+				for part in attribute.value.parts:
+					if part is Model.Component:
+						_error("GGX key must be an integer or nonempty String",part.span)
+						return
 				var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
-				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new(") or text.begins_with("&\"") or text.begins_with("&'") or text in ['""',"''"] or text.begins_with("Vector2(") or text.begins_with("Vector3(") or text.begins_with("Color("):
+				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new(") or text.begins_with("&\"") or text.begins_with("&'") or text in ['""',"''"] or text.begins_with("Vector2(") or text.begins_with("Vector3(") or text.begins_with("Color(") or text.begins_with("float(") or text.begins_with("bool(") or text.begins_with("StringName(") or text.begins_with("[") or text.begins_with("{"):
 					_error("GGX key must be an integer or nonempty String",attribute.value.span)
 			continue
 		if signals.has(name):
@@ -163,7 +167,7 @@ func _child_expression(expression) -> void:
 			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"span":token.span})
 	_child_result(tokens,expression.span)
 func _child_result(tokens: Array, span) -> void:
-	# Result alternatives are descriptions/null, while the condition remains
+	# Result alternatives are descriptions/null/sequences; the condition remains
 	# normal native GDScript. This closes the Variant ternary loophole where
 	# Godot defers an int/Object conversion until gameplay.
 	if tokens.size()==1 and tokens[0].text in ["<element>","null"]: return
@@ -208,7 +212,7 @@ func _child_result(tokens: Array, span) -> void:
 		var first: String = tokens[0].text
 		var joined := ""
 		for token in tokens: joined += token.text
-		if first.is_valid_identifier() and first not in ["true","false"] and not joined.contains(".new(") and first not in ["Vector2","Vector3","Color","Dictionary","NodePath"]:
+		if first.is_valid_identifier() and first not in ["true","false"] and (not joined.contains(".new(") or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd") and first not in ["Vector2","Vector3","Color","Dictionary","NodePath"]:
 			return
 	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 

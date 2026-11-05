@@ -217,7 +217,7 @@ func compiler_checks() -> void:
     for invalid in ['{7}','{Node.new()}','{[null,3]}','{true}']:
         var compiled := Compiler.compile(source.replace('{[[],rows,null,[<Node key="last" />]]}',invalid),"invalid.gogo")
         check(not compiled.ok and compiled.diagnostics[0].span.start.line==7,"invalid child leaf has authored diagnostic: "+invalid)
-    for invalid in ['key={false}','key={null}','key={1.5}','key=""']:
+    for invalid in ['key={false}','key={null}','key={1.5}','key=""','key={<Node />}','key={[]}','key={&"name"}']:
         var compiled := Compiler.compile(source.replace('key="last"',invalid),"invalid-key.gogo")
         check(not compiled.ok and compiled.diagnostics[0].span.start.line==7,"invalid key has authored diagnostic: "+invalid)
     var scope := Element.new("Node",{},{},[Element.new("Node",{},{},[],"",1,true),[Element.new("Node",{},{},[],"","1",true)],Element.new("Node",{},{},[],"",null,false)])

@@ -8,7 +8,7 @@ const PROOF := "res://.godot/lists-play.json"
 var _interface: EditorInterface
 var _failed := false
 var _checks := 0
-var _counter: CodeEdit
+var _inventory: CodeEdit
 var _background: CodeEdit
 var _source: String
 var _background_source: String
@@ -95,35 +95,37 @@ func _run() -> void:
 	await _wait(1)
 	_interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
 	_interface.get_editor_settings().set_setting("text_editor/behavior/files/autosave_interval_secs",0)
-	_counter = await _open(SOURCE)
-	_check(_counter!=null,"real native Gogo CodeEdit")
-	if _counter==null:
+	_inventory = await _open(SOURCE)
+	_check(_inventory!=null,"real native Gogo CodeEdit")
+	if _inventory==null:
 		_finish()
 		return
-	_check(_counter.syntax_highlighter != null and _counter.syntax_highlighter.get_script().resource_path == "res://addons/estragon/editor/highlighter.gd","real Gogo tab associated with native highlighter")
+	_check(_inventory.syntax_highlighter != null and _inventory.syntax_highlighter.get_script().resource_path == "res://addons/estragon/editor/highlighter.gd","real Gogo tab associated with native highlighter")
 	_source = FileAccess.get_file_as_string(SOURCE)
 	_interface.open_scene_from_path("res://examples/inventory/Inventory.tscn")
 	await _wait(0.5)
 	for mode in ["project","current"]:
-		_counter.text = _source.replace('1,"Apple"','1,"Edited Apple"')
+		_inventory.text = _source.replace('1,"Apple"','1,"Edited Apple"')
 		await _success(mode,7)
-		_check(FileAccess.get_file_as_string(SOURCE)==_counter.text,"normal Play saves latest native Counter")
-		_counter.text = _source.replace("pressed={append_item}","pressed={missing_handler}")
+		_check(FileAccess.get_file_as_string(SOURCE)==_inventory.text,"normal Play saves latest native inventory")
+		_inventory.text = _source.replace("pressed={append_item}","pressed={missing_handler}")
 		await _blocked(mode,"Inventory.gogo:")
-		_counter.text = _source.replace("<Entry name=","<RefCounted name=")
+		_inventory.text = _source.replace("<Entry name=","<RefCounted name=")
 		await _blocked(mode,"Inventory.gogo:")
-		_counter.text = _source.replace("{[[], rows, null]}","{[[], rows, 7]}")
+		_inventory.text = _source.replace("{[[], rows, null]}","{[[], rows, 7]}")
 		await _blocked(mode,"Inventory.gogo:")
-		_counter.text = _source
+		_inventory.text = _source.replace("key={item.id}","key={true}")
+		await _blocked(mode,"Inventory.gogo:")
+		_inventory.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"
 		DirAccess.rename_absolute(SOURCE,moved)
 		DirAccess.make_dir_absolute(SOURCE)
-		_counter.text = _source.replace('1,"Apple"','1,"Unsavable Apple"')
+		_inventory.text = _source.replace('1,"Apple"','1,"Unsavable Apple"')
 		await _blocked(mode,"Inventory.gogo:")
 		DirAccess.remove_absolute(SOURCE)
 		DirAccess.rename_absolute(moved,SOURCE)
-		_counter.text = _source
+		_inventory.text = _source
 		await _success(mode,0)
 	_finish()
 func _finish() -> void:
