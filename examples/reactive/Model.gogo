@@ -1,0 +1,3 @@
+extends RefCounted
+const State = preload("res://examples/reactive/generated/State.gd")
+@bindable var player: State = State.new()

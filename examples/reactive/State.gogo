@@ -1,0 +1,4 @@
+extends RefCounted
+@bindable var width: float = 120.0
+@bindable var tint: Color = Color(0.2,0.8,0.6)
+@bindable var title: String = "Reactive model"

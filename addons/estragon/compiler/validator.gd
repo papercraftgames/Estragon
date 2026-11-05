@@ -5,13 +5,16 @@ const Model = preload("res://addons/estragon/compiler/model.gd")
 const Source = preload("res://addons/estragon/compiler/source.gd")
 const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
+const Reactive = preload("res://addons/estragon/compiler/reactive.gd")
 var file: Source
 var _mode: String
 var resolver
+var reactive
 func _init(source: Source) -> void:
 	file = source
 	resolver = Resolver.new(source)
 func validate(module: Model.Module) -> void:
+	reactive = Reactive.new(file,module)
 	_mode = module.mode
 	resolver.scan(module)
 	for part in module.parts: _node(part)
@@ -77,7 +80,9 @@ func _component(node: Model.Component) -> void:
 				return
 			attribute.value.kind = "string-literal"
 			attribute.value.type_name = attribute.type_name
-		else: _node(attribute.value)
+		else:
+			_node(attribute.value)
+			if attribute.kind == "property": reactive.analyze(attribute.value,attribute.name)
 	for child in node.children:
 		if not child is Model.Component:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)

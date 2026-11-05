@@ -18,6 +18,7 @@ func run() -> void:
 		if name=="counter/Counter":
 			check(scene.ui is Node2D and scene.count==0,"native Counter hierarchy")
 			scene.increment()
+			for index in range(3): await process_frame
 			check(scene.count==1 and scene.ui.get_node("Panel/Count").text=="Count: 1","source-authored native Counter executes")
 			scene.reset_count()
 			check(scene.count==0,"native reset")

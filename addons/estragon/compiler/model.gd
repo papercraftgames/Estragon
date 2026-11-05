@@ -46,6 +46,7 @@ class Bindable extends SyntaxNode:
 
 class GdExpression extends SyntaxNode:
 	var parts: Array[SyntaxNode] = []
+	var dependencies: Array[PackedStringArray] = []
 	func _init() -> void:
 		kind = "gdscript-expression"
 
