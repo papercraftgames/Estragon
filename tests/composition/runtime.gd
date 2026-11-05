@@ -18,6 +18,16 @@ func _initialize() -> void:
 	run.call_deferred()
 func settle() -> void:
 	for index in range(6): await process_frame
+func resource_lifetime(script: GDScript, observe: bool) -> WeakRef:
+	# End the creator frame before asserting release: 4.0 keeps dynamic-call
+	# temporaries in an active coroutine frame longer than newer VMs do.
+	var resource = script.new()
+	if observe:
+		State.begin()
+		var amount: int = resource.amount
+		var observed: Dictionary = State.finish()
+		check(amount==3 and observed.size()==1,"Resource reads use the same scoped tracker without injected fields")
+	return weakref(resource)
 func run() -> void:
 	var scene := Counter.new()
 	var neighbor := Counter.new()
@@ -159,14 +169,12 @@ func run() -> void:
 	var resource_script := GDScript.new()
 	resource_script.source_code = resource_code.code
 	check(resource_code.ok and resource_script.reload()==OK,"typed Resource model getter compiles")
-	var resource = resource_script.new()
-	State.begin()
-	var amount: int = resource.amount
-	observed = State.finish()
-	check(amount==3 and observed.size()==1,"Resource reads use the same scoped tracker without injected fields")
-	var resource_weak: WeakRef = weakref(resource)
-	resource = null
-	check(resource_weak.get_ref()==null,"read records hold Resource sources weakly")
+	var control_script := GDScript.new()
+	control_script.source_code = "extends Resource\n"
+	check(control_script.reload()==OK,"native Resource lifetime control compiles")
+	var control_weak: WeakRef = resource_lifetime(control_script,false)
+	var resource_weak: WeakRef = resource_lifetime(resource_script,true)
+	check(control_weak.get_ref()==null and resource_weak.get_ref()==null,"native and observed Resource sources release after the creator frame returns")
 	var conditional_script := GDScript.new()
 	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tif count > 0: view.children[0].children[3].handlers["pressed"] = reset_count\n\treturn view\n'
 	check(conditional_script.reload()==OK,"ordinary helper branching compiles without a dependency-expression parser")
