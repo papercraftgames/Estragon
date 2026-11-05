@@ -9,9 +9,9 @@ for (const selection of options.engines) {
     fs.mkdirSync(out, { recursive: true });
     const stages: Record<string, any> = {};
     try {
-        for (const dir of ['addons/estragon', 'examples/composition', 'examples/counter', 'tests/composition'])
+        for (const dir of ['addons/estragon', 'examples', 'tests/composition'])
             copyTree(path.join(ROOT, dir), path.join(box.project, dir));
-        fs.writeFileSync(path.join(box.project, 'gogo.config.json'), JSON.stringify({ version: 1, source_roots: ['examples/composition', 'examples/counter'] }));
+        fs.copyFileSync(path.join(ROOT, 'gogo.config.json'),path.join(box.project, 'gogo.config.json'));
         fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="F01 composition GGX"\nrun/main_scene="res://examples/composition/Counter.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         writeJSON(path.join(out, 'provenance.json'), { sourceHead: gitHead(), sourceDirty: gitDirty(), version: box.version, original_binary_sha256: box.inputHash });
         async function run(name: string, args: string[], marker: string, negative = false) {
@@ -43,10 +43,11 @@ for (const selection of options.engines) {
         await run('build', ['--script', 'res://tests/composition/build.gd'], 'COMPOSITION_BUILD_OK');
         copyTree(path.join(box.project, 'examples/composition/generated'), path.join(out, 'generated'));
         copyTree(path.join(box.project, 'examples/counter/generated'), path.join(out, 'counter-generated'));
+        for (const name of ['counter','ggx','bindable','reactive','composition']) copyTree(path.join(box.project,'examples',name,'generated'),path.join(out,'generated-all','examples',name,'generated'));
         stages.import = await indexProject(box, box.project, path.join(out, 'import.log'), ['--audio-driver', 'Dummy']);
         if (stages.import.status !== 'PASS')
             throw Error('Composition indexing failed');
-        for (const dir of ['addons/estragon', 'examples/composition', 'tests/composition'])
+        for (const dir of ['addons/estragon', 'examples', 'tests/composition'])
             for (const file of listGDScripts(path.join(box.project, dir))) {
                 if (fs.existsSync(file + '.uid')) {
                     const target = path.join(out, 'canonical-uids', path.relative(box.project, file) + '.uid');

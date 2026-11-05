@@ -1,3 +1,5 @@
+**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
+
 # T09-A — observable Gogo properties and models
 
 T09-A / [#43](https://github.com/resistdesign/Estragon/issues/43) implements the property/model foundation. T09-A alone does not make brace expressions reactive. [T09-B](REACTIVE_GGX.md) adds bounded explicit self-path dependencies and native UI/layout subscriptions. Collections/keyed repeaters and two-way/cycle machinery remain T09-C/D.

@@ -1,3 +1,5 @@
+**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
+
 # Estragon architecture: shipped native core and accepted next generation
 
 **The canonical product design is [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md): signal-driven React-like function recomposition, Flex-like Gogo bindable properties, a small honest Virtual DOM and native Godot Node reconciliation.** ADR-0016 is *approved for future implementation*; its source syntax/runtime are not shipped simply because this document exists. [T09 implementation plan](REACTIVITY_PLAN.md), [decisions](DECISIONS.md), [issue #89](https://github.com/resistdesign/Estragon/issues/89).

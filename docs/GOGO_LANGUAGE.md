@@ -1,3 +1,5 @@
+**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
+
 # Gogo and GGX — shipped language and approved direction
 
 Gogo is a GDScript-like language authored in `.gogo`; GGX is its namespace-free XML-like syntax for declaring native Godot Nodes. The bundled **Godot-native** compiler/editor generates ordinary typed GDScript and source maps; no Bun/Node/GDExtension/standalone compiler is needed to edit or Play.

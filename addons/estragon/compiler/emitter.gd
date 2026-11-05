@@ -124,7 +124,7 @@ func _call(node: Model.Component) -> void:
 	for index in range(factory.arguments.size()):
 		var argument := factory.arguments[index]
 		if index > 0: _writer.append("," if multiline else ", ", node.span)
-		if multiline: _writer.append("\n" + base + _module.indentation, node.span)
+		if multiline: _writer.append("\n" + base + _module.indentation, argument.expression.span)
 		if not argument.reader.is_empty(): _writer.append(argument.reader+"()",argument.expression.span)
 		else:
 			_writer.append("(", argument.expression.span)

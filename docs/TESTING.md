@@ -58,3 +58,7 @@ Focused Linux development: workflow mode `bindable`, one approved selected engin
 ## T09-B reactive property/layout acceptance
 
 `tools/check-reactive.ts` runs native build/import, retained UI/runtime/geometry/cache/batching/lifetime/PackedScene and source-map tests, real saved/unsaved main/current editor failure/rollback/repair, and graphics-backed initial/changed/resized captures. It is required by the strict addon gate. Focused workflow mode `reactive` selects one approved Linux engine. Final acceptance uses official 4.0.4 and pinned 4.7.0 only; exact source/engine hashes, commands, logs and actual outcomes live on #86/its sole PR. Manual interactive smoke status is reported separately from automated editor/rendering proof. See [bounded contract](REACTIVE_GGX.md).
+
+## F01 native function composition proof
+
+`tools/check-composition.ts` is the strict addon group for native getter scopes, typed source descriptions, coalesced observing-component reruns, retained IDs/desired snapshots/handlers, lifetime/foreign children, real editor saved/unsaved main/current rejection/rollback/repair and rendered Counter evidence. Workflow mode `composition` is focused development; full acceptance uses only official Linux 4.0.4 and pinned 4.7.0. Fresh/cold native addon/pack tests include the F01 Counter. Exact commands/provenance/results and manual-smoke status live in #92/its sole PR. See [bounded contract](F01_COMPOSITION.md); F02–F04 cutover remains unimplemented.
