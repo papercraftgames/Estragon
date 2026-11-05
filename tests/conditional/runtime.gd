@@ -30,6 +30,7 @@ func run() -> void:
 	var allocated: int = record.allocations
 	check(record.runs==1 and child_record.runs==1,"initial parent/independent nested computation once")
 	check(not panel.has_node("Bonus") and prompt is Node2D,"false branch and null hole initial state")
+	check(record.moves==0 and record.frees==0,"initial mount performs no moves or frees")
 	scene.count = 1
 	await settle()
 	check(panel.get_node("Prompt")==prompt and record.allocations==allocated and child_record.runs==1,"false-to-false retains branch and does not recompose child")
@@ -40,7 +41,7 @@ func run() -> void:
 	scene.count = 3
 	await settle()
 	var action = panel.get_node("Action")
-	check(not is_instance_valid(prompt) and action.pressed.get_connections().size()==1 and record.allocations==allocated+1 and record.frees==1,"false-to-true replaces exactly one slot and connects handler once")
+	check(not is_instance_valid(prompt) and action.pressed.get_connections().size()==1 and record.allocations==allocated+1 and record.frees==1 and record.moves==1,"false-to-true allocates/frees/moves exactly one slot and connects once")
 	action.rotation = 0.25
 	scene.count = 4
 	await settle()
