@@ -1,6 +1,7 @@
 extends Node
 ## Shared native demo interactions, not a compiler or widget implementation.
-var entry: Node
+var entry: Node:
+	get: return get_node_or_null("Entry")
 var count: int = 0
 @export var palette := Gradient.new()
 var object_events: int = 0
@@ -28,14 +29,7 @@ func on_timeout() -> void:
 func on_palette_changed() -> void:
 	object_events += 1
 
-func compose() -> Node:
-	return null # Authored Gogo overrides this ordinary method.
-
 func _ready() -> void:
-	entry = get_node_or_null("Entry")
-	if entry == null:
-		entry = compose()
-		add_child(entry)
 	if dimension == 3:
 		var camera := Camera3D.new()
 		camera.position = Vector3(3,5,12)

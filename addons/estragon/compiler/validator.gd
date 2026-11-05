@@ -5,16 +5,13 @@ const Model = preload("res://addons/estragon/compiler/model.gd")
 const Source = preload("res://addons/estragon/compiler/source.gd")
 const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
-const Reactive = preload("res://addons/estragon/compiler/reactive.gd")
 var file: Source
 var _mode: String
 var resolver
-var reactive
 func _init(source: Source) -> void:
 	file = source
 	resolver = Resolver.new(source)
 func validate(module: Model.Module) -> void:
-	reactive = Reactive.new(file,module)
 	_mode = module.mode
 	resolver.scan(module)
 	for part in module.parts: _node(part)
@@ -53,7 +50,7 @@ func _component(node: Model.Component) -> void:
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
 		seen[name] = true
-		if node.described and name=="key":
+		if name=="key":
 			attribute.kind = "key"
 			attribute.type_name = "Variant"
 			if attribute.value is Model.Literal:
@@ -91,10 +88,9 @@ func _component(node: Model.Component) -> void:
 			attribute.value.type_name = attribute.type_name
 		else:
 			_node(attribute.value)
-			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
 	var sibling_names := {}
 	for child in node.children:
-		if node.described and child is Model.GdExpression:
+		if child is Model.GdExpression:
 			_node(child)
 			_child_expression(child)
 			continue
@@ -102,7 +98,7 @@ func _component(node: Model.Component) -> void:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
-		if node.described and child is Model.Component:
+		if child is Model.Component:
 			for attribute in child.attributes:
 				if attribute.name=="name" and attribute.value is Model.Literal:
 					var name: String = str(attribute.value.value)
@@ -110,7 +106,7 @@ func _component(node: Model.Component) -> void:
 						_error("Duplicate declared sibling name "+name,attribute.value.span)
 						return
 					sibling_names[name] = true
-	if node.described: _static_keys(node.children,{})
+	_static_keys(node.children,{})
 
 # Inspect only statically simultaneous children. A conditional expression's
 # alternatives are validated at runtime; it must not create false duplicates.

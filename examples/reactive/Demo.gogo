@@ -1,31 +1,28 @@
 extends Node2D
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
 const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
 const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const State = preload("res://examples/reactive/generated/State.gd")
 const Model = preload("res://examples/reactive/generated/Model.gd")
 @bindable var model: Model = Model.new()
 @bindable var count: int = 0
-var ui: Node
-var evaluations: int = 0
+var ui: Node:
+    get: return get_node_or_null("UI")
 func independent() -> String:
-    evaluations += 1
-    return "Unaffected once-only expression"
+    return "Pure helper in the same observed view"
 func _ready() -> void:
-    ui = get_node_or_null("UI")
-    if ui == null:
-        ui = build_view()
-        add_child(ui)
-        persist(ui)
     if OS.get_environment("ESTRAGON_REACTIVE_PROOF") == "1": write_proof.call_deferred()
-func build_view() -> Node:
+func build_view() -> Element:
+    var player: State = model.player if model != null else null
     return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
         <VBox name="Panel" fill_width={true} gap={12.0 + self.count}>
-            <Text name="Title" text={self.model.player.title} color={self.model.player.tint} />
+            <Text name="Title" text={player.title if player != null else ""} color={player.tint if player != null else Color.WHITE} />
             <HBox name="Row" fill_width={true} gap={12.0}>
-                <Rect name="Bar" width={self.model.player.width} height={40.0} fill={self.model.player.tint} />
+                <Rect name="Bar" width={player.width if player != null else 120.0} height={40.0} fill={player.tint if player != null else Color.WHITE} />
                 <Rect name="Other" width={80.0} height={40.0} fill={Color(0.55,0.32,0.9)} />
             </HBox>
             <Text name="Count" text={"Value: %d" % (self.count + self.count)} />
@@ -33,9 +30,6 @@ func build_view() -> Node:
             <Text name="Independent" text={independent()} />
         </VBox>
     </Entry>
-func persist(node: Node) -> void:
-    node.owner = self
-    for child in node.get_children(): persist(child)
 func advance() -> void:
     count += 1
     model.player.width += 40.0

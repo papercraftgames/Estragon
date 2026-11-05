@@ -25,7 +25,7 @@ func _initialize() -> void:
 		check(first.ok,"valid lexical/native expression: "+str(first.diagnostics))
 		if not first.ok: continue
 		check(first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"deterministic code/maps")
-		if source.contains('<Button '): check(first.code.contains('Button.new()') and not first.code.contains('EstragonButton.new()'),"Button retains ordinary Godot class meaning")
+		if source.contains('<Button '): check(first.code.contains('.new(\"Button\",') and not first.code.contains('.new(\"EstragonButton\",'),"Button retains ordinary Godot class meaning")
 		check(not first.code.contains("!= OK:\n\t\t\tpush_error(\"test.gogo:1"),"no obsolete Error-returning child attachment")
 		var script := GDScript.new()
 		script.source_code = first.code
@@ -34,9 +34,8 @@ func _initialize() -> void:
 			check(first.code.contains('9007199254740993') and str(script.new().number)=="9007199254740993","native integer tokens preserved without float conversion")
 		if source.contains('create := func'):
 			var instance = script.new()
-			var node: Node = instance.make()
-			check(node.name=="lambda","ordinary lambda containing GGX executes typed factory on both engines")
-			node.free()
+			var description = instance.make()
+			check(description is preload("res://addons/estragon/runtime/composition/element.gd") and description.properties.name=="lambda" and instance.get_child_count()==0,"ordinary lambda returns description without candidate Nodes")
 			instance.free()
 	for source in [
 		'<Node />', 'extends Node\nfunc make(): return <Gradient />\n',
