@@ -6,13 +6,11 @@ const Source = preload("res://addons/estragon/compiler/source.gd")
 const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
 var file: Source
-var _mode: String
 var resolver
 func _init(source: Source) -> void:
 	file = source
 	resolver = Resolver.new(source)
 func validate(module: Model.Module) -> void:
-	_mode = module.mode
 	resolver.scan(module)
 	for part in module.parts: _node(part)
 func _node(node: Model.SyntaxNode) -> void:
@@ -24,9 +22,6 @@ func _error(message: String, span: Model.Span) -> void:
 	file.fail(message,span.start.index,span.end.index)
 
 func _component(node: Model.Component) -> void:
-	if _mode != "hybrid":
-		_error("Node GGX requires a GDScript-first module", node.name_span)
-		return
 	var resolved: Dictionary = resolver.resolve(node.name, node.name_span)
 	if resolved.is_empty(): return
 	node.runtime_class = node.name
