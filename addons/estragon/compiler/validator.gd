@@ -49,13 +49,17 @@ func _component(node: Model.Component) -> void:
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
-		if node.described and name=="key":
-			_error("GGX sibling keys and arrays are deferred to F03; conditional slots preserve identity",attribute.name_span)
-			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
 		seen[name] = true
+		if node.described and name=="key":
+			attribute.kind = "key"
+			attribute.type_name = "Variant"
+			if attribute.value is Model.Literal:
+				if str(attribute.value.value).is_empty(): _error("GGX key must be an integer or nonempty String",attribute.value.span)
+			else: _key_expression(attribute.value)
+			continue
 		if signals.has(name):
 			attribute.kind = "signal"
 			attribute.type_name = "Callable"
@@ -106,23 +110,86 @@ func _component(node: Model.Component) -> void:
 						_error("Duplicate declared sibling name "+name,attribute.value.span)
 						return
 					sibling_names[name] = true
+	if node.described: _static_keys(node.children,{})
 
-func _child_expression(expression) -> void:
+# Inspect only statically simultaneous children. A conditional expression's
+# alternatives are validated at runtime; it must not create false duplicates.
+func _static_keys(children: Array, keys: Dictionary) -> void:
+	for child in children:
+		if child is Model.Component:
+			for attribute in child.attributes:
+				if attribute.kind!="key": continue
+				var literal = null
+				if attribute.value is Model.Literal: literal = "s:"+str(attribute.value.value)
+				else:
+					var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
+					if text.is_valid_int(): literal = "i:"+str(int(text))
+					else:
+						var tokens := _expression_tokens(attribute.value)
+						if tokens.size()==1 and tokens[0].kind=="string" and not tokens[0].text.contains("\\"):
+							var value: String = tokens[0].text
+							var delimiter := 3 if value.begins_with(value[0].repeat(3)) else 1
+							literal = "s:"+value.substr(delimiter,value.length()-delimiter*2)
+				if literal==null: continue
+				if keys.has(literal):
+					_error("Duplicate declared sibling key "+str(literal),attribute.value.span)
+					return
+				keys[literal] = true
+		elif child is Model.GdExpression:
+			var conditional := false
+			var lexer := Lexer.new(file)
+			for part in child.parts:
+				if not part is Model.Code: continue
+				var cursor: int = part.span.start.index
+				while cursor<part.span.end.index:
+					var token = lexer.next_token(cursor)
+					if token==null: return
+					cursor = token.span.end.index
+					if token.kind=="identifier" and token.text=="if": conditional = true
+			if not conditional: _static_keys(child.parts,keys)
+
+func _key_expression(expression) -> void:
+	var tokens := _expression_tokens(expression)
+	if tokens.is_empty(): return
+	# Token kinds keep strings/comments containing constructor-looking text
+	# ordinary values; never classify source by substring replacement.
+	var first: String = tokens[0].text
+	var invalid := false
+	if tokens.size()==1:
+		invalid = first in ["<element>","null","true","false",'""',"''",'""""""',"''''''"] or tokens[0].kind=="number" and first.is_valid_float() and not first.is_valid_int()
+	elif tokens.size()==2 and first in ["+","-"] and tokens[1].kind=="number":
+		invalid = tokens[1].text.is_valid_float() and not tokens[1].text.is_valid_int()
+	elif first in ["[","{","&","<element>"]: invalid = true
+	elif tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1):
+		invalid = first in ["bool","float","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
+	elif tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3): invalid = true
+	if invalid: _error("GGX key must be an integer or nonempty String",expression.span)
+func _direct_call(tokens: Array, start: int) -> bool:
+	var depth := 0
+	for index in range(start,tokens.size()):
+		if tokens[index].text=="(": depth += 1
+		elif tokens[index].text==")":
+			depth -= 1
+			if depth==0: return index==tokens.size()-1
+	return false
+func _expression_tokens(expression) -> Array:
 	var tokens: Array = []
 	var lexer := Lexer.new(file)
 	for part in expression.parts:
 		if part is Model.Component:
-			tokens.append({"text":"<element>","span":part.span})
+			tokens.append({"text":"<element>","kind":"element","span":part.span})
 			continue
 		var cursor: int = part.span.start.index
 		while cursor < part.span.end.index:
 			var token = lexer.next_token(cursor)
-			if token == null: return
+			if token==null: return []
 			cursor = token.span.end.index
-			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"span":token.span})
-	_child_result(tokens,expression.span)
+			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"kind":token.kind,"span":token.span})
+	return tokens
+func _child_expression(expression) -> void:
+	_child_result(_expression_tokens(expression),expression.span)
 func _child_result(tokens: Array, span) -> void:
-	# Result alternatives are descriptions/null, while the condition remains
+	# Result alternatives are descriptions/null/sequences; the condition remains
 	# normal native GDScript. This closes the Variant ternary loophole where
 	# Godot defers an int/Object conversion until gameplay.
 	if tokens.size()==1 and tokens[0].text in ["<element>","null"]: return
@@ -148,7 +215,28 @@ func _child_result(tokens: Array, span) -> void:
 		_child_result(tokens.slice(0,conditional),span)
 		_child_result(tokens.slice(alternative+1),span)
 		return
-	_error("Conditional child results must be GGX Elements or null; arrays, scalars and live Nodes are unsupported",tokens[0].span if not tokens.is_empty() else span)
+	if tokens.size()>=2 and tokens[0].text=="[" and outer_close==tokens.size()-1:
+		var begin := 1
+		depth = 0
+		for index in range(1,tokens.size()-1):
+			var value: String = tokens[index].text
+			if value in ["(","[","{"]: depth += 1
+			elif value in [")","]","}"]: depth -= 1
+			elif value=="," and depth==0:
+				_child_result(tokens.slice(begin,index),span)
+				begin = index+1
+		if begin<tokens.size()-1: _child_result(tokens.slice(begin,tokens.size()-1),span)
+		return
+	# Unknown native expressions (locals, typed helper returns, Array.map) are
+	# runtime-validated as a complete desired tree. Obvious scalar/live Node
+	# leaves fail at their authored span, including conditional alternatives.
+	if not tokens.is_empty():
+		var first: String = tokens[0].text
+		var constructor: bool = tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3)
+		var scalar_call: bool = tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
+		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd"):
+			return
+	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 
 func _native_type(property: Dictionary) -> String:
 	if property.type == TYPE_OBJECT:

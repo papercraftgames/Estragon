@@ -1,3 +1,5 @@
+**F03 implementation:** [Child sequences and keyed lists](F03_LISTS.md) / [#96](https://github.com/resistdesign/Estragon/issues/96) extends merged F01/F02 with native for/map descriptions, nested Array flattening and sibling-scoped retained keys. Live issue/sole PR records verification and review; F04 cutover and F05/F06 remain future. Earlier stage-specific restrictions below describe their original boundaries.
+
 **F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
 
 **F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
@@ -9,7 +11,7 @@
 **Shipped versus planned as of November 5, 2026:**
 - **Merged T09-A:** source-authored Gogo-only lowercase `@bindable` on typed instance fields, normal native GDScript setter/storage and typed per-property signals; non-Node RefCounted data models. See [BINDABLE_PROPERTIES](BINDABLE_PROPERTIES.md), [PR #85](https://github.com/resistdesign/Estragon/pull/85).
 - **Merged T09-B:** reactive individual GGX properties/layout with explicit supported self paths, target-owned helper Nodes and coalesced native signal subscriptions. See [REACTIVE_GGX](REACTIVE_GGX.md), [PR #87](https://github.com/resistdesign/Estragon/pull/87). **Not a dynamic composition engine.**
-- **Not shipped:** automatic rerunnable component view functions, virtual element descriptions/reconciliation, conditional/expression children, keyed list mapping, auto-tracked getter reads, class-level `@bindable`, observable structural collection events, two-way binding and generic data graph hydration.
+- **Merged F01/F02:** getter-observed view functions, virtual descriptions, conditional child slots and nested retained reconciliation. **F03 review slice:** mapped/keyed sequences. **Future:** F04 final cutover, class-level `@bindable`, observable in-place collection events, two-way binding and generic data graph hydration.
 - **New ADR-0016 direction:** rewrite the final compiler/runtime **without a legacy compatibility burden** after each acceptance checkpoint, adopting a **single** automatic signal-driven recomposition/reconciliation path. Intermediate T09-B's particular compiled observer mechanism may be removed once equivalent checks pass.
 
 ## User mental model

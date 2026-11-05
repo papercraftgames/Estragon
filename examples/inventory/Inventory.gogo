@@ -1,0 +1,75 @@
+extends Node2D
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Row = preload("res://examples/inventory/generated/Row.gd")
+const Item = preload("res://examples/inventory/generated/Item.gd")
+@bindable var items: Array = [Item.new(1,"Apple"),Item.new(2,"Bread"),Item.new(3,"Carrot")]
+@bindable var show_note: bool = true
+@bindable var use_map: bool = false
+var next_id: int = 4
+func build_view() -> Element:
+    var rows: Array = []
+    if use_map:
+        rows = items.map(func(item): return <Row key={item.id} name={"Row%d" % item.id} item={item} />)
+    else:
+        for item in items:
+            rows.append(<Row key={item.id} name={"Row%d" % item.id} item={item} />)
+    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
+        <VBox name="Panel" fill_width={true} gap={10.0}>
+            <Text name="Title" text="Inventory | keyed native rows" />
+            {<Text name="Note" text="Select First +, then Reverse: row state travels with its key." /> if show_note else null}
+            {[[], rows, null]}
+            <Text name="Footer" text="Static footer retains its native identity" />
+            <HBox name="Controls" gap={8.0}>
+                <UiButton text="Append" pressed={append_item} />
+                <UiButton text="Insert" pressed={insert_item} />
+                <UiButton text="Remove" pressed={remove_item} />
+                <UiButton text="Reverse" pressed={reverse_items} />
+            </HBox>
+            <HBox gap={8.0}>
+                <UiButton text="Replace" pressed={replace_item} />
+                <UiButton text="First +" pressed={first_state} />
+                <UiButton text="Rename" pressed={rename_item} />
+                <UiButton text="Note" pressed={toggle_note} />
+                <UiButton text="For / map" pressed={toggle_map} />
+            </HBox>
+        </VBox>
+    </Entry>
+func append_item() -> void:
+    items = items + [Item.new(next_id,"Item %d" % next_id)]
+    next_id += 1
+func insert_item() -> void:
+    var next: Array = items.duplicate()
+    next.insert(mini(1,next.size()),Item.new(next_id,"Inserted %d" % next_id))
+    next_id += 1
+    items = next
+func remove_item() -> void:
+    items = items.slice(1)
+func reverse_items() -> void:
+    var next: Array = items.duplicate()
+    next.reverse()
+    items = next
+func replace_item() -> void:
+    if items.is_empty(): return
+    var next: Array = items.duplicate()
+    next[0] = Item.new(next_id,"Replacement %d" % next_id)
+    next_id += 1
+    items = next
+func first_state() -> void:
+    if not items.is_empty(): get_node("UI/Panel/Row%d" % items[0].id).increment()
+func rename_item() -> void:
+    if not items.is_empty(): items[0].title += "!"
+func toggle_note() -> void:
+    show_note = not show_note
+func toggle_map() -> void:
+    use_map = not use_map
+func _ready() -> void:
+    if OS.get_environment("ESTRAGON_LISTS_PROOF") == "1": write_proof.call_deferred()
+func write_proof() -> void:
+    for index in range(5): await get_tree().process_frame
+    var file := FileAccess.open("res://.godot/lists-play.json",FileAccess.WRITE)
+    file.store_string(JSON.stringify({"count":items.size(),"text":get_node("UI/Panel/Row1/Caption").text}))

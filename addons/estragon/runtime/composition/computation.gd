@@ -4,6 +4,9 @@ const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 class Mounted extends RefCounted:
 	var node: WeakRef
 	var type: Variant
+	var key: Variant
+	var keyed := false
+	var slot: Array = []
 	var properties: Dictionary = {}
 	var handlers: Dictionary = {}
 	var children: Array = []
@@ -80,6 +83,7 @@ func _flush() -> void:
 	manager.begin()
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
+	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
 		push_error("Invalid composition output or foreign boundary conflict; previous tree retained")
@@ -98,6 +102,45 @@ func _flush() -> void:
 			push_error("F01 composition invalidated itself repeatedly; move mutations out of build_view")
 		else: schedule()
 	else: _consecutive = 0
+# Copy descriptions into a validated snapshot. Never rewrite an authored Array or
+# descriptor: callers may reuse either, and cycles must fail before native edits.
+func _normalize(value, ancestors: Array = [], level: int = 0):
+	if not value is Element or level>128 or ancestors.has(value): return null
+	if value.keyed and not _key_valid(value.key): return null
+	var next := ancestors.duplicate()
+	next.append(value)
+	var result := Element.new(value.type,value.properties,value.handlers,[],value.source,value.key,value.keyed)
+	if not _flatten(value.children,[],result.children,next,level+1): return null
+	return result
+func _key_valid(key) -> bool:
+	return typeof(key)==TYPE_INT or typeof(key)==TYPE_STRING and not key.is_empty()
+func _flatten(values: Array, path: Array, output: Array, ancestors: Array, level: int) -> bool:
+	if level>128: return false
+	for index in range(values.size()):
+		var slot := path.duplicate()
+		slot.append(index)
+		var value = values[index]
+		if value is Array:
+			if not _flatten(value,slot,output,ancestors,level+1): return false
+		elif value==null: output.append(null)
+		else:
+			var child = _normalize(value,ancestors,level+1)
+			if child==null: return false
+			child.slot = slot
+			output.append(child)
+	return true
+# Exact key type participates in identity (bool/float never alias int).
+func _identity(value, index: int) -> String:
+	if value.keyed: return "k:"+str(typeof(value.key))+":"+str(value.key)
+	return "p:"+str(value.slot if not value.slot.is_empty() else [index])
+func _matches(desired: Array, previous: Array) -> Array:
+	var old := {}
+	for index in range(previous.size()):
+		if previous[index]!=null: old[_identity(previous[index],index)] = previous[index]
+	var result: Array = []
+	for index in range(desired.size()):
+		result.append(old.get(_identity(desired[index],index)) if desired[index]!=null else null)
+	return result
 func _valid(desired: Element, previous: Mounted) -> bool:
 	if desired.type == null: return false
 	if desired.type is String:
@@ -108,9 +151,15 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	for handler in desired.handlers.values():
 		if not handler is Callable or not handler.is_valid(): return false
 	var names := {}
+	var keys := {}
+	if desired.keyed and not _key_valid(desired.key): return false
 	for child in desired.children:
 		if child == null: continue
 		if not child is Element or not _valid(child,null): return false
+		if child.keyed:
+			var key := _identity(child,0)
+			if keys.has(key): return false
+			keys[key] = true
 		var name: String = str(child.properties.get("name",""))
 		if not name.is_empty():
 			if names.has(name): return false
@@ -137,8 +186,13 @@ func _planned_foreign(desired, previous, result: Array) -> void:
 	if desired==null or not _compatible(desired,previous):
 		_collect_foreign(previous,result)
 		return
+	var matches := _matches(desired.children,previous.children)
 	for index in range(previous.children.size()):
-		_planned_foreign(desired.children[index] if index<desired.children.size() else null,previous.children[index],result)
+		var old = previous.children[index]
+		var next = null
+		var found := matches.find(old) if old!=null else -1
+		if found>=0: next = desired.children[found]
+		_planned_foreign(next,old,result)
 func _rescue_clear(desired, previous, owner: Node) -> bool:
 	var rescued: Array = []
 	_planned_foreign(desired,previous,rescued)
@@ -165,6 +219,9 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	allocations += 1
 	record.node = weakref(node)
 	record.type = desired.type
+	record.key = desired.key
+	record.keyed = desired.keyed
+	record.slot = desired.slot.duplicate()
 	_apply(desired,record)
 	parent.add_child(node)
 	# F01 managed views are runtime output, intentionally not serialized into
@@ -187,7 +244,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 	record.properties = desired.properties.duplicate()
 	record.handlers = desired.handlers.duplicate()
 func _compatible(desired: Element, record: Mounted) -> bool:
-	return record != null and record.type==desired.type and record.node.get_ref()!=null
+	return record != null and is_same(record.type,desired.type) and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
 func _reconcile(desired, record, parent: Node, owner: Node):
 	if desired == null:
 		if record != null: _free_managed(record,owner)
@@ -200,22 +257,72 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 	if node.get_parent()!=parent:
 		if node.get_parent()!=null: node.get_parent().remove_child(node)
 		parent.add_child(node)
+	var matches := _matches(desired.children,record.children)
+	# Dispose unmatched/retyped branches before mounts, including queued scopes.
+	for old in record.children:
+		if old==null: continue
+		var index := matches.find(old)
+		if index<0 or not _compatible(desired.children[index],old):
+			_free_managed(old,owner)
+			if index>=0: matches[index] = null
+	_prepare_names(desired.children,matches,node)
 	var children: Array = []
-	for index in range(maxi(desired.children.size(),record.children.size())):
-		var next = desired.children[index] if index < desired.children.size() else null
-		var old = record.children[index] if index < record.children.size() else null
-		var child = _reconcile(next,old,node,owner)
-		if index < desired.children.size(): children.append(child)
+	for index in range(desired.children.size()):
+		children.append(_reconcile(desired.children[index],matches[index],node,owner))
 	record.children = children
-	var position := 0
-	for child in children:
-		if child == null: continue
-		var actual: Node = child.node.get_ref()
-		if actual.get_index()!=position:
-			node.move_child(actual,position)
-			moves += 1
-		position += 1
+	_order(children,node)
 	return record
+# Release names that must change before applying final sibling names. Native
+# Node otherwise silently renames a valid swap against the still-old sibling.
+func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
+	var pending: Array = []
+	var targets := {}
+	for index in range(desired.size()):
+		var next = desired[index]
+		var old = matches[index]
+		if next==null or old==null or not next.properties.has("name"): continue
+		if old.properties.has("name") and is_same(old.properties.name,next.properties.name): continue
+		var node: Node = old.node.get_ref()
+		if node==null or node.get_parent()!=parent or str(node.name)==str(next.properties.name): continue
+		pending.append(node)
+		targets[str(next.properties.name)] = true
+	for node in pending:
+		if not targets.has(str(node.name)): continue
+		var temporary := "_EstragonRename_"+str(node.get_instance_id())
+		while parent.has_node(NodePath(temporary)): temporary += "_"
+		node.name = temporary
+		writes += 1
+# Keep a longest increasing subsequence of actual native indices. Everything
+# else moves once, right to left beside its final successor; no-op moves zero.
+func _order(children: Array, parent: Node) -> void:
+	var nodes: Array = []
+	for child in children:
+		if child!=null: nodes.append(child.node.get_ref())
+	var lengths: Array = []
+	var predecessors: Array = []
+	var best := -1
+	for index in range(nodes.size()):
+		lengths.append(1)
+		predecessors.append(-1)
+		for before in range(index):
+			if nodes[before].get_index()<nodes[index].get_index() and lengths[before]+1>lengths[index]:
+				lengths[index] = lengths[before]+1
+				predecessors[index] = before
+		if best<0 or lengths[index]>lengths[best]: best = index
+	var keep := {}
+	while best>=0:
+		keep[best] = true
+		best = predecessors[best]
+	var anchor: Node = null
+	for index in range(nodes.size()-1,-1,-1):
+		var actual: Node = nodes[index]
+		if not keep.has(index):
+			var position := parent.get_child_count()-1 if anchor==null else anchor.get_index()-(1 if actual.get_index()<anchor.get_index() else 0)
+			if actual.get_index()!=position:
+				parent.move_child(actual,position)
+				moves += 1
+		anchor = actual
+
 func _preflight(desired, previous, parent: Node) -> bool:
 	if desired == null: return true
 	var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
@@ -250,10 +357,11 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		for child in previous.children:
 			if child != null and child.node.get_ref()!=null: known.append(child.node.get_ref())
 	var names := {}
+	var matches := _matches(desired.children,previous.children if node!=null else [])
 	for index in range(desired.children.size()):
 		var child = desired.children[index]
 		if child == null: continue
-		var old = previous.children[index] if node!=null and index<previous.children.size() else null
+		var old = matches[index]
 		if not _preflight(child,old,null): return false
 		var name: String = str(child.properties.get("name",str(old.node.get_ref().name) if old!=null and _compatible(child,old) else ""))
 		if not name.is_empty():

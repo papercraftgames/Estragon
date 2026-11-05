@@ -6,6 +6,7 @@
     "examples/bindable",
     "examples/reactive",
     "examples/composition",
-    "examples/conditional"
+    "examples/conditional",
+    "examples/inventory"
   ]
 }

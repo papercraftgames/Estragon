@@ -66,3 +66,7 @@ Focused Linux development: workflow mode `bindable`, one approved selected engin
 ## F02 conditional/nested composition
 
 `tools/check-conditional.ts` / workflow mode `conditional` tests single Element/null conditional child results, nested scopes/parent-first cancellation, stable slot IDs, real native writes/layout/lifetime/foreign boundaries, compiler/type/map negatives, real saved/unsaved main/current editor rollback/recovery, and rendered initial/changed/resized captures. It is part of the strict addon and cold/pack acceptance on official Linux 4.0.4 and pinned 4.7.0 only. Exact outcomes/provenance and manual smoke status live on #94/its sole PR; see [contract](F02_CONDITIONALS.md). No F03 keys/lists or F04 cutover claim.
+
+## F03 native mapped/keyed lists
+
+`tools/check-lists.ts` / focused workflow mode `lists` covers loop/map/native Array child sequences, key diagnostics, actual native IDs/state/operation counts, nested model observers, atomic rejection/repair, real editor main/current Play and four rendered inventory captures. It is required by the strict addon and cold/pack gates. Only official Linux 4.0.4 and pinned 4.7.0; exact evidence and manual-smoke status in #96/its sole PR. See [contract](F03_LISTS.md). F04–F06 remain future work.

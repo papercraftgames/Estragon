@@ -1,10 +1,12 @@
+**F03 review slice:** [Native mapped/keyed sequence contract](F03_LISTS.md), [issue #96](https://github.com/resistdesign/Estragon/issues/96), [PR #97](https://github.com/resistdesign/Estragon/pull/97). F01 #93 and F02 #95 are merged. F03 supplies nested child sequences and sibling keys in the same manager; F04 final cutover and F05/F06 remain unimplemented. Exact acceptance/review state is in the live issue/PR.
+
 **F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
 
 **F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
 
 # ADR-0016 — Signal-driven function composition and retained Godot reconciliation
 
-**Status:** Owner-approved target architecture, 2026-11-05. **Implementation:** not yet shipped. Current main has completed T09-A (#43 / PR #85) and T09-B (#86 / PR #87); both are useful foundations but are **not** proof that structural composition or this design exists. **Architecture tracking:** [#89](https://github.com/resistdesign/Estragon/issues/89); [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-level bindability #90](https://github.com/resistdesign/Estragon/issues/90). This document supersedes earlier T09-C implementation guesses and ADR-0015's statement that a Virtual DOM is prohibited.
+**Status:** Owner-approved target architecture, 2026-11-05. **Implementation:** F01 native getter/description/reconciliation and F02 conditional/nested ownership are merged after T09-A (#43 / PR #85) and T09-B (#86 / PR #87). F03 is the scoped review slice above; the full F04–F06 architecture is not shipped. **Architecture tracking:** [#89](https://github.com/resistdesign/Estragon/issues/89); [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-level bindability #90](https://github.com/resistdesign/Estragon/issues/90). This document supersedes earlier T09-C implementation guesses and ADR-0015's statement that a Virtual DOM is prohibited.
 
 ## 1. The product contract
 
@@ -182,7 +184,7 @@ This is **one compositional engine**. T09-B's current static path analysis and `
 
 ## 11. Delivery plan and migration gates
 
-These are serial work packages with **one open PR repo-wide**; no implementation has been authorized to claim these complete yet. A docs-only architecture PR precedes new Codex implementation work.
+These are serial work packages with **one open PR repo-wide**; the live issue/PR and merged tests determine each stage’s actual completion. A docs-only architecture PR precedes new Codex implementation work.
 
 1. **F01 — Minimum end-to-end spike:** prove generated getter read tracking and signal scheduling (with explicit fallback decision only if a documented Godot gap exists), a one-component virtual description render, initial mount, one event-triggered rerun, native Node identity retained, and safe update timing. Real Gogo Counter, not an abstract JavaScript simulation. Validate on official 4.0.4/pinned 4.7.0 Linux. Define the exact public source convention/type contract. If proof exposes serious complexity, report it before building more machinery.
 2. **F02 — Reconciler and conditional GGX:** implement structural children/conditionals with GDScript syntax, typed descriptors, type/position/optional key matching, selective props/handlers, deep nested component scopes, parent-first scheduling, null/model replacement and cleanup. Test preserving unchanged Nodes/animations/foreign children, nested branch changes and safe commit/rollback.
