@@ -1,16 +1,26 @@
 # Estragon
 
-A layout-first Godot addon with native Node2D UI, bounded 2D/3D layout and Gogo: GDScript-like source with embedded GGX Node composition.
+A layout-first **Godot addon** with native Node2D UI, bounded 2D/3D layout and **Gogo**: a GDScript-like language with embedded **GGX** Node composition.
 
-Open project.godot in Godot, enable the Estragon editor plugin, and run. The default scene is the native [Gogo Counter](examples/counter/Counter.gogo): click + / Reset and resize. Open examples/ggx/TwoD.tscn or ThreeD.tscn for source-authored dimensional demos. Godot and the bundled addon are all users need; no external compiler setup.
+Open `project.godot` in Godot, enable Estragon, and run the [Gogo Counter](examples/counter/Counter.gogo): click **+** / **Reset** and resize. Open `examples/ggx/TwoD.tscn` or `ThreeD.tscn` for dimensional demos, or `examples/reactive/Demo.tscn` for model-driven text, style and layout. Godot plus the bundled addon is enough for end-user authoring and Play; no external compiler.
 
-Canonical widgets: EstragonRect, EstragonText, EstragonButton, EstragonHBox and EstragonVBox. They derive from Node2D, share a composed layout core with the bounded 3D runtime and use inherited Node.add_child, native signals/lifetime and native drawing. The former RefCounted/RenderingServer UI and stage-0 JSON compiler/interpreter are retired.
+Canonical native widgets are `EstragonRect`, `EstragonText`, `EstragonButton`, `EstragonHBox` and `EstragonVBox`. They derive from Node2D and share a composed core with 3D participants. Godot retains native SceneTree lifetime, transforms, rendering, physics and input.
 
-- [UI API and demo](docs/NODE_UI.md), [runtime/adapters](docs/NODE_RUNTIME.md)
-- [Gogo/GGX language](docs/GOGO_LANGUAGE.md), [editor workflow](docs/EDITOR.md)
-- [Contributing](CONTRIBUTING.md), [testing/release evidence](docs/TESTING.md)
-- [Architecture](docs/ARCHITECTURE.md), [decisions](docs/DECISIONS.md), [work status](docs/WORK_STATUS.md)
+## The next architecture: React-like composition × Flex-like binding
 
-Godot 4.0+ remains the target. Routine verification uses official 4.0.4 and pinned 4.7.0 on Linux only; no untested minor/platform certification is implied. [Observable Gogo properties/non-Node models](docs/BINDABLE_PROPERTIES.md) are implemented in T09-A; run `examples/bindable/Demo.tscn` for the data demo. Automatic reactive GGX/layout is still future work. Broader widgets, focus/accessibility, bindings/repeaters and 3D wrapping remain future work. This is a Godot addon, not a standalone application distribution.
+**[ADR-0016 — Reactive Composition Architecture](docs/REACTIVE_COMPOSITION_ARCHITECTURE.md)** is the accepted *future* design: ordinary Gogo functions describe desired GGX; normal `@bindable` state assignments automatically signal affected components to recompose, **without React hooks or manual invalidation**. A **real, lightweight Virtual DOM** reconciles desired descriptions with existing real Godot Nodes, preserving unchanged identities, game state and animations. No per-frame component rerender, no forced immutable state, and **no reconciliation metadata attached to game Nodes, Resources or model objects**.
 
-[T09-B reactive GGX properties](docs/REACTIVE_GGX.md) connect explicit self paths to native retained UI/layout without refresh calls. Run the Counter or `examples/reactive/Demo.tscn`; collections/repeaters and two-way binding remain future work.
+That next-generation composition engine is **not shipped yet**. The current merged code includes:
+- **T09-A [PR #85](https://github.com/resistdesign/Estragon/pull/85):** typed Gogo-only `@bindable` properties and RefCounted data-model signals.
+- **T09-B [PR #87](https://github.com/resistdesign/Estragon/pull/87):** automatic updates to existing GGX component properties/layout, including a refresh-free Counter.
+
+Dynamic conditional children, mapped keyed lists, automatic function recomposition, class-level `@bindable`, and two-way bindings are planned in [the implementation roadmap](docs/REACTIVITY_PLAN.md) and [design issue #89](https://github.com/resistdesign/Estragon/issues/89). Class-level `@bindable` is separately tracked in [#90](https://github.com/resistdesign/Estragon/issues/90). Estragon has **not released**; obsolete internal APIs and implementations will be replaced and removed, not kept indefinitely for compatibility.
+
+## Documentation
+
+- [Complete future composition and binding design](docs/REACTIVE_COMPOSITION_ARCHITECTURE.md), [ADRs](docs/DECISIONS.md)
+- [Current architecture](docs/ARCHITECTURE.md), [runtime/adapters](docs/NODE_RUNTIME.md), [UI API](docs/NODE_UI.md)
+- [Gogo/GGX source language](docs/GOGO_LANGUAGE.md), [editor](docs/EDITOR.md), [current binding behavior](docs/REACTIVE_GGX.md)
+- [Work status](docs/WORK_STATUS.md), [execution plan](docs/EXECUTION_PLAN.md), [contributing](CONTRIBUTING.md), [testing/release evidence](docs/TESTING.md)
+
+**Godot 4.0+ is the target; verification currently covers only official 4.0.4 and pinned 4.7.0 on Linux CI.** No untested minor/platform support is implied. The addon is not a standalone application.
