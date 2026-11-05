@@ -84,6 +84,9 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
 	for child in node.children:
+		if node.described and child is Model.GdExpression:
+			_node(child)
+			continue
 		if not child is Model.Component:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return

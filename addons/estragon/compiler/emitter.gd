@@ -104,7 +104,8 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 	for attribute in node.attributes:
 		if attribute.value is Model.GdExpression: _argument(attribute.value, attribute.type_name, factory)
 	for child in node.children:
-		_collect(child, factory)
+		if child is Model.GdExpression: _argument(child,_element_class,factory)
+		else: _collect(child, factory)
 
 func _parts(parts: Array[Model.SyntaxNode]) -> void:
 	for part in parts:
@@ -166,7 +167,8 @@ func _description(node: Model.Component, indentation: String) -> String:
 		var target := events if attribute.kind == "signal" else props
 		target.append(_string(attribute.name)+": "+value)
 	var children := PackedStringArray()
-	for child in node.children: children.append(_description(child,indentation))
+	for child in node.children:
+		children.append(_arguments[child].name if child is Model.GdExpression else _description(child,indentation))
 	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column])],node.span,indentation)
 	return variable

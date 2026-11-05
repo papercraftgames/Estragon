@@ -5,6 +5,7 @@
     "examples/ggx",
     "examples/bindable",
     "examples/reactive",
-    "examples/composition"
+    "examples/composition",
+    "examples/conditional"
   ]
 }

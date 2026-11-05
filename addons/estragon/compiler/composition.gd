@@ -46,3 +46,6 @@ func _mark(node) -> void:
 	node.described = true
 	for child in node.children:
 		if child is Model.Component: _mark(child)
+		elif child is Model.GdExpression:
+			for part in child.parts:
+				if part is Model.Component: _mark(part)
