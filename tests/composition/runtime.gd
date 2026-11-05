@@ -168,7 +168,7 @@ func run() -> void:
 	resource = null
 	check(resource_weak.get_ref()==null,"read records hold Resource sources weakly")
 	var conditional_script := GDScript.new()
-	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tif count > 0: view.children[0].children[4].handlers["pressed"] = reset_count\n\treturn view\n'
+	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tif count > 0: view.children[0].children[3].handlers["pressed"] = reset_count\n\treturn view\n'
 	check(conditional_script.reload()==OK,"ordinary helper branching compiles without a dependency-expression parser")
 	var conditional = conditional_script.new()
 	root.add_child(conditional)

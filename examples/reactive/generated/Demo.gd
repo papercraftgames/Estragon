@@ -151,8 +151,6 @@ func _gogo_read_14_sources() -> Array:
 
 
 class _GogoFactories_0:
-    const _Element = preload("res://addons/estragon/runtime/composition/element.gd")
-
 
     static func _gogo_build_0(
         _gogo_value_0: Vector2,

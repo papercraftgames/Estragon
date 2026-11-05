@@ -75,7 +75,7 @@ func _notification(_gogo_what: int) -> void:
 
 
 class _GogoFactories_0:
-    const _Element = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(
@@ -92,12 +92,12 @@ class _GogoFactories_0:
         _gogo_value_10: Callable,
         _gogo_value_11: bool,
         _gogo_value_12: Callable
-    ) -> _Element:
-        var element_2 := _Element.new(Text, {"name": "Title", "text": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/composition/Counter.gogo:18:13")
-        var element_3 := _Element.new(Text, {"name": "Count", "text": _gogo_value_6}, {}, [], "examples/composition/Counter.gogo:19:13")
-        var element_4 := _Element.new(Rect, {"name": "Bar", "width": _gogo_value_7, "height": _gogo_value_8, "fill": _gogo_value_9}, {}, [], "examples/composition/Counter.gogo:20:13")
-        var element_5 := _Element.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_10}, [], "examples/composition/Counter.gogo:21:13")
-        var element_6 := _Element.new(UiButton, {"name": "Reset", "text": "Reset", "disabled": _gogo_value_11}, {"pressed": _gogo_value_12}, [], "examples/composition/Counter.gogo:22:13")
-        var element_1 := _Element.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [element_2, element_3, element_4, element_5, element_6], "examples/composition/Counter.gogo:17:9")
-        var element_0 := _Element.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [element_1], "examples/composition/Counter.gogo:16:12")
-        return element_0
+    ) -> _GogoElement_0:
+        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/composition/Counter.gogo:18:13")
+        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_6}, {}, [], "examples/composition/Counter.gogo:19:13")
+        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_7, "height": _gogo_value_8, "fill": _gogo_value_9}, {}, [], "examples/composition/Counter.gogo:20:13")
+        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_10}, [], "examples/composition/Counter.gogo:21:13")
+        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Reset", "text": "Reset", "disabled": _gogo_value_11}, {"pressed": _gogo_value_12}, [], "examples/composition/Counter.gogo:22:13")
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/composition/Counter.gogo:17:9")
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/composition/Counter.gogo:16:12")
+        return _gogo_element_0
