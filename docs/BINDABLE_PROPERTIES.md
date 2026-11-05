@@ -2,7 +2,7 @@
 
 # T09-A — observable Gogo properties and models
 
-T09-A / [#43](https://github.com/resistdesign/Estragon/issues/43) implements the property/model foundation. T09-A alone does not make brace expressions reactive. [T09-B](REACTIVE_GGX.md) adds bounded explicit self-path dependencies and native UI/layout subscriptions. Collections/keyed repeaters and two-way/cycle machinery remain T09-C/D.
+T09-A / [#43](https://github.com/resistdesign/Estragon/issues/43) implements the property/model foundation. T09-A alone does not make brace expressions reactive. [Dynamic composition](REACTIVE_GGX.md) observes generated getter reads through the sole F04 compiler/manager, replacing T09-B static property helpers. F03 mapped/keyed lists use Array reference replacement; class-level bindability/two-way inputs remain F05 and optimization F06.
 
 Run `examples/bindable/Demo.tscn` in Godot with the bundled Estragon addon enabled. Author `Model.gogo`, `Derived.gogo` and `Demo.gogo`; normal save and main/current Play compile them without external tools. The demo prints two observed model changes while preserving the same RefCounted data object. RefCounted data models are intentional non-Node values, not retired display components. They cannot be GGX hierarchy children.
 

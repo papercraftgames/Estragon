@@ -1,10 +1,6 @@
-**F03 implementation:** [Child sequences and keyed lists](F03_LISTS.md) / [#96](https://github.com/resistdesign/Estragon/issues/96) extends merged F01/F02 with native for/map descriptions, nested Array flattening and sibling-scoped retained keys. Live issue/sole PR records verification and review; F04 cutover and F05/F06 remain future. Earlier stage-specific restrictions below describe their original boundaries.
-
-**F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
-
-**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
-
 # Estragon architecture: shipped native core and accepted next generation
+
+**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05/F06 remain future.
 
 **The canonical product design is [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md): signal-driven React-like function recomposition, Flex-like Gogo bindable properties, a small honest Virtual DOM and native Godot Node reconciliation.** ADR-0016 is *approved for future implementation*; its source syntax/runtime are not shipped simply because this document exists. [T09 implementation plan](REACTIVITY_PLAN.md), [decisions](DECISIONS.md), [issue #89](https://github.com/resistdesign/Estragon/issues/89).
 

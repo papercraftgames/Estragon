@@ -43,13 +43,10 @@ func build_view() -> Element:
         (0.9),
         (true),
         (12.0 + self.count),
-        (player.title if player != null else ""),
-        (player.tint if player != null else Color.WHITE),
+        (_GogoFactories_0._gogo_build_1((player.title), (player.tint)) if player != null else _GogoFactories_0._gogo_build_2()),
         (true),
         (12.0),
-        (player.width if player != null else 120.0),
-        (40.0),
-        (player.tint if player != null else Color.WHITE),
+        (_GogoFactories_0._gogo_build_3((player.width), (40.0), (player.tint)) if player != null else _GogoFactories_0._gogo_build_4((40.0))),
         (80.0),
         (40.0),
         (Color(0.55,0.32,0.9)),
@@ -82,27 +79,42 @@ class _GogoFactories_0:
         _gogo_value_1: float,
         _gogo_value_2: bool,
         _gogo_value_3: float,
-        _gogo_value_4: String,
-        _gogo_value_5: Color,
-        _gogo_value_6: bool,
-        _gogo_value_7: float,
+        _gogo_value_4: Variant,
+        _gogo_value_5: bool,
+        _gogo_value_6: float,
+        _gogo_value_7: Variant,
         _gogo_value_8: float,
         _gogo_value_9: float,
         _gogo_value_10: Color,
-        _gogo_value_11: float,
-        _gogo_value_12: float,
-        _gogo_value_13: Color,
-        _gogo_value_14: String,
-        _gogo_value_15: Callable,
-        _gogo_value_16: String
+        _gogo_value_11: String,
+        _gogo_value_12: Callable,
+        _gogo_value_13: String
     ) -> _GogoElement_0:
-        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/reactive/Demo.gogo:23:13", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_8, "height": _gogo_value_9, "fill": _gogo_value_10}, {}, [], "examples/reactive/Demo.gogo:25:17", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(Rect, {"name": "Other", "width": _gogo_value_11, "height": _gogo_value_12, "fill": _gogo_value_13}, {}, [], "examples/reactive/Demo.gogo:26:17", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Row", "fill_width": _gogo_value_6, "gap": _gogo_value_7}, {}, [_gogo_element_4, _gogo_element_5], "examples/reactive/Demo.gogo:24:13", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_14}, {}, [], "examples/reactive/Demo.gogo:28:13", null, false)
-        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"name": "Advance", "text": "Change model and layout"}, {"pressed": _gogo_value_15}, [], "examples/reactive/Demo.gogo:29:13", null, false)
-        var _gogo_element_8 := _GogoElement_0.new(Text, {"name": "Independent", "text": _gogo_value_16}, {}, [], "examples/reactive/Demo.gogo:30:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/reactive/Demo.gogo:22:9", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(Rect, {"name": "Other", "width": _gogo_value_8, "height": _gogo_value_9, "fill": _gogo_value_10}, {}, [], "examples/reactive/Demo.gogo:26:17", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(HBox, {"name": "Row", "fill_width": _gogo_value_5, "gap": _gogo_value_6}, {}, [_gogo_value_7, _gogo_element_3], "examples/reactive/Demo.gogo:24:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_11}, {}, [], "examples/reactive/Demo.gogo:28:13", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Advance", "text": "Change model and layout"}, {"pressed": _gogo_value_12}, [], "examples/reactive/Demo.gogo:29:13", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(Text, {"name": "Independent", "text": _gogo_value_13}, {}, [], "examples/reactive/Demo.gogo:30:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_value_4, _gogo_element_2, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/reactive/Demo.gogo:22:9", null, false)
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/reactive/Demo.gogo:21:12", null, false)
+        return _gogo_element_0
+
+
+    static func _gogo_build_1(_gogo_value_0: String, _gogo_value_1: Color) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_0, "color": _gogo_value_1}, {}, [], "examples/reactive/Demo.gogo:23:14", null, false)
+        return _gogo_element_0
+
+
+    static func _gogo_build_2() -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Title"}, {}, [], "examples/reactive/Demo.gogo:23:99", null, false)
+        return _gogo_element_0
+
+
+    static func _gogo_build_3(_gogo_value_0: float, _gogo_value_1: float, _gogo_value_2: Color) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_0, "height": _gogo_value_1, "fill": _gogo_value_2}, {}, [], "examples/reactive/Demo.gogo:25:18", null, false)
+        return _gogo_element_0
+
+
+    static func _gogo_build_4(_gogo_value_0: float) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Bar", "height": _gogo_value_0}, {}, [], "examples/reactive/Demo.gogo:25:115", null, false)
         return _gogo_element_0
