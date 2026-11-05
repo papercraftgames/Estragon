@@ -45,6 +45,16 @@ func run() -> void:
 	scene.count = 4
 	await settle()
 	check(panel.get_node("Action")==action and action.rotation==0.25 and child_record.runs==1,"true-to-true retains Node and nested scope")
+	var parent_runs: int = record.runs
+	var sibling_measure: int = after.get_layout_stats().measure
+	scene.model.title = "Child only"
+	await settle()
+	check(record.runs==parent_runs and child_record.runs==2,"conditional read set schedules only nested observer when parent no longer reads title")
+	check(after.get_layout_stats().measure==sibling_measure,"nested layout change preserves unrelated sibling measurement cache")
+	var events_removed = scene.build_view()
+	events_removed.children[0].children[1].handlers.clear()
+	record._reconcile(events_removed,record.mounted,scene,scene)
+	check(action.pressed.get_connections().is_empty(),"removed handler set disconnects without replacing Node")
 	scene.show_bonus = true
 	await settle()
 	var bonus = panel.get_node("Bonus")
@@ -106,6 +116,16 @@ func run() -> void:
 	desired = scene.build_view()
 	desired.children[0].children[1].properties.name = "Collision"
 	check(not record._preflight(desired,record.mounted,scene) and is_instance_valid(outside),"foreign name collision fails preflight without adoption/deletion")
+	# Exit/reparent/reentry retains the branch and independently observes again.
+	scene.show_child = true
+	await settle()
+	var moved = panel.get_node("Nested")
+	var moved_record = State.records[moved.get_instance_id()]
+	panel.remove_child(moved)
+	check(moved.model.title_changed.get_connections().size()==1,"detached nested host disconnects its own model observer")
+	panel.add_child(moved)
+	await settle()
+	check(State.records[moved.get_instance_id()]==moved_record and moved.model.title_changed.get_connections().size()==2,"reattached nested host reuses record and reconnects once")
 	# Declaration removal leaves native values, while event sets disconnect.
 	var current = scene.build_view()
 	var leaf = record.mounted.children[0].children[1]

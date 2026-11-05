@@ -24,13 +24,14 @@ for (const selection of options.engines) {
                 const errors = lines.filter((l, i) => {
                     if (!/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(l))
                         return false;
+                    if (name === 'rejection' && l === 'ERROR: Invalid composition output or foreign boundary conflict; previous tree retained') return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/conditional/Counter.gogo\'.')
                         return false;
                     if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/conditional\/generated\/Counter\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/conditional\/Counter\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_handler" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
-                if (errors.length || /CONDITIONAL_EDITOR_CHECK .*: false/.test(text) || !text.includes('CONDITIONAL_EDITOR_CHECK'))
+                if (errors.length || /CONDITIONAL_(?:EDITOR|REJECTION)_CHECK .*: false/.test(text) || !text.includes(name === 'rejection' ? 'CONDITIONAL_REJECTION_CHECK' : 'CONDITIONAL_EDITOR_CHECK'))
                     stage.status = 'FAIL';
             }
             if (/instances leaked|Resources still in use/.test(text))
@@ -56,6 +57,7 @@ for (const selection of options.engines) {
                 }
             }
         await run('runtime', ['--script', 'res://tests/conditional/runtime.gd'], 'CONDITIONAL_RUNTIME_OK');
+        await run('rejection', ['--script', 'res://tests/conditional/rejection.gd'], 'CONDITIONAL_REJECTION_OK', true);
         fs.appendFileSync(path.join(box.project, 'project.godot'), '\n[editor_plugins]\nenabled=PackedStringArray("res://addons/estragon/editor/plugin.cfg", "res://tests/conditional/editor/plugin.cfg")\n[editor]\nrun/main_run_args="--headless --audio-driver Dummy"\n');
         box.env.ESTRAGON_CONDITIONAL_PROOF = '1';
         await run('editor', ['--editor'], 'CONDITIONAL_EDITOR_OK', true);

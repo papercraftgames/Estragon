@@ -1,3 +1,5 @@
+**F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
+
 # Gogo data binding and automatic recomposition
 
 **Canonical target:** [ADR-0016 Reactive Composition Architecture](REACTIVE_COMPOSITION_ARCHITECTURE.md). **Plan:** [REACTIVITY_PLAN](REACTIVITY_PLAN.md), [design task #89](https://github.com/resistdesign/Estragon/issues/89), [umbrella #5](https://github.com/resistdesign/Estragon/issues/5).

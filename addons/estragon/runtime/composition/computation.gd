@@ -186,6 +186,9 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		var value = desired.properties[key]
 		var kind: int = properties[key].type
 		if kind!=TYPE_NIL and typeof(value)!=kind and not (kind==TYPE_FLOAT and typeof(value)==TYPE_INT) and not (kind==TYPE_OBJECT and value==null) and not (kind in [TYPE_STRING,TYPE_STRING_NAME] and typeof(value) in [TYPE_STRING,TYPE_STRING_NAME]): return false
+		if kind==TYPE_OBJECT and value!=null:
+			var expected: String = str(properties[key].get("class_name",""))
+			if ClassDB.class_exists(expected) and not value.is_class(expected): return false
 	for key in desired.handlers:
 		if not signals.has(key): return false
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null

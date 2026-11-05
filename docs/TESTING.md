@@ -62,3 +62,7 @@ Focused Linux development: workflow mode `bindable`, one approved selected engin
 ## F01 native function composition proof
 
 `tools/check-composition.ts` is the strict addon group for native getter scopes, typed source descriptions, coalesced observing-component reruns, retained IDs/desired snapshots/handlers, lifetime/foreign children, real editor saved/unsaved main/current rejection/rollback/repair and rendered Counter evidence. Workflow mode `composition` is focused development; full acceptance uses only official Linux 4.0.4 and pinned 4.7.0. Fresh/cold native addon/pack tests include the F01 Counter. Exact commands/provenance/results and manual-smoke status live in #92/its sole PR. See [bounded contract](F01_COMPOSITION.md); F02–F04 cutover remains unimplemented.
+
+## F02 conditional/nested composition
+
+`tools/check-conditional.ts` / workflow mode `conditional` tests single Element/null conditional child results, nested scopes/parent-first cancellation, stable slot IDs, real native writes/layout/lifetime/foreign boundaries, compiler/type/map negatives, real saved/unsaved main/current editor rollback/recovery, and rendered initial/changed/resized captures. It is part of the strict addon and cold/pack acceptance on official Linux 4.0.4 and pinned 4.7.0 only. Exact outcomes/provenance and manual smoke status live on #94/its sole PR; see [contract](F02_CONDITIONALS.md). No F03 keys/lists or F04 cutover claim.
