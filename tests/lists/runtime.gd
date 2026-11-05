@@ -36,7 +36,7 @@ func run() -> void:
     check(rows(panel).size()==3 and record.runs==1 and record.moves==0,"for-built nested list mounts once without moves")
     check(not first.has_meta("key") and first.get_meta_list().is_empty(),"key never becomes native property or metadata")
     first.clicks = 8
-    first.rotation = 0.2
+    first.rotation = 0.25
     await settle()
     var runs: int = record.runs
     var child_runs: int = child_record.runs
@@ -67,7 +67,7 @@ func run() -> void:
     var reversed := previous.duplicate()
     reversed.reverse()
     check(rows(panel)==reversed and record.allocations==before[0] and record.frees==before[1] and record.moves==before[2]+previous.size()-1,"reverse retains all IDs with exactly n-1 moves")
-    check(first.clicks==8 and first.rotation==0.2 and child_record.runs==child_runs,"reorder preserves row state/native transform and independent computation")
+    check(first.clicks==8 and first.rotation==0.25 and child_record.runs==child_runs,"reorder preserves row state/native transform and independent computation")
     before = counts(record)
     var next: Array = scene.items.duplicate()
     var swap = next[0]

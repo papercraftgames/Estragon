@@ -60,7 +60,7 @@ func _component(node: Model.Component) -> void:
 				if str(attribute.value.value).is_empty(): _error("GGX key must be an integer or nonempty String",attribute.value.span)
 			else:
 				var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
-				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new("):
+				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new(") or text.begins_with("&\"") or text.begins_with("&'") or text in ['""',"''"] or text.begins_with("Vector2(") or text.begins_with("Vector3(") or text.begins_with("Color("):
 					_error("GGX key must be an integer or nonempty String",attribute.value.span)
 			continue
 		if signals.has(name):
@@ -96,7 +96,7 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
 	var sibling_names := {}
-	var sibling_keys := {}
+
 	for child in node.children:
 		if node.described and child is Model.GdExpression:
 			_node(child)
@@ -108,19 +108,45 @@ func _component(node: Model.Component) -> void:
 		_node(child)
 		if node.described and child is Model.Component:
 			for attribute in child.attributes:
-				if attribute.kind=="key":
-					var text: String = file.slice(attribute.value.span)
-					if attribute.value is Model.Literal or text.substr(1).trim_suffix("}").strip_edges().is_valid_int():
-						if sibling_keys.has(text):
-							_error("Duplicate declared sibling key "+text,attribute.value.span)
-							return
-						sibling_keys[text] = true
 				if attribute.name=="name" and attribute.value is Model.Literal:
 					var name: String = str(attribute.value.value)
 					if sibling_names.has(name):
 						_error("Duplicate declared sibling name "+name,attribute.value.span)
 						return
 					sibling_names[name] = true
+	if node.described: _static_keys(node.children,{})
+
+# Inspect only statically simultaneous children. A conditional expression's
+# alternatives are validated at runtime; it must not create false duplicates.
+func _static_keys(children: Array, keys: Dictionary) -> void:
+	for child in children:
+		if child is Model.Component:
+			for attribute in child.attributes:
+				if attribute.kind!="key": continue
+				var literal = null
+				if attribute.value is Model.Literal: literal = "s:"+str(attribute.value.value)
+				else:
+					var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
+					if text.is_valid_int(): literal = "i:"+str(int(text))
+					elif text.length()>1 and text[0] in ['"',"'"] and text[-1]==text[0]:
+						literal = "s:"+text.substr(1,text.length()-2)
+				if literal==null: continue
+				if keys.has(literal):
+					_error("Duplicate declared sibling key "+str(literal),attribute.value.span)
+					return
+				keys[literal] = true
+		elif child is Model.GdExpression:
+			var conditional := false
+			var lexer := Lexer.new(file)
+			for part in child.parts:
+				if not part is Model.Code: continue
+				var cursor: int = part.span.start.index
+				while cursor<part.span.end.index:
+					var token = lexer.next_token(cursor)
+					if token==null: return
+					cursor = token.span.end.index
+					if token.kind=="identifier" and token.text=="if": conditional = true
+			if not conditional: _static_keys(child.parts,keys)
 
 func _child_expression(expression) -> void:
 	var tokens: Array = []
