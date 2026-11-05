@@ -11,7 +11,7 @@
 **Shipped versus planned as of November 5, 2026:**
 - **Merged T09-A:** source-authored Gogo-only lowercase `@bindable` on typed instance fields, normal native GDScript setter/storage and typed per-property signals; non-Node RefCounted data models. See [BINDABLE_PROPERTIES](BINDABLE_PROPERTIES.md), [PR #85](https://github.com/resistdesign/Estragon/pull/85).
 - **Merged T09-B:** reactive individual GGX properties/layout with explicit supported self paths, target-owned helper Nodes and coalesced native signal subscriptions. See [REACTIVE_GGX](REACTIVE_GGX.md), [PR #87](https://github.com/resistdesign/Estragon/pull/87). **Not a dynamic composition engine.**
-- **Not shipped:** automatic rerunnable component view functions, virtual element descriptions/reconciliation, conditional/expression children, keyed list mapping, auto-tracked getter reads, class-level `@bindable`, observable structural collection events, two-way binding and generic data graph hydration.
+- **Merged F01/F02:** getter-observed view functions, virtual descriptions, conditional child slots and nested retained reconciliation. **F03 review slice:** mapped/keyed sequences. **Future:** F04 final cutover, class-level `@bindable`, observable in-place collection events, two-way binding and generic data graph hydration.
 - **New ADR-0016 direction:** rewrite the final compiler/runtime **without a legacy compatibility burden** after each acceptance checkpoint, adopting a **single** automatic signal-driven recomposition/reconciliation path. Intermediate T09-B's particular compiled observer mechanism may be removed once equivalent checks pass.
 
 ## User mental model

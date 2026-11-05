@@ -265,12 +265,33 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 		if index<0 or not _compatible(desired.children[index],old):
 			_free_managed(old,owner)
 			if index>=0: matches[index] = null
+	_prepare_names(desired.children,matches,node)
 	var children: Array = []
 	for index in range(desired.children.size()):
 		children.append(_reconcile(desired.children[index],matches[index],node,owner))
 	record.children = children
 	_order(children,node)
 	return record
+# Release names that must change before applying final sibling names. Native
+# Node otherwise silently renames a valid swap against the still-old sibling.
+func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
+	var pending: Array = []
+	var targets := {}
+	for index in range(desired.size()):
+		var next = desired[index]
+		var old = matches[index]
+		if next==null or old==null or not next.properties.has("name"): continue
+		if old.properties.has("name") and is_same(old.properties.name,next.properties.name): continue
+		var node: Node = old.node.get_ref()
+		if node==null or node.get_parent()!=parent or str(node.name)==str(next.properties.name): continue
+		pending.append(node)
+		targets[str(next.properties.name)] = true
+	for node in pending:
+		if not targets.has(str(node.name)): continue
+		var temporary := "_EstragonRename_"+str(node.get_instance_id())
+		while parent.has_node(NodePath(temporary)): temporary += "_"
+		node.name = temporary
+		writes += 1
 # Keep a longest increasing subsequence of actual native indices. Everything
 # else moves once, right to left beside its final successor; no-op moves zero.
 func _order(children: Array, parent: Node) -> void:

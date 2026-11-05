@@ -101,10 +101,12 @@ func run() -> void:
     check(record.allocations==before[0]+1 and record.frees==before[1]+1 and removed_model.title_changed.get_connections().is_empty(),"key replacement disconnects removed model and allocates/frees once")
     # Same key, different native type: replace through the existing reconciler.
     var desired = record._normalize(scene.build_view())
-    var leaf = desired.children[0].children[1]
-    # Children are Title, list rows..., Footer, Controls, anonymous HBox.
+    var leaf = null
+    for child in desired.children[0].children:
+        if child!=null and child.keyed:
+            leaf = child
+            break
     var old_row = rows(panel)[0]
-    var old_key = leaf.key
     leaf.type = "Node2D"
     leaf.properties = {"name":"Alternate"}
     before = counts(record)
@@ -144,6 +146,24 @@ func run() -> void:
     scene.show_note = false
     await settle()
     check(panel.get_node("Row%d" % replacement.id).get_instance_id()!=freed_id,"externally freed keyed slot remounts once")
+    # A valid simultaneous rename cannot be silently changed by native Node.
+    var named := rows(panel).slice(0,2)
+    var swapped_names := [str(named[1].name),str(named[0].name)]
+    desired = record._normalize(scene.build_view())
+    var descriptions: Array = []
+    for child in desired.children[0].children:
+        if child!=null and child.keyed: descriptions.append(child)
+    descriptions[0].properties = descriptions[0].properties.duplicate()
+    descriptions[1].properties = descriptions[1].properties.duplicate()
+    descriptions[0].properties.name = swapped_names[0]
+    descriptions[1].properties.name = swapped_names[1]
+    check(record._valid(desired,record.mounted) and record._preflight(desired,record.mounted,scene),"simultaneous keyed sibling name swap validates complete final set")
+    record.mounted = record._reconcile(desired,record.mounted,scene,scene)
+    check(str(named[0].name)==swapped_names[0] and str(named[1].name)==swapped_names[1],"native final names survive swap without automatic renaming")
+    desired = null
+    descriptions.clear()
+    scene.show_note = not scene.show_note
+    await settle()
     # Foreign rescue must use keyed matching rather than old positions.
     var foreign := Node.new()
     foreign.name = "Foreign"
@@ -189,5 +209,16 @@ func compiler_checks() -> void:
     for invalid in ['key={false}','key={null}','key={1.5}','key=""']:
         var compiled := Compiler.compile(source.replace('key="last"',invalid),"invalid-key.gogo")
         check(not compiled.ok and compiled.diagnostics[0].span.start.line==7,"invalid key has authored diagnostic: "+invalid)
+    var scope := Element.new("Node",{},{},[Element.new("Node",{},{},[],"",1,true),[Element.new("Node",{},{},[],"","1",true)],Element.new("Node",{},{},[],"",null,false)])
+    var owner := Node.new()
+    var computation = preload("res://addons/estragon/runtime/composition/computation.gd").new(owner,State)
+    var normalized = computation._normalize(scope)
+    check(computation._valid(normalized,null),"int and String keys differ; missing keys use positional identity")
+    scope.children[1][0].key = 1
+    normalized = computation._normalize(scope)
+    check(not computation._valid(normalized,null),"duplicate keys across separate nested arrays reject")
+    owner.free()
     var duplicate := Compiler.compile(source.replace('{[[],rows,null,[<Node key="last" />]]}','<Node key="x" /><Node key="x" />'),"duplicate-key.gogo")
     check(not duplicate.ok and duplicate.diagnostics[0].message.contains("Duplicate"),"statically duplicate literal keys fail before Play")
+    duplicate = Compiler.compile(source.replace('key="last"','key="x"').replace('[[],rows,null,[<Node key="x" />]]','[<Node key="x" />, [<Node key={"x"} />]]'),"nested-duplicate.gogo")
+    check(not duplicate.ok and duplicate.diagnostics[0].message.contains("Duplicate"),"nested literal duplicate keys reject across array boundaries")

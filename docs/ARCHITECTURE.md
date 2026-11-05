@@ -17,7 +17,7 @@ Estragon is a **Godot addon**. Godot owns SceneTree lifetime, Node2D/Node3D tran
 - **Signals/models:** T09-A compiles typed per-property Gogo-only `@bindable` into native setter/storage and `<name>_changed` signals, including RefCounted *data* models. T09-B compiles bounded explicit self-path GGX property bindings, with target-owned helper Nodes, weak native source subscriptions and deferred/coalesced property updates. The native Counter no longer calls `refresh`.
 - **Distribution:** native compiler/editor works with Godot alone. Linux release/development proofs cover only official 4.0.4 and pinned 4.7.0, with real saved/unsaved editor Play, graphics, clean imports, source-only cold restore and addon export/runtime. Current strict addon evidence applies to the code actually shipped, not future ADR-0016 capabilities.
 
-**Not currently shipped:** rerunnable declarative GGX view functions, virtual element descriptions/reconciliation, conditional child expressions, keyed iteration, class-level bindable annotation, two-way binding or generic observable collection mutation.
+**Composition checkpoints:** F01/F02 merged the getter-observed `build_view() -> Element`, virtual descriptions, conditional slots and nested independent reconciliation. F03 adds the mapped/keyed sequence slice documented above. F04 final cutover, class-level bindable annotation, two-way binding and generic observable in-place collection mutation remain future.
 
 ## ADR-0016 target
 
