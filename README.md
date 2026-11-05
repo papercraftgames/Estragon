@@ -12,3 +12,5 @@ Canonical widgets: EstragonRect, EstragonText, EstragonButton, EstragonHBox and 
 - [Architecture](docs/ARCHITECTURE.md), [decisions](docs/DECISIONS.md), [work status](docs/WORK_STATUS.md)
 
 Godot 4.0+ remains the target. Routine verification uses official 4.0.4 and pinned 4.7.0 on Linux only; no untested minor/platform certification is implied. [Observable Gogo properties/non-Node models](docs/BINDABLE_PROPERTIES.md) are implemented in T09-A; run `examples/bindable/Demo.tscn` for the data demo. Automatic reactive GGX/layout is still future work. Broader widgets, focus/accessibility, bindings/repeaters and 3D wrapping remain future work. This is a Godot addon, not a standalone application distribution.
+
+[T09-B reactive GGX properties](docs/REACTIVE_GGX.md) connect explicit self paths to native retained UI/layout without refresh calls. Run the Counter or `examples/reactive/Demo.tscn`; collections/repeaters and two-way binding remain future work.

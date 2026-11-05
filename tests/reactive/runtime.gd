@@ -50,6 +50,9 @@ func run() -> void:
 	scene.model.player.width = 220.0
 	await settle()
 	check(before==panel.get_layout_stats(),"equal input has no redundant layout")
+	scene.count_changed.emit(scene.count,scene.count)
+	await settle()
+	check(before==panel.get_layout_stats(),"repeated same-value notifications do not rewrite or relayout")
 	reentrant_host = scene
 	scene.count_changed.connect(reentrant)
 	scene.count = 3
@@ -59,6 +62,7 @@ func run() -> void:
 	reentrant_host = null
 	var old = scene.model
 	var old_state = old.player
+	var weak_state: WeakRef = weakref(old_state)
 	var weak_old: WeakRef = weakref(old)
 	scene.model = Model.new()
 	check(old.player_changed.get_connections().is_empty() and old_state.tint_changed.get_connections().is_empty(),"replacement synchronously releases old nested listeners")
@@ -66,6 +70,8 @@ func run() -> void:
 	check(title.text=="Reactive model" and bar.width==120.0,"new model paths apply")
 	old = null
 	check(weak_old.get_ref()==null,"subscriptions never retain replaced model")
+	old_state = null
+	check(weak_state.get_ref()==null,"replaced nested leaf is not retained by subscription records")
 	var player = scene.model.player
 	scene.model.player = null
 	await settle()
@@ -89,9 +95,33 @@ func run() -> void:
 	title.free()
 	check(scene.model.player.title_changed.get_connections().is_empty(),"target free disconnects leaf")
 	check(scene.evaluations==1 and ids[1]==bar.get_instance_id() and ids[2]==scene.ui.get_instance_id(),"updates retain Nodes and once-only expressions")
+	var outside := preload("res://addons/estragon/runtime/node/estragon_2d.gd").new()
+	root.add_child(outside)
+	bar.get_parent().remove_child(bar)
+	outside.add_child(bar)
+	await settle()
+	check(scene.model.player.width_changed.get_connections().size()==1,"target transfer outside host retains one connection")
+	root.remove_child(scene)
+	check(scene.model.player.width_changed.get_connections().is_empty(),"host exit suspends independently parented target")
+	scene.model.player.width = 280.0
+	root.add_child(scene)
+	await settle()
+	check(bar.width==280.0 and scene.model.player.width_changed.get_connections().size()==1,"host reentry refreshes transferred target without duplicate listeners")
 	var source = scene.model
+	source.player.width = 300.0 # Pending work must not outlive a freed host.
 	scene.free()
 	check(source.player_changed.get_connections().is_empty() and source.player.width_changed.get_connections().is_empty(),"host/target free disconnects every model listener")
+	await settle()
+	outside.free()
+	var nullable := Demo.new()
+	nullable.model = null
+	root.add_child(nullable)
+	await settle()
+	check(nullable.ui.get_node("Panel/Title").text=="" and nullable.model_changed.get_connections().size()==4,"initial null path retains native defaults and observes replacement")
+	nullable.model = Model.new()
+	await settle()
+	check(nullable.ui.get_node("Panel/Title").text=="Reactive model","initially null root recovers without rebuilding")
+	nullable.free()
 	# Pack/reload native ownership and persistent methods, without regenerating UI.
 	var counter: Node = load("res://examples/counter/Counter.tscn").instantiate()
 	root.add_child(counter)
@@ -110,6 +140,11 @@ func run() -> void:
 	var first := Compiler.compile(code,"typed.gogo")
 	var second := Compiler.compile(code,"typed.gogo")
 	check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"reactive output/maps deterministic")
+	var lines := first.code.split("\n")
+	for index in range(lines.size()):
+		if lines[index].contains("String(self.value)"):
+			var mapped = first.source_map.original_position(index+1,lines[index].find("self.value")+1)
+			check(mapped != null and mapped.line==3 and mapped.column==code.split("\n")[2].find("self.value")+1,"copied reactive read maps to exact authored expression column")
 	for bad in ['self.value.method()', 'self.value[0]', 'self.missing', 'self.value + unknown()', 'self.value + (await next)']:
 		var result := Compiler.compile(code.replace('String(self.value)',bad),"negative.gogo")
 		check(not result.ok and result.diagnostics[0].span.start.line==3,"unsupported dependency diagnosed at authored line: "+bad)
