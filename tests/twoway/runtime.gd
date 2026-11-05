@@ -97,6 +97,15 @@ func run() -> void:
     await settle()
     check(not scene.model.enabled and not toggle.value and edits==[true],"reentrant model restore wins at deferred commit even when old desired snapshot is unchanged")
     scene.model.enabled_changed.disconnect(reentrant)
+    var reedit: Callable = func(_before: bool, next: bool):
+        if next: toggle.value_changed.emit(false)
+    scene.model.enabled_changed.connect(reedit)
+    click(toggle)
+    await settle()
+    check(scene.model.enabled and toggle.value,"reentrant edit callback is bounded and cannot ping-pong the boundary")
+    scene.model.enabled_changed.disconnect(reedit)
+    scene.model.enabled = false
+    await settle()
     toggle.disabled = true
     edits.clear()
     click(toggle)
@@ -118,6 +127,8 @@ func run() -> void:
     scene.model = null
     await settle()
     check(not scene.has_node("UI/Panel/Edit"),"null source intentionally omitted by ordinary conditional")
+    var invalid = preload("res://addons/estragon/runtime/composition/binding.gd").new(scene,func(owner): return owner.model,"enabled",func(owner, value: bool): owner.enabled = value,"model.enabled")
+    check(not invalid.valid,"present null binding rejects instead of silently becoming writable")
     scene.replace_model()
     scene.show_row = true
     await settle()
@@ -159,6 +170,9 @@ func run() -> void:
     quit(1 if failures else 0)
 func compiler_checks() -> void:
     var source := FileAccess.get_file_as_string("res://examples/twoway/Demo.gogo")
+    for fixture in ["BadArity","BadSignal","BadValue"]:
+        var bad_control := Compiler.compile(source.replace("res://addons/estragon/runtime/node/toggle.gd","res://tests/twoway/"+fixture+".gd"),"examples/twoway/Demo.gogo")
+        check(not bad_control.ok and "writable bool value" in bad_control.diagnostics[0].message,"reject native input contract: "+fixture)
     var first := Compiler.compile(source,"examples/twoway/Demo.gogo")
     var second := Compiler.compile(source,"examples/twoway/Demo.gogo")
     check(first.ok and second.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"typed binding generation/maps deterministic")

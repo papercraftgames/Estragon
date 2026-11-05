@@ -1,5 +1,6 @@
 extends RefCounted
 ## F01 computation and retained static-shape records external to native objects.
+const Binding = preload("res://addons/estragon/runtime/composition/binding.gd")
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 class Mounted extends RefCounted:
 	var node: WeakRef
@@ -152,7 +153,7 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 		if not desired.type.can_instantiate() or not ClassDB.is_parent_class(desired.type.get_instance_base_type(),"Node"): return false
 	else: return false
 	for binding in desired.bindings.values():
-		if not binding is preload("res://addons/estragon/runtime/composition/binding.gd") or not binding.valid: return false
+		if not binding is Binding or not binding.valid: return false
 	for handler in desired.handlers.values():
 		if not handler is Callable or not handler.is_valid(): return false
 	var names := {}
@@ -236,7 +237,7 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	return record
 func _apply(desired: Element, record: Mounted) -> void:
 	var node: Node = record.node.get_ref()
-	for key in record.bindings:
+	for key in record.bindings.keys():
 		if not desired.bindings.has(key) or not record.bindings[key].same(desired.bindings[key]):
 			record.bindings[key].disconnect_edit()
 			record.bindings.erase(key)
