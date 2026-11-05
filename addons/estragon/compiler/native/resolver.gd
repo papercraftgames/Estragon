@@ -3,6 +3,10 @@ extends RefCounted
 ## Static Node type metadata. Never instantiate authored classes or use editor/tree.
 const Model = preload("res://addons/estragon/compiler/model.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
+const Source = preload("res://addons/estragon/compiler/source.gd")
+const Parser = preload("res://addons/estragon/compiler/parser.gd")
+const Bindable = preload("res://addons/estragon/compiler/bindable.gd")
+var visiting: Dictionary = {}
 var file
 var aliases: Dictionary = {}
 var globals: Dictionary = {}
@@ -61,6 +65,8 @@ func resolve(name: String, span: Model.Span) -> Dictionary:
 	return {"native": name, "script": null}
 
 func _script(name: String, path: String, span: Model.Span) -> Dictionary:
+	var authored := path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo")
+	if path.get_base_dir().get_file()=="generated" and FileAccess.file_exists(authored): return _gogo(name,path,authored,span)
 	if not ResourceLoader.exists(path, "GDScript"): return _fail("GGX script import not found: " + path, span)
 	var script: Script = load(path)
 	# CACHE_MODE_IGNORE still changes GDScript's internal cache on tested Godot.
@@ -73,6 +79,49 @@ func _script(name: String, path: String, span: Model.Span) -> Dictionary:
 		if method.name == "_init" and method.args.size() > method.default_args.size():
 			return _fail("GGX construction requires a zero-argument initializer: " + name, span)
 	return {"native": script.get_instance_base_type(), "script": script}
+
+func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Dictionary:
+	if visiting.has(path): return _fail("Cyclic Gogo component inheritance: "+path,span)
+	visiting[path] = true
+	var source := Source.new(FileAccess.get_file_as_string(authored),authored)
+	var module = Parser.new(source).parse()
+	if module != null: Bindable.new(source).apply(module)
+	if module == null or not source.diagnostics.is_empty():
+		visiting.erase(path)
+		return _fail("Invalid authored Gogo component metadata: "+authored,span)
+	var imported = get_script().new(source)
+	imported.visiting = visiting
+	imported.scan(module)
+	var lexer := Lexer.new(source)
+	var tokens: Array = []
+	var cursor := 0
+	while cursor < source.text.length():
+		var token = lexer.next_token(cursor)
+		if token == null: break
+		cursor = token.span.end.index
+		if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append(token)
+	var base := {}
+	for index in range(tokens.size()-1):
+		if tokens[index].text!="extends" or tokens[index].span.start.column!=1: continue
+		var target = tokens[index+1]
+		if target.kind=="string":
+			var literal: String = target.text.substr(1,target.text.length()-2)
+			if not literal.is_absolute_path(): literal = path.get_base_dir().path_join(literal).simplify_path()
+			base = imported._script(name,literal,span)
+		else: base = imported.resolve(target.text,span)
+		break
+	visiting.erase(path)
+	if base.is_empty(): return _fail("Gogo component requires an explicit constructible Node base: "+authored,span)
+	var properties: Dictionary = base.get("properties",{}).duplicate()
+	var signals: Dictionary = base.get("signals",{}).duplicate()
+	for part in module.parts:
+		if not part is Model.Bindable: continue
+		var type: String = part.type_name
+		var kind: int = {"bool":TYPE_BOOL,"int":TYPE_INT,"float":TYPE_FLOAT,"String":TYPE_STRING,"StringName":TYPE_STRING_NAME,"Vector2":TYPE_VECTOR2,"Vector2i":TYPE_VECTOR2I,"Rect2":TYPE_RECT2,"Rect2i":TYPE_RECT2I,"Vector3":TYPE_VECTOR3,"Vector3i":TYPE_VECTOR3I,"Transform2D":TYPE_TRANSFORM2D,"Vector4":TYPE_VECTOR4,"Vector4i":TYPE_VECTOR4I,"Plane":TYPE_PLANE,"Quaternion":TYPE_QUATERNION,"AABB":TYPE_AABB,"Basis":TYPE_BASIS,"Transform3D":TYPE_TRANSFORM3D,"Projection":TYPE_PROJECTION,"Color":TYPE_COLOR,"NodePath":TYPE_NODE_PATH,"RID":TYPE_RID,"Callable":TYPE_CALLABLE,"Signal":TYPE_SIGNAL,"Dictionary":TYPE_DICTIONARY,"Array":TYPE_ARRAY,"PackedByteArray":TYPE_PACKED_BYTE_ARRAY,"PackedInt32Array":TYPE_PACKED_INT32_ARRAY,"PackedInt64Array":TYPE_PACKED_INT64_ARRAY,"PackedFloat32Array":TYPE_PACKED_FLOAT32_ARRAY,"PackedFloat64Array":TYPE_PACKED_FLOAT64_ARRAY,"PackedStringArray":TYPE_PACKED_STRING_ARRAY,"PackedVector2Array":TYPE_PACKED_VECTOR2_ARRAY,"PackedVector3Array":TYPE_PACKED_VECTOR3_ARRAY,"PackedColorArray":TYPE_PACKED_COLOR_ARRAY}.get(type,TYPE_OBJECT)
+		if type.begins_with("Array["): kind = TYPE_ARRAY
+		properties[part.name] = {"name":part.name,"type":kind,"class_name":(type if ClassDB.class_exists(type) else name+"."+type) if kind==TYPE_OBJECT else "","usage":PROPERTY_USAGE_DEFAULT}
+		signals[part.signal_name] = {"name":part.signal_name}
+	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals}
 
 func _fail(message: String, span: Model.Span) -> Dictionary:
 	file.fail(message, span.start.index, span.end.index)

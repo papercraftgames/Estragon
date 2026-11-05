@@ -44,6 +44,8 @@ func _component(node: Model.Component) -> void:
 		for event in script.get_script_signal_list():
 			if not signals.has(event.name): signals[event.name] = event
 		script = script.get_base_script()
+	properties.merge(resolved.get("properties",{}),true)
+	signals.merge(resolved.get("signals",{}),true)
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name

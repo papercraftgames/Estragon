@@ -69,10 +69,11 @@ func run() -> void:
 	old = null
 	check(weak.get_ref()==null,"no old model retention")
 	var before: int = record.runs
+	var child_before_runs: int = child_record.runs
 	nested.value = 2
 	scene.show_child = false
 	await settle()
-	check(child_record.runs==3 and child_record.disposed and not is_instance_valid(nested),"parent-first removal cancels dirty descendant before it renders")
+	check(child_record.runs==child_before_runs and child_record.disposed and not is_instance_valid(nested),"parent-first removal cancels dirty descendant before it renders")
 	check(record.runs==before+1,"parent runs once for branch removal")
 	check(scene.model.title_changed.get_connections().size()==1,"nested removal disconnects its model dependency")
 	scene.show_child = true
@@ -132,7 +133,6 @@ func run() -> void:
 	for invalid in ['else 3','else [<Node />]','else Node.new()']:
 		var compiled := Compiler.compile(source.replace('else null',invalid),"invalid.gogo")
 		if compiled.ok:
-			var script := GDScript.new()
 			# Native semantic negatives are covered in editor, without suppressing
 			# arbitrary engine errors in this positive runtime process.
 			check(compiled.code.contains("_GogoElement"),"invalid child remains statically Element-typed: "+invalid)

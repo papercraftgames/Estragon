@@ -39,7 +39,7 @@ export function assessFile(file: string) {
     }
     // Bind the summary to the hashed execution reports, not hand-entered PASSes.
     const observed: Record<string, Stage> = {};
-    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition']) {
+    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional']) {
         const relative = group + '/' + report.label + '/results.json';
         if (!report.files[relative])
             throw Error('Missing required group evidence: ' + group);
