@@ -4,6 +4,7 @@ const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
 const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
 const Model = preload("res://examples/reactive/generated/Model.gd")
 signal model_changed(previous: Model, value: Model)
 var model: Model = Model.new():
@@ -50,6 +51,7 @@ func build_view() -> Node:
         (40.0),
         (Color(0.55,0.32,0.9)),
         _gogo_read_14(),
+        (advance),
         (independent()), self
     )
 func persist(node: Node) -> void:
@@ -160,7 +162,8 @@ class _GogoFactories_0:
         _gogo_value_12: float,
         _gogo_value_13: Color,
         _gogo_value_14: Array,
-        _gogo_value_15: String, _gogo_host: Node
+        _gogo_value_15: Callable,
+        _gogo_value_16: String, _gogo_host: Node
     ) -> Entry:
         var component_0: Entry = Entry.new()
         component_0.name = "UI"
@@ -202,10 +205,14 @@ class _GogoFactories_0:
         if not _gogo_value_14.is_empty(): component_11.text = _gogo_value_14[0]
         var binding_12: Node = preload("res://addons/estragon/runtime/node/internal/property_binding.gd").attach(component_11, _gogo_host, &"_gogo_read_14", &"_gogo_read_14_sources", &"text", _gogo_value_14)
         component_1.add_child(component_11)
-        var component_13: Text = Text.new()
-        component_13.name = "Independent"
-        component_13.text = _gogo_value_15
+        var component_13: UiButton = UiButton.new()
+        component_13.name = "Advance"
+        component_13.text = "Change model and layout"
         component_1.add_child(component_13)
+        var component_14: Text = Text.new()
+        component_14.name = "Independent"
+        component_14.text = _gogo_value_16
+        component_1.add_child(component_14)
         component_0.add_child(component_1)
         binding_2.owner = component_0
         binding_4.owner = component_0
@@ -219,5 +226,10 @@ class _GogoFactories_0:
         binding_12.owner = component_0
         component_11.owner = component_0
         component_13.owner = component_0
+        component_14.owner = component_0
         component_1.owner = component_0
+        if not _gogo_value_15.is_valid() or component_13.pressed.connect(_gogo_value_15, Object.CONNECT_PERSIST) != OK:
+            push_error("examples/reactive/Demo.gogo:32:77: Node GGX signal pressed requires a valid Callable/connection")
+            component_0.free()
+            return null
         return component_0

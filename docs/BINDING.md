@@ -44,7 +44,7 @@ func build_view() -> EstragonVBox:
     </VBox>
 ```
 
-T09 must define the binding-expression contract precisely. **Current braced expressions are construction-time values**; syntax coloring or annotation recognition by itself does not make `{count}` reactive. The native compiler should emit typed accessors, property-change notifications, a dependency graph and scoped subscriptions; application code should not call `set_root(build_view())` or emit signals manually to make a bindable value refresh.
+T09-B defines explicit self-path dependency expressions. **Unrelated braced expressions are construction-time values**; annotation recognition alone does not make bare `{count}` reactive. The native compiler should emit typed accessors, property-change notifications, a dependency graph and scoped subscriptions; application code should not call `set_root(build_view())` or emit signals manually to make a bindable value refresh.
 
 ## Observable data and ArrayCollection-like semantics
 
