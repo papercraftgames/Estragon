@@ -305,6 +305,8 @@ or test fixes. For ongoing enforcement see `AGENTS.md` and issue #41.
 
 ## ADR-0015 — GGX Node-native composition and layout-first Estragon
 
+**2026-11-05 successor:** [ADR-0016](#adr-0016--signal-driven-function-recomposition-with-retained-native-nodes) supersedes the earlier prohibition on Virtual DOM/reconciliation while preserving the native retained Node and composed-layout invariants. ADR-0015's historical 'no Virtual DOM' statements describe the former target, not the new approved composition architecture.
+
 **Status: accepted owner direction, 2026-11-02; NOT implemented.** Source: [architecture issue #68](https://github.com/resistdesign/Estragon/issues/68). Formalization: [ADR-0015-A #69](https://github.com/resistdesign/Estragon/issues/69). This documentation decision changes the target; it neither retroactively changes implementation nor certifies compatibility/release readiness.
 
 **Implementation note:** [B1 #71](https://github.com/resistdesign/Estragon/issues/71) adds only a separately selected [bounded native composition proof](NODE_COMPOSITION_PROOF.md). [B2 #73](https://github.com/resistdesign/Estragon/issues/73) adds a separate [composed spatial entry/row-layout proof](NODE_LAYOUT_PROOF.md), using proposed bounded coordinates/authority recorded in its task. [B3 #75](https://github.com/resistdesign/Estragon/issues/75) adds the separately bounded [native adapter/metadata proof](NODE_ADAPTER_PROOF.md) for review. [C1](NODE_RUNTIME.md) provides the native runtime foundation; [C2 #79](https://github.com/resistdesign/Estragon/issues/79) integrates bounded native GGX into normal builds with legacy compatibility. Full widget migration/reactivity remain unimplemented; release evidence stays distinct.
@@ -358,3 +360,37 @@ Legacy is a temporary migration dependency. C3 introduces explicitly named nativ
 Accepted [#83](https://github.com/resistdesign/Estragon/issues/83): retire the obsolete parallel UI after merged C3, including stage-0 JSON/T10 consumers and optional reference compilers. Canonical native widget classes are EstragonRect/Text/Button/HBox/VBox; Button remains the native Godot class, with explicit imports rather than hidden tag remapping. There are no transitional *2D widget aliases. Node.add_child/native lifetime and the composed core remain the only production architecture. Earlier descriptions of shipped RefCounted compatibility are historical.
 
 **Release artifact scope:** Estragon is a Godot addon, not a standalone executable application. Current gates require native compiler/maps/semantic rollback, editor save/unsaved Play/repair, runtime/layout/input/identity/owners, graphics, metadata, fresh addon/source-only installation and native resource-pack integration. Standalone-app export and deleted legacy scene/raw-string/helper checks are discontinued requirements, not failures relabeled PASS. Historical #51/#65 reports preserve their actual outcomes. Native-product failures/missing/dirty/mismatched evidence still block; no automatic legacy failure exemptions or permanent BLOCKED verdict based on removed functionality. Publishing/merging remains owner-controlled and untested engines/platforms remain unverified. Current native-addon evidence determines the actual candidate verdict.
+
+
+## ADR-0016 — Signal-driven function recomposition with retained native Nodes
+
+**Status: accepted owner product direction, 2026-11-05; implementation queued.**
+**Detailed contract and migration plan:** [Reactive Composition Architecture](REACTIVE_COMPOSITION_ARCHITECTURE.md).
+**Tracking:** [architecture issue #89](https://github.com/resistdesign/Estragon/issues/89), [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-wide bindable #90](https://github.com/resistdesign/Estragon/issues/90).
+**Predecessor:** ADR-0015 (native Node architecture, preserved).
+
+### Decision
+
+Estragon's declarative authoring model is **React-like functions that return GGX**, with **Flex-like generated Gogo `@bindable` signals triggering automatic recomposition**. No authored state invalidation hooks or immutable game-state requirement. Render/composition functions are rerun on observed changes, **not per frame**. The descriptions they return are reconciled against existing Godot Nodes: stable type/position/optional sibling key preserves identity; only changed attributes/handlers and required add/remove/move operations are committed. This is deliberately a **small Virtual DOM/element-description layer**, not another set of actual Godot Nodes.
+
+**Do not store reconciliation metadata on user Godot Nodes, models, Resources or components.** Keys, previous declared props, child matching, dependency scopes and native Node mappings live in independent framework-owned runtime records. No `set_meta`, per-element binder Node, permanent custom child-adder or shadow scene with live duplicate instances. Native `Node.add_child` and normal Node lifecycle/owner rules remain the only real hierarchy operations.
+
+A changed observable Gogo property emits its typed signal. During a component's declarative function execution, compiler-generated getters record observed property reads in that component's computation scope. On change, a scheduler automatically reruns affected component functions and reconciles their output. Nested conditional subscriptions rewire; deep parents remove obsolete child work/subscriptions; batches avoid repeated commits. **Godot remains mutable**: native transforms, physics and other runtime-only data are not copied/immutably replaced. Props unchanged since the last declared commit are not forcibly reset just because a component recomposed.
+
+### Language, models and future work
+
+- Gogo remains typed, GDScript-first, with namespace-free GGX; the compiler emits native ordinary GDScript plus original-source maps. Authoring supports normal local variables/functions/conditionals/loops returning desired GGX descriptions; keyed arrays/maps should require no mandatory `Repeater` widget.
+- Per-property lowercase Gogo-only `@bindable` is shipped by T09-A; reactive individual GGX props are shipped by T09-B. The next stages replace T09-B's helper-Node/static-path internal mechanism with **one** composition/dependency/reconciliation pipeline, rather than keeping two permanent implementations.
+- **Class-level Gogo `@bindable`** (#90) is a planned ergonomic extension for eligible typed instance fields; ordinary `.gd` custom annotations remain unsupported. Deep in-place changes to raw Array/Dictionary do not produce automatic signals; an observable list adapter is optional for apps needing this, while reference replacement and ordinary map/for composition work without a custom Repeater.
+- Non-Node `RefCounted` and `Resource` data models remain first-class observable values. Plain JSON/dictionaries/arrays remain valid, generally non-observable transport/storage data. Typed conversion/serialization may be introduced only where genuinely needed; no AMF/RemoteObject/universal proxy subsystem.
+- Two-way UI/model binding follows the proven one-way/structural mechanism with event adapters, clear input ownership and feedback guards. Godot rendering/physics, composed layout, native signals, scene ownership and editor cache/Play safety remain authoritative.
+
+### Supersessions and execution
+
+**Supersedes** ADR-0015's explicit ban on a Virtual DOM/reconciliation and its assumption that GGX must only instantiate Nodes once, as well as any standing plan requiring perpetual static GGX, manual recreation or a separate long-lived binding/reconciler mechanism. **Preserves** ADR-0015's real Godot Node hierarchy, Node2D/Node3D identity, composed layout, native lifetime, no custom child-adder and arbitrary native Nodes as children. RefCounted **display/UI** trees were already retired by C4 and must not return.
+
+**Unreleased project:** no backward-compatibility shims, migration mode or dual compilation/runtime paths are required. After complete verified cutover, delete old eager-factory and per-target binding-helper implementations/tests/fixtures instead of maintaining both. Keep only historical facts and useful product tests. Do not claim ADR-0016 has shipped until the serial implementation PRs merge.
+
+**Sequence:** documentation/decision PR → focused native getter/renderer spike → scoped conditional reconciliation → keyed mapped lists → complete single-runtime cutover → class-level `@bindable`, two-way bindings and any justified model serialization. Scoped tasks, one open PR at a time, owner-only merge; Linux official Godot 4.0.4 and pinned 4.7.0 verification only, no Python, bundled Godot-only compiler/editor, TypeScript/Yarn for new contributor automation.
+
+**Research incorporated:** React function components and reconciliation; React Compiler's automatic memoization and explicit non-goal of perfect optimization; Svelte 5 compiled conditional/effect scheduling; Solid fine-grained signals; Godot 4.0 Node and GDScript semantics. We **choose function recomposition and honest small reconciliation as the baseline**; Svelte/Solid-inspired local optimizations may be added when measured, without creating disconnected rendering models.
