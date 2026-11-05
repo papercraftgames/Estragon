@@ -37,5 +37,5 @@ class _GogoFactories_0:
 
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "ChildView", "text": _gogo_value_0}, {}, [], "examples/conditional/Child.gogo:8:12")
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "ChildView", "text": _gogo_value_0}, {}, [], "examples/conditional/Child.gogo:8:12", null, false)
         return _gogo_element_0

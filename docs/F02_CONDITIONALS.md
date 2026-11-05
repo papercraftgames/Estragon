@@ -1,3 +1,5 @@
+**F03 implementation:** [Child sequences and keyed lists](F03_LISTS.md) / [#96](https://github.com/resistdesign/Estragon/issues/96) extends merged F01/F02 with native for/map descriptions, nested Array flattening and sibling-scoped retained keys. Live issue/sole PR records verification and review; F04 cutover and F05/F06 remain future. Earlier stage-specific restrictions below describe their original boundaries.
+
 # F02 — conditional children and nested native composition
 
 [F02 #94](https://github.com/resistdesign/Estragon/issues/94) extends merged [F01](F01_COMPOSITION.md) in the same descriptor/getter/record engine. Live issue/sole PR records exact acceptance and review state. General keys/arrays/mapping (F03), final eager/T09-B helper removal (F04), class-level/two-way (F05) and profiling (F06) remain unimplemented.

@@ -116,7 +116,7 @@ func run() -> void:
     # Replace a row's model under the same key: host/state retained, reads rewired.
     var retained = rows(panel)[0]
     var old_model = retained.item
-    var model_weak := weakref(old_model)
+    var model_weak: WeakRef = weakref(old_model)
     var replacement := Item.new(old_model.id,"New model same key")
     next = scene.items.duplicate()
     next[0] = replacement

@@ -27,7 +27,7 @@ for (const selection of options.engines) {
                     if (name === 'rejection' && l === 'ERROR: Invalid composition output or foreign boundary conflict; previous tree retained') return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/inventory/Inventory.gogo\'.')
                         return false;
-                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/lists\/generated\/Inventory\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/lists\/Inventory\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_handler" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
+                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/inventory\/generated\/Inventory\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/inventory\/Inventory\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_handler" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
