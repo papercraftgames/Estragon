@@ -124,8 +124,12 @@ func _static_keys(children: Array, keys: Dictionary) -> void:
 				else:
 					var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
 					if text.is_valid_int(): literal = "i:"+str(int(text))
-					elif text.length()>1 and text[0] in ['"',"'"] and text[-1]==text[0]:
-						literal = "s:"+text.substr(1,text.length()-2)
+					else:
+						var tokens := _expression_tokens(attribute.value)
+						if tokens.size()==1 and tokens[0].kind=="string" and not tokens[0].text.contains("\\"):
+							var value: String = tokens[0].text
+							var delimiter := 3 if value.begins_with(value[0].repeat(3)) else 1
+							literal = "s:"+value.substr(delimiter,value.length()-delimiter*2)
 				if literal==null: continue
 				if keys.has(literal):
 					_error("Duplicate declared sibling key "+str(literal),attribute.value.span)
@@ -228,8 +232,8 @@ func _child_result(tokens: Array, span) -> void:
 	# leaves fail at their authored span, including conditional alternatives.
 	if not tokens.is_empty():
 		var first: String = tokens[0].text
-		var constructor := tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3)
-		var scalar_call := tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
+		var constructor: bool = tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3)
+		var scalar_call: bool = tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
 		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd"):
 			return
 	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)

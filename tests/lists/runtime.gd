@@ -215,6 +215,8 @@ func compiler_checks() -> void:
     var second := Compiler.compile(source,"lists.gogo")
     var text_key := Compiler.compile(source.replace('key="last"','key={"Node.new("}'),"text-key.gogo")
     check(text_key.ok,"constructor-looking key string remains ordinary data")
+    var expression_keys := Compiler.compile(source.replace('{[[],rows,null,[<Node key="last" />]]}','<Node key={"x"+"y"} /><Node key=\'x"+"y\' />'),"expression-keys.gogo")
+    check(expression_keys.ok,"string expressions are not misclassified as literal duplicate keys")
     check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"loop arrays/keys compile deterministically with maps")
     for invalid in ['{7}','{Node.new()}','{[null,3]}','{true}']:
         var compiled := Compiler.compile(source.replace('{[[],rows,null,[<Node key="last" />]]}',invalid),"invalid.gogo")
