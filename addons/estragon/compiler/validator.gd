@@ -44,9 +44,14 @@ func _component(node: Model.Component) -> void:
 		for event in script.get_script_signal_list():
 			if not signals.has(event.name): signals[event.name] = event
 		script = script.get_base_script()
+	properties.merge(resolved.get("properties",{}),true)
+	signals.merge(resolved.get("signals",{}),true)
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
+		if node.described and name=="key":
+			_error("GGX sibling keys and arrays are deferred to F03; conditional slots preserve identity",attribute.name_span)
+			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
@@ -83,11 +88,67 @@ func _component(node: Model.Component) -> void:
 		else:
 			_node(attribute.value)
 			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
+	var sibling_names := {}
 	for child in node.children:
+		if node.described and child is Model.GdExpression:
+			_node(child)
+			_child_expression(child)
+			continue
 		if not child is Model.Component:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
+		if node.described and child is Model.Component:
+			for attribute in child.attributes:
+				if attribute.name=="name" and attribute.value is Model.Literal:
+					var name: String = str(attribute.value.value)
+					if sibling_names.has(name):
+						_error("Duplicate declared sibling name "+name,attribute.value.span)
+						return
+					sibling_names[name] = true
+
+func _child_expression(expression) -> void:
+	var tokens: Array = []
+	var lexer := Lexer.new(file)
+	for part in expression.parts:
+		if part is Model.Component:
+			tokens.append({"text":"<element>","span":part.span})
+			continue
+		var cursor: int = part.span.start.index
+		while cursor < part.span.end.index:
+			var token = lexer.next_token(cursor)
+			if token == null: return
+			cursor = token.span.end.index
+			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"span":token.span})
+	_child_result(tokens,expression.span)
+func _child_result(tokens: Array, span) -> void:
+	# Result alternatives are descriptions/null, while the condition remains
+	# normal native GDScript. This closes the Variant ternary loophole where
+	# Godot defers an int/Object conversion until gameplay.
+	if tokens.size()==1 and tokens[0].text in ["<element>","null"]: return
+	var depth := 0
+	var conditional := -1
+	var alternative := -1
+	var outer_close := -1
+	for index in range(tokens.size()):
+		var value: String = tokens[index].text
+		if value in ["(","[","{"]: depth += 1
+		elif value in [")","]","}"]:
+			depth -= 1
+			if depth==0 and outer_close<0: outer_close = index
+		elif depth==0:
+			if value=="if" and conditional<0: conditional = index
+			elif value=="else" and conditional>=0:
+				alternative = index
+				break
+	if not tokens.is_empty() and tokens[0].text=="(" and outer_close==tokens.size()-1:
+		_child_result(tokens.slice(1,tokens.size()-1),span)
+		return
+	if conditional>0 and alternative>conditional+1 and alternative<tokens.size()-1:
+		_child_result(tokens.slice(0,conditional),span)
+		_child_result(tokens.slice(alternative+1),span)
+		return
+	_error("Conditional child results must be GGX Elements or null; arrays, scalars and live Nodes are unsupported",tokens[0].span if not tokens.is_empty() else span)
 
 func _native_type(property: Dictionary) -> String:
 	if property.type == TYPE_OBJECT:

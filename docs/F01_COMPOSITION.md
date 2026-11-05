@@ -1,3 +1,5 @@
+**F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
+
 # F01 — native signal-driven function composition spike
 
 [F01 #92](https://github.com/resistdesign/Estragon/issues/92) implements the first bounded vertical path of [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md). Exact acceptance/review/merge state and provenance are on the live issue/sole PR. F02 conditional/deep composition, F03 keys/lists and F04 final eager/helper removal remain future work. This is a deliberate spike, not the complete ADR-0016 renderer or a permanent second API.

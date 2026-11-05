@@ -1,0 +1,40 @@
+extends Node2D
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Child = preload("res://examples/conditional/generated/Child.gd")
+const Model = preload("res://examples/composition/generated/Model.gd")
+@bindable var count: int = 0
+@bindable var show_bonus: bool = false
+@bindable var show_child: bool = true
+@bindable var model: Model = Model.new()
+func build_view() -> Element:
+    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
+        <VBox name="Panel" fill_width={true} gap={12.0}>
+            <Text name="Always" text={"Count: %d" % count} />
+            {<UiButton name="Action" text="Ready" pressed={increment} /> if count > 2 else <Text name="Prompt" text={model.title} />}
+            {<VBox name="Bonus" gap={4.0}>
+                {(<Rect name="Deep" width={model.width} height={8.0} /> if model.width < 160.0 else <Rect name="Wide" width={model.width} height={8.0} />) if count > 4 else <Text name="Wait" text="Keep counting" />}
+            </VBox> if show_bonus else null}
+            <Text name="After" text="Stable sibling after optional slot" />
+            {<Child name="Nested" model={model} /> if show_child else null}
+            <UiButton name="Increment" text="+" pressed={increment} />
+            <UiButton name="Toggle" text="Toggle bonus" pressed={toggle_bonus} />
+            <UiButton name="ToggleChild" text="Toggle nested component" pressed={toggle_child} />
+        </VBox>
+    </Entry>
+func increment() -> void:
+    count += 1
+func toggle_bonus() -> void:
+    show_bonus = not show_bonus
+func toggle_child() -> void:
+    show_child = not show_child
+func _ready() -> void:
+    if OS.get_environment("ESTRAGON_CONDITIONAL_PROOF") == "1": write_proof.call_deferred()
+func write_proof() -> void:
+    for index in range(5): await get_tree().process_frame
+    var file := FileAccess.open("res://.godot/conditional-play.json",FileAccess.WRITE)
+    file.store_string(JSON.stringify({"count":count,"text":get_node("UI/Panel/Always").text}))
