@@ -1,0 +1,50 @@
+@tool
+extends RefCounted
+## Desired typed linkage, owned only by external description/mount records.
+var root: WeakRef
+var source: WeakRef
+var field: StringName
+var read: Callable
+var write: Callable
+var value: Variant
+var valid := false
+var node: WeakRef
+var computation: WeakRef
+var connected := false
+var writing := false
+func _init(owner: Object, reader: Callable, property: StringName, writer: Callable) -> void:
+	root = weakref(owner)
+	read = reader
+	write = writer
+	field = property
+	var endpoint = current()
+	if endpoint == null: return
+	source = weakref(endpoint)
+	value = endpoint.get(field)
+	valid = typeof(value)==TYPE_BOOL and endpoint.has_signal(str(field)+"_changed")
+func current():
+	var owner = root.get_ref()
+	return read.call(owner) if is_instance_valid(owner) else null
+func same(other) -> bool:
+	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field
+func attach(target: Node, scope) -> void:
+	node = weakref(target)
+	computation = weakref(scope)
+	if not connected:
+		connected = target.connect("value_changed",edit)==OK
+func disconnect_edit() -> void:
+	var target = node.get_ref() if node!=null else null
+	if target!=null and target.is_connected("value_changed",edit): target.disconnect("value_changed",edit)
+	connected = false
+func edit(next: bool) -> void:
+	var scope = computation.get_ref() if computation!=null else null
+	var target = node.get_ref() if node!=null else null
+	var endpoint = source.get_ref() if source!=null else null
+	if writing or scope==null or scope.disposed or not scope.active or target==null or not target.is_inside_tree() or target.is_queued_for_deletion() or endpoint==null or current()!=endpoint: return
+	if is_same(endpoint.get(field),next): return
+	writing = true
+	write.call(endpoint,next)
+	writing = false
+	# Reentrant model callbacks can restore the old value; commit must still
+	# restore a control whose local user value diverged from its snapshot.
+	scope.schedule()

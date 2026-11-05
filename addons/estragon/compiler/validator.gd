@@ -7,10 +7,12 @@ const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
 const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
 var file: Source
 var resolver
+var current_module
 func _init(source: Source) -> void:
 	file = source
 	resolver = Resolver.new(source)
 func validate(module: Model.Module) -> void:
+	current_module = module
 	resolver.scan(module)
 	for part in module.parts: _node(part)
 func _node(node: Model.SyntaxNode) -> void:
@@ -45,6 +47,10 @@ func _component(node: Model.Component) -> void:
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
 		seen[name] = true
+		if name.begins_with("bind:"):
+			_binding(attribute,node,properties,signals)
+			if not file.diagnostics.is_empty(): return
+			continue
 		if name=="key":
 			attribute.kind = "key"
 			attribute.type_name = "Variant"
@@ -236,3 +242,36 @@ func _native_type(property: Dictionary) -> String:
 	if property.type == TYPE_NIL: return "Variant"
 	# Names are stable Variant types, not an engine-version-specific type_string API.
 	return {TYPE_BOOL:"bool", TYPE_INT:"int", TYPE_FLOAT:"float", TYPE_STRING:"String", TYPE_STRING_NAME:"StringName", TYPE_VECTOR2:"Vector2", TYPE_VECTOR2I:"Vector2i", TYPE_RECT2:"Rect2", TYPE_RECT2I:"Rect2i", TYPE_VECTOR3:"Vector3", TYPE_VECTOR3I:"Vector3i", TYPE_TRANSFORM2D:"Transform2D", TYPE_VECTOR4:"Vector4", TYPE_VECTOR4I:"Vector4i", TYPE_PLANE:"Plane", TYPE_QUATERNION:"Quaternion", TYPE_AABB:"AABB", TYPE_BASIS:"Basis", TYPE_TRANSFORM3D:"Transform3D", TYPE_PROJECTION:"Projection", TYPE_COLOR:"Color", TYPE_NODE_PATH:"NodePath", TYPE_RID:"RID", TYPE_CALLABLE:"Callable", TYPE_SIGNAL:"Signal", TYPE_DICTIONARY:"Dictionary", TYPE_ARRAY:"Array", TYPE_PACKED_BYTE_ARRAY:"PackedByteArray", TYPE_PACKED_INT32_ARRAY:"PackedInt32Array", TYPE_PACKED_INT64_ARRAY:"PackedInt64Array", TYPE_PACKED_FLOAT32_ARRAY:"PackedFloat32Array", TYPE_PACKED_FLOAT64_ARRAY:"PackedFloat64Array", TYPE_PACKED_STRING_ARRAY:"PackedStringArray", TYPE_PACKED_VECTOR2_ARRAY:"PackedVector2Array", TYPE_PACKED_VECTOR3_ARRAY:"PackedVector3Array", TYPE_PACKED_COLOR_ARRAY:"PackedColorArray"}.get(property.type, "")
+
+func _binding(attribute, node, properties: Dictionary, signals: Dictionary) -> void:
+	if attribute.name!="bind:value":
+		_error("Only bind:value is supported",attribute.name_span)
+		return
+	for peer in node.attributes:
+		if peer.name in ["value","value_changed"]:
+			_error("bind:value conflicts with value/value_changed",peer.name_span)
+			return
+	var event: Dictionary = signals.get("value_changed",{})
+	var args: Array = event.get("args",[])
+	if not properties.has("value") or properties.value.type!=TYPE_BOOL or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY or args.size()!=1 or args[0].type!=TYPE_BOOL:
+		_error("bind:value requires writable bool value and value_changed(value: bool)",attribute.name_span)
+		return
+	if not attribute.value is Model.GdExpression:
+		_error("bind:value requires an explicit self bindable lvalue path",attribute.value.span)
+		return
+	var tokens := _expression_tokens(attribute.value)
+	if tokens.size()<3 or tokens.size()%2!=1 or tokens[0].text!="self":
+		_error("bind:value requires self.field or self.model.field",attribute.value.span)
+		return
+	var names: Array = []
+	for index in range(1,tokens.size()):
+		if index%2==1 and tokens[index].text!="." or index%2==0 and tokens[index].kind!="identifier":
+			_error("bind:value accepts only assignable identifier paths",tokens[index].span)
+			return
+		if index%2==0: names.append(tokens[index].text)
+	if not resolver.bindable_path(current_module,names):
+		_error("bind:value path requires typed Gogo bindable fields ending in bool",attribute.value.span)
+		return
+	attribute.kind = "binding"
+	attribute.type_name = "Variant"
+	attribute.binding_path = names

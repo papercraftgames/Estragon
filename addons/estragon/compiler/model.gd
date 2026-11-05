@@ -57,6 +57,7 @@ class Literal extends SyntaxNode:
 		kind = "raw-literal"
 
 class Attribute extends RefCounted:
+	var binding_path: Array = []
 	var kind: String = "property"
 	var name: String
 	var name_span: Span

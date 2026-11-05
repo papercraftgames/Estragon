@@ -1,0 +1,13 @@
+@bindable
+extends Node2D
+const Model = preload("res://examples/twoway/generated/Model.gd")
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Box = preload("res://addons/estragon/runtime/node/hbox.gd")
+const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+var model: Model = Model.new()
+func build_view() -> Element:
+    return <Box name="RowView" gap={12.0}>
+        <Toggle name="Edit" text="Enabled" bind:value={self.model.enabled} />
+        <Text name="Status" text={"Enabled" if self.model.enabled else "Disabled"} />
+    </Box>

@@ -3,6 +3,7 @@ extends RefCounted
 ## Desired values only. No native Node is allocated during description creation.
 var type: Variant
 var properties: Dictionary
+var bindings: Dictionary = {}
 var handlers: Dictionary
 var children: Array
 var key: Variant
