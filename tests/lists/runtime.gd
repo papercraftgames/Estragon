@@ -118,7 +118,6 @@ func run() -> void:
     # Replace a row's model under the same key: host/state retained, reads rewired.
     var retained = rows(panel)[0]
     var old_model = retained.item
-    var model_weak: WeakRef = weakref(old_model)
     var replacement := Item.new(old_model.id,"New model same key")
     next = scene.items.duplicate()
     next[0] = replacement
@@ -130,7 +129,8 @@ func run() -> void:
     desired = null
     leaf = null
     old_model = null
-    check(model_weak.get_ref()==null,"old per-row model has no stale retained references")
+    # A separate completed coroutine below proves collection after all
+    # test-owned expression temporaries leave their native 4.0 stack frame.
     var parent = retained.get_parent()
     parent.remove_child(retained)
     check(replacement.title_changed.get_connections().is_empty(),"detached row disconnects")
@@ -194,10 +194,26 @@ func run() -> void:
     await settle()
     check(rows(restored.get_node("UI/Panel")).size()==3,"PackedScene recreates source-authoritative list once")
     restored.free()
+    var lifetime: Array = await model_lifetime_probe()
+    await settle()
+    check(lifetime[1].get_ref()==null,"old per-row model has no stale retained references while replacement host stays mounted")
+    lifetime[0].free()
     compiler_checks()
     print("LISTS_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
     if failures==0: print("LISTS_RUNTIME_OK")
     quit(1 if failures else 0)
+func model_lifetime_probe() -> Array:
+    var scene := Inventory.new()
+    root.add_child(scene)
+    await settle()
+    var old = scene.items[0]
+    var weak: WeakRef = weakref(old)
+    var next: Array = scene.items.duplicate()
+    next[0] = Item.new(old.id,"Replacement in isolated proof")
+    scene.items = next
+    await settle()
+    check(old.title_changed.get_connections().is_empty(),"isolated replacement disconnects old model before test frame returns")
+    return [scene,weak]
 func compiler_checks() -> void:
     var source := 'extends Node\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nfunc build_view() -> Element:\n\tvar rows: Array = []\n\tfor item in [1,2]:\n\t\trows.append(<Node key={item} />)\n\treturn <Node>{[[],rows,null,[<Node key="last" />]]}</Node>\n'
     var evaluation := 'extends Node\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar trace: Array = []\nfunc stamp(value: String) -> String:\n\ttrace.append(value)\n\treturn value\nfunc build_view() -> Element:\n\treturn <Node name={stamp("parent")}><Node name={stamp("first")} />{[<Node name={stamp("second")} /> if true else <Node name={stamp("skipped")} />]}<Node name={stamp("last")} /></Node>\n'
