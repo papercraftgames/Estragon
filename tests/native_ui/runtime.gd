@@ -145,7 +145,7 @@ func run() -> void:
 	await settle()
 	check(idle==[scene.ui.get_layout_stats(),plus.get_layout_stats(),label.get_layout_stats()],"Counter has zero idle layout work")
 	var packed := PackedScene.new()
-	check(packed.pack(scene)==OK,"native Counter scene packs with explicit owners")
+	check(packed.pack(scene)==OK,"native Counter packs authored host separately from transient output")
 	scene.free()
 	var restored: Node = packed.instantiate()
 	root.add_child(restored)

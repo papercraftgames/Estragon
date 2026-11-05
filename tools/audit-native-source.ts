@@ -29,6 +29,20 @@ export function auditNativeSource() {
                     throw Error('Dangling native source reference: ' + file + ' -> ' + match[1]);
         }
     }
+    // F04 removal audit: ordinary native constructors/scene operations remain
+    // valid; generated GGX output and compiler IR have one description path.
+    for (const file of scripts.filter(p => p.includes('/generated/'))) {
+        const text = fs.readFileSync(file, 'utf8');
+        if (/property_binding|_gogo_read_|component_\d+\.add_child|binding_\d+/.test(text))
+            throw Error('Retired eager/binder output: ' + file);
+    }
+    for (const file of ['model.gd', 'emitter.gd', 'validator.gd']) {
+        const text = fs.readFileSync(path.join(ROOT, 'addons/estragon/compiler', file), 'utf8');
+        if (/property_binding|_gogo_read_|expression\.dependencies|node\.described|root\.described|func _reader\(|func _component\(node: Model.Component, indentation/.test(text))
+            throw Error('Retired compiler mode: ' + file);
+    }
+    if (fs.readFileSync(path.join(ROOT, 'addons/estragon/editor/build_service.gd'), 'utf8').includes('item.result.mode'))
+        throw Error('Retired publication mode guard');
     for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo','reactive/Model','reactive/State','reactive/Demo','composition/Model','composition/Counter','conditional/Child','conditional/Counter','inventory/Item','inventory/Row','inventory/Inventory']) {
         const [dir, base] = name.split('/');
         const source = path.join(ROOT, 'examples', dir!, base! + '.gogo');
@@ -36,7 +50,7 @@ export function auditNativeSource() {
         if (map.sourceContent !== fs.readFileSync(source, 'utf8') || map.sourceName !== 'examples/' + name + '.gogo')
             throw Error('Stale native generated source map: ' + name);
     }
-    for (const old of ['addons/estragon/runtime/surface.gd', 'addons/estragon/runtime/display_object.gd', 'addons/estragon/compiler/node_proof', 'addons/estragon/layout_proof', 'addons/estragon/adapter_proof', 'examples/hello', 'tools/gogo.ts', 'tools/gogo'])
+    for (const old of ['addons/estragon/runtime/surface.gd', 'addons/estragon/runtime/display_object.gd', 'addons/estragon/compiler/node_proof', 'addons/estragon/layout_proof', 'addons/estragon/adapter_proof', 'examples/hello', 'tools/gogo.ts', 'tools/gogo', 'addons/estragon/compiler/reactive.gd', 'addons/estragon/runtime/node/internal/property_binding.gd'])
         if (fs.existsSync(path.join(ROOT, old)))
             throw Error('Retired path returned: ' + old);
     return { active_scripts: scripts.length, canonical_uids: identities.size };

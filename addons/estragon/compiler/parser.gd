@@ -25,7 +25,6 @@ func parse() -> Model.Module:
 	if first < file.text.length() and file.text[first] == "<":
 		file.fail("Gogo requires a GDScript-first module",first)
 		return null
-	module.mode = "hybrid"
 	var scanned := _scan(0, false)
 	module.parts.assign(scanned.parts)
 	return module if file.diagnostics.is_empty() else null

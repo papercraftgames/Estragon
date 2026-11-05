@@ -115,6 +115,8 @@ func _run() -> void:
 		await _blocked(mode,"Counter.gogo:")
 		_counter.text = _source.replace("height={8.0}", 'height={"wrong type"}')
 		await _blocked(mode,"Counter.gogo:")
+		_counter.text = _source.replace("build_view() -> Element","build_view() -> Node")
+		await _blocked(mode,"eager Node-returning GGX is unsupported")
 		_counter.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"

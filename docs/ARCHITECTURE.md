@@ -1,23 +1,20 @@
-**F03 implementation:** [Child sequences and keyed lists](F03_LISTS.md) / [#96](https://github.com/resistdesign/Estragon/issues/96) extends merged F01/F02 with native for/map descriptions, nested Array flattening and sibling-scoped retained keys. Live issue/sole PR records verification and review; F04 cutover and F05/F06 remain future. Earlier stage-specific restrictions below describe their original boundaries.
-
-**F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
-
-**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
-
 # Estragon architecture: shipped native core and accepted next generation
+
+**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05/F06 remain future.
 
 **The canonical product design is [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md): signal-driven React-like function recomposition, Flex-like Gogo bindable properties, a small honest Virtual DOM and native Godot Node reconciliation.** ADR-0016 is *approved for future implementation*; its source syntax/runtime are not shipped simply because this document exists. [T09 implementation plan](REACTIVITY_PLAN.md), [decisions](DECISIONS.md), [issue #89](https://github.com/resistdesign/Estragon/issues/89).
 
-## Production today (through merged T09-B / PR #87)
+## Production path after F04 cutover
 
-Estragon is a **Godot addon**. Godot owns SceneTree lifetime, Node2D/Node3D transforms, rendering, physics and platform/window events. Estragon provides native UI widgets, composed 2D/3D layout, Gogo/GGX compilation and editor integration.
+Every GGX expression, including helpers/lambdas, produces typed lightweight desired Element descriptions. Node hosts with imported `build_view() -> Element` automatically observe actual generated Gogo getter reads; one external parent-first manager coalesces signals and reconciles retained native Nodes. There is no eager compiler branch, static path binding evaluator, per-target helper Node or second subscription queue. [F04 inventory/parity](F04_CUTOVER.md) and [language](GOGO_LANGUAGE.md) define the precise boundary; live #98/its sole PR records verification/review.
 
-- **Compiler:** native GDScript lexes/parses Gogo and GGX, validates against Godot types and explicit script imports without constructing authored Nodes during compilation, and emits deterministic GDScript with original-source range maps. Godot supplies final native semantic/type validation. The editor saves active source, builds, validates actual paths, and transactionally publishes/reverts code/maps/UIDs/cache state before main/current Play.
-- **UI:** EstragonRect/Text/Button/HBox/VBox derive from Node2D. Ordinary GGX children are Godot Nodes. Explicit Estragon2D/3D entry scopes and adapters share one mathematical layout core, with event-driven affected-branch measure/arrange and native rendering/input. Plain Node boundaries interrupt Estragon layout unless another entry reopens it.
-- **Signals/models:** T09-A compiles typed per-property Gogo-only `@bindable` into native setter/storage and `<name>_changed` signals, including RefCounted *data* models. T09-B compiles bounded explicit self-path GGX property bindings, with target-owned helper Nodes, weak native source subscriptions and deferred/coalesced property updates. The native Counter no longer calls `refresh`.
-- **Distribution:** native compiler/editor works with Godot alone. Linux release/development proofs cover only official 4.0.4 and pinned 4.7.0, with real saved/unsaved editor Play, graphics, clean imports, source-only cold restore and addon export/runtime. Current strict addon evidence applies to the code actually shipped, not future ADR-0016 capabilities.
+- Native Godot owns SceneTree/lifetime, rendering, physics, input and transforms. Canonical Node2D widgets and bounded Node2D/Node3D adapters share the mathematical layout core, with affected-branch event-driven invalidation.
+- The native compiler/parser/metadata/emitter/maps are independent of a running SceneTree or EditorInterface. Typed native props/signals/Callables and actual-path semantic publication preserve code/maps/timestamps/cache/UID identity on failure and repair.
+- T09-A typed bindables remain normal Gogo-only signals/getters/setters, including non-Node models. F01–F03 supply getter scopes, conditional slots, nested ownership and mapped/keyed lists. F04 migrates all active consumers and deletes T09-B’s replaced machinery.
+- Managed described output is transient owner=null; authored hosts and genuine foreign objects persist by ordinary Godot scene owner rules. Reopen/mount reconstructs source-authoritative output once.
+- Native Counter, 2D/3D, model, conditional and inventory scenes use this same path. Strict official Linux 4.0.4/4.7.0 evidence includes real editor Play, graphics, source-only/cold installation and pack export/runtime. No external end-user compiler.
 
-**Composition checkpoints:** F01/F02 merged the getter-observed `build_view() -> Element`, virtual descriptions, conditional slots and nested independent reconciliation. F03 adds the mapped/keyed sequence slice documented above. F04 final cutover, class-level bindable annotation, two-way binding and generic observable in-place collection mutation remain future.
+**Future:** F05 class-level bindability/two-way inputs, optional observed in-place collection mutation and F06 profiling/optimization. The entire architecture is not certified merely by its design approval. No untested minor/platform claims.
 
 ## ADR-0016 target
 

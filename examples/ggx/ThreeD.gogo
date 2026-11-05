@@ -1,10 +1,10 @@
 extends "res://examples/ggx/base.gd"
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_3d.gd")
 const Native = preload("res://addons/estragon/runtime/node/native_3d.gd")
 const Custom = preload("res://examples/ggx/probe_3d.gd")
 
-func compose() -> Node:
-    dimension = 3
+func build_view() -> Element:
     return <Entry name="Entry" position={Vector3(value("root",0),0,0)} gap={value("gap",0.5)}>
         <Native name="First" width={value("first",2.0)} height={1.2} depth={1.0}>
             <MeshInstance3D name="Visual" mesh={make_mesh()} />
@@ -21,6 +21,7 @@ func compose() -> Node:
     </Entry>
 
 func _enter_tree() -> void:
+    dimension = 3
     palette.changed.connect(on_palette_changed)
 
 func _exit_tree() -> void:

@@ -1,4 +1,4 @@
-/** T09-B: native reactive property/runtime/editor/graphics acceptance. */
+/** F04: native dynamically observed model/runtime/editor/graphics acceptance. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, listGDScripts, gitHead, gitDirty, writeJSON } from './compat-kit.ts';
@@ -12,7 +12,7 @@ for (const selection of options.engines) {
         for (const dir of ['addons/estragon', 'examples/reactive', 'examples/counter', 'tests/reactive'])
             copyTree(path.join(ROOT, dir), path.join(box.project, dir));
         fs.writeFileSync(path.join(box.project, 'gogo.config.json'), JSON.stringify({ version: 1, source_roots: ['examples/reactive', 'examples/counter'] }));
-        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="T09-B reactive GGX"\nrun/main_scene="res://examples/reactive/Demo.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="Native model composition"\nrun/main_scene="res://examples/reactive/Demo.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         writeJSON(path.join(out, 'provenance.json'), { sourceHead: gitHead(), sourceDirty: gitDirty(), version: box.version, original_binary_sha256: box.inputHash });
         async function run(name: string, args: string[], marker: string, negative = false) {
             const log = path.join(out, name + '.log');
@@ -26,7 +26,7 @@ for (const selection of options.engines) {
                         return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/reactive/Demo.gogo\'.')
                         return false;
-                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/reactive\/generated\/Demo\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/reactive\/Demo\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
+                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/reactive\/generated\/Demo\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/reactive\/Demo\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_reactive_value" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
@@ -43,6 +43,7 @@ for (const selection of options.engines) {
         await run('build', ['--script', 'res://tests/reactive/build.gd'], 'REACTIVE_BUILD_OK');
         copyTree(path.join(box.project, 'examples/reactive/generated'), path.join(out, 'generated'));
         copyTree(path.join(box.project, 'examples/counter/generated'), path.join(out, 'counter-generated'));
+        for (const name of ['counter','reactive']) copyTree(path.join(box.project,'examples',name,'generated'),path.join(out,'generated-all','examples',name,'generated'));
         stages.import = await indexProject(box, box.project, path.join(out, 'import.log'), ['--audio-driver', 'Dummy']);
         if (stages.import.status !== 'PASS')
             throw Error('Reactive indexing failed');

@@ -1,3 +1,5 @@
+**F04 single-runtime cutover:** [Current contract, removal inventory and parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98). Every GGX expression now builds Element descriptions, including ordinary helpers/lambdas. Eager factories and per-target binding helpers are removed. F01–F03 are merged; live issue/sole PR records F04 verification/review. F05/F06 remain future. Earlier stage text below records that stage’s original scope.
+
 # F03 — native child sequences and keyed retained lists
 
 [F03 #96](https://github.com/resistdesign/Estragon/issues/96) extends merged [F02](F02_CONDITIONALS.md) inside the same compiler, description and external computation manager. The live issue/sole PR contains actual verification and review state. F04's eager/helper cutover, F05 models/two-way binding and F06 optimization remain separate future work.
