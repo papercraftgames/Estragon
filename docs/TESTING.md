@@ -1,5 +1,8 @@
 # Current native-addon verification
 
+> **ADR-0016 future verification:** [Reactive Composition Architecture](REACTIVE_COMPOSITION_ARCHITECTURE.md#11-delivery-plan-and-migration-gates) defines new F01–F06 acceptance for signal-driven function recomposition, actual Node identity, deep nested reconciliation, keyed list moves, safe commits and single-runtime cleanup. These future stages are **not** included in current-addon PASS evidence. Keep current checks honest; rebaseline former helper/eager-GGX tests during cutover, do not retain compatibility-only tests or mark untested new capabilities PASS.
+
+
 Only official **4.0.4** and pinned **4.7.0**, on Linux in CI. No other-version/platform sweep, Python, physical keypress gate or standalone-application export requirement. Run focused checks while developing, then one relevant two-engine acceptance. Historical nine-engine/macOS/C01/B1–C3 reports remain truthful archives, not rerun instructions or perpetual blockers.
 
 Normal addon authoring needs only Godot. Contributor runners are TypeScript; new orchestration uses Yarn/Node. Existing Bun manifest/typechecking remains optional developer tooling (no compiler implementation or end-user dependency).
