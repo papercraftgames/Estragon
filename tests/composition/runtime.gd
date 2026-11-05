@@ -37,6 +37,10 @@ func run() -> void:
 	check(label.text=="Count: 0" and bar.layout_size.x==120.0,"Gogo description mounts typed native text/geometry")
 	check(scene.count_changed.get_connections().size()==1 and scene.model.width_changed.get_connections().size()==1,"getter reads dedup to one computation connection")
 	check(button.pressed.get_connections().size()==1,"native handler initially connected once")
+	var incompatible = scene.build_view()
+	incompatible.children.clear()
+	check(not record._valid(incompatible,record.mounted) and record.allocations==7,"incompatible shape rejects before candidate allocation or native commit")
+	check(not record._boundary_clear(scene.build_view(),scene),"existing foreign root-name conflict cannot silently rename/adopt a native child")
 	var writes: int = record.writes
 	await settle()
 	check(record.runs==1 and record.writes==writes,"idle frames do zero composition or writes")

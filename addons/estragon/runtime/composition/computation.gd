@@ -63,7 +63,7 @@ func _flush() -> void:
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
 	_rendering = false
-	if not desired is Element or not _valid(desired,mounted):
+	if not desired is Element or not _valid(desired,mounted) or mounted == null and not _boundary_clear(desired,owner):
 		push_error("F01 composition requires a valid fixed-shape Element subtree; previous tree retained")
 		return
 	_subscribe(reads)
@@ -92,8 +92,19 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	if previous != null and (previous.properties.keys()!=desired.properties.keys() or previous.handlers.keys()!=desired.handlers.keys()): return false
 	for handler in desired.handlers.values():
 		if not handler is Callable or not handler.is_valid(): return false
+	var names := {}
 	for index in range(desired.children.size()):
 		if not desired.children[index] is Element or not _valid(desired.children[index],previous.children[index] if previous != null else null): return false
+		var name: String = str(desired.children[index].properties.get("name",""))
+		if not name.is_empty():
+			if names.has(name): return false
+			names[name] = true
+	return true
+func _boundary_clear(desired: Element, parent: Node) -> bool:
+	var name: String = str(desired.properties.get("name",""))
+	if name.is_empty(): return true
+	for child in parent.get_children():
+		if str(child.name)==name: return false
 	return true
 func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	var record := Mounted.new()
