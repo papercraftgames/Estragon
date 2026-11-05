@@ -24,3 +24,5 @@ Dynamic conditional children, mapped keyed lists, automatic function recompositi
 - [Work status](docs/WORK_STATUS.md), [execution plan](docs/EXECUTION_PLAN.md), [contributing](CONTRIBUTING.md), [testing/release evidence](docs/TESTING.md)
 
 **Godot 4.0+ is the target; verification currently covers only official 4.0.4 and pinned 4.7.0 on Linux CI.** No untested minor/platform support is implied. The addon is not a standalone application.
+
+[F01 native composition spike](docs/F01_COMPOSITION.md) runs `examples/composition/Counter.tscn`: Gogo bindable getter reads schedule function reruns, lightweight descriptions reconcile with retained real Nodes, without hooks or per-target binder Nodes. Static shape only; F02–F04 dynamic composition/cutover remain future work. Live #92/PR records exact review and engine evidence.

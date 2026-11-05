@@ -162,7 +162,7 @@ func run() -> void:
 	resource = null
 	check(resource_weak.get_ref()==null,"read records hold Resource sources weakly")
 	var conditional_script := GDScript.new()
-	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\n'
+	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tif count > 0: view.children[0].children[4].handlers["pressed"] = reset_count\n\treturn view\n'
 	check(conditional_script.reload()==OK,"ordinary helper branching compiles without a dependency-expression parser")
 	var conditional = conditional_script.new()
 	root.add_child(conditional)
@@ -176,6 +176,11 @@ func run() -> void:
 	conditional.model.title = "Unused branch"
 	await settle()
 	check(conditional_record.runs==before_runs,"unread model change does not recompose")
+	var changed_button = conditional.get_node("UI/Panel/Increment")
+	check(changed_button.pressed.get_connections().size()==1,"changed desired handler replaces rather than duplicates connection")
+	changed_button.pressed.emit()
+	await settle()
+	check(conditional.count==0 and changed_button.pressed.get_connections().size()==1,"updated native Callable executes and can restore original handler")
 	conditional.free()
 	print("COMPOSITION_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
 	if failures==0: print("COMPOSITION_RUNTIME_OK")
