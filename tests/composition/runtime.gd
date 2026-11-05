@@ -126,7 +126,9 @@ func run() -> void:
 	var first := Compiler.compile(code,"proof.gogo")
 	var second := Compiler.compile(code,"proof.gogo")
 	check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"native descriptor code/maps deterministic")
-	check(first.code.contains("_Element.new") and not first.code.contains("Node.new()") and not first.code.contains("property_binding"),"view source emits desired values, not candidate live Nodes/helpers")
+	check(first.code.contains("_GogoElement_0.new") and not first.code.contains("Node.new()") and not first.code.contains("property_binding"),"view source emits desired values, not candidate live Nodes/helpers")
+	var hygienic := Compiler.compile(code.replace("@bindable var count", "const _GogoElement_0: int = 2\nconst _gogo_element_0: int = 3\n@bindable var count"),"hygienic.gogo")
+	check(hygienic.ok and hygienic.code.contains("_GogoElement_0_.new") and hygienic.code.contains("var _gogo_element_0_"),"descriptor type/local names avoid authored identifiers")
 	var lines := first.code.split("\n")
 	for index in range(lines.size()):
 		if lines[index].contains("(value)"):
