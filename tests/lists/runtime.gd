@@ -22,6 +22,10 @@ func rows(panel: Node) -> Array:
     for node in panel.get_children():
         if str(node.name).begins_with("Row"): result.append(node)
     return result
+func first_keyed(children: Array):
+    for child in children:
+        if child!=null and child.keyed: return child
+    return null
 func run() -> void:
     var scene := Inventory.new()
     root.add_child(scene)
@@ -101,11 +105,7 @@ func run() -> void:
     check(record.allocations==before[0]+1 and record.frees==before[1]+1 and removed_model.title_changed.get_connections().is_empty(),"key replacement disconnects removed model and allocates/frees once")
     # Same key, different native type: replace through the existing reconciler.
     var desired = record._normalize(scene.build_view())
-    var leaf = null
-    for child in desired.children[0].children:
-        if child!=null and child.keyed:
-            leaf = child
-            break
+    var leaf = first_keyed(desired.children[0].children)
     var old_row = rows(panel)[0]
     leaf.type = "Node2D"
     leaf.properties = {"name":"Alternate"}
@@ -213,6 +213,8 @@ func compiler_checks() -> void:
         probe.free()
     var first := Compiler.compile(source,"lists.gogo")
     var second := Compiler.compile(source,"lists.gogo")
+    var text_key := Compiler.compile(source.replace('key="last"','key={"Node.new("}'),"text-key.gogo")
+    check(text_key.ok,"constructor-looking key string remains ordinary data")
     check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"loop arrays/keys compile deterministically with maps")
     for invalid in ['{7}','{Node.new()}','{[null,3]}','{true}']:
         var compiled := Compiler.compile(source.replace('{[[],rows,null,[<Node key="last" />]]}',invalid),"invalid.gogo")

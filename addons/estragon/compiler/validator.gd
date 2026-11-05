@@ -58,14 +58,7 @@ func _component(node: Model.Component) -> void:
 			attribute.type_name = "Variant"
 			if attribute.value is Model.Literal:
 				if str(attribute.value.value).is_empty(): _error("GGX key must be an integer or nonempty String",attribute.value.span)
-			else:
-				for part in attribute.value.parts:
-					if part is Model.Component:
-						_error("GGX key must be an integer or nonempty String",part.span)
-						return
-				var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
-				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new(") or text.begins_with("&\"") or text.begins_with("&'") or text in ['""',"''"] or text.begins_with("Vector2(") or text.begins_with("Vector3(") or text.begins_with("Color(") or text.begins_with("float(") or text.begins_with("bool(") or text.begins_with("StringName(") or text.begins_with("[") or text.begins_with("{"):
-					_error("GGX key must be an integer or nonempty String",attribute.value.span)
+			else: _key_expression(attribute.value)
 			continue
 		if signals.has(name):
 			attribute.kind = "signal"
@@ -100,7 +93,6 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
 	var sibling_names := {}
-
 	for child in node.children:
 		if node.described and child is Model.GdExpression:
 			_node(child)
@@ -152,20 +144,46 @@ func _static_keys(children: Array, keys: Dictionary) -> void:
 					if token.kind=="identifier" and token.text=="if": conditional = true
 			if not conditional: _static_keys(child.parts,keys)
 
-func _child_expression(expression) -> void:
+func _key_expression(expression) -> void:
+	var tokens := _expression_tokens(expression)
+	if tokens.is_empty(): return
+	# Token kinds keep strings/comments containing constructor-looking text
+	# ordinary values; never classify source by substring replacement.
+	var first: String = tokens[0].text
+	var invalid := false
+	if tokens.size()==1:
+		invalid = first in ["null","true","false",'""',"''",'""""""',"''''''"] or tokens[0].kind=="number" and first.is_valid_float() and not first.is_valid_int()
+	elif tokens.size()==2 and first in ["+","-"] and tokens[1].kind=="number":
+		invalid = tokens[1].text.is_valid_float() and not tokens[1].text.is_valid_int()
+	elif first in ["[","{","&","<element>"]: invalid = true
+	elif tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1):
+		invalid = first in ["bool","float","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
+	elif tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3): invalid = true
+	if invalid: _error("GGX key must be an integer or nonempty String",expression.span)
+func _direct_call(tokens: Array, start: int) -> bool:
+	var depth := 0
+	for index in range(start,tokens.size()):
+		if tokens[index].text=="(": depth += 1
+		elif tokens[index].text==")":
+			depth -= 1
+			if depth==0: return index==tokens.size()-1
+	return false
+func _expression_tokens(expression) -> Array:
 	var tokens: Array = []
 	var lexer := Lexer.new(file)
 	for part in expression.parts:
 		if part is Model.Component:
-			tokens.append({"text":"<element>","span":part.span})
+			tokens.append({"text":"<element>","kind":"element","span":part.span})
 			continue
 		var cursor: int = part.span.start.index
 		while cursor < part.span.end.index:
 			var token = lexer.next_token(cursor)
-			if token == null: return
+			if token==null: return []
 			cursor = token.span.end.index
-			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"span":token.span})
-	_child_result(tokens,expression.span)
+			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append({"text":token.text,"kind":token.kind,"span":token.span})
+	return tokens
+func _child_expression(expression) -> void:
+	_child_result(_expression_tokens(expression),expression.span)
 func _child_result(tokens: Array, span) -> void:
 	# Result alternatives are descriptions/null/sequences; the condition remains
 	# normal native GDScript. This closes the Variant ternary loophole where
@@ -210,9 +228,9 @@ func _child_result(tokens: Array, span) -> void:
 	# leaves fail at their authored span, including conditional alternatives.
 	if not tokens.is_empty():
 		var first: String = tokens[0].text
-		var joined := ""
-		for token in tokens: joined += token.text
-		if first.is_valid_identifier() and first not in ["true","false"] and (not joined.contains(".new(") or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd") and first not in ["Vector2","Vector3","Color","Dictionary","NodePath"]:
+		var constructor := tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3)
+		var scalar_call := tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
+		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd"):
 			return
 	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 
