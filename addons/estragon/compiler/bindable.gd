@@ -29,8 +29,8 @@ func _class_scope(parts: Array) -> void:
 			var token = lexer.next_token(cursor)
 			if token==null: return
 			cursor = token.span.end.index
+			if token.text in ["var","static","const","func","signal","class"] and (token.span.start.column==1 or file.text[file.line_start(token.span.start.line)]=="@"): preamble = false
 			if token.span.start.column!=1: continue
-			if token.text in ["var","static","const","func","signal","class"]: preamble = false
 			if token.text!="@": continue
 			var name = lexer.next_token(cursor)
 			if name==null or name.text.to_lower()!="bindable": continue

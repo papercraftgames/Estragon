@@ -39,3 +39,5 @@ func write_proof() -> void:
     for index in range(5): await get_tree().process_frame
     var file := FileAccess.open("res://.godot/conditional-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":get_node("UI/Panel/Always").text}))
+
+var unobserved: int = 0
