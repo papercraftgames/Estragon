@@ -1,12 +1,14 @@
+**T09-B delivery:** [Reactive GGX contract](REACTIVE_GGX.md) implements explicit self-path property dependencies and native retained subscriptions/layout. Collection/repeater/two-way proposals below remain future stages; live #86 records exact evidence and review state.
+
 # Estragon reactivity and component architecture contract
 
-**Owner direction accepted 2026-10-29, adapted by ADR-0015 on 2026-11-02; T09-A property/model foundation implemented for review; later binding/collection stages pending.** This document is the durable brief for staged T09 delivery. It extends [the binding design](BINDING.md), [the execution plan](EXECUTION_PLAN.md), [accepted decisions](DECISIONS.md), and the live [T09 umbrella issue #5](https://github.com/resistdesign/Estragon/issues/5). It does **not** claim that reactivity, collections, x/y positioning, keyed repeaters or `EstragonBox` exist yet. **Version baseline:** ADR-0014 requires Godot **4.0+** for all future implementations. [C01 #41](https://github.com/resistdesign/Estragon/issues/41) must close current API gaps and prove native editor/runtime/compiler compatibility before releases claim 4.0+. Current 4.7 checks are insufficient.
+**Owner direction accepted 2026-10-29, adapted by ADR-0015 on 2026-11-02; T09-A property/model foundation merged; bounded T09-B bindings implemented for review; collection/two-way stages pending.** This document is the durable brief for staged T09 delivery. It extends [the binding design](BINDING.md), [the execution plan](EXECUTION_PLAN.md), [accepted decisions](DECISIONS.md), and the live [T09 umbrella issue #5](https://github.com/resistdesign/Estragon/issues/5). It does **not** claim collections, x/y positioning, keyed repeaters, two-way binding or `EstragonBox` exist. **Version baseline:** ADR-0014 requires Godot **4.0+** for all future implementations. [C01 #41](https://github.com/resistdesign/Estragon/issues/41) must close current API gaps and prove native editor/runtime/compiler compatibility before releases claim 4.0+. Current 4.7 checks are insufficient.
 
 ## Node-native target and current implementation
 
 [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) / [#68](https://github.com/resistdesign/Estragon/issues/68) supersedes the earlier independent-tree/RefCounted Box target. Gogo is the language; GGX is general-purpose Node composition with inherited Node.add_child as the only child rule. Visual branches use Node2D/Node3D and compose shared layout. Non-Node models remain supported as a requirement, not hierarchy children. Any referenced Object can supply a native signal; target GGX handlers reference named handlers/Callable values, not inline anonymous declarations.
 
-C4 PR #84 is merged (`402480f8`): one canonical native Node UI/compiler/editor/runtime replaces the old RefCounted display/surface tree. T09-A #43 now adds [observable typed Gogo properties and non-Node models](BINDABLE_PROPERTIES.md). GGX expressions remain construction-time; the source sketch below illustrates future binding intent and is historical, not a shipped surface API. Current-addon strict C4 acceptance passed on both approved Linux engines; T09-A has its own live issue/PR evidence.
+C4 PR #84 is merged (`402480f8`): one canonical native Node UI/compiler/editor/runtime replaces the old RefCounted display/surface tree. T09-A #43 now adds [observable typed Gogo properties and non-Node models](BINDABLE_PROPERTIES.md). Unrelated GGX expressions remain construction-time; explicit self paths follow the T09-B contract. The old surface sketch below is historical, not executable current API. Current-addon strict C4 acceptance passed on both approved Linux engines; T09-A has its own live issue/PR evidence.
 
 ## Language boundary and authoring
 
@@ -32,7 +34,7 @@ func build_view() -> EstragonVBox:
     </VBox>
 ```
 
-The existing brace expressions evaluate at construction time. T09 must define a **typed, source-aware dependency-aware binding contract** for reactive expressions; adding an annotation must not silently pretend all current construction-time expressions are reactive.
+T09-B defines the **typed, source-aware bounded binding contract** for explicit self-path reads. Unrelated brace expressions remain construction-time; an annotation alone does not make bare `{count}` reactive.
 
 ## Binding behavior, data and geometry
 
@@ -103,4 +105,4 @@ Observe viewport resize as a root layout input; handle relevant Window DPI/scali
 - Keep native compiler, source maps, callback evaluation semantics while migrating to retained native Nodes. Stage only supported properties/syntax; unknown types and unsupported mutations should fail visibly rather than pretend to be reactive.
 - Protect the shipped Counter and legacy demo during migration. Never merge on behalf of the user. Maintain linked GitHub issues, scoped PRs, CI, checked acceptance evidence and durable session handoffs per `AGENTS.md`.
 
-**Status/merge ordering:** ADR-0015-A and B1–C4 are merged through PR #84. T09-A #43 is the active property/model slice; T09-B/C/D remain queued. Consult the live issue/sole PR for verification and review state. One PR at a time; no automatic merges or successor implementation.
+**Status/merge ordering:** ADR-0015-A and B1–C4 are merged through PR #84. T09-A #43 is merged in PR #85; T09-B #86 is the active property/layout binding slice; T09-C/D remain queued. Consult the live issue/sole PR for verification and review state. One PR at a time; no automatic merges or successor implementation.

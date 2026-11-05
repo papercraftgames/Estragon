@@ -3,6 +3,7 @@
   "source_roots": [
     "examples/counter",
     "examples/ggx",
-    "examples/bindable"
+    "examples/bindable",
+    "examples/reactive"
   ]
 }
