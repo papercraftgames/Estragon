@@ -10,7 +10,7 @@ func check(value: bool, message: String) -> void:
     if not value: failures += 1
 func run() -> void:
     var script := GDScript.new()
-    script.source_code = 'extends "res://examples/inventory/generated/Inventory.gd"\n@export var invalid: int = 0\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tvar list: Array = view.children[0].children[2][1]\n\tif invalid==1: list[1].key = list[0].key\n\tif invalid==2: list.append(42)\n\tif invalid==3: list[0].key = false\n\tif invalid==4: list[0].properties.name = "Footer"\n\tif invalid==5: list[0].properties.unknown = 1\n\tif invalid==6: list[0].type = "RefCounted"\n\treturn view\n'
+    script.source_code = 'extends "res://examples/inventory/generated/Inventory.gd"\n@export var invalid: int = 0\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tvar list: Array = view.children[0].children[2][1]\n\tif invalid==1: list[1].key = list[0].key\n\tif invalid==2: list.append(42)\n\tif invalid==3: list[0].key = false\n\tif invalid==4: list[0].properties.name = "Footer"\n\tif invalid==5: list[0].properties.unknown = 1\n\tif invalid==6: list[0].type = "RefCounted"\n\tif invalid==7: list.append(self)\n\tif invalid==8: list[0].key = &"key"\n\tif invalid==9: list[0].key = ""\n\tif invalid==10: list[0].key = 1.5\n\tif invalid==11: list[0].key = null\n\treturn view\n'
     if script.reload()!=OK: quit(1); return
     var scene = script.new()
     root.add_child(scene)
@@ -19,7 +19,7 @@ func run() -> void:
     var panel = scene.get_node("UI/Panel")
     var row = panel.get_node("Row1")
     var child_record = State.records[row.get_instance_id()]
-    for mode in range(1,7):
+    for mode in range(1,12):
         var before := [record.allocations,record.frees,record.moves,record.writes,record.runs]
         scene.invalid = mode
         scene.show_note = not scene.show_note

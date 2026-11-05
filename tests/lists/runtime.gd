@@ -200,6 +200,17 @@ func run() -> void:
     quit(1 if failures else 0)
 func compiler_checks() -> void:
     var source := 'extends Node\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nfunc build_view() -> Element:\n\tvar rows: Array = []\n\tfor item in [1,2]:\n\t\trows.append(<Node key={item} />)\n\treturn <Node>{[[],rows,null,[<Node key="last" />]]}</Node>\n'
+    var evaluation := 'extends Node\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar trace: Array = []\nfunc stamp(value: String) -> String:\n\ttrace.append(value)\n\treturn value\nfunc build_view() -> Element:\n\treturn <Node name={stamp("parent")}><Node name={stamp("first")} />{[<Node name={stamp("second")} /> if true else <Node name={stamp("skipped")} />]}<Node name={stamp("last")} /></Node>\n'
+    var evaluation_result := Compiler.compile(evaluation,"evaluation.gogo")
+    check(evaluation_result.ok,"native helper/conditional sequence source compiles")
+    if evaluation_result.ok:
+        var script := GDScript.new()
+        script.source_code = evaluation_result.code
+        check(script.reload()==OK,"evaluation order source passes native semantics")
+        var probe = script.new()
+        var output = probe.build_view()
+        check(output is Element and probe.trace==["parent","first","second","last"] and probe.get_child_count()==0,"description expressions evaluate once left to right with lazy alternatives and no candidate Nodes")
+        probe.free()
     var first := Compiler.compile(source,"lists.gogo")
     var second := Compiler.compile(source,"lists.gogo")
     check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"loop arrays/keys compile deterministically with maps")

@@ -244,7 +244,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 	record.properties = desired.properties.duplicate()
 	record.handlers = desired.handlers.duplicate()
 func _compatible(desired: Element, record: Mounted) -> bool:
-	return record != null and record.type==desired.type and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
+	return record != null and is_same(record.type,desired.type) and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
 func _reconcile(desired, record, parent: Node, owner: Node):
 	if desired == null:
 		if record != null: _free_managed(record,owner)
