@@ -33,7 +33,7 @@ Helpers compute descriptions; functions/lambdas do not create a second automatic
 
 Old `build_view() -> Node` markup rejects with an authored declaration diagnostic. Passing a description where a native Node is required fails native semantic validation before Play with existing source-map/capability guarantees. No eager mode, deprecated wrapper, runtime markup parser, external compiler or compatibility factory remains. Descriptor-building static methods are compiler-generated typed helpers, not a native creation backend.
 
-Composition is repeatable and reruns helpers. Once-only effects belong in `_ready` or event methods. Nullable models use explicit native conditional fallback expressions; there is no hidden property-path evaluator with hold-last semantics. Array reference replacement notifies; arbitrary native Array/Dictionary mutation does not.
+Composition is repeatable and reruns helpers. Once-only effects belong in `_ready` or event methods. Nullable models use explicit native conditionals. The model demo omits controlled props on the null alternative, retaining native defaults/last values through the existing reconciler policy; no hidden property-path evaluator. Array reference replacement notifies; arbitrary native Array/Dictionary mutation does not.
 
 The manager defers/coalesces commits, orders parent work first, preflights the entire desired tree, preserves compatible real Node IDs/native state and only changes declared props/handlers/structure. One set of getter observers, one scheduler/reconciler, no metadata or per-property helper Nodes on user objects, no frame polling. Existing composed layout caches and Node2D/Node3D/native authority remain; #88 is not expanded.
 
@@ -47,7 +47,7 @@ The manager defers/coalesces commits, orders parent work first, preflights the e
 | Emitter `_component`, `_reader`, reactive reader/source fields, eager owner/connection/child construction state and dispatch | `_description` plus typed mapped expression parameters. Reconciler owns actual native constructors/attachments. |
 | Generated `_gogo_read_*`, `binding_*`, eager `component_*` factory bodies | Rebuilt current scripts/maps with preserved script UIDs. |
 | Counter manual build/add/persist and GGX base `compose()->Node` manual mount | Automatic typed `build_view`, native event methods retained; camera/light and Resource subscriptions remain ordinary code. |
-| Reactive demo once-only expression side effect and implicit null holding | Pure repeatable helper, explicit nullable model fallbacks, same visible model/style/layout interactions. |
+| Reactive demo once-only expression side effect and implicit null holding | Pure repeatable helper, explicit nullable alternatives omit props to preserve native defaults/last values, same visible model/style/layout interactions. |
 | Tests of per-target binder counts, synchronous binder rewiring and persisted binder graphs | One read subscription per computation, safe deferred replacement, native IDs/layout/event parity, observer cleanup and transient output reload. |
 
 No live source, generated asset, runner, scene or pack refers to the removed implementations. Historical research and old evidence remain truthful archives. `tools/audit-native-source.ts` guards removed paths, eager/binder generated output, dead compiler dispatch, canonical UID pairing/uniqueness, import references and authored maps. Native constructors and `add_child/remove_child/move_child` in application code, scene tests, native layout and reconciler are legitimate and remain.
@@ -58,7 +58,7 @@ No live source, generated asset, runner, scene or pack refers to the removed imp
 | --- | --- |
 | Canonical `examples/counter/Counter.tscn`: +/Reset, disabled input, text and resize | Same scene/path/visuals; count getter queues its view, retained label/buttons/handlers, native hit testing and layout caches. |
 | `examples/ggx/{TwoD,ThreeD}.tscn`: custom tags, native properties/transforms, Timer/Gradient signals, adapter resizing | Same real 2D/3D/custom Nodes and Resource values; transient descriptions, native camera/light setup and explicit application Resource cleanup. |
-| `examples/reactive/Demo.tscn`: nested model text/style/width/gap | Same dynamic visible behavior, one external computation, coalesced native writes and affected-branch layout; explicit null fallback/repair. |
+| `examples/reactive/Demo.tscn`: nested model text/style/width/gap | Same dynamic visible behavior, one external computation, coalesced native writes and affected-branch layout; explicit null omission/hold/repair. |
 | `examples/composition/Counter.tscn`: dynamic getter scope/read tests | Dedicated richer model/read-set proof retained; sole descriptor emitter/runtime, no old path. |
 | Conditional and inventory scenes | Existing stable null slots, deep ownership and keyed row state/lists use the same manager; regression gates retained. |
 | Bindable models | Native typed signals/equality/reentrancy/inheritance retained; no Node required for data. |

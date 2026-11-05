@@ -76,10 +76,13 @@ func run() -> void:
     old = null
     old_state = null
     check(weak_old.get_ref()==null and weak_state.get_ref()==null,"external subscriptions do not retain replaced model graph")
+    scene.model.player.width = 245.0
+    scene.model.player.title = "Held while null"
+    await settle()
     var player = scene.model.player
     scene.model.player = null
     await settle()
-    check(player.width_changed.get_connections().is_empty() and bar.width==120.0 and title.text=="","source-authored null fallback disconnects obsolete leaf observers")
+    check(player.width_changed.get_connections().is_empty() and bar.width==245.0 and title.text=="Held while null","source-authored omission holds last value and disconnects obsolete leaf observers")
     scene.model.player = State.new()
     scene.model.player.width = 260.0
     await settle()
@@ -118,7 +121,7 @@ func run() -> void:
     nullable.model = null
     root.add_child(nullable)
     await settle()
-    check(nullable.ui.get_node("Panel/Title").text=="" and nullable.model_changed.get_connections().size()==1,"initial null model observes replacement through same view")
+    check(nullable.ui.get_node("Panel/Title").text=="" and nullable.ui.get_node("Panel/Row/Bar").width==-1.0 and nullable.model_changed.get_connections().size()==1,"initial null model observes replacement through same view")
     nullable.model = Model.new()
     await settle()
     check(nullable.ui.get_node("Panel/Title").text=="Reactive model","initial null root recovers")

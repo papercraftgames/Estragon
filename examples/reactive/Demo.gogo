@@ -20,9 +20,9 @@ func build_view() -> Element:
     var player: State = model.player if model != null else null
     return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
         <VBox name="Panel" fill_width={true} gap={12.0 + self.count}>
-            <Text name="Title" text={player.title if player != null else ""} color={player.tint if player != null else Color.WHITE} />
+            {<Text name="Title" text={player.title} color={player.tint} /> if player != null else <Text name="Title" />}
             <HBox name="Row" fill_width={true} gap={12.0}>
-                <Rect name="Bar" width={player.width if player != null else 120.0} height={40.0} fill={player.tint if player != null else Color.WHITE} />
+                {<Rect name="Bar" width={player.width} height={40.0} fill={player.tint} /> if player != null else <Rect name="Bar" height={40.0} />}
                 <Rect name="Other" width={80.0} height={40.0} fill={Color(0.55,0.32,0.9)} />
             </HBox>
             <Text name="Count" text={"Value: %d" % (self.count + self.count)} />

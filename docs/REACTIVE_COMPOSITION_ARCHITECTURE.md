@@ -8,7 +8,7 @@
 
 # ADR-0016 — Signal-driven function composition and retained Godot reconciliation
 
-**Status:** Owner-approved target architecture, 2026-11-05. **Implementation:** F01 native getter/description/reconciliation and F02 conditional/nested ownership are merged after T09-A (#43 / PR #85) and T09-B (#86 / PR #87). F03 is the scoped review slice above; the full F04–F06 architecture is not shipped. **Architecture tracking:** [#89](https://github.com/resistdesign/Estragon/issues/89); [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-level bindability #90](https://github.com/resistdesign/Estragon/issues/90). This document supersedes earlier T09-C implementation guesses and ADR-0015's statement that a Virtual DOM is prohibited.
+**Status:** Owner-approved target architecture, 2026-11-05. **Implementation:** F01 native getter/description/reconciliation and F02 conditional/nested ownership are merged after T09-A (#43 / PR #85) and T09-B (#86 / PR #87). F03 merged in PR #97 (`eb153f1`); F04 is the single-runtime review slice above. F05/F06 remain future. **Architecture tracking:** [#89](https://github.com/resistdesign/Estragon/issues/89); [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-level bindability #90](https://github.com/resistdesign/Estragon/issues/90). This document supersedes earlier T09-C implementation guesses and ADR-0015's statement that a Virtual DOM is prohibited.
 
 ## 1. The product contract
 
@@ -182,7 +182,7 @@ Compiler/editor invariants survive: typed native type/property/signal validation
 3. Respect Node2D/Node3D, ordinary Node boundaries, native signals/lifetime, game state and existing shared layout coordinator.
 4. Dispose/rebuild only managed boundaries on unmount/reparent/reload; never attach fiber/reconciliation metadata to user Nodes.
 
-This is **one compositional engine**. T09-B's current static path analysis and `property_binding.gd` child-helper mechanism are *transitional implementations*, not compatibility obligations or a second eternal binding system. Once the new engine demonstrates parity, **replace/remove** their obsolete paths, generated helpers and tests; retarget tests to the final product. Preserve T09-A signals and native UI/layout behavior, not obsolete implementation details.
+This is **one compositional engine**. F04 removes T09-B's static path compiler and target-owned binding helpers, generated reader/source methods and eager output branch. Active tests/examples now use the description manager; T09-A signals and native UI/layout behavior remain. See [removal/parity inventory](F04_CUTOVER.md). Earlier phase evidence remains historical.
 
 ## 11. Delivery plan and migration gates
 

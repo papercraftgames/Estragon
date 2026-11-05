@@ -110,9 +110,9 @@ func _run() -> void:
 		_check(FileAccess.get_file_as_string(SOURCE)==_counter.text,"normal Play saves latest native Counter")
 		_counter.text = _source.replace("build_view() -> Element","build_view() -> Node")
 		await _blocked(mode,"Demo.gogo:")
-		_counter.text = _source.replace('player.title if player != null else ""','missing_reactive_value')
+		_counter.text = _source.replace('text={player.title}','text={missing_reactive_value}')
 		await _blocked(mode,"Demo.gogo:")
-		_counter.text = _source.replace('width={player.width if player != null else 120.0}', 'width={player.title if player != null else ""}')
+		_counter.text = _source.replace('width={player.width}', 'width={player.title}')
 		var mapped := ClassDB.class_exists("Logger") and ClassDB.class_exists("ScriptBacktrace")
 		await _blocked(mode,"Demo.gogo:" if mapped else "exact authored location unavailable")
 		_counter.text = _source
