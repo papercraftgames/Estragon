@@ -139,7 +139,7 @@ func _parts(parts: Array) -> Array[Model.SyntaxNode]:
 					result.append(property)
 					cursor = property.span.end.index
 					copied = cursor
-			if token.text=="var" or token.span.start.column==1 and token.text in ["func","static","const","class","signal","extends","class_name"]:
+			if token.text=="var" or token.span.start.column==1 and token.text in ["func","const","class","signal","extends","class_name"]:
 				pending_annotation = false
 				annotations_start = -1
 				onready = false

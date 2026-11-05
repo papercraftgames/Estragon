@@ -1,3 +1,4 @@
+
 extends "res://addons/estragon/runtime/node/hbox.gd"
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
@@ -40,5 +41,5 @@ class _GogoFactories_0:
 
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Caption", "text": _gogo_value_0}, {}, [], "examples/inventory/Row.gogo:9:12", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Caption", "text": _gogo_value_0}, {}, [], "examples/inventory/Row.gogo:10:12", null, false)
         return _gogo_element_0

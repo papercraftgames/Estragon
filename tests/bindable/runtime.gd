@@ -226,8 +226,8 @@ func class_wide_checks() -> void:
 	node = script.new()
 	check(node.has_signal("extra_changed") and not node.has_signal("model_changed") and not node.has_signal("events_changed"),"unannotated base fields stay unmodified")
 	node.free()
-	var static_source := Compiler.compile(source+"static var cached: int = 4\n","static.gogo")
-	check(static_source.ok and not static_source.code.contains("cached_changed"),"static fields stay native and are never instance-observed")
+	var static_source := Compiler.compile(source+'@warning_ignore("unused_private_class_variable") static var cached: int = 4\nvar later: int = 5\n',"static.gogo")
+	check(static_source.ok and not static_source.code.contains("cached_changed") and static_source.code.contains("later_changed"),"static fields stay native and are never instance-observed")
 	var class_init := Compiler.compile('@bindable\nextends RefCounted\nvar value: int = 3\nvar seen: Array = []\nfunc _init() -> void:\n\tvalue_changed.connect(changed)\n\tvalue = 4\nfunc changed(a: int,b: int) -> void: seen.append([a,b])\n',"class-init.gogo")
 	script = GDScript.new()
 	script.source_code = class_init.code
