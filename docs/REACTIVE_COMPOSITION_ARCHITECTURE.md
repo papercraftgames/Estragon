@@ -1,3 +1,5 @@
+**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
+
 # ADR-0016 — Signal-driven function composition and retained Godot reconciliation
 
 **Status:** Owner-approved target architecture, 2026-11-05. **Implementation:** not yet shipped. Current main has completed T09-A (#43 / PR #85) and T09-B (#86 / PR #87); both are useful foundations but are **not** proof that structural composition or this design exists. **Architecture tracking:** [#89](https://github.com/resistdesign/Estragon/issues/89); [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5); [class-level bindability #90](https://github.com/resistdesign/Estragon/issues/90). This document supersedes earlier T09-C implementation guesses and ADR-0015's statement that a Virtual DOM is prohibited.

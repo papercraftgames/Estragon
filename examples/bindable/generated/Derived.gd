@@ -6,6 +6,9 @@ var enabled: bool = true:
         var _gogo_previous_enabled: bool = enabled
         enabled = _gogo_incoming_enabled
         enabled_changed.emit(_gogo_previous_enabled, _gogo_incoming_enabled)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"enabled_changed")
+        return enabled
 
 func rename() -> void:
     title = "Derived"

@@ -1,3 +1,5 @@
+**F01 implementation checkpoint:** [Native composition spike](F01_COMPOSITION.md) / [#92](https://github.com/resistdesign/Estragon/issues/92) supplies the bounded getter-read → description → retained static-shape path for review. Full ADR-0016/F02–F06 behavior is not claimed; exact verification and review state are in the live issue/sole PR.
+
 # Gogo reactivity and composition — implementation plan
 
 **Active, owner-approved architecture:** [ADR-0016 — Signal-driven function composition and retained Godot reconciliation](REACTIVE_COMPOSITION_ARCHITECTURE.md), [decision entry](DECISIONS.md#adr-0016--signal-driven-function-recomposition-with-retained-native-nodes), [#89](https://github.com/resistdesign/Estragon/issues/89), [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5).

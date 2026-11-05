@@ -8,6 +8,9 @@ var count: int = 3:
         var _gogo_previous_count: int = count
         count = _gogo_incoming_count
         count_changed.emit(_gogo_previous_count, _gogo_incoming_count)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
+        return count
 
 signal title_changed(previous: String, value: String)
 var title: String = "Model":
@@ -16,6 +19,9 @@ var title: String = "Model":
         var _gogo_previous_title: String = title
         title = _gogo_incoming_title
         title_changed.emit(_gogo_previous_title, _gogo_incoming_title)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
+        return title
 
 signal items_changed(previous: Array[int], value: Array[int])
 var items: Array[int] = []:
@@ -24,6 +30,9 @@ var items: Array[int] = []:
         var _gogo_previous_items: Array[int] = items
         items = _gogo_incoming_items
         items_changed.emit(_gogo_previous_items, _gogo_incoming_items)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"items_changed")
+        return items
 
 signal peer_changed(previous: RefCounted, value: RefCounted)
 var peer: RefCounted = null:
@@ -32,6 +41,9 @@ var peer: RefCounted = null:
         var _gogo_previous_peer: RefCounted = peer
         peer = _gogo_incoming_peer
         peer_changed.emit(_gogo_previous_peer, _gogo_incoming_peer)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"peer_changed")
+        return peer
 
 signal amount_changed(previous: float, value: float)
 var amount: float = 0.0:
@@ -40,6 +52,9 @@ var amount: float = 0.0:
         var _gogo_previous_amount: float = amount
         amount = _gogo_incoming_amount
         amount_changed.emit(_gogo_previous_amount, _gogo_incoming_amount)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"amount_changed")
+        return amount
 
 func increment() -> void:
     count += 1

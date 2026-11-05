@@ -33,20 +33,20 @@ for (const selection of options.engines) {
         const cold = path.join(box.workspace, 'cold');
         fs.cpSync(box.project, cold, { recursive: true });
         fs.rmSync(path.join(cold, '.godot'), { recursive: true, force: true });
-        for (const name of ['counter', 'ggx', 'bindable', 'reactive'])
+        for (const name of ['counter', 'ggx', 'bindable', 'reactive', 'composition'])
             fs.rmSync(path.join(cold, 'examples', name, 'generated'), { recursive: true, force: true });
         await run('cold_build', cold, 'res://tests/distribution/build.gd', 'ADDON_COLD_BUILD_OK');
         await run('cold_scenes', cold, 'res://tests/distribution/scenes.gd', 'ADDON_DISTRIBUTION_OK');
         const coldEditor = path.join(box.workspace, 'cold-editor');
         fs.cpSync(cold, coldEditor, { recursive: true });
         fs.rmSync(path.join(coldEditor, '.godot'), { recursive: true, force: true });
-        for (const name of ['counter', 'ggx', 'bindable', 'reactive'])
+        for (const name of ['counter', 'ggx', 'bindable', 'reactive', 'composition'])
             fs.rmSync(path.join(coldEditor, 'examples', name, 'generated'), { recursive: true, force: true });
         fs.appendFileSync(path.join(coldEditor, 'project.godot'), '\n[editor_plugins]\nenabled=PackedStringArray("res://addons/estragon/editor/plugin.cfg")\n');
         stages.cold_editor = await indexProject(box, coldEditor, path.join(output, 'cold_editor.log'), ['--audio-driver', 'Dummy', 'res://examples/counter/Counter.tscn']);
         if (stages.cold_editor.status !== 'PASS')
             throw Error('Native cold editor scene restoration failed');
-        const resources = ['examples/counter/Counter.tscn', 'examples/ggx/TwoD.tscn', 'examples/ggx/ThreeD.tscn', 'examples/bindable/Demo.tscn', 'examples/reactive/Demo.tscn', 'tests/distribution/scenes.gd', ...[...listGDScripts(path.join(box.project, 'addons/estragon/runtime')), ...listGDScripts(path.join(box.project, 'examples'))].map(f => path.relative(box.project, f))];
+        const resources = ['addons/estragon/runtime/composition/state.tres', 'examples/counter/Counter.tscn', 'examples/ggx/TwoD.tscn', 'examples/ggx/ThreeD.tscn', 'examples/bindable/Demo.tscn', 'examples/reactive/Demo.tscn', 'examples/composition/Counter.tscn', 'tests/distribution/scenes.gd', ...[...listGDScripts(path.join(box.project, 'addons/estragon/runtime')), ...listGDScripts(path.join(box.project, 'examples'))].map(f => path.relative(box.project, f))];
         fs.writeFileSync(path.join(box.project, 'export_presets.cfg'), '[preset.0]\nname="Native addon runtime"\nplatform="Linux/X11"\nrunnable=true\nexport_filter="resources"\nexport_files=PackedStringArray(' + resources.map(p => '"res://' + p + '"').join(',') + ')\ninclude_filter="*.gogo,*.json"\nexclude_filter=""\nexport_path=""\nscript_export_mode=1\n[preset.0.options]\nbinary_format/architecture="x86_64"\n');
         const pack = path.join(output, 'addon.pck');
         // Let the engine finish cleanup so diagnostics identify retained resources;

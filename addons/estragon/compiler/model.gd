@@ -65,6 +65,7 @@ class Attribute extends RefCounted:
 	var type_name: String
 
 class Component extends SyntaxNode:
+	var described: bool = false
 	var name: String
 	var name_span: Span
 	var runtime_class: String
@@ -74,6 +75,7 @@ class Component extends SyntaxNode:
 		kind = "component-expression"
 
 class Module extends RefCounted:
+	var composition: bool = false
 	var mode: String
 	var parts: Array[SyntaxNode] = []
 	var identifiers: PackedStringArray = []

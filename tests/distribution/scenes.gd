@@ -8,7 +8,7 @@ func _initialize() -> void:
 	run.call_deferred()
 func run() -> void:
 	check(not DirAccess.dir_exists_absolute("res://tools") and not FileAccess.file_exists("res://package.json"),"addon distribution has no contributor compiler/toolchain")
-	for name in ["counter/Counter","ggx/TwoD","ggx/ThreeD","bindable/Demo","reactive/Demo"]:
+	for name in ["counter/Counter","ggx/TwoD","ggx/ThreeD","bindable/Demo","reactive/Demo","composition/Counter"]:
 		var packed: PackedScene = load("res://examples/"+name+".tscn")
 		check(packed!=null and packed.can_instantiate(),"distributed native scene loads: "+name)
 		if packed==null: continue
@@ -24,6 +24,11 @@ func run() -> void:
 			check(scene.count==0,"native reset")
 		elif name=="bindable/Demo":
 			check(scene.model is RefCounted and scene.model.count==5 and scene.events==[[3,4],[4,5]],"source-authored observable model executes from native addon/pack")
+		elif name=="composition/Counter":
+			var before: int = scene.get_node("UI/Panel/Count").get_instance_id()
+			scene.increment()
+			for index in range(6): await process_frame
+			check(scene.get_node("UI/Panel/Count").text=="Count: 1" and scene.get_node("UI/Panel/Count").get_instance_id()==before,"native pack restores F01 computation with retained Nodes")
 		elif name=="reactive/Demo":
 			scene.advance()
 			for index in range(6): await process_frame

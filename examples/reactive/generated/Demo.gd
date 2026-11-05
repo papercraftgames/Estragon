@@ -13,6 +13,9 @@ var model: Model = Model.new():
         var _gogo_previous_model: Model = model
         model = _gogo_incoming_model
         model_changed.emit(_gogo_previous_model, _gogo_incoming_model)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
+        return model
 
 signal count_changed(previous: int, value: int)
 var count: int = 0:
@@ -21,6 +24,9 @@ var count: int = 0:
         var _gogo_previous_count: int = count
         count = _gogo_incoming_count
         count_changed.emit(_gogo_previous_count, _gogo_incoming_count)
+    get:
+        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
+        return count
 
 var ui: Node
 var evaluations: int = 0
