@@ -113,8 +113,7 @@ func _run() -> void:
 		_counter.text = _source.replace("<Entry name=","<RefCounted name=")
 		await _blocked(mode,"Counter.gogo:")
 		_counter.text = _source.replace("else null}","else 7}")
-		var mapped := ClassDB.class_exists("Logger") and ClassDB.class_exists("ScriptBacktrace")
-		await _blocked(mode,"Counter.gogo:19:" if mapped else "exact authored location unavailable")
+		await _blocked(mode,"Counter.gogo:19:")
 		_counter.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"
