@@ -1,3 +1,5 @@
+**F05-B current review slice:** [Typed boolean bindings/native toggle](TWO_WAY_BINDINGS.md), [#101](https://github.com/resistdesign/Estragon/issues/101), after merged F05-A #100 (`3487d86`). One existing compiler/reconciler, no helper Nodes or second binding runtime. Broader input types and F06 remain future; exact acceptance/review status is in the live issue/sole PR.
+
 # ADR-0016 — Signal-driven function composition and retained Godot reconciliation
 
 **F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05/F06 remain future.

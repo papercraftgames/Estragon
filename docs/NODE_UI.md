@@ -54,3 +54,7 @@ C4 [#83](https://github.com/resistdesign/Estragon/issues/83) follows merged C3 P
 Current acceptance and actual verdict are recorded on #83 and its sole PR; [TESTING](TESTING.md) defines the native-addon gate. C4 is a review submission, not Done until owner review/merge. It does not implement broader widgets or bindings and does not authorize publishing.
 
 Current [dynamic observed composition](REACTIVE_GGX.md) use these native setters and their existing redraw/affected-branch invalidation; no parallel layout engine or position authority is added.
+
+## Controlled boolean input (F05-B)
+
+`EstragonToggle` extends the native Button pointer/layout/drawing path with typed `value: bool` and user-only `value_changed(value: bool)`. Programmatic assignments redraw without an edit event; completed enabled primary-pointer activation toggles once. [Two-way Gogo contract/demo and boundaries](TWO_WAY_BINDINGS.md). No Control wrapper, keyboard-focus/text/IME or accessibility expansion is included. Exact evidence/review is in #101/its sole PR.

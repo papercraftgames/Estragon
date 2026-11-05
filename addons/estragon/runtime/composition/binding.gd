@@ -4,6 +4,7 @@ extends RefCounted
 var root: WeakRef
 var source: WeakRef
 var field: StringName
+var route: String
 var read: Callable
 var write: Callable
 var value: Variant
@@ -12,7 +13,8 @@ var node: WeakRef
 var computation: WeakRef
 var connected := false
 var writing := false
-func _init(owner: Object, reader: Callable, property: StringName, writer: Callable) -> void:
+func _init(owner: Object, reader: Callable, property: StringName, writer: Callable, identity: String) -> void:
+	route = identity
 	root = weakref(owner)
 	read = reader
 	write = writer
@@ -26,7 +28,7 @@ func current():
 	var owner = root.get_ref()
 	return read.call(owner) if is_instance_valid(owner) else null
 func same(other) -> bool:
-	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field
+	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
 func attach(target: Node, scope) -> void:
 	node = weakref(target)
 	computation = weakref(scope)
@@ -40,7 +42,7 @@ func edit(next: bool) -> void:
 	var scope = computation.get_ref() if computation!=null else null
 	var target = node.get_ref() if node!=null else null
 	var endpoint = source.get_ref() if source!=null else null
-	if writing or scope==null or scope.disposed or not scope.active or target==null or not target.is_inside_tree() or target.is_queued_for_deletion() or endpoint==null or current()!=endpoint: return
+	if not connected or writing or scope==null or scope.disposed or not scope.active or target==null or not target.is_inside_tree() or target.is_queued_for_deletion() or endpoint==null or current()!=endpoint: return
 	if is_same(endpoint.get(field),next): return
 	writing = true
 	write.call(endpoint,next)

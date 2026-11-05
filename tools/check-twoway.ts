@@ -1,4 +1,4 @@
-/** F02: native twoway property/runtime/editor/graphics acceptance. */
+/** F05-B: native twoway property/runtime/editor/graphics acceptance. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, listGDScripts, gitHead, gitDirty, writeJSON } from './compat-kit.ts';
@@ -12,7 +12,7 @@ for (const selection of options.engines) {
         for (const dir of ['addons/estragon', 'examples', 'tests/twoway'])
             copyTree(path.join(ROOT, dir), path.join(box.project, dir));
         fs.copyFileSync(path.join(ROOT, 'gogo.config.json'),path.join(box.project, 'gogo.config.json'));
-        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="F02 twoway GGX"\nrun/main_scene="res://examples/twoway/Demo.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="F05-B two-way GGX"\nrun/main_scene="res://examples/twoway/Demo.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         writeJSON(path.join(out, 'provenance.json'), { sourceHead: gitHead(), sourceDirty: gitDirty(), version: box.version, original_binary_sha256: box.inputHash });
         async function run(name: string, args: string[], marker: string, negative = false) {
             const log = path.join(out, name + '.log');
@@ -43,8 +43,7 @@ for (const selection of options.engines) {
         }
         await run('build', ['--script', 'res://tests/twoway/build.gd'], 'TWOWAY_BUILD_OK');
         copyTree(path.join(box.project, 'examples/twoway/generated'), path.join(out, 'generated'));
-        copyTree(path.join(box.project, 'examples/twoway/generated'), path.join(out, 'twoway-generated'));
-        for (const name of ['twoway','ggx','bindable','reactive','composition','conditional','inventory','twoway']) copyTree(path.join(box.project,'examples',name,'generated'),path.join(out,'generated-all','examples',name,'generated'));
+        for (const name of ['counter','ggx','bindable','reactive','composition','conditional','inventory','twoway']) copyTree(path.join(box.project,'examples',name,'generated'),path.join(out,'generated-all','examples',name,'generated'));
         stages.import = await indexProject(box, box.project, path.join(out, 'import.log'), ['--audio-driver', 'Dummy']);
         if (stages.import.status !== 'PASS')
             throw Error('TwoWay indexing failed');

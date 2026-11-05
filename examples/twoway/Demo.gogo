@@ -6,7 +6,7 @@ const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 const Box = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const Button = preload("res://addons/estragon/runtime/node/button.gd")
+const Action = preload("res://addons/estragon/runtime/node/button.gd")
 const Row = preload("res://examples/twoway/generated/Row.gd")
 var model: Model = Model.new()
 var enabled: bool = false
@@ -23,9 +23,9 @@ func build_view() -> Element:
         <Toggle name="HostEdit" text="Host flag" bind:value={self.enabled} />
         <Text name="Revision" text={"Revision: %d" % self.revision} />
         {rows}
-        <Button text="Replace model" pressed={replace_model} />
-        <Button text="Show / hide rows" pressed={toggle_rows} />
-        <Button text="Reverse keys" pressed={reverse_rows} />
+        <Action text="Replace model" pressed={replace_model} />
+        <Action text="Show / hide rows" pressed={toggle_rows} />
+        <Action text="Reverse keys" pressed={reverse_rows} />
     </Box></Entry>
 func replace_model() -> void:
     model = Model.new()

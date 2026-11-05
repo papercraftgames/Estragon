@@ -200,4 +200,4 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
-	_writer.append("preload(\"res://addons/estragon/runtime/composition/binding.gd\").new(self, func(_gogo_root): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func(_gogo_source, _gogo_edit: bool): _gogo_source."+field+" = _gogo_edit)",argument.expression.span)
+	_writer.append("preload(\"res://addons/estragon/runtime/composition/binding.gd\").new(self, func(_gogo_root): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func(_gogo_source, _gogo_edit: bool): _gogo_source."+field+" = _gogo_edit, "+_string(".".join(argument.binding_path))+")",argument.expression.span)

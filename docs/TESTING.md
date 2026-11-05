@@ -80,3 +80,7 @@ Focused workflow mode `cutover` runs existing compiler/GGX/native-UI/model group
 ## F05-A class-wide annotation
 
 The existing strict bindable group now proves class-scope grammar, idempotent explicit/class markers, generated signals/equality/initialization/reentrancy/lifetime, native exports/maps, scope exclusions, mixed inheritance and class annotation editor rollback/repair. Existing conditional/keyed proofs use class-wide host/model/row declarations and retain IDs/state/subscription boundaries, including an unread class-wide host field. No observer runtime or extra strict group is added. Final acceptance remains only official Linux 4.0.4 + pinned 4.7.0 with existing fresh/cold/source-only/pack/graphics regressions. Exact results and manual-smoke status live in #90/its sole PR; F05-B is excluded.
+
+## F05-B controlled boolean acceptance
+
+`tools/check-twoway.ts` / workflow mode `twoway` adds build/import/runtime/editor/visual evidence to the existing strict gate. Native pointer, one model transition, quiet projection, reentrancy, replacement/stale callbacks, nested/keyed retained controls, lifecycle/foreign owner/pack reload, deterministic maps and compiler rejects are scoped in [the contract](TWO_WAY_BINDINGS.md). Real saved/unsaved main/current Play and unsavable/invalid rollback/repair remain mandatory. Native distribution cold source-only/editor/pack runtime includes the new Gogo demo. Only official Linux 4.0.4 + pinned 4.7.0; exact results and manual smoke status in #101/its sole PR. F06 is excluded.

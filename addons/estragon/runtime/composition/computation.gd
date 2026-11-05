@@ -361,6 +361,10 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		if kind==TYPE_OBJECT and value!=null:
 			var expected: String = str(properties[key].get("class_name",""))
 			if ClassDB.class_exists(expected) and not value.is_class(expected): return false
+	for key in desired.bindings:
+		if key!="value" or desired.properties.has(key) or desired.handlers.has("value_changed") or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
+		var args: Array = signals.get("value_changed",{}).get("args",[])
+		if args.size()!=1 or args[0].type!=TYPE_BOOL: return false
 	for key in desired.handlers:
 		if not signals.has(key): return false
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null
