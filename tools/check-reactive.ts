@@ -26,7 +26,7 @@ for (const selection of options.engines) {
                         return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/reactive/Demo.gogo\'.')
                         return false;
-                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/reactive\/generated\/Demo\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/reactive\/Demo\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
+                    if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/reactive\/generated\/Demo\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/reactive\/Demo\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_reactive_value" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
@@ -43,6 +43,7 @@ for (const selection of options.engines) {
         await run('build', ['--script', 'res://tests/reactive/build.gd'], 'REACTIVE_BUILD_OK');
         copyTree(path.join(box.project, 'examples/reactive/generated'), path.join(out, 'generated'));
         copyTree(path.join(box.project, 'examples/counter/generated'), path.join(out, 'counter-generated'));
+        for (const name of ['counter','ggx','bindable','reactive','composition','conditional','inventory']) copyTree(path.join(box.project,'examples',name,'generated'),path.join(out,'generated-all','examples',name,'generated'));
         stages.import = await indexProject(box, box.project, path.join(out, 'import.log'), ['--audio-driver', 'Dummy']);
         if (stages.import.status !== 'PASS')
             throw Error('Reactive indexing failed');

@@ -4,15 +4,15 @@ import * as path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { ROOT, parseCLI, readJSON, writeJSON, gitHead, gitDirty, sha256 } from './compat-kit.ts';
 import type { Stage } from './compat-kit.ts';
-const argv = process.argv.slice(2), focused = argv.includes('--focused'), distributionOnly = argv.includes('--distribution-only'), bindableOnly = argv.includes('--bindable-only'), reactiveOnly = argv.includes('--reactive-only'), compositionOnly = argv.includes('--composition-only'), conditionalOnly = argv.includes('--conditional-only'), listsOnly = argv.includes('--lists-only');
-const options = parseCLI(argv.filter(a => !['--focused', '--distribution-only', '--bindable-only', '--reactive-only', '--composition-only', '--conditional-only', '--lists-only'].includes(a)));
+const argv = process.argv.slice(2), focused = argv.includes('--focused'), distributionOnly = argv.includes('--distribution-only'), bindableOnly = argv.includes('--bindable-only'), reactiveOnly = argv.includes('--reactive-only'), compositionOnly = argv.includes('--composition-only'), conditionalOnly = argv.includes('--conditional-only'), listsOnly = argv.includes('--lists-only'), cutoverOnly = argv.includes('--cutover-only');
+const options = parseCLI(argv.filter(a => !['--focused', '--distribution-only', '--bindable-only', '--reactive-only', '--composition-only', '--conditional-only', '--lists-only', '--cutover-only'].includes(a)));
 fs.mkdirSync(options.output, { recursive: true });
 for (const selection of options.engines) {
     const output = path.join(options.output, selection.label);
     fs.mkdirSync(output, { recursive: true });
     const tools: Record<string, string> = { compiler: 'check-compatibility', runtime: 'check-node-runtime', ggx: 'check-ggx', ui: 'check-native-ui', metadata: 'check-godot-metadata', distribution: 'check-distribution', bindable: 'check-bindable', reactive: 'check-reactive', composition: 'check-composition', conditional: 'check-conditional', lists: 'check-lists' };
     for (const [name, tool] of Object.entries(tools)) {
-        if (listsOnly && name !== 'lists' || conditionalOnly && name !== 'conditional' || compositionOnly && name !== 'composition' || reactiveOnly && name !== 'reactive' || bindableOnly && name !== 'bindable' || focused && !['compiler', 'ui', 'distribution'].includes(name) || distributionOnly && name !== 'distribution')
+        if (cutoverOnly && !['compiler', 'ggx', 'ui', 'reactive'].includes(name) || listsOnly && name !== 'lists' || conditionalOnly && name !== 'conditional' || compositionOnly && name !== 'composition' || reactiveOnly && name !== 'reactive' || bindableOnly && name !== 'bindable' || focused && !['compiler', 'ui', 'distribution'].includes(name) || distributionOnly && name !== 'distribution')
             continue;
         const args = [path.join(ROOT, 'tools', tool + '.ts'), '--engine', selection.label + '=' + selection.binary, '--output', path.join(output, name)];
         if (['runtime', 'ggx', 'ui'].includes(name))
@@ -21,7 +21,7 @@ for (const selection of options.engines) {
         if (result.status !== 0)
             throw Error(name + ' acceptance failed');
     }
-    if (focused || distributionOnly || bindableOnly || reactiveOnly || compositionOnly || conditionalOnly || listsOnly)
+    if (focused || distributionOnly || bindableOnly || reactiveOnly || compositionOnly || conditionalOnly || listsOnly || cutoverOnly)
         continue;
     const stages: Record<string, Stage> = {};
     const files: Record<string, string> = {};

@@ -1,5 +1,6 @@
 extends SceneTree
 const Compiler = preload("res://addons/estragon/compiler/compiler.gd")
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 var failures: int = 0
 var checks: int = 0
 func check(value: bool, message: String) -> void:
@@ -25,7 +26,7 @@ func _initialize() -> void:
 		check(first.ok,"valid lexical/native expression: "+str(first.diagnostics))
 		if not first.ok: continue
 		check(first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"deterministic code/maps")
-		if source.contains('<Button '): check(first.code.contains('.new(\"Button\",') and not first.code.contains('.new(\"EstragonButton\",'),"Button retains ordinary Godot class meaning")
+		if source.contains('<Button '): check(first.code.contains('.new("Button",') and not first.code.contains('.new("EstragonButton",'),"Button retains ordinary Godot class meaning")
 		check(not first.code.contains("!= OK:\n\t\t\tpush_error(\"test.gogo:1"),"no obsolete Error-returning child attachment")
 		var script := GDScript.new()
 		script.source_code = first.code
@@ -35,7 +36,7 @@ func _initialize() -> void:
 		if source.contains('create := func'):
 			var instance = script.new()
 			var description = instance.make()
-			check(description is preload("res://addons/estragon/runtime/composition/element.gd") and description.properties.name=="lambda" and instance.get_child_count()==0,"ordinary lambda returns description without candidate Nodes")
+			check(description is Element and description.properties.name=="lambda" and instance.get_child_count()==0,"ordinary lambda returns description without candidate Nodes")
 			instance.free()
 	for source in [
 		'<Node />', 'extends Node\nfunc make(): return <Gradient />\n',
