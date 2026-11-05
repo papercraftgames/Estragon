@@ -101,6 +101,14 @@ func run() -> void:
 	foreign.name = "Foreign"
 	nested.get_node("ChildView").add_child(foreign)
 	foreign.owner = scene
+	var collision := Node.new()
+	collision.name = "Foreign"
+	scene.add_child(collision)
+	var planned_removal = scene.build_view()
+	planned_removal.children[0].children[4] = null
+	check(not record._rescue_clear(planned_removal,record.mounted,scene),"foreign rescue name conflict rejects before destructive branch removal")
+	planned_removal = null
+	collision.free()
 	scene.show_child = false
 	await settle()
 	check(is_instance_valid(foreign) and foreign.get_parent()==scene and foreign.owner==scene,"deep nested managed removal rescues foreign child with valid owner")

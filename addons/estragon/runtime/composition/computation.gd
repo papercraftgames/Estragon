@@ -81,7 +81,7 @@ func _flush() -> void:
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
 	_rendering = false
-	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner):
+	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
 		push_error("Invalid composition output or foreign boundary conflict; previous tree retained")
 		return
 	_subscribe(reads)
@@ -115,6 +115,43 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 		if not name.is_empty():
 			if names.has(name): return false
 			names[name] = true
+	return true
+func _collect_foreign(record, result: Array) -> void:
+	if record==null: return
+	var node = record.node.get_ref()
+	if node==null: return
+	var known: Array = []
+	for child in record.children:
+		if child==null: continue
+		_collect_foreign(child,result)
+		if child.node.get_ref()!=null: known.append(child.node.get_ref())
+	var manager = state.get_ref()
+	if manager!=null and manager.records.has(node.get_instance_id()):
+		var nested = manager.records[node.get_instance_id()].mounted
+		_collect_foreign(nested,result)
+		if nested!=null and nested.node.get_ref()!=null: known.append(nested.node.get_ref())
+	for child in node.get_children():
+		if not known.has(child) and not result.has(child): result.append(child)
+func _planned_foreign(desired, previous, result: Array) -> void:
+	if previous==null: return
+	if desired==null or not _compatible(desired,previous):
+		_collect_foreign(previous,result)
+		return
+	for index in range(previous.children.size()):
+		_planned_foreign(desired.children[index] if index<desired.children.size() else null,previous.children[index],result)
+func _rescue_clear(desired, previous, owner: Node) -> bool:
+	var rescued: Array = []
+	_planned_foreign(desired,previous,rescued)
+	var names := {}
+	for existing in owner.get_children():
+		if previous!=null and existing==previous.node.get_ref(): continue
+		names[str(existing.name)] = true
+	var desired_name: String = str(desired.properties.get("name",str(previous.node.get_ref().name) if previous!=null and _compatible(desired,previous) else ""))
+	if not desired_name.is_empty(): names[desired_name] = true
+	for child in rescued:
+		var name: String = str(child.name)
+		if names.has(name): return false
+		names[name] = true
 	return true
 func _boundary_clear(desired: Element, parent: Node) -> bool:
 	var name: String = str(desired.properties.get("name",""))
