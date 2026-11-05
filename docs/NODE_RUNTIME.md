@@ -1,3 +1,5 @@
+> **2026-11-05 authoritative update:** the C1 proof text below includes historical statements about parallel RefCounted UI and strict old C01 release status. Those paths were retired in merged C4 and are **not live prerequisites**. The approved [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md) next adds a lightweight virtual element/reconciliation layer **over these same real native Nodes**, without adding reconciliation metadata on Nodes, recreating the old UI tree or changing composed layout authority. Source-authored dynamic subtree persistence will follow ADR-0016's new mount/scene contract.
+
 **Current C4 note:** the native C1 API below remains the production runtime. C4 #83 removes its old B2/B3 forwarders/proof duplicates and the separate RefCounted UI. Canonical 2D widgets and current Counter paths are in [NODE_UI](NODE_UI.md). C1/B2/B3 evidence paths/commands below are historical, not live compatibility requirements; use [TESTING](TESTING.md) for current acceptance.
 
 # C1 Node-native runtime foundation

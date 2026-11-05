@@ -1,5 +1,8 @@
 # T09-B — reactive GGX properties
 
+> **Shipped T09-B implementation (merged PR #87), NOT the future renderer.** The current bounded reactive attribute helper lives on real target Nodes. [ADR-0016](REACTIVE_COMPOSITION_ARCHITECTURE.md) approves a **lightweight Virtual DOM, signal-triggered component function recomposition, and a single reconciler without per-property helper Nodes on user components**. T09-B's helper/static dependency implementation is slated for removal after the verified new renderer cutover; this document describes what works **now**, not a permanent architecture requirement.
+
+
 T09-B [#86](https://github.com/resistdesign/Estragon/issues/86) extends [observable Gogo properties](BINDABLE_PROPERTIES.md) to retained native Nodes. See the live issue/sole PR for review status and exact verification. The bundled Godot compiler/editor is sufficient; there is no external compiler, polling, virtual DOM or tree rebuild.
 
 ## Explicit reads in ordinary braces
