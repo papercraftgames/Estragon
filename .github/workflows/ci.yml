@@ -9,7 +9,7 @@ on:
       verification_mode:
         description: Full two-engine addon acceptance or focused 4.7 development
         type: choice
-        options: [acceptance, focused, distribution, bindable, reactive]
+        options: [acceptance, focused, distribution, bindable, reactive, composition]
         default: acceptance
       engine:
         description: Approved engine for focused development only
@@ -72,7 +72,7 @@ jobs:
           "$GITHUB_WORKSPACE/tools/check-native-addon.ts"
           --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
           --output "$RUNNER_TEMP/native-addon"
-          ${{ inputs.verification_mode == 'focused' && '--focused' || inputs.verification_mode == 'distribution' && '--distribution-only' || inputs.verification_mode == 'bindable' && '--bindable-only' || inputs.verification_mode == 'reactive' && '--reactive-only' || '' }}
+          ${{ inputs.verification_mode == 'focused' && '--focused' || inputs.verification_mode == 'distribution' && '--distribution-only' || inputs.verification_mode == 'bindable' && '--bindable-only' || inputs.verification_mode == 'reactive' && '--reactive-only' || inputs.verification_mode == 'composition' && '--composition-only' || '' }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

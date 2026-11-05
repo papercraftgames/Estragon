@@ -4,6 +4,7 @@
     "examples/counter",
     "examples/ggx",
     "examples/bindable",
-    "examples/reactive"
+    "examples/reactive",
+    "examples/composition"
   ]
 }

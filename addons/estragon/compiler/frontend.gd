@@ -6,6 +6,7 @@ const Source = preload("res://addons/estragon/compiler/source.gd")
 const Parser = preload("res://addons/estragon/compiler/parser.gd")
 const Bindable = preload("res://addons/estragon/compiler/bindable.gd")
 const Validator = preload("res://addons/estragon/compiler/validator.gd")
+const Composition = preload("res://addons/estragon/compiler/composition.gd")
 
 static func analyze(text: String, source_name: String = "<source>") -> Model.Result:
 	var file := Source.new(text, source_name)
@@ -13,6 +14,7 @@ static func analyze(text: String, source_name: String = "<source>") -> Model.Res
 	var result := Model.Result.new()
 	var module := parser.parse()
 	if module != null: Bindable.new(file).apply(module)
+	if module != null and file.diagnostics.is_empty(): Composition.new(file).apply(module)
 	if module != null and file.diagnostics.is_empty(): Validator.new(file).validate(module)
 	result.tokens = parser.lexer.tokens
 	result.diagnostics = file.diagnostics

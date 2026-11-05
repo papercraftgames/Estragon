@@ -1,0 +1,3 @@
+extends RefCounted
+@bindable var title: String = "Native composition"
+@bindable var width: float = 120.0

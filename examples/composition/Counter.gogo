@@ -1,0 +1,34 @@
+extends Node2D
+const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
+const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Model = preload("res://examples/composition/generated/Model.gd")
+@bindable var count: int = 0
+@bindable var unused: int = 0
+@bindable var model: Model = Model.new()
+func heading() -> String:
+    return model.title
+func build_view() -> Element:
+    var caption: String = "Count: %d" % count
+    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
+        <VBox name="Panel" fill_width={true} gap={12.0}>
+            <Text name="Title" text={heading()} color={Color(0.74,0.64,0.94)} />
+            <Text name="Count" text={caption} />
+            <Rect name="Bar" width={model.width + count * 10.0} height={10.0} fill={Color(0.2,0.8,0.6)} />
+            <UiButton name="Increment" text="+" pressed={increment} />
+            <UiButton name="Reset" text="Reset" disabled={count == 0} pressed={reset_count} />
+        </VBox>
+    </Entry>
+func increment() -> void:
+    count += 1
+func reset_count() -> void:
+    count = 0
+func _ready() -> void:
+    if OS.get_environment("ESTRAGON_COMPOSITION_PROOF") == "1": write_proof.call_deferred()
+func write_proof() -> void:
+    for index in range(5): await get_tree().process_frame
+    var file := FileAccess.open("res://.godot/composition-play.json",FileAccess.WRITE)
+    file.store_string(JSON.stringify({"count":count,"text":get_node("UI/Panel/Count").text}))

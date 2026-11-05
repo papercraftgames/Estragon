@@ -45,11 +45,14 @@ func _init(module: Model.Module, file: Source) -> void:
 func emit() -> MappedWriter:
 	_parts(_module.parts)
 	_writer.append("\n")
+	if _module.composition:
+		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n"+_module.indentation+"preload(\"res://addons/estragon/runtime/composition/state.tres\").lifecycle(self, _gogo_what)\n")
 	for factory in _factories:
 		for argument in factory.arguments:
 			if not argument.reader.is_empty(): _reader(argument)
 	if not _factories.is_empty():
 		_writer.append("\n\nclass " + _factory_class + ":", _factories[0].root.span)
+		_writer.append("\n"+_module.indentation+"const _Element = preload(\"res://addons/estragon/runtime/composition/element.gd\")\n")
 	# Calls in argument expressions may append additional factories.
 	var index: int = 0
 	while index < _factories.size():
@@ -138,13 +141,28 @@ func _factory(factory: Factory) -> void:
 		if index > 0: _writer.append("," if multiline else ", ", argument.expression.span)
 		_writer.append(("\n" + _module.indentation.repeat(2) if multiline else "") + argument.name + ": " + ("Array" if not argument.reader.is_empty() else argument.type_name), argument.expression.span)
 	if factory.reactive: _writer.append(", _gogo_host: Node",factory.root.span)
-	_writer.append(("\n" + _module.indentation if multiline else "") + ") -> " + factory.root.runtime_class + ":\n", factory.root.span)
+	_writer.append(("\n" + _module.indentation if multiline else "") + ") -> " + ("_Element" if factory.root.described else factory.root.runtime_class) + ":\n", factory.root.span)
 	_variable = 0
-	var variable := _component(factory.root, _module.indentation.repeat(2))
+	var variable := _description(factory.root,_module.indentation.repeat(2)) if factory.root.described else _component(factory.root, _module.indentation.repeat(2))
 	_writer.append(_module.indentation.repeat(2) + "return " + variable + "\n", factory.root.span)
 
 func _line(text: String, span: Model.Span, indentation: String) -> void:
 	_writer.append(indentation + text + "\n", span)
+
+func _description(node: Model.Component, indentation: String) -> String:
+	var variable := "element_%d" % _variable
+	_variable += 1
+	var props := PackedStringArray()
+	var events := PackedStringArray()
+	for attribute in node.attributes:
+		var value: String = _arguments[attribute.value].name if attribute.value is Model.GdExpression else literal(attribute.value)
+		var target := events if attribute.kind == "signal" else props
+		target.append(_string(attribute.name)+": "+value)
+	var children := PackedStringArray()
+	for child in node.children: children.append(_description(child,indentation))
+	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
+	_line("var %s := _Element.new(%s, {%s}, {%s}, [%s], %s)" % [variable,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column])],node.span,indentation)
+	return variable
 
 func _component(node: Model.Component, indentation: String) -> String:
 	var root := _depth == 0
@@ -235,3 +253,4 @@ func _bindable(property: Model.Bindable) -> void:
 	_writer.append(indent.repeat(2)+"var "+previous+": "+property.type_name+" = "+property.name+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
+	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload(\"res://addons/estragon/runtime/composition/state.tres\").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)
