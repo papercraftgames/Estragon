@@ -4,13 +4,13 @@
 
 ## 1. The product contract
 
-**Estragon is React-like declarative function composition with Flex-like automatic observation, hosted by Godot's mutable, retained native scene graph.** Application authors walk through ordinary GDScript-like functions and return GGX. They mutate typed Gogo §@bindable§ properties normally. No hooks, no §setState§, no explicit §refresh§ or §invalidate§ to update ordinary declarative output.
+**Estragon is React-like declarative function composition with Flex-like automatic observation, hosted by Godot's mutable, retained native scene graph.** Application authors walk through ordinary GDScript-like functions and return GGX. They mutate typed Gogo `@bindable` properties normally. No hooks, no `setState`, no explicit `refresh` or `invalidate` to update ordinary declarative output.
 
 - **Data changes:** generated setters publish native signals; reads performed during composition determine automatic subscriptions. A relevant change schedules recomposition **only for the component(s) that observed it**. Multiple writes are coalesced.
 - **Composition changes:** rerun the affected component function to produce *descriptions* of desired children. Reconcile those descriptions against the retained Godot scene. Do not instantiate candidate Godot Nodes just to diff and discard them.
 - **Actual Nodes:** keep identity, transforms, physics state, animations, signal connections, caches, and other native behavior for unchanged elements. Commit only changed declared properties/handlers and necessary child mutations; never duplicate the scene in a second set of live Nodes.
 - **Rendering:** Godot keeps drawing/processing actual Nodes as normal. **Drawing a frame does not execute GGX composition.** An idle component does no recomposition.
-- **Ownership:** all reconciliation identity, bookkeeping, dependency subscriptions and last-declared-property snapshots live in **framework-owned runtime records external to user Nodes and data objects**. No §set_meta§, injected reconciliation fields/keys on native Nodes, additional per-element tracking Nodes or mandatory subclass for native Godot components.
+- **Ownership:** all reconciliation identity, bookkeeping, dependency subscriptions and last-declared-property snapshots live in **framework-owned runtime records external to user Nodes and data objects**. No `set_meta`, injected reconciliation fields/keys on native Nodes, additional per-element tracking Nodes or mandatory subclass for native Godot components.
 - **Pre-release freedom:** Estragon is unreleased. Do **not** preserve a second permanent creation path, existing GGX behavior, old generated files, old helper Nodes, APIs or tests merely for backwards compatibility. Migrate real consumers/tests to one coherent model and remove superseded implementation. Preserve accurate historical evidence as historical facts.
 
 Readable source is the priority. The first implementation can reexecute a modest function unnecessarily; compiler cleverness is a later measured optimization. React Compiler's explicit non-goal of perfect memoization is a useful constraint: tracking overhead may be more expensive than recomputation.
@@ -19,13 +19,13 @@ Readable source is the priority. The first implementation can reexecute a modest
 
 | Term | Meaning | Lifetime |
 | --- | --- | --- |
-| **Observable model** | A Gogo class (Node-based or non-Node §RefCounted§/§Resource§) with generated property getters/setters and native change signals | Normal Godot model ownership |
-| **Component host** | A Gogo-authored Node with a declarative composition function (§build_view§ as the initial source convention) and normal native lifecycle | A real Godot Node |
+| **Observable model** | A Gogo class (Node-based or non-Node `RefCounted`/`Resource`) with generated property getters/setters and native change signals | Normal Godot model ownership |
+| **Component host** | A Gogo-authored Node with a declarative composition function (`build_view` as the initial source convention) and normal native lifecycle | A real Godot Node |
 | **Element description (virtual element)** | Cheap immutable-by-convention value describing a desired native type, declared properties, handlers, optional key and child descriptions | Temporary desired render output |
 | **Reconciler record** | Runtime-owned correspondence between previous description, an existing native Node, child records, subscriptions and component identity | While that managed element is mounted |
 | **Render/recomposition** | Call an affected component's composition function to compute a desired virtual element subtree | Only after initial mount or relevant observed change |
 | **Reconcile** | Match new descriptions to previous records by type, sibling position and optional key | Only when recomposition happens |
-| **Commit** | Apply necessary native §Node§ property/signal changes and §add_child§/§remove_child§/§move_child§/free operations | At a safe SceneTree point |
+| **Commit** | Apply necessary native `Node` property/signal changes and `add_child`/`remove_child`/`move_child`/free operations | At a safe SceneTree point |
 | **Layout** | Existing shared measure/arrange invalidation, after actual relevant structure/geometry changes | Existing native coordinator |
 | **Draw** | Godot's usual render/physics/update phases | Engine controlled |
 
@@ -33,11 +33,11 @@ Readable source is the priority. The first implementation can reexecute a modest
 
 ## 3. Authoring: ordinary readable Gogo functions
 
-The familiar Gogo module remains an ordinary Node/typed data object with GDScript methods. The framework recognizes a declared composition entry (§build_view§ for the first vertical slice; select a final exact return type after native feasibility proof). Ordinary event methods perform ordinary state assignments.
+The familiar Gogo module remains an ordinary Node/typed data object with GDScript methods. The framework recognizes a declared composition entry (`build_view` for the first vertical slice; select a final exact return type after native feasibility proof). Ordinary event methods perform ordinary state assignments.
 
-The following sketches are **future Gogo syntax, not runnable with current main**. They deliberately use **GDScript conditional expressions** (§value_if_true if condition else value_if_false§), not JavaScript ternaries:
+The following sketches are **future Gogo syntax, not runnable with current main**. They deliberately use **GDScript conditional expressions** (`value_if_true if condition else value_if_false`), not JavaScript ternaries:
 
-§§§gdscript
+```gdscript
 # Counter.gogo — proposed post-migration syntax
 extends Node2D
 @bindable var count: int = 0
@@ -54,52 +54,52 @@ func build_view():
 
 func reset_count() -> void:
     count = 0
-§§§
+```
 
-The function is a **declaration of desired output**, not a factory that immediately allocates each nested Node. It is called on mount and again when observed state used in its last evaluation changes. The compiler preserves ordinary branching, locals, function calls and iteration whenever safe. No hooks, lifecycle hook call-order rules, manual memo wrappers or special §Repeater§ are required.
+The function is a **declaration of desired output**, not a factory that immediately allocates each nested Node. It is called on mount and again when observed state used in its last evaluation changes. The compiler preserves ordinary branching, locals, function calls and iteration whenever safe. No hooks, lifecycle hook call-order rules, manual memo wrappers or special `Repeater` are required.
 
 Conditional composition:
 
-§§§gdscript
+```gdscript
 # Proposed expression-child syntax, pending implementation
 func build_view():
     return <EstragonVBox>
         {<MyButton text="OK" /> if self.model.count > 4 else <MyInput value={self.model.count} />}
     </EstragonVBox>
-§§§
+```
 
 Collections can use **ordinary loop logic** rather than requiring a branded Repeater:
 
-§§§gdscript
+```gdscript
 func build_view():
     var rows: Array = []
     for item in self.items:
         rows.append(<InventoryRow key={item.id} model={item} />)
     return <EstragonVBox>{rows}</EstragonVBox>
-§§§
+```
 
-§key§ is a **reserved GGX composition identity attribute**, not a Godot Node property and never written onto the Node or model. It exists only in virtual descriptions/reconciler records. Plain native §Array.map(Callable)§ is an equivalent authoring candidate when it keeps familiar GDScript source and correct typed diagnostics. Expression children may produce a description, a sequence of descriptions, or null/empty; nested sequences flatten consistently. Arbitrary live Node insertion inside a declarative child expression is not supported. Compiler support for the exact examples is a delivery item, not a claim that they work now.
+`key` is a **reserved GGX composition identity attribute**, not a Godot Node property and never written onto the Node or model. It exists only in virtual descriptions/reconciler records. Plain native `Array.map(Callable)` is an equivalent authoring candidate when it keeps familiar GDScript source and correct typed diagnostics. Expression children may produce a description, a sequence of descriptions, or null/empty; nested sequences flatten consistently. Arbitrary live Node insertion inside a declarative child expression is not supported. Compiler support for the exact examples is a delivery item, not a claim that they work now.
 
-A nested Gogo component may own its own §build_view§ function and state. A parent description refers to that component type; the reconciler retains its actual Node on compatible rerenders, and its own dependency record determines when to rerun its function. A changed parent's unrelated child is **not automatically recomposed** merely because its parent ran.
+A nested Gogo component may own its own `build_view` function and state. A parent description refers to that component type; the reconciler retains its actual Node on compatible rerenders, and its own dependency record determines when to rerun its function. A changed parent's unrelated child is **not automatically recomposed** merely because its parent ran.
 
 ## 4. Observation: signals trigger function reruns automatically
 
 **Chosen target:** automatic **dynamic dependency tracking** for Gogo-generated observable property *reads* during a scoped component composition call, backed by ordinary native signals for changes. This is simpler at the authoring level than requiring the compiler to enumerate every possible expression/path, and handles conditional branches and helpers that read observable fields. It is not a generic proxy for arbitrary Godot values.
 
 1. The reconciler enters a bounded **current computation scope** for the component being composed.
-2. An emitted Gogo bindable getter returns its normal typed value and records (§source Object identity§, §property signal§) in that active scope. Outside a composition scope the getter behaves like an ordinary read.
+2. An emitted Gogo bindable getter returns its normal typed value and records (`source Object identity`, `property signal`) in that active scope. Outside a composition scope the getter behaves like an ordinary read.
 3. As the function evaluates, conditionally accessed values become its **actual dependencies**. Repeated reads deduplicate; a nested component creates its own scope so parent and child dependencies remain separate.
-4. On successful composition, compare newly observed dependency pairs with the component's previous subscriptions; keep shared, detach stale, attach new. Signals use native §<property>_changed(previous, value)§. These subscriptions are runtime-owned and do not embed render metadata in source objects.
-5. A setter mutates the property immediately and emits the existing T09-A signal according to its defined §is_same§ equality policy. The scheduler marks the observing computation dirty once. A model reference change automatically reroutes subsequent reads and subscriptions, including deep paths.
+4. On successful composition, compare newly observed dependency pairs with the component's previous subscriptions; keep shared, detach stale, attach new. Signals use native `<property>_changed(previous, value)`. These subscriptions are runtime-owned and do not embed render metadata in source objects.
+5. A setter mutates the property immediately and emits the existing T09-A signal according to its defined `is_same` equality policy. The scheduler marks the observing computation dirty once. A model reference change automatically reroutes subsequent reads and subscriptions, including deep paths.
 6. On unmount/free or removal of an owning component, remove the computation and all subscriptions. Weak signal targets/source references and generation tokens prevent a stale queued job from acting on freed Nodes or obsolete models.
 
 **Feasibility gate:** a focused first Codex implementation must prove that generated GDScript getter read capture works on **Godot 4.0.4 and pinned 4.7.0**, including typed self/external properties, nested calls, inherited Gogo properties, nested composition scopes, reentrant signals, Resource/RefCounted lifetime and source maps. If the proof reveals an actual Godot limitation, retain the same user-visible contract using **compiler-emitted explicit read capture** for supported types or a similarly small verified bridge. Do not silently ship a second independent observation engine. The architecture (signal-triggered function recomposition + native reconciliation) does not change with the tracker implementation.
 
-**Honest boundaries:** only instrumented Gogo bindables (and separately adapted supported native signals) are automatically observed. Reads from arbitrary Godot objects, native transforms, a normal §.gd§ field, raw dictionaries, and native arrays are not magically observable. If authoring declares output dependent on these, it updates when another observed source schedules the owning function, or when the application explicitly opts into an **external-event adapter**. There is no compulsory per-frame polling. Unsupported source assumptions should have clear documentation/diagnostics, not a fake automatic guarantee.
+**Honest boundaries:** only instrumented Gogo bindables (and separately adapted supported native signals) are automatically observed. Reads from arbitrary Godot objects, native transforms, a normal `.gd` field, raw dictionaries, and native arrays are not magically observable. If authoring declares output dependent on these, it updates when another observed source schedules the owning function, or when the application explicitly opts into an **external-event adapter**. There is no compulsory per-frame polling. Unsupported source assumptions should have clear documentation/diagnostics, not a fake automatic guarantee.
 
 ## 5. Element descriptions and the reconciler
 
-The compiler lowers GGX inside recognized composition functions into **lightweight typed descriptions** rather than direct §.new()§/§add_child§ calls. An element description contains:
+The compiler lowers GGX inside recognized composition functions into **lightweight typed descriptions** rather than direct `.new()`/`add_child` calls. An element description contains:
 
 - constructible native Godot class or script identity (validated without running constructors in the compiler);
 - declared, already evaluated typed props and separately declared event handlers;
@@ -107,9 +107,9 @@ The compiler lowers GGX inside recognized composition functions into **lightweig
 - source positions for compiler/editor errors (not metadata stored on a Node);
 - optional nested Gogo composition type/inputs.
 
-The **reconciler record**, external to Godot Nodes, holds previous declared values, child matching identity and the actual Node reference/weak lifecycle guard. The user-facing Node retains its normal class, signals and fields; no hidden §key§, §fiber§, §_vdom§, metadata or per-element helper §Node§ is added to it.
+The **reconciler record**, external to Godot Nodes, holds previous declared values, child matching identity and the actual Node reference/weak lifecycle guard. The user-facing Node retains its normal class, signals and fields; no hidden `key`, `fiber`, `_vdom`, metadata or per-element helper `Node` is added to it.
 
-**Baseline diff:** match *key + type* among keyed siblings, or *position + type* among unkeyed siblings. Keys must be unique **among siblings in one list**, not globally. Type changes replace the native instance. On a compatible match, reuse the existing Node and child records. A keyed reorder moves the existing real Nodes using native §move_child§; keyed insert/delete creates/frees only affected instances. Duplicate keys fail with meaningful authored/diagnostic context. Do not compare arbitrary user-mutated Node state to desired values to decide whether to reset it.
+**Baseline diff:** match *key + type* among keyed siblings, or *position + type* among unkeyed siblings. Keys must be unique **among siblings in one list**, not globally. Type changes replace the native instance. On a compatible match, reuse the existing Node and child records. A keyed reorder moves the existing real Nodes using native `move_child`; keyed insert/delete creates/frees only affected instances. Duplicate keys fail with meaningful authored/diagnostic context. Do not compare arbitrary user-mutated Node state to desired values to decide whether to reset it.
 
 **Props:** compare *new declared value* to the previous **committed declared value**, not to whatever current value game code or animation has placed on the actual Node. Set only properties whose declarative desired values changed, or whose Node is first mounted. This preserves native state and animations for props not changed by Gogo. A property explicitly controlled by Gogo may be overwritten on a *new desired value*; native-controlled and layout-controlled transform authority still follows the existing Node2D/Node3D adapter/layout contracts. Event Callable connection sets are diffed and properly disconnected/reconnected.
 
@@ -123,35 +123,35 @@ The **reconciler record**, external to Godot Nodes, holds previous declared valu
 
 - A live component is enqueued at most once per flush. Unaffected components have no render work.
 - Process **parents before descendants**; when a parent removes or replaces a branch, invalidate/cancel queued work for the obsolete children. If parent and child both changed, reconcile parent first, then run only surviving dirty children.
-- Each component collects a new dependency set per run; switching conditional branches or nested §model.player§ references detaches stale sources automatically. A null intermediate is handled using actual GDScript-safe logic, not an implicit magical nullable path rewrite.
+- Each component collects a new dependency set per run; switching conditional branches or nested `model.player` references detaches stale sources automatically. A null intermediate is handled using actual GDScript-safe logic, not an implicit magical nullable path rewrite.
 - Changes triggered while composing/committing enqueue a subsequent bounded pass; render cannot recursively mutate the scene in an uncontrolled signal stack. Detect runaway self-invalidating cycles with an actionable error; never silently drop a legitimate final change.
 - If the host or owned Node exits the tree, suspend commits, drop stale work, disconnect sources and reestablish subscriptions on a valid reattach. Compatible reparenting preserves managed Node identities, unless the explicit mount ownership boundary has changed.
 - Godot's forbidden SceneTree/physics mutation contexts are respected: schedule native add/remove/move/free operations at a safe phase, rather than assuming signals always fire at an attach-safe time. Measure/arrange requests follow the existing affected-branch coordinator; unchanged branches retain caches.
-- No virtual-loop ticking, global §_process§ invalidation scanner, VDOM comparison per frame or forced every-frame model wrappers.
+- No virtual-loop ticking, global `_process` invalidation scanner, VDOM comparison per frame or forced every-frame model wrappers.
 
 **Nested dynamic example:** if an outer condition removes an inventory panel while an inner list changed on the same tick, the parent commit wins. The old panel's queued list work is cancelled and its subscriptions are detached. A newly mounted panel computes from the latest model once. Unchanged siblings keep their native instances and state.
 
 ## 7. State, events, identity and two-way binding
 
-- **No hooks:** local state is a normal Gogo property on the component host (§@bindable var§), a referenced Gogo model, or ordinary native Godot state. Do not implement §useState§, positional hook arrays, hook call-order rules or explicit recomposition callbacks.
-- **Render description should be repeatable:** component composition functions calculate descriptions. Side effects (spawning unrelated game actors, network calls, changing model state, connecting signals, modifying existing real Nodes) belong in ordinary Godot lifecycle/event methods such as §_ready§, named signal handlers, and explicit application services, **not inside the composition function**. This purity is only at the composition boundary; the *game's data and Nodes remain mutable*. If a Gogo authored function read performs side effects, repeated recomposition is an expected hazard; provide clear diagnostics for known unsupported operations and document the rule rather than attempting an impossible perfect static purity analysis.
-- **Native handler identity:** event handler attributes bind ordinary named §Callable§ references; compare/disconnect without accumulating duplicates. Reconciled Node identity keeps ongoing pointer/animation/input state where compatible. Losing the branch deliberately frees it; recreating it later is a new Node unless a future explicit keep-alive feature exists.
+- **No hooks:** local state is a normal Gogo property on the component host (`@bindable var`), a referenced Gogo model, or ordinary native Godot state. Do not implement `useState`, positional hook arrays, hook call-order rules or explicit recomposition callbacks.
+- **Render description should be repeatable:** component composition functions calculate descriptions. Side effects (spawning unrelated game actors, network calls, changing model state, connecting signals, modifying existing real Nodes) belong in ordinary Godot lifecycle/event methods such as `_ready`, named signal handlers, and explicit application services, **not inside the composition function**. This purity is only at the composition boundary; the *game's data and Nodes remain mutable*. If a Gogo authored function read performs side effects, repeated recomposition is an expected hazard; provide clear diagnostics for known unsupported operations and document the rule rather than attempting an impossible perfect static purity analysis.
+- **Native handler identity:** event handler attributes bind ordinary named `Callable` references; compare/disconnect without accumulating duplicates. Reconciled Node identity keeps ongoing pointer/animation/input state where compatible. Losing the branch deliberately frees it; recreating it later is a new Node unless a future explicit keep-alive feature exists.
 - **Controlled versus native-managed:** only declared props are under Gogo desired-value authority. Properties never declared in GGX remain native-managed. For existing declared props, unchanged desired values do not reset externally animated/native changes on every recompose. A dedicated position/transform authority decision remains [#88](https://github.com/resistdesign/Estragon/issues/88).
-- **Two-way binding (T09-D):** later §bind:value={self.model.name}§-like syntax (illustrative, not final) may lower to one-way model→view updates plus a typed view-change signal→model setter. Update-origin/equality checks and bounded flushes prevent feedback loops; validate assignable paths, null/replaced models, native event ordering, user editing/selection and teardown. Do not make the UI and model parallel sources of truth.
+- **Two-way binding (T09-D):** later `bind:value={self.model.name}`-like syntax (illustrative, not final) may lower to one-way model→view updates plus a typed view-change signal→model setter. Update-origin/equality checks and bounded flushes prevent feedback loops; validate assignable paths, null/replaced models, native event ordering, user editing/selection and teardown. Do not make the UI and model parallel sources of truth.
 
 ## 8. Arrays, keyed iteration and model ergonomics
 
-The authoring goal is *ordinary GDScript loops/§Array.map§ that return GGX descriptions*, not compulsory §Repeater§ controls. Rendering an array snapshot after a **bindable reference replacement** invokes component recomposition and local keyed reconciliation. Stable §key§ lets inserted/moved items keep their native Node identities and state. Item components may subscribe to their own observed model fields without forcing unrelated items to recompose.
+The authoring goal is *ordinary GDScript loops/`Array.map` that return GGX descriptions*, not compulsory `Repeater` controls. Rendering an array snapshot after a **bindable reference replacement** invokes component recomposition and local keyed reconciliation. Stable `key` lets inserted/moved items keep their native Node identities and state. Item components may subscribe to their own observed model fields without forcing unrelated items to recompose.
 
-**In-place mutation limitation:** raw Godot §Array.append§, §Dictionary.set§ and arbitrary nested native data edits **do not emit a Gogo bindable property's change signal**. An observable collection (optional future T09-C2 adapter) is warranted for users who need automatic in-place add/remove/move/replace notifications. It should expose normal collection operations and emit *one structural change event* for the owning component, which then uses **the same reconciliation code**. Do not build a separate repeater reconciliation algorithm. A reference-reassignment workflow is a valid first implementation and avoids requiring wrappers everywhere.
+**In-place mutation limitation:** raw Godot `Array.append`, `Dictionary.set` and arbitrary nested native data edits **do not emit a Gogo bindable property's change signal**. An observable collection (optional future T09-C2 adapter) is warranted for users who need automatic in-place add/remove/move/replace notifications. It should expose normal collection operations and emit *one structural change event* for the owning component, which then uses **the same reconciliation code**. Do not build a separate repeater reconciliation algorithm. A reference-reassignment workflow is a valid first implementation and avoids requiring wrappers everywhere.
 
-**Class-level §@bindable§:** [#90](https://github.com/resistdesign/Estragon/issues/90) is a distinct required ergonomic follow-up, inspired by Flex's class-level §[Bindable]§. A class-level annotation in authored §.gogo§ should instrument all **eligible explicitly typed instance fields** using the *same generated getters/setters/signals* as T09-A. Static, const and local fields are not eligible. Unsupported custom accessors/collisions report source-located errors. Existing per-property annotation remains supported. No second binding runtime and **no custom annotation in normal §.gd§**. Precise class-declaration grammar/override policy must be proven during that focused feature.
+**Class-level `@bindable`:** [#90](https://github.com/resistdesign/Estragon/issues/90) is a distinct required ergonomic follow-up, inspired by Flex's class-level `[Bindable]`. A class-level annotation in authored `.gogo` should instrument all **eligible explicitly typed instance fields** using the *same generated getters/setters/signals* as T09-A. Static, const and local fields are not eligible. Unsupported custom accessors/collisions report source-located errors. Existing per-property annotation remains supported. No second binding runtime and **no custom annotation in normal `.gd`**. Precise class-declaration grammar/override policy must be proven during that focused feature.
 
-**External JSON and Resource data:** not all data must be observable. Plain §Dictionary§/§Array§/JSON is a valid transport/cache/save format. Convert to typed observable models only where an application needs automatic in-place notifications. Use normal Gogo constructors/factories or small §from_dict§/§to_dict§ adapters and Godot §Resource§ mechanisms; preserve nested null/default/error/identity semantics when such helpers are needed. **No AMF/RemoteObject clone, universal deep-proxy graph, mandatory hydration pass, or serialization on each render.** Godot custom §Resource.changed§ is not automatically emitted on custom field writes; a generated setter or explicit adapter remains necessary.
+**External JSON and Resource data:** not all data must be observable. Plain `Dictionary`/`Array`/JSON is a valid transport/cache/save format. Convert to typed observable models only where an application needs automatic in-place notifications. Use normal Gogo constructors/factories or small `from_dict`/`to_dict` adapters and Godot `Resource` mechanisms; preserve nested null/default/error/identity semantics when such helpers are needed. **No AMF/RemoteObject clone, universal deep-proxy graph, mandatory hydration pass, or serialization on each render.** Godot custom `Resource.changed` is not automatically emitted on custom field writes; a generated setter or explicit adapter remains necessary.
 
 ## 9. PackedScene, editor, and scene boundaries
 
-The **source-authored composition function is the authority** for managed dynamic children. Persist actual scene-authored host/native nodes in §.tscn§; reconstruct managed GGX children from the latest source/state on mount. **Do not serialize a second snapshot of transient reconciler/VDOM records into the scene, or persist stale dynamic children that will be duplicated on reopen.** Existing checked-in static/generated scene fixtures must be deliberately migrated; no silent change to actual scene owner semantics.
+The **source-authored composition function is the authority** for managed dynamic children. Persist actual scene-authored host/native nodes in `.tscn`; reconstruct managed GGX children from the latest source/state on mount. **Do not serialize a second snapshot of transient reconciler/VDOM records into the scene, or persist stale dynamic children that will be duplicated on reopen.** Existing checked-in static/generated scene fixtures must be deliberately migrated; no silent change to actual scene owner semantics.
 
 A component host owns a logical view root/mount boundary. Its runtime context is held by Estragon's reconciliation service (one context per mounted view root and logical child records), keyed via safe weak native identity; **not by attaching per-element metadata to Nodes**, creating a binder/helper Node per property, or putting framework state on arbitrary user models. Source-described *native* child owners still use normal Godot ownership when explicit persistence is intended, but transient dynamic view subtrees are re-created at mount rather than saved as authoritative SceneTree snapshots.
 
@@ -164,7 +164,7 @@ Compiler/editor invariants survive: typed native type/property/signal validation
 **Compiler (Godot-native GDScript):**
 1. Lex/parse mixed GDScript/GGX with source spans, including conditional expression children, optional key and mapped list/array expression returns using actual 4.0-compatible grammar.
 2. Typecheck against native Godot Node constructors, explicit script imports, signal/event attributes, property values and key rules. Reject unsupported Node child values, invalid branch return shapes and duplicate keys with useful authored diagnostics where statically possible.
-3. Lower GGX inside view functions to typed, lightweight element descriptions, preserving normal control flow and side-effect evaluation order. Do **not** lower a declarative view into eager §Node.new§/§add_child§ calls.
+3. Lower GGX inside view functions to typed, lightweight element descriptions, preserving normal control flow and side-effect evaluation order. Do **not** lower a declarative view into eager `Node.new`/`add_child` calls.
 4. Extend existing T09-A observable properties to signal + getter read capture. Keep deterministic ordinary GDScript and range maps; let Godot native semantic validation remain authoritative.
 5. Optionally use **React Compiler-inspired** automatic memoization/static subtree reuse later, but never require Gogo authors to add memo hooks. Avoid a giant new HIR/SSA optimizer unless profiling demonstrates a real need.
 
@@ -174,7 +174,7 @@ Compiler/editor invariants survive: typed native type/property/signal validation
 3. Respect Node2D/Node3D, ordinary Node boundaries, native signals/lifetime, game state and existing shared layout coordinator.
 4. Dispose/rebuild only managed boundaries on unmount/reparent/reload; never attach fiber/reconciliation metadata to user Nodes.
 
-This is **one compositional engine**. T09-B's current static path analysis and §property_binding.gd§ child-helper mechanism are *transitional implementations*, not compatibility obligations or a second eternal binding system. Once the new engine demonstrates parity, **replace/remove** their obsolete paths, generated helpers and tests; retarget tests to the final product. Preserve T09-A signals and native UI/layout behavior, not obsolete implementation details.
+This is **one compositional engine**. T09-B's current static path analysis and `property_binding.gd` child-helper mechanism are *transitional implementations*, not compatibility obligations or a second eternal binding system. Once the new engine demonstrates parity, **replace/remove** their obsolete paths, generated helpers and tests; retarget tests to the final product. Preserve T09-A signals and native UI/layout behavior, not obsolete implementation details.
 
 ## 11. Delivery plan and migration gates
 
@@ -184,7 +184,7 @@ These are serial work packages with **one open PR repo-wide**; no implementation
 2. **F02 — Reconciler and conditional GGX:** implement structural children/conditionals with GDScript syntax, typed descriptors, type/position/optional key matching, selective props/handlers, deep nested component scopes, parent-first scheduling, null/model replacement and cleanup. Test preserving unchanged Nodes/animations/foreign children, nested branch changes and safe commit/rollback.
 3. **F03 — Maps and keyed lists:** support ordinary GDScript for/map-authored descriptions, arrays/flattening and stable keyed moves/inserts/deletes. No mandatory Repeater. Key diagnostics, item-state identity and nested list/conditional tests. Start with observable reference replacement; add an optional in-place observable list adapter only if genuine product acceptance requires it.
 4. **F04 — Single-runtime cutover:** migrate all live Gogo examples, compiler/emitter, runtime binding helpers and editor/distribution tests to declarative virtual descriptions and native reconciler. **Delete** superseded eager GGX creation, property-binding helper Nodes, duplicate dispatch/subscription code and obsolete tests; no dual mode, deprecation period or compatibility shims. Retarget Counter/reactive/2D/3D and packed scene/editor acceptance without weakening meaningful behavior.
-5. **F05 — Model ergonomics and controlled inputs:** deliver separately tracked [class-level §@bindable§ #90](https://github.com/resistdesign/Estragon/issues/90) with exact class grammar, then T09-D two-way adapters/feedback/cycle controls and a real input component; keep scope serial and focused. Optional serialization/hydration only by independently approved task.
+5. **F05 — Model ergonomics and controlled inputs:** deliver separately tracked [class-level `@bindable` #90](https://github.com/resistdesign/Estragon/issues/90) with exact class grammar, then T09-D two-way adapters/feedback/cycle controls and a real input component; keep scope serial and focused. Optional serialization/hydration only by independently approved task.
 6. **F06 — Profile then optimize:** use instrumented render counts, element allocations, native new/free/move counts, layout/paint work, subscription counts and memory/leak checks. Profile representative inventory (nested lists, reorders), HUD (frequent property changes) and 2D/3D scenes. Memoize only where measurements warrant; avoid optimizing every frame/field by default.
 
 **Every implementation slice:** a scoped GitHub issue, mini-plan/checkpoints, one PR for owner review, reproducible Godot-native tests, no auto-merge. Verify **only official 4.0.4 and pinned 4.7.0 on Linux CI**, proportionate acceptance rather than unnecessary matrices. Preserve Godot-only no-tools editor F5/F6 and strict current-addon distribution/release evidence. New contributor automation uses TypeScript/Yarn, no Python. Recompute real graphics captures when relevant. Keep test evidence truthful: no stale FAIL relabeled PASS.
