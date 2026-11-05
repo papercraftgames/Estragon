@@ -7,5 +7,8 @@ var player: State = State.new():
 		var _gogo_previous_player: State = player
 		player = _gogo_incoming_player
 		player_changed.emit(_gogo_previous_player, _gogo_incoming_player)
+	get:
+		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"player_changed")
+		return player
 
 

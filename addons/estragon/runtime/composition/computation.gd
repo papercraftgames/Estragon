@@ -103,7 +103,9 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	record.type = desired.type
 	_apply(desired,record)
 	parent.add_child(node)
-	node.owner = owner
+	# F01 managed views are runtime output, intentionally not serialized into
+	# PackedScene. Reload mounts descriptions once; authored host ownership is
+	# untouched. Persisting adopted managed regions belongs to later cutover.
 	for child in desired.children: record.children.append(_mount(child,node,owner))
 	return record
 func _apply(desired: Element, record: Mounted) -> void:
@@ -131,8 +133,11 @@ func _free_managed(record: Mounted) -> void:
 	# before removing its Nodes; never recursively free application-owned actors.
 	var owner = host.get_ref()
 	for child in node.get_children():
+		var persisted_owner: Node = child.owner
 		node.remove_child(child)
-		if owner != null: owner.add_child(child)
+		if owner != null:
+			owner.add_child(child)
+			if persisted_owner != null and persisted_owner.is_ancestor_of(child): child.owner = persisted_owner
 	node.free()
 func dispose(remove_nodes: bool) -> void:
 	if disposed: return

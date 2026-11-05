@@ -6,6 +6,9 @@ const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const State = preload("res://addons/estragon/runtime/composition/state.tres")
 var assertions := 0
 var failures := 0
+var reentrant_host
+func cascade(_previous: int, value: int) -> void:
+	if value==5: reentrant_host.count = 6
 func check(value: bool, message: String) -> void:
 	assertions += 1
 	if not value:
@@ -43,6 +46,7 @@ func run() -> void:
 	check(record.runs==1,"unread bindable and equal value do not schedule")
 	# An unchanged desired value must not reset live native/game state.
 	label.color = Color.RED
+	ui.get_node("Panel/Title").color = Color.RED
 	button.text = "Native state"
 	scene.count += 1
 	scene.count += 1
@@ -52,7 +56,7 @@ func run() -> void:
 	check(record.runs==2 and other_record.runs==1,"only affected component reruns once per coalesced flush")
 	check(label.text=="Count: 3" and bar.layout_size.x==150.0,"function locals and automatic geometry recomposed")
 	check(ids==[ui.get_instance_id(),label.get_instance_id(),button.get_instance_id()] and record.allocations==7,"retains actual Node IDs without throwaway allocations")
-	check(label.color==Color.RED and button.text=="Native state","previous desired snapshots preserve unchanged native-owned values")
+	check(label.color==Color.RED and ui.get_node("Panel/Title").color==Color.RED and button.text=="Native state","previous desired snapshots preserve unchanged declared/native-owned values")
 	check(button.pressed.get_connections().size()==1,"rerun never duplicates native handlers")
 	button.pressed.emit()
 	await settle()
@@ -76,6 +80,14 @@ func run() -> void:
 	var outer: Dictionary = State.finish()
 	check(captured_count==4 and captured_width==200.0 and inner.size()==2 and outer.size()==1,"native getters retain typed values and nested scopes isolate reads")
 	check(State.scopes.is_empty(),"scope stack balanced after nested/native helper reads")
+	reentrant_host = scene
+	scene.count_changed.connect(cascade)
+	var before_runs: int = record.runs
+	scene.count = 5
+	await settle()
+	check(scene.count==6 and label.text=="Count: 6" and record.runs==before_runs+1,"synchronous reentrant source writes coalesce to one latest-value composition")
+	scene.count_changed.disconnect(cascade)
+	reentrant_host = null
 	root.remove_child(scene)
 	check(scene.count_changed.get_connections().is_empty() and scene.model.width_changed.get_connections().is_empty(),"native host removal suspends subscriptions")
 	scene.count = 9
@@ -85,10 +97,11 @@ func run() -> void:
 	var foreign := Node.new()
 	foreign.name = "Foreign"
 	ui.add_child(foreign)
+	foreign.owner = scene
 	var outside := Node.new()
 	scene.add_child(outside)
 	State.unmount(scene)
-	check(is_instance_valid(foreign) and foreign.get_parent()==scene and is_instance_valid(outside),"unmount frees managed Nodes only and preserves foreign children")
+	check(is_instance_valid(foreign) and foreign.get_parent()==scene and foreign.owner==scene and is_instance_valid(outside),"unmount frees managed Nodes only and preserves foreign children/owner")
 	check(scene.count_changed.get_connections().is_empty() and not scene.has_node("UI"),"unmount disconnects and removes managed region")
 	scene.free()
 	var source = neighbor.model
@@ -96,6 +109,19 @@ func run() -> void:
 	neighbor.free()
 	await settle()
 	check(source.width_changed.get_connections().is_empty() and State.records.is_empty(),"queued invalidation cannot touch freed host; records and observers released")
+	var persistent := Counter.new()
+	root.add_child(persistent)
+	await settle()
+	var packed := PackedScene.new()
+	check(packed.pack(persistent)==OK and persistent.get_node("UI").owner==null,"runtime managed view remains separate from authored scene owner persistence")
+	persistent.free()
+	persistent = packed.instantiate()
+	root.add_child(persistent)
+	await settle()
+	persistent.increment()
+	await settle()
+	check(persistent.get_child_count()==1 and persistent.get_node("UI/Panel/Count").text=="Count: 1","PackedScene reload remounts once without duplicate managed regions/handlers")
+	persistent.free()
 	var code := 'extends Node\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\n@bindable var count: int = 0\nfunc build_view() -> Element:\n\tvar value: String = String(count)\n\treturn <Node name={value} />\n'
 	var first := Compiler.compile(code,"proof.gogo")
 	var second := Compiler.compile(code,"proof.gogo")
@@ -123,6 +149,34 @@ func run() -> void:
 	var title: String = inherited.read_title()
 	var observed: Dictionary = State.finish()
 	check(title=="Native composition" and observed.size()==1,"inherited Gogo getter registers native read")
+	var resource_code := Compiler.compile('extends Resource\n@bindable var amount: int = 3\n',"resource.gogo")
+	var resource_script := GDScript.new()
+	resource_script.source_code = resource_code.code
+	check(resource_code.ok and resource_script.reload()==OK,"typed Resource model getter compiles")
+	var resource = resource_script.new()
+	State.begin()
+	var amount: int = resource.amount
+	observed = State.finish()
+	check(amount==3 and observed.size()==1,"Resource reads use the same scoped tracker without injected fields")
+	var resource_weak: WeakRef = weakref(resource)
+	resource = null
+	check(resource_weak.get_ref()==null,"read records hold Resource sources weakly")
+	var conditional_script := GDScript.new()
+	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\n'
+	check(conditional_script.reload()==OK,"ordinary helper branching compiles without a dependency-expression parser")
+	var conditional = conditional_script.new()
+	root.add_child(conditional)
+	await settle()
+	check(conditional.model.title_changed.get_connections().size()==1,"executed helper branch subscribes to its real read")
+	conditional.count = 1
+	await settle()
+	var conditional_record = State.records[conditional.get_instance_id()]
+	check(conditional.model.title_changed.get_connections().is_empty(),"new dynamic read set drops unexecuted helper branch dependency")
+	before_runs = conditional_record.runs
+	conditional.model.title = "Unused branch"
+	await settle()
+	check(conditional_record.runs==before_runs,"unread model change does not recompose")
+	conditional.free()
 	print("COMPOSITION_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
 	if failures==0: print("COMPOSITION_RUNTIME_OK")
 	quit(1 if failures else 0)
