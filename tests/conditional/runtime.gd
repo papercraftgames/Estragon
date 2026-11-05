@@ -128,6 +128,18 @@ func run() -> void:
 	panel.add_child(moved)
 	await settle()
 	check(State.records[moved.get_instance_id()]==moved_record and moved.model.title_changed.get_connections().size()==2,"reattached nested host reuses record and reconnects once")
+	panel.remove_child(moved)
+	root.add_child(moved)
+	moved.value += 1
+	scene.count = 1
+	await settle()
+	check(moved.get_parent()==panel and State.records[moved.get_instance_id()]==moved_record,"next parent commit restores declared slot parentage without recreating the transferred host")
+	check(moved.model.title_changed.get_connections().size()==2,"managed reparent keeps exactly one nested observer")
+	var missing_id: int = moved.get_instance_id()
+	moved.free()
+	scene.count = 0
+	await settle()
+	check(panel.get_node("Nested").get_instance_id()!=missing_id and scene.model.title_changed.get_connections().size()==2,"externally freed owned slot remounts once and releases its old scope")
 	# Declaration removal leaves native values, while event sets disconnect.
 	var current = scene.build_view()
 	var leaf = record.mounted.children[0].children[1]

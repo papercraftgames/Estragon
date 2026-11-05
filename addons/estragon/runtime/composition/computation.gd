@@ -9,6 +9,7 @@ class Mounted extends RefCounted:
 	var children: Array = []
 var host: WeakRef
 var state: WeakRef
+var parent_computation: WeakRef
 var mounted: Mounted
 var subscriptions: Dictionary = {}
 var queued := false
@@ -25,6 +26,12 @@ var _consecutive := 0
 func _init(owner: Node, manager: Resource) -> void:
 	host = weakref(owner)
 	state = weakref(manager)
+	var ancestor := owner.get_parent()
+	while ancestor != null:
+		if manager.records.has(ancestor.get_instance_id()):
+			parent_computation = weakref(manager.records[ancestor.get_instance_id()])
+			break
+		ancestor = ancestor.get_parent()
 func schedule(_previous: Variant = null, _value: Variant = null) -> void:
 	if not active or disposed: return
 	if _rendering: _again = true
@@ -32,6 +39,8 @@ func schedule(_previous: Variant = null, _value: Variant = null) -> void:
 		queued = true
 		state.get_ref().enqueue(self)
 func depth() -> int:
+	var parent = parent_computation.get_ref() if parent_computation != null else null
+	if parent != null and not parent.disposed: return parent.depth()+1
 	var node = host.get_ref()
 	var result := 0
 	while node != null:
@@ -151,6 +160,9 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 		return _mount(desired,parent,owner)
 	_apply(desired,record)
 	var node: Node = record.node.get_ref()
+	if node.get_parent()!=parent:
+		if node.get_parent()!=null: node.get_parent().remove_child(node)
+		parent.add_child(node)
 	var children: Array = []
 	for index in range(maxi(desired.children.size(),record.children.size())):
 		var next = desired.children[index] if index < desired.children.size() else null
@@ -192,7 +204,6 @@ func _preflight(desired, previous, parent: Node) -> bool:
 	for key in desired.handlers:
 		if not signals.has(key): return false
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null
-	if previous != null and previous.node.get_ref()==null: return false
 	if parent != null:
 		var name: String = str(desired.properties.get("name",str(node.name) if node != null else ""))
 		for existing in parent.get_children():
