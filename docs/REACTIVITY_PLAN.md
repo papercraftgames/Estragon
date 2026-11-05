@@ -1,13 +1,13 @@
 # Gogo reactivity and composition — implementation plan
 
-**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05/F06 remain future.
+**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05-A class-wide annotation is the current #90 review slice; F05-B/F06 remain future.
 
 **Active, owner-approved architecture:** [ADR-0016 — Signal-driven function composition and retained Godot reconciliation](REACTIVE_COMPOSITION_ARCHITECTURE.md), [decision entry](DECISIONS.md#adr-0016--signal-driven-function-recomposition-with-retained-native-nodes), [#89](https://github.com/resistdesign/Estragon/issues/89), [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5).
 
 **Shipped versus planned as of November 5, 2026:**
 - **Merged T09-A:** source-authored Gogo-only lowercase `@bindable` on typed instance fields, normal native GDScript setter/storage and typed per-property signals; non-Node RefCounted data models. See [BINDABLE_PROPERTIES](BINDABLE_PROPERTIES.md), [PR #85](https://github.com/resistdesign/Estragon/pull/85).
 - **Historical merged T09-B (replaced by F04):** reactive individual GGX properties/layout with explicit supported self paths, target-owned helper Nodes and coalesced native signal subscriptions. See [REACTIVE_GGX](REACTIVE_GGX.md), [PR #87](https://github.com/resistdesign/Estragon/pull/87). **Not a dynamic composition engine.**
-- **Merged F01/F02:** getter-observed view functions, virtual descriptions, conditional child slots and nested retained reconciliation. **Merged F03:** mapped/keyed sequences. **F04 review slice:** final cutover/removal. **Future:** class-level `@bindable`, observable in-place collection events, two-way binding and generic data graph hydration.
+- **Merged F01/F02:** getter-observed view functions, virtual descriptions, conditional child slots and nested retained reconciliation. **Merged F03:** mapped/keyed sequences. **Merged F04:** final cutover/removal (#99, `f655fac`). **F05-A review:** class-wide `@bindable` over existing typed getter/signals. **Future:** F05-B two-way binding, observable in-place collection events and generic data graph hydration.
 - **New ADR-0016 direction:** rewrite the final compiler/runtime **without a legacy compatibility burden** after each acceptance checkpoint, adopting a **single** automatic signal-driven recomposition/reconciliation path. Intermediate T09-B's particular compiled observer mechanism may be removed once equivalent checks pass.
 
 ## User mental model

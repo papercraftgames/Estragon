@@ -76,3 +76,7 @@ Focused Linux development: workflow mode `bindable`, one approved selected engin
 ## F04 cutover acceptance
 
 Focused workflow mode `cutover` runs existing compiler/GGX/native-UI/model groups on one approved Linux engine. Final strict evidence still requires every prior stage, including bindables, nested conditionals/keyed lists, saved/unsaved editor failure/repair, fresh/source-only cold build and bare exported pack execution. Source audit rejects removed compiler/runtime/binder paths and generated readers/attachments. See [removal/parity report](F04_CUTOVER.md) and live #98/its sole PR for exact commands, hashes, captures, outcomes and manual-smoke status. F05/F06 are not included.
+
+## F05-A class-wide annotation
+
+The existing strict bindable group now proves class-scope grammar, idempotent explicit/class markers, generated signals/equality/initialization/reentrancy/lifetime, native exports/maps, scope exclusions, mixed inheritance and class annotation editor rollback/repair. Existing conditional/keyed proofs use class-wide host/model/row declarations and retain IDs/state/subscription boundaries, including an unread class-wide host field. No observer runtime or extra strict group is added. Final acceptance remains only official Linux 4.0.4 + pinned 4.7.0 with existing fresh/cold/source-only/pack/graphics regressions. Exact results and manual-smoke status live in #90/its sole PR; F05-B is excluded.
