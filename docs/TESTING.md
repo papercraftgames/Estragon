@@ -1,3 +1,5 @@
+**F04 single-runtime cutover:** [Current contract, removal inventory and parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98). Every GGX expression now builds Element descriptions, including ordinary helpers/lambdas. Eager factories and per-target binding helpers are removed. F01–F03 are merged; live issue/sole PR records F04 verification/review. F05/F06 remain future. Earlier stage text below records that stage’s original scope.
+
 # Current native-addon verification
 
 > **ADR-0016 future verification:** [Reactive Composition Architecture](REACTIVE_COMPOSITION_ARCHITECTURE.md#11-delivery-plan-and-migration-gates) defines new F01–F06 acceptance for signal-driven function recomposition, actual Node identity, deep nested reconciliation, keyed list moves, safe commits and single-runtime cleanup. These future stages are **not** included in current-addon PASS evidence. Keep current checks honest; rebaseline former helper/eager-GGX tests during cutover, do not retain compatibility-only tests or mark untested new capabilities PASS.
@@ -70,3 +72,7 @@ Focused Linux development: workflow mode `bindable`, one approved selected engin
 ## F03 native mapped/keyed lists
 
 `tools/check-lists.ts` / focused workflow mode `lists` covers loop/map/native Array child sequences, key diagnostics, actual native IDs/state/operation counts, nested model observers, atomic rejection/repair, real editor main/current Play and four rendered inventory captures. It is required by the strict addon and cold/pack gates. Only official Linux 4.0.4 and pinned 4.7.0; exact evidence and manual-smoke status in #96/its sole PR. See [contract](F03_LISTS.md). F04–F06 remain future work.
+
+## F04 cutover acceptance
+
+Focused workflow mode `cutover` runs existing compiler/GGX/native-UI/model groups on one approved Linux engine. Final strict evidence still requires every prior stage, including bindables, nested conditionals/keyed lists, saved/unsaved editor failure/repair, fresh/source-only cold build and bare exported pack execution. Source audit rejects removed compiler/runtime/binder paths and generated readers/attachments. See [removal/parity report](F04_CUTOVER.md) and live #98/its sole PR for exact commands, hashes, captures, outcomes and manual-smoke status. F05/F06 are not included.

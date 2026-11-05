@@ -25,11 +25,18 @@ func apply(module) -> void:
 	for index in range(tokens.size()-6):
 		var token = tokens[index]
 		if token.text!="func" or token.span.start.column!=1 or tokens[index+1].text!="build_view": continue
-		if tokens[index+2].text!="(" or tokens[index+3].text!=")" or tokens[index+4].text!="->": continue
+		if tokens[index+2].text!="(" or tokens[index+3].text!=")" or tokens[index+4].text!="->":
+			if has_ggx:
+				file.fail("GGX hosts require zero-argument build_view() -> Element with an explicit preload alias",tokens[index+1].span.start.index,tokens[index+1].span.end.index)
+				return
+			continue
 		var type: String = tokens[index+5].text
 		if resolver.aliases.get(type,"")!="res://addons/estragon/runtime/composition/element.gd":
 			if has_ggx and type in ["Node","Node2D","Node3D"]:
 				file.fail("build_view must return Element descriptions; eager Node-returning GGX is unsupported",tokens[index+5].span.start.index,tokens[index+5].span.end.index)
+				return
+			if has_ggx:
+				file.fail("GGX build_view return type must preload composition/element.gd",tokens[index+5].span.start.index,tokens[index+5].span.end.index)
 				return
 			continue
 		if start>=0:

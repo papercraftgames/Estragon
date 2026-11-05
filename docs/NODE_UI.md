@@ -1,6 +1,6 @@
 # Native 2D UI — canonical C4 API
 
-> **Current shipped API through T09-B:** the Counter now uses Gogo `@bindable count` and automatic reactive text/disabled updates without manual `refresh()` ([PR #87](https://github.com/resistdesign/Estragon/pull/87)). The [approved ADR-0016 renderer](REACTIVE_COMPOSITION_ARCHITECTURE.md) will replace one-time eager GGX construction with signal-triggered function recomposition and a real lightweight Virtual DOM. That renderer is **not shipped yet**, and all reconciliation bookkeeping will remain external to native user Nodes. The sections below document existing C3/C4 component/layout APIs and historical removal evidence.
+> **F04 current composition path:** the canonical Counter uses a typed `build_view() -> Element`, generated bindable getter observation and the sole external manager. Eager GGX and per-target bindings are removed; see [cutover/parity](F04_CUTOVER.md) and live #98/its PR for verification/review. Native widget/layout APIs below are retained.
 
 
 [C3 #81](https://github.com/resistdesign/Estragon/issues/81) implements the existing minimal UI slice as production Node2D components. It builds on merged C1/C2 and the same shared mathematical core used by the 2D/3D runtime and proof paths. This is a bounded usable slice; broader widgets, focus/keyboard/touch, accessibility, rich text/wrapping, themes and general styling remain outside C3. Current native-addon release acceptance is tracked in #83; historical C01 verdicts remain archival facts.
@@ -9,7 +9,7 @@
 
 Open the repository in an approved Godot editor with the Estragon plugin enabled. Open `examples/counter/Counter.tscn` and Run Current Scene. Edit `examples/counter/Counter.gogo`; normal saved builds and compile-before-Play use only Godot and the bundled addon. Checked-in generated GDScript/maps let the scene open before the first rebuild. No Bun/Node/compiler executable setup is required by users.
 
-Click **+**: Count changes and Reset enables. Click **Reset**: Count returns to zero. Resize the window: the accent and nested action row follow the viewport; buttons share the available width. The label and buttons retain identity and subscriptions. The current Counter uses **T09-B reactive Gogo properties** for Count and Reset; its input uses ordinary named native `pressed` handlers. It does not manually rebuild the UI or have dynamic conditional composition. The example assigns `owner` separately from `add_child` and reuses a persisted subtree when loaded from a PackedScene.
+Click **+**: Count changes and Reset enables. Click **Reset**: Count returns to zero. Resize the window: the accent and nested action row follow the viewport; buttons share the available width. The label and buttons retain identity and subscriptions. The Counter reads bindable count in its view; the manager applies changed Count/Reset declarations to retained Nodes. Input uses named native pressed handlers. Managed output is transient owner=null; PackedScene persists the authored host and reconstructs output once on mount.
 
 ## Public components
 
@@ -53,4 +53,4 @@ C4 [#83](https://github.com/resistdesign/Estragon/issues/83) follows merged C3 P
 
 Current acceptance and actual verdict are recorded on #83 and its sole PR; [TESTING](TESTING.md) defines the native-addon gate. C4 is a review submission, not Done until owner review/merge. It does not implement broader widgets or bindings and does not authorize publishing.
 
-T09-B [reactive property/layout bindings](REACTIVE_GGX.md) use these native setters and their existing redraw/affected-branch invalidation; no parallel layout engine or position authority is added.
+Current [dynamic observed composition](REACTIVE_GGX.md) use these native setters and their existing redraw/affected-branch invalidation; no parallel layout engine or position authority is added.
