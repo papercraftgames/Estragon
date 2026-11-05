@@ -41,9 +41,10 @@ func run() -> void:
 	await settle()
 	var action = panel.get_node("Action")
 	check(not is_instance_valid(prompt) and action.pressed.get_connections().size()==1 and record.allocations==allocated+1 and record.frees==1,"false-to-true replaces exactly one slot and connects handler once")
+	action.rotation = 0.25
 	scene.count = 4
 	await settle()
-	check(panel.get_node("Action")==action and child_record.runs==1,"true-to-true retains Node and nested scope")
+	check(panel.get_node("Action")==action and action.rotation==0.25 and child_record.runs==1,"true-to-true retains Node and nested scope")
 	scene.show_bonus = true
 	await settle()
 	var bonus = panel.get_node("Bonus")
@@ -52,6 +53,10 @@ func run() -> void:
 	scene.count = 5
 	await settle()
 	check(bonus==panel.get_node("Bonus") and not is_instance_valid(wait) and bonus.get_node("Deep").layout_size.x==120.0,"deep nested conditional replaces leaf only and measures geometry")
+	var deep = bonus.get_node("Deep")
+	scene.model.width = 180.0
+	await settle()
+	check(bonus.get_node("Wide")==deep and deep.layout_size.x==180.0,"third-level conditional retains same compatible type while applying new geometry/name")
 	scene.show_bonus = false
 	await settle()
 	check(not is_instance_valid(bonus) and after==panel.get_node("After"),"optional branch removal retains sibling after null hole")
@@ -132,11 +137,11 @@ func run() -> void:
 	check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"conditional descriptors deterministic with source maps")
 	for invalid in ['else 3','else [<Node />]','else Node.new()']:
 		var compiled := Compiler.compile(source.replace('else null',invalid),"invalid.gogo")
-		if compiled.ok:
-			# Native semantic negatives are covered in editor, without suppressing
-			# arbitrary engine errors in this positive runtime process.
-			check(compiled.code.contains("_GogoElement"),"invalid child remains statically Element-typed: "+invalid)
-		else: check(compiled.diagnostics[0].span.start.line==5,"invalid child diagnostic authored line")
+		check(not compiled.ok and compiled.diagnostics[0].span.start.line==5,"invalid child result rejects at authored source: "+invalid)
+	var bad_key := Compiler.compile(source.replace('name="After"','name="After" key={1}'),"key.gogo")
+	check(not bad_key.ok and bad_key.diagnostics[0].message.contains("F03"),"sibling keys explicitly deferred to F03")
+	var duplicate := Compiler.compile(source.replace('<Node name="After" />','<Node name="After" /><Node name="After" />'),"duplicate.gogo")
+	check(not duplicate.ok and duplicate.diagnostics[0].message.contains("Duplicate"),"static duplicate sibling names reject before Play")
 	print("CONDITIONAL_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
 	if failures==0: print("CONDITIONAL_RUNTIME_OK")
 	quit(1 if failures else 0)

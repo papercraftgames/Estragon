@@ -17,7 +17,7 @@ func build_view() -> Element:
             <Text name="Always" text={"Count: %d" % count} />
             {<UiButton name="Action" text="Ready" pressed={increment} /> if count > 2 else <Text name="Prompt" text={model.title} />}
             {<VBox name="Bonus" gap={4.0}>
-                {<Rect name="Deep" width={model.width} height={8.0} /> if count > 4 else <Text name="Wait" text="Keep counting" />}
+                {(<Rect name="Deep" width={model.width} height={8.0} /> if model.width < 160.0 else <Rect name="Wide" width={model.width} height={8.0} />) if count > 4 else <Text name="Wait" text="Keep counting" />}
             </VBox> if show_bonus else null}
             <Text name="After" text="Stable sibling after optional slot" />
             {<Child name="Nested" model={model} /> if show_child else null}

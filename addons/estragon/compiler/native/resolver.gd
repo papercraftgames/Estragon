@@ -114,13 +114,40 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Di
 	if base.is_empty(): return _fail("Gogo component requires an explicit constructible Node base: "+authored,span)
 	var properties: Dictionary = base.get("properties",{}).duplicate()
 	var signals: Dictionary = base.get("signals",{}).duplicate()
+	var declarations: Array = []
+	for index in range(tokens.size()-3):
+		var token = tokens[index]
+		if token.text=="func" and token.span.start.column==1 and tokens[index+1].text=="_init":
+			var depth := 1
+			var parameter := false
+			var optional := false
+			for item in tokens.slice(index+3):
+				if item.text in ["(","[","{"]: depth += 1
+				elif item.text in [")","]","}"]:
+					depth -= 1
+					if depth==0:
+						if parameter and not optional: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
+						break
+				elif depth==1:
+					if item.text=="=": optional = true
+					elif item.text==",":
+						if parameter and not optional: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
+						parameter = false
+						optional = false
+					else: parameter = true
+		if token.text=="signal" and token.span.start.column==1: signals[tokens[index+1].text] = {"name":tokens[index+1].text}
+		if token.text!="var" or token.span.start.column!=1 or tokens[index+2].text!=":": continue
+		var end: int = index+3
+		while end+1<tokens.size() and tokens[end+1].span.start.line==token.span.start.line and tokens[end+1].text not in ["=",":"]: end += 1
+		declarations.append({"name":tokens[index+1].text,"type_name":source.text.substr(tokens[index+3].span.start.index,tokens[end].span.end.index-tokens[index+3].span.start.index),"signal_name":""})
 	for part in module.parts:
-		if not part is Model.Bindable: continue
+		if part is Model.Bindable: declarations.append(part)
+	for part in declarations:
 		var type: String = part.type_name
 		var kind: int = {"bool":TYPE_BOOL,"int":TYPE_INT,"float":TYPE_FLOAT,"String":TYPE_STRING,"StringName":TYPE_STRING_NAME,"Vector2":TYPE_VECTOR2,"Vector2i":TYPE_VECTOR2I,"Rect2":TYPE_RECT2,"Rect2i":TYPE_RECT2I,"Vector3":TYPE_VECTOR3,"Vector3i":TYPE_VECTOR3I,"Transform2D":TYPE_TRANSFORM2D,"Vector4":TYPE_VECTOR4,"Vector4i":TYPE_VECTOR4I,"Plane":TYPE_PLANE,"Quaternion":TYPE_QUATERNION,"AABB":TYPE_AABB,"Basis":TYPE_BASIS,"Transform3D":TYPE_TRANSFORM3D,"Projection":TYPE_PROJECTION,"Color":TYPE_COLOR,"NodePath":TYPE_NODE_PATH,"RID":TYPE_RID,"Callable":TYPE_CALLABLE,"Signal":TYPE_SIGNAL,"Dictionary":TYPE_DICTIONARY,"Array":TYPE_ARRAY,"PackedByteArray":TYPE_PACKED_BYTE_ARRAY,"PackedInt32Array":TYPE_PACKED_INT32_ARRAY,"PackedInt64Array":TYPE_PACKED_INT64_ARRAY,"PackedFloat32Array":TYPE_PACKED_FLOAT32_ARRAY,"PackedFloat64Array":TYPE_PACKED_FLOAT64_ARRAY,"PackedStringArray":TYPE_PACKED_STRING_ARRAY,"PackedVector2Array":TYPE_PACKED_VECTOR2_ARRAY,"PackedVector3Array":TYPE_PACKED_VECTOR3_ARRAY,"PackedColorArray":TYPE_PACKED_COLOR_ARRAY}.get(type,TYPE_OBJECT)
 		if type.begins_with("Array["): kind = TYPE_ARRAY
 		properties[part.name] = {"name":part.name,"type":kind,"class_name":(type if ClassDB.class_exists(type) else name+"."+type) if kind==TYPE_OBJECT else "","usage":PROPERTY_USAGE_DEFAULT}
-		signals[part.signal_name] = {"name":part.signal_name}
+		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name}
 	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals}
 
 func _fail(message: String, span: Model.Span) -> Dictionary:
