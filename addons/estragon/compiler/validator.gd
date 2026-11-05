@@ -156,7 +156,7 @@ func _key_expression(expression) -> void:
 	var first: String = tokens[0].text
 	var invalid := false
 	if tokens.size()==1:
-		invalid = first in ["null","true","false",'""',"''",'""""""',"''''''"] or tokens[0].kind=="number" and first.is_valid_float() and not first.is_valid_int()
+		invalid = first in ["<element>","null","true","false",'""',"''",'""""""',"''''''"] or tokens[0].kind=="number" and first.is_valid_float() and not first.is_valid_int()
 	elif tokens.size()==2 and first in ["+","-"] and tokens[1].kind=="number":
 		invalid = tokens[1].text.is_valid_float() and not tokens[1].text.is_valid_int()
 	elif first in ["[","{","&","<element>"]: invalid = true
