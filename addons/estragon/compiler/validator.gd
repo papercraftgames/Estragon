@@ -49,13 +49,20 @@ func _component(node: Model.Component) -> void:
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
-		if node.described and name=="key":
-			_error("GGX sibling keys and arrays are deferred to F03; conditional slots preserve identity",attribute.name_span)
-			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
 		seen[name] = true
+		if node.described and name=="key":
+			attribute.kind = "key"
+			attribute.type_name = "Variant"
+			if attribute.value is Model.Literal:
+				if str(attribute.value.value).is_empty(): _error("GGX key must be an integer or nonempty String",attribute.value.span)
+			else:
+				var text: String = file.slice(attribute.value.span).substr(1).trim_suffix("}").strip_edges()
+				if text in ["null","true","false"] or text.is_valid_float() and not text.is_valid_int() or text.contains(".new("):
+					_error("GGX key must be an integer or nonempty String",attribute.value.span)
+			continue
 		if signals.has(name):
 			attribute.kind = "signal"
 			attribute.type_name = "Callable"
@@ -89,6 +96,7 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			if attribute.kind == "property" and not node.described: reactive.analyze(attribute.value,attribute.name)
 	var sibling_names := {}
+	var sibling_keys := {}
 	for child in node.children:
 		if node.described and child is Model.GdExpression:
 			_node(child)
@@ -100,6 +108,13 @@ func _component(node: Model.Component) -> void:
 		_node(child)
 		if node.described and child is Model.Component:
 			for attribute in child.attributes:
+				if attribute.kind=="key":
+					var text: String = file.slice(attribute.value.span)
+					if attribute.value is Model.Literal or text.substr(1).trim_suffix("}").strip_edges().is_valid_int():
+						if sibling_keys.has(text):
+							_error("Duplicate declared sibling key "+text,attribute.value.span)
+							return
+						sibling_keys[text] = true
 				if attribute.name=="name" and attribute.value is Model.Literal:
 					var name: String = str(attribute.value.value)
 					if sibling_names.has(name):
@@ -148,7 +163,28 @@ func _child_result(tokens: Array, span) -> void:
 		_child_result(tokens.slice(0,conditional),span)
 		_child_result(tokens.slice(alternative+1),span)
 		return
-	_error("Conditional child results must be GGX Elements or null; arrays, scalars and live Nodes are unsupported",tokens[0].span if not tokens.is_empty() else span)
+	if tokens.size()>=2 and tokens[0].text=="[" and outer_close==tokens.size()-1:
+		var begin := 1
+		depth = 0
+		for index in range(1,tokens.size()-1):
+			var value: String = tokens[index].text
+			if value in ["(","[","{"]: depth += 1
+			elif value in [")","]","}"]: depth -= 1
+			elif value=="," and depth==0:
+				_child_result(tokens.slice(begin,index),span)
+				begin = index+1
+		if begin<tokens.size()-1: _child_result(tokens.slice(begin,tokens.size()-1),span)
+		return
+	# Unknown native expressions (locals, typed helper returns, Array.map) are
+	# runtime-validated as a complete desired tree. Obvious scalar/live Node
+	# leaves fail at their authored span, including conditional alternatives.
+	if not tokens.is_empty():
+		var first: String = tokens[0].text
+		var joined := ""
+		for token in tokens: joined += token.text
+		if first.is_valid_identifier() and first not in ["true","false"] and not joined.contains(".new(") and first not in ["Vector2","Vector3","Color","Dictionary","NodePath"]:
+			return
+	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 
 func _native_type(property: Dictionary) -> String:
 	if property.type == TYPE_OBJECT:

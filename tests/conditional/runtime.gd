@@ -177,11 +177,11 @@ func run() -> void:
 	var first := Compiler.compile(source,"conditional.gogo")
 	var second := Compiler.compile(source,"conditional.gogo")
 	check(first.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"conditional descriptors deterministic with source maps")
-	for invalid in ['else 3','else [<Node />]','else Node.new()']:
+	for invalid in ['else 3','else Node.new()']:
 		var compiled := Compiler.compile(source.replace('else null',invalid),"invalid.gogo")
 		check(not compiled.ok and compiled.diagnostics[0].span.start.line==5,"invalid child result rejects at authored source: "+invalid)
 	var bad_key := Compiler.compile(source.replace('name="After"','name="After" key={1}'),"key.gogo")
-	check(not bad_key.ok and bad_key.diagnostics[0].message.contains("F03"),"sibling keys explicitly deferred to F03")
+	check(bad_key.ok,"F03 sibling key compiles through the same conditional engine")
 	var duplicate := Compiler.compile(source.replace('<Node name="After" />','<Node name="After" /><Node name="After" />'),"duplicate.gogo")
 	check(not duplicate.ok and duplicate.diagnostics[0].message.contains("Duplicate"),"static duplicate sibling names reject before Play")
 	print("CONDITIONAL_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
