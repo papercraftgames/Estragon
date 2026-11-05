@@ -41,6 +41,8 @@ export function auditNativeSource() {
         if (/property_binding|_gogo_read_|expression\.dependencies|node\.described|root\.described|func _reader\(|func _component\(node: Model.Component, indentation/.test(text))
             throw Error('Retired compiler mode: ' + file);
     }
+    if (fs.readFileSync(path.join(ROOT, 'addons/estragon/editor/build_service.gd'), 'utf8').includes('item.result.mode'))
+        throw Error('Retired publication mode guard');
     for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo','reactive/Model','reactive/State','reactive/Demo','composition/Model','composition/Counter','conditional/Child','conditional/Counter','inventory/Item','inventory/Row','inventory/Inventory']) {
         const [dir, base] = name.split('/');
         const source = path.join(ROOT, 'examples', dir!, base! + '.gogo');

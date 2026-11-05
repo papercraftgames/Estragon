@@ -100,7 +100,7 @@ func _run() -> Dictionary:
 	for item in compiled:
 		_report.outputs.append(item.output)
 		writes[item.output] = item.result.code.to_utf8_buffer()
-		writes[item.output + ".map.json"] = item.result.source_map.serialize().to_utf8_buffer() if item.result.mode == "hybrid" else null
+		writes[item.output + ".map.json"] = item.result.source_map.serialize().to_utf8_buffer()
 	for path in writes:
 		if not _safe(_project.path_join(path)): return _report
 	# Stage new bytes; retain old files by rename so rollback preserves their

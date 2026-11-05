@@ -44,6 +44,7 @@ The manager defers/coalesces commits, orders parent work first, preflights the e
 | `compiler/reactive.gd` and `.uid` | Actual Gogo getter reads through `composition/state.tres`; native metadata resolver remains. |
 | `runtime/node/internal/property_binding.gd` and `.uid` | External computation records/subscriptions, single deferred manager and reconciler. No target-owned binder child. |
 | `GdExpression.dependencies`, `Component.described`, unused mode/number-token fields and impossible hybrid-mode guard, lexical `_mark` | One descriptor AST/lowering for all GGX; lexical composition entry detection only. |
+| Build-service conditional map publication by old compilation mode | Every Gogo compilation publishes its deterministic source map; actual-path transactional behavior unchanged. |
 | Emitter `_component`, `_reader`, reactive reader/source fields, eager owner/connection/child construction state and dispatch | `_description` plus typed mapped expression parameters. Reconciler owns actual native constructors/attachments. |
 | Generated `_gogo_read_*`, `binding_*`, eager `component_*` factory bodies | Rebuilt current scripts/maps with preserved script UIDs. |
 | Counter manual build/add/persist and GGX base `compose()->Node` manual mount | Automatic typed `build_view`, native event methods retained; camera/light and Resource subscriptions remain ordinary code. |
