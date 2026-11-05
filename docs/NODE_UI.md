@@ -1,6 +1,6 @@
 # Native 2D UI — canonical C4 API
 
-[C3 #81](https://github.com/resistdesign/Estragon/issues/81) implements the existing minimal UI slice as production Node2D components. It builds on merged C1/C2 and the same shared mathematical core used by the 2D/3D runtime and proof paths. This is a bounded usable slice; broader widgets, focus/keyboard/touch, accessibility, rich text/wrapping, themes, bindings and general styling remain outside C3. Current native-addon release acceptance is tracked in #83; historical C01 verdicts remain archival facts.
+[C3 #81](https://github.com/resistdesign/Estragon/issues/81) implements the existing minimal UI slice as production Node2D components. It builds on merged C1/C2 and the same shared mathematical core used by the 2D/3D runtime and proof paths. This is a bounded usable slice; broader widgets, focus/keyboard/touch, accessibility, rich text/wrapping, themes and general styling remain outside C3. Current native-addon release acceptance is tracked in #83; historical C01 verdicts remain archival facts.
 
 ## Run the Gogo Counter
 
@@ -49,3 +49,5 @@ C4 [#83](https://github.com/resistdesign/Estragon/issues/83) follows merged C3 P
 | C01/B1–C3 reports, source snapshots and R01 research | Preserved as explicitly Godot-ignored archival evidence; no active product dependencies or tolerated Logger errors in current imports. |
 
 Current acceptance and actual verdict are recorded on #83 and its sole PR; [TESTING](TESTING.md) defines the native-addon gate. C4 is a review submission, not Done until owner review/merge. It does not implement broader widgets or bindings and does not authorize publishing.
+
+T09-B [reactive property/layout bindings](REACTIVE_GGX.md) use these native setters and their existing redraw/affected-branch invalidation; no parallel layout engine or position authority is added.

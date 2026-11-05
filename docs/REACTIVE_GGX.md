@@ -26,9 +26,9 @@ A native helper is parented to its target, uses weak source/Node-host references
 
 Bindings assign existing typed properties. Color/fill/disabled invoke native redraw/input setters; dimensions/gap/fill flags and text use existing composed affected-branch layout invalidation and cached measurements. Deferred source applications coalesce before layout reflow; unrelated branches retain measurement caches. There is no second layout algorithm or ancestor transform feedback.
 
-**Reactive position/transform/rotation/scale and x/y are deferred** with an explicit diagnostic. Static native placement is unchanged. Parent HBox/VBox arrangement owns child positions; a separate positioning specification must distinguish layout-controlled offsets, native transform authority, hit testing and adapter behavior before adding bindings that can compete with it.
+**Reactive position/transform/rotation/scale and x/y are deferred** with an explicit diagnostic. Static native placement is unchanged. Parent HBox/VBox arrangement owns child positions; [positioning follow-up #88](https://github.com/resistdesign/Estragon/issues/88) must distinguish layout-controlled offsets, native transform authority, hit testing and adapter behavior before adding bindings that can compete with it.
 
-Run the reactive Counter (`examples/counter/Counter.tscn`) or nested-model style/geometry demo (`examples/reactive/Demo.tscn`). Counter increments/resets use only ordinary assignments. The model demo's `advance()` changes title/color/width through the same mechanism, preserving all UI Nodes and the unrelated once-only expression. Tests exercise real geometry, caches, model replacement/null/reentrancy, detach/reparent/free, PackedScene restoration, source diagnostics and actual editor Play rejection/rollback/repair.
+Run the reactive Counter (`examples/counter/Counter.tscn`) or nested-model style/geometry demo (`examples/reactive/Demo.tscn`). Counter increments/resets use only ordinary assignments. The model demo's button/`advance()` changes title/color/width through the same mechanism, preserving all UI Nodes and the unrelated once-only expression. Tests exercise real geometry, caches, model replacement/null/reentrancy, detach/reparent/free, PackedScene restoration, source diagnostics and actual editor Play rejection/rollback/repair.
 
 ## Verification and future work
 

@@ -11,7 +11,7 @@
 1. A formalization (merged PR #70) → B1 narrow native GGX composition/signals/persistence proof → B2 shared 2D/3D layout/entries → B3 native adapters and event/feedback proof.
 2. Only after B1–B3 are reviewed/merged: C1 runtime foundation → C2 general GGX compiler migration → C3 component/example parity → C4 RefCounted retirement, each a scoped serial PR.
 3. Historical C01 #41/#51 strict release was **BLOCKED** for the old artifact scope. #83 replaces discontinued gates with native-addon requirements; current genuine failures still block. #61 scoped fix merged/closed; raw-syntax findings, cold 4.0.4 scene restoration, #65 export cleanup and standalone export/platform disposition remain separate release work. Architecture/proof does not waive failures or alter gate expectations. Scope each proof's relevant blockers explicitly before implementation.
-4. T09-A #43 is active after merged C4 and passing current-addon gates; T09-B also needs C1–C3 layout/lifecycle, C/D follow B/collections. L01 #55 maps pixel padding/margin onto the composed 2D core after proof/C1; #54 helpers remain deferred. T10 retirement needs replacement parity/consumer audit and must coordinate with C4. R02 renderer research stays deferred.
+4. T09-A #43 is merged in PR #85 after C4; T09-B #86 is active on the proved native layout/lifecycle, C/D follow B/collections. L01 #55 maps pixel padding/margin onto the composed 2D core after proof/C1; #54 helpers remain deferred. T10 retirement needs replacement parity/consumer audit and must coordinate with C4. R02 renderer research stays deferred.
 
 Open decision gates: coordinate/overlay boundaries, 3D units/axes/wrapping/overflow, bounds providers and native/layout authority, transform feedback, scene owner persistence and type/import resolution. See the staged plan for each decision's owning task, measurable proof and explicit non-goals. No new language/tooling migration code or release certification is authorized in #69.
 
@@ -242,7 +242,7 @@ C01-A PR #52 merged `46bc752`. C01-B #45 now supplies the [focused runtime corre
 | C01-H [#51](https://github.com/resistdesign/Estragon/issues/51) | Gate/distribution infrastructure **merged PR #66**, release BLOCKED pending #61, cold scene, #65 and standalone export scope | Infrastructure merged; #61 first |
 | **#61 static lambda-helper** | **Scoped Done:** merged PR #67; full raw-syntax/release boundary remains blocked | C01-H strict gate merged PR #66 |
 
-Each issue contains measurable acceptance and exact evidence. Preserve semantic diagnostics, callback order, native no-tools workflow and framework-owned runtime. Do not replace unavailable APIs with unchecked no-ops. The historical compatibility queue is superseded for current delivery by merged C4 and the current-addon gate. T09-A #43 is active; later model binding/collection/two-way stages remain queued, with layout adapted to composed native Nodes by ADR-0015.
+Each issue contains measurable acceptance and exact evidence. Preserve semantic diagnostics, callback order, native no-tools workflow and framework-owned runtime. Do not replace unavailable APIs with unchecked no-ops. The historical compatibility queue is superseded for current delivery by merged C4 and the current-addon gate. T09-A #43 is merged and T09-B #86 is active; collection/two-way stages remain queued, with layout adapted to composed native Nodes by ADR-0015.
 
 ### C01-C progressive diagnostics
 

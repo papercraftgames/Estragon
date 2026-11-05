@@ -114,7 +114,7 @@ func _run() -> void:
 		await _blocked(mode,"Demo.gogo:")
 		_counter.text = _source.replace("width={self.model.player.width}", 'width={self.model.player.title}')
 		var mapped := ClassDB.class_exists("Logger") and ClassDB.class_exists("ScriptBacktrace")
-		await _blocked(mode,"Demo.gogo:27:" if mapped else "exact authored location unavailable")
+		await _blocked(mode,"Demo.gogo:28:" if mapped else "exact authored location unavailable")
 		_counter.text = _source
 		await _success(mode,0)
 		var moved := SOURCE+".backup"

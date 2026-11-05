@@ -199,6 +199,8 @@ See EDITOR/TESTING for setup, API evidence, guarantees and manual procedures.
 
 **T09-A implementation scope (2026-11-04, #43):** [Observable properties/models](BINDABLE_PROPERTIES.md) supplies the bounded declaration, native signal, initialization, equality, reentrancy and inheritance contract. Custom annotated accessors reject explicitly. This property foundation does not implement automatic GGX dependencies, collections/repeaters or two-way bindings. Review/merge state and measured engine evidence remain in the live issue/PR.
 
+**T09-B bounded delivery (#86):** [Reactive GGX](REACTIVE_GGX.md) supplies explicit self-path property dependencies, typed native model reads, weak target-owned subscriptions and deferred coalescing on the existing layout core. Position/transform bindings defer to #88; collections/repeaters and two-way/general cycle behavior remain future slices. Live issue/sole PR records review and engine evidence.
+
 ## ADR-0014 — Support Godot 4.0 and all subsequent 4.x versions
 
 **Status: accepted owner requirement, 2026-10-29. Implementation/verification in progress; 4.0 compatibility is NOT yet established.**

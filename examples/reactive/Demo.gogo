@@ -4,6 +4,7 @@ const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
 const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
 const Model = preload("res://examples/reactive/generated/Model.gd")
 @bindable var model: Model = Model.new()
 @bindable var count: int = 0
@@ -28,6 +29,7 @@ func build_view() -> Node:
                 <Rect name="Other" width={80.0} height={40.0} fill={Color(0.55,0.32,0.9)} />
             </HBox>
             <Text name="Count" text={"Value: %d" % (self.count + self.count)} />
+            <UiButton name="Advance" text="Change model and layout" pressed={advance} />
             <Text name="Independent" text={independent()} />
         </VBox>
     </Entry>
