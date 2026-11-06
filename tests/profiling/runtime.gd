@@ -55,7 +55,7 @@ func run() -> void:
     check(Profile.counts.is_empty() and Profile.timings.is_empty(),"disabled hook collects no counts/timing samples")
     cold.free()
     await settle()
-    Profile.enabled = true
+    Profile.set_enabled(true)
     var hud := ToggleDemo.new()
     await idle(hud,"class-wide-nested-hud")
     var host = State.records[hud.get_instance_id()]
@@ -132,7 +132,7 @@ func run() -> void:
         check(State.records.is_empty() and State.dirty.is_empty(),"repeated mount/free clears manager scopes and pending jobs")
     for weak in weak_models: check(weak.get_ref()==null,"replaced weak model released")
     cases.append({"name":"lifetime/12-cycles","objects_before":objects_before,"objects_after":Performance.get_monitor(Performance.OBJECT_COUNT),"static_memory_delta_bytes":OS.get_static_memory_usage()-memory_before})
-    Profile.enabled = false
+    Profile.set_enabled(false)
     Profile.reset()
     var output := FileAccess.open("res://profile.json",FileAccess.WRITE)
     output.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"platform":OS.get_name(),"warmup":WARMUP,"samples":SAMPLES,"cases":cases,"assertions":assertions,"failures":failures}))
