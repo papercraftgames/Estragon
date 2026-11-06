@@ -79,6 +79,14 @@ test('release workflow uses Voltra trigger/environment and isolates OIDC, bootst
     assert(yaml.includes("version: ['4.0.4', '4.7']"));assert(yaml.includes('ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY:'));assert(yaml.includes('needs: [prepare, publish, consumer]'));
 });
 
+test('registry verification prints the exact native package success marker as one line',()=>{
+    const publishedVerifier=fs.readFileSync(path.join(ROOT,'tools/verify-published-package.ts'),'utf8');
+    const consumer=fs.readFileSync(path.join(ROOT,'tools/check-package.ts'),'utf8');
+    assert(consumer.includes("'PACKAGE_PACK_OK'"));
+    assert(publishedVerifier.includes("console.log('PACKAGE_PACK_OK');"));
+    assert(!publishedVerifier.includes("console.log('PACKAGE_PACK_OK "));
+});
+
 test('registry consumer downloads original tar and rejects changed bytes or unrelated/missing signed provenance',async()=>{
     const f=fixture();try {
         const statement={predicateType:'https://slsa.dev/provenance/v1',subject:[{digest:{sha512:Buffer.from(f.report.integrity.slice(7),'base64').toString('hex')}}],predicate:{buildDefinition:{externalParameters:{workflow:{repository:'https://github.com/papercraftgames/Estragon',path:'.github/workflows/npm-release.yml',ref:'refs/tags/'+f.report.tag}},resolvedDependencies:[{digest:{gitCommit:head}}]},runDetails:{builder:{id:'https://github.com/actions/runner/github-hosted'}}}};
