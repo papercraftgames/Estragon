@@ -26,11 +26,13 @@ func click(node: Node2D) -> void:
     press.position = point
     press.pressed = true
     Input.parse_input_event(press)
+    await process_frame
     var release := InputEventMouseButton.new()
     release.button_index = MOUSE_BUTTON_LEFT
     release.position = point
     release.pressed = false
     Input.parse_input_event(release)
+    await process_frame
 func run() -> void:
     var scene := Demo.new()
     root.add_child(scene)
@@ -47,11 +49,11 @@ func run() -> void:
     toggle.value_changed.connect(edit)
     scene.model.enabled_changed.connect(changed)
     var runs: int = scope.runs
-    click(toggle)
+    await click(toggle)
     await settle()
     check(scene.model.enabled and toggle.value and label.text=="Enabled" and edits==[true] and changes==[[false,true]],"actual primary-pointer route edits native model exactly once")
     check(scope.runs==runs+1 and toggle.get_instance_id()==id and label==scene.get_node("UI/Panel/Status"),"one composed commit retains toggle and label")
-    click(toggle)
+    await click(toggle)
     await settle()
     check(not scene.model.enabled and edits==[true,false] and changes==[[false,true],[true,false]],"repeat pointer click produces one transition each")
     edits.clear()
@@ -93,14 +95,14 @@ func run() -> void:
         if next: scene.model.enabled = false
     scene.model.enabled_changed.connect(reentrant)
     edits.clear()
-    click(toggle)
+    await click(toggle)
     await settle()
     check(not scene.model.enabled and not toggle.value and edits==[true],"reentrant model restore wins at deferred commit even when old desired snapshot is unchanged")
     scene.model.enabled_changed.disconnect(reentrant)
     var reedit: Callable = func(_before: bool, next: bool):
         if next: toggle.value_changed.emit(false)
     scene.model.enabled_changed.connect(reedit)
-    click(toggle)
+    await click(toggle)
     await settle()
     check(scene.model.enabled and toggle.value,"reentrant edit callback is bounded and cannot ping-pong the boundary")
     scene.model.enabled_changed.disconnect(reedit)
@@ -108,14 +110,14 @@ func run() -> void:
     await settle()
     toggle.disabled = true
     edits.clear()
-    click(toggle)
+    await click(toggle)
     await settle()
     check(edits.is_empty() and not scene.model.enabled,"disabled pointer activation produces no edit")
     toggle.disabled = false
     # Host-local binding and selective subscriptions.
     var host_child_runs: int = child_scope.runs
     var host_toggle = scene.get_node("UI/Panel/HostEdit")
-    click(host_toggle)
+    await click(host_toggle)
     await settle()
     check(scene.enabled and host_toggle.value and child_scope.runs==host_child_runs,"host self binding uses same manager without nested rerender")
     var nested_toggle = row.get_node("RowView/Edit")
@@ -150,7 +152,7 @@ func run() -> void:
     root.add_child(scene)
     await settle()
     check(toggle==scene.get_node("UI/Panel/Edit") and toggle.value_changed.get_connections().size()==1,"reparent/resume reconnects exactly once retaining native input")
-    click(toggle)
+    await click(toggle)
     await settle()
     check(scene.model.enabled,"resumed pointer route writes current model")
     var packed := PackedScene.new()

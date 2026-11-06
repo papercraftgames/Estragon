@@ -1,5 +1,5 @@
 @bindable
-extends Node2D
+extends "res://addons/estragon/runtime/node/hbox.gd"
 const Model = preload("res://examples/twoway/generated/Model.gd")
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Box = preload("res://addons/estragon/runtime/node/hbox.gd")
