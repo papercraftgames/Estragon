@@ -21,5 +21,6 @@ if(import.meta.url==='file://'+process.argv[1]) {
     const report=JSON.parse(fs.readFileSync(path.join(approved,'release-ready.json'),'utf8'));
     if(report.sourceHead!==gitHead()||gitDirty())throw Error('Registry consumer must use exact clean reviewed source');
     await downloadRegistryPackage(report,output);
-    console.log('PACKAGE_PACK_OK REGISTRY_EXACT_TESTED_TARBALL');
+    console.log('PACKAGE_PACK_OK');
+    console.log('REGISTRY_EXACT_TESTED_TARBALL');
 }
