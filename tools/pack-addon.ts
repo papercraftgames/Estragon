@@ -4,13 +4,15 @@ import * as path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { ROOT, gitHead, gitDirty, sha256, writeJSON } from './compat-kit.ts';
+import { addonVersion, stagedPackageJson } from './package-version.ts';
 export function packAddon(output: string, requireClean = false) {
     if (!path.isAbsolute(output) || fs.existsSync(output)) throw Error('Package output must be a new absolute directory');
     if (requireClean && gitDirty()) throw Error('Release package requires clean source');
     const rootPackage = JSON.parse(fs.readFileSync(path.join(ROOT,'package.json'),'utf8'));
     if (rootPackage.name!=='estragon-tooling' || rootPackage.private!==true) throw Error('Root tooling must remain private');
     const spec = JSON.parse(fs.readFileSync(path.join(ROOT,'packages/estragon/package.json'),'utf8'));
-    if(spec.name!=='@papercraftgames/estragon' || !/^0\.\d+\.\d+-beta\.\d+$/.test(spec.version) || spec.license!=='MIT' || spec.repository?.url!=='git+https://github.com/papercraftgames/Estragon.git' || spec.publishConfig?.access!=='public' || spec.publishConfig?.tag!=='beta' || spec.publishConfig?.registry!=='https://registry.npmjs.org/') throw Error('Unexpected prepared package identity');
+    const version=addonVersion();
+    if(Object.hasOwn(spec,'version') || spec.name!=='@papercraftgames/estragon' || spec.license!=='MIT' || spec.repository?.url!=='git+https://github.com/papercraftgames/Estragon.git' || spec.publishConfig?.access!=='public' || spec.publishConfig?.tag!=='beta' || spec.publishConfig?.registry!=='https://registry.npmjs.org/') throw Error('Unexpected prepared package identity');
     if (['scripts','dependencies','devDependencies','optionalDependencies','bin','bundledDependencies'].some(key=>key in spec)) throw Error('Addon-only artifact has no lifecycle scripts/dependency/compiler payload');
     const tracked = execFileSync('git',['ls-files','-z','addons/estragon'],{cwd:ROOT,encoding:'utf8'}).split('\0').filter(Boolean).sort();
     if(!tracked.length) throw Error('No tracked addon files');
@@ -26,7 +28,10 @@ export function packAddon(output: string, requireClean = false) {
         if(file.endsWith('.gd.uid')) {const uid=fs.readFileSync(path.join(ROOT,file),'utf8').trim();if(!/^uid:\/\/[a-z0-9]+$/.test(uid)||uids.has(uid))throw Error('Invalid/duplicate addon UID');uids.add(uid);}
         copy(path.join(ROOT,file),file);
     }
-    for(const name of ['package.json','README.md','CHANGELOG.md'])copy(path.join(ROOT,'packages/estragon',name),name);
+    const stagedManifest=path.join(stage,'package.json');
+    fs.writeFileSync(stagedManifest,stagedPackageJson(spec,version));
+    hashes['package.json']=sha256(stagedManifest);
+    for(const name of ['README.md','CHANGELOG.md'])copy(path.join(ROOT,'packages/estragon',name),name);
     copy(path.join(ROOT,'LICENSE'),'LICENSE');
     const plugin=fs.readFileSync(path.join(stage,'addons/estragon/editor/plugin.cfg'),'utf8');
     if(!plugin.includes('script="plugin.gd"') || /Bun compilation/.test(plugin)) throw Error('Incorrect native plugin metadata');
@@ -48,7 +53,7 @@ export function packAddon(output: string, requireClean = false) {
     const unpacked=path.join(output,'unpacked');fs.mkdirSync(unpacked);execFileSync('tar',['-xzf',tarball,'-C',unpacked]);
     for(const [file,hash]of Object.entries(hashes))if(sha256(path.join(unpacked,'package',file))!==hash)throw Error('Packed bytes differ: '+file);
     const content=createHash('sha256').update(JSON.stringify(expected.map(p=>[p,hashes[p]]))).digest('hex');
-    const manifest={name:spec.name,version:spec.version,sourceHead:gitHead(),sourceDirty:gitDirty(),source_content_sha256:content,npm_version:execFileSync('npm',['--version'],{encoding:'utf8'}).trim(),tarball:packed.filename,tarball_sha256:sha256(tarball),integrity:packed.integrity,files:hashes,canonical_uids:uids.size,reproducible_pack:true};
+    const manifest={name:spec.name,version,sourceHead:gitHead(),sourceDirty:gitDirty(),source_content_sha256:content,npm_version:execFileSync('npm',['--version'],{encoding:'utf8'}).trim(),tarball:packed.filename,tarball_sha256:sha256(tarball),integrity:packed.integrity,files:hashes,canonical_uids:uids.size,reproducible_pack:true};
     writeJSON(path.join(output,'package-manifest.json'),manifest);
     return {tarball,manifest};
 }
