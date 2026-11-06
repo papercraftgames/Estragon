@@ -48,7 +48,10 @@ test('workflow retains visible PR statuses and immutable reverified cache; relea
     assert(!/^\s+paths(-ignore)?:/m.test(yaml));assert(yaml.includes('Native check policy status'));
     assert(yaml.includes("github.event_name != 'pull_request' || matrix.version == '4.7'"));
     assert(yaml.includes('runner.os')&&yaml.includes('runner.arch')&&yaml.includes('steps.engine.outputs.sha256'));assert(!yaml.includes('restore-keys:'));
-    assert(yaml.includes('Authenticate official Linux engine'));assert(yaml.includes('if [ "$EVENT_NAME" = pull_request ]; then'));assert(yaml.includes('Actual Godot logs must prove llvmpipe'));assert(yaml.includes("'[\"4.0.4\", \"4.7\"]'"));
+    assert(yaml.includes('Authenticate official Linux engine'));assert(yaml.includes('if [ "$EVENT_NAME" = pull_request ]; then'));assert(yaml.includes('Actual Godot logs must prove llvmpipe'));
+    const prSetup=yaml.slice(yaml.indexOf('if [ "$EVENT_NAME" = pull_request ]; then'),yaml.indexOf('# Full acceptance retains'));
+    assert(prSetup.includes('VK_DRIVER_FILES=') && prSetup.includes('VK_ICD_FILENAMES=') && prSetup.includes('test -f'));
+    assert(!prSetup.includes('xvfb-run -a vulkaninfo'));assert(yaml.includes("'[\"4.0.4\", \"4.7\"]'"));
     const orchestrator=fs.readFileSync(path.join(ROOT,'tools/check-native-addon.ts'),'utf8');
     assert(orchestrator.includes('if (requested || focused ||'));assert(orchestrator.indexOf('if (requested || focused ||')<orchestrator.indexOf("'addon-evidence.json'"));
     const release=fs.readFileSync(path.join(ROOT,'tools/verify-npm-release.ts'),'utf8');assert(release.includes("run.event!=='push'"));assert(release.includes("run.head_branch!=='main'"));assert(release.includes('assessFile('));

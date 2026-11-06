@@ -66,8 +66,18 @@ jobs:
           mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
           echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
           if [ "$EVENT_NAME" = pull_request ]; then
-            # PR fixtures use GL Compatibility. Actual Godot logs must prove llvmpipe;
-            # no Vulkan package installation or surrogate renderer probe is needed.
+            # Native editors initialize Vulkan services even in GL Compatibility.
+            # Select the software driver, without installing the separate vulkaninfo probe.
+            if ! compgen -G '/usr/share/vulkan/icd.d/lvp_icd*.json' >/dev/null; then
+              sudo apt-get update
+              sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers
+            fi
+            vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+            test "${#vulkan_icds[@]}" -eq 1
+            test -f "${vulkan_icds[0]}"
+            echo "VK_DRIVER_FILES=${vulkan_icds[0]}" >> "$GITHUB_ENV"
+            echo "VK_ICD_FILENAMES=${vulkan_icds[0]}" >> "$GITHUB_ENV"
+            # Actual Godot logs must prove llvmpipe; startup errors fail closed.
             command -v xvfb-run
             exit 0
           fi
