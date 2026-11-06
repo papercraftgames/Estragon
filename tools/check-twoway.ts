@@ -24,14 +24,13 @@ for (const selection of options.engines) {
                 const errors = lines.filter((l, i) => {
                     if (!/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(l))
                         return false;
-                    if (name === 'rejection' && l === 'ERROR: Invalid composition output or foreign boundary conflict; previous tree retained') return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/twoway/Demo.gogo\'.')
                         return false;
                     if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/twoway\/generated\/Demo\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/twoway\/Demo\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_handler" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;
                     return true;
                 });
                 stage.unexpected_errors = errors;
-                if (errors.length || /TWOWAY_(?:EDITOR|REJECTION)_CHECK .*: false/.test(text) || !text.includes(name === 'rejection' ? 'TWOWAY_REJECTION_CHECK' : 'TWOWAY_EDITOR_CHECK'))
+                if (errors.length || /TWOWAY_EDITOR_CHECK .*: false/.test(text) || !text.includes('TWOWAY_EDITOR_CHECK'))
                     stage.status = 'FAIL';
             }
             if (/instances leaked|Resources still in use/.test(text))

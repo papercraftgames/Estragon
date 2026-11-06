@@ -26,7 +26,8 @@ func _init(owner: Object, reader: Callable, property: StringName, writer: Callab
 	valid = typeof(value)==TYPE_BOOL and endpoint.has_signal(str(field)+"_changed")
 func current():
 	var owner = root.get_ref()
-	return read.call(owner) if is_instance_valid(owner) else null
+	var endpoint = read.call(owner) if is_instance_valid(owner) else null
+	return endpoint if is_instance_valid(endpoint) else null
 func same(other) -> bool:
 	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
 func attach(target: Node, scope) -> void:
