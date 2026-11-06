@@ -4,13 +4,13 @@ Pre-1.0 Godot addon: native Gogo/GGX compilation/editor, signal-driven descripti
 
 ## Install into a Godot project
 
-This package is being prepared for review; **it has not been published**. The version `0.1.0-beta.1` is a proposed first prerelease, subject to separate owner approval. Until publication, install the locally packed tarball:
+Install the currently published beta with Yarn. The `beta` dist-tag resolves to the published package; `--exact` pins its resolved version in the consumer's manifest:
 
 ```sh
-yarn add --exact --ignore-scripts file:/absolute/papercraftgames-estragon-0.1.0-beta.1.tgz
+yarn add --exact --ignore-scripts @papercraftgames/estragon@beta
 ```
 
-After an approved release exists, the equivalent dependency command is `yarn add --exact --ignore-scripts @papercraftgames/estragon@0.1.0-beta.1`. Yarn alone leaves the files under node_modules; it does not register a Godot plugin. From the project root, with no existing `addons/estragon` directory:
+Yarn alone installs into `node_modules`; it does not register a Godot plugin. From the project root, with no existing `addons/estragon` directory:
 
 ```sh
 touch node_modules/.gdignore
