@@ -14,7 +14,7 @@ bun install --frozen-lockfile
 bun run check
 ~~~
 
-Current CI runs these policy/typechecking tests once and the native addon runner once per approved Linux engine. No duplicate compatibility workflow remains. Select manual verification_mode=focused for compiler/UI/distribution development on 4.7 only; it cannot satisfy release acceptance.
+CI01 [PR-versus-main policy and performance evidence](CI_PERFORMANCE.md): PRs always report policy/typechecking and existing check names, with no Godot for documentation-only Markdown/license changes and conservative changed-code suites on pinned Linux4.7. Main pushes and full acceptance dispatch retain the complete73-stage runner on both approved Linux engines. No duplicate compatibility workflow remains. Focused development modes and --suites requests cannot generate release certification; exact-source successful main-push evidence remains mandatory for publication.
 
 ~~~sh
 # From a contributor environment; output directory must be new and absolute.
