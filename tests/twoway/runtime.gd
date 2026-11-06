@@ -81,14 +81,14 @@ func run() -> void:
     var weak: WeakRef = weakref(old)
     var callback = toggle.value_changed.get_connections()[0].callable
     scene.replace_model()
-    callback.call(false)
+    if callback.is_valid(): callback.call(false)
     check(old.enabled and not scene.model.enabled,"stale callback cannot write old or new model before replacement commit")
     old.enabled_changed.disconnect(changed)
     await settle()
     check(toggle==scene.get_node("UI/Panel/Edit") and not toggle.value and old.enabled_changed.get_connections().is_empty(),"retained input rewires to authoritative replacement and disconnects old dependencies")
     old = null
     check(weak.get_ref()==null,"binding records and generated closures do not retain old model")
-    callback.call(true)
+    if callback.is_valid(): callback.call(true)
     check(not scene.model.enabled,"disconnected captured callback remains inert after replacement")
     # Reentrant native model write wins, with no reciprocal user event or loop.
     var reentrant: Callable = func(_before: bool, next: bool):
@@ -124,7 +124,7 @@ func run() -> void:
     var stale = nested_toggle.value_changed.get_connections()[0].callable
     scene.show_row = false
     await settle()
-    stale.call(true)
+    if stale.is_valid(): stale.call(true)
     check(not is_instance_valid(row) and not scene.model.enabled,"unmounted keyed input callback cannot write")
     scene.model = null
     await settle()
@@ -146,8 +146,15 @@ func run() -> void:
     await settle()
     toggle = scene.get_node("UI/Panel/Edit")
     callback = toggle.value_changed.get_connections()[0].callable
+    var parent = toggle.get_parent()
+    parent.remove_child(toggle)
+    if callback.is_valid(): callback.call(true)
+    check(not scene.model.enabled and toggle.value_changed.get_connections().is_empty(),"direct input detach disconnects callback before any deferred repair")
+    await settle()
+    check(toggle.get_parent()==parent and toggle.value_changed.get_connections().size()==1,"safe commit restores retained declared input after native reparent")
+    callback = toggle.value_changed.get_connections()[0].callable
     root.remove_child(scene)
-    callback.call(true)
+    if callback.is_valid(): callback.call(true)
     check(not scene.model.enabled and toggle.value_changed.get_connections().is_empty(),"host detach disconnects input and suppresses captured callback")
     root.add_child(scene)
     await settle()
@@ -164,7 +171,7 @@ func run() -> void:
     restored.free()
     var retained = scene.model
     scene.free()
-    callback.call(false)
+    if callback.is_valid(): callback.call(false)
     check(retained.enabled and retained.enabled_changed.get_connections().is_empty() and State.records.is_empty(),"host free releases listeners/records and stale input cannot write")
     compiler_checks()
     print("TWOWAY_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
