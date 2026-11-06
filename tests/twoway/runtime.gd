@@ -34,6 +34,7 @@ func click(node: Node2D) -> void:
     Input.parse_input_event(release)
     await process_frame
 func run() -> void:
+    root.size = Vector2i(760,640)
     var scene := Demo.new()
     root.add_child(scene)
     await settle()
@@ -51,7 +52,7 @@ func run() -> void:
     var runs: int = scope.runs
     await click(toggle)
     await settle()
-    check(scene.model.enabled and toggle.value and label.text=="Enabled" and edits==[true] and changes==[[false,true]],"actual primary-pointer route edits native model exactly once")
+    check(scene.model.enabled and toggle.value and label.text=="Enabled" and edits==[true] and changes==[[false,true]],"actual primary-pointer route edits native model exactly once: "+str([scene.model.enabled,toggle.value,label.text,edits,changes]))
     check(scope.runs==runs+1 and toggle.get_instance_id()==id and label==scene.get_node("UI/Panel/Status"),"one composed commit retains toggle and label")
     await click(toggle)
     await settle()
@@ -182,6 +183,10 @@ func compiler_checks() -> void:
     for fixture in ["BadArity","BadSignal","BadValue"]:
         var bad_control := Compiler.compile(source.replace("res://addons/estragon/runtime/node/toggle.gd","res://tests/twoway/"+fixture+".gd"),"examples/twoway/Demo.gogo")
         check(not bad_control.ok and "writable bool value" in bad_control.diagnostics[0].message,"reject native input contract: "+fixture)
+    var collision := Compiler.compile('@bindable\nextends Node2D\nconst Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar _gogo_root: bool = false\nvar _gogo_source: bool = false\nvar _gogo_edit: bool = false\nfunc build_view() -> Element: return <Toggle bind:value={self._gogo_root} />\n',"collision.gogo")
+    var collision_script := GDScript.new()
+    collision_script.source_code = collision.code
+    check(collision.ok and collision_script.reload()==OK,"generated binding parameters avoid authored identifier collisions")
     var first := Compiler.compile(source,"examples/twoway/Demo.gogo")
     var second := Compiler.compile(source,"examples/twoway/Demo.gogo")
     check(first.ok and second.ok and first.code==second.code and first.source_map.serialize()==second.source_map.serialize(),"typed binding generation/maps deterministic")
