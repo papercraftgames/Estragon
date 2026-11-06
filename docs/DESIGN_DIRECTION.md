@@ -1,3 +1,5 @@
+> Historical 2026-11-02 design record: the native/description architecture has since shipped through F01–F06; [current implemented contracts](ARCHITECTURE.md) and [remaining roadmap](F06_PROFILING.md#remaining-framework-roadmap) supersede the implementation-status wording below. Preserve this record as design history.
+
 # Estragon design direction: Gogo, GGX and native layout
 
 **Owner-approved target, 2026-11-02; not implemented.** [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) formalizes [#68](https://github.com/resistdesign/Estragon/issues/68); [#69](https://github.com/resistdesign/Estragon/issues/69) is documentation/planning only. [ARCHITECTURE](ARCHITECTURE.md) separates this target from current code; [NODE_MIGRATION_PLAN](NODE_MIGRATION_PLAN.md) supplies serial successor tasks and unresolved decisions.
