@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import * as fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { ROOT, sha256 } from '../../tools/compat-kit.ts';
@@ -46,18 +47,16 @@ test('only the Godot plugin commits a release version; documentation contains no
     assert.equal(addonVersion(),plugin.match(/^version="([^"]+)"$/m)?.[1]);
     const metadata=JSON.parse(fs.readFileSync(path.join(root,'packages/estragon/package.json'),'utf8'));
     assert.equal(Object.hasOwn(metadata,'version'),false);
-    const pages=[
-        'README.md',
-        'packages/estragon/README.md',
-        'packages/estragon/CHANGELOG.md',
-        'docs/PACKAGING.md',
-        'docs/WORK_STATUS.md',
-        'docs/EXECUTION_PLAN.md',
-    ];
+    const tracked=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
     const pinnedPrerelease=/\b\d+\.\d+\.\d+-(?:alpha|beta|rc)\.\d+\b/i;
-    assert(pinnedPrerelease.test(addonVersion()));
-    for(const page of pages) {
-        const contents=fs.readFileSync(path.join(root,page),'utf8');
-        assert(!pinnedPrerelease.test(contents),'Documentation must use an npm dist-tag, not a pinned release version: '+page);
+    const version=addonVersion();
+    assert(pinnedPrerelease.test(version));
+    for(const file of tracked.filter(file=>file.endsWith('.md'))) {
+        const contents=fs.readFileSync(path.join(root,file),'utf8');
+        assert(!pinnedPrerelease.test(contents),'Documentation must not hardcode package release versions: '+file);
+    }
+    for(const file of tracked.filter(file=>/\.(?:ts|tsx|json|cfg|gd|gogo|yml|yaml|md)$/.test(file) && file!=='addons/estragon/editor/plugin.cfg')) {
+        const contents=fs.readFileSync(path.join(root,file),'utf8');
+        assert(!contents.includes(version),'Duplicate canonical package version outside plugin.cfg: '+file);
     }
 });
