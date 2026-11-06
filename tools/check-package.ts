@@ -2,6 +2,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, sha256, writeJSON, gitHead, gitDirty } from './compat-kit.ts';
+const published=process.env.ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY;
 const options=parseCLI(process.argv.slice(2));fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines) {
     const box=newSandbox(selection),out=path.join(options.output,selection.label), stages:Record<string,any>={};fs.mkdirSync(out,{recursive:true});
@@ -25,11 +26,11 @@ for(const selection of options.engines) {
             stages[name]=stage;writeJSON(path.join(out,'results.json'),stages);if(stage.status!=='PASS')throw Error('Package consumer '+name+' failed');
         }
         const packed=path.join(out,'packed');
-        await command('pack',[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/pack-addon.ts'),packed,'--require-clean'],box.workspace,process.env,'PACKAGE_PACK_OK');
+        await command('pack',published?[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/verify-published-package.ts'),published,packed]:[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/pack-addon.ts'),packed,'--require-clean'],box.workspace,process.env,'PACKAGE_PACK_OK');
         const manifest=JSON.parse(fs.readFileSync(path.join(packed,'package-manifest.json'),'utf8'));
         fs.mkdirSync(box.project,{recursive:true});
         writeJSON(path.join(box.project,'package.json'),{name:'estragon-native-consumer',private:true,packageManager:'yarn@1.22.22'});
-        await command('install',['corepack','yarn@1.22.22','add','--exact','--ignore-scripts','--non-interactive','--offline','--cache-folder',path.join(box.workspace,'yarn-cache'),'file:'+path.join(packed,manifest.tarball)],box.project,process.env);
+        await command('install',['corepack','yarn@1.22.22','add','--exact','--ignore-scripts','--non-interactive',...(published?[]:['--offline']),'--cache-folder',path.join(box.workspace,'yarn-cache'),published?'@papercraftgames/estragon@'+manifest.version:'file:'+path.join(packed,manifest.tarball)],box.project,process.env);
         const installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
         for(const [file,hash]of Object.entries(manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Yarn-installed payload hash mismatch: '+file);
         // These explicit copy/ignore steps are exactly the documented install contract.

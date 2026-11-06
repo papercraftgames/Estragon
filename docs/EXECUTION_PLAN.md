@@ -20,7 +20,7 @@
 
 ## P01 — cleanup and scoped addon package preparation
 
-After merged F06 #105 (`55156fb`), [#104](https://github.com/papercraftgames/Estragon/issues/104) prepares one addon-only `@papercraftgames/estragon` artifact, correct live examples/docs, explicit Yarn/copy installation, fresh native consumer/editor/rendered proof and manual trusted-publisher release workflow. [Contract/inventory](PACKAGING.md). Root tooling remains private; preserve existing 66 native stages and add package evidence. No npm publication, public tag/release, website work or merge. Initial publication/version/trusted-publisher activation remain separately owner-authorized; issue stays open until publication is verified. Remaining UI roadmap is not pulled into this PR.
+After merged F06 #105 (`55156fb`), [#104](https://github.com/papercraftgames/Estragon/issues/104) prepares one addon-only `@papercraftgames/estragon` artifact, correct live examples/docs, explicit Yarn/copy installation, fresh native consumer/editor/rendered proof and GitHub Release-triggered trusted-publisher workflow with one-time CI staged bootstrap. [Contract/inventory](PACKAGING.md). Root tooling remains private; preserve existing 66 native stages and add package evidence. No npm publication, public tag/release, website work or merge. Initial publication/version/trusted-publisher activation remain separately owner-authorized; issue stays open until publication is verified. Remaining UI roadmap is not pulled into this PR.
 
 ## Historical milestones and preserved acceptance contracts
 

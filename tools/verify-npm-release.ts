@@ -1,4 +1,4 @@
-/** Manual release preparation gate. Validates existing main CI; never publishes. */
+/** Automatic exact-source main CI discovery and package preparation; never publishes. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -6,16 +6,28 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { ROOT, gitHead, gitDirty, sha256, writeJSON } from './compat-kit.ts';
 import { assessFile } from './assert-release.ts';
+import { currentContext, selectVerificationRun, REPOSITORY } from './release-context.ts';
 export function verifyReleaseIdentity(run:any, expectedVersion:string, repository:string, source = {head:gitHead(),dirty:gitDirty()}) {
     const spec=JSON.parse(fs.readFileSync(path.join(ROOT,'packages/estragon/package.json'),'utf8'));
     if(repository!=='papercraftgames/Estragon' || run.repository?.full_name!==repository || run.path!=='.github/workflows/ci.yml' || run.event!=='push' || run.head_branch!=='main' || run.head_sha!==source.head || run.conclusion!=='success' || run.status!=='completed')throw Error('Successful canonical main CI at exact release source required');
     if(expectedVersion!==spec.version || !/^0\.\d+\.\d+-beta\.\d+$/.test(expectedVersion) || source.dirty)throw Error('Approved exact prepared prerelease version and clean source required');
 }
 if(import.meta.url==='file://'+process.argv[1]) {
-    const [runId,version,output]=process.argv.slice(2);
-    if(!runId || !/^\d+$/.test(runId) || !version || !output || !path.isAbsolute(output)||fs.existsSync(output))throw Error('Usage: verify-npm-release.ts CI_RUN_ID EXACT_VERSION NEW_ABSOLUTE_OUTPUT');
-    const repository=process.env.GITHUB_REPOSITORY||'papercraftgames/Estragon';
-    const run=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/runs/'+runId],{encoding:'utf8'}));
+    const [output]=process.argv.slice(2);
+    if(!output || !path.isAbsolute(output)||fs.existsSync(output))throw Error('Usage: verify-npm-release.ts NEW_ABSOLUTE_OUTPUT');
+    const context=currentContext(), version=context.version, repository=REPOSITORY;
+    let run:any=null;
+    for(let attempt=0;attempt<120;attempt++) {
+        const response=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/workflows/ci.yml/runs?event=push&head_sha='+gitHead()+'&per_page=100'],{encoding:'utf8'}));
+        run=selectVerificationRun(response.workflow_runs,gitHead());
+        if(run)break;
+        if(attempt===119)throw Error('Timed out waiting for exact main CI; no package prepared');
+        console.log('Waiting for exact main-push CI at '+gitHead());
+        await new Promise(resolve=>setTimeout(resolve,15000));
+    }
+    const runId=String(run.id);
+    // The run-list entry may omit repository metadata; authenticate the selected run.
+    run=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/runs/'+runId],{encoding:'utf8'}));
     verifyReleaseIdentity(run,version,repository);
     fs.mkdirSync(output,{recursive:true});
     for(const label of ['4.0.4','4.7'])execFileSync('gh',['run','download',runId,'--repo',repository,'--name','native-addon-'+label,'--dir',path.join(output,label)],{stdio:'inherit'});
@@ -49,6 +61,6 @@ if(import.meta.url==='file://'+process.argv[1]) {
     if(packages[0]!.manifest.tarball_sha256!==packages[1]!.manifest.tarball_sha256 || packages[0]!.manifest.source_content_sha256!==packages[1]!.manifest.source_content_sha256)throw Error('Engine jobs did not test the same reproducible tarball');
     const artifact=packages[0]!;
     fs.copyFileSync(artifact.tarball,path.join(output,artifact.manifest.tarball));
-    writeJSON(path.join(output,'release-ready.json'),{repository,sourceHead:gitHead(),version,verification_run:runId,tarball:artifact.manifest.tarball,tarball_sha256:artifact.manifest.tarball_sha256,integrity:artifact.manifest.integrity,files:artifact.manifest.files,published:false,owner_authorization_required:true});
+    writeJSON(path.join(output,'release-ready.json'),{...context,repository,sourceHead:gitHead(),version,verification_run:runId,source_content_sha256:artifact.manifest.source_content_sha256,tarball:artifact.manifest.tarball,tarball_sha256:artifact.manifest.tarball_sha256,integrity:artifact.manifest.integrity,files:artifact.manifest.files,published:false,dist_tag:'beta'});
     console.log('NPM_RELEASE_PREPARATION_OK');
 }

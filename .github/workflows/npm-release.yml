@@ -1,61 +1,145 @@
-name: Manually approved npm release preparation
+# Reference: resistdesign/voltra/.github/workflows/release-npm.yml (release.published/OIDC).
+name: Release scoped native addon to npm
 on:
-  workflow_dispatch:
-    inputs:
-      verification_run:
-        description: Successful canonical main Native addon acceptance run ID
-        required: true
-        type: string
-      version:
-        description: Exact separately owner-approved version in packages/estragon/package.json
-        required: true
-        type: string
-      publish:
-        description: Publish only after separate owner authorization and protected npm-release setup
-        type: boolean
-        default: false
+  release:
+    types: [published]
+  workflow_dispatch: {} # Optional read-only main preview; never publishes.
 permissions:
   contents: read
   actions: read
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
 jobs:
   prepare:
-    if: github.repository == 'papercraftgames/Estragon' && github.ref == 'refs/heads/main'
+    if: github.repository == 'papercraftgames/Estragon'
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22.16.0'
-      - name: Validate approved version and exact full two-engine evidence
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Discover exact main CI and verify both native acceptance artifacts
         env:
           GH_TOKEN: ${{ github.token }}
-          CI_RUN: ${{ inputs.verification_run }}
-          RELEASE_VERSION: ${{ inputs.version }}
-        run: node --experimental-strip-types tools/verify-npm-release.ts "$CI_RUN" "$RELEASE_VERSION" "$RUNNER_TEMP/approved-package"
+        run: node --experimental-strip-types tools/verify-npm-release.ts "$RUNNER_TEMP/approved-package"
       - uses: actions/upload-artifact@v4
         with:
           name: approved-npm-package
+          if-no-files-found: error
           path: |
             ${{ runner.temp }}/approved-package/*.tgz
             ${{ runner.temp }}/approved-package/release-ready.json
   publish:
     needs: prepare
-    if: inputs.publish && vars.NPM_PUBLISH_ENABLED == 'true' && github.repository == 'papercraftgames/Estragon' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    environment: npm-release
+    timeout-minutes: 70
+    environment: npm-publish
     permissions:
       contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22.16.0'
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
           registry-url: https://registry.npmjs.org
-      - run: npm install --global npm@11.13.0
+      - run: npm install --global npm@11.21.2
       - uses: actions/download-artifact@v4
         with:
           name: approved-npm-package
-          path: approved-package
-      - name: Verify exact already-tested tarball before OIDC publish
-        run: node --experimental-strip-types tools/publish-prepared.ts approved-package
+          path: ${{ runner.temp }}/approved-package
+      - name: Publish exact tested tarball via OIDC (one-time absent-package staging supported)
+        env:
+          NPM_BOOTSTRAP_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
+        run: node --experimental-strip-types tools/publish-prepared.ts "$RUNNER_TEMP/approved-package"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-publication-status
+          path: ${{ runner.temp }}/approved-package/publication-status.json
+  consumer:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ['4.0.4', '4.7']
+    env:
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      GODOT_VERSION: ${{ matrix.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: approved-npm-package
+          path: ${{ runner.temp }}/approved-package
+      - name: Verify software graphics
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
+          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
+          test "${#vulkan_icds[@]}" -eq 1
+          vulkan_icd="${vulkan_icds[0]}"
+          test -f "$vulkan_icd"
+          mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
+          VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
+            XDG_RUNTIME_DIR="$RUNNER_TEMP/xdg-runtime" xvfb-run -a vulkaninfo --summary
+          echo "VK_DRIVER_FILES=$vulkan_icd" >> "$GITHUB_ENV"
+          echo "VK_ICD_FILENAMES=$vulkan_icd" >> "$GITHUB_ENV"
+          echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
+      - name: Authenticate official Linux engine
+        run: node --experimental-strip-types tools/download-compat-engine.ts
+      - name: Fresh registry Yarn to Godot native consumer
+        working-directory: ${{ runner.temp }}
+        env:
+          ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY: ${{ runner.temp }}/approved-package
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-native-addon.ts"
+          --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/published-consumer" --package-only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-consumer-${{ matrix.version }}
+          path: ${{ runner.temp }}/published-consumer
+  result:
+    if: always()
+    needs: [prepare, publish, consumer]
+    runs-on: ubuntu-latest
+    env:
+      EVENT_NAME: ${{ github.event_name }}
+      PREPARE_RESULT: ${{ needs.prepare.result }}
+      PUBLISH_RESULT: ${{ needs.publish.result }}
+      CONSUMER_RESULT: ${{ needs.consumer.result }}
+    steps:
+      - name: Record release result (publication alone is not acceptance)
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs');
+          const {EVENT_NAME,PREPARE_RESULT,PUBLISH_RESULT,CONSUMER_RESULT,GITHUB_STEP_SUMMARY}=process.env;
+          const passed=PREPARE_RESULT==='success' && (EVENT_NAME==='workflow_dispatch' || PUBLISH_RESULT==='success' && CONSUMER_RESULT==='success');
+          const report={event:EVENT_NAME,preparation:PREPARE_RESULT,publication:PUBLISH_RESULT,nativeConsumer:CONSUMER_RESULT,status:passed?'PASS':'FAIL',preview:EVENT_NAME==='workflow_dispatch'};
+          fs.writeFileSync('release-result.json',JSON.stringify(report,null,2));
+          fs.appendFileSync(GITHUB_STEP_SUMMARY,'### npm release evidence\n\n```json\n'+JSON.stringify(report,null,2)+'\n```\nA failed post-publish check leaves the registry version immutable; rerun verification after repair, never substitute bytes.\n');
+          process.exitCode=passed?0:1;
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-release-result
+          path: release-result.json

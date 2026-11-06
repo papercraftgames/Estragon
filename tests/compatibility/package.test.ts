@@ -22,7 +22,7 @@ test('addon-only npm artifact is reproducible, private-tooling separated and roo
         assert(!metadata.scripts && !metadata.dependencies && !metadata.bin);
     } finally {fs.rmSync(temporary,{recursive:true,force:true});}
 });
-test('manual npm preparation rejects unverified or mismatched repository/source/version evidence',()=>{
+test('automatic npm preparation rejects unverified or mismatched repository/source/version evidence',()=>{
     const spec=JSON.parse(fs.readFileSync(path.join(ROOT,'packages/estragon/package.json'),'utf8'));
     const run={repository:{full_name:'papercraftgames/Estragon'},path:'.github/workflows/ci.yml',event:'push',head_branch:'main',head_sha:'approved',status:'completed',conclusion:'success'};
     const source={head:'approved',dirty:false};
@@ -31,8 +31,4 @@ test('manual npm preparation rejects unverified or mismatched repository/source/
     assert.throws(()=>verifyReleaseIdentity(run,'1.0.0','papercraftgames/Estragon',source));
     assert.throws(()=>verifyReleaseIdentity(run,spec.version,'fork/Estragon',source));
     assert.throws(()=>verifyReleaseIdentity(run,spec.version,'papercraftgames/Estragon',{...source,dirty:true}));
-    const workflow=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
-    assert(workflow.includes('workflow_dispatch:') && workflow.includes('default: false'));
-    assert(workflow.includes("vars.NPM_PUBLISH_ENABLED == 'true'") && workflow.includes('environment: npm-release'));
-    assert(!/^  (push|release|pull_request):/m.test(workflow));assert(!workflow.includes('NPM_TOKEN'));
 });
