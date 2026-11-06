@@ -9,13 +9,14 @@ import { releaseContext, selectVerificationRun, REPOSITORY } from '../../tools/r
 import { executePublication, verifyPreparedIdentity } from '../../tools/publish-prepared.ts';
 import { downloadRegistryPackage } from '../../tools/verify-published-package.ts';
 import { publicationAction, verifyRegistryIdentity, verifyRegistryTar, PACKAGE } from '../../tools/registry-package.ts';
-const version='0.1.0-beta.2',head='reviewed',source={head,dirty:false};
+import { addonVersion } from '../../tools/package-version.ts';
+const version=addonVersion(),head='reviewed',source={head,dirty:false};
 const event={repository:{full_name:REPOSITORY},action:'published',release:{id:42,draft:false,prerelease:true,tag_name:'v'+version}};
 const context=releaseContext(event,'release','refs/tags/v'+version,version,source);
 test('only matching published main-source prerelease authorizes publishing; dispatch is preview',()=>{
     assert.equal(context.mode,'release');
     assert.equal(releaseContext(event,'workflow_dispatch','refs/heads/main',version,source).mode,'preview');
-    for(const release of [{draft:true},{prerelease:false},{tag_name:'v0.1.0-beta.1'},{id:null}])assert.throws(()=>releaseContext({...event,release:{...event.release,...release}},'release','refs/tags/v'+version,version,source));
+    for(const release of [{draft:true},{prerelease:false},{tag_name:'v'+version.replace(/\d+$/,n=>String(Number(n)+1))},{id:null}])assert.throws(()=>releaseContext({...event,release:{...event.release,...release}},'release','refs/tags/v'+version,version,source));
     for(const [name,ref]of [['push','refs/heads/main'],['release','refs/heads/main'],['workflow_dispatch','refs/heads/feature']])assert.throws(()=>releaseContext(event,name!,ref!,version,source));
     assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,version,source,'moved-tag'));
     assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,version,source,head,false));
