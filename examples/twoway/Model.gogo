@@ -1,0 +1,4 @@
+@bindable
+extends RefCounted
+var enabled: bool = false
+var note: String = "Model is authoritative"

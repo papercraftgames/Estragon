@@ -9,6 +9,7 @@ class Argument extends RefCounted:
 	var expression: Model.GdExpression
 	var type_name: String
 	var name: String
+	var binding_path: Array = []
 
 class Factory extends RefCounted:
 	var name: String
@@ -83,7 +84,9 @@ func _argument(expression: Model.GdExpression, type_name: String, factory: Facto
 
 func _collect(node: Model.Component, factory: Factory) -> void:
 	for attribute in node.attributes:
-		if attribute.value is Model.GdExpression: _argument(attribute.value, attribute.type_name, factory)
+		if attribute.value is Model.GdExpression:
+			_argument(attribute.value, attribute.type_name, factory)
+			if attribute.kind=="binding": factory.arguments.back().binding_path = attribute.binding_path
 	for child in node.children:
 		if child is Model.GdExpression: _argument(child,"Variant",factory)
 		else: _collect(child, factory)
@@ -114,7 +117,8 @@ func _call(node: Model.Component) -> void:
 		if index > 0: _writer.append("," if multiline else ", ", node.span)
 		if multiline: _writer.append("\n" + base + _module.indentation, argument.expression.span)
 		_writer.append("(", argument.expression.span)
-		_parts(argument.expression.parts)
+		if argument.binding_path.is_empty(): _parts(argument.expression.parts)
+		else: _binding_argument(argument)
 		_writer.append(")", argument.expression.span)
 	_writer.append(("\n" + base if multiline else "") + ")", node.span)
 
@@ -139,10 +143,14 @@ func _description(node: Model.Component, indentation: String) -> String:
 	_variable += 1
 	var props := PackedStringArray()
 	var events := PackedStringArray()
+	var bindings := PackedStringArray()
 	var key := "null"
 	var keyed := "false"
 	for attribute in node.attributes:
 		var value: String = _arguments[attribute.value].name if attribute.value is Model.GdExpression else literal(attribute.value)
+		if attribute.kind == "binding":
+			bindings.append(_string("value")+": "+value)
+			continue
 		if attribute.kind == "key":
 			key = value
 			keyed = "true"
@@ -154,6 +162,7 @@ func _description(node: Model.Component, indentation: String) -> String:
 		children.append(_arguments[child].name if child is Model.GdExpression else _description(child,indentation))
 	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s, %s, %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column]),key,keyed],node.span,indentation)
+	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
 	return variable
 
 func _bindable(property: Model.Bindable) -> void:
@@ -182,3 +191,19 @@ func _bindable(property: Model.Bindable) -> void:
 	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
 	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload(\"res://addons/estragon/runtime/composition/state.tres\").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)
+
+func _binding_argument(argument: Argument) -> void:
+	var path := argument.binding_path.duplicate()
+	var field: String = path.pop_back()
+	var owner := "_gogo_root"
+	var source := "_gogo_source"
+	var edit := "_gogo_edit"
+	while _module.identifiers.has(owner): owner += "_"
+	while _module.identifiers.has(source): source += "_"
+	while _module.identifiers.has(edit): edit += "_"
+	var endpoint := owner
+	var checks: Array[String] = [owner+" != null"]
+	for name in path:
+		endpoint += "."+str(name)
+		checks.append(endpoint+" != null")
+	_writer.append("preload(\"res://addons/estragon/runtime/composition/binding.gd\").new(self, func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)

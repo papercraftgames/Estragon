@@ -1,5 +1,6 @@
 extends RefCounted
 ## F01 computation and retained static-shape records external to native objects.
+const Binding = preload("res://addons/estragon/runtime/composition/binding.gd")
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 class Mounted extends RefCounted:
 	var node: WeakRef
@@ -9,6 +10,7 @@ class Mounted extends RefCounted:
 	var slot: Array = []
 	var properties: Dictionary = {}
 	var handlers: Dictionary = {}
+	var bindings: Dictionary = {}
 	var children: Array = []
 var host: WeakRef
 var state: WeakRef
@@ -52,6 +54,7 @@ func depth() -> int:
 	return result
 func suspend() -> void:
 	active = false
+	_disconnect_bindings(mounted)
 	_disconnect()
 func resume() -> void:
 	active = true
@@ -110,6 +113,7 @@ func _normalize(value, ancestors: Array = [], level: int = 0):
 	var next := ancestors.duplicate()
 	next.append(value)
 	var result := Element.new(value.type,value.properties,value.handlers,[],value.source,value.key,value.keyed)
+	result.bindings = value.bindings.duplicate()
 	if not _flatten(value.children,[],result.children,next,level+1): return null
 	return result
 func _key_valid(key) -> bool:
@@ -148,6 +152,8 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	elif desired.type is Script:
 		if not desired.type.can_instantiate() or not ClassDB.is_parent_class(desired.type.get_instance_base_type(),"Node"): return false
 	else: return false
+	for binding in desired.bindings.values():
+		if not binding is Binding or not binding.valid: return false
 	for handler in desired.handlers.values():
 		if not handler is Callable or not handler.is_valid(): return false
 	var names := {}
@@ -231,6 +237,17 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	return record
 func _apply(desired: Element, record: Mounted) -> void:
 	var node: Node = record.node.get_ref()
+	for key in record.bindings.keys():
+		if not desired.bindings.has(key) or not record.bindings[key].same(desired.bindings[key]):
+			record.bindings[key].disconnect_edit()
+			record.bindings.erase(key)
+	for key in desired.bindings:
+		var binding = record.bindings.get(key,desired.bindings[key])
+		record.bindings[key] = binding
+		if not is_same(node.get(key),desired.bindings[key].value):
+			node.set(key,desired.bindings[key].value)
+			writes += 1
+		binding.attach(node,self)
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			node.set(key,desired.properties[key])
@@ -345,6 +362,14 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		if kind==TYPE_OBJECT and value!=null:
 			var expected: String = str(properties[key].get("class_name",""))
 			if ClassDB.class_exists(expected) and not value.is_class(expected): return false
+	for key in desired.bindings:
+		if key!="value" or desired.properties.has(key) or desired.handlers.has("value_changed") or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
+		var args: Array = signals.get("value_changed",{}).get("args",[])
+
+		# 4.0 lacks signal argument type metadata. Compiler source proof and
+		# native typed callback still apply; optional introspection cannot
+		# reject a valid input on that engine.
+		if args.size()!=1 or args[0].type not in [TYPE_NIL,TYPE_BOOL]: return false
 	for key in desired.handlers:
 		if not signals.has(key): return false
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null
@@ -376,6 +401,8 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 		if child != null: _free_managed(child,rescue)
 	var node = record.node.get_ref()
 	if node == null: return
+	for binding in record.bindings.values(): binding.disconnect_edit()
+	record.bindings.clear()
 	# Foreign descendants have no record. Move them outside the managed region
 	# before removing its Nodes; never recursively free application-owned actors.
 	var owner: Node = rescue if rescue != null else host.get_ref()
@@ -395,3 +422,8 @@ func dispose(remove_nodes: bool, rescue: Node = null) -> void:
 	suspend()
 	if remove_nodes and mounted != null: _free_managed(mounted,rescue)
 	mounted = null
+
+func _disconnect_bindings(record) -> void:
+	if record==null: return
+	for binding in record.bindings.values(): binding.disconnect_edit()
+	for child in record.children: _disconnect_bindings(child)
