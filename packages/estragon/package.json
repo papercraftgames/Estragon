@@ -1,6 +1,6 @@
 {
   "name": "@papercraftgames/estragon",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Native Godot addon with Gogo/GGX reactive Node composition and layout-first 2D UI",
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/papercraftgames/Estragon.git" },
