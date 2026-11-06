@@ -38,3 +38,25 @@ test('automatic npm preparation rejects unverified or mismatched repository/sour
     assert.throws(()=>verifyReleaseIdentity(run,version,'fork/Estragon',source));
     assert.throws(()=>verifyReleaseIdentity(run,version,'papercraftgames/Estragon',{...source,dirty:true}));
 });
+
+test('only the Godot plugin commits a release version; documentation contains no pinned beta versions',()=>{
+    const root=ROOT;
+    const plugin=fs.readFileSync(path.join(root,'addons/estragon/editor/plugin.cfg'),'utf8');
+    assert.equal((plugin.match(/^version=/gm)||[]).length,1);
+    assert.equal(addonVersion(),plugin.match(/^version="([^"]+)"$/m)?.[1]);
+    const metadata=JSON.parse(fs.readFileSync(path.join(root,'packages/estragon/package.json'),'utf8'));
+    assert.equal(Object.hasOwn(metadata,'version'),false);
+    const pages=[
+        'README.md',
+        'packages/estragon/README.md',
+        'packages/estragon/CHANGELOG.md',
+        'docs/PACKAGING.md',
+        'docs/WORK_STATUS.md',
+        'docs/EXECUTION_PLAN.md',
+    ];
+    const pinnedPrerelease=/\\b\\d+\\.\\d+\\.\\d+-(?:alpha|beta|rc)\\.\\d+\\b/i;
+    for(const page of pages) {
+        const contents=fs.readFileSync(path.join(root,page),'utf8');
+        assert(!pinnedPrerelease.test(contents),'Documentation must use an npm dist-tag, not a pinned release version: '+page);
+    }
+});
