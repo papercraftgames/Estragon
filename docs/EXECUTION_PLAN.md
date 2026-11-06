@@ -24,7 +24,7 @@ After merged F06 #105 (`55156fb`), [#104](https://github.com/papercraftgames/Est
 
 ## CI01 — CI performance after P01 repair
 
-[#109](https://github.com/papercraftgames/Estragon/issues/109), after owner-merged #108 (`b473bdb`), optimizes PR scope, bounded editor readiness and immutable verified engine caching; instruments and compares suite/stage/editor time and directly orchestrated launches. [Policy and measurement contract](CI_PERFORMANCE.md). Preserve full main two-engine73-stage/exact-artifact release acceptance, security and post-publish consumers. One review PR, no product/version/publication change.
+[#109](https://github.com/papercraftgames/Estragon/issues/109), after owner-merged #108 (`b473bdb`), optimizes PR scope, bounded editor readiness and immutable verified engine caching; instruments and compares suite/stage/editor time and directly orchestrated launches. [Policy and measurement contract](CI_PERFORMANCE.md). Updated owner #109 policy: routine PR AND main <=60seconds, static/policy plus tiny smoke only. Move full two-engine73-stage/exact-artifact certification to a mandatory pre-publication gate; preserve security and post-publish consumers. One review PR, no product/version/publication change.
 
 ## Historical milestones and preserved acceptance contracts
 

@@ -29,15 +29,16 @@ test('addon-only npm artifact is reproducible, private-tooling separated and roo
         assert.throws(()=>stagedPackageJson({...spec,version:addonVersion()},addonVersion()));
     } finally {fs.rmSync(temporary,{recursive:true,force:true});}
 });
-test('automatic npm preparation rejects unverified or mismatched repository/source/version evidence',()=>{
+test('pre-publication preparation rejects routine main or stale/mismatched run identities',()=>{
     const version=addonVersion();
-    const run={repository:{full_name:'papercraftgames/Estragon'},path:'.github/workflows/ci.yml',event:'push',head_branch:'main',head_sha:'approved',status:'completed',conclusion:'success'};
+    const run={id:123,repository:{full_name:'papercraftgames/Estragon'},path:'.github/workflows/npm-release.yml',event:'release',head_sha:'approved',status:'in_progress',conclusion:null};
     const source={head:'approved',dirty:false};
-    assert.doesNotThrow(()=>verifyReleaseIdentity(run,version,'papercraftgames/Estragon',source));
-    for(const change of [{event:'pull_request'},{head_branch:'feature'},{head_sha:'other'},{conclusion:'failure'},{status:'in_progress'},{path:'.github/workflows/other.yml'},{repository:{full_name:'fork/Estragon'}}])assert.throws(()=>verifyReleaseIdentity({...run,...change},version,'papercraftgames/Estragon',source));
-    assert.throws(()=>verifyReleaseIdentity(run,version.replace(/^0/,'1'),'papercraftgames/Estragon',source));
-    assert.throws(()=>verifyReleaseIdentity(run,version,'fork/Estragon',source));
-    assert.throws(()=>verifyReleaseIdentity(run,version,'papercraftgames/Estragon',{...source,dirty:true}));
+    const verify=(candidate:any)=>verifyReleaseIdentity(candidate,version,'papercraftgames/Estragon',source,'123');
+    assert.doesNotThrow(()=>verify(run));
+    assert.doesNotThrow(()=>verify({...run,event:'workflow_dispatch',path:'.github/workflows/ci.yml'}));
+    for(const change of [{id:122},{event:'pull_request'},{event:'push',path:'.github/workflows/ci.yml'},{head_sha:'other'},{conclusion:'failure'},{conclusion:'cancelled'},{status:'completed'},{path:'.github/workflows/other.yml'},{repository:{full_name:'fork/Estragon'}}])assert.throws(()=>verify({...run,...change}));
+    assert.throws(()=>verifyReleaseIdentity(run,version.replace(/^0/,'1'),'papercraftgames/Estragon',source,'123'));
+    assert.throws(()=>verifyReleaseIdentity(run,version,'papercraftgames/Estragon',{...source,dirty:true},'123'));
 });
 
 test('only the Godot plugin commits a release version; documentation contains no pinned beta versions',()=>{

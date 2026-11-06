@@ -1,4 +1,4 @@
-/** Automatic exact-source main CI discovery and package preparation; never publishes. */
+/** Current-run pre-publication certification gate. Routine main CI is never sufficient. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -6,29 +6,30 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { ROOT, gitHead, gitDirty, sha256, writeJSON } from './compat-kit.ts';
 import { assessFile } from './assert-release.ts';
-import { currentContext, selectVerificationRun, REPOSITORY } from './release-context.ts';
+import { currentContext, REPOSITORY } from './release-context.ts';
 import { addonVersion, stagedPackageJson } from './package-version.ts';
-export function verifyReleaseIdentity(run:any, expectedVersion:string, repository:string, source = {head:gitHead(),dirty:gitDirty()}) {
-    if(repository!=='papercraftgames/Estragon' || run.repository?.full_name!==repository || run.path!=='.github/workflows/ci.yml' || run.event!=='push' || run.head_branch!=='main' || run.head_sha!==source.head || run.conclusion!=='success' || run.status!=='completed')throw Error('Successful canonical main CI at exact release source required');
-    if(expectedVersion!==addonVersion() || !/^0\.\d+\.\d+-beta\.\d+$/.test(expectedVersion) || source.dirty)throw Error('Approved exact prepared prerelease version and clean source required');
+export function verifyReleaseIdentity(run:any,expectedVersion:string,repository:string,source={head:gitHead(),dirty:gitDirty()},runId=process.env.GITHUB_RUN_ID) {
+    const allowed=run.path==='.github/workflows/npm-release.yml' && ['release','workflow_dispatch'].includes(run.event) || run.path==='.github/workflows/ci.yml' && run.event==='workflow_dispatch';
+    if(repository!==REPOSITORY || run.repository?.full_name!==repository || !allowed || !runId || String(run.id)!==runId || run.head_sha!==source.head || run.status!=='in_progress' || run.conclusion!==null)throw Error('Exact current release/preview run required; routine main or prior CI cannot certify publication');
+    if(expectedVersion!==addonVersion() || !/^0\.\d+\.\d+-beta\.\d+$/.test(expectedVersion) || source.dirty)throw Error('Exact canonical prerelease version and clean source required');
+}
+export function verifyCertificationJobs(jobs:any[]) {
+    for(const name of ['release-policy','release-certification (4.0.4)','release-certification (4.7)']) {
+        const matches=jobs.filter(job=>job.name===name || job.name.endsWith('/ '+name));
+        if(matches.length!==1 || matches[0].status!=='completed' || matches[0].conclusion!=='success')throw Error('Both current-run certification jobs must succeed before artifact preparation');
+    }
 }
 if(import.meta.url==='file://'+process.argv[1]) {
     const [output]=process.argv.slice(2);
     if(!output || !path.isAbsolute(output)||fs.existsSync(output))throw Error('Usage: verify-npm-release.ts NEW_ABSOLUTE_OUTPUT');
     const context=currentContext(), version=context.version, repository=REPOSITORY;
-    let run:any=null;
-    for(let attempt=0;attempt<120;attempt++) {
-        const response=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/workflows/ci.yml/runs?event=push&head_sha='+gitHead()+'&per_page=100'],{encoding:'utf8'}));
-        run=selectVerificationRun(response.workflow_runs,gitHead());
-        if(run)break;
-        if(attempt===119)throw Error('Timed out waiting for exact main CI; no package prepared');
-        console.log('Waiting for exact main-push CI at '+gitHead());
-        await new Promise(resolve=>setTimeout(resolve,15000));
-    }
-    const runId=String(run.id);
-    // The run-list entry may omit repository metadata; authenticate the selected run.
-    run=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/runs/'+runId],{encoding:'utf8'}));
+    const runId=process.env.GITHUB_RUN_ID;
+    if(!runId || !/^\d+$/.test(runId))throw Error('Current workflow run ID required');
+    const run=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/runs/'+runId],{encoding:'utf8'}));
     verifyReleaseIdentity(run,version,repository);
+    const jobs=JSON.parse(execFileSync('gh',['api','repos/'+repository+'/actions/runs/'+runId+'/jobs?filter=latest&per_page=100'],{encoding:'utf8'}));
+    if(jobs.total_count>100)throw Error('Unexpected certification job inventory');
+    verifyCertificationJobs(jobs.jobs);
     fs.mkdirSync(output,{recursive:true});
     for(const label of ['4.0.4','4.7'])execFileSync('gh',['run','download',runId,'--repo',repository,'--name','native-addon-'+label,'--dir',path.join(output,label)],{stdio:'inherit'});
     const reports=['4.0.4','4.7'].map(label=>assessFile(path.join(output,label,'native-addon',label,'addon-evidence.json')));

@@ -4,18 +4,18 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { ROOT, sha256, runCommand } from '../../tools/compat-kit.ts';
-import { planCI, SUITES } from '../../tools/ci-plan.ts';
+import { measureRoutine } from '../../tools/measure-routine-ci.ts';
+import { planCI } from '../../tools/ci-plan.ts';
 import { verifyEngine } from '../../tools/verified-engine.ts';
 import { collectMetrics, assertFocusedGraphics } from '../../tools/ci-metrics.ts';
-test('main/dispatch always select full certification, docs PR skips native, changes select conservative suites',()=>{
-    for(const event of ['push','workflow_dispatch'])assert.deepEqual(planCI(event,['docs/TESTING.md']),{mode:'acceptance',native:true,suites:[...SUITES]});
-    assert.equal(planCI('pull_request',['README.md','AGENTS.md','docs/TESTING.md']).native,false);
-    assert.deepEqual(planCI('pull_request',['tests/composition/editor/driver.gd']).suites,['composition']);
-    assert.deepEqual(planCI('pull_request',['addons/estragon/editor/plugin.gd']).suites,['compiler','ui','package']);
-    assert(planCI('pull_request',['addons/estragon/compiler/native/emitter.gd']).suites.includes('bindable'));
-    for(const file of ['tools/compat-kit.ts','unknown/new.script','docs/live.gd','tests/compatibility/linux-engines.json','.github/actions/unexpected/action.yml'])assert.deepEqual(planCI('pull_request',[file]).suites,[...SUITES]);
-    const combined=planCI('pull_request',['tests/lists/runtime.gd','tests/twoway/editor/driver.gd']);assert.deepEqual(combined.suites,['lists','twoway']);
-    assert(planCI('pull_request',['.github/workflows/ci.yml']).suites.includes('package'));
+test('routine PR and main always stay tiny, docs skip native, unknown paths cannot select exhaustive suites',()=>{
+    for(const event of ['push','pull_request','workflow_dispatch']) {
+        assert.equal(planCI(event,['docs/TESTING.md','docs/example.png']).native,false);
+        for(const file of ['tools/compat-kit.ts','.github/workflows/ci.yml','addons/estragon/compiler/compiler.gd','unknown/script']) {
+            assert.deepEqual(planCI(event,[file]),{mode:'routine',native:true,smoke:'compiler-bindable',budget_seconds:60});
+        }
+        assert.equal(planCI(event,[]).native,true);
+    }
 });
 test('cache hits require exact regular-file checksum and version, corruption never reaches execution',()=>{
     const dir=fs.mkdtempSync(path.join(os.tmpdir(),'estragon-cache-test-'));try {
@@ -43,18 +43,23 @@ test('telemetry preserves failures, stage/editor timing and distinguishes actual
         assert.doesNotThrow(()=>assertFocusedGraphics({stages:[]} as any));
     }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
-test('workflow retains visible PR statuses and immutable reverified cache; release certification cannot use focused reports',()=>{
-    const yaml=fs.readFileSync(path.join(ROOT,'.github/workflows/ci.yml'),'utf8');
-    assert(!/^\s+paths(-ignore)?:/m.test(yaml));assert(yaml.includes('Native check policy status'));
-    assert(yaml.includes("github.event_name != 'pull_request' || matrix.version == '4.7'"));
-    assert(yaml.includes('runner.os')&&yaml.includes('runner.arch')&&yaml.includes('steps.engine.outputs.sha256'));assert(!yaml.includes('restore-keys:'));
-    assert(yaml.includes('Authenticate official Linux engine'));assert(yaml.includes('if [ "$EVENT_NAME" = pull_request ]; then'));assert(yaml.includes('Actual Godot logs must prove llvmpipe'));
-    const prSetup=yaml.slice(yaml.indexOf('if [ "$EVENT_NAME" = pull_request ]; then'),yaml.indexOf('# Full acceptance retains'));
-    assert(prSetup.includes('VK_DRIVER_FILES=') && prSetup.includes('VK_ICD_FILENAMES=') && prSetup.includes('test -f'));
-    assert(!prSetup.includes('xvfb-run -a vulkaninfo'));assert(yaml.includes("'[\"4.0.4\", \"4.7\"]'"));
-    const orchestrator=fs.readFileSync(path.join(ROOT,'tools/check-native-addon.ts'),'utf8');
-    assert(orchestrator.includes('if (requested || focused ||'));assert(orchestrator.indexOf('if (requested || focused ||')<orchestrator.indexOf("'addon-evidence.json'"));
-    const release=fs.readFileSync(path.join(ROOT,'tools/verify-npm-release.ts'),'utf8');assert(release.includes("run.event!=='push'"));assert(release.includes("run.head_branch!=='main'"));assert(release.includes('assessFile('));
+test('routine workflows cannot launch editors/full suites; certification is an explicit hard publication dependency',()=>{
+    const routine=fs.readFileSync(path.join(ROOT,'.github/workflows/ci.yml'),'utf8');
+    const fast=routine.slice(0,routine.indexOf('  certify:'));
+    assert(!/^\s+paths(-ignore)?:/m.test(routine));assert(fast.includes('Native check policy status'));
+    for(const heavy of ['check-native-addon.ts','apt-get','xvfb','--editor','--suites'])assert(!fast.includes(heavy),heavy);
+    assert(fast.includes('check-routine-smoke.ts'));assert(fast.includes('timeout-minutes: 1'));
+    assert(fast.includes('runner.os')&&fast.includes('runner.arch')&&fast.includes('steps.engine.outputs.sha256'));
+    const smoke=fs.readFileSync(path.join(ROOT,'tools/check-routine-smoke.ts'),'utf8');
+    assert(!smoke.includes('indexProject'));assert(smoke.includes('timeout:10000'));assert(!smoke.includes("'--editor'"));
+    const release=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
+    assert(release.includes('needs: [certify, prepare]'));assert(release.includes('needs: [certify, prepare, publish, consumer]'));
+    assert(release.includes("if: github.event_name == 'release'"));assert(!release.includes('NPM_BOOTSTRAP_TOKEN'));
+    const cert=fs.readFileSync(path.join(ROOT,'.github/workflows/certify.yml'),'utf8');
+    assert(cert.includes("version: ['4.0.4', '4.7']"));assert(cert.includes('check-native-addon.ts'));assert(!cert.includes('--suites'));
+    assert(cert.includes('EXPECTED_SOURCE'));assert(cert.includes('git status --porcelain'));
+    const verifier=fs.readFileSync(path.join(ROOT,'tools/verify-npm-release.ts'),'utf8');
+    assert(verifier.includes('verifyCertificationJobs(jobs.jobs)'));assert(verifier.includes('assessFile('));assert(!verifier.includes('selectVerificationRun'));
 });
 test('optimized editor harnesses retain both Play entrypoints, negative observation, rollback/unsavable/recovery scenarios',()=>{
     for(const suite of ['native_ui','ggx','bindable','reactive','composition','conditional','lists','twoway','package-consumer']) {
@@ -90,4 +95,14 @@ test('proof-file existence precedes complete JSON; editor harnesses wait for and
             assert(!driver.includes('JSON.parse_string(FileAccess.get_file_as_string(PROOF))'),suite);
         }
     }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+test('routine budget measures end-to-end required checks, separates queue and rejects missing/failed checks',()=>{
+    const stamp=(seconds:number)=>new Date(Date.UTC(2026,0,1,0,0,seconds)).toISOString();
+    const jobs=['tooling','addon (4.0.4)','addon (4.7)'].map((name,i)=>({name,status:'completed',conclusion:'success',started_at:stamp(i?20:3),completed_at:stamp(i===2?50:18+i),steps:[]}));
+    const run={id:1,event:'push',head_sha:'source',created_at:stamp(0)};
+    const result=measureRoutine(run,jobs);assert.equal(result.queue_seconds,3);assert.equal(result.execution_wall_seconds,47);assert(result.within_budget);
+    assert.equal(measureRoutine(run,[...jobs.slice(0,2),{...jobs[2],completed_at:stamp(65)}]).within_budget,false);
+    assert.throws(()=>measureRoutine(run,jobs.slice(0,2)));
+    assert.throws(()=>measureRoutine(run,jobs.map(j=>({...j,conclusion:'cancelled'}))));
 });

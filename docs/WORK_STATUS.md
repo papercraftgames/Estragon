@@ -76,7 +76,7 @@ Previously published nine-engine results stay archived, not rerun.
 
 ## CI01 snapshot
 
-CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) is active after #108 owner-merged (`b473bdb`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; optimization remains In review until owner merge. Full main73-stage acceptance on both approved Linux engines and exact-source publication gates remain mandatory. No package version/publication work is included.
+CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) is active after #108 owner-merged (`b473bdb`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; optimization remains In review until owner merge. Updated #109 requires routine PR/main <=60seconds and full73-stage two-engine certification as a hard pre-publication gate; routine main is not release evidence. No package version/publication work is included.
 
 ## Issue/PR ownership rule
 

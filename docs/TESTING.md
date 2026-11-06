@@ -14,7 +14,7 @@ bun install --frozen-lockfile
 bun run check
 ~~~
 
-CI01 [PR-versus-main policy and performance evidence](CI_PERFORMANCE.md): PRs always report policy/typechecking and existing check names, with no Godot for documentation-only Markdown/license changes and conservative changed-code suites on pinned Linux4.7. Main pushes and full acceptance dispatch retain the complete73-stage runner on both approved Linux engines. No duplicate compatibility workflow remains. Focused development modes and --suites requests cannot generate release certification; exact-source successful main-push evidence remains mandatory for publication.
+CI01 [routine budget / release certification](CI_PERFORMANCE.md): routine PR and main push checks are limited to static/policy tests and one tiny headless native smoke, within60seconds. Docs-only omits Godot. Full73-stage acceptance on BOTH approved engines is mandatory before publication, through certify.yml and independent exact-current-run artifact verification. Fast main CI cannot authorize publication. The commands below are explicit certification/development tools, not routine CI.
 
 ~~~sh
 # From a contributor environment; output directory must be new and absolute.
