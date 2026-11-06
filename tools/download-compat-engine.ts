@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
+import { verifyEngine } from "./verified-engine.ts";
 import { ROOT, fail, readJSON, sha256 } from "./compat-kit.ts";
 async function main(): Promise<void> {
   if(process.platform!=="linux")fail("Routine verification is Linux-only (owner #81)");
@@ -15,6 +16,15 @@ async function main(): Promise<void> {
   const manifest=readJSON<Array<{version:string;official_archive_url:string;archive_file:string;archive_sha256:string;binary_sha256:string;official_checksums_url?:string;archive_sha512?:string}>>(path.join(ROOT,"tests/compatibility/linux-engines.json"));
   const engine=manifest.find(row=>row.version.startsWith(label+".stable."));
   if(!engine)fail("Missing pinned Linux engine data");
+  const cache=process.env.GODOT_CACHE_DIRECTORY;
+  const extracted=cache||path.join(destination,"godot-verified-"+label);
+  const binary=path.join(extracted,engine.archive_file);
+  if(fs.existsSync(binary)) {
+    verifyEngine(binary,engine);
+    fs.appendFileSync(githubEnv,"GODOT_BIN="+binary+"\n");
+    console.log("VERIFIED_OFFICIAL_LINUX_CACHE_HIT "+engine.version+" binary="+engine.binary_sha256);
+    return;
+  }
   const response=await fetch(engine.official_archive_url);
   if(!response.ok||!response.body)fail("Godot download failed: "+response.status);
   const archive=path.join(destination,"official-"+label+".zip");
@@ -29,13 +39,9 @@ async function main(): Promise<void> {
     if(createHash("sha512").update(fs.readFileSync(archive)).digest("hex")!==engine.archive_sha512)fail("Official archive SHA512 mismatch");
     fs.writeFileSync(path.join(destination,"official-"+label+"-SHA512-SUMS.txt"),checksums);
   }
-  const extracted=path.join(destination,"godot-verified-"+label);
   fs.mkdirSync(extracted,{recursive:true});
   execFileSync("unzip",["-q",archive,engine.archive_file,"-d",extracted]);
-  const binary=path.join(extracted,engine.archive_file);
-  if(sha256(binary)!==engine.binary_sha256)fail("Godot executable SHA256 mismatch");
-  fs.chmodSync(binary,0o755);
-  if(execFileSync(binary,["--headless","--version"],{encoding:"utf8"}).trim()!==engine.version)fail("Official engine version mismatch");
+  verifyEngine(binary,engine);
   fs.appendFileSync(githubEnv,"GODOT_BIN="+binary+"\n");
   console.log("VERIFIED_OFFICIAL_LINUX "+engine.version+" archive="+engine.archive_sha256+" binary="+engine.binary_sha256);
 }
