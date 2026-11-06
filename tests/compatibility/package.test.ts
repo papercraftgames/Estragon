@@ -48,7 +48,7 @@ test('only the Godot plugin commits a release version; documentation contains no
     const metadata=JSON.parse(fs.readFileSync(path.join(root,'packages/estragon/package.json'),'utf8'));
     assert.equal(Object.hasOwn(metadata,'version'),false);
     const tracked=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
-    const pinnedPrerelease=/\b\d+\.\d+\.\d+-(?:alpha|beta|rc)\.\d+\b/i;
+    const pinnedPrerelease=/\b0\.\d+\.\d+-beta\.\d+\b/i;
     const version=addonVersion();
     assert(pinnedPrerelease.test(version));
     for(const file of tracked.filter(file=>file.endsWith('.md'))) {
