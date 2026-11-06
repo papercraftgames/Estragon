@@ -76,7 +76,7 @@ func run() -> void:
     await settle()
     check(row==scene.get_node("UI/Panel/First") and peer==scene.get_node("UI/Panel/Second") and child_scope.runs==child_runs and peer_scope.runs==peer_runs and child_scope.writes==writes,"key reorder preserves input identity and does no peer work")
     var old = scene.model
-    var weak := weakref(old)
+    var weak: WeakRef = weakref(old)
     var callback = toggle.value_changed.get_connections()[0].callable
     scene.replace_model()
     callback.call(false)
