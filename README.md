@@ -6,7 +6,7 @@ Godot plus the bundled addon is enough for authoring and Play; there is no exter
 
 ## Install in another Godot project
 
-The first public beta, [`@papercraftgames/estragon@0.1.0-beta.1`](https://www.npmjs.com/package/@papercraftgames/estragon), was published on November 6, 2026. `0.1.0-beta.2` is being prepared for the first GitHub Actions OIDC trusted-publisher release; it is **not yet published**. Root `estragon-tooling` remains private contributor tooling. Install the published package with Yarn, explicitly copy `addons/estragon` into the Godot project, and ignore `node_modules` in Godot. Yarn alone does not register the plugin. See the [install/release contract](docs/PACKAGING.md), [package README](packages/estragon/README.md) and [P01 tracking #104](https://github.com/papercraftgames/Estragon/issues/104).
+Estragon's public beta is available on [npm](https://www.npmjs.com/package/@papercraftgames/estragon). Install the current beta with `yarn add --exact --ignore-scripts @papercraftgames/estragon@beta`, explicitly copy `addons/estragon` into the Godot project, and ignore `node_modules` in Godot. Yarn alone does not register the plugin. The **only committed package release version** is the one in `addons/estragon/editor/plugin.cfg`; npm packaging generates its manifest version from that source. Root `estragon-tooling` remains private contributor tooling. See the [install/release contract](docs/PACKAGING.md), [package README](packages/estragon/README.md) and [P01 tracking #104](https://github.com/papercraftgames/Estragon/issues/104).
 
 ## React-like composition with Gogo signals
 
