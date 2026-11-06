@@ -42,6 +42,7 @@ func measure(name: String, action: Callable, verify: Callable) -> void:
 func idle(scene: Node, name: String) -> void:
     root.add_child(scene)
     await settle()
+    print("PROFILE_MOUNT ",name," tree=",scene.is_inside_tree()," script=",scene.get_script().resource_path," records=",State.records.keys()," id=",scene.get_instance_id())
     Profile.reset()
     await settle(12)
     check(Profile.counts.is_empty(),name+" idle has zero instrumented work")
