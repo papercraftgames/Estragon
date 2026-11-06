@@ -1,6 +1,7 @@
 /** #83: Godot addon acceptance. No obsolete UI or standalone-app requirements. */
 import type { Stage } from './compat-kit.ts';
 export const REQUIRED = [
+    'package.pack', 'package.install', 'package.build', 'package.import', 'package.runtime', 'package.editor', 'package.visual',
     'profiling.build', 'profiling.import', 'profiling.runtime',
     'twoway.build', 'twoway.import', 'twoway.runtime', 'twoway.editor', 'twoway.visual',
     'lists.build', 'lists.import', 'lists.runtime', 'lists.rejection', 'lists.editor', 'lists.visual',

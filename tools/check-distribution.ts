@@ -16,7 +16,7 @@ for (const selection of options.engines) {
         const config = fs.readFileSync(path.join(box.project, 'project.godot'), 'utf8');
         stages.package_layout = { status: config.includes('config/features=PackedStringArray("4.0", "GL Compatibility")') && !fs.existsSync(path.join(box.project, '.godot')) ? 'PASS' : 'FAIL' };
         async function run(name: string, project: string, script: string, marker: string, extra: string[] = []) {
-            const stage = await runCommand([box.binary, '--headless', '--audio-driver', 'Dummy', '--path', project, '--script', script, ...extra], box.workspace, box.env, path.join(output, name + '.log'), marker, { abortOnError: true });
+            const stage = await runCommand([box.binary, ...(['scenes','cold_scenes'].includes(name) ? [] : ['--headless']), '--audio-driver', 'Dummy', '--path', project, '--script', script, ...extra], box.workspace, box.env, path.join(output, name + '.log'), marker, { abortOnError: true });
             const log = fs.readFileSync(path.join(output, name + '.log'), 'utf8');
             if (/instances leaked|Resources still in use/.test(log))
                 stage.status = 'FAIL';
@@ -46,7 +46,7 @@ for (const selection of options.engines) {
         stages.cold_editor = await indexProject(box, coldEditor, path.join(output, 'cold_editor.log'), ['--audio-driver', 'Dummy', 'res://examples/counter/Counter.tscn']);
         if (stages.cold_editor.status !== 'PASS')
             throw Error('Native cold editor scene restoration failed');
-        const resources = ['addons/estragon/runtime/composition/state.tres', 'addons/estragon/runtime/composition/profile.tres', 'examples/counter/Counter.tscn', 'examples/ggx/TwoD.tscn', 'examples/ggx/ThreeD.tscn', 'examples/bindable/Demo.tscn', 'examples/reactive/Demo.tscn', 'examples/composition/Counter.tscn', 'examples/conditional/Counter.tscn', 'examples/inventory/Inventory.tscn', 'examples/twoway/Demo.tscn', 'tests/distribution/scenes.gd', ...[...listGDScripts(path.join(box.project, 'addons/estragon/runtime')), ...listGDScripts(path.join(box.project, 'examples'))].map(f => path.relative(box.project, f))];
+        const resources = ['addons/estragon/runtime/composition/state.tres', 'addons/estragon/runtime/composition/profile.tres', 'examples/counter/Counter.tscn', 'examples/ggx/TwoD.tscn', 'examples/ggx/ThreeD.tscn', 'examples/bindable/Demo.tscn', 'examples/reactive/Demo.tscn', 'examples/composition/Counter.tscn', 'examples/conditional/Counter.tscn', 'examples/inventory/Inventory.tscn', 'examples/twoway/Demo.tscn', 'examples/node_runtime/TwoD.tscn', 'examples/node_runtime/ThreeD.tscn', 'tests/distribution/scenes.gd', ...[...listGDScripts(path.join(box.project, 'addons/estragon/runtime')), ...listGDScripts(path.join(box.project, 'examples'))].map(f => path.relative(box.project, f))];
         fs.writeFileSync(path.join(box.project, 'export_presets.cfg'), '[preset.0]\nname="Native addon runtime"\nplatform="Linux/X11"\nrunnable=true\nexport_filter="resources"\nexport_files=PackedStringArray(' + resources.map(p => '"res://' + p + '"').join(',') + ')\ninclude_filter="*.gogo,*.json"\nexclude_filter=""\nexport_path=""\nscript_export_mode=1\n[preset.0.options]\nbinary_format/architecture="x86_64"\n');
         const pack = path.join(output, 'addon.pck');
         // Let the engine finish cleanup so diagnostics identify retained resources;
@@ -57,7 +57,7 @@ for (const selection of options.engines) {
             throw Error('Native addon consumer editor pack export failed');
         const bare = path.join(box.workspace, 'pack-runtime');
         fs.mkdirSync(bare);
-        const stage = await runCommand([box.binary, '--headless', '--audio-driver', 'Dummy', '--path', bare, '--main-pack', pack, '--script', 'res://tests/distribution/scenes.gd'], box.workspace, box.env, path.join(output, 'pack_runtime.log'), 'ADDON_DISTRIBUTION_OK', { abortOnError: true });
+        const stage = await runCommand([box.binary, '--audio-driver', 'Dummy', '--path', bare, '--main-pack', pack, '--script', 'res://tests/distribution/scenes.gd'], box.workspace, box.env, path.join(output, 'pack_runtime.log'), 'ADDON_DISTRIBUTION_OK', { abortOnError: true });
         stages.pack_runtime = stage;
         process.stdout.write(fs.readFileSync(path.join(output, 'pack_runtime.log'), 'utf8'));
         if (stage.status !== 'PASS')

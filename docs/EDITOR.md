@@ -11,3 +11,5 @@ Tests use self-contained isolated editor settings, actual main/current Play APIs
 Current automated acceptance: tests/native_ui/editor, tests/ggx/editor and tools/check-native-addon.ts on official 4.0.4/pinned 4.7.0 Linux. See [testing and release policy](TESTING.md), [Gogo language](GOGO_LANGUAGE.md), [demo](NODE_UI.md) and current issue/PR evidence. Completion/navigation, live preview and debugger remapping remain future work.
 
 F04 removes the eager Node/binder backend. The same editor builds one description contract for all GGX and rejects retired Node-returning view declarations before Play. Canonical Counter, 2D/3D/model and structural scenes retain actual-path semantic transactions, maps/UIDs/cache restoration and saved/unsaved main/current Play repair; see [cutover/parity](F04_CUTOVER.md).
+
+For Yarn-acquired addon packages, copy the complete addon to `res://addons/estragon`, add node_modules/.gdignore, then enable `addons/estragon/editor/plugin.cfg` explicitly; dependency installation alone does not register it. [Exact standalone install contract](PACKAGING.md).

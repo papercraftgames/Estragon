@@ -1,26 +1,26 @@
 # Estragon
 
-A layout-first **Godot addon** with native Node2D UI, bounded 2D/3D layout and **Gogo**: a GDScript-like language with embedded **GGX** Node composition.
+A layout-first **Godot addon** with native Node2D UI, bounded Node3D layout/adapters and **Gogo**: a GDScript-like language with embedded **GGX** Node composition. Canonical repository: [papercraftgames/Estragon](https://github.com/papercraftgames/Estragon).
 
-Open `project.godot` in Godot, enable Estragon, and run the [Gogo Counter](examples/counter/Counter.gogo): click **+** / **Reset** and resize. Open `examples/ggx/TwoD.tscn` or `ThreeD.tscn` for dimensional demos, or `examples/reactive/Demo.tscn` for model-driven text, style and layout. Godot plus the bundled addon is enough for end-user authoring and Play; no external compiler.
+Godot plus the bundled addon is enough for authoring and Play; there is no external compiler. In this checkout, open `project.godot`, enable Estragon at `addons/estragon/editor/plugin.cfg`, and run the [Gogo Counter](examples/counter/Counter.gogo). Click **+** / **Reset** and resize. The [live example inventory](docs/PACKAGING.md#retained-live-scene-inventory) lists all supported demos and their verification paths.
 
-Canonical native widgets are `EstragonRect`, `EstragonText`, `EstragonButton`, `EstragonHBox` and `EstragonVBox`. They derive from Node2D and share a composed core with 3D participants. Godot retains native SceneTree lifetime, transforms, rendering, physics and input.
+## Install in another Godot project
+
+P01 [#104](https://github.com/papercraftgames/Estragon/issues/104) prepares an addon-only `@papercraftgames/estragon` npm-format artifact; **no npm release is claimed yet**. Root `estragon-tooling` remains private contributor tooling. Use the reviewed local tarball with Yarn, then explicitly copy the addon into the project's `addons/estragon` and ignore node_modules in Godot. Yarn alone does not register a plugin. See [exact install/release contract](docs/PACKAGING.md) and the [package README](packages/estragon/README.md). The proposed `0.1.0-beta.1` version requires separate owner publication approval.
 
 ## React-like composition with Gogo signals
 
-[ADR-0016](docs/REACTIVE_COMPOSITION_ARCHITECTURE.md) uses ordinary Gogo functions and typed `@bindable` state: signals rerun affected functions, descriptions reconcile retained real native Nodes. No hooks, manual refresh, per-frame rerender or bookkeeping on application Nodes/models/Resources.
+Merged F01–F06 provide ordinary typed `build_view() -> Element` functions, signal-driven getter observation, descriptions reconciled with retained real Nodes, nested conditionals and keyed lists. F04 removed the eager/static binder path; F05 adds class-wide typed Gogo `@bindable` and a bounded native boolean `bind:value`; F06 adds opt-in profiling and measured LIS/preflight improvements. No hooks, manual refresh, per-frame rerender or reconciliation metadata on application objects.
 
-F01–F03 merged dynamic getter observation, conditional/nested ownership and mapped keyed lists. [F04 #98](https://github.com/resistdesign/Estragon/issues/98) cuts all GGX over to one description compiler/runtime and removes eager factories and target-owned binding helpers; [contract/removal/parity report](docs/F04_CUTOVER.md). All active Counter/2D/3D/model/conditional/inventory scenes use this path. Review/verification state lives in the issue and sole PR.
+Canonical widgets are `EstragonRect`, `EstragonText`, `EstragonButton`, `EstragonToggle`, `EstragonHBox` and `EstragonVBox`. They derive from Node2D and share a composed layout core with bounded 3D participants. Godot retains SceneTree lifetime, transforms, rendering, physics and input. Raw Array/Dictionary mutations do not notify; bindable reference replacement does.
 
-Every GGX expression returns an Element, including ordinary helpers/lambdas. Typed `build_view() -> Element` is the automatic host entry. Run `examples/conditional/Counter.tscn` for branches/nested scopes, or `examples/inventory/Inventory.tscn` for retained keyed rows and for/map lists. Raw collection mutations do not notify; bindable Array reference replacement does.
-
-F05 class-level `@bindable` ([#90](https://github.com/resistdesign/Estragon/issues/90))/two-way inputs and F06 measured optimization remain future. Estragon is unreleased; replaced implementations are removed, not maintained as a second API.
+Try [conditional/nested composition](examples/conditional/Counter.tscn), [keyed inventory](examples/inventory/Inventory.tscn), [class-wide models](examples/bindable/Demo.tscn), [controlled boolean input](examples/twoway/Demo.tscn), [reactive style/layout](examples/reactive/Demo.tscn), or [2D](examples/ggx/TwoD.tscn)/[3D](examples/ggx/ThreeD.tscn). These are bounded working slices; richer inputs/text/IME/focus, themes/accessibility, broader layout/editor UX and release readiness remain separately scoped. Estragon is pre-1.0, not a complete mature widget suite.
 
 ## Documentation
 
-- [Composition and future binding design](docs/REACTIVE_COMPOSITION_ARCHITECTURE.md), [ADRs](docs/DECISIONS.md)
-- [Current architecture](docs/ARCHITECTURE.md), [runtime/adapters](docs/NODE_RUNTIME.md), [UI API](docs/NODE_UI.md)
-- [Gogo/GGX source language](docs/GOGO_LANGUAGE.md), [editor](docs/EDITOR.md), [current binding behavior](docs/REACTIVE_GGX.md)
-- [Work status](docs/WORK_STATUS.md), [execution plan](docs/EXECUTION_PLAN.md), [contributing](CONTRIBUTING.md), [testing/release evidence](docs/TESTING.md)
+- [Current architecture](docs/ARCHITECTURE.md), [ADRs](docs/DECISIONS.md), [composition design](docs/REACTIVE_COMPOSITION_ARCHITECTURE.md)
+- [Gogo/GGX language](docs/GOGO_LANGUAGE.md), [editor](docs/EDITOR.md), [native UI](docs/NODE_UI.md), [runtime/adapters](docs/NODE_RUNTIME.md)
+- [Bindable models](docs/BINDABLE_PROPERTIES.md), [two-way bool contract](docs/TWO_WAY_BINDINGS.md), [F06 measurements](docs/F06_PROFILING.md)
+- [Packaging/release preparation](docs/PACKAGING.md), [work status](docs/WORK_STATUS.md), [execution plan](docs/EXECUTION_PLAN.md), [contributing](CONTRIBUTING.md), [testing/evidence](docs/TESTING.md)
 
-**Godot 4.0+ is the target; verification currently covers only official 4.0.4 and pinned 4.7.0 on Linux CI.** No untested minor/platform support is implied. The addon is not a standalone application.
+**Godot 4.0+ is the target; fresh proof covers only official 4.0.4 and pinned 4.7.0 on Linux.** No untested minor/platform certification or standalone application export requirement. The MIT license and original attribution are retained; repository transfer does not change historical copyright.
