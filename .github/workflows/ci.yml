@@ -58,10 +58,20 @@ jobs:
         with:
           node-version: '22.16.0'
       - name: Verify software graphics
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         if: needs.tooling.outputs.native == 'true' && (github.event_name != 'pull_request' || matrix.version == '4.7')
         shell: bash
         run: |
-          # Avoid an unconditional apt index/download when hosted images already have Mesa.
+          mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
+          echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
+          if [ "$EVENT_NAME" = pull_request ]; then
+            # PR fixtures use GL Compatibility. Actual Godot logs must prove llvmpipe;
+            # no Vulkan package installation or surrogate renderer probe is needed.
+            command -v xvfb-run
+            exit 0
+          fi
+          # Full acceptance retains the original Vulkan/software setup proof.
           if ! command -v vulkaninfo >/dev/null || ! compgen -G '/usr/share/vulkan/icd.d/lvp_icd*.json' >/dev/null; then
             sudo apt-get update
             sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
@@ -70,12 +80,10 @@ jobs:
           test "${#vulkan_icds[@]}" -eq 1
           vulkan_icd="${vulkan_icds[0]}"
           test -f "$vulkan_icd"
-          mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
           VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
             XDG_RUNTIME_DIR="$RUNNER_TEMP/xdg-runtime" xvfb-run -a vulkaninfo --summary
           echo "VK_DRIVER_FILES=$vulkan_icd" >> "$GITHUB_ENV"
           echo "VK_ICD_FILENAMES=$vulkan_icd" >> "$GITHUB_ENV"
-          echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
       - name: Select immutable engine cache identity
         if: needs.tooling.outputs.native == 'true' && (github.event_name != 'pull_request' || matrix.version == '4.7')
         id: engine

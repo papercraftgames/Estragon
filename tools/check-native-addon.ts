@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { ROOT, parseCLI, readJSON, writeJSON, gitHead, gitDirty, sha256 } from './compat-kit.ts';
 import { SUITES } from './ci-plan.ts';
-import { collectMetrics } from './ci-metrics.ts';
+import { collectMetrics, assertFocusedGraphics } from './ci-metrics.ts';
 import type { Stage } from './compat-kit.ts';
 const argv = process.argv.slice(2), focused = argv.includes('--focused'), distributionOnly = argv.includes('--distribution-only'), bindableOnly = argv.includes('--bindable-only'), reactiveOnly = argv.includes('--reactive-only'), compositionOnly = argv.includes('--composition-only'), conditionalOnly = argv.includes('--conditional-only'), listsOnly = argv.includes('--lists-only'), twowayOnly = argv.includes('--twoway-only'), profilingOnly = argv.includes('--profiling-only'), packageOnly = argv.includes('--package-only'), cutoverOnly = argv.includes('--cutover-only');
 const requested=argv.find(a=>a.startsWith('--suites='))?.slice(9).split(',');
@@ -28,6 +28,7 @@ for (const selection of options.engines) {
         timings.push({name,seconds:Math.round((performance.now()-started)/10)/100,exit_code:result.status});
         const metrics=collectMetrics(output,timings);
         writeJSON(path.join(output,'ci-performance.json'),metrics);
+        if(requested)assertFocusedGraphics(metrics);
         console.log('CI_SUITE_TIMING '+name+' '+timings[timings.length-1]!.seconds+'s');
         if(process.env.GITHUB_STEP_SUMMARY)fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'- '+selection.label+' / '+name+': '+timings[timings.length-1]!.seconds+'s (exit '+result.status+')\n');
         if (result.status !== 0)

@@ -15,7 +15,7 @@ export function collectMetrics(output:string,suites:Array<{name:string;seconds:n
                     const text=log && fs.existsSync(log)?fs.readFileSync(log,'utf8'):'';
                     stages.push({suite:path.relative(output,file).split('/')[0],stage:name,seconds:stage.seconds,status:stage.status,
                         // Exact directly spawned command PID; banners include nested editor/game processes and are diagnostic only.
-                        direct_godot_command:path.basename(stage.command[0])==='godot',direct_godot_pid:stage.godot_pid??null,observed_startup_banners:(text.match(/^Godot Engine v/gm)||[]).length,
+                        graphics_command:path.basename(stage.command[0])==='godot' && !stage.command.includes('--headless'),software_graphics:/Using Device:.*llvmpipe|OpenGL.*Renderer:.*llvmpipe/i.test(text),direct_godot_command:path.basename(stage.command[0])==='godot',direct_godot_pid:stage.godot_pid??null,observed_startup_banners:(text.match(/^Godot Engine v/gm)||[]).length,
                         editor_scenarios:[...text.matchAll(/^CI_EDITOR_TIMING (.+) ([0-9.]+)$/gm)].map(m=>({scenario:m[1],seconds:Number(m[2])}))});
                 }
             }
@@ -30,4 +30,9 @@ export function collectMetrics(output:string,suites:Array<{name:string;seconds:n
 if(import.meta.url==='file://'+process.argv[1]) {
     const [input,output]=process.argv.slice(2);if(!input||!output)throw Error('Usage: ci-metrics.ts EVIDENCE_DIRECTORY OUTPUT_JSON');
     fs.writeFileSync(output,JSON.stringify(collectMetrics(input,[]),null,2)+'\n');
+}
+
+export function assertFocusedGraphics(metrics:ReturnType<typeof collectMetrics>) {
+    const graphics=metrics.stages.filter(stage=>stage.graphics_command);
+    if(graphics.some(stage=>!stage.software_graphics))throw Error('Focused graphics command lacks actual Godot software-renderer proof');
 }

@@ -6,7 +6,7 @@ import * as path from 'node:path';
 import { ROOT, sha256, runCommand } from '../../tools/compat-kit.ts';
 import { planCI, SUITES } from '../../tools/ci-plan.ts';
 import { verifyEngine } from '../../tools/verified-engine.ts';
-import { collectMetrics } from '../../tools/ci-metrics.ts';
+import { collectMetrics, assertFocusedGraphics } from '../../tools/ci-metrics.ts';
 test('main/dispatch always select full certification, docs PR skips native, changes select conservative suites',()=>{
     for(const event of ['push','workflow_dispatch'])assert.deepEqual(planCI(event,['docs/TESTING.md']),{mode:'acceptance',native:true,suites:[...SUITES]});
     assert.equal(planCI('pull_request',['README.md','AGENTS.md','docs/TESTING.md']).native,false);
@@ -37,6 +37,10 @@ test('telemetry preserves failures, stage/editor timing and distinguishes actual
         const metrics=collectMetrics(dir,[{name:'composition',seconds:1.5,exit_code:1}]);
         assert.equal(metrics.direct_godot_commands,1);assert.equal(metrics.recorded_godot_pids,1);assert.equal(metrics.observed_startup_banners,2);
         assert.deepEqual(metrics.stages[0].editor_scenarios,[{scenario:'success_current',seconds:0.25}]);assert.equal(metrics.stages[0].status,'FAIL');
+        assert.throws(()=>assertFocusedGraphics(metrics));
+        fs.appendFileSync(path.join(out,'editor.log'),'OpenGL API 4.5 Using Device: Mesa llvmpipe\n');
+        assert.doesNotThrow(()=>assertFocusedGraphics(collectMetrics(dir,[])));
+        assert.doesNotThrow(()=>assertFocusedGraphics({stages:[]} as any));
     }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
 test('workflow retains visible PR statuses and immutable reverified cache; release certification cannot use focused reports',()=>{
@@ -44,7 +48,7 @@ test('workflow retains visible PR statuses and immutable reverified cache; relea
     assert(!/^\s+paths(-ignore)?:/m.test(yaml));assert(yaml.includes('Native check policy status'));
     assert(yaml.includes("github.event_name != 'pull_request' || matrix.version == '4.7'"));
     assert(yaml.includes('runner.os')&&yaml.includes('runner.arch')&&yaml.includes('steps.engine.outputs.sha256'));assert(!yaml.includes('restore-keys:'));
-    assert(yaml.includes('Authenticate official Linux engine'));assert(yaml.includes("'[\"4.0.4\", \"4.7\"]'"));
+    assert(yaml.includes('Authenticate official Linux engine'));assert(yaml.includes('if [ "$EVENT_NAME" = pull_request ]; then'));assert(yaml.includes('Actual Godot logs must prove llvmpipe'));assert(yaml.includes("'[\"4.0.4\", \"4.7\"]'"));
     const orchestrator=fs.readFileSync(path.join(ROOT,'tools/check-native-addon.ts'),'utf8');
     assert(orchestrator.includes('if (requested || focused ||'));assert(orchestrator.indexOf('if (requested || focused ||')<orchestrator.indexOf("'addon-evidence.json'"));
     const release=fs.readFileSync(path.join(ROOT,'tools/verify-npm-release.ts'),'utf8');assert(release.includes("run.event!=='push'"));assert(release.includes("run.head_branch!=='main'"));assert(release.includes('assessFile('));
