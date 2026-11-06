@@ -67,7 +67,7 @@ func build_view() -> Element:
     var rows: Array = [_GogoFactories_0._gogo_build_0((1), (self.model)), _GogoFactories_0._gogo_build_1((2), (self.model))] if self.model != null and self.show_row else []
     if self.reverse: rows.reverse()
     return _GogoFactories_0._gogo_build_2(
-        (12.0),
+        (8.0),
         (_GogoFactories_0._gogo_build_3((preload("res://addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled"))) if self.model != null else null),
         ("Enabled" if self.model != null and self.model.enabled else "Disabled"),
         (preload("res://addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
@@ -128,7 +128,7 @@ class _GogoFactories_0:
         var _gogo_element_5 := _GogoElement_0.new(Text, {"name": "Revision", "text": _gogo_value_4}, {}, [], "examples/twoway/Demo.gogo:24:9", null, false)
         var _gogo_element_6 := _GogoElement_0.new(Action, {"text": "Replace model"}, {"pressed": _gogo_value_6}, [], "examples/twoway/Demo.gogo:26:9", null, false)
         var _gogo_element_7 := _GogoElement_0.new(Action, {"text": "Show / hide rows"}, {"pressed": _gogo_value_7}, [], "examples/twoway/Demo.gogo:27:9", null, false)
-        var _gogo_element_8 := _GogoElement_0.new(Action, {"text": "Reverse keys"}, {"pressed": _gogo_value_8}, [], "examples/twoway/Demo.gogo:28:9", null, false)
+        var _gogo_element_8 := _GogoElement_0.new(Action, {"name": "Reverse", "text": "Reverse keys"}, {"pressed": _gogo_value_8}, [], "examples/twoway/Demo.gogo:28:9", null, false)
         var _gogo_element_1 := _GogoElement_0.new(Box, {"name": "Panel", "gap": _gogo_value_0}, {}, [_gogo_element_2, _gogo_value_1, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_value_5, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/twoway/Demo.gogo:19:29", null, false)
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI"}, {}, [_gogo_element_1], "examples/twoway/Demo.gogo:19:12", null, false)
         return _gogo_element_0
