@@ -29,7 +29,7 @@ Two warmup operations, then **7 measured samples per timed case**, same inputs f
 | Idle | Class-wide nested HUD, multi-level conditional and native 2D/3D scenes: 12 frames after six settling frames; zero composition/Element/native edit/layout counters |
 | HUD | 32 revision writes before one drain: one observing view, 31 coalesced requests; same-value writes do nothing; unread class-wide note changes do not rerun; shared bool schedules exactly three interested components |
 | Conditional | Existing deep optional branch/null slots, model replacement, stable sibling identity/measure cache; simultaneous parent removal and dirty child cancels exactly one stale job |
-| Inventory | 8/64/256 real source-authored keyed rows; near-no-op Array snapshot, reverse, append/remove, prepend/remove and independent row state; retained native IDs/state, reverse exactly n−1 moves, only inserted row+caption created/freed |
+| Inventory | 8/64/128 real source-authored keyed rows; near-no-op Array snapshot, reverse, append/remove, prepend/remove and independent row state; retained native IDs/state, reverse exactly n−1 moves, only inserted row+caption created/freed |
 | Native 2D/3D | Current source-authored dimensional demos; bounded width changes: one layout flush, retained ID/transform, no composition |
 | Toggle | Actual primary pointer via Input.parse_input_event and native router/window, three interested projections/five necessary writes, model replacement rewires three boundaries exactly once |
 | Lifetime | Twelve model-replacement/mount/branch-removal/free cycles; old weak models released, external records/dirty queue empty |
@@ -38,7 +38,7 @@ Correctness is asserted from logical counts and real native identity/lifetime; n
 
 ## Baseline and optimization decision
 
-The unoptimized 4.7 baseline is [run 42149909593](https://github.com/papercraftgames/Estragon/actions/runs/42149909593), source `b4bec05`, official Linux 4.7 under Xvfb/Mesa26.0.8 llvmpipe. Native build/import/runtime and 488 bounded checks passed. An initial 4.0.4 attempt hit the former 180-second harness bound without native diagnostics; its FAIL remains recorded in #103. The retry keeps sampling/input identical with the six-minute bound and per-case persistence.
+The unoptimized 4.7 baseline is [run 42149909593](https://github.com/papercraftgames/Estragon/actions/runs/42149909593), source `b4bec05`, official Linux 4.7 under Xvfb/Mesa26.0.8 llvmpipe. Native build/import/runtime and 488 bounded checks passed. An initial 4.0.4 attempt hit the former 180-second harness bound without native diagnostics; its FAIL remains recorded in #103. The retries preserved completed partial data but 256-row reverse exceeded even the six-minute bound. The final matched plan uses 8/64/128 rows, two warmups and seven samples on both engines, before and after. Earlier 256-row evidence remains archival; no missing measurement is claimed as PASS.
 
 | Baseline 4.7 case | median / p95 µs | Order comparisons |
 | --- | ---: | ---: |

@@ -106,7 +106,7 @@ func run() -> void:
     cases.append({"name":"conditional/parent-child-cancellation","samples":[Profile.snapshot()]})
     conditional.free()
     await settle()
-    for size in [8,64,256]: await inventory(size)
+    for size in [8,64,128]: await inventory(size)
     for dimension in ["TwoD","ThreeD"]:
         var scene: Node = load("res://examples/ggx/generated/"+dimension+".gd").new()
         await idle(scene,dimension)
