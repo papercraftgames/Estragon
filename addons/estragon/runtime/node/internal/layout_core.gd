@@ -1,5 +1,6 @@
 @tool
 extends RefCounted
+const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
 ## Shared B2/C1 mathematical row layout. No Nodes, rendering or SceneTree dependencies.
 signal invalidated
 signal placed(offset)
@@ -67,6 +68,7 @@ func invalidate() -> void:
 func measure() -> Vector3:
 	if not _measure_dirty: return measured
 	measure_count += 1
+	if Profile.enabled: Profile.add("layout_measures")
 	var natural := Vector3.ZERO
 	for child in children:
 		var child_size: Vector3 = child.measure()
@@ -85,6 +87,7 @@ func arrange(available: Vector3) -> void:
 	if not _arrange_dirty and size == available: return
 	measure()
 	arrange_count += 1
+	if Profile.enabled: Profile.add("layout_arranges")
 	size = available
 	# Clear before callbacks so a signal-triggered change queues a genuine
 	# follow-up instead of being overwritten when this pass finishes.

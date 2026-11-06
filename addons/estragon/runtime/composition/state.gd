@@ -1,5 +1,6 @@
 @tool
 extends Resource
+const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
 ## Framework-owned shared scope stack; never stored on application objects.
 var scopes: Array = []
 var records: Dictionary = {}
@@ -14,6 +15,8 @@ func enqueue(record) -> void:
 func _parent_first(a, b) -> bool:
 	return a.depth() < b.depth()
 func drain() -> void:
+	var started: int = Time.get_ticks_usec() if Profile.enabled else 0
+	if Profile.enabled and not dirty.is_empty(): Profile.add("drains")
 	pending = false
 	flushing = true
 	var passes := 0
@@ -21,6 +24,7 @@ func drain() -> void:
 		dirty.sort_custom(_parent_first)
 		var record = dirty.pop_front()
 		record.queued = false
+		if Profile.enabled: Profile.add("jobs")
 		record._flush()
 		passes += 1
 		if passes > 1024:
@@ -29,10 +33,12 @@ func drain() -> void:
 			dirty.clear()
 			break
 	flushing = false
+	if Profile.enabled and passes>0: Profile.elapsed("drain",started)
 func begin() -> void:
 	scopes.append({})
 func observe(source: Object, event: StringName) -> void:
 	if scopes.is_empty(): return
+	if Profile.enabled: Profile.add("getter_reads")
 	var key := str(source.get_instance_id())+":"+str(event)
 	scopes.back()[key] = [weakref(source),event]
 func finish() -> Dictionary:
