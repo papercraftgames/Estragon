@@ -341,18 +341,28 @@ func _order(children: Array, parent: Node) -> void:
 	var nodes: Array = []
 	for child in children:
 		if child!=null: nodes.append(child.node.get_ref())
-	var lengths: Array = []
+	# Native child indices are unique. Binary-search minimal tails to recover
+	# one longest increasing subsequence without quadratic comparisons.
+	var tails: Array = []
+	var tail_indices: Array = []
 	var predecessors: Array = []
-	var best := -1
 	for index in range(nodes.size()):
-		lengths.append(1)
-		predecessors.append(-1)
-		for before in range(index):
+		var position: int = nodes[index].get_index()
+		var low := 0
+		var high := tails.size()
+		while low<high:
 			if Profile.is_enabled(): Profile.add("order_comparisons")
-			if nodes[before].get_index()<nodes[index].get_index() and lengths[before]+1>lengths[index]:
-				lengths[index] = lengths[before]+1
-				predecessors[index] = before
-		if best<0 or lengths[index]>lengths[best]: best = index
+			var middle: int = (low+high)/2
+			if tails[middle]<position: low = middle+1
+			else: high = middle
+		predecessors.append(tail_indices[low-1] if low>0 else -1)
+		if low==tails.size():
+			tails.append(position)
+			tail_indices.append(index)
+		else:
+			tails[low] = position
+			tail_indices[low] = index
+	var best: int = tail_indices.back() if not tail_indices.is_empty() else -1
 	var keep := {}
 	while best>=0:
 		keep[best] = true
@@ -368,21 +378,29 @@ func _order(children: Array, parent: Node) -> void:
 				if Profile.is_enabled(): Profile.add("moves")
 		anchor = actual
 
-func _preflight(desired, previous, parent: Node) -> bool:
+func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> bool:
 	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
-	var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
-	var properties := {}
-	var signals := {}
-	for prop in ClassDB.class_get_property_list(native): properties[prop.name] = prop
-	for event in ClassDB.class_get_signal_list(native): signals[event.name] = event
-	var script = desired.type if desired.type is Script else null
-	while script != null:
-		for prop in script.get_script_property_list(): properties[prop.name] = prop
-		for event in script.get_script_signal_list(): signals[event.name] = event
-		for method in script.get_script_method_list():
-			if method.name=="_init" and method.args.size()>method.default_args.size(): return false
-		script = script.get_base_script()
+	# Cache only within this synchronous desired-tree validation. No Script
+	# contracts survive a commit or hide editor reload/metadata changes.
+	if contracts==null: contracts = {}
+	if not contracts.has(desired.type):
+		if Profile.is_enabled(): Profile.add("metadata_builds")
+		var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
+		var properties := {}
+		var signals := {}
+		for prop in ClassDB.class_get_property_list(native): properties[prop.name] = prop
+		for event in ClassDB.class_get_signal_list(native): signals[event.name] = event
+		var script = desired.type if desired.type is Script else null
+		while script != null:
+			for prop in script.get_script_property_list(): properties[prop.name] = prop
+			for event in script.get_script_signal_list(): signals[event.name] = event
+			for method in script.get_script_method_list():
+				if method.name=="_init" and method.args.size()>method.default_args.size(): return false
+			script = script.get_base_script()
+		contracts[desired.type] = {"properties":properties,"signals":signals}
+	var properties: Dictionary = contracts[desired.type].properties
+	var signals: Dictionary = contracts[desired.type].signals
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
@@ -416,7 +434,7 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		var child = desired.children[index]
 		if child == null: continue
 		var old = matches[index]
-		if not _preflight(child,old,null): return false
+		if not _preflight(child,old,null,contracts): return false
 		var name: String = str(child.properties.get("name",str(old.node.get_ref().name) if old!=null and _compatible(child,old) else ""))
 		if not name.is_empty():
 			if names.has(name): return false
