@@ -36,7 +36,7 @@ func _component(node: Model.Component) -> void:
 		for property in script.get_script_property_list():
 			if not properties.has(property.name): properties[property.name] = property
 		for event in script.get_script_signal_list():
-			if not signals.has(event.name): signals[event.name] = event
+			if not signals.has(event.name): signals[event.name] = resolver.signal_contract(script,event)
 		script = script.get_base_script()
 	properties.merge(resolved.get("properties",{}),true)
 	signals.merge(resolved.get("signals",{}),true)
@@ -254,7 +254,7 @@ func _binding(attribute, node, properties: Dictionary, signals: Dictionary) -> v
 	var event: Dictionary = signals.get("value_changed",{})
 	var args: Array = event.get("args",[])
 	if not properties.has("value") or properties.value.type!=TYPE_BOOL or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY or args.size()!=1 or args[0].type!=TYPE_BOOL:
-		_error("bind:value requires writable bool value and value_changed(value: bool): "+str(properties.get("value"))+" / "+str(event),attribute.name_span)
+		_error("bind:value requires writable bool value and value_changed(value: bool)",attribute.name_span)
 		return
 	if not attribute.value is Model.GdExpression:
 		_error("bind:value requires an explicit self bindable lvalue path",attribute.value.span)

@@ -365,7 +365,11 @@ func _preflight(desired, previous, parent: Node) -> bool:
 	for key in desired.bindings:
 		if key!="value" or desired.properties.has(key) or desired.handlers.has("value_changed") or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var args: Array = signals.get("value_changed",{}).get("args",[])
-		if args.size()!=1 or args[0].type!=TYPE_BOOL: return false
+		
+		# 4.0 lacks signal argument type metadata. Compiler source proof and
+		# native typed callback still apply; optional introspection cannot
+		# reject a valid input on that engine.
+		if args.size()!=1 or args[0].type not in [TYPE_NIL,TYPE_BOOL]: return false
 	for key in desired.handlers:
 		if not signals.has(key): return false
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null

@@ -43,7 +43,7 @@ export function auditNativeSource() {
     }
     if (fs.readFileSync(path.join(ROOT, 'addons/estragon/editor/build_service.gd'), 'utf8').includes('item.result.mode'))
         throw Error('Retired publication mode guard');
-    for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo','reactive/Model','reactive/State','reactive/Demo','composition/Model','composition/Counter','conditional/Child','conditional/Counter','inventory/Item','inventory/Row','inventory/Inventory']) {
+    for (const name of ['counter/Counter', 'ggx/TwoD', 'ggx/ThreeD','bindable/Model','bindable/Derived','bindable/Demo','reactive/Model','reactive/State','reactive/Demo','composition/Model','composition/Counter','conditional/Child','conditional/Counter','inventory/Item','inventory/Row','inventory/Inventory','twoway/Model','twoway/Row','twoway/Demo']) {
         const [dir, base] = name.split('/');
         const source = path.join(ROOT, 'examples', dir!, base! + '.gogo');
         const map = JSON.parse(fs.readFileSync(path.join(ROOT, 'examples', dir!, 'generated', base! + '.gd.map.json'), 'utf8'));

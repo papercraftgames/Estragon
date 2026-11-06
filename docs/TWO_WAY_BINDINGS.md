@@ -27,7 +27,7 @@ A potentially null model must omit its control intentionally:
 return <Toggle bind:value={self.model.enabled} /> if self.model != null else null
 ```
 
-A present null binding invalidates the complete desired commit and retains the previous tree. Null is never silently made writable. Native semantic validation remains actual-path transactional with original maps, stable UIDs/cache identity, failure rollback and repair. Godot 4.0.4 retains its documented optional authored semantic-location limitation.
+A present null binding invalidates the complete desired commit and retains the previous tree. Null is never silently made writable. Native semantic validation remains actual-path transactional with original maps, stable UIDs/cache identity, failure rollback and repair. Godot 4.0.4 retains its documented optional authored semantic-location limitation. It also reports TYPE_NIL for typed GDScript signal arguments: the compiler recovers the exact declared single-argument type lexically from that script (native reload remains authoritative); runtime preflight retains arity checks and the typed bool callback while accepting absent optional type metadata. 4.7 uses its native typed signal metadata. Invalid bool/int/arity contracts reject on both.
 
 ## Model authority and timing
 
