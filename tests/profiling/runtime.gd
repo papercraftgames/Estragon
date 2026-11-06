@@ -45,6 +45,7 @@ func idle(scene: Node, name: String) -> void:
     print("PROFILE_MOUNT ",name," tree=",scene.is_inside_tree()," script=",scene.get_script().resource_path," records=",State.records.keys()," id=",scene.get_instance_id())
     Profile.reset()
     await settle(12)
+    print("PROFILE_IDLE ",name," tree=",scene.is_inside_tree()," records=",State.records.keys()," counts=",Profile.counts)
     check(Profile.counts.is_empty(),name+" idle has zero instrumented work")
     cases.append({"name":name+"/idle-12-frames","samples":[Profile.snapshot()]})
 func run() -> void:

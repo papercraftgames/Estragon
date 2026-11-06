@@ -57,6 +57,7 @@ func lifecycle(host: Node, what: int) -> void:
 		records[id].suspend()
 	elif what == NOTIFICATION_PREDELETE and records.has(id):
 		records[id].dispose(false)
+		if Profile.enabled: print("PROFILE_ERASE ",host.name," what=",what)
 		records.erase(id)
 func unmount(host: Node, rescue: Node = null) -> void:
 	var id := host.get_instance_id()
