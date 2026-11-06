@@ -12,9 +12,11 @@ for(const selection of options.engines) {
  fs.writeFileSync(path.join(sandbox.workspace,'_sc_'),'');
  try {
   for(const dir of ['addons/estragon/runtime/node','examples/node_runtime','tests/node_runtime']) copyTree(path.join(ROOT,dir),path.join(sandbox.project,dir));
+  const profilingFiles=['addons/estragon/runtime/composition/profile.gd','addons/estragon/runtime/composition/profile.gd.uid','addons/estragon/runtime/composition/profile.tres'];
+  for(const file of profilingFiles){const target=path.join(sandbox.project,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(ROOT,file),target);}
   const settings='config_version=5\n[application]\nconfig/name="C1 isolated proof"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=360\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
   fs.writeFileSync(path.join(sandbox.project,'project.godot'),settings);
-  const sources=['addons/estragon/runtime/node','examples/node_runtime','tests/node_runtime'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(['tools/check-node-runtime.ts','tools/compat-kit.ts']);
+  const sources=['addons/estragon/runtime/node','examples/node_runtime','tests/node_runtime'].flatMap(dir=>listGDScripts(path.join(ROOT,dir))).map(p=>path.relative(ROOT,p)).concat(profilingFiles,['tools/check-node-runtime.ts','tools/compat-kit.ts']);
   const stages:Record<string,unknown>={};
   writeJSON(path.join(output,'provenance.json'),{version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),sourceHashes:sourceHashes(sources),command:process.argv});
   async function run(name:string,args:string[],marker:string,graphics=true) {
