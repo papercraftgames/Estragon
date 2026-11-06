@@ -54,7 +54,8 @@ test('only the Godot plugin commits a release version; documentation contains no
         'docs/WORK_STATUS.md',
         'docs/EXECUTION_PLAN.md',
     ];
-    const pinnedPrerelease=/\\b\\d+\\.\\d+\\.\\d+-(?:alpha|beta|rc)\\.\\d+\\b/i;
+    const pinnedPrerelease=/\b\d+\.\d+\.\d+-(?:alpha|beta|rc)\.\d+\b/i;
+    assert(pinnedPrerelease.test(addonVersion()));
     for(const page of pages) {
         const contents=fs.readFileSync(path.join(root,page),'utf8');
         assert(!pinnedPrerelease.test(contents),'Documentation must use an npm dist-tag, not a pinned release version: '+page);
