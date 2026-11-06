@@ -22,7 +22,7 @@ corepack yarn@1.22.22 node --experimental-strip-types tools/check-profiling.ts -
 
 The runner copies the addon/current Gogo examples into an isolated project, builds normally, imports with isolated settings, then runs a real graphics-window native benchmark. No user preferences/addon setting in this checkout changes. End users still need only Godot. Contributor automation is TypeScript/Yarn; existing Bun policy checks remain.
 
-Two warmup operations, then **7 measured samples per timed case**, same inputs for both engines. Two settling frames follow each measured operation; six follow mounts and twelve measure idle. This revised bounded plan follows measured 4.0.4 timeout evidence (#103); the older 4-warmup/15-sample 4.7 run below remains historical and is not used as a mismatched comparison. Raw samples are in `profile.json`; `summary.json` reports median/p95 and representative counters. Progress/raw evidence is persisted after each completed case, outside timed regions. The process limit is six minutes; it is a harness bound, not a performance threshold. Startup/import/download/CI package setup and frame waits are excluded from sampled mutation/drain times.
+Two warmup operations, then **7 measured samples per timed case**, same inputs for both engines. Two settling frames follow each measured operation; six follow mounts and twelve measure idle. This revised bounded plan follows measured 4.0.4 timeout evidence (#103); the older 4-warmup/15-sample 4.7 run remains historical and is not used as a mismatched comparison. Raw samples are in `profile.json`; `summary.json` reports median/p95 and representative counters. Progress/raw evidence is persisted after each completed case, outside timed regions. The process limit is six minutes; it is a harness bound, not a performance threshold. Startup/import/download/CI package setup and frame waits are excluded from sampled mutation/drain times.
 
 | Workload | Exact input / deterministic checks |
 | --- | --- |
@@ -36,21 +36,42 @@ Two warmup operations, then **7 measured samples per timed case**, same inputs f
 
 Correctness is asserted from logical counts and real native identity/lifetime; no median/p95 speed threshold gates acceptance. Existing conditional/list/toggle/native UI/editor/pack tests remain mandatory for additional reentrancy, foreign ownership, input, cache and source rollback cases.
 
-## Baseline and optimization decision
+## Baseline, measured changes and results
 
-The unoptimized 4.7 baseline is [run 42149909593](https://github.com/papercraftgames/Estragon/actions/runs/42149909593), source `b4bec05`, official Linux 4.7 under Xvfb/Mesa26.0.8 llvmpipe. Native build/import/runtime and 488 bounded checks passed. An initial 4.0.4 attempt hit the former 180-second harness bound without native diagnostics; its FAIL remains recorded in #103. The retries preserved completed partial data but 256-row reverse exceeded even the six-minute bound. The final matched plan uses 8/64/128 rows, two warmups and seven samples on both engines, before and after. Earlier 256-row evidence remains archival; no missing measurement is claimed as PASS.
+Complete matched baselines use source `2aad73fd214d67643153886a4469b5a3b39511fd`: [4.0.4 run 42165060806](https://github.com/papercraftgames/Estragon/actions/runs/42165060806), [4.7 run 42165232952](https://github.com/papercraftgames/Estragon/actions/runs/42165232952). Both build/import/runtime stages passed, 248 logical assertions each. These baselines and the optimization decision were published in #103 **before editing the optimization logic**.
 
-| Baseline 4.7 case | median / p95 µs | Order comparisons |
+After source `2819b715936a710dd72cff739ddf9e403f2ad1d1`: [4.0.4 run 42165474231](https://github.com/papercraftgames/Estragon/actions/runs/42165474231), [4.7 run 42165380928](https://github.com/papercraftgames/Estragon/actions/runs/42165380928). All focused stages and 248 assertions passed on each; exact same official binaries, inputs, warmup and sample counts. Full tables (including slower/noisy cases): [4.0.4](evidence/F06_4_0_4.md), [4.7](evidence/F06_4_7.md). Raw samples, source/engine provenance and execution/environment logs remain in each CI artifact. Reproduce the comparison with:
+
+```sh
+corepack yarn@1.22.22 node --experimental-strip-types tools/compare-profiling.ts /absolute/before/profiling/4.7 /absolute/after/profiling/4.7 /tmp/comparison.md
+```
+
+Exactly two bounded changes were retained:
+
+1. **LIS discovery:** unique native child indices use binary-search minimal tails/predecessors, reducing discovery from quadratic to O(n log n). Existing right-to-left minimum-move commitment is unchanged. Different equally valid LIS choices are permitted; actual native order/IDs/state/minimal operation assertions remain authoritative. No-op 128-row ordering comparisons fall **8,794→694**; reverse **8,794→272**. No speculative author/compiler memoization.
+2. **Tree-local preflight metadata:** collect native/script property/signal/constructor contracts once per type in one synchronous desired-tree validation. The dictionary is local, passed down that tree, and discarded; no cross-commit/editor-reload cache or invalidation infrastructure. All per-element value/signal/type/name/foreign-boundary checks still run. For 128-row no-op, **144 validation visits remain**, but metadata collections fall from one per visited node to **six types**. Native lifetime and pack behavior remain intact.
+
+| Case | 4.0.4 before → after median µs | 4.7 before → after median µs |
 | --- | ---: | ---: |
-| HUD 32 writes | 7,281 / 7,665 | 45 |
-| 8 row no-op | 12,824 / 13,118 | 94 |
-| 64 row no-op | 43,409 / 45,371 | 2,362 |
-| 256 row no-op | 191,981 / 198,432 | 33,946 |
-| 256 row reverse | 677,686 / 712,894 | 33,946 |
-| 256 append/remove | 401,684 / 413,903 | 68,153 |
-| 256 row-owned state | 915 / 1,114 | 0 |
+| HUD 32 writes | 8,150 → 3,544 | 7,392 → 3,205 |
+| 8 row no-op | 14,614 → 3,965 | 12,874 → 3,134 |
+| 64 row no-op | 54,577 → 7,656 | 44,588 → 6,094 |
+| 128 row no-op | 101,261 → 15,051 | 84,420 → 11,463 |
+| 128 row reverse | 4,955,581 → 3,612,289 | 169,646 → 86,329 |
+| 128 append/remove | 216,133 → 36,165 | 183,809 → 28,003 |
+| 128 prepend/remove | 375,723 → 149,079 | 185,022 → 27,330 |
+| 128 row state | 843 → 618 | 735 → 532 |
+| Native 2D layout (not changed) | 37 → 29 | 28 → 46 |
 
-These are **instrumented debug-engine wall measurements**, not release-build throughput promises. Runner load, instrumentation, engine version and software graphics affect timing; algorithmic operation-count differences are stronger evidence than one noisy sample distribution. Individual runs expose median and p95, not a confidence interval across machines. Before/after source/run evidence and the final selected optimization are recorded below and in #103 before review delivery.
+These are **instrumented debug-engine wall measurements**, not release-build CPU/throughput promises. Seven samples yield p95 equal to the observed maximum, not population confidence. Runner load, engine and instrumentation affect small timings: e.g. unchanged 4.7 native 2D layout regressed 28→46 µs while 3D stayed 29 µs; same-value microsecond changes are noise, not evidence of an optimization of those paths. No speed threshold gates correctness. 4.0.4 large reverse remains multi-second despite minimal 127 moves because native child-order/layout synchronization is substantial. That authority was deliberately not redesigned (#55/#88 remain separate).
+
+All four idle cases measure zero own composition/Elements/native mutations/layout work after quiescence. Bursts coalesce; shared-model observers and one-row state remain selective. Model replacement rewires current inputs, parent-first removal cancels dirty children, native IDs/state and sibling measurement caches persist. Twelve repeated lifetimes release weak models and clear external records/queues. The measured object delta is +12 for twelve intentionally retained WeakRef probes; approximate static-memory deltas include process/benchmark storage. The final gate also asserts exactly that expected object delta. Connection counters count explicit operations, not every automatic native destruction cleanup. Engine drawing/GPU/physics work is unmeasured.
+
+### Preserved failed/provisional evidence
+
+The earlier 4-warmup/15-sample 4.7 run [42149909593](https://github.com/papercraftgames/Estragon/actions/runs/42149909593) passed 488 checks and exposed quadratic scaling up to 256 rows, but is not compared against different sample settings. The 4.0.4 256-row runs [42150114859](https://github.com/papercraftgames/Estragon/actions/runs/42150114859), [42150538900](https://github.com/papercraftgames/Estragon/actions/runs/42150538900) and [42151318972](https://github.com/papercraftgames/Estragon/actions/runs/42151318972) hit bounded process timeouts; preserved partial evidence has no logical failures, but the runs remain FAIL and no completed large-reverse number is invented. Final matched 8/64/128 inputs and smaller sampling were recorded before optimization, keeping all scenario/invariant categories and existing release suites.
+
+Initial test harness Resource constant-property access failures were corrected with explicit enable/query methods and dynamic test Resource references; temporary diagnostic traces were removed. No actual-path compiler/editor or public author contract was weakened. Final strict existing addon acceptance plus profiling is required on both approved Linux engines; exact final head/source/artifacts/status are in #103/its sole PR. Manual interactive Godot 4.7 smoke status is reported there separately from automated graphics evidence.
 
 ## Remaining framework roadmap
 

@@ -133,6 +133,7 @@ func run() -> void:
         await settle()
         check(State.records.is_empty() and State.dirty.is_empty(),"repeated mount/free clears manager scopes and pending jobs")
     for weak in weak_models: check(weak.get_ref()==null,"replaced weak model released")
+    check(int(Performance.get_monitor(Performance.OBJECT_COUNT)-objects_before)==weak_models.size(),"only the twelve retained WeakRef probes remain after repeated lifetimes")
     cases.append({"name":"lifetime/12-cycles","objects_before":objects_before,"objects_after":Performance.get_monitor(Performance.OBJECT_COUNT),"static_memory_delta_bytes":OS.get_static_memory_usage()-memory_before})
     Profile.set_enabled(false)
     Profile.reset()
