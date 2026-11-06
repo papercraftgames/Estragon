@@ -16,7 +16,7 @@ for (const selection of options.engines) {
         writeJSON(path.join(out, 'provenance.json'), { sourceHead: gitHead(), sourceDirty: gitDirty(), version: box.version, original_binary_sha256: box.inputHash });
         async function run(name: string, args: string[], marker: string, negative = false) {
             const log = path.join(out, name + '.log');
-            const stage = await runCommand([box.binary, '--headless', '--audio-driver', 'Dummy', '--path', box.project, ...args], box.workspace, box.env, log, marker, { abortOnError: !negative, expectedErrors: negative, timeout: negative ? 240000 : 60000 });
+            const stage = await runCommand([box.binary, ...(name === 'runtime' ? [] : ['--headless']), '--audio-driver', 'Dummy', '--path', box.project, ...args], box.workspace, box.env, log, marker, { abortOnError: !negative, expectedErrors: negative, timeout: negative ? 240000 : 60000 });
             const text = fs.readFileSync(log, 'utf8');
             process.stdout.write(text);
             if (negative) {
