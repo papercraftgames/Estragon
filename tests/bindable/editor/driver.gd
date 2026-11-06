@@ -11,6 +11,7 @@ var _checks := 0
 var _counter: CodeEdit
 var _source: String
 var _plugin: EditorPlugin
+var _ready_proof: Dictionary = {}
 
 func _enter_tree() -> void:
 	_interface = get_editor_interface()
@@ -61,7 +62,17 @@ func _open(path: String) -> CodeEdit:
 func _uid() -> PackedByteArray:
 	return FileAccess.get_file_as_bytes(OUTPUT + ".uid") if FileAccess.file_exists(OUTPUT + ".uid") else PackedByteArray()
 
+func _proof_ready() -> bool:
+	if not FileAccess.file_exists(PROOF): return false
+	var parsed := JSON.new()
+	# File creation precedes store_string/close; incomplete JSON is not readiness.
+	if parsed.parse(FileAccess.get_file_as_string(PROOF)) != OK: return false
+	if not parsed.data is Dictionary or parsed.data.is_empty(): return false
+	_ready_proof = parsed.data
+	return true
+
 func _clear_proof() -> void:
+	_ready_proof = {}
 	if FileAccess.file_exists(PROOF): DirAccess.remove_absolute(PROOF)
 
 func _play(mode: String) -> void:
@@ -76,8 +87,8 @@ func _success(mode: String, value: int) -> void:
 	var scenario_started := Time.get_ticks_msec()
 	_clear_proof()
 	_play(mode)
-	if await _until(func(): return FileAccess.file_exists(PROOF), mode + " child executes current GGX"):
-		var proof = JSON.parse_string(FileAccess.get_file_as_string(PROOF))
+	if await _until(_proof_ready, mode + " child executes current GGX"):
+		var proof := _ready_proof
 		_check(_interface.is_playing_scene() and proof.initial==value and proof.count==value+2 and proof.events.size()==2 and int(proof.events[0][0])==value and int(proof.events[0][1])==value+1 and int(proof.events[1][0])==value+1 and int(proof.events[1][1])==value+2, mode+" executes newest Gogo model and callbacks")
 	await _stop()
 	print("CI_EDITOR_TIMING success_", mode, " ", (Time.get_ticks_msec() - scenario_started) / 1000.0)

@@ -63,3 +63,31 @@ test('optimized editor harnesses retain both Play entrypoints, negative observat
         assert(!driver.includes('await _wait(1)'));assert(!driver.includes('_interface.stop_playing_scene()\n\tawait _wait(0.5)'));
     }
 });
+
+test('proof-file existence precedes complete JSON; editor harnesses wait for and cache validated snapshots',()=>{
+    const dir=fs.mkdtempSync(path.join(os.tmpdir(),'estragon-proof-race-'));
+    try {
+        const proof=path.join(dir,'play.json'),writer=fs.openSync(proof,'w');
+        try {
+            assert(fs.existsSync(proof));
+            assert.throws(()=>JSON.parse(fs.readFileSync(proof,'utf8')),'file-exists polling exposes an empty write');
+            fs.writeSync(writer,'{"width":');
+            assert.throws(()=>JSON.parse(fs.readFileSync(proof,'utf8')),'partial content is not a completed proof');
+            fs.writeSync(writer,'77,"dimension":3,"native":true}');
+        }finally{fs.closeSync(writer);}
+        const snapshot=JSON.parse(fs.readFileSync(proof,'utf8'));
+        fs.writeFileSync(proof,'');
+        assert.deepEqual(snapshot,{width:77,dimension:3,native:true},'a validated snapshot survives subsequent file changes');
+        for(const suite of ['native_ui','ggx','bindable','reactive','composition','conditional','lists','twoway','package-consumer']) {
+            const driver=fs.readFileSync(path.join(ROOT,'tests',suite,'editor/driver.gd'),'utf8');
+            const helper=driver.slice(driver.indexOf('func _proof_ready()'),driver.indexOf('func _clear_proof()'));
+            assert(helper.includes('parsed.parse(FileAccess.get_file_as_string(PROOF)) != OK: return false'),suite);
+            assert(helper.indexOf('parsed.parse(')<helper.indexOf('_ready_proof = parsed.data'),suite);
+            assert(helper.includes('not parsed.data is Dictionary or parsed.data.is_empty()'),suite);
+            assert(driver.includes('await _until(_proof_ready,'),suite);
+            assert(driver.includes('var proof := _ready_proof'),suite);
+            assert(driver.includes('func _clear_proof() -> void:\n\t_ready_proof = {}'),suite);
+            assert(!driver.includes('JSON.parse_string(FileAccess.get_file_as_string(PROOF))'),suite);
+        }
+    }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});
