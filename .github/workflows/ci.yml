@@ -40,7 +40,7 @@ jobs:
         id: plan
         run: node --experimental-strip-types tools/ci-plan.ts
   addon:
-    if: inputs.verification_mode != 'certification'
+    if: always() && inputs.verification_mode != 'certification'
     needs: tooling
     runs-on: ubuntu-latest
     timeout-minutes: 1
@@ -89,7 +89,11 @@ jobs:
           name: routine-smoke-failure
           path: ${{ runner.temp }}/routine-smoke
       - name: Native check policy status
-        run: echo 'Routine checks only. Two-engine 73-stage certification is mandatory before publication.'
+        env:
+          TOOLING_RESULT: ${{ needs.tooling.result }}
+        run: |
+          test "$TOOLING_RESULT" = success
+          echo 'Routine checks only. Two-engine 73-stage certification is mandatory before publication.'
   certify:
     if: github.event_name == 'workflow_dispatch' && inputs.verification_mode == 'certification' && github.repository == 'papercraftgames/Estragon'
     uses: ./.github/workflows/certify.yml

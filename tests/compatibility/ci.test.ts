@@ -47,6 +47,8 @@ test('routine workflows cannot launch editors/full suites; certification is an e
     const routine=fs.readFileSync(path.join(ROOT,'.github/workflows/ci.yml'),'utf8');
     const fast=routine.slice(0,routine.indexOf('  certify:'));
     assert(!/^\s+paths(-ignore)?:/m.test(routine));assert(fast.includes('Native check policy status'));
+    assert(fast.includes("if: always() && inputs.verification_mode != 'certification'"));
+    assert(fast.includes('test "$TOOLING_RESULT" = success'));
     for(const heavy of ['check-native-addon.ts','apt-get','xvfb','--editor','--suites'])assert(!fast.includes(heavy),heavy);
     assert(fast.includes('check-routine-smoke.ts'));assert(fast.includes('timeout-minutes: 1'));
     assert(fast.includes('runner.os')&&fast.includes('runner.arch')&&fast.includes('steps.engine.outputs.sha256'));
