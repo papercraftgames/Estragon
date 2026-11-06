@@ -10,6 +10,11 @@ func run() -> void:
 	var scene = preload("res://examples/twoway/generated/Demo.gd").new()
 	root.add_child(scene)
 	await capture("twoway-initial")
+	var last = scene.get_node("UI/Panel/Reverse")
+	if last.global_position.y+last.layout_size.y>root.size.y:
+		push_error("Demo commands must remain visible at initial viewport")
+		quit(1)
+		return
 	scene.model.enabled = true
 	await capture("twoway-changed")
 	if not scene.has_node("UI/Panel/Edit"):

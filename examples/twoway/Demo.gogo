@@ -16,7 +16,7 @@ var revision: int = 0
 func build_view() -> Element:
     var rows: Array = [<Row key={1} name="First" model={self.model} />, <Row key={2} name="Second" model={self.model} />] if self.model != null and self.show_row else []
     if self.reverse: rows.reverse()
-    return <Entry name="UI"><Box name="Panel" gap={12.0}>
+    return <Entry name="UI"><Box name="Panel" gap={8.0}>
         <Text name="Heading" text="Native two-way boolean input" />
         {<Toggle name="Edit" text="Model enabled" bind:value={self.model.enabled} /> if self.model != null else null}
         <Text name="Status" text={"Enabled" if self.model != null and self.model.enabled else "Disabled"} />
@@ -25,7 +25,7 @@ func build_view() -> Element:
         {rows}
         <Action text="Replace model" pressed={replace_model} />
         <Action text="Show / hide rows" pressed={toggle_rows} />
-        <Action text="Reverse keys" pressed={reverse_rows} />
+        <Action name="Reverse" text="Reverse keys" pressed={reverse_rows} />
     </Box></Entry>
 func replace_model() -> void:
     model = Model.new()
