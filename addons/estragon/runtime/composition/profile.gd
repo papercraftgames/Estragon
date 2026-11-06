@@ -5,6 +5,8 @@ var enabled := false
 var counts: Dictionary = {}
 var timings: Dictionary = {}
 const SAMPLE_LIMIT := 4096
+func is_enabled() -> bool:
+	return enabled
 func set_enabled(value: bool) -> void:
 	enabled = value
 func reset() -> void:

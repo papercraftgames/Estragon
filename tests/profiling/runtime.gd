@@ -1,6 +1,6 @@
 extends SceneTree
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
-const State = preload("res://addons/estragon/runtime/composition/state.tres")
+var Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+var State = preload("res://addons/estragon/runtime/composition/state.tres")
 const Inventory = preload("res://examples/inventory/generated/Inventory.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
 const Conditional = preload("res://examples/conditional/generated/Counter.gd")
@@ -42,10 +42,8 @@ func measure(name: String, action: Callable, verify: Callable) -> void:
 func idle(scene: Node, name: String) -> void:
     root.add_child(scene)
     await settle()
-    print("PROFILE_MOUNT ",name," tree=",scene.is_inside_tree()," script=",scene.get_script().resource_path," records=",State.records.keys()," id=",scene.get_instance_id())
     Profile.reset()
     await settle(12)
-    print("PROFILE_IDLE ",name," tree=",scene.is_inside_tree()," records=",State.records.keys()," counts=",Profile.counts)
     check(Profile.counts.is_empty(),name+" idle has zero instrumented work")
     cases.append({"name":name+"/idle-12-frames","samples":[Profile.snapshot()]})
 func run() -> void:

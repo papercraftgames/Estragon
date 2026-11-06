@@ -13,7 +13,7 @@ var keyed: bool
 var slot: Array = []
 var source: String
 func _init(native_type: Variant = null, props: Dictionary = {}, events: Dictionary = {}, descendants: Array = [], location: String = "", identity_key: Variant = null, has_key: bool = false) -> void:
-	if Profile.enabled: Profile.add("elements")
+	if Profile.is_enabled(): Profile.add("elements")
 	key = identity_key
 	keyed = has_key
 	type = native_type

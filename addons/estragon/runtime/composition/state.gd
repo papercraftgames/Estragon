@@ -15,8 +15,8 @@ func enqueue(record) -> void:
 func _parent_first(a, b) -> bool:
 	return a.depth() < b.depth()
 func drain() -> void:
-	var started: int = Time.get_ticks_usec() if Profile.enabled else 0
-	if Profile.enabled and not dirty.is_empty(): Profile.add("drains")
+	var started: int = Time.get_ticks_usec() if Profile.is_enabled() else 0
+	if Profile.is_enabled() and not dirty.is_empty(): Profile.add("drains")
 	pending = false
 	flushing = true
 	var passes := 0
@@ -24,7 +24,7 @@ func drain() -> void:
 		dirty.sort_custom(_parent_first)
 		var record = dirty.pop_front()
 		record.queued = false
-		if Profile.enabled: Profile.add("jobs")
+		if Profile.is_enabled(): Profile.add("jobs")
 		record._flush()
 		passes += 1
 		if passes > 1024:
@@ -33,12 +33,12 @@ func drain() -> void:
 			dirty.clear()
 			break
 	flushing = false
-	if Profile.enabled and passes>0: Profile.elapsed("drain",started)
+	if Profile.is_enabled() and passes>0: Profile.elapsed("drain",started)
 func begin() -> void:
 	scopes.append({})
 func observe(source: Object, event: StringName) -> void:
 	if scopes.is_empty(): return
-	if Profile.enabled: Profile.add("getter_reads")
+	if Profile.is_enabled(): Profile.add("getter_reads")
 	var key := str(source.get_instance_id())+":"+str(event)
 	scopes.back()[key] = [weakref(source),event]
 func finish() -> Dictionary:
@@ -57,7 +57,6 @@ func lifecycle(host: Node, what: int) -> void:
 		records[id].suspend()
 	elif what == NOTIFICATION_PREDELETE and records.has(id):
 		records[id].dispose(false)
-		if Profile.enabled: print("PROFILE_ERASE ",host.name," what=",what)
 		records.erase(id)
 func unmount(host: Node, rescue: Node = null) -> void:
 	var id := host.get_instance_id()

@@ -36,12 +36,12 @@ func attach(target: Node, scope) -> void:
 	computation = weakref(scope)
 	if not connected:
 		connected = target.connect("value_changed",edit)==OK
-		if connected and Profile.enabled: Profile.add("binding_connects")
+		if connected and Profile.is_enabled(): Profile.add("binding_connects")
 		if connected and not target.tree_exiting.is_connected(_target_exit): target.tree_exiting.connect(_target_exit)
 func disconnect_edit() -> void:
 	var target = node.get_ref() if node!=null else null
 	if target!=null and target.is_connected("value_changed",edit): target.disconnect("value_changed",edit)
-	if connected and Profile.enabled: Profile.add("binding_disconnects")
+	if connected and Profile.is_enabled(): Profile.add("binding_disconnects")
 	if target!=null and target.tree_exiting.is_connected(_target_exit): target.tree_exiting.disconnect(_target_exit)
 	connected = false
 func _target_exit() -> void:
