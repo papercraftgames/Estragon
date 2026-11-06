@@ -2,6 +2,7 @@
 import * as fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { ROOT, gitHead, gitDirty } from './compat-kit.ts';
+import { addonVersion } from './package-version.ts';
 export const REPOSITORY='papercraftgames/Estragon';
 export function releaseContext(event:any, eventName:string, ref:string, version:string, source={head:gitHead(),dirty:gitDirty()}, tagHead=source.head, onMain=true) {
     if(event.repository?.full_name!==REPOSITORY || source.dirty || !onMain || !/^0\.\d+\.\d+-beta\.\d+$/.test(version))throw Error('Canonical clean reviewed main prerelease required');
@@ -12,7 +13,7 @@ export function releaseContext(event:any, eventName:string, ref:string, version:
 }
 export function currentContext() {
     const event=JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH!,'utf8'));
-    const version=JSON.parse(fs.readFileSync(ROOT+'/packages/estragon/package.json','utf8')).version;
+    const version=addonVersion();
     let onMain=false;
     try {execFileSync('git',['merge-base','--is-ancestor',gitHead(),'origin/main'],{cwd:ROOT,stdio:'pipe'});onMain=true;}catch{}
     const tagHead=event.release?.tag_name && /^v0\.\d+\.\d+-beta\.\d+$/.test(event.release.tag_name)?execFileSync('git',['rev-parse','refs/tags/'+event.release.tag_name+'^{commit}'],{cwd:ROOT,encoding:'utf8'}).trim():gitHead();
