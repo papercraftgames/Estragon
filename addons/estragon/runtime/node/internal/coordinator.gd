@@ -1,5 +1,6 @@
 @tool
 extends RefCounted
+const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
 ## Native event/lifetime adapter shared by both spatial branches. No layout math.
 const Core = preload("res://addons/estragon/runtime/node/internal/layout_core.gd")
 const META := "_estragon_b2_coordinator"
@@ -115,6 +116,7 @@ func _viewport_changed() -> void:
 	if host != null and parent_coordinator() == null and _viewport_scale(host) > 0: _invalidated()
 
 func _invalidated() -> void:
+	if Profile.is_enabled(): Profile.add("layout_invalidations")
 	if not active or _queued or parent_coordinator() != null or _mode == Mode.PARTICIPANT: return
 	_queued = true
 	call_deferred("_flush")
@@ -125,6 +127,7 @@ func _flush() -> void:
 	var host = _host.get_ref()
 	if host == null or host.is_queued_for_deletion(): return
 	flush_count += 1
+	if Profile.is_enabled(): Profile.add("layout_flushes")
 	var available: Vector3 = model.measure()
 	if _viewport_scale(host) > 0 and _viewport != null:
 		available.x = _viewport.get_visible_rect().size.x * _viewport_scale(host)

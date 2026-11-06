@@ -1,4 +1,5 @@
 extends RefCounted
+const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
 const Binding = preload("res://addons/estragon/runtime/composition/binding.gd")
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
@@ -39,6 +40,9 @@ func _init(owner: Node, manager: Resource) -> void:
 		ancestor = ancestor.get_parent()
 func schedule(_previous: Variant = null, _value: Variant = null) -> void:
 	if not active or disposed: return
+	if Profile.is_enabled():
+		Profile.add("schedule_requests")
+		if queued: Profile.add("coalesced")
 	if _rendering: _again = true
 	if not queued:
 		queued = true
@@ -62,30 +66,40 @@ func resume() -> void:
 func _disconnect() -> void:
 	for pair in subscriptions.values():
 		var source = pair[0].get_ref()
-		if source != null and source.is_connected(pair[1],schedule): source.disconnect(pair[1],schedule)
+		if source != null and source.is_connected(pair[1],schedule):
+			source.disconnect(pair[1],schedule)
+			if Profile.is_enabled(): Profile.add("subscription_disconnects")
 	subscriptions.clear()
 func _subscribe(next: Dictionary) -> void:
 	for key in subscriptions.keys():
 		if next.has(key): continue
 		var pair: Array = subscriptions[key]
 		var source = pair[0].get_ref()
-		if source != null and source.is_connected(pair[1],schedule): source.disconnect(pair[1],schedule)
+		if source != null and source.is_connected(pair[1],schedule):
+			source.disconnect(pair[1],schedule)
+			if Profile.is_enabled(): Profile.add("subscription_disconnects")
 	for key in next:
 		if subscriptions.has(key): continue
 		var pair: Array = next[key]
 		var source = pair[0].get_ref()
+		if Profile.is_enabled(): Profile.add("subscription_connects")
 		if source != null and source.connect(pair[1],schedule) != OK: push_error("F01 observation connection failed")
 	subscriptions = next
 func _flush() -> void:
 	queued = false
 	var owner = host.get_ref()
 	var manager = state.get_ref()
-	if disposed or not active or owner == null or not owner.is_inside_tree() or manager == null: return
+	if disposed or not active or owner == null or not owner.is_inside_tree() or manager == null:
+		if Profile.is_enabled(): Profile.add("cancelled_jobs")
+		return
+	var started: int = Time.get_ticks_usec() if Profile.is_enabled() else 0
+	if Profile.is_enabled(): Profile.add("views")
 	_rendering = true
 	_again = false
 	manager.begin()
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
+	if Profile.is_enabled(): Profile.elapsed("view",started)
 	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
@@ -98,6 +112,7 @@ func _flush() -> void:
 	mounted = _reconcile(desired,mounted,owner,owner)
 	_rendering = false
 	runs += 1
+	if Profile.is_enabled(): Profile.elapsed("computation",started)
 	if _again:
 		_consecutive += 1
 		if _consecutive > 16:
@@ -112,6 +127,7 @@ func _normalize(value, ancestors: Array = [], level: int = 0):
 	if value.keyed and not _key_valid(value.key): return null
 	var next := ancestors.duplicate()
 	next.append(value)
+	if Profile.is_enabled(): Profile.add("normalized_elements")
 	var result := Element.new(value.type,value.properties,value.handlers,[],value.source,value.key,value.keyed)
 	result.bindings = value.bindings.duplicate()
 	if not _flatten(value.children,[],result.children,next,level+1): return null
@@ -146,6 +162,7 @@ func _matches(desired: Array, previous: Array) -> Array:
 		result.append(old.get(_identity(desired[index],index)) if desired[index]!=null else null)
 	return result
 func _valid(desired: Element, previous: Mounted) -> bool:
+	if Profile.is_enabled(): Profile.add("validations")
 	if desired.type == null: return false
 	if desired.type is String:
 		if not ClassDB.class_exists(desired.type) or not ClassDB.is_parent_class(desired.type,"Node") or not ClassDB.can_instantiate(desired.type): return false
@@ -223,6 +240,7 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	var record := Mounted.new()
 	var node: Node = ClassDB.instantiate(desired.type) if desired.type is String else desired.type.new()
 	allocations += 1
+	if Profile.is_enabled(): Profile.add("nodes_created")
 	record.node = weakref(node)
 	record.type = desired.type
 	record.key = desired.key
@@ -247,22 +265,28 @@ func _apply(desired: Element, record: Mounted) -> void:
 		if not is_same(node.get(key),desired.bindings[key].value):
 			node.set(key,desired.bindings[key].value)
 			writes += 1
+			if Profile.is_enabled(): Profile.add("property_writes")
 		binding.attach(node,self)
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			node.set(key,desired.properties[key])
 			writes += 1
+			if Profile.is_enabled(): Profile.add("property_writes")
 	for event in record.handlers:
 		if not desired.handlers.has(event) or record.handlers[event]!=desired.handlers[event]:
-			if node.is_connected(event,record.handlers[event]): node.disconnect(event,record.handlers[event])
+			if node.is_connected(event,record.handlers[event]):
+				node.disconnect(event,record.handlers[event])
+				if Profile.is_enabled(): Profile.add("handler_disconnects")
 	for event in desired.handlers:
 		if not record.handlers.has(event) or record.handlers[event]!=desired.handlers[event]:
+			if Profile.is_enabled(): Profile.add("handler_connects")
 			if node.connect(event,desired.handlers[event],Object.CONNECT_PERSIST)!=OK: push_error("F01 native handler connection failed: "+desired.source)
 	record.properties = desired.properties.duplicate()
 	record.handlers = desired.handlers.duplicate()
 func _compatible(desired: Element, record: Mounted) -> bool:
 	return record != null and is_same(record.type,desired.type) and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
 func _reconcile(desired, record, parent: Node, owner: Node):
+	if Profile.is_enabled(): Profile.add("reconciles")
 	if desired == null:
 		if record != null: _free_managed(record,owner)
 		return null
@@ -274,6 +298,7 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 	if node.get_parent()!=parent:
 		if node.get_parent()!=null: node.get_parent().remove_child(node)
 		parent.add_child(node)
+		if Profile.is_enabled(): Profile.add("reparents")
 	var matches := _matches(desired.children,record.children)
 	# Dispose unmatched/retyped branches before mounts, including queued scopes.
 	for old in record.children:
@@ -309,23 +334,35 @@ func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
 		while parent.has_node(NodePath(temporary)): temporary += "_"
 		node.name = temporary
 		writes += 1
+		if Profile.is_enabled(): Profile.add("property_writes")
 # Keep a longest increasing subsequence of actual native indices. Everything
 # else moves once, right to left beside its final successor; no-op moves zero.
 func _order(children: Array, parent: Node) -> void:
 	var nodes: Array = []
 	for child in children:
 		if child!=null: nodes.append(child.node.get_ref())
-	var lengths: Array = []
+	# Native child indices are unique. Binary-search minimal tails to recover
+	# one longest increasing subsequence without quadratic comparisons.
+	var tails: Array = []
+	var tail_indices: Array = []
 	var predecessors: Array = []
-	var best := -1
 	for index in range(nodes.size()):
-		lengths.append(1)
-		predecessors.append(-1)
-		for before in range(index):
-			if nodes[before].get_index()<nodes[index].get_index() and lengths[before]+1>lengths[index]:
-				lengths[index] = lengths[before]+1
-				predecessors[index] = before
-		if best<0 or lengths[index]>lengths[best]: best = index
+		var position: int = nodes[index].get_index()
+		var low := 0
+		var high := tails.size()
+		while low<high:
+			if Profile.is_enabled(): Profile.add("order_comparisons")
+			var middle: int = (low+high)/2
+			if tails[middle]<position: low = middle+1
+			else: high = middle
+		predecessors.append(tail_indices[low-1] if low>0 else -1)
+		if low==tails.size():
+			tails.append(position)
+			tail_indices.append(index)
+		else:
+			tails[low] = position
+			tail_indices[low] = index
+	var best: int = tail_indices.back() if not tail_indices.is_empty() else -1
 	var keep := {}
 	while best>=0:
 		keep[best] = true
@@ -338,22 +375,32 @@ func _order(children: Array, parent: Node) -> void:
 			if actual.get_index()!=position:
 				parent.move_child(actual,position)
 				moves += 1
+				if Profile.is_enabled(): Profile.add("moves")
 		anchor = actual
 
-func _preflight(desired, previous, parent: Node) -> bool:
+func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> bool:
+	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
-	var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
-	var properties := {}
-	var signals := {}
-	for prop in ClassDB.class_get_property_list(native): properties[prop.name] = prop
-	for event in ClassDB.class_get_signal_list(native): signals[event.name] = event
-	var script = desired.type if desired.type is Script else null
-	while script != null:
-		for prop in script.get_script_property_list(): properties[prop.name] = prop
-		for event in script.get_script_signal_list(): signals[event.name] = event
-		for method in script.get_script_method_list():
-			if method.name=="_init" and method.args.size()>method.default_args.size(): return false
-		script = script.get_base_script()
+	# Cache only within this synchronous desired-tree validation. No Script
+	# contracts survive a commit or hide editor reload/metadata changes.
+	if contracts==null: contracts = {}
+	if not contracts.has(desired.type):
+		if Profile.is_enabled(): Profile.add("metadata_builds")
+		var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
+		var properties := {}
+		var signals := {}
+		for prop in ClassDB.class_get_property_list(native): properties[prop.name] = prop
+		for event in ClassDB.class_get_signal_list(native): signals[event.name] = event
+		var script = desired.type if desired.type is Script else null
+		while script != null:
+			for prop in script.get_script_property_list(): properties[prop.name] = prop
+			for event in script.get_script_signal_list(): signals[event.name] = event
+			for method in script.get_script_method_list():
+				if method.name=="_init" and method.args.size()>method.default_args.size(): return false
+			script = script.get_base_script()
+		contracts[desired.type] = {"properties":properties,"signals":signals}
+	var properties: Dictionary = contracts[desired.type].properties
+	var signals: Dictionary = contracts[desired.type].signals
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
@@ -387,7 +434,7 @@ func _preflight(desired, previous, parent: Node) -> bool:
 		var child = desired.children[index]
 		if child == null: continue
 		var old = matches[index]
-		if not _preflight(child,old,null): return false
+		if not _preflight(child,old,null,contracts): return false
 		var name: String = str(child.properties.get("name",str(old.node.get_ref().name) if old!=null and _compatible(child,old) else ""))
 		if not name.is_empty():
 			if names.has(name): return false
@@ -416,6 +463,7 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 			if persisted_owner != null and persisted_owner.is_ancestor_of(child): child.owner = persisted_owner
 	node.free()
 	frees += 1
+	if Profile.is_enabled(): Profile.add("nodes_freed")
 func dispose(remove_nodes: bool, rescue: Node = null) -> void:
 	if disposed: return
 	disposed = true

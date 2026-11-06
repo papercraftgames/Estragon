@@ -1,8 +1,10 @@
+**F06 measurement/review:** [Bounded native profiling and evidence](F06_PROFILING.md), [#103](https://github.com/papercraftgames/Estragon/issues/103), after merged F05-B #102 (`52a3255`). Live issue/sole PR records baseline, selected changes, exact acceptance and review state. This closes the reactive-architecture measurement milestone upon owner merge, not the general UI framework roadmap.
+
 **F05-B current review slice:** [Typed boolean bindings/native toggle](TWO_WAY_BINDINGS.md), [#101](https://github.com/resistdesign/Estragon/issues/101), after merged F05-A #100 (`3487d86`). One existing compiler/reconciler, no helper Nodes or second binding runtime. Broader input types and F06 remain future; exact acceptance/review status is in the live issue/sole PR.
 
 # Gogo reactivity and composition — implementation plan
 
-**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05-A is merged #100; F05-B is the #101 review slice; F06 remains future.
+**F04 current cutover:** [Single-runtime contract/removal/parity](F04_CUTOVER.md), [#98](https://github.com/resistdesign/Estragon/issues/98), [PR #99](https://github.com/resistdesign/Estragon/pull/99). F01–F03 are merged. All GGX now produces descriptions through one compiler/manager; eager/static-binder implementations are removed. Live issue/PR records exact verification and review; F05-A is merged #100; F05-B is merged #102; F06 measurement is the current #103 slice.
 
 **Active, owner-approved architecture:** [ADR-0016 — Signal-driven function composition and retained Godot reconciliation](REACTIVE_COMPOSITION_ARCHITECTURE.md), [decision entry](DECISIONS.md#adr-0016--signal-driven-function-recomposition-with-retained-native-nodes), [#89](https://github.com/resistdesign/Estragon/issues/89), [T09 umbrella #5](https://github.com/resistdesign/Estragon/issues/5).
 
