@@ -15,7 +15,7 @@ for (const selection of options.engines) {
         writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
         async function run(name:string, marker:string) {
             const args = [box.binary,...(name==='build'?['--headless']:[]),'--audio-driver','Dummy','--path',box.project,'--script','res://tests/profiling/'+(name==='build'?'build':'runtime')+'.gd'];
-            const result = await runCommand(args,box.workspace,box.env,path.join(out,name+'.log'),marker,{abortOnError:true,timeout:180000});
+            const result = await runCommand(args,box.workspace,box.env,path.join(out,name+'.log'),marker,{abortOnError:true,timeout:360000});
             stages[name]=result;
             process.stdout.write(fs.readFileSync(path.join(out,name+'.log'),'utf8'));
             writeJSON(path.join(out,'results.json'),stages);
@@ -31,5 +31,5 @@ for (const selection of options.engines) {
         const summary = profile.cases.map((entry:any)=>({name:entry.name, samples:entry.samples?.length, median_us:entry.samples?percentile(entry.samples.map((s:any)=>s.mutation_drain_us).filter((n:any)=>n!==undefined),0.5):null,p95_us:entry.samples?percentile(entry.samples.map((s:any)=>s.mutation_drain_us).filter((n:any)=>n!==undefined),0.95):null,first:entry.samples?.[0],last:entry.samples?.at(-1),...(!entry.samples?entry:{})}));
         writeJSON(path.join(out,'summary.json'),{engine:profile.engine,platform:profile.platform,warmup:profile.warmup,samples:profile.samples,cases:summary});
         writeJSON(path.join(out,'environment.json'),{platform:process.platform,arch:process.arch,node:process.version,runner:process.env.RUNNER_OS,graphics:'Xvfb/Mesa software native window; compiler/import startup excluded from samples'});
-    } finally {writeJSON(path.join(out,'results.json'),stages);box.dispose();}
+    } finally {if(fs.existsSync(path.join(box.project,'profile.json'))) fs.copyFileSync(path.join(box.project,'profile.json'),path.join(out,'profile.json'));writeJSON(path.join(out,'results.json'),stages);box.dispose();}
 }

@@ -39,6 +39,8 @@ func measure(name: String, action: Callable, verify: Callable) -> void:
             sample["objects"] = Performance.get_monitor(Performance.OBJECT_COUNT)
             samples.append(sample)
     cases.append({"name":name,"samples":samples})
+    write_profile()
+    print("PROFILING_CASE ",name)
 func idle(scene: Node, name: String) -> void:
     root.add_child(scene)
     await settle()
@@ -134,9 +136,7 @@ func run() -> void:
     cases.append({"name":"lifetime/12-cycles","objects_before":objects_before,"objects_after":Performance.get_monitor(Performance.OBJECT_COUNT),"static_memory_delta_bytes":OS.get_static_memory_usage()-memory_before})
     Profile.set_enabled(false)
     Profile.reset()
-    var output := FileAccess.open("res://profile.json",FileAccess.WRITE)
-    output.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"platform":OS.get_name(),"warmup":WARMUP,"samples":SAMPLES,"cases":cases,"assertions":assertions,"failures":failures}))
-    output.close()
+    write_profile()
     print("PROFILING_ASSERTIONS ",assertions," failures=",failures)
     if failures==0: print("PROFILING_RUNTIME_OK")
     quit(1 if failures else 0)
@@ -181,3 +181,8 @@ func click(node: Node2D) -> void:
         event.pressed = down
         Input.parse_input_event(event)
         await process_frame
+
+func write_profile() -> void:
+    var output := FileAccess.open("res://profile.json",FileAccess.WRITE)
+    output.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"platform":OS.get_name(),"warmup":WARMUP,"samples":SAMPLES,"cases":cases,"assertions":assertions,"failures":failures}))
+    output.close()
