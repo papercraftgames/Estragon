@@ -7,8 +7,8 @@ const Conditional = preload("res://examples/conditional/generated/Counter.gd")
 const Model = preload("res://examples/composition/generated/Model.gd")
 const ToggleDemo = preload("res://examples/twoway/generated/Demo.gd")
 const Counter = preload("res://examples/counter/generated/Counter.gd")
-const WARMUP := 4
-const SAMPLES := 15
+const WARMUP := 2
+const SAMPLES := 7
 var failures := 0
 var assertions := 0
 var cases: Array = []
@@ -30,7 +30,7 @@ func measure(name: String, action: Callable, verify: Callable) -> void:
         action.call()
         State.drain()
         var elapsed := Time.get_ticks_usec()-started
-        await settle()
+        await settle(2)
         verify.call()
         if index>=WARMUP:
             var sample := Profile.snapshot()

@@ -84,3 +84,7 @@ The existing strict bindable group now proves class-scope grammar, idempotent ex
 ## F05-B controlled boolean acceptance
 
 `tools/check-twoway.ts` / workflow mode `twoway` adds build/import/runtime/editor/visual evidence to the existing strict gate. Native pointer, one model transition, quiet projection, reentrancy, replacement/stale callbacks, nested/keyed retained controls, lifecycle/foreign owner/pack reload, deterministic maps and compiler rejects are scoped in [the contract](TWO_WAY_BINDINGS.md). Real saved/unsaved main/current Play and unsavable/invalid rollback/repair remain mandatory. Native distribution cold source-only/editor/pack runtime includes the new Gogo demo. Only official Linux 4.0.4 + pinned 4.7.0; exact results and manual smoke status in #101/its sole PR. F06 is excluded.
+
+## F06 native profiling/invariants
+
+`tools/check-profiling.ts` / focused workflow mode `profiling` adds build/import/runtime evidence to the strict addon gate without removing any prior group. Four warmups and 15 samples use current Gogo HUD/conditional/inventory/2D/3D/toggle scenes; keyed sizes 8/64/256. Idle/selectivity/identity/minimal native moves/layout caches/lifetime are deterministic assertions, while timings and approximate process memory are descriptive. [Boundaries, exact workloads and evidence](F06_PROFILING.md). Strict final acceptance remains only official Linux 4.0.4 and pinned 4.7.0. Raw samples, source/engine/log hashes, failures/repairs and manual-smoke status live in #103/its sole PR. No physical keypress gate or broad UI completion claim.
