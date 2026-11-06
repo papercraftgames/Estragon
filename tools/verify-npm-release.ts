@@ -7,10 +7,10 @@ import { execFileSync } from 'node:child_process';
 import { ROOT, gitHead, gitDirty, sha256, writeJSON } from './compat-kit.ts';
 import { assessFile } from './assert-release.ts';
 import { currentContext, selectVerificationRun, REPOSITORY } from './release-context.ts';
+import { addonVersion, stagedPackageJson } from './package-version.ts';
 export function verifyReleaseIdentity(run:any, expectedVersion:string, repository:string, source = {head:gitHead(),dirty:gitDirty()}) {
-    const spec=JSON.parse(fs.readFileSync(path.join(ROOT,'packages/estragon/package.json'),'utf8'));
     if(repository!=='papercraftgames/Estragon' || run.repository?.full_name!==repository || run.path!=='.github/workflows/ci.yml' || run.event!=='push' || run.head_branch!=='main' || run.head_sha!==source.head || run.conclusion!=='success' || run.status!=='completed')throw Error('Successful canonical main CI at exact release source required');
-    if(expectedVersion!==spec.version || !/^0\.\d+\.\d+-beta\.\d+$/.test(expectedVersion) || source.dirty)throw Error('Approved exact prepared prerelease version and clean source required');
+    if(expectedVersion!==addonVersion() || !/^0\.\d+\.\d+-beta\.\d+$/.test(expectedVersion) || source.dirty)throw Error('Approved exact prepared prerelease version and clean source required');
 }
 if(import.meta.url==='file://'+process.argv[1]) {
     const [output]=process.argv.slice(2);
@@ -45,7 +45,10 @@ if(import.meta.url==='file://'+process.argv[1]) {
         for(const [file,hash]of Object.entries(manifest.files)) {
             if(!/^(addons\/estragon\/[a-z0-9_/.-]+|package\.json|README\.md|CHANGELOG\.md|LICENSE)$/.test(file)||file.split('/').includes('..'))throw Error('Unsafe package file');
             const source=path.join(ROOT,file.startsWith('addons/')||file==='LICENSE'?file:'packages/estragon/'+file);
-            if(sha256(source)!==hash)throw Error('Package differs from reviewed source: '+file);
+            const actualHash=file==='package.json'
+                ? createHash('sha256').update(stagedPackageJson(JSON.parse(fs.readFileSync(source,'utf8')),version)).digest('hex')
+                : sha256(source);
+            if(actualHash!==hash)throw Error('Package differs from reviewed source: '+file);
         }
         const content=createHash('sha256').update(JSON.stringify(expected.map(file=>[file,manifest.files[file]]))).digest('hex');
         if(content!==manifest.source_content_sha256)throw Error('Package content digest mismatch');
