@@ -52,7 +52,7 @@ test('workflow retains visible PR statuses and immutable reverified cache; relea
 test('optimized editor harnesses retain both Play entrypoints, negative observation, rollback/unsavable/recovery scenarios',()=>{
     for(const suite of ['native_ui','ggx','bindable','reactive','composition','conditional','lists','twoway','package-consumer']) {
         const driver=fs.readFileSync(path.join(ROOT,'tests',suite,'editor/driver.gd'),'utf8');
-        for(const required of ['play_main_scene()','play_current_scene()','await _wait(0.8)','Script identity/source','DirAccess.make_dir_absolute(SOURCE)','CI_EDITOR_TIMING','get_tree().process_frame','not _interface.is_playing_scene()'])assert(driver.includes(required),suite+': '+required);
+        for(const required of ['play_main_scene()','play_current_scene()','await _wait(0.8)','Script identity/source','DirAccess.make_dir_absolute(SOURCE)','CI_EDITOR_TIMING','get_tree().process_frame','not _plugin._extensions_pending','not _interface.is_playing_scene()'])assert(driver.includes(required),suite+': '+required);
         assert(!driver.includes('await _wait(1)'));assert(!driver.includes('_interface.stop_playing_scene()\n\tawait _wait(0.5)'));
     }
 });

@@ -36,7 +36,7 @@ func _find_plugin() -> bool:
 	for node in get_tree().root.find_children("*", "EditorPlugin", true, false):
 		if node.get_script() != null and node.get_script().resource_path == "res://addons/estragon/editor/plugin.gd":
 			_plugin = node
-	return _plugin != null and _plugin.last_report.get("ok", false) and not _plugin._building and not _plugin._filesystem_busy()
+	return _plugin != null and _plugin.last_report.get("ok", false) and not _plugin._building and not _plugin._filesystem_busy() and not _plugin._extensions_pending
 
 func _selected_tree(path: String) -> Tree:
 	for tree in _interface.get_file_system_dock().find_children("*", "Tree", true, false):
@@ -104,6 +104,9 @@ func _run() -> void:
 	if not await _until(_find_plugin,"native addon startup"):
 		_finish()
 		return
+	# Let queued editor settings/layout notifications settle after extension registration.
+	await get_tree().process_frame
+	await get_tree().process_frame
 	_interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
 	_interface.get_editor_settings().set_setting("text_editor/behavior/files/autosave_interval_secs",0)
 	_counter = await _open(SOURCE)
