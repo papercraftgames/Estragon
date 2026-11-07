@@ -56,6 +56,11 @@ func _refresh() -> void:
 		if path.get_extension() != "gogo": continue
 		code.set_meta(PATH_META, path)
 		if code.syntax_highlighter != null and code.syntax_highlighter.get_script() == Highlighter:
+			# 4.0 clones the script directly; its native _create is not a
+			# script virtual, so constructor arguments are not preserved.
+			if code.syntax_highlighter.settings != _settings:
+				code.syntax_highlighter.settings = _settings
+				code.syntax_highlighter.update_cache()
 			continue
 		# A fresh instance per CodeEdit. Do not add duplicate native menu entries
 		# or rewrite the per-file cache; normal editor persistence handles state.

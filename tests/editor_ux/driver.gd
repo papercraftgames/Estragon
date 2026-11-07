@@ -104,18 +104,18 @@ func play(mode: String) -> void:
 	if await until(proof,mode+" child game runs created Gogo",20): check(interface.is_playing_scene(),mode+" native child active")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"child stopped")
-func blocked(mode: String) -> void:
+func blocked(mode: String, unsavable: bool = false) -> void:
 	var bytes := FileAccess.get_file_as_bytes(OUTPUT)
 	var maps := FileAccess.get_file_as_bytes(OUTPUT+".map.json")
 	var stamp := FileAccess.get_modified_time(OUTPUT)
 	var uid := FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray()
 	var cached = load(OUTPUT)
 	var source: String = cached.source_code
-	home.text = original.replace('</Entry>','</Wrong>')
+	home.text = original+"\n# edited unsavable buffer\n" if unsavable else original.replace('</Entry>','</Wrong>')
 	if mode == "main": interface.play_main_scene()
 	else: interface.play_current_scene()
 	await get_tree().create_timer(0.8).timeout
-	check(not interface.is_playing_scene() and not plugin.last_report.ok,mode+" invalid source blocks Play")
+	check(not interface.is_playing_scene() and not plugin.last_report.ok,mode+(" unsavable" if unsavable else " invalid")+" source blocks Play")
 	check(FileAccess.get_file_as_bytes(OUTPUT)==bytes and FileAccess.get_file_as_bytes(OUTPUT+".map.json")==maps and FileAccess.get_modified_time(OUTPUT)==stamp,"failed Play preserves bytes/maps/timestamp")
 	check((FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray())==uid and load(OUTPUT)==cached and cached.source_code==source,"failed Play preserves UID/Script identity")
 func _run() -> void:
@@ -261,6 +261,13 @@ func _run() -> void:
 		await blocked(mode)
 		home.text = original
 		await play(mode)
+		DirAccess.rename_absolute(HOME,HOME+".backup")
+		DirAccess.make_dir_absolute(HOME)
+		await blocked(mode,true)
+		DirAccess.remove_absolute(HOME)
+		DirAccess.rename_absolute(HOME+".backup",HOME)
+		home.text = original
+		await play(mode)
 	var count := home.code_completion_requested.get_connections().size()
 	interface.set_plugin_enabled(PLUGIN,false)
 	await frames()
@@ -271,6 +278,7 @@ func _run() -> void:
 	plugin = null
 	interface.set_plugin_enabled(PLUGIN,true)
 	if await until(find_plugin,"re-enable reattaches editor services"):
+		await plugin._navigation.open(HOME)
 		await until(func(): return current(HOME)!=null,"visible Gogo tab reauthenticated")
 		check(home.code_completion_enabled,"re-enabled completion")
 	if not failed:
