@@ -13,7 +13,7 @@ for(const selection of options.engines){
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
   async function command(name:string,args:string[],env=box.env,marker?:string,negative=false){
    const log=path.join(out,name+'.log');
-   const stage=await runCommand(args,box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
+   const stage=await runCommand(args,name==='install'?box.project:box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
    const text=fs.readFileSync(log,'utf8');process.stdout.write(text);
    if(negative){
     stage.unexpected_errors=text.split(/\r?\n/).filter(line=>/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(line) && line!=='ERROR: An EditorPlugin build callback failed.');
