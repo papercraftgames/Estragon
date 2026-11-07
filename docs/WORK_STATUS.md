@@ -76,7 +76,7 @@ Previously published nine-engine results stay archived, not rerun.
 
 ## CI01 snapshot
 
-CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) merged in #110 (`1b64548`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; the merged budget remains mandatory. Updated #109 requires routine PR/main <=60seconds and full73-stage two-engine certification as a hard pre-publication gate; routine main is not release evidence. No package version/publication work is included.
+CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) merged in #110 (`1b64548`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; the merged budget remains mandatory. Updated #109 requires routine PR/main <=60seconds; CI02 #113 changes mandatory two-engine pre-publication certification to bounded direct-package proof. The 73-stage suite remains opt-in. Routine main is not release evidence. No package version/publication work is included.
 
 ## Issue/PR ownership rule
 
@@ -128,4 +128,8 @@ A reviewer can ask “What is done, what is blocked, and what should Codex do ne
 
 ## P02 snapshot
 
-P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) changes native internal/generated references and replaces copy-based package acceptance with direct Yarn consumption plus nonstandard relocation and standard-path consumers. See [installation/testing contract](PACKAGING.md). The live issue/sole review PR holds exact verification and remaining acceptance; this entry is not a claim of merge or publication. CI01 routine budget, all73 two-engine pre-publication stages, strict artifact/OIDC checks and both registry consumers remain required.
+P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) changes native internal/generated references and replaces copy-based package acceptance with direct Yarn consumption plus nonstandard relocation and standard-path consumers. See [installation/testing contract](PACKAGING.md). The live issue/sole review PR holds exact verification and remaining acceptance; this entry is not a claim of merge or publication. CI01 routine budget, CI02 bounded two-engine direct-package release gate, strict artifact/OIDC checks and both registry consumers remain required; full 73-stage / 3-layout regressions are now opt-in.
+
+## CI02 pending review
+
+[CI02 #113](https://github.com/papercraftgames/Estragon/issues/113) reduces automatic release compute without changing the two approved engine versions, npm OIDC/provenance or exact-source package verification. One direct Yarn consumer per engine remains mandatory before and after publication; full native regression remains opt-in. Issue and PR hold live evidence; **do not mark merged until the PR actually merges**.
