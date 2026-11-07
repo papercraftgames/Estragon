@@ -373,11 +373,18 @@ func _run() -> void:
 	original = e03_screen
 	var attached := original+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _game_proof.call_deferred()\nfunc _game_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png(\"res://e03-game.png\")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI").find_child("Greeting",true,false).text}))\n\toutput.close()\n'
 	home.text = attached
+	print("E03_BEFORE_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	check(plugin._build(),"native save/build before scene attachment")
+	print("E03_AFTER_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
+
 	original = attached
 	var host := Node2D.new()
 	host.name = "Home"
-	host.set_script(load(OUTPUT))
+	var executable = load(OUTPUT)
+	print("E03_AFTER_LOAD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
+	host.set_script(executable)
+	print("E03_AFTER_ATTACH ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
+
 	var packed := PackedScene.new()
 	packed.pack(host)
 	print("E03_BEFORE_PACK_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
