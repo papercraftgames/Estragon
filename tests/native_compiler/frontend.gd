@@ -76,6 +76,15 @@ func run() -> void:
 	for old in ['build_view() -> Node','build_view()','build_view(value: int) -> Element','build_view() -> Variant']:
 		var rejected := Compiler.compile(helper_source.replace('build_view() -> Element',old),"old.gogo")
 		check(not rejected.ok and rejected.diagnostics[0].span.start.line==4,"invalid host convention rejects at authored declaration: "+old)
+	# Frontend relative aliases and injected Resources share the actual output context.
+	var destination := "res://custom/deep/Relocated.gd"
+	var moved_source := helper_source.replace("res://addons/estragon/", "../../addons/estragon/")
+	var moved := Compiler.compile(moved_source, "authored/Relocated.gogo", destination)
+	check(moved.ok and not moved.code.contains("res://"), "custom output derives every injected path without a fixed installation root")
+	var moved_script := GDScript.new()
+	moved_script.resource_path = destination
+	moved_script.source_code = moved.code
+	check(moved_script.reload()==OK, "relative imports and injected dependencies use actual output path, independently of diagnostic source name")
 	var ordinary := Compiler.compile('extends Node\nfunc build_view() -> Node: return Node.new()\n',"ordinary.gogo")
 	check(ordinary.ok,"no-GGX imperative Godot remains ordinary code")
 	print("NATIVE_FRONTEND_ASSERTIONS ",checks," failures=",failures)

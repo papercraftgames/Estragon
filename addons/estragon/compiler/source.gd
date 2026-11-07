@@ -18,6 +18,11 @@ func _init(value: String, source_name: String = "<source>", generated_path: Stri
 		if text[index] == "\n" or text[index] == "\r" and (index + 1 == text.length() or text[index + 1] != "\n"):
 			_lines.append(index + 1)
 
+func generated_path() -> String:
+	if not output_path.is_empty(): return output_path
+	if not "/" in name: return "res://Generated.gd"
+	return name.get_base_dir().path_join("generated").path_join(name.get_file().get_basename() + ".gd")
+
 func position(index: int) -> Model.Position:
 	index = clampi(index, 0, text.length())
 	var low: int = 0

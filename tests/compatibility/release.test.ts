@@ -88,3 +88,20 @@ test('single native architecture, canonical UIDs/references and authored maps st
     assert(auditNativeSource().active_scripts > 0);
 });
 test("sample native pack format explicitly avoids the 4.0 conversion leak", () => { assert(fs.readFileSync(path.join(ROOT, "project.godot"), "utf8").includes("export/convert_text_resources_to_binary=false")); });
+
+test('release evidence rejects incomplete or failed direct-install layout subruns',()=>{
+    const f=fixture();
+    try {
+        const relative='package/4.7/results.json';
+        const result=JSON.parse(fs.readFileSync(path.join(f.root,relative),'utf8'));
+        const original=structuredClone(result.runtime);
+        for(const runs of [original.runs.slice(1),original.runs.map((run:any,index:number)=>index===0?{...run,status:'FAIL'}:run),original.runs.map((run:any)=>({...run,layout:'standard'}))]) {
+            result.runtime={...original,runs};
+            f.report.stages['package.runtime']=result.runtime;
+            writeJSON(path.join(f.root,relative),result);
+            f.report.files[relative]=sha256(path.join(f.root,relative));
+            writeJSON(f.file,f.report);
+            assert.throws(()=>assessFile(f.file),/package.*(?:layout|execution)/i);
+        }
+    } finally {fs.rmSync(f.root,{recursive:true,force:true});}
+});

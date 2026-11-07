@@ -48,8 +48,7 @@ func scan(module: Model.Module) -> void:
 				return
 			var path: String = literal.call("value")
 			if not path.is_absolute_path():
-				var output: String = file.name.get_base_dir().path_join("generated").path_join(file.name.get_file().get_basename() + ".gd")
-				if not file.output_path.is_empty(): output = file.output_path
+				var output: String = file.generated_path()
 				path = output.get_base_dir().path_join(path).simplify_path()
 			if not path.is_absolute_path(): path = "res://" + path
 			aliases[name] = path

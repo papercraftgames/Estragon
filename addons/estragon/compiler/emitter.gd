@@ -33,7 +33,7 @@ var _element_class: String
 func _init(module: Model.Module, file: Source) -> void:
 	# Paths are relative to the actual generated file, derived from installed Resources.
 	# Pathless in-memory callers use the project root, as native GDScript does.
-	_output_directory = file.output_path.get_base_dir() if not file.output_path.is_empty() else (file.name.get_base_dir().path_join("generated") if "/" in file.name else "res://")
+	_output_directory = file.generated_path().get_base_dir()
 	if not _output_directory.is_absolute_path(): _output_directory = "res://" + _output_directory
 	_module = module
 	_file = file
