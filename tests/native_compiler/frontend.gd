@@ -77,7 +77,7 @@ func run() -> void:
 		var rejected := Compiler.compile(helper_source.replace('build_view() -> Element',old),"old.gogo")
 		check(not rejected.ok and rejected.diagnostics[0].span.start.line==4,"invalid host convention rejects at authored declaration: "+old)
 	# Frontend relative aliases and injected Resources share the actual output context.
-	var destination := "res://custom/deep/Relocated.gd"
+	var destination := "res://custom/other/../deep/Relocated.gd"
 	var moved_source := helper_source.replace("res://addons/estragon/", "../../addons/estragon/")
 	var moved := Compiler.compile(moved_source, "authored/Relocated.gogo", destination)
 	check(moved.ok and not moved.code.contains("res://"), "custom output derives every injected path without a fixed installation root")
