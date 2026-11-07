@@ -1,6 +1,8 @@
 @tool
 extends RefCounted
 ## Lexical declarations + public ClassDB metadata. No authored Script loads/new().
+const Validator = preload("../compiler/validator.gd")
+const Source = preload("../compiler/source.gd")
 const Context = preload("lexical_context.gd")
 const Catalog = preload("components.gd")
 const Imports = preload("imports.gd")
@@ -15,6 +17,7 @@ var _aliases: Dictionary = {}
 var _owners: Dictionary = {}
 var _base := "Node"
 var _native_cache: Dictionary = {}
+var _types = Validator.new(Source.new(""))
 
 func _init() -> void:
 	_classes = ClassDB.get_class_list()
@@ -111,7 +114,9 @@ func _type_name(info: Dictionary) -> String:
 	var class_name_value: String = str(info.get("class_name",""))
 	if not class_name_value.is_empty(): return class_name_value
 	if info.get("type",TYPE_NIL) == TYPE_NIL: return "Variant" if int(info.get("usage",0)) & PROPERTY_USAGE_NIL_IS_VARIANT else "void"
-	return type_string(info.get("type",TYPE_NIL))
+	var normalized := info.duplicate()
+	normalized.type = info.get("type",TYPE_NIL)
+	return _types._native_type(normalized)
 func _method_hint(method: Dictionary) -> String:
 	var args: Array = []
 	for arg in method.get("args",[]): args.append(str(arg.name)+": "+_type_name(arg))
@@ -298,7 +303,9 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 	else:
 		for word in Context.KEYWORDS: offered[word] = {"kind":CodeEdit.KIND_PLAIN_TEXT}
 		for name in _classes: offered[name] = {"kind":CodeEdit.KIND_CLASS}
-		for native_type in range(1,TYPE_MAX): offered[type_string(native_type)] = {"kind":CodeEdit.KIND_CLASS}
+		for native_type in range(1,TYPE_MAX):
+			var type_name: String = _types._native_type({"type":native_type})
+			if not type_name.is_empty(): offered[type_name] = {"kind":CodeEdit.KIND_CLASS}
 		offered.Variant = {"kind":CodeEdit.KIND_CLASS}
 		for entry in ProjectSettings.get_global_class_list(): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS}
 		for field in _symbols:
