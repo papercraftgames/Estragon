@@ -81,10 +81,12 @@ func run() -> void:
 	var moved_source := helper_source.replace("res://addons/estragon/", "../../addons/estragon/")
 	var moved := Compiler.compile(moved_source, "authored/Relocated.gogo", destination)
 	check(moved.ok and not moved.code.contains("res://"), "custom output derives every injected path without a fixed installation root")
-	var moved_script := GDScript.new()
-	moved_script.resource_path = destination
-	moved_script.source_code = moved.code
-	check(moved_script.reload()==OK, "relative imports and injected dependencies use actual output path, independently of diagnostic source name")
+	DirAccess.make_dir_recursive_absolute(destination.get_base_dir().simplify_path())
+	var published := FileAccess.open(destination.simplify_path(), FileAccess.WRITE)
+	published.store_string(moved.code)
+	published.close()
+	var moved_script: GDScript = load(destination.simplify_path())
+	check(moved_script != null and moved_script.can_instantiate(), "relative imports and injected dependencies use actual output path, independently of diagnostic source name")
 	var ordinary := Compiler.compile('extends Node\nfunc build_view() -> Node: return Node.new()\n',"ordinary.gogo")
 	check(ordinary.ok,"no-GGX imperative Godot remains ordinary code")
 	print("NATIVE_FRONTEND_ASSERTIONS ",checks," failures=",failures)
