@@ -105,6 +105,7 @@ func play(mode: String) -> void:
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"child stopped")
 func blocked(mode: String, unsavable: bool = false) -> void:
+	if unsavable: print("E02_EXPECTED_UNSAVABLE_BEGIN")
 	var bytes := FileAccess.get_file_as_bytes(OUTPUT)
 	var maps := FileAccess.get_file_as_bytes(OUTPUT+".map.json")
 	var stamp := FileAccess.get_modified_time(OUTPUT)
@@ -118,6 +119,7 @@ func blocked(mode: String, unsavable: bool = false) -> void:
 	check(not interface.is_playing_scene() and not plugin.last_report.ok,mode+(" unsavable" if unsavable else " invalid")+" source blocks Play")
 	check(FileAccess.get_file_as_bytes(OUTPUT)==bytes and FileAccess.get_file_as_bytes(OUTPUT+".map.json")==maps and FileAccess.get_modified_time(OUTPUT)==stamp,"failed Play preserves bytes/maps/timestamp")
 	check((FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray())==uid and load(OUTPUT)==cached and cached.source_code==source,"failed Play preserves UID/Script identity")
+	if unsavable: print("E02_EXPECTED_UNSAVABLE_END")
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
 	if FileAccess.file_exists("res://.godot/e02-restart.request"):

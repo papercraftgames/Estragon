@@ -16,7 +16,12 @@ for(const selection of options.engines){
    const stage=await runCommand(args,name==='install'?box.project:box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
    const text=fs.readFileSync(log,'utf8');process.stdout.write(text);
    if(negative){
-    stage.unexpected_errors=text.split(/\r?\n/).filter(line=>ERROR.test(line) && line!=='ERROR: An EditorPlugin build callback failed.');
+    let unsavable=false;
+    stage.unexpected_errors=text.split(/\r?\n/).filter(line=>{
+     if(line==='E02_EXPECTED_UNSAVABLE_BEGIN')unsavable=true;
+     if(line==='E02_EXPECTED_UNSAVABLE_END')unsavable=false;
+     return ERROR.test(line) && line!=='ERROR: An EditorPlugin build callback failed.' && !(unsavable && line==="ERROR: Cannot save text file 'res://app/Screens/Home.gogo'.");
+    });
     if((stage.unexpected_errors as string[]).length || /E02_EDITOR_CHECK .*: false/.test(text))stage.status='FAIL';
    }
    results[name]=stage;writeJSON(path.join(out,'results.json'),results);
