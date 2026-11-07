@@ -46,8 +46,10 @@ func attach(editor: ScriptEditorBase, code: CodeEdit, path: String) -> void:
 	code.gutter_clicked.connect(entries[id].gutter)
 	code.theme_changed.connect(entries[id].theme)
 	code.tree_exiting.connect(entries[id].closing)
-	code.add_gutter()
-	var gutter := code.get_gutter_count()-1
+	# Native Text storage compares a removed gutter index to line count.
+	# Index zero is valid even for empty/single-line tabs (4.0/4.7 bridge).
+	code.add_gutter(0)
+	var gutter := 0
 	code.set_gutter_name(gutter,GUTTER)
 	code.set_gutter_type(gutter,TextEdit.GUTTER_TYPE_STRING)
 	code.set_gutter_width(gutter,20)
@@ -86,7 +88,7 @@ func _theme_changed(id: int) -> void:
 	var code = entries[id].code.get_ref()
 	if code != null and code.syntax_highlighter != null: code.syntax_highlighter.update_cache()
 	_mark(entries[id])
-func _changed(id: int) -> void:
+func _changed(id: int, request_completion: bool = true) -> void:
 	if not _active or not entries.has(id) or entries[id].mutating: return
 	var entry: Dictionary = entries[id]
 	entry.pending = true
@@ -95,7 +97,7 @@ func _changed(id: int) -> void:
 	var code = entry.code.get_ref()
 	if code != null and code.syntax_highlighter != null: code.syntax_highlighter.clear_highlighting_cache()
 	_timer.start()
-	_auto_complete.call_deferred(id)
+	if request_completion: _auto_complete.call_deferred(id)
 func _auto_complete(id: int) -> void:
 	if not _active or not entries.has(id): return
 	var code = entries[id].code.get_ref()
@@ -170,7 +172,8 @@ func _accept(replace: bool, id: int) -> void:
 	_apply_imports(code,plan)
 	code.end_complex_operation()
 	entry.mutating = false
-	_changed(id)
+	_changed(id,false)
+	if insert.ends_with("/"): code.request_code_completion(false)
 func add_missing_imports() -> void:
 	for id in entries:
 		var entry: Dictionary = entries[id]
@@ -182,7 +185,7 @@ func add_missing_imports() -> void:
 		_apply_imports(code,plan)
 		code.end_complex_operation()
 		entry.mutating = false
-		_changed(id)
+		_changed(id,false)
 		return
 func _hint(id: int) -> void:
 	if not _active or not entries.has(id) or entries[id].mutating: return

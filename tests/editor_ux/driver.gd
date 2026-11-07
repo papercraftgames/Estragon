@@ -66,8 +66,9 @@ func set_source(code: CodeEdit, text: String) -> void:
 	code.set_caret_line(left.count("\n"))
 	code.set_caret_column(left.get_slice("\n",left.count("\n")).length())
 	code.grab_focus()
-func complete(text: String, option: String, inserted: String, label: String) -> void:
+func complete(text: String, option: String, inserted: String, label: String, selected_prefix: bool = false) -> void:
 	set_source(home,text)
+	if selected_prefix: home.select(home.get_caret_line(),home.get_caret_column()-2,home.get_caret_line(),home.get_caret_column())
 	await frames()
 	home.request_code_completion(true)
 	if not await until(func(): return not home.get_code_completion_options().is_empty(),label+" popup opens"): return
@@ -82,11 +83,18 @@ func complete(text: String, option: String, inserted: String, label: String) -> 
 	var before_row := home.get_caret_line()
 	var before_column := home.get_caret_column()
 	home.set_code_completion_selected_index(selected)
-	home.confirm_code_completion()
+	if label == "E03 Text import":
+		await action("ui_down")
+		check(home.get_code_completion_selected_index()!=selected,"native popup keyboard navigation")
+		await action("ui_up")
+		check(home.get_code_completion_selected_index()==selected,"native popup keyboard selection restored")
+		await action("ui_text_completion_accept")
+	else: home.confirm_code_completion()
 	check(home.text.contains(inserted),label+" native confirmation inserts correct text")
 	home.undo()
 	check(home.text == before,label+" insertion/imports are one undoable operation")
 	check(home.get_caret_line()==before_row and home.get_caret_column()==before_column,label+" undo restores caret")
+	if selected_prefix: check(home.has_selection() and home.get_selected_text()=="Te","undo restores selected prefix")
 	home.redo()
 	check(home.text.contains(inserted),label+" insertion redo")
 func color(code: CodeEdit, row: int, column: int) -> Color:
@@ -96,6 +104,18 @@ func color(code: CodeEdit, row: int, column: int) -> Color:
 	var result := Color.WHITE
 	for key in keys:
 		if key <= column: result = colors[key].color
+	return result
+func native_reference(text: String, row: int, column: int) -> Color:
+	var edit := TextEdit.new()
+	edit.text = text
+	edit.syntax_highlighter = ClassDB.instantiate("GDScriptSyntaxHighlighter")
+	var colors := edit.syntax_highlighter.get_line_syntax_highlighting(row)
+	var keys := colors.keys()
+	keys.sort()
+	var result := Color.WHITE
+	for key in keys:
+		if key <= column: result = colors[key].color
+	edit.free()
 	return result
 func proof() -> bool:
 	if not FileAccess.file_exists("res://.godot/e02-game.json"): return false
@@ -124,7 +144,25 @@ func blocked(mode: String, unsavable: bool = false) -> void:
 	check(FileAccess.get_file_as_bytes(OUTPUT)==bytes and FileAccess.get_file_as_bytes(OUTPUT+".map.json")==maps and FileAccess.get_modified_time(OUTPUT)==stamp,"failed Play preserves bytes/maps/timestamp")
 	check((FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray())==uid and load(OUTPUT)==cached and cached.source_code==source,"failed Play preserves UID/Script identity")
 	if unsavable: print("E02_EXPECTED_UNSAVABLE_END")
+func action(name: String) -> void:
+	for event in InputMap.action_get_events(name):
+		if event is InputEventKey:
+			var key = event.duplicate()
+			key.pressed = true
+			Input.parse_input_event(key)
+			await frames()
+			key.pressed = false
+			Input.parse_input_event(key)
+			return
+	check(false,"native key binding available: "+name)
 func _e03() -> String:
+	color(home,0,0)
+	var capabilities := {"engine":Engine.get_version_info().string,"native_highlighter_available":ClassDB.class_exists("GDScriptSyntaxHighlighter"),"native_highlighter_used":home.syntax_highlighter.uses_native(),"acceptance_virtual_attached":home.get_script()!=null,"native_analyzer":ClassDB.class_has_method("GDScript","complete_code")}
+	var file := FileAccess.open("res://e03-editor-capabilities.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(capabilities,"\t"))
+	file.close()
+	print("E03_EDITOR_CAPABILITIES ",JSON.stringify(capabilities))
+	check(capabilities.native_highlighter_used==capabilities.native_highlighter_available,"native GDScript highlighter reused where exposed")
 	var blank := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Te§ name="Greeting" text="Hello Gogo" />\n'
 	set_source(home,blank)
 	await frames()
@@ -182,6 +220,8 @@ func _e03() -> String:
 		await complete('extends Node2D\nconst Model = preload("LiveModel.gd")\nvar model: Model\nfunc demo():\n\tmodel.uns§\n',"unsaved_speed","model.unsaved_speed","E03 other unsaved Gogo metadata")
 		# Restore a harmless valid source before the existing save/Play checks.
 		model.text = 'extends Node2D\nvar saved_speed: float = 1.0\n'
+	await complete('@tool\nextends Node2D\n# copyright café 😀\nfunc build_view() -> Element:\n\treturn <Te§ text="Unicode" />\n',"Text","<Text text=","E03 Unicode selection/import placement",true)
+	check(home.text.begins_with("@tool\nextends Node2D\nconst Element") and home.text.contains("# copyright café 😀"),"imports preserve annotations/header/comments")
 	set_source(home,blank)
 	await frames()
 	# Explicit public Tools action also repairs typed, unbound component names.
@@ -266,7 +306,8 @@ func _run() -> void:
 	set_source(home,'extends Node2D\n@bindable\nvar café: Vector2 = Vector2.ZERO\nfunc view():\n\treturn <Node name={1 < 2}>{[<Node />]}<!-- comment\ncontinued --></Node>\nvar literal = "<Node />"\nvar multi = """start\n<Node />\n"""\n§')
 	await frames()
 	var live = home.syntax_highlighter
-	check(color(home,1,1)==live.color("annotation") and color(home,2,10)==live.color("type"),"annotation and type-hint theme colors")
+	var type_color: Color = native_reference("var café: Vector2 = Vector2.ZERO",0,10) if live.uses_native() else live.color("type")
+	check(color(home,1,1)==live.color("annotation") and color(home,2,10)==type_color,"annotation and native/fallback type-hint theme colors")
 	check(color(home,4,22)==live.color("symbol") and color(home,5,0)==live.color("comment"),"comparison remains code; multiline GGX comment")
 	check(color(home,6,16)==live.color("string") and color(home,8,0)==live.color("string"),"quoted markup and multiline string stay strings")
 	home.set_caret_line(8)
