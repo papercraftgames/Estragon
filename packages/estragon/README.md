@@ -4,7 +4,7 @@ Pre-1.0 Godot addon: native Gogo/GGX compilation/editor, signal-driven descripti
 
 ## Install into a Godot project
 
-Install the current beta in the Godot project root:
+P02 direct-install support is pending an owner-published release; earlier public betas may not contain this fix. The following contract applies to a package containing P02. Install the current beta in the Godot project root:
 
 ```sh
 yarn add --exact --ignore-scripts @papercraftgames/estragon@beta

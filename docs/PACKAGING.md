@@ -40,7 +40,7 @@ Omit `--require-clean` only for truthful development inspection (manifest then r
 
 See the standalone [package README](../packages/estragon/README.md).
 
-Install the current beta in the Godot project root:
+P02 direct-install support is pending an owner-published release. Earlier public betas may not contain this fix; local reviewed tarball acceptance does not publish updated registry bytes. The following contract applies to a package containing P02. Install the current beta in the Godot project root:
 
 ```sh
 yarn add --exact --ignore-scripts @papercraftgames/estragon@beta
