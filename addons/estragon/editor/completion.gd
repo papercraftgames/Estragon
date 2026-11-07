@@ -89,7 +89,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 				if tokens[cursor].text == "preload" and tokens[cursor+1].text == "(" and tokens[cursor+2].kind == "string": aliases[name] = _resolve_path(tokens[cursor+2].text,source)
 	# Typed arguments/local declarations also contribute names, never inferred values.
 	for index in range(1,tokens.size()-2):
-		if tokens[index].text == ":" and tokens[index-1].text.is_valid_identifier() and tokens[index+1].text.is_valid_identifier():
+		if tokens[index].text == ":" and tokens[index-1].text.is_valid_identifier() and tokens[index+1].text.is_valid_identifier() and tokens[index+1].kind != "keyword" and tokens[index].row == tokens[index+1].row:
 			var name: String = tokens[index-1].text
 			if not symbols.has(name): symbols[name] = {"type":tokens[index+1].text,"owner":owners.get(tokens[index].row,""),"kind":CodeEdit.KIND_VARIABLE}
 	return {"symbols":symbols,"aliases":aliases,"base":base,"owners":owners,"required_initializer":required_initializer}

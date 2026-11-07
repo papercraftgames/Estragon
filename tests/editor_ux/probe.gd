@@ -65,7 +65,9 @@ func _initialize() -> void:
 		var authored := "\n".join(lines)
 		var result := Compiler.compile(authored,path,Build.output_for(path))
 		check(result.ok,"E03 selected catalog imports compile at actual installed path")
-		if not result.ok: print(result.diagnostics)
+		if not result.ok:
+			print(authored)
+			for diagnostic in result.diagnostics: print(diagnostic.format())
 		if result.ok:
 			var output := Build.output_for(path)
 			DirAccess.make_dir_recursive_absolute(output.get_base_dir())
