@@ -74,7 +74,9 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 	check(plugin._build(),"new component compiles without manual changes")
 	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
 	var script: Script = load(output)
-	check(script != null and script.can_instantiate(),"new component generated native script loads at actual output path")
+	# Non-tool authored scripts cannot instantiate in editor context; actual
+	# instantiation is proved separately by headless templates and child Play.
+	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and script.get_script_method_list().any(func(method): return method.name == "build_view"),"new component generated native metadata loads at actual output path")
 	check(FileAccess.get_file_as_string("res://project.godot") == project_before and FileAccess.get_file_as_string("res://gogo.config.json") == roots_before,"creation preserves project settings and configured source roots")
 	return current(path)
 
