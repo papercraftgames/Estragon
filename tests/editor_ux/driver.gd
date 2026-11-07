@@ -376,6 +376,10 @@ func _run() -> void:
 	print("E03_BEFORE_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	check(plugin._build(),"native save/build before scene attachment")
 	print("E03_AFTER_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
+	if preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path.is_empty():
+		check(false,"framework Script path preserved after build")
+		finish()
+		return
 
 	original = attached
 	var host := Node2D.new()

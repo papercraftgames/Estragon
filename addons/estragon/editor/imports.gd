@@ -4,14 +4,19 @@ extends RefCounted
 const Build = preload("build_service.gd")
 const Source = preload("../compiler/source.gd")
 const Catalog = preload("components.gd")
+static func occupied(name: String, resource: String, symbols: Dictionary) -> bool:
+	if symbols.has(name) or ClassDB.class_exists(name): return true
+	for entry in ProjectSettings.get_global_class_list():
+		if str(entry["class"]) == name and str(entry.path) != resource: return true
+	return false
 static func alias_for(item: Dictionary, symbols: Dictionary, aliases: Dictionary) -> String:
 	for name in aliases:
 		if aliases[name] == Catalog.path(item): return name
 	var name: String = item.alias
-	if symbols.has(name) or ClassDB.class_exists(name): name = item.canonical
+	if occupied(name,Catalog.path(item),symbols): name = item.canonical
 	var stem := name
 	var suffix := 2
-	while symbols.has(name) or ClassDB.class_exists(name):
+	while occupied(name,Catalog.path(item),symbols):
 		name = stem+str(suffix)
 		suffix += 1
 	return name
@@ -23,11 +28,11 @@ static func plan(text: String, source: String, requested: Array, symbols: Dictio
 	for request in requested:
 		if names.get(request.alias) == request.path: continue
 		# Caller resolves collisions explicitly; never replace an authored name.
-		if symbols.has(request.alias) or names.has(request.alias): continue
+		if occupied(request.alias,request.path,symbols) or names.has(request.alias): continue
 		declarations.append(declaration(request.alias,request.path,source))
 		names[request.alias] = request.path
 	# A first build_view()->Element needs the explicit composition resource too.
-	if not symbols.has("Element") and not names.has("Element"):
+	if not occupied("Element",Catalog.path(Catalog.named("Element")),symbols) and not names.has("Element"):
 		for index in range(tokens.size()-1):
 			if tokens[index].text == "->" and tokens[index+1].text == "Element":
 				declarations.push_front(declaration("Element",Catalog.path(Catalog.named("Element")),source))

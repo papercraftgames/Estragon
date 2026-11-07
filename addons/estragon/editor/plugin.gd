@@ -183,8 +183,10 @@ func _build() -> bool:
 	if not _active or _building:
 		return false
 	_timer.stop()
+	print("E03_SAVE_BEFORE ",preload("../runtime/composition/element.gd").resource_path)
 	var saved := BufferGuard.save_and_verify(_interface.get_script_editor(), _highlighter_association._path.bind(false))
 	_timer.stop()
+	print("E03_SAVE_AFTER ",preload("../runtime/composition/element.gd").resource_path)
 	_play_save_failed = not saved.ok
 	if not saved.ok:
 		last_report = {"ok": false, "changed": [], "outputs": [], "diagnostics": saved.diagnostics}
