@@ -278,7 +278,9 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			for name in _aliases:
 				if _node_type(name,_aliases): offered[name] = {"kind":CodeEdit.KIND_CLASS,"origin":"explicit Node preload"}
 			for entry in ProjectSettings.get_global_class_list():
-				if Catalog.named(str(entry["class"])).is_empty() and str(entry["class"]).begins_with(prefix) and _node_type(str(entry["class"]),{}): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS,"origin":"project Node"}
+				var known := Catalog.named(str(entry["class"]))
+				if not known.is_empty() and Catalog.path(known) == str(entry.path): continue
+				if str(entry["class"]).begins_with(prefix) and _node_type(str(entry["class"]),{}): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS,"origin":"project Node"}
 			for item in Catalog.ITEMS:
 				for alias in _aliases:
 					if _aliases[alias] == Catalog.path(item): offered.erase(alias)

@@ -37,6 +37,7 @@ for(const selection of options.engines){
   fs.mkdirSync(path.join(box.project,'app/Screens'),{recursive:true});
   fs.writeFileSync(path.join(box.project,'app/Existing.gogo'),'extends Node2D\nvar existing: int = 1\n');
   fs.writeFileSync(path.join(box.project,'app/Ordinary.gd'),'extends Node\nvar ordinary: int = 1\n');
+  fs.writeFileSync(path.join(box.project,'app/ProjectRect.gd'),'class_name Rect\nextends Node2D\n');
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   copyTree(path.join(ROOT,'tests/editor_ux'),path.join(box.project,'tests/editor_ux'));
   function configure(root:string){for(const name of ['driver.gd','probe.gd']){
