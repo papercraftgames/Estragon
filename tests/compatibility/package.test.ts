@@ -58,7 +58,7 @@ test('Git metadata is development-only; release numbers exist only in events or 
     }
     for(const file of tracked.filter(file=>/\.(?:ts|tsx|json|cfg|gd|gogo|yml|yaml|md)$/.test(file) && file!=='addons/estragon/editor/plugin.cfg')) {
         const contents=fs.readFileSync(path.join(root,file),'utf8');
-        if(!file.startsWith('tests/') && !file.startsWith('tools/'))assert(!pinnedPrerelease.test(contents),'Release version must not be committed metadata: '+file);
+        if(!file.startsWith('tests/'))assert(!pinnedPrerelease.test(contents),'Release version must not be committed metadata: '+file);
     }
 });
 
