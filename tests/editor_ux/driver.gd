@@ -27,6 +27,9 @@ func until(condition: Callable, label: String, seconds: float = 12.0) -> bool:
 	return false
 func frames(count: int = 3) -> void:
 	for index in range(count): await get_tree().process_frame
+func capture(label: String) -> void:
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png("res://e02-"+label+".png")
 func find_plugin() -> bool:
 	for node in get_tree().root.find_children("*","EditorPlugin",true,false):
 		if node.get_script() != null and node.get_script().resource_path == PLUGIN.get_base_dir().path_join("plugin.gd"): plugin = node
@@ -47,6 +50,7 @@ func tools_action() -> bool:
 func create(path: String, spatial: bool = false) -> CodeEdit:
 	check(tools_action(),"Project > Tools native action exists")
 	if not await until(func(): return plugin._new_script.dialog.visible,"native file dialog visible"): return null
+	if path == HOME: await capture("creation")
 	var dialog: EditorFileDialog = plugin._new_script.dialog
 	plugin._new_script.dimension.select(1 if spatial else 0)
 	dialog.current_path = path
@@ -72,6 +76,7 @@ func complete(text: String, option: String, inserted: String, label: String) -> 
 		if options[index].display_text == option: selected = index
 	check(selected >= 0,label+" native popup contains expected candidate")
 	if selected < 0: return
+	if label == "imported tag": await capture("completion")
 	var before := home.text
 	home.set_code_completion_selected_index(selected)
 	home.confirm_code_completion()
@@ -172,6 +177,26 @@ func _run() -> void:
 	if await until(func(): return not home.get_code_completion_options().is_empty(),"automatic dot completion"): home.cancel_code_completion()
 	home.text = original
 	await frames()
+	# Live replacement, editing and undo must update the actual tab's palette.
+	set_source(home,'extends Node2D\n@bindable\nvar café: Vector2 = Vector2.ZERO\nfunc view():\n\treturn <Node name={1 < 2}>{[<Node />]}<!-- comment\ncontinued --></Node>\nvar literal = "<Node />"\nvar multi = """start\n<Node />\n"""\n§')
+	await frames()
+	var live = home.syntax_highlighter
+	check(color(home,1,1)==live.color("annotation") and color(home,2,10)==live.color("type"),"annotation and type-hint theme colors")
+	check(color(home,4,22)==live.color("symbol") and color(home,5,0)==live.color("comment"),"comparison remains code; multiline GGX comment")
+	check(color(home,6,16)==live.color("string") and color(home,8,0)==live.color("string"),"quoted markup and multiline string stay strings")
+	home.set_caret_line(8)
+	home.set_caret_column(0)
+	home.insert_text_at_caret('"""')
+	await frames()
+	check(color(home,8,3)!=live.color("string"),"live closing quote changes following scope")
+	home.undo()
+	await frames()
+	check(color(home,8,0)==live.color("string"),"undo restores multiline scope")
+	home.redo()
+	await frames()
+	check(color(home,8,3)!=live.color("string"),"redo updates scope again")
+	home.text = original
+	await frames()
 	var highlighter = home.syntax_highlighter
 	check(highlighter.get_script()==Highlighter,"stock authenticated tab uses Gogo highlighter")
 	check(color(home,0,0)==highlighter.color("keyword"),"GDScript theme keyword color")
@@ -184,6 +209,7 @@ func _run() -> void:
 	highlighter.update_cache()
 	home.text = original.replace('</Entry>','</Wrong>')
 	if await until(func(): return home.get_line_gutter_text(home.get_line_count()-2,plugin._services._gutter_index(home))=="!","authored syntax diagnostic gutter"):
+		await capture("diagnostic")
 		var record: Dictionary = plugin._services.entries[home.get_instance_id()].records[0]
 		plugin._diagnostics.meta_clicked.emit(record)
 		await frames()

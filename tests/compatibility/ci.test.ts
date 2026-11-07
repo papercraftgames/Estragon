@@ -108,3 +108,16 @@ test('routine budget measures end-to-end required checks, separates queue and re
     assert.throws(()=>measureRoutine(run,jobs.slice(0,2)));
     assert.throws(()=>measureRoutine(run,jobs.map(j=>({...j,conclusion:'cancelled'}))));
 });
+
+test('focused editor UX stays opt-in and cannot expand routine or publication certification',()=>{
+    const workflow=fs.readFileSync(path.join(ROOT,'.github/workflows/editor-ux.yml'),'utf8');
+    assert(workflow.includes('types: [labeled]'));
+    assert(workflow.includes("github.event.label.name == 'editor-ux-acceptance'"));
+    assert(!/^  push:/m.test(workflow));
+    assert(workflow.includes('permissions:\n  contents: read'));
+    assert(workflow.includes('check-editor-ux.ts'));
+    assert(!workflow.includes('npm publish'));
+    const routine=fs.readFileSync(path.join(ROOT,'.github/workflows/ci.yml'),'utf8');
+    const release=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
+    assert(!routine.includes('editor-ux'));assert(!release.includes('editor-ux'));
+});

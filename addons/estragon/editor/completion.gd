@@ -137,8 +137,10 @@ func _node_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 		for entry in ProjectSettings.get_global_class_list():
 			if entry["class"] == name: return _node_type(str(entry.path),{},visited+[name])
 		return false
+	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
+	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return false
-	var declarations := _declarations(FileAccess.get_file_as_string(name),name)
+	var declarations := _script(name)
 	return not declarations.required_initializer and _node_type(declarations.base,declarations.aliases,visited+[name])
 func candidates(text: String, source: String, lexical: RefCounted, row: int, column: int) -> Array:
 	_index(text,source)
@@ -164,6 +166,7 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			for entry in ProjectSettings.get_global_class_list():
 				if str(entry["class"]).begins_with(prefix) and _node_type(str(entry["class"]),{}): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS}
 		else:
+			if not _node_type(context.tag,_aliases): return []
 			var members := _members(context.tag,_aliases)
 			for name in members:
 				if members[name].kind in [CodeEdit.KIND_MEMBER,CodeEdit.KIND_SIGNAL] and members[name].get("writable",true) and name not in ["owner","script"]: offered[name] = members[name]

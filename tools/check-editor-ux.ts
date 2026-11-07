@@ -1,7 +1,7 @@
 /** E02 focused native editor proof. No exhaustive/release profile or Docker. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {ROOT,parseCLI,newSandbox,copyTree,runCommand,writeJSON,gitHead,gitDirty,sha256} from './compat-kit.ts';
+import {ROOT,parseCLI,newSandbox,copyTree,runCommand,writeJSON,gitHead,gitDirty,sha256,ERROR} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
 const options=parseCLI(process.argv.slice(2));
 if(process.platform!=='linux')throw Error('E02 native acceptance uses approved Linux engines only');
@@ -16,7 +16,7 @@ for(const selection of options.engines){
    const stage=await runCommand(args,name==='install'?box.project:box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
    const text=fs.readFileSync(log,'utf8');process.stdout.write(text);
    if(negative){
-    stage.unexpected_errors=text.split(/\r?\n/).filter(line=>/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(line) && line!=='ERROR: An EditorPlugin build callback failed.');
+    stage.unexpected_errors=text.split(/\r?\n/).filter(line=>ERROR.test(line) && line!=='ERROR: An EditorPlugin build callback failed.');
     if((stage.unexpected_errors as string[]).length || /E02_EDITOR_CHECK .*: false/.test(text))stage.status='FAIL';
    }
    results[name]=stage;writeJSON(path.join(out,'results.json'),results);
@@ -47,7 +47,7 @@ for(const selection of options.engines){
   fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addonRoot+'/editor/plugin.cfg", "res://tests/editor_ux/plugin.cfg")\n[editor]\nrun/main_run_args="--headless --audio-driver Dummy"\n');
   await command('editor',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
   await command('editor-restart',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
-  fs.copyFileSync(path.join(box.project,'e02-editor.png'),path.join(out,'editor.png'));
+  for(const file of fs.readdirSync(box.project).filter(name=>/^e02-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));
   for(const [name,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,name))!==hash)throw Error('Editor changed installed package bytes/UIDs: '+name);
   if(fs.existsSync(path.join(box.project,'addons/estragon')) || fs.existsSync(path.join(box.project,'node_modules/.gdignore')))throw Error('Forbidden copy/ignore fallback');
   // Focused template-only path proofs; no repeated three-layout editor suites.
