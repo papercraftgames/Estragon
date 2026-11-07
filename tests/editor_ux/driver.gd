@@ -50,6 +50,8 @@ func tools_action() -> bool:
 				return true
 	return false
 func create(path: String, spatial: bool = false) -> CodeEdit:
+	var project_before := FileAccess.get_file_as_string("res://project.godot")
+	var roots_before := FileAccess.get_file_as_string("res://gogo.config.json")
 	if path == HOME and plugin._creation_menu != null:
 		await filesystem_action("res://app/Screens/")
 	else:
@@ -65,6 +67,12 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 	dialog.get_line_edit().text = path.get_file().get_basename() if path == HOME else path.get_file()
 	dialog.get_ok_button().pressed.emit()
 	if not await until(func(): return FileAccess.file_exists(path) and current(path) != null,"created source opens in stock ScriptEditor"): return null
+	check(current(path).syntax_highlighter.get_script() == Highlighter and current(path).code_completion_enabled and plugin._services._gutter_index(current(path)) >= 0,"created authored source immediately has Gogo highlighting/completion/diagnostics")
+	check(plugin._build(),"new component compiles without manual changes")
+	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
+	var script: Script = load(output)
+	check(script != null and script.can_instantiate(),"new component generated native script loads at actual output path")
+	check(FileAccess.get_file_as_string("res://project.godot") == project_before and FileAccess.get_file_as_string("res://gogo.config.json") == roots_before,"creation preserves project settings and configured source roots")
 	return current(path)
 
 # Test-only public control/input driving. Production registers the supported
