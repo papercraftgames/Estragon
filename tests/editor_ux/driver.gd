@@ -125,6 +125,8 @@ func play(mode: String) -> void:
 	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	if mode == "main": interface.play_main_scene()
 	else: interface.play_current_scene()
+	print("E03_PLAY_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
+	if not plugin.last_report.ok: print("E03_PLAY_SOURCE ",FileAccess.get_file_as_string(HOME))
 	if await until(proof,mode+" child game runs created Gogo",20): check(interface.is_playing_scene(),mode+" native child active")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"child stopped")
@@ -157,7 +159,7 @@ func action(name: String) -> void:
 	check(false,"native key binding available: "+name)
 func _e03() -> String:
 	color(home,0,0)
-	var capabilities := {"engine":Engine.get_version_info().string,"native_highlighter_available":ClassDB.class_exists("GDScriptSyntaxHighlighter"),"native_highlighter_used":home.syntax_highlighter.uses_native(),"acceptance_virtual_attached":home.get_script()!=null,"native_analyzer":ClassDB.class_has_method("GDScript","complete_code")}
+	var capabilities := {"engine":Engine.get_version_info().string,"native_highlighter_class":ClassDB.class_exists("GDScriptSyntaxHighlighter"),"native_highlighter_available":ClassDB.class_exists("GDScriptSyntaxHighlighter") and ClassDB.can_instantiate("GDScriptSyntaxHighlighter"),"native_highlighter_used":home.syntax_highlighter.uses_native(),"acceptance_virtual_attached":home.get_script()!=null,"native_analyzer":ClassDB.class_has_method("GDScript","complete_code")}
 	var file := FileAccess.open("res://e03-editor-capabilities.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(capabilities,"\t"))
 	file.close()
@@ -331,6 +333,7 @@ func _run() -> void:
 	var highlighter = home.syntax_highlighter
 	check(highlighter.get_script()==Highlighter,"stock authenticated tab uses Gogo highlighter")
 	check(color(home,0,0)==highlighter.color("keyword"),"GDScript theme keyword color")
+	check(plugin._services.entries[home.get_instance_id()].model.metadata_reads>0,"already-held Script metadata reused without authored load/new")
 	var settings := interface.get_editor_settings()
 	var old_color: Color = settings.get_setting("text_editor/theme/highlighting/keyword_color")
 	settings.set_setting("text_editor/theme/highlighting/keyword_color",Color(0.9,0.2,0.1))
@@ -376,7 +379,9 @@ func _run() -> void:
 	host.set_script(load(OUTPUT))
 	var packed := PackedScene.new()
 	packed.pack(host)
+	print("E03_BEFORE_PACK_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	ResourceSaver.save(packed,"res://app/Home.tscn")
+	print("E03_AFTER_PACK_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	host.free()
 	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
 	ProjectSettings.save()

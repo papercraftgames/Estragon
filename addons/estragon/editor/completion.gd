@@ -8,6 +8,8 @@ const Catalog = preload("components.gd")
 const Imports = preload("imports.gd")
 const Build = preload("build_service.gd")
 var sources: Dictionary = {}
+var metadata: Dictionary = {}
+var metadata_reads := 0
 var _script_cache: Dictionary = {}
 var _classes: PackedStringArray = []
 var _text := ""
@@ -25,6 +27,7 @@ func invalidate() -> void:
 	_text = ""
 	_native_cache.clear()
 	_script_cache.clear()
+	metadata.clear()
 func _tokens(text: String) -> Array:
 	var context := Context.new()
 	context.update(text)
@@ -148,7 +151,7 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 		if _native_cache.has(name): return _native_cache[name]
 		var result: Dictionary = {}
 		for prop in ClassDB.class_get_property_list(name):
-			if not str(prop.name).contains("/"):
+			if str(prop.name).is_valid_identifier() and not (int(prop.usage) & (PROPERTY_USAGE_CATEGORY|PROPERTY_USAGE_GROUP|PROPERTY_USAGE_SUBGROUP)):
 				result[prop.name] = {"type":_type_name(prop),"kind":CodeEdit.KIND_MEMBER,"value_type":prop.type,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
 		for method in ClassDB.class_get_method_list(name): result[method.name] = {"type":_type_name(method.get("return",{})),"kind":CodeEdit.KIND_FUNCTION,"hint":_method_hint(method)}
 		for sig in ClassDB.class_get_signal_list(name): result[sig.name] = {"type":"","kind":CodeEdit.KIND_SIGNAL,"args":sig.args.map(func(arg): return arg.type)}
@@ -164,11 +167,13 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 	var declarations := _script(name)
 	var result := _members(declarations.base,declarations.aliases,visited+[name])
 	# Existing cached metadata only; never reload/new authored scripts.
-	if not sources.has(name) and ResourceLoader.has_cached(name):
-		var cached = ResourceLoader.load(name)
+	if not sources.has(name):
+		var cached = metadata.get(name)
+		if cached == null and ResourceLoader.has_method("get_cached_ref"): cached = ResourceLoader.call("get_cached_ref",name)
 		if cached is Script and cached.source_code == _script_cache[name].text:
+			metadata_reads += 1
 			for prop in cached.get_script_property_list():
-				if not str(prop.name).contains("/"): result[prop.name] = {"type":_type_name(prop),"kind":CodeEdit.KIND_MEMBER,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
+				if str(prop.name).is_valid_identifier() and not (int(prop.usage) & (PROPERTY_USAGE_CATEGORY|PROPERTY_USAGE_GROUP|PROPERTY_USAGE_SUBGROUP)): result[prop.name] = {"type":_type_name(prop),"kind":CodeEdit.KIND_MEMBER,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
 			for method in cached.get_script_method_list(): result[method.name] = {"type":_type_name(method.get("return",{})),"kind":CodeEdit.KIND_FUNCTION,"hint":_method_hint(method)}
 	for field in declarations.symbols:
 		if declarations.symbols[field].owner.is_empty(): result[field] = declarations.symbols[field]
@@ -230,7 +235,7 @@ func _path_options(left: String, context: Dictionary, source: String, row: int, 
 	access.list_dir_begin()
 	var name := access.get_next()
 	while not name.is_empty() and result.size() < 256:
-		if not name.begins_with(".") and name.begins_with(prefix) and not access.is_link(name) and (access.current_is_dir() or name.get_extension() in extensions):
+		if not name.begins_with(".") and name.begins_with(prefix) and (not access.has_method("is_link") or not access.call("is_link",name)) and (access.current_is_dir() or name.get_extension() in extensions):
 			var is_dir := access.current_is_dir()
 			var insert: String = context.quote+directory+name+("/" if is_dir else context.quote)
 			result.append({"text":insert,"insert":insert,"kind":CodeEdit.KIND_FILE_PATH,"row":row,"start":start,"column":column,"path":true})

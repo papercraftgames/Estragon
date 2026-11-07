@@ -4,6 +4,7 @@ extends Node
 signal diagnostics_changed(records, phase)
 const Context = preload("lexical_context.gd")
 const Acceptance = preload("completion_edit.gd")
+const Catalog = preload("components.gd")
 const Completion = preload("completion.gd")
 const Source = preload("../compiler/source.gd")
 const Parser = preload("../compiler/parser.gd")
@@ -110,6 +111,9 @@ func _complete(id: int) -> void:
 	var code = entry.code.get_ref()
 	if code == null: return
 	code.cancel_code_completion()
+	entry.model.metadata = {}
+	for script in interface.get_script_editor().get_open_scripts(): entry.model.metadata[script.resource_path] = script
+	for item in Catalog.ITEMS: entry.model.metadata[Catalog.path(item)] = item.script
 	entry.model.sources = {}
 	for other in entries.values():
 		var buffer = other.code.get_ref()
