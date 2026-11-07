@@ -6,6 +6,12 @@ const BufferGuard = preload("buffer_guard.gd")
 const BuildService = preload("build_service.gd")
 const HighlighterAssociation = preload("highlighter_association.gd")
 const Highlighter = preload("highlighter.gd")
+const Services = preload("language_services.gd")
+const Navigation = preload("navigation.gd")
+const NewScript = preload("new_script.gd")
+var _services: Node
+var _navigation: RefCounted
+var _new_script: RefCounted
 const TEXT_EXTENSIONS_SETTING := "docks/filesystem/textfile_extensions"
 
 var _highlighter: EditorSyntaxHighlighter
@@ -37,10 +43,18 @@ func _enter_tree() -> void:
 				registered = true
 		if not registered:
 			settings.set_setting(TEXT_EXTENSIONS_SETTING, existing + ("," if not existing.is_empty() else "") + "gogo")
-	_highlighter = Highlighter.new()
+	_highlighter = Highlighter.new(settings)
 	_interface.get_script_editor().register_syntax_highlighter(_highlighter)
 	_highlighter_association = HighlighterAssociation.new()
+	_navigation = Navigation.new(_interface)
+	_services = Services.new(_interface,_navigation)
+	add_child(_services)
+	_services.diagnostics_changed.connect(_typing_report)
+	_highlighter_association.associated.connect(_services.attach)
 	_highlighter_association.start(_interface)
+	_new_script = NewScript.new(_interface,_navigation)
+	_new_script.start(self)
+	add_tool_menu_item("New Gogo Script…",_new_script.show_dialog)
 	_timer = Timer.new()
 	_timer.one_shot = true
 	_timer.wait_time = 0.4
@@ -50,9 +64,12 @@ func _enter_tree() -> void:
 	_diagnostics.name = "EstragonDiagnostics"
 	_diagnostics.custom_minimum_size = Vector2(0, 120)
 	_diagnostics.selection_enabled = true
+	_diagnostics.bbcode_enabled = true
+	_diagnostics.meta_clicked.connect(_diagnostic_clicked)
 	add_control_to_bottom_panel(_diagnostics, "Gogo")
-	_interface.get_resource_filesystem().filesystem_changed.connect(_schedule)
+	_interface.get_resource_filesystem().filesystem_changed.connect(_filesystem_changed)
 	_interface.get_resource_filesystem().sources_changed.connect(_sources_changed)
+	scene_changed.connect(_scene_context_changed)
 	resource_saved.connect(_resource_saved)
 	_interface.get_script_editor().editor_script_changed.connect(_script_changed)
 	# Native GGX with explicit imports can build before the editor restores
@@ -128,7 +145,17 @@ func _refresh_generated_editors() -> void:
 			code.tag_saved_version()
 
 
+func _filesystem_changed() -> void:
+	if _services != null: _services.invalidate()
+	_schedule()
+
+
+func _scene_context_changed(_root: Node) -> void:
+	if _services != null: _services.invalidate()
+
+
 func _sources_changed(_changed: bool) -> void:
+	_services.invalidate()
 	_schedule()
 
 
@@ -183,8 +210,23 @@ func _compile() -> bool:
 	return last_report.ok
 
 
+func _typing_report(records: Array, phase: String) -> void:
+	if not _active or _building: return
+	_diagnostics.clear()
+	_diagnostics.add_text(phase+"\n")
+	for record in records: _diagnostic_link(record)
+func _diagnostic_link(record: Dictionary) -> void:
+	_diagnostics.push_meta(record)
+	_diagnostics.add_text("%s:%d:%d: %s\n" % [record.source,record.line,record.column,record.message])
+	_diagnostics.pop()
+func _diagnostic_clicked(record: Variant) -> void:
+	if record is Dictionary: _services.navigate(record)
 func _show_report() -> void:
+	_services.report_build(last_report)
 	_diagnostics.text = "Gogo build succeeded." if last_report.ok else "\n\n".join(PackedStringArray(last_report.diagnostics))
+	if not last_report.get("source_diagnostics",[]).is_empty():
+		_diagnostics.clear()
+		for record in last_report.source_diagnostics: _diagnostic_link(record)
 	if not last_report.ok:
 		make_bottom_panel_item_visible(_diagnostics)
 		push_warning("Estragon: Gogo compilation failed; Play blocked.\n" + _diagnostics.text)
@@ -192,13 +234,18 @@ func _show_report() -> void:
 
 func _exit_tree() -> void:
 	_active = false
+	remove_tool_menu_item("New Gogo Script…")
+	if _navigation != null: _navigation.stop()
+	if _new_script != null: _new_script.stop(); _new_script = null
+	if _services != null: _services.stop(); _services.free(); _services = null
+	_navigation = null
 	_building = false
 	_rescan_pending = false
 	_play_save_failed = false
 	if is_instance_valid(_interface):
 		var filesystem := _interface.get_resource_filesystem()
-		if filesystem.filesystem_changed.is_connected(_schedule):
-			filesystem.filesystem_changed.disconnect(_schedule)
+		if filesystem.filesystem_changed.is_connected(_filesystem_changed):
+			filesystem.filesystem_changed.disconnect(_filesystem_changed)
 		if filesystem.sources_changed.is_connected(_sources_changed):
 			filesystem.sources_changed.disconnect(_sources_changed)
 	if is_instance_valid(_interface):

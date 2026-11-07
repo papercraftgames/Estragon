@@ -7,7 +7,7 @@ const Dependencies = preload("script_dependencies.gd")
 const CONFIG := "gogo.config.json"
 const EXCLUDED := ["generated", "node_modules", "tests", "vendor"]
 var _project: String
-var _report := {"ok": false, "outputs": [], "changed": [], "diagnostics": [], "isolated_preflight": {"status": "UNTESTED"}}
+var _report := {"ok": false, "outputs": [], "changed": [], "diagnostics": [], "source_diagnostics": [], "isolated_preflight": {"status": "UNTESTED"}}
 var _sources: Dictionary = {}
 var _staging: String
 var _previous_code: Dictionary = {}
@@ -19,6 +19,10 @@ static func run_build(project: String = "res://") -> Dictionary:
 
 func _fail(message: String) -> void:
 	_report.diagnostics.append(message)
+
+func _fail_source(diagnostic) -> void:
+	_fail(diagnostic.format())
+	_report.source_diagnostics.append({"source":diagnostic.source_name,"line":diagnostic.span.start.line,"column":diagnostic.span.start.column,"end_line":diagnostic.span.end.line,"end_column":diagnostic.span.end.column,"message":diagnostic.message})
 
 func _safe(path: String) -> bool:
 	if not path.begins_with(_project + "/"):
@@ -93,7 +97,7 @@ func _run() -> Dictionary:
 			continue
 		var result := Compiler.compile(input.get_as_text(), source, _resource_path(output_for(source)))
 		if not result.ok:
-			for diagnostic in result.diagnostics: _fail(diagnostic.format())
+			for diagnostic in result.diagnostics: _fail_source(diagnostic)
 		else: compiled.append({"source": source, "output": output_for(source), "result": result})
 	if not _report.diagnostics.is_empty(): return _report
 	var writes: Dictionary = {}
@@ -166,7 +170,7 @@ func _run() -> Dictionary:
 		for item in compiled:
 			if isolated:
 				var checked := Validation.validate(item.result, _resource_path(item.output))
-				for diagnostic in checked.diagnostics: _fail(diagnostic.format())
+				for diagnostic in checked.diagnostics: _fail_source(diagnostic)
 				if not checked.ok:
 					_report.isolated_preflight.status = "FAIL"
 					break
@@ -223,7 +227,7 @@ func _refresh_cache(item: Dictionary, state: Array[Dictionary]) -> void:
 	# Reload the actual Script even on no-op builds; keep_state preserves owners.
 	state.append({"script": script, "previous": script.source_code if was_cached else _previous_code.get(item.output), "output": item.output})
 	var checked := Validation.reload_script(item.result, script, true)
-	for diagnostic in checked.diagnostics: _fail(diagnostic.format())
+	for diagnostic in checked.diagnostics: _fail_source(diagnostic)
 
 func _restore_cache(state: Array[Dictionary]) -> void:
 	for item in state:
@@ -250,3 +254,31 @@ func _visit_dependencies(item: Dictionary, by_path: Dictionary, visited: Diction
 	for path in item.dependencies:
 		if by_path.has(path): _visit_dependencies(by_path[path], by_path, visited, ordered)
 	ordered.append(item)
+
+## Same discovery exclusions/containment as builds; no writes or config changes.
+static func creation_check(path: String) -> Dictionary:
+	var relative := path.trim_prefix("res://")
+	if not path.begins_with("res://") or path.get_extension() != "gogo" or "\\" in relative or ":" in relative:
+		return {"ok":false,"message":"Choose a .gogo file beneath res://."}
+	for part in relative.split("/"):
+		if part.begins_with(".") or part in EXCLUDED: return {"ok":false,"message":"This path is excluded from Gogo compilation. Choose a configured source root."}
+	if FileAccess.file_exists(path) or DirAccess.dir_exists_absolute(path):
+		return {"ok":false,"message":"A file or directory already exists. New Gogo Script never overwrites existing source; choose another filename."}
+	if not DirAccess.dir_exists_absolute(path.get_base_dir()): return {"ok":false,"message":"Create/select an existing project directory first."}
+	var check := new()
+	check._project = ProjectSettings.globalize_path("res://").trim_suffix("/")
+	if not check._safe(ProjectSettings.globalize_path(path)): return {"ok":false,"message":"Unsafe source path: "+str(check._report.diagnostics)}
+	if not FileAccess.file_exists("res://"+CONFIG):
+		return {"ok":not relative.begins_with("addons/"),"message":"Default discovery excludes the top-level addons directory; choose a project source directory."}
+	var json := JSON.new()
+	if json.parse(FileAccess.get_file_as_string("res://"+CONFIG)) != OK: return {"ok":false,"message":CONFIG+": "+json.get_error_message()}
+	var config: Variant = json.data
+	if not config is Dictionary or config.size() != 2 or config.get("version") != 1 or not config.get("source_roots") is Array or config.source_roots.is_empty():
+		return {"ok":false,"message":CONFIG+": expected version 1 and nonempty source_roots."}
+	var eligible := false
+	for root in config.source_roots:
+		if not root is String or root.is_empty() or root.is_absolute_path() or ":" in root or "\\" in root: return {"ok":false,"message":CONFIG+": invalid source root"}
+		for part in root.split("/"):
+			if part.begins_with(".") or part in EXCLUDED: return {"ok":false,"message":CONFIG+": invalid source root"}
+		if relative == root or relative.begins_with(root.trim_suffix("/")+"/"): eligible = true
+	return {"ok":eligible,"message":"Choose a location included by gogo.config.json source_roots: "+str(config.source_roots)}

@@ -3,6 +3,8 @@ extends RefCounted
 ## Repair extension association after native tab creation / cached state restore.
 ## Kept separate from compilation; no timer, file writes or editor preferences.
 const Highlighter = preload("highlighter.gd")
+signal associated(editor, code, path)
+var _settings: EditorSettings
 const PATH_META := "estragon_gogo_path"
 var _scripts: ScriptEditor
 var _tree: SceneTree
@@ -11,6 +13,7 @@ var _pending: bool = false
 var _tested_adapter: bool = false
 
 func start(interface: EditorInterface) -> void:
+	_settings = interface.get_editor_settings()
 	var version := Engine.get_version_info()
 	_tested_adapter = version.major == 4 and version.minor >= 0 and version.minor <= 7
 	if not _tested_adapter:
@@ -49,13 +52,19 @@ func _refresh() -> void:
 		var code := editor.get_base_editor() as TextEdit
 		if code == null: continue
 		var path := _path(editor, code)
+		associated.emit(editor,code,path)
 		if path.get_extension() != "gogo": continue
 		code.set_meta(PATH_META, path)
 		if code.syntax_highlighter != null and code.syntax_highlighter.get_script() == Highlighter:
+			# 4.0 clones the script directly; its native _create is not a
+			# script virtual, so constructor arguments are not preserved.
+			if code.syntax_highlighter.settings != _settings:
+				code.syntax_highlighter.settings = _settings
+				code.syntax_highlighter.update_cache()
 			continue
 		# A fresh instance per CodeEdit. Do not add duplicate native menu entries
 		# or rewrite the per-file cache; normal editor persistence handles state.
-		code.syntax_highlighter = Highlighter.new()
+		code.syntax_highlighter = Highlighter.new(_settings)
 
 func _path(editor: ScriptEditorBase, code: TextEdit, allow_cached: bool = true) -> String:
 	if code.syntax_highlighter is EditorSyntaxHighlighter and code.syntax_highlighter.has_method("_get_edited_resource"):
