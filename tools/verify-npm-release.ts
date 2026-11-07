@@ -33,7 +33,7 @@ if(import.meta.url==='file://'+process.argv[1]) {
     fs.mkdirSync(output,{recursive:true});
     for(const label of ['4.0.4','4.7'])execFileSync('gh',['run','download',runId,'--repo',repository,'--name','native-addon-'+label,'--dir',path.join(output,label)],{stdio:'inherit'});
     const reports=['4.0.4','4.7'].map(label=>assessFile(path.join(output,label,'native-addon',label,'addon-evidence.json')));
-    if(reports.some(report=>report.source_commit!==gitHead()||report.assessment.status!=='PASS') || new Set(reports.map(r=>r.label)).size!==2)throw Error('Complete matching two-engine release evidence required');
+    if(reports.some(report=>report.profile!=='fast-release'||report.source_commit!==gitHead()||report.assessment.status!=='PASS') || new Set(reports.map(r=>r.label)).size!==2)throw Error('Complete matching two-engine fast-release evidence required');
     const packages=reports.map(report=>{
         const dir=path.join(output,report.label,'native-addon',report.label,'package',''+report.label,'packed');
         const manifest=JSON.parse(fs.readFileSync(path.join(dir,'package-manifest.json'),'utf8'));

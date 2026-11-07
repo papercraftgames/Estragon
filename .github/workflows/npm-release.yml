@@ -71,7 +71,7 @@ jobs:
   consumer:
     needs: publish
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 8
     strategy:
       fail-fast: false
       matrix:
@@ -90,20 +90,11 @@ jobs:
         with:
           name: approved-npm-package
           path: ${{ runner.temp }}/approved-package
-      - name: Verify software graphics
+      - name: Isolated software-GL display (no Vulkan apt install)
         shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
-          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
-          test "${#vulkan_icds[@]}" -eq 1
-          vulkan_icd="${vulkan_icds[0]}"
-          test -f "$vulkan_icd"
-          mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
-          VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
-            XDG_RUNTIME_DIR="$RUNNER_TEMP/xdg-runtime" xvfb-run -a vulkaninfo --summary
-          echo "VK_DRIVER_FILES=$vulkan_icd" >> "$GITHUB_ENV"
-          echo "VK_ICD_FILENAMES=$vulkan_icd" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/xdg-runtime"
+          chmod 700 "$RUNNER_TEMP/xdg-runtime"
           echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
       - name: Authenticate official Linux engine
         run: node --experimental-strip-types tools/download-compat-engine.ts
@@ -115,7 +106,7 @@ jobs:
           xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-native-addon.ts"
           --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
-          --output "$RUNNER_TEMP/published-consumer" --package-only
+          --output "$RUNNER_TEMP/published-consumer" --package-only --direct-only
       - uses: actions/upload-artifact@v4
         if: always()
         with:

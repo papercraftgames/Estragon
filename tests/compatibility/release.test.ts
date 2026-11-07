@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { REQUIRED, assessRelease } from '../../tools/release-policy.ts';
+import { REQUIRED, REQUIRED_FAST_RELEASE, assessRelease } from '../../tools/release-policy.ts';
 import { assessFile } from '../../tools/assert-release.ts';
 import { classify, parseCLI, sha256, writeJSON, ROOT } from '../../tools/compat-kit.ts';
 import type { Stage } from '../../tools/compat-kit.ts';
@@ -31,14 +31,25 @@ test('engine budget rejects additional or unsupported versions', () => {
     assert.throws(() => parseCLI(['--engine', '4.7.2=/tmp/x', '--output', '/tmp/not-created-c4']));
     assert.throws(() => parseCLI(['--engine', '4.1=/tmp/x', '--output', '/tmp/not-created-c4']));
 });
-function fixture() {
+test('fast-release policy is deliberately narrower, never an alias for full certification', () => {
+    const stages = Object.fromEntries(REQUIRED_FAST_RELEASE.map(name => [name, { status: 'PASS' }])) as Record<string, Stage>;
+    assert.equal(assessRelease(stages, 'fast-release').status, 'PASS');
+    assert.equal(assessRelease(stages).status, 'BLOCKED');
+    for(const name of REQUIRED_FAST_RELEASE) {
+        const missing={...stages};delete missing[name];
+        assert.equal(assessRelease(missing, 'fast-release').status, 'BLOCKED');
+        assert.equal(assessRelease({...stages,[name]:{status:'FAIL'}},'fast-release').status,'BLOCKED');
+    }
+});
+function fixture(profile:'full'|'fast-release'='full') {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'addon-policy-'));
     const label = '4.7';
     const pin = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests/compatibility/linux-engines.json'), 'utf8')).find((p: any) => p.version.startsWith('4.7.'));
     const stages: Record<string, Stage> = {}, files: Record<string, string> = {};
-    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional', 'lists', 'twoway', 'profiling', 'package']) {
+    const required = profile === 'fast-release' ? REQUIRED_FAST_RELEASE : REQUIRED;
+    for (const group of profile === 'fast-release' ? ['package'] : ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional', 'lists', 'twoway', 'profiling', 'package']) {
         const p = group + '/' + label + '/results.json';
-        const entries = Object.fromEntries(REQUIRED.filter(n => n.startsWith(group + '.')).map(n => [n.slice(group.length + 1), { status: 'PASS' }]));
+        const entries = Object.fromEntries(required.filter(n => n.startsWith(group + '.')).map(n => [n.slice(group.length + 1), { status: 'PASS' }]));
         const result = group === 'metadata' ? { status: 'PASS', sourceHead: 'source', sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 } : entries;
         writeJSON(path.join(root, p), result);
         files[p] = sha256(path.join(root, p));
@@ -55,14 +66,14 @@ function fixture() {
                     fs.writeFileSync(path.join(root, log), 'NATIVE_TEST_OK');
                     files[log] = sha256(path.join(root, log));
                 }
-                if(group==='package' && n!=='pack')Object.assign(s,{runs:['direct','relocated','standard'].map(layout=>({...s,layout}))});
+                if(group==='package' && n!=='pack')Object.assign(s,{runs:(profile==='fast-release'?['direct']:['direct','relocated','standard']).map(layout=>({...s,layout}))});
                 stages[group + '.' + n] = s as Stage;
             }
             writeJSON(path.join(root, p), entries);
             files[p] = sha256(path.join(root, p));
         }
     }
-    const report = { source_commit: 'source', source_dirty: false, label, version: pin.version, binary_sha256: pin.binary_sha256, stages, files };
+    const report = { profile, source_commit: 'source', source_dirty: false, label, version: pin.version, binary_sha256: pin.binary_sha256, stages, files };
     const file = path.join(root, 'addon-evidence.json');
     writeJSON(file, report);
     return { root, file, report };
@@ -103,5 +114,31 @@ test('release evidence rejects incomplete or failed direct-install layout subrun
             writeJSON(f.file,f.report);
             assert.throws(()=>assessFile(f.file),/package.*(?:layout|execution)/i);
         }
+    } finally {fs.rmSync(f.root,{recursive:true,force:true});}
+});
+
+test('fast-release evidence accepts one direct consumer only, rejects wrong layouts and failed execution',()=>{
+    const f=fixture('fast-release');
+    try {
+        assert.equal(assessFile(f.file).assessment.status,'PASS');
+        const relative='package/4.7/results.json';
+        const original=JSON.parse(fs.readFileSync(path.join(f.root,relative),'utf8'));
+        const direct=original.runtime.runs[0];
+        for(const runs of [[],[{...direct,layout:'standard'}],[{...direct,status:'FAIL'}],[direct,{...direct,layout:'relocated'}]]) {
+            const changed=structuredClone(original);
+            changed.runtime={...changed.runtime,runs};
+            f.report.stages['package.runtime']=changed.runtime;
+            writeJSON(path.join(f.root,relative),changed);
+            f.report.files[relative]=sha256(path.join(f.root,relative));
+            writeJSON(f.file,f.report);
+            assert.throws(()=>assessFile(f.file),/package installation layout|package layout execution|package.*execution/i);
+        }
+        const missing=structuredClone(original);
+        delete missing.editor;
+        delete f.report.stages['package.editor'];
+        writeJSON(path.join(f.root,relative),missing);
+        f.report.files[relative]=sha256(path.join(f.root,relative));
+        writeJSON(f.file,f.report);
+        assert.throws(()=>assessFile(f.file),/fast release stage inventory/);
     } finally {fs.rmSync(f.root,{recursive:true,force:true});}
 });

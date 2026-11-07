@@ -377,3 +377,8 @@ scene/#65/export prerequisites or advance T09. See C01_H_RELEASE.md and #51.
 ### P02 — location-independent native addon and direct Yarn consumption
 
 Owner-directed [#111](https://github.com/papercraftgames/Estragon/issues/111), after merged CI01 #110. Replace fixed internal resource roots and emitted dependency paths, preserve native transactions/UIDs, prove full-path editor activation outside addons on official Linux 4.0.4/pinned4.7.0, and replace copy/ignore consumer tests with direct Yarn plus nonstandard relocation/standard-path evidence. One review PR; no version change/publication/merge. Seven package stages aggregate all three layouts; all73 full certification stages and both post-publish registry consumers remain required. Routine checks retain their60-second budget. Exact evidence/handoff lives on #111/its sole PR; any engine limitation must be reported without copy/symlink workarounds.
+
+
+## CI02 — bounded release cost (review task)
+
+[#113](https://github.com/papercraftgames/Estragon/issues/113) updates the earlier CI01/P02 release-cost policy. Routine PR/main still require <=60s. Every owner-authorized release still requires exact-source tests on official Linux 4.0.4 and pinned 4.7.0, real direct Yarn package/editor/rendering acceptance, verified identical package bytes, OIDC and public-registry consumers. The former mandatory 73-stage two-engine, three-install-layout battery becomes an **explicit opt-in** regression tool, not a routine release or local-development requirement. Historical descriptions above capture what was required at the time; follow the current CI02 contract in [CI_PERFORMANCE](CI_PERFORMANCE.md) and live #113. No version bump, publication or merge in this task.

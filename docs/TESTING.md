@@ -14,7 +14,7 @@ bun install --frozen-lockfile
 bun run check
 ~~~
 
-CI01 [routine budget / release certification](CI_PERFORMANCE.md): routine PR and main push checks are limited to static/policy tests and one tiny headless native smoke, within60seconds. Docs-only omits Godot. Full73-stage acceptance on BOTH approved engines is mandatory before publication, through certify.yml and independent exact-current-run artifact verification. Fast main CI cannot authorize publication. The commands below are explicit certification/development tools, not routine CI.
+CI01 [routine budget / release certification](CI_PERFORMANCE.md): routine PR and main push checks are limited to static/policy tests and one tiny headless native smoke, within60seconds. Docs-only omits Godot. A bounded direct-Yarn package consumer on BOTH approved engines is mandatory before publication, with exact-source certification and independent artifact verification; the full73-stage matrix is now opt-in (CI02 #113). Fast main CI cannot authorize publication. The commands below are explicit certification/development tools, not routine CI.
 
 ~~~sh
 # From a contributor environment; output directory must be new and absolute.
@@ -23,7 +23,7 @@ xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-na
   --engine 4.7=/absolute/verified/linux/godot --output /tmp/new-addon-acceptance
 ~~~
 
-Use the workflow's LIBGL_ALWAYS_SOFTWARE=1, verified lavapipe VK_DRIVER_FILES/VK_ICD_FILENAMES and isolated XDG_RUNTIME_DIR. Xvfb supplies X11, not Vulkan; the workflow verifies the software ICD rather than hiding Vulkan initialization errors. tests/compatibility/linux-engines.json pins official archive/executable hashes and versions; the downloader additionally authenticates 4.0.4 against its official SHA-512 manifest. Engine copies and editor settings are isolated and native child PATH has no external tools.
+Automatic release consumers use LIBGL_ALWAYS_SOFTWARE=1, Xvfb and an isolated XDG_RUNTIME_DIR with Godot's GL Compatibility renderer. Vulkan setup/probing is not required for those package scenes. Deeper renderer checks remain opt-in. tests/compatibility/linux-engines.json pins official archive/executable hashes and versions; the downloader additionally authenticates 4.0.4 against its official SHA-512 manifest. Engine copies and editor settings are isolated and native child PATH has no external tools.
 
 Required coverage:
 
@@ -36,14 +36,14 @@ Required coverage:
 
 ## Release policy
 
-The runner hashes execution logs/results/provenance and assembles addon-evidence.json. tools/assert-release.ts requires every current stage PASS, clean matching source, exact approved engine identity, hashed execution reports/logs and summary/report agreement. Missing, dirty, mismatched, forged or unexpected-failure evidence fails closed. There are no automatic legacy development exceptions; development-policy.ts uses the same requirement policy. Policy tests exercise these negative paths. Each artifact assesses one approved engine; actual two-engine release review requires both matching candidate-source reports:
+The runner hashes execution logs/results/provenance and assembles addon-evidence.json. tools/assert-release.ts supports a strict mandatory `fast-release` profile (seven direct-package stages) and a separate full 73-stage opt-in profile. Each requires every selected stage PASS, clean matching source, exact approved engine identity, hashed execution reports/logs and summary/report agreement. Missing, dirty, mismatched, forged or unexpected-failure evidence fails closed. There are no automatic legacy development exceptions; development-policy.ts uses the same requirement policy. Policy tests exercise these negative paths. Each artifact assesses one approved engine; actual two-engine release review requires both matching candidate-source reports:
 
 ~~~sh
 corepack yarn@1.22.22 node --experimental-strip-types tools/assert-release.ts \
   /evidence/4.0.4/addon-evidence.json /evidence/4.7/addon-evidence.json
 ~~~
 
-Standalone executable export, the deleted surface/JSON scenes, RefCounted helpers/callbacks and obsolete raw-string fixtures are no longer product requirements (#83). Their archived FAIL/BLOCKED/UNTESTED outcomes remain unchanged. Any genuine current native-product failure remains a blocker until fixed or explicitly scoped by owner decision; do not suppress native errors or label them PASS. Green checks do not authorize automatic publishing/merging or certify untested minor/platform support. No publisher exists.
+Standalone executable export, the deleted surface/JSON scenes, RefCounted helpers/callbacks and obsolete raw-string fixtures are no longer product requirements (#83). Their archived FAIL/BLOCKED/UNTESTED outcomes remain unchanged. Any genuine current native-product failure remains a blocker until fixed or explicitly scoped by owner decision; do not suppress native errors or label them PASS. Green checks do not authorize automatic publishing/merging or certify untested minor/platform support. The GitHub prerelease workflow owns npm OIDC publishing; these development commands do not publish.
 
 Current C4 issue/PR records exact source/engine provenance, commands, actual outcomes and captures. [C3 archival evidence](../tests/compatibility/c3/README.md) records the prior native slice under transitional paths; it is not fresh C4 evidence.
 
@@ -91,4 +91,4 @@ The existing strict bindable group now proves class-scope grammar, idempotent ex
 
 ## P01 package consumer
 
-`tools/check-package.ts` / focused workflow mode `package` adds pack/install/build/import/runtime/editor/visual evidence to all prior native-addon groups. The curated local npm tarball is dry-run audited, reproducibly packed twice, unpack-hashed, installed with Yarn in a fresh consumer, used directly in node_modules without copy/symlink/ignore, with separate nonstandard relocation and standard-path consumers per [install contract](PACKAGING.md), then exercised by native compiler/real saved+unsaved main/current editor Play, invalid/unsavable rollback+repair, actual pointer input and rendered Counter initial/changed/resize captures. No repository generated scripts or Assets enter that consumer; test harness files are not package contents. Official Linux 4.0.4/pinned4.7 only. npm pack is a local publishing-tool operation, never publication; manual release workflow is preview by default and requires separate owner setup/authorization. All 11 live scene paths are included in distribution cold/pack acceptance; no prior stage removed.
+`tools/check-package.ts` runs pack/install/build/import/runtime/editor/visual. The default full local suite tests three placement layouts; `--direct-only` tests the direct Yarn layout for fast automatic release and registry verification. The curated local npm tarball is dry-run audited, reproducibly packed twice, unpack-hashed, installed with Yarn in a fresh consumer, used directly in node_modules without copy/symlink/ignore, with separate nonstandard relocation and standard-path consumers per [install contract](PACKAGING.md), then exercised by native compiler/real saved+unsaved main/current editor Play, invalid/unsavable rollback+repair, actual pointer input and rendered Counter initial/changed/resize captures. No repository generated scripts or Assets enter that consumer; test harness files are not package contents. Official Linux 4.0.4/pinned4.7 only. npm pack is a local publishing-tool operation, never publication; manual release workflow is preview by default and requires separate owner setup/authorization. All 11 live scene paths are included in distribution cold/pack acceptance; no prior stage removed.

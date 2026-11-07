@@ -3,7 +3,8 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, sha256, writeJSON, gitHead, gitDirty } from './compat-kit.ts';
 const published=process.env.ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY;
-const options=parseCLI(process.argv.slice(2));fs.mkdirSync(options.output,{recursive:true});
+const directOnly=process.argv.includes('--direct-only');
+const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=='--direct-only'));fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines) {
     const box=newSandbox(selection),out=path.join(options.output,selection.label), stages:Record<string,any>={};fs.mkdirSync(out,{recursive:true});
     let phase='package';
@@ -38,7 +39,7 @@ for(const selection of options.engines) {
             ['relocated', 'modules/UI toolkit'],
             ['standard', 'addons/estragon'],
         ] as const;
-        for (const [layout, addonRoot] of layouts) {
+        for (const [layout, addonRoot] of (directOnly ? layouts.slice(0,1) : layouts)) {
             phase=layout;
             box.project = originalProject + '-' + layout;
             fs.mkdirSync(box.project,{recursive:true});
