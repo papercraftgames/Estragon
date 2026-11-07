@@ -122,7 +122,12 @@ func filesystem_action(directory: String, empty: bool = false, expected_count: i
 	check(tree != null,"exact FileSystem folder selected for context input")
 	if tree == null: return
 	var point := tree.get_item_area_rect(tree.get_selected()).get_center()
-	if empty: point = Vector2(tree.size.x-12,tree.size.y-12)
+	if empty:
+		# Make genuinely empty space, independent of folder count/scroll position.
+		tree.get_selected().collapsed = true
+		await frames()
+		point = Vector2(tree.size.x/2,tree.size.y-24)
+		check(tree.get_item_at_position(point) == null,"empty-space input misses every tree item")
 	var motion := InputEventMouseMotion.new()
 	motion.position = tree.global_position+point
 	Input.parse_input_event(motion)

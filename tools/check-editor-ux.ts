@@ -71,7 +71,7 @@ for(const selection of options.engines){
  }finally{
   // Preserve actual graphics even when a later native/lifecycle assertion fails.
   if(fs.existsSync(box.project))for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));
-  for(const relative of ['app/Screens/Home.gogo','app/Screens/Spatial.gogo','app/Screens/generated/Home.gd']){
+  for(const relative of ['app/Screens/Home.gogo','app/Screens/Nested/Spatial.gogo','app/Screens/generated/Home.gd']){
    const file=path.join(box.project,relative);if(fs.existsSync(file)&&fs.statSync(file).isFile())fs.copyFileSync(file,path.join(out,relative.replaceAll('/','-')));
   }
   writeJSON(path.join(out,'results.json'),results);box.dispose();
