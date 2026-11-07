@@ -30,7 +30,10 @@ func until(condition: Callable, label: String, seconds: float = 12.0) -> bool:
 func frames(count: int = 3) -> void:
 	for index in range(count): await get_tree().process_frame
 func capture(label: String) -> void:
-	await RenderingServer.frame_post_draw
+	# Stock editors can stop drawing an unchanged viewport under native popups.
+	# Request a synchronous frame rather than waiting forever for a future draw.
+	await frames()
+	RenderingServer.force_draw(false)
 	get_viewport().get_texture().get_image().save_png("res://e02-"+label+".png")
 func find_plugin() -> bool:
 	for node in get_tree().root.find_children("*","EditorPlugin",true,false):
@@ -572,8 +575,7 @@ func _run() -> void:
 		var restart := FileAccess.open("res://.godot/e02-restart.request",FileAccess.WRITE)
 		restart.store_string("restart")
 		restart.close()
-	await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png("res://e02-editor.png")
+	await capture("editor")
 	finish()
 func finish() -> void:
 	print("E02_EDITOR_ASSERTIONS ",checks," failed=",failed)
