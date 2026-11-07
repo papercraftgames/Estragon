@@ -89,6 +89,8 @@ func menu_click(menu: PopupMenu, index: int) -> void:
 		motion.window_id = menu.get_window_id()
 		motion.position = point
 		motion.global_position = Vector2(menu.position)+point
+		motion.relative = Vector2(0,4)
+		motion.velocity = Vector2(0,240)
 		Input.parse_input_event(motion)
 		Input.flush_buffered_events()
 		if menu.get_focused_item() == index:
@@ -159,6 +161,8 @@ func filesystem_action(directory: String, empty: bool = false, expected_count: i
 	check(matches.size() == expected_count,"exactly expected owned creation actions")
 	check(ordinary_script and ordinary_text,"native Script and TextFile actions preserved")
 	await capture("filesystem-"+("empty" if empty else "folder")+"-"+str(expected_count))
+	# PopupMenus are separate native windows and absent from the main viewport.
+	popup.get_texture().get_image().save_png("res://e02-native-menu-"+("empty" if empty else "folder")+"-"+str(expected_count)+".png")
 	if matches.size() != 1: popup.hide(); return
 	await menu_click(popup,matches[0])
 	if await until(func(): return plugin._new_script.dialog.visible,"native menu activates shared component dialog"):
