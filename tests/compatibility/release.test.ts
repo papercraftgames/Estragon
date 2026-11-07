@@ -55,6 +55,7 @@ function fixture() {
                     fs.writeFileSync(path.join(root, log), 'NATIVE_TEST_OK');
                     files[log] = sha256(path.join(root, log));
                 }
+                if(group==='package' && n!=='pack')Object.assign(s,{runs:['direct','relocated','standard'].map(layout=>({...s,layout}))});
                 stages[group + '.' + n] = s as Stage;
             }
             writeJSON(path.join(root, p), entries);

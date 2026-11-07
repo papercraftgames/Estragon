@@ -1,11 +1,11 @@
 extends Node2D
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
-const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
-const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const State = preload("res://examples/reactive/generated/State.gd")
 const Model = preload("res://examples/reactive/generated/Model.gd")
 signal model_changed(previous: Model, value: Model)
@@ -16,7 +16,7 @@ var model: Model = Model.new():
         model = _gogo_incoming_model
         model_changed.emit(_gogo_previous_model, _gogo_incoming_model)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
         return model
 
 signal count_changed(previous: int, value: int)
@@ -27,7 +27,7 @@ var count: int = 0:
         count = _gogo_incoming_count
         count_changed.emit(_gogo_previous_count, _gogo_incoming_count)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
         return count
 
 var ui: Node:
@@ -67,11 +67,11 @@ func write_proof() -> void:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(

@@ -38,20 +38,30 @@ Omit `--require-clean` only for truthful development inspection (manifest then r
 
 ## Yarn-to-Godot install contract
 
-See the standalone [package README](../packages/estragon/README.md). In a fresh Godot project:
+See the standalone [package README](../packages/estragon/README.md).
+
+Install the current beta in the Godot project root:
 
 ```sh
 yarn add --exact --ignore-scripts @papercraftgames/estragon@beta
-touch node_modules/.gdignore
-mkdir -p addons
-cp -R node_modules/@papercraftgames/estragon/addons/estragon addons/estragon
 ```
 
-The npm `beta` dist-tag selects the current published beta; `--exact` pins the resolved release. For upgrades, deliberately reinstall a newer published beta. `addons/estragon` must not already contain another version; deliberate upgrade replacement/backups are required. Ignore node_modules in Godot to avoid duplicate script classes/UID import. Use a copy, not a source/output symlink. Enable Project Settings → Plugins → **Estragon** at `res://addons/estragon/editor/plugin.cfg`. Neither Yarn installation nor the copy silently registers it. Source/output validation intentionally rejects symlinks. Commit the copied addon/UIDs; the finished Godot project needs no Node/Bun/Yarn at editing or Play time.
+Keep the package where Yarn installs it. Do not copy, symlink or ignore the addon. Before opening the editor, add its full configuration path to the existing `editor_plugins/enabled` list in `project.godot` (preserve other enabled plugins):
 
-Optional project config: `{"version":1,"source_roots":["src"]}` in `gogo.config.json`. Normal native save/main/current Play supplies deterministic generated scripts/maps, actual-path semantic validation and transactional rollback/repair. Canonical widget tags or explicit preload aliases retain their existing contracts. This is not a JavaScript module or a Godot Control wrapper.
+```ini
+[editor_plugins]
+enabled=PackedStringArray("res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.cfg")
+```
 
-`tools/check-package.ts` exercises this exact route in an isolated real consumer: local dry-run/pack/hash audit → offline local-tar Yarn acquisition with scripts disabled → explicit ignore/copy → fresh native source build/import → actual pointer/runtime → real saved/unsaved main/current editor invalid/unsavable rejection+repair → rendered initial/changed/resize proof. Installed addon bytes/UIDs must remain identical after import/Play. PATH has no external compiler for Godot stages. These seven stages add to all F06 66 required native-addon stages; none is removed.
+Godot's Plugins panel discovers candidates under `addons/`; the enabled-plugin project setting accepts a full `res://` configuration path outside that directory. Yarn installation alone does not enable the plugin. Install dependencies before opening Godot; keep only one Estragon tree to avoid duplicate classes/UIDs. Commit the package manifest/lockfile and plugin setting, retaining the package's stable `.gd.uid` sidecars. Godot alone handles editing and Play after installation.
+
+Explicit authored preload aliases reference the chosen installation, for example `preload("../../../node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/element.gd")` in a Gogo file whose generated script lives three directories below the project root. As with ordinary GDScript, relative authored imports resolve from the **generated script's directory**. Canonical registered widget class names also work after Godot indexes the project. Internal dependencies are script-relative; compiler-injected dependencies are calculated from installed Resources and the actual output directory. A different project-relative installation needs only matching authored imports and the plugin configuration setting; no production source edits. Standard `addons/estragon` placement remains supported.
+
+Author `.gogo` files and normal `.tscn` hosts referencing generated scripts. Optional `gogo.config.json`: `{"version":1,"source_roots":["src"]}`. Native save and main/current Play compile with actual-path validation, invalid/unsavable-source rejection, rollback and repair. Generated files must be rebuilt after relocating an installed addon, just as authored imports must be updated.
+
+P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) replaces the former copy-based consumer contract. `tools/check-package.ts` keeps seven required stages (pack/install/build/import/runtime/editor/visual), with separate direct, nonstandard relocated and standard consumer runs inside each native stage. The direct consumer uses Yarn's untouched `node_modules` package, with no ignored tree, copied addon, symlink or repository fallback. The relocation cases move the single installed addon before import. Test-only fixtures configure authored imports for their chosen locations; package scripts and generated outputs are never rewritten.
+
+Each consumer compiles fresh Gogo/typed bool bindings, imports native classes, exercises retained pointer/model updates, actually activates the EditorPlugin through the full configuration path, tests saved/unsaved main/current Play rejection/rollback/repair, and renders initial/changed/resized captures. Every package byte/UID remains checked after Godot. Full certification and both post-publication registry consumers invoke this same contract; routine CI remains tiny. Exact outcomes and limitations are recorded on #111/its PR.
 
 ## GitHub Release → npm publishing
 

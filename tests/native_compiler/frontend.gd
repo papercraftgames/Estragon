@@ -32,6 +32,7 @@ func run() -> void:
 		if source.contains('<Button '): check(first.code.contains('.new("Button",') and not first.code.contains('.new("EstragonButton",'),"Button retains ordinary Godot class meaning")
 		check(not first.code.contains("!= OK:\n\t\t\tpush_error(\"test.gogo:1"),"no obsolete Error-returning child attachment")
 		var script := GDScript.new()
+		script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 		script.source_code = first.code
 		check(script.reload()==OK,"native semantic acceptance of valid generated code")
 		if source.contains('9007199254740993'):
@@ -59,6 +60,7 @@ func run() -> void:
 	var helper_result := Compiler.compile(helper_source,"helper.gogo")
 	check(helper_result.ok,"ordinary helper/lambda shared description lowering compiles")
 	var helper_script := GDScript.new()
+	helper_script.resource_path = "res://_gogo_memory_%d.gd" % helper_script.get_instance_id()
 	helper_script.source_code = helper_result.code
 	check(helper_script.reload()==OK,"typed helper/lambda native semantics")
 	var host = helper_script.new()

@@ -1,15 +1,15 @@
 @tool
 extends RefCounted
 ## Native source -> typed frontend result. No emitter, subprocess or editor state.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const Parser = preload("res://addons/estragon/compiler/parser.gd")
-const Bindable = preload("res://addons/estragon/compiler/bindable.gd")
-const Validator = preload("res://addons/estragon/compiler/validator.gd")
-const Composition = preload("res://addons/estragon/compiler/composition.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
+const Parser = preload("parser.gd")
+const Bindable = preload("bindable.gd")
+const Validator = preload("validator.gd")
+const Composition = preload("composition.gd")
 
-static func analyze(text: String, source_name: String = "<source>") -> Model.Result:
-	var file := Source.new(text, source_name)
+static func analyze(text: String, source_name: String = "<source>", output_path: String = "") -> Model.Result:
+	var file := Source.new(text, source_name, output_path)
 	var parser := Parser.new(file)
 	var result := Model.Result.new()
 	var module := parser.parse()

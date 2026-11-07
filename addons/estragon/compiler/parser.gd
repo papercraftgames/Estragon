@@ -1,9 +1,9 @@
 @tool
 extends RefCounted
 ## Recursive-descent component islands composed with lexically retained GDScript.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
+const Lexer = preload("lexer.gd")
 const OPERANDS := ["return", "yield", "await", "if", "elif", "else", "while", "in", "and", "or", "not", "assert", "match"]
 const OPEN := {"(": ")", "[": "]", "{": "}"}
 var file: Source

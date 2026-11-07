@@ -1,9 +1,9 @@
 @tool
 extends RefCounted
 ## Native project build. No editor UI, processes or external tool configuration.
-const Compiler = preload("res://addons/estragon/compiler/compiler.gd")
-const Validation = preload("res://addons/estragon/compiler/script_validation.gd")
-const Dependencies = preload("res://addons/estragon/editor/script_dependencies.gd")
+const Compiler = preload("../compiler/compiler.gd")
+const Validation = preload("../compiler/script_validation.gd")
+const Dependencies = preload("script_dependencies.gd")
 const CONFIG := "gogo.config.json"
 const EXCLUDED := ["generated", "node_modules", "tests", "vendor"]
 var _project: String
@@ -91,7 +91,7 @@ func _run() -> Dictionary:
 		if input == null:
 			_fail(source + ": cannot read source (" + error_string(FileAccess.get_open_error()) + ")")
 			continue
-		var result := Compiler.compile(input.get_as_text(), source)
+		var result := Compiler.compile(input.get_as_text(), source, _resource_path(output_for(source)))
 		if not result.ok:
 			for diagnostic in result.diagnostics: _fail(diagnostic.format())
 		else: compiled.append({"source": source, "output": output_for(source), "result": result})

@@ -7,7 +7,7 @@ var title: String = "Native composition":
 		title = _gogo_incoming_title
 		title_changed.emit(_gogo_previous_title, _gogo_incoming_title)
 	get:
-		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
+		preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
 		return title
 
 signal width_changed(previous: float, value: float)
@@ -18,7 +18,7 @@ var width: float = 120.0:
 		width = _gogo_incoming_width
 		width_changed.emit(_gogo_previous_width, _gogo_incoming_width)
 	get:
-		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"width_changed")
+		preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"width_changed")
 		return width
 
 

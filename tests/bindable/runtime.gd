@@ -98,6 +98,7 @@ func run() -> void:
 	var output := Compiler.compile(source,"init.gogo")
 	check(output.ok,"annotation/property source analyzes")
 	var script := GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = output.code
 	check(script.reload()==OK,"generated setter native semantics")
 	var initialized = script.new()
@@ -111,6 +112,7 @@ func run() -> void:
 	check(not output.code.contains("@bindable") and output.code.contains("signal count_changed"),"ordinary GDScript only")
 	var node_compiled := Compiler.compile('extends Node\n@bindable var score: int = 1\n',"node.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = node_compiled.code
 	check(node_compiled.ok and script.reload()==OK,"same annotation on a Node class without a model superclass")
 	var node = script.new()
@@ -121,6 +123,7 @@ func run() -> void:
 	node.free()
 	var imported := Compiler.compile('extends RefCounted\nconst Item = preload("res://examples/bindable/generated/Model.gd")\nvar _gogo_incoming_item: int = 1\nvar _gogo_previous_item: int = 2\n@bindable var item: Item = (\n\tItem.new()\n)\n',"imported.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = imported.code
 	check(imported.ok and script.reload()==OK,"explicit imported script type, multiline initializer and hygienic generated locals")
 	var holder = script.new()
@@ -164,6 +167,7 @@ func class_wide_checks() -> void:
 	check(first.code.count("signal score_changed(")==1 and first.code.count("set(_gogo_incoming_score)")==1,"class plus explicit property marker lowers exactly once")
 	check(not first.code.contains("ignored_changed") and not first.code.contains("inferred_changed") and not first.code.contains("local_value_changed") and not first.code.contains("value_changed") and not first.code.contains("FIXED_changed"),"untyped/inferred/local/inner/const fields remain ordinary")
 	var script := GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = first.code
 	check(script.reload()==OK,"class-wide native RefCounted semantics")
 	var model = script.new()
@@ -189,6 +193,7 @@ func class_wide_checks() -> void:
 	events.clear()
 	var exported := Compiler.compile('@tool\n@bindable\nextends Node\n@export var shown: int = 3\n@export_range(0,10,1)\nvar rating: int = 4\n',"export.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = exported.code
 	check(exported.ok and script.reload()==OK,"native export modifiers remain attached to generated properties, not signals")
 	var node = script.new()
@@ -211,6 +216,7 @@ func class_wide_checks() -> void:
 			check(original!=null and original.line==4 and original.column==9,"inline export property var maps to authored column")
 	var inherited := Compiler.compile('@bindable\nextends "res://examples/bindable/generated/Model.gd"\nvar extra: int = 8\n',"derived-class.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = inherited.code
 	check(inherited.ok and script.reload()==OK and not inherited.code.contains("signal count_changed"),"annotated derived owns only new fields; base signals inherited once")
 	model = script.new()
@@ -221,6 +227,7 @@ func class_wide_checks() -> void:
 	events.clear()
 	var native_base := Compiler.compile('@bindable\nextends "res://examples/bindable/generated/Demo.gd"\nvar extra: int = 9\n',"ordinary-base.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = native_base.code
 	check(native_base.ok and script.reload()==OK,"class-wide Gogo can extend an unannotated ordinary script")
 	node = script.new()
@@ -230,6 +237,7 @@ func class_wide_checks() -> void:
 	check(static_source.ok and not static_source.code.contains("cached_changed") and static_source.code.contains("later_changed"),"static fields stay native and are never instance-observed")
 	var class_init := Compiler.compile('@bindable\nextends RefCounted\nvar value: int = 3\nvar seen: Array = []\nfunc _init() -> void:\n\tvalue_changed.connect(changed)\n\tvalue = 4\nfunc changed(a: int,b: int) -> void: seen.append([a,b])\n',"class-init.gogo")
 	script = GDScript.new()
+	script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 	script.source_code = class_init.code
 	check(class_init.ok and script.reload()==OK and script.new().seen==[[3,4]],"class-wide declaration quiet; _init writes use normal notification")
 	for bad in [

@@ -1,9 +1,12 @@
 @tool
 extends RefCounted
 ## Typed frontend -> ordinary GDScript. All output is range-mapped, never rewritten.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const MappedWriter = preload("res://addons/estragon/compiler/source_map.gd")
+const Element = preload("../runtime/composition/element.gd")
+const State = preload("../runtime/composition/state.tres")
+const Binding = preload("../runtime/composition/binding.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
+const MappedWriter = preload("source_map.gd")
 
 class Argument extends RefCounted:
 	var expression: Model.GdExpression
@@ -16,6 +19,7 @@ class Factory extends RefCounted:
 	var root: Model.Component
 	var arguments: Array[Argument] = []
 
+var _output_directory: String
 var _module: Model.Module
 var _file: Source
 var _writer: MappedWriter
@@ -27,6 +31,10 @@ var _factory_class: String
 var _element_class: String
 
 func _init(module: Model.Module, file: Source) -> void:
+	# Paths are relative to the actual generated file, derived from installed Resources.
+	# Pathless in-memory callers use the project root, as native GDScript does.
+	_output_directory = file.output_path.get_base_dir() if not file.output_path.is_empty() else (file.name.get_base_dir().path_join("generated") if "/" in file.name else "res://")
+	if not _output_directory.is_absolute_path(): _output_directory = "res://" + _output_directory
 	_module = module
 	_file = file
 	_writer = MappedWriter.new(file)
@@ -40,14 +48,21 @@ func _init(module: Model.Module, file: Source) -> void:
 	_element_class = "_GogoElement_0"
 	while _module.identifiers.has(_element_class): _element_class += "_"
 
+func _resource(resource: Resource) -> String:
+	var origin := ProjectSettings.globalize_path(_output_directory).split("/", false)
+	var target := ProjectSettings.globalize_path(resource.resource_path).split("/", false)
+	var shared := 0
+	while shared < mini(origin.size(), target.size()) and origin[shared] == target[shared]: shared += 1
+	return _string("../".repeat(origin.size() - shared) + "/".join(target.slice(shared)))
+
 func emit() -> MappedWriter:
 	_parts(_module.parts)
 	_writer.append("\n")
 	if _module.composition:
-		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n"+_module.indentation+"preload(\"res://addons/estragon/runtime/composition/state.tres\").lifecycle(self, _gogo_what)\n")
+		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n"+_module.indentation+"preload("+_resource(State)+").lifecycle(self, _gogo_what)\n")
 	if not _factories.is_empty():
 		_writer.append("\n\nclass " + _factory_class + ":", _factories[0].root.span)
-		_writer.append("\n"+_module.indentation+"const "+_element_class+" = preload(\"res://addons/estragon/runtime/composition/element.gd\")\n")
+		_writer.append("\n"+_module.indentation+"const "+_element_class+" = preload("+_resource(Element)+")\n")
 	# Calls in argument expressions may append additional factories.
 	var index: int = 0
 	while index < _factories.size():
@@ -190,7 +205,7 @@ func _bindable(property: Model.Bindable) -> void:
 	_writer.append(indent.repeat(2)+"var "+previous+": "+property.type_name+" = "+property.name+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
-	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload(\"res://addons/estragon/runtime/composition/state.tres\").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)
+	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload("+_resource(State)+").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)
 
 func _binding_argument(argument: Argument) -> void:
 	var path := argument.binding_path.duplicate()
@@ -206,4 +221,4 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
-	_writer.append("preload(\"res://addons/estragon/runtime/composition/binding.gd\").new(self, func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)
+	_writer.append("preload("+_resource(Binding)+").new(self, func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)

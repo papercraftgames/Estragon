@@ -1,6 +1,6 @@
 @tool
 class_name Estragon2D
-extends "res://addons/estragon/runtime/node/component_2d.gd"
+extends "component_2d.gd"
 ## Explicit independent layout scope; does not assign native scene owner.
 @export var viewport_width_scale: float = 0.0:
 	set(value):
@@ -14,7 +14,7 @@ func _is_layout_entry() -> bool:
 func _layout_viewport_scale() -> float:
 	return viewport_width_scale
 
-const Pointer = preload("res://addons/estragon/runtime/node/internal/pointer_2d.gd")
+const Pointer = preload("internal/pointer_2d.gd")
 var _pointer = Pointer.new(self)
 
 func _get_pointer_router():

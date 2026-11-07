@@ -1,10 +1,11 @@
 @tool
 extends RefCounted
 ## Static native Node property/signal contracts; no SceneTree or editor dependency.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
+const Element = preload("../runtime/composition/element.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
+const Resolver = preload("native/resolver.gd")
+const Lexer = preload("lexer.gd")
 var file: Source
 var resolver
 var current_module
@@ -231,7 +232,7 @@ func _child_result(tokens: Array, span) -> void:
 		var first: String = tokens[0].text
 		var constructor: bool = tokens.size()>3 and tokens[1].text=="." and tokens[2].text=="new" and tokens[3].text=="(" and _direct_call(tokens,3)
 		var scalar_call: bool = tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
-		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")=="res://addons/estragon/runtime/composition/element.gd"):
+		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")==(Element as Script).resource_path):
 			return
 	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 

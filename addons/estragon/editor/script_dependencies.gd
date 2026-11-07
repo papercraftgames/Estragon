@@ -2,8 +2,8 @@
 extends RefCounted
 ## Static resource edges for ordering native validation/reloads. Reuses N01's
 ## lexer; Godot decodes string literals and remains the semantic authority.
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
+const Lexer = preload("../compiler/lexer.gd")
+const Source = preload("../compiler/source.gd")
 
 static func paths(code: String, output: String) -> PackedStringArray:
 	var file := Source.new(code)

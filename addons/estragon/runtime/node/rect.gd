@@ -1,6 +1,6 @@
 @tool
 class_name EstragonRect
-extends "res://addons/estragon/runtime/node/component_2d.gd"
+extends "component_2d.gd"
 ## Native rectangle drawing. Width/height are inherited layout inputs.
 @export var fill := Color.WHITE:
 	set(value):

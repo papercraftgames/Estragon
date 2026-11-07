@@ -1,8 +1,8 @@
 @tool
 extends RefCounted
 ## Version-1 range maps, shared by native generation and diagnostic consumers.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
 var source: Source
 var code: String
 var segments: Array[Dictionary] = []

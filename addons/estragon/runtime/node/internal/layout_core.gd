@@ -1,6 +1,6 @@
 @tool
 extends RefCounted
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("../../composition/profile.tres")
 ## Shared B2/C1 mathematical row layout. No Nodes, rendering or SceneTree dependencies.
 signal invalidated
 signal placed(offset)

@@ -1,10 +1,10 @@
 
-extends "res://addons/estragon/runtime/node/hbox.gd"
+extends "../../../addons/estragon/runtime/node/hbox.gd"
 const Model = preload("res://examples/twoway/generated/Model.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Box = preload("res://addons/estragon/runtime/node/hbox.gd")
-const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Box = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 signal model_changed(previous: Model, value: Model)
 var model: Model = Model.new():
     set(_gogo_incoming_model):
@@ -13,19 +13,19 @@ var model: Model = Model.new():
         model = _gogo_incoming_model
         model_changed.emit(_gogo_previous_model, _gogo_incoming_model)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
         return model
 
 func build_view() -> Element:
-    return _GogoFactories_0._gogo_build_0((12.0), (preload("res://addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled")), ("Enabled" if self.model.enabled else "Disabled"))
+    return _GogoFactories_0._gogo_build_0((12.0), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled")), ("Enabled" if self.model.enabled else "Disabled"))
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(_gogo_value_0: float, _gogo_value_1: Variant, _gogo_value_2: String) -> _GogoElement_0:

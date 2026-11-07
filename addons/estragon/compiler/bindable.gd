@@ -1,9 +1,9 @@
 @tool
 extends RefCounted
 ## One lexical property lowering for explicit and class-wide Gogo annotations.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
+const Lexer = preload("lexer.gd")
 var file: Source
 var module: Model.Module
 var members: Dictionary = {}

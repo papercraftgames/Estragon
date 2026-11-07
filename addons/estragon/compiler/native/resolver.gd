@@ -1,11 +1,11 @@
 @tool
 extends RefCounted
 ## Static Node type metadata. Never instantiate authored classes or use editor/tree.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
-const Parser = preload("res://addons/estragon/compiler/parser.gd")
-const Bindable = preload("res://addons/estragon/compiler/bindable.gd")
+const Model = preload("../model.gd")
+const Lexer = preload("../lexer.gd")
+const Source = preload("../source.gd")
+const Parser = preload("../parser.gd")
+const Bindable = preload("../bindable.gd")
 var visiting: Dictionary = {}
 var file
 var aliases: Dictionary = {}
@@ -49,8 +49,9 @@ func scan(module: Model.Module) -> void:
 			var path: String = literal.call("value")
 			if not path.is_absolute_path():
 				var output: String = file.name.get_base_dir().path_join("generated").path_join(file.name.get_file().get_basename() + ".gd")
+				if not file.output_path.is_empty(): output = file.output_path
 				path = output.get_base_dir().path_join(path).simplify_path()
-			if not path.begins_with("res://"): path = "res://" + path
+			if not path.is_absolute_path(): path = "res://" + path
 			aliases[name] = path
 
 func resolve(name: String, span: Model.Span) -> Dictionary:

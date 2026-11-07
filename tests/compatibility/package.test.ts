@@ -61,3 +61,23 @@ test('only the Godot plugin commits a release version; documentation contains no
         assert(!contents.includes(version),'Duplicate canonical package version outside plugin.cfg: '+file);
     }
 });
+
+test('P02 production dependencies and emitted injections have no fixed installation root',()=>{
+    const files=execFileSync('git',['ls-files','-z','addons/estragon'],{cwd:ROOT,encoding:'utf8'}).split('\0').filter(file=>/\.(gd|tres)$/.test(file));
+    for(const file of files) {
+        const code=fs.readFileSync(path.join(ROOT,file),'utf8');
+        assert(!/addons\/estragon|node_modules\//.test(code),'Fixed addon root: '+file);
+        for(const match of code.matchAll(/(?:preload\(|load\(|extends\s+|path=)"([a-zA-Z0-9_./:-]+)"/g)) {
+            assert(!match[1]!.startsWith('res://'),'Internal dependencies must be script-relative: '+file);
+            assert(fs.existsSync(path.resolve(ROOT,path.dirname(file),match[1]!)),'Missing relative dependency: '+file);
+        }
+    }
+    const emitter=fs.readFileSync(path.join(ROOT,'addons/estragon/compiler/emitter.gd'),'utf8');
+    for(const resource of ['State','Element','Binding'])assert(emitter.includes('_resource('+resource+')'));
+    const consumer=fs.readFileSync(path.join(ROOT,'tools/check-package.ts'),'utf8');
+    assert(!consumer.includes("fs.cpSync(") && !consumer.includes("fs.symlinkSync("));
+    assert(consumer.includes("['direct', 'node_modules/@papercraftgames/estragon/addons/estragon']"));
+    assert(consumer.includes("['relocated', 'modules/UI toolkit']"));
+    assert(consumer.includes("['standard', 'addons/estragon']"));
+    assert(!consumer.includes("writeFileSync(path.join(box.project,'node_modules/.gdignore')"));
+});

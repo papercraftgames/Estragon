@@ -2,7 +2,7 @@
 extends RefCounted
 ## Repair extension association after native tab creation / cached state restore.
 ## Kept separate from compilation; no timer, file writes or editor preferences.
-const Highlighter = preload("res://addons/estragon/editor/highlighter.gd")
+const Highlighter = preload("highlighter.gd")
 const PATH_META := "estragon_gogo_path"
 var _scripts: ScriptEditor
 var _tree: SceneTree

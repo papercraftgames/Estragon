@@ -167,6 +167,7 @@ func run() -> void:
 	check(title=="Native composition" and observed.size()==1,"inherited Gogo getter registers native read")
 	var resource_code := Compiler.compile('extends Resource\n@bindable var amount: int = 3\n',"resource.gogo")
 	var resource_script := GDScript.new()
+	resource_script.resource_path = "res://_gogo_memory_%d.gd" % resource_script.get_instance_id()
 	resource_script.source_code = resource_code.code
 	check(resource_code.ok and resource_script.reload()==OK,"typed Resource model getter compiles")
 	var control_script := GDScript.new()

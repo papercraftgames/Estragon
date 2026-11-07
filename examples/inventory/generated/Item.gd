@@ -8,7 +8,7 @@ var id: int = 0:
         id = _gogo_incoming_id
         id_changed.emit(_gogo_previous_id, _gogo_incoming_id)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"id_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"id_changed")
         return id
 
 signal title_changed(previous: String, value: String)
@@ -19,7 +19,7 @@ var title: String = "Item":
         title = _gogo_incoming_title
         title_changed.emit(_gogo_previous_title, _gogo_incoming_title)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
         return title
 
 func _init(identity: int = 0, caption: String = "Item") -> void:

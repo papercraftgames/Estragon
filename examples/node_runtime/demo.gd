@@ -1,12 +1,12 @@
 @tool
 extends Node
 ## Runnable C1 runtime scene; native geometry is authored outside widgets.
-const Entry2D = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const Entry3D = preload("res://addons/estragon/runtime/node/estragon_3d.gd")
-const Component2D = preload("res://addons/estragon/runtime/node/component_2d.gd")
-const Component3D = preload("res://addons/estragon/runtime/node/component_3d.gd")
-const Native2D = preload("res://addons/estragon/runtime/node/native_2d.gd")
-const Native3D = preload("res://addons/estragon/runtime/node/native_3d.gd")
+const Entry2D = preload("../../addons/estragon/runtime/node/estragon_2d.gd")
+const Entry3D = preload("../../addons/estragon/runtime/node/estragon_3d.gd")
+const Component2D = preload("../../addons/estragon/runtime/node/component_2d.gd")
+const Component3D = preload("../../addons/estragon/runtime/node/component_3d.gd")
+const Native2D = preload("../../addons/estragon/runtime/node/native_2d.gd")
+const Native3D = preload("../../addons/estragon/runtime/node/native_3d.gd")
 @export var dimension: int = 2
 var entry: Node
 

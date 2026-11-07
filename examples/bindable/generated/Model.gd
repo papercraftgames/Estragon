@@ -10,7 +10,7 @@ var count: int = 3:
         count = _gogo_incoming_count
         count_changed.emit(_gogo_previous_count, _gogo_incoming_count)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"count_changed")
         return count
 
 signal title_changed(previous: String, value: String)
@@ -21,7 +21,7 @@ var title: String = "Model":
         title = _gogo_incoming_title
         title_changed.emit(_gogo_previous_title, _gogo_incoming_title)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
         return title
 
 signal items_changed(previous: Array[int], value: Array[int])
@@ -32,7 +32,7 @@ var items: Array[int] = []:
         items = _gogo_incoming_items
         items_changed.emit(_gogo_previous_items, _gogo_incoming_items)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"items_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"items_changed")
         return items
 
 signal peer_changed(previous: RefCounted, value: RefCounted)
@@ -43,7 +43,7 @@ var peer: RefCounted = null:
         peer = _gogo_incoming_peer
         peer_changed.emit(_gogo_previous_peer, _gogo_incoming_peer)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"peer_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"peer_changed")
         return peer
 
 signal amount_changed(previous: float, value: float)
@@ -54,7 +54,7 @@ var amount: float = 0.0:
         amount = _gogo_incoming_amount
         amount_changed.emit(_gogo_previous_amount, _gogo_incoming_amount)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"amount_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"amount_changed")
         return amount
 
 func increment() -> void:

@@ -35,8 +35,13 @@ export function packAddon(output: string, requireClean = false) {
     copy(path.join(ROOT,'LICENSE'),'LICENSE');
     const plugin=fs.readFileSync(path.join(stage,'addons/estragon/editor/plugin.cfg'),'utf8');
     if(!plugin.includes('script="plugin.gd"') || /Bun compilation/.test(plugin)) throw Error('Incorrect native plugin metadata');
-    for(const file of tracked.filter(p=>p.endsWith('.gd'))) for(const match of fs.readFileSync(path.join(stage,file),'utf8').matchAll(/(?:preload\(|extends\s+)"(res:\/\/[^"\n]+)"/g)) {
-        const target=match[1]!.slice('res://'.length);if(!target.startsWith('addons/estragon/') || !hashes[target]) throw Error('Addon depends on non-package file: '+file+' -> '+target);
+    for(const file of tracked.filter(p=>/\.(?:gd|tres)$/.test(p))) {
+        const code=fs.readFileSync(path.join(stage,file),'utf8');
+        if(code.includes('node_modules/') || code.includes('addons/estragon/'))throw Error('Fixed installation path in production: '+file);
+        for(const match of code.matchAll(/(?:preload\(|extends\s+|path=)"([a-zA-Z0-9_./-]+)"/g)) {
+            const target=path.posix.normalize(path.posix.join(path.posix.dirname(file),match[1]!));
+            if(!hashes[target])throw Error('Addon depends on non-package file: '+file+' -> '+target);
+        }
     }
     function npm(args:string[]) {return execFileSync('npm',args,{cwd:stage,encoding:'utf8',env:{...process.env,npm_config_ignore_scripts:'true'},maxBuffer:8*1024*1024});}
     const dry=JSON.parse(npm(['pack','--dry-run','--ignore-scripts','--json']))[0];

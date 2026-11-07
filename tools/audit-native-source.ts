@@ -33,6 +33,7 @@ export function auditNativeSource() {
     // valid; generated GGX output and compiler IR have one description path.
     for (const file of scripts.filter(p => p.includes('/generated/'))) {
         const text = fs.readFileSync(file, 'utf8');
+        if (/res:\/\/addons\/estragon/.test(text))throw Error('Fixed installation root in generated output: '+file);
         if (/property_binding|_gogo_read_|component_\d+\.add_child|binding_\d+/.test(text))
             throw Error('Retired eager/binder output: ' + file);
     }

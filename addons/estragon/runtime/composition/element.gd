@@ -1,6 +1,6 @@
 @tool
 extends RefCounted
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("profile.tres")
 ## Desired values only. No native Node is allocated during description creation.
 var type: Variant
 var properties: Dictionary
