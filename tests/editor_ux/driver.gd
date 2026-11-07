@@ -41,7 +41,7 @@ func tools_action() -> bool:
 	for menu in interface.get_base_control().find_children("*","PopupMenu",true,false):
 		for index in range(menu.item_count):
 			if menu.get_item_text(index) == "New Gogo Script…":
-				menu.id_pressed.emit(menu.get_item_id(index))
+				menu.index_pressed.emit(index)
 				return true
 	return false
 func create(path: String, spatial: bool = false) -> CodeEdit:
