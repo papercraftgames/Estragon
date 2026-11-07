@@ -212,14 +212,9 @@ func _refresh_cache(item: Dictionary, state: Array[Dictionary]) -> void:
 	# Loading the validated path retrieves its existing Script identity.
 	var path := _resource_path(item.output)
 	var was_cached := ResourceLoader.has_cached(path)
-	var script: GDScript
-	if not Validation.supports_isolated_path() and not was_cached and not _previous_code.has(item.output):
-		# First publication has no previous resource to preserve. Establish the
-		# actual native path inside the transaction and compile exactly once.
-		script = GDScript.new()
-		script.resource_path = path
-	else:
-		script = ResourceLoader.load(path, "GDScript") as GDScript
+	# Use Godot's loader for first publication too: a manually constructed
+	# Script can diverge from GDScript's separate parser/dependency cache.
+	var script := ResourceLoader.load(path, "GDScript") as GDScript
 	if script == null:
 		_fail("Cannot load validated generated script: " + item.output)
 		return
