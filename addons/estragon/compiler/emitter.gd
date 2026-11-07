@@ -49,11 +49,7 @@ func _init(module: Model.Module, file: Source) -> void:
 	while _module.identifiers.has(_element_class): _element_class += "_"
 
 func _resource(resource: Resource) -> String:
-	var origin := ProjectSettings.globalize_path(_output_directory).simplify_path().split("/", false)
-	var target := ProjectSettings.globalize_path(resource.resource_path).simplify_path().split("/", false)
-	var shared := 0
-	while shared < mini(origin.size(), target.size()) and origin[shared] == target[shared]: shared += 1
-	return _string("../".repeat(origin.size() - shared) + "/".join(target.slice(shared)))
+	return _string(Source.relative_path(_output_directory,resource.resource_path))
 
 func emit() -> MappedWriter:
 	_parts(_module.parts)

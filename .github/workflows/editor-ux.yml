@@ -1,0 +1,67 @@
+name: Focused Gogo editor UX (opt-in)
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      engines:
+        description: Approved focused engines
+        type: choice
+        options: ['4.7', both]
+        default: both
+permissions:
+  contents: read
+jobs:
+  editor:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'editor-ux-4.7' || github.event.label.name == 'editor-ux-acceptance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ${{ fromJSON((inputs.engines == 'both' || github.event.label.name == 'editor-ux-acceptance') && '["4.0.4","4.7"]' || '["4.7"]') }}
+    env:
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      GODOT_VERSION: ${{ matrix.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Select authenticated engine cache
+        id: identity
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs');
+          const engine=JSON.parse(fs.readFileSync('tests/compatibility/linux-engines.json')).find(e=>e.version.startsWith(process.env.GODOT_VERSION+'.stable.'));
+          if(!engine)throw Error('Unapproved engine');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'sha256='+engine.binary_sha256+'\n');
+          JS
+      - uses: actions/cache@v4
+        with:
+          path: ${{ runner.tool_cache }}/estragon-godot/${{ matrix.version }}
+          key: godot-${{ runner.os }}-${{ runner.arch }}-${{ matrix.version }}-${{ steps.identity.outputs.sha256 }}
+      - name: Authenticate approved Linux binary
+        env:
+          GODOT_CACHE_DIRECTORY: ${{ runner.tool_cache }}/estragon-godot/${{ matrix.version }}
+        run: node --experimental-strip-types tools/download-compat-engine.ts
+      - run: npm install --global npm@11.13.0
+      - name: Isolate runtime directory
+        run: |
+          mkdir -m 700 "$RUNNER_TEMP/e02-runtime"
+          echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/e02-runtime" >> "$GITHUB_ENV"
+      - name: Focused real editor and direct Yarn proof
+        working-directory: ${{ runner.temp }}
+        run: >-
+          xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
+          "$GITHUB_WORKSPACE/tools/check-editor-ux.ts"
+          --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
+          --output "$RUNNER_TEMP/editor-ux"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: editor-ux-${{ matrix.version }}
+          path: ${{ runner.temp }}/editor-ux

@@ -70,3 +70,11 @@ func index_at_offset(offset_value: int) -> int:
 
 func offset(line: int, column: int = 1) -> int:
 	return mini(_utf16[-1], _utf16[line_start(line)] + maxi(0, column - 1))
+
+## Relative resource references shared by emission and editor starter templates.
+static func relative_path(directory: String, resource_path: String) -> String:
+	var origin := ProjectSettings.globalize_path(directory).simplify_path().split("/", false)
+	var target := ProjectSettings.globalize_path(resource_path).simplify_path().split("/", false)
+	var shared := 0
+	while shared < mini(origin.size(), target.size()) and origin[shared] == target[shared]: shared += 1
+	return "../".repeat(origin.size() - shared) + "/".join(target.slice(shared))
