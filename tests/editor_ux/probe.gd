@@ -78,7 +78,7 @@ func _initialize() -> void:
 			file.close()
 			var script: GDScript = load(output)
 			check(script != null and script.can_instantiate(),"E03 imports actual-path native load")
-	_native_class_removal()
+	if OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") != "1": _native_class_removal()
 	print("E02_PROBE_ASSERTIONS ",checks)
 	if not failed: print("E02_PROBE_OK")
 	quit(1 if failed else 0)

@@ -9,6 +9,7 @@ var original := ""
 var e03_screen := ""
 var failed := false
 var checks := 0
+var creation_only := OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") == "1"
 const HOME := "res://app/Screens/Home.gogo"
 const OUTPUT := "res://app/Screens/generated/Home.gd"
 const PLUGIN := "res://addons/estragon/editor/plugin.cfg"
@@ -367,6 +368,9 @@ func _e03() -> String:
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
 	var editor_settings := interface.get_editor_settings()
+	if creation_only:
+		# Isolated test preference: allow normal saved-source refresh on focus.
+		editor_settings.set_setting("text_editor/behavior/files/auto_reload_scripts_on_external_change",true)
 	if editor_settings.has_setting("run/window_placement/game_embed_mode"):
 		editor_settings.set_setting("run/window_placement/game_embed_mode",-1)
 		get_tree().root.propagate_notification(EditorSettings.NOTIFICATION_EDITOR_SETTINGS_CHANGED)
@@ -389,7 +393,7 @@ func _run() -> void:
 	home = await create(HOME)
 	if home == null: finish(); return
 	original = home.text
-	e03_screen = await _e03()
+	e03_screen = original if creation_only else await _e03()
 	home.text = original
 	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"valid template imports actual installation relatively")
 	# Cancel and rejected paths exercise the native dialog without touching source.
@@ -528,6 +532,7 @@ func _run() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Home.tscn","attached scene opens")
 	for mode in ["main","current"]:
 		await play(mode)
+		if creation_only: continue
 		await blocked(mode)
 		home.text = original
 		await play(mode)

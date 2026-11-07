@@ -3,11 +3,13 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,copyTree,runCommand,writeJSON,gitHead,gitDirty,sha256,ERROR} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
-const options=parseCLI(process.argv.slice(2));
+const creationOnly=process.argv.includes('--creation');
+const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=='--creation'));
 if(process.platform!=='linux')throw Error('E02 native acceptance uses approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines){
  const box=newSandbox(selection),out=path.join(options.output,selection.label),results:Record<string,any>={};
+ if(creationOnly)box.env.ESTRAGON_EDITOR_CREATION_ONLY='1';
  fs.mkdirSync(out,{recursive:true});
  try{
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
@@ -50,7 +52,7 @@ for(const selection of options.engines){
   fs.writeFileSync(path.join(box.project,'project.godot'),settings);
   await command('lexical-and-template',[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
   fs.copyFileSync(path.join(box.project,'e03-capabilities.json'),path.join(out,'capabilities.json'));
-  fs.copyFileSync(path.join(box.project,'e03-native-cache.json'),path.join(out,'native-class-removal.json'));
+  if(!creationOnly)fs.copyFileSync(path.join(box.project,'e03-native-cache.json'),path.join(out,'native-class-removal.json'));
   // Probe outputs are disposable and must not add un-authored fixtures to builds.
   fs.rmSync(path.join(box.project,'app/Screens/generated'),{recursive:true,force:true});
   fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addonRoot+'/editor/plugin.cfg", "res://tests/editor_ux/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
@@ -67,7 +69,7 @@ for(const selection of options.engines){
    configure(root!);fs.writeFileSync(path.join(box.project,'project.godot'),settings);fs.rmSync(path.join(box.project,'.godot'),{recursive:true,force:true});
    await command('template-'+label,[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
   }
-  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
+  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
  }finally{
   // Preserve actual graphics even when a later native/lifecycle assertion fails.
   if(fs.existsSync(box.project))for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));
