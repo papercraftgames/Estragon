@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { sha256, writeJSON } from './compat-kit.ts';
-import { currentContext, REPOSITORY } from './release-context.ts';
+import { currentContext, REPOSITORY, assertOverlay } from './release-context.ts';
 import { registryPackage, publicationAction, verifyRegistryIdentity } from './registry-package.ts';
 export type PublicationIO = {
     readRegistry:typeof registryPackage;
@@ -13,6 +13,7 @@ export type PublicationIO = {
     summary?:string|undefined;
 };
 export async function executePublication(report:any,file:string,directory:string,io:PublicationIO) {
+    if(report.mode!=='release' || !Number.isSafeInteger(report.release_id) || report.release_id<=0)throw Error('Preview cannot publish');
     const environment={...io.environment};delete environment.NPM_BOOTSTRAP_TOKEN;delete environment.NODE_AUTH_TOKEN;
     const initial=await io.readRegistry(), action=publicationAction(initial,report);
     writeJSON(path.join(directory,'publication-status.json'),{state:action,source:report.sourceHead,release_id:report.release_id,version:report.version});
@@ -32,6 +33,7 @@ export async function executePublication(report:any,file:string,directory:string
 }
 export function verifyPreparedIdentity(report:any,context:ReturnType<typeof currentContext>,directory:string,repository=process.env.GITHUB_REPOSITORY) {
     if(repository!==REPOSITORY || context.mode!=='release' || report.mode!=='release' || report.release_id!==context.release_id || report.tag!==context.tag || report.repository!==REPOSITORY || report.sourceHead!==context.sourceHead || report.published!==false || report.version!==context.version || !/^papercraftgames-estragon-0\.\d+\.\d+-beta\.\d+\.tgz$/.test(report.tarball))throw Error('Release event/source/artifact identity required');
+    assertOverlay(report.overlay,context);
     const file=path.join(directory,report.tarball);if(sha256(file)!==report.tarball_sha256)throw Error('Tested tarball changed');
     return file;
 }

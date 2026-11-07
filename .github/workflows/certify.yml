@@ -33,6 +33,7 @@ jobs:
       matrix:
         version: ['4.0.4', '4.7']
     env:
+      ESTRAGON_RELEASE_CERTIFICATION: '1'
       LIBGL_ALWAYS_SOFTWARE: '1'
       GODOT_VERSION: ${{ matrix.version }}
     steps:

@@ -2,6 +2,8 @@
 
 Pre-1.0 Godot addon: native Gogo/GGX compilation/editor, signal-driven descriptions reconciled with retained Nodes, layout-first Node2D UI and bounded Node3D adapters. Godot owns rendering, physics and scene lifetime. No Node/Bun compiler or runtime is required for authoring or Play.
 
+Tagged npm packages carry the exact GitHub prerelease-tag version in both npm and Godot plugin metadata. Git source checkouts use a development marker; a local development pack is not a tagged release.
+
 ## Install into a Godot project
 
 P02 direct-install support is pending an owner-published release; earlier public betas may not contain this fix. The following contract applies to a package containing P02. Install the current beta in the Godot project root:

@@ -2,6 +2,9 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, sha256, writeJSON, gitHead, gitDirty } from './compat-kit.ts';
+import {pluginVersion} from './package-version.ts';
+import {currentContext,assertOverlay} from './release-context.ts';
+const certified=process.env.ESTRAGON_RELEASE_CERTIFICATION==='1';
 const published=process.env.ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY;
 const directOnly=process.argv.includes('--direct-only');
 const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=='--direct-only'));fs.mkdirSync(options.output,{recursive:true});
@@ -31,8 +34,10 @@ for(const selection of options.engines) {
             stages[name]={...stage, runs:[...(previous?.runs || []), stage]};writeJSON(path.join(out,'results.json'),stages);if(stage.status!=='PASS')throw Error('Package consumer '+name+' failed');
         }
         const packed=path.join(out,'packed');
-        await command('pack',published?[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/verify-published-package.ts'),published,packed]:[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/pack-addon.ts'),packed,'--require-clean'],box.workspace,process.env,'PACKAGE_PACK_OK');
+        await command('pack',published?[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/verify-published-package.ts'),published,packed]:[process.execPath,'--experimental-strip-types',path.join(ROOT,'tools/pack-addon.ts'),packed,'--require-clean',...(certified?['--release-context']:[])],box.workspace,process.env,'PACKAGE_PACK_OK');
         const manifest=JSON.parse(fs.readFileSync(path.join(packed,'package-manifest.json'),'utf8'));
+        if(certified && !published)assertOverlay(manifest.overlay,currentContext());
+        writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash,overlay:manifest.overlay});
         const originalProject = box.project;
         const layouts = [
             ['direct', 'node_modules/@papercraftgames/estragon/addons/estragon'],
@@ -47,6 +52,9 @@ for(const selection of options.engines) {
             await command('install',['corepack','yarn@1.22.22','add','--exact','--ignore-scripts','--non-interactive',...(published?[]:['--offline']),'--cache-folder',path.join(box.workspace,'yarn-cache'),published?'@papercraftgames/estragon@'+manifest.version:'file:'+path.join(packed,manifest.tarball)],box.project,process.env);
             const installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
             for(const [file,hash]of Object.entries(manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Yarn-installed payload hash mismatch: '+file);
+            const installedVersion=JSON.parse(fs.readFileSync(path.join(installed,'package.json'),'utf8')).version;
+            if(installedVersion!==manifest.version || pluginVersion(fs.readFileSync(path.join(installed,'addons/estragon/editor/plugin.cfg'),'utf8'))!==installedVersion)throw Error('Installed npm/plugin version mismatch');
+            box.env.ESTRAGON_EXPECTED_PACKAGE_VERSION=installedVersion;
             // The direct case uses Yarn's original tree. Other cases move that one
             // tree before import, proving relocation without duplicate classes/UIDs.
             const addon=path.join(box.project,addonRoot!);
@@ -99,7 +107,7 @@ for(const selection of options.engines) {
             await godot('visual',['--script','res://tests/package-consumer/visual.gd'],'PACKAGE_VISUAL_OK',true);
             for(const name of fs.readdirSync(box.project).filter(p=>p.endsWith('.png')))fs.copyFileSync(path.join(box.project,name),path.join(out,layout+'-'+name));
             for(const [file,hash]of Object.entries(manifest.files))if(file.startsWith('addons/') && sha256(path.join(addon,path.relative('addons/estragon',file)))!==hash)throw Error('Godot changed installed addon/UID payload: '+file);
-            writeJSON(path.join(out,layout+'-consumer-audit.json'),{sourceHead:gitHead(),installed_tarball_sha256:manifest.tarball_sha256,source_content_sha256:manifest.source_content_sha256,addon_payload_unchanged:true,layout,addon_root:resourceRoot,node_modules_ignored:false,addon_copied:false,addon_symlinked:false,external_compiler:false});
+            writeJSON(path.join(out,layout+'-consumer-audit.json'),{sourceHead:gitHead(),overlay:manifest.overlay,package_version:manifest.version,installed_tarball_sha256:manifest.tarball_sha256,source_content_sha256:manifest.source_content_sha256,addon_payload_unchanged:true,layout,addon_root:resourceRoot,node_modules_ignored:false,addon_copied:false,addon_symlinked:false,external_compiler:false});
         }
     } finally {writeJSON(path.join(out,'results.json'),stages);box.dispose();}
 }
