@@ -61,8 +61,8 @@ for (const selection of options.engines) {
         }
     }
     scan(output);
-    const provenance = readJSON<any>(path.join(output, 'ui', selection.label, 'provenance.json'));
-    writeJSON(path.join(output, 'addon-evidence.json'), { profile:fastRelease?'fast-release':'full', source_commit: gitHead(), source_dirty: gitDirty(), label: selection.label, version: provenance.version, binary_sha256: provenance.original_binary_sha256, stages, files });
+    const provenance = readJSON<any>(path.join(output, fastRelease?'package':'ui', selection.label, 'provenance.json'));
+    writeJSON(path.join(output, 'addon-evidence.json'), { ...(fastRelease?{overlay:readJSON<any>(path.join(output,'package',selection.label,'packed/package-manifest.json')).overlay}:{}), profile:fastRelease?'fast-release':'full', source_commit: gitHead(), source_dirty: gitDirty(), label: selection.label, version: provenance.version, binary_sha256: provenance.original_binary_sha256, stages, files });
     const checked = spawnSync(process.execPath, ['--experimental-strip-types', path.join(ROOT, 'tools/assert-release.ts'), path.join(output, 'addon-evidence.json')], { stdio: 'inherit' });
     if (checked.status !== 0)
         throw Error('Native addon release acceptance failed');

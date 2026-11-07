@@ -10,20 +10,19 @@ import { executePublication, verifyPreparedIdentity } from '../../tools/publish-
 import { downloadRegistryPackage } from '../../tools/verify-published-package.ts';
 import { publicationAction, verifyRegistryIdentity, verifyRegistryTar, PACKAGE } from '../../tools/registry-package.ts';
 import { verifyCertificationJobs } from '../../tools/verify-npm-release.ts';
-import { addonVersion } from '../../tools/package-version.ts';
-const version=addonVersion(),head='reviewed',source={head,dirty:false};
+const version='0.3.7-beta.8',head='a'.repeat(40),source={head,dirty:false};
 const event={repository:{full_name:REPOSITORY},action:'published',release:{id:42,draft:false,prerelease:true,tag_name:'v'+version}};
-const context=releaseContext(event,'release','refs/tags/v'+version,version,source);
+const context=releaseContext(event,'release','refs/tags/v'+version,'',source);
 test('only matching published main-source prerelease authorizes publishing; dispatch is preview',()=>{
     assert.equal(context.mode,'release');
-    assert.equal(releaseContext(event,'workflow_dispatch','refs/heads/feature',version,source,head,false).mode,'preview');
-    assert.equal(releaseContext(event,'workflow_dispatch','refs/heads/main',version,source).mode,'preview');
-    for(const release of [{draft:true},{prerelease:false},{tag_name:'v'+version.replace(/\d+$/,n=>String(Number(n)+1))},{id:null}])assert.throws(()=>releaseContext({...event,release:{...event.release,...release}},'release','refs/tags/v'+version,version,source));
-    for(const [name,ref]of [['push','refs/heads/main'],['release','refs/heads/main']])assert.throws(()=>releaseContext(event,name!,ref!,version,source));
-    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,version,source,'moved-tag'));
-    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,version,source,head,false));
-    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,version,{...source,dirty:true}));
-    assert.throws(()=>releaseContext({...event,repository:{full_name:'fork/Estragon'}},'release','refs/tags/v'+version,version,source));
+    assert.equal(releaseContext({...event,inputs:{candidate_tag:'v'+version}},'workflow_dispatch','refs/heads/feature','v'+version,source,head,false).mode,'preview');
+    assert.equal(releaseContext({...event,inputs:{candidate_tag:'v'+version}},'workflow_dispatch','refs/heads/main','v'+version,source).mode,'preview');
+    for(const release of [{draft:true},{prerelease:false},{tag_name:'v'+version.replace(/\d+$/,n=>String(Number(n)+1))},{id:null}])assert.throws(()=>releaseContext({...event,release:{...event.release,...release}},'release','refs/tags/v'+version,'',source));
+    for(const [name,ref]of [['push','refs/heads/main'],['release','refs/heads/main']])assert.throws(()=>releaseContext(event,name!,ref!,'',source));
+    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,'',source,'moved-tag'));
+    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,'',source,head,false));
+    assert.throws(()=>releaseContext(event,'release','refs/tags/v'+version,'',{...source,dirty:true}));
+    assert.throws(()=>releaseContext({...event,repository:{full_name:'fork/Estragon'}},'release','refs/tags/v'+version,'',source));
 });
 test('only two completed successful current-run certification jobs authorize preparation',()=>{
     const jobs=['4.0.4','4.7'].map(label=>({name:'certify / release-certification ('+label+')',status:'completed',conclusion:'success'}));
@@ -43,7 +42,7 @@ function fixture() {
     const tarball='papercraftgames-estragon-'+version+'.tgz',file=path.join(dir,tarball);
     fs.writeFileSync(file,'already-tested-tar');
     const bytes=fs.readFileSync(file),integrity='sha512-'+createHash('sha512').update(bytes).digest('base64');
-    const report={...context,repository:REPOSITORY,published:false,tarball,tarball_sha256:sha256(file),integrity};
+    const report={...context,overlay:context,repository:REPOSITORY,published:false,tarball,tarball_sha256:sha256(file),integrity};
     const metadata={name:PACKAGE,version,dist:{integrity,tarball:'https://registry.npmjs.org/@papercraftgames/estragon/-/'+tarball,attestations:{url:'https://registry.npmjs.org/-/npm/v1/attestations/test'}}};
     const registry={name:PACKAGE,versions:{[version]:metadata},'dist-tags':{beta:version}};
     return {dir,file,report,registry,bytes};
@@ -63,6 +62,7 @@ test('publication is OIDC only, missing package fails and an existing exact vers
     const f=fixture();try {
         const calls:Array<{args:string[],env:NodeJS.ProcessEnv}>=[];
         const io={readRegistry:async()=>f.registry as any,runNpm:(args:string[],env:NodeJS.ProcessEnv)=>{calls.push({args,env});},wait:async()=>{},environment:{NPM_BOOTSTRAP_TOKEN:'never-log',NODE_AUTH_TOKEN:'stale'}};
+        await assert.rejects(executePublication({...f.report,mode:'preview'},f.file,f.dir,io));assert.equal(calls.length,0);
         let reads=0;
         await executePublication(f.report,f.file,f.dir,{...io,readRegistry:async()=>++reads===1?{name:PACKAGE,versions:{'older':{}}}:f.registry});
         assert.deepEqual(calls[0]!.args,['publish',f.file,'--access','public','--tag','beta','--provenance','--ignore-scripts']);
@@ -76,7 +76,7 @@ test('publication is OIDC only, missing package fails and an existing exact vers
 });
 test('release workflow retains owner trigger/OIDC, hard certification and post-publication consumers',()=>{
     const yaml=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
-    assert(yaml.includes('types: [published]'));assert(yaml.includes('workflow_dispatch: {}'));assert(yaml.includes('environment: npm-publish'));assert(yaml.includes("node-version: '24'"));
+    assert(yaml.includes('types: [published]'));assert(yaml.includes('candidate_tag:'));assert(yaml.includes('environment: npm-publish'));assert(yaml.includes("node-version: '24'"));
     assert(!yaml.includes('verification_run:'));assert(!yaml.includes('NPM_PUBLISH_ENABLED'));assert(!yaml.includes('inputs.publish'));assert(!/^  (push|pull_request):/m.test(yaml));
     assert.equal(yaml.match(/id-token: write/g)?.length,1);assert(yaml.includes("if: github.event_name == 'release'"));
     assert(yaml.includes("version: ['4.0.4', '4.7']"));assert(yaml.includes('needs: [certify, prepare]'));assert(yaml.includes('ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY:'));assert(yaml.includes('needs: [certify, prepare, publish, consumer]'));

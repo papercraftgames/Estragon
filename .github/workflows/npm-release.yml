@@ -3,7 +3,12 @@ name: Release scoped native addon to npm
 on:
   release:
     types: [published]
-  workflow_dispatch: {} # Optional read-only main preview; never publishes.
+  workflow_dispatch: # Read-only candidate preview; never publishes.
+    inputs:
+      candidate_tag:
+        description: Proposed prerelease tag (preview only)
+        required: true
+        type: string
 permissions:
   contents: read
   actions: read

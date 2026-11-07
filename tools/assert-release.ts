@@ -3,8 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { assessRelease, REQUIRED_FAST_RELEASE } from './release-policy.ts';
 import { sha256, readJSON, writeJSON } from './compat-kit.ts';
+import { assertOverlay, type VersionContext } from './release-context.ts';
 import type { Stage } from './compat-kit.ts';
 export type AddonEvidence = {
+    overlay?:VersionContext;
     profile?: 'full' | 'fast-release';
     source_commit: string;
     source_dirty: boolean;
@@ -40,6 +42,19 @@ export function assessFile(file: string) {
             if (p.sourceHead !== report.source_commit || p.sourceDirty !== false || p.version !== report.version || p.original_binary_sha256 !== report.binary_sha256)
                 throw Error('Source/engine provenance mismatch: ' + name);
         }
+    }
+    if(fast) {
+        const relative='package/'+report.label+'/packed/package-manifest.json';
+        if(!report.files[relative])throw Error('Missing versioned package manifest');
+        const manifest=readJSON<any>(path.join(path.dirname(file),relative));
+        if(!report.overlay || report.overlay.sourceHead!==report.source_commit)throw Error('Missing overlay source provenance');
+        assertOverlay(manifest.overlay,report.overlay);
+        assertOverlay(readJSON<any>(path.join(path.dirname(file),'package',report.label,'provenance.json')).overlay,report.overlay);
+        const auditPath='package/'+report.label+'/direct-consumer-audit.json';
+        if(!report.files[auditPath])throw Error('Missing direct installed version proof');
+        const audit=readJSON<any>(path.join(path.dirname(file),auditPath));
+        assertOverlay(audit.overlay,report.overlay);
+        if(audit.package_version!==manifest.version || audit.installed_tarball_sha256!==manifest.tarball_sha256 || audit.addon_payload_unchanged!==true)throw Error('Installed overlay/artifact mismatch');
     }
     // Bind the summary to the hashed execution reports, not hand-entered PASSes.
     const observed: Record<string, Stage> = {};

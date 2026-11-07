@@ -30,7 +30,7 @@ test('addon-only npm artifact is reproducible, private-tooling separated and roo
     } finally {fs.rmSync(temporary,{recursive:true,force:true});}
 });
 test('pre-publication preparation rejects routine main or stale/mismatched run identities',()=>{
-    const version=addonVersion();
+    const version='0.3.7-beta.8';
     const run={id:123,repository:{full_name:'papercraftgames/Estragon'},path:'.github/workflows/npm-release.yml',event:'release',head_sha:'approved',status:'in_progress',conclusion:null};
     const source={head:'approved',dirty:false};
     const verify=(candidate:any)=>verifyReleaseIdentity(candidate,version,'papercraftgames/Estragon',source,'123');
@@ -41,7 +41,7 @@ test('pre-publication preparation rejects routine main or stale/mismatched run i
     assert.throws(()=>verifyReleaseIdentity(run,version,'papercraftgames/Estragon',{...source,dirty:true},'123'));
 });
 
-test('only the Godot plugin commits a release version; documentation contains no pinned beta versions',()=>{
+test('Git metadata is development-only; release numbers exist only in events or test fixtures',()=>{
     const root=ROOT;
     const plugin=fs.readFileSync(path.join(root,'addons/estragon/editor/plugin.cfg'),'utf8');
     assert.equal((plugin.match(/^version=/gm)||[]).length,1);
@@ -51,14 +51,14 @@ test('only the Godot plugin commits a release version; documentation contains no
     const tracked=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
     const pinnedPrerelease=/\b0\.\d+\.\d+-beta\.\d+\b/i;
     const version=addonVersion();
-    assert(pinnedPrerelease.test(version));
+    assert.equal(version,'0.0.0-dev');
     for(const file of tracked.filter(file=>file.endsWith('.md'))) {
         const contents=fs.readFileSync(path.join(root,file),'utf8');
         assert(!pinnedPrerelease.test(contents),'Documentation must not hardcode package release versions: '+file);
     }
     for(const file of tracked.filter(file=>/\.(?:ts|tsx|json|cfg|gd|gogo|yml|yaml|md)$/.test(file) && file!=='addons/estragon/editor/plugin.cfg')) {
         const contents=fs.readFileSync(path.join(root,file),'utf8');
-        assert(!contents.includes(version),'Duplicate canonical package version outside plugin.cfg: '+file);
+        if(!file.startsWith('tests/'))assert(!pinnedPrerelease.test(contents),'Release version must not be committed metadata: '+file);
     }
 });
 

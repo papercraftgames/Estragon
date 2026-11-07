@@ -50,14 +50,14 @@ function fixture(profile:'full'|'fast-release'='full') {
     for (const group of profile === 'fast-release' ? ['package'] : ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional', 'lists', 'twoway', 'profiling', 'package']) {
         const p = group + '/' + label + '/results.json';
         const entries = Object.fromEntries(required.filter(n => n.startsWith(group + '.')).map(n => [n.slice(group.length + 1), { status: 'PASS' }]));
-        const result = group === 'metadata' ? { status: 'PASS', sourceHead: 'source', sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 } : entries;
+        const result = group === 'metadata' ? { status: 'PASS', sourceHead: 'a'.repeat(40), sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 } : entries;
         writeJSON(path.join(root, p), result);
         files[p] = sha256(path.join(root, p));
         if (group === 'metadata')
             stages.metadata = { status: 'PASS' };
         else {
             const prov = group + '/' + label + '/provenance.json';
-            writeJSON(path.join(root, prov), { sourceHead: 'source', sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 });
+            writeJSON(path.join(root, prov), { sourceHead: 'a'.repeat(40), sourceDirty: false, version: pin.version, original_binary_sha256: pin.binary_sha256 });
             files[prov] = sha256(path.join(root, prov));
             for (const [n, s] of Object.entries(entries)) {
                 if (n !== 'package_layout') {
@@ -73,7 +73,17 @@ function fixture(profile:'full'|'fast-release'='full') {
             files[p] = sha256(path.join(root, p));
         }
     }
-    const report = { profile, source_commit: 'source', source_dirty: false, label, version: pin.version, binary_sha256: pin.binary_sha256, stages, files };
+    const overlay={mode:'preview',version:'0.3.7-beta.8',sourceHead:'a'.repeat(40),tag:'v0.3.7-beta.8',release_id:null,overlayRecipe:'estragon-tag-overlay-v1'};
+    if(profile==='fast-release') {
+        const provenance='package/'+label+'/provenance.json';
+        const previous=JSON.parse(fs.readFileSync(path.join(root,provenance),'utf8'));
+        writeJSON(path.join(root,provenance),{...previous,overlay});files[provenance]=sha256(path.join(root,provenance));
+        const manifest='package/'+label+'/packed/package-manifest.json',audit='package/'+label+'/direct-consumer-audit.json';
+        writeJSON(path.join(root,manifest),{overlay,version:overlay.version,tarball_sha256:'tar'});
+        writeJSON(path.join(root,audit),{overlay,package_version:overlay.version,installed_tarball_sha256:'tar',addon_payload_unchanged:true});
+        files[manifest]=sha256(path.join(root,manifest));files[audit]=sha256(path.join(root,audit));
+    }
+    const report = { ...(profile==='fast-release'?{overlay}:{}), profile, source_commit: 'a'.repeat(40), source_dirty: false, label, version: pin.version, binary_sha256: pin.binary_sha256, stages, files };
     const file = path.join(root, 'addon-evidence.json');
     writeJSON(file, report);
     return { root, file, report };

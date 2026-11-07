@@ -11,6 +11,10 @@ on:
         type: choice
         options: [routine, certification]
         default: routine
+      candidate_tag:
+        description: Proposed prerelease tag for read-only certification
+        type: string
+        default: ''
 permissions:
   contents: read
   actions: read
