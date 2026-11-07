@@ -74,6 +74,10 @@ Previously published nine-engine results stay archived, not rerun.
 
 **This file is a snapshot, not a live dashboard.** When an issue or PR disagrees with a snapshot row, **verify the linked live GitHub record and the merged code** before acting. Live issue and PR state holds temporary `Active`/`Blocked`/`In review` changes; update this file **in the PR that completes a task or intentionally revises the plan**, so merged `main` stays a useful starting point without a stream of conflicting status-only PRs. In a completion PR, `Done` is contingent on that PR actually merging; the PR/issue remains the live authority until then.
 
+## CI01 snapshot
+
+CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) is active after #108 owner-merged (`b473bdb`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; optimization remains In review until owner merge. Updated #109 requires routine PR/main <=60seconds and full73-stage two-engine certification as a hard pre-publication gate; routine main is not release evidence. No package version/publication work is included.
+
 ## Issue/PR ownership rule
 
 - **Maximum one open PR total across the repository**, including draft, docs,

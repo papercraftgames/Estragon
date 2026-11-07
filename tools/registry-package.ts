@@ -7,15 +7,10 @@ export async function registryPackage() {
     if(!response.ok)throw Error('Registry lookup failed: '+response.status);
     return response.json();
 }
-export function publicationAction(registry:any, report:any, bootstrapAvailable:boolean) {
-    if(!registry) {
-        if(!bootstrapAvailable)throw Error('New npm package needs one-time CI staging credential; see PACKAGING bootstrap checklist');
-        return 'bootstrap';
-    }
+export function publicationAction(registry:any,report:any) {
+    if(!registry)throw Error('Existing scoped package and OIDC trust required; no bootstrap/token fallback');
     if(registry.name!==PACKAGE)throw Error('Unexpected registry package');
-    if(registry.versions?.[report.version])return 'verify';
-    if(registry.versions?.['0.0.0-stage'] && Object.keys(registry.versions).length===1)return 'await-approval';
-    return 'oidc'; // Never use bootstrap credentials for an existing package.
+    return registry.versions?.[report.version]?'verify':'oidc';
 }
 export function verifyRegistryIdentity(registry:any, report:any) {
     const version=registry?.versions?.[report.version];

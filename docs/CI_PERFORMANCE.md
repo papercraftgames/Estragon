@@ -1,0 +1,25 @@
+# CI01 — routine budget and mandatory release certification
+
+[Updated #109](https://github.com/papercraftgames/Estragon/issues/109) supersedes the previous broad-PR/full-main policy. **Routine PR AND main checks must complete within60seconds execution wall time.** The previous381-second result is rejected as routine performance, not presented as success.
+
+## Routine PR/main
+
+`ci.yml` runs frozen install, TypeScript/typechecking/policy tests, and at most one tiny cold headless Godot4.7 smoke. The smoke compiles deterministic Gogo, loads generated native GDScript, exercises typed bindable change/equality signals, compiles ordinary Node descriptions and rejects non-Node children. It has a10-second process timeout. No editor import/index, Play, rendering, Xvfb, apt, full suite, exhaustive fallback or full artifact certification is allowed in this path. Documentation-only Markdown/image/license PRs or main pushes omit Godot. Unknown/shared/infrastructure files choose the same tiny smoke, never exhaustive work.
+
+The existing `tooling`, `addon (4.0.4)` and `addon (4.7)` required checks remain visible. The4.0.4 routine job reports policy only; full two-version validation belongs to publication. There are no workflow-level path filters/draft bypasses that strand checks. Immutable engine caches include OS/architecture/engine/checksum, with SHA256-before-execution and exact version revalidation on every hit. No project/editor state is cached. Routine logs/results cannot satisfy release certification.
+
+`tools/measure-routine-ci.ts RUN_ID` reads one completed Actions run, reports queue separately, measures first required-job start to last required-check completion, breaks down setup/static/smoke steps and returns failure if execution wall exceeds60seconds. It does not poll or rerun workflows. Actual main-push timing cannot be collected for this branch without owner merge: a routine workflow_dispatch exercises the identical main code path as a pre-merge surrogate; report that distinction explicitly. Final issue/PR records actual measurements and any environment-imposed limit, never invented main results.
+
+## Pre-publication hard gate
+
+`certify.yml` is a reusable workflow with only the approved Linux4.0.4/pinned4.7.0 matrix. It checks out and validates the requested exact SHA, clean source, authenticated engine and original software graphics setup, then runs **all73 stages per engine**, including all editor/cold/import/pack/UID/error/recovery checks. These expensive tests are retained and moved, not weakened or discarded.
+
+`npm-release.yml` calls certification for the owner-published reviewed prerelease commit. `prepare` depends on both certification jobs; `publish` depends on certification AND preparation. The verifier requires the exact current release/preview run ID, source and canonical repository, two completed successful certification jobs, every strict hashed stage/log/engine report and both identical reproducible allowlisted tarballs. Missing/stale/failed/cancelled/mismatched evidence fails closed. Routine main or PR runs cannot substitute, and there is no search/wait for an earlier main CI run. Version still derives exclusively from plugin.cfg. Publish uses that exact tested tarball through OIDC; no token/bootstrap path is added or required.
+
+Optional read-only previews: dispatch `ci.yml` with verification_mode=certification on a candidate branch, or preview npm-release.yml. They execute the same certification plus independent artifact preparation and upload release-ready evidence. Branch preview may certify unmerged source for review but its report is mode=preview; no publish job is reachable and publisher identity checks reject it. Actual release still requires exact tag/version, clean reviewed-main reachability and owner release event. Both post-publication registry→Yarn→native consumers and final fail-closed status remain mandatory. Publication alone is not acceptance.
+
+## Retained optimization and historical measurements
+
+Keep bounded editor startup/tab/scene/stop readiness, the negative stale-Play observation guard, complete-JSON proof snapshots, original assertions, per-suite/stage/editor telemetry and direct PID counting within explicit certification. Startup banners are observations, not unique nested process counts. Previous editor totals252.16→204.90s /316.86→206.02s and full73-stage evidence42298085785 are historical evidence for unchanged tests/contracts, not a routine latency acceptance claim.
+
+A later run exposed partial proof-file writes; the reader now retries error-return JSON.parse until a nonempty dictionary is complete, caches that snapshot and then executes original assertions. No parse-error exemption or fixed readiness sleep. Existing full-suite failures remain truthful historical records. Final revised release wiring requires one successful explicit pre-publication preview before claiming delivery; do not repeatedly dispatch/watch full runs during local development. Routine60-second and preview results live in #109/PR #110.

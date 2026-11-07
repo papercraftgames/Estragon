@@ -14,7 +14,7 @@ bun install --frozen-lockfile
 bun run check
 ~~~
 
-Current CI runs these policy/typechecking tests once and the native addon runner once per approved Linux engine. No duplicate compatibility workflow remains. Select manual verification_mode=focused for compiler/UI/distribution development on 4.7 only; it cannot satisfy release acceptance.
+CI01 [routine budget / release certification](CI_PERFORMANCE.md): routine PR and main push checks are limited to static/policy tests and one tiny headless native smoke, within60seconds. Docs-only omits Godot. Full73-stage acceptance on BOTH approved engines is mandatory before publication, through certify.yml and independent exact-current-run artifact verification. Fast main CI cannot authorize publication. The commands below are explicit certification/development tools, not routine CI.
 
 ~~~sh
 # From a contributor environment; output directory must be new and absolute.

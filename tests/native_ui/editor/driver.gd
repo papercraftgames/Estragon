@@ -13,6 +13,7 @@ var _background: CodeEdit
 var _source: String
 var _background_source: String
 var _plugin: EditorPlugin
+var _ready_proof: Dictionary = {}
 
 func _enter_tree() -> void:
 	_interface = get_editor_interface()
@@ -27,9 +28,10 @@ func _wait(seconds: float = 0.1) -> void:
 	await get_tree().create_timer(seconds).timeout
 
 func _until(condition: Callable, message: String) -> bool:
-	for _attempt in range(150):
+	var deadline := Time.get_ticks_msec() + 15000
+	while Time.get_ticks_msec() < deadline:
 		if condition.call(): return true
-		await _wait()
+		await get_tree().process_frame
 	_check(false, message)
 	return false
 
@@ -37,24 +39,42 @@ func _find_plugin() -> bool:
 	for node in get_tree().root.find_children("*", "EditorPlugin", true, false):
 		if node.get_script() != null and node.get_script().resource_path == "res://addons/estragon/editor/plugin.gd":
 			_plugin = node
-	return _plugin != null and _plugin.last_report.get("ok", false) and not _plugin._building and not _plugin._filesystem_busy()
+	return _plugin != null and _plugin.last_report.get("ok", false) and not _plugin._building and not _plugin._filesystem_busy() and not _plugin._extensions_pending
 
-func _open(path: String) -> CodeEdit:
-	var dock := _interface.get_file_system_dock()
-	dock.navigate_to_path(path)
-	await _wait(0.5)
-	for tree in dock.find_children("*", "Tree", true, false):
+func _selected_tree(path: String) -> Tree:
+	for tree in _interface.get_file_system_dock().find_children("*", "Tree", true, false):
 		var selected: TreeItem = tree.get_selected()
 		if selected != null and selected.get_metadata(0) is String and selected.get_metadata(0) == path:
-			tree.item_activated.emit()
-	await _wait(0.5)
+			return tree
+	return null
+
+func _code_ready(path: String) -> bool:
 	var editor := _interface.get_script_editor().get_current_editor()
-	return editor.get_base_editor() as CodeEdit if editor != null else null
+	if editor == null: return false
+	var code := editor.get_base_editor() as CodeEdit
+	return code != null and code.text == FileAccess.get_file_as_string(path) and code.syntax_highlighter != null and code.syntax_highlighter.get_script() != null and code.syntax_highlighter.get_script().resource_path == "res://addons/estragon/editor/highlighter.gd"
+
+func _open(path: String) -> CodeEdit:
+	_interface.get_file_system_dock().navigate_to_path(path)
+	if not await _until(func(): return _selected_tree(path) != null, "dock selects source"): return null
+	_selected_tree(path).item_activated.emit()
+	if not await _until(func(): return _code_ready(path), "Gogo editor and highlighter ready"): return null
+	return _interface.get_script_editor().get_current_editor().get_base_editor() as CodeEdit
 
 func _uid() -> PackedByteArray:
 	return FileAccess.get_file_as_bytes(OUTPUT + ".uid") if FileAccess.file_exists(OUTPUT + ".uid") else PackedByteArray()
 
+func _proof_ready() -> bool:
+	if not FileAccess.file_exists(PROOF): return false
+	var parsed := JSON.new()
+	# File creation precedes store_string/close; incomplete JSON is not readiness.
+	if parsed.parse(FileAccess.get_file_as_string(PROOF)) != OK: return false
+	if not parsed.data is Dictionary or parsed.data.is_empty(): return false
+	_ready_proof = parsed.data
+	return true
+
 func _clear_proof() -> void:
+	_ready_proof = {}
 	if FileAccess.file_exists(PROOF): DirAccess.remove_absolute(PROOF)
 
 func _play(mode: String) -> void:
@@ -63,17 +83,20 @@ func _play(mode: String) -> void:
 
 func _stop() -> void:
 	_interface.stop_playing_scene()
-	await _wait(0.5)
+	await _until(func(): return not _interface.is_playing_scene() and not _plugin._building and not _plugin._filesystem_busy(), "child stopped and editor filesystem idle")
 
 func _success(mode: String, value: int) -> void:
+	var scenario_started := Time.get_ticks_msec()
 	_clear_proof()
 	_play(mode)
-	if await _until(func(): return FileAccess.file_exists(PROOF), mode + " child executes current GGX"):
-		var proof = JSON.parse_string(FileAccess.get_file_as_string(PROOF))
+	if await _until(_proof_ready, mode + " child executes current GGX"):
+		var proof := _ready_proof
 		_check(_interface.is_playing_scene() and proof.count==value and proof.text=="Count: %d" % value and proof.native, mode+" executes newest Gogo native layout")
 	await _stop()
+	print("CI_EDITOR_TIMING success_", mode, " ", (Time.get_ticks_msec() - scenario_started) / 1000.0)
 
 func _blocked(mode: String, diagnostic: String) -> void:
+	var scenario_started := Time.get_ticks_msec()
 	_clear_proof()
 	var previous := FileAccess.get_file_as_bytes(OUTPUT)
 	var map := FileAccess.get_file_as_bytes(OUTPUT + ".map.json")
@@ -88,11 +111,15 @@ func _blocked(mode: String, diagnostic: String) -> void:
 	_check(FileAccess.get_file_as_bytes(OUTPUT) == previous and FileAccess.get_file_as_bytes(OUTPUT + ".map.json") == map and FileAccess.get_modified_time(OUTPUT) == timestamp and _uid() == uid, "failed Play preserves generated code/map/UID/timestamp")
 	_check(load(OUTPUT) == cached and cached.source_code == cached_source, "failed Play preserves Script identity/source")
 
+	print("CI_EDITOR_TIMING rejected_", mode, " ", (Time.get_ticks_msec() - scenario_started) / 1000.0)
+
 func _run() -> void:
 	if not await _until(_find_plugin,"native addon startup"):
 		_finish()
 		return
-	await _wait(1)
+	# Let queued editor settings/layout notifications settle after extension registration.
+	await get_tree().process_frame
+	await get_tree().process_frame
 	_interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
 	_interface.get_editor_settings().set_setting("text_editor/behavior/files/autosave_interval_secs",0)
 	_counter = await _open(SOURCE)
@@ -104,7 +131,7 @@ func _run() -> void:
 	_check(_counter.syntax_highlighter != null and _counter.syntax_highlighter.get_script().resource_path == "res://addons/estragon/editor/highlighter.gd","real Gogo tab associated with native highlighter")
 	_source = FileAccess.get_file_as_string(SOURCE)
 	_interface.open_scene_from_path("res://examples/counter/Counter.tscn")
-	await _wait(0.5)
+	await _until(func(): return _interface.get_edited_scene_root() != null and _interface.get_edited_scene_root().scene_file_path == "res://examples/counter/Counter.tscn" and not _plugin._filesystem_busy(), "requested scene ready")
 	for mode in ["project","current"]:
 		_counter.text = _source.replace("var count: int = 0","var count: int = 7")
 		await _success(mode,7)

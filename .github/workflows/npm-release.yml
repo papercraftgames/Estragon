@@ -11,7 +11,13 @@ concurrency:
   group: npm-release
   cancel-in-progress: false
 jobs:
+  certify:
+    if: github.repository == 'papercraftgames/Estragon'
+    uses: ./.github/workflows/certify.yml
+    with:
+      source: ${{ github.sha }}
   prepare:
+    needs: certify
     if: github.repository == 'papercraftgames/Estragon'
     runs-on: ubuntu-latest
     timeout-minutes: 35
@@ -22,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '24'
-      - name: Discover exact main CI and verify both native acceptance artifacts
+      - name: Verify current-run exact-source certification and identical tested tarballs
         env:
           GH_TOKEN: ${{ github.token }}
         run: node --experimental-strip-types tools/verify-npm-release.ts "$RUNNER_TEMP/approved-package"
@@ -34,7 +40,7 @@ jobs:
             ${{ runner.temp }}/approved-package/*.tgz
             ${{ runner.temp }}/approved-package/release-ready.json
   publish:
-    needs: prepare
+    needs: [certify, prepare]
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     timeout-minutes: 70
@@ -55,9 +61,7 @@ jobs:
         with:
           name: approved-npm-package
           path: ${{ runner.temp }}/approved-package
-      - name: Publish exact tested tarball via OIDC (one-time absent-package staging supported)
-        env:
-          NPM_BOOTSTRAP_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
+      - name: Publish exact certified tarball via OIDC
         run: node --experimental-strip-types tools/publish-prepared.ts "$RUNNER_TEMP/approved-package"
       - uses: actions/upload-artifact@v4
         if: always()
@@ -119,10 +123,11 @@ jobs:
           path: ${{ runner.temp }}/published-consumer
   result:
     if: always()
-    needs: [prepare, publish, consumer]
+    needs: [certify, prepare, publish, consumer]
     runs-on: ubuntu-latest
     env:
       EVENT_NAME: ${{ github.event_name }}
+      CERTIFY_RESULT: ${{ needs.certify.result }}
       PREPARE_RESULT: ${{ needs.prepare.result }}
       PUBLISH_RESULT: ${{ needs.publish.result }}
       CONSUMER_RESULT: ${{ needs.consumer.result }}
@@ -131,9 +136,9 @@ jobs:
         run: |
           node - <<'JS'
           const fs=require('node:fs');
-          const {EVENT_NAME,PREPARE_RESULT,PUBLISH_RESULT,CONSUMER_RESULT,GITHUB_STEP_SUMMARY}=process.env;
-          const passed=PREPARE_RESULT==='success' && (EVENT_NAME==='workflow_dispatch' || PUBLISH_RESULT==='success' && CONSUMER_RESULT==='success');
-          const report={event:EVENT_NAME,preparation:PREPARE_RESULT,publication:PUBLISH_RESULT,nativeConsumer:CONSUMER_RESULT,status:passed?'PASS':'FAIL',preview:EVENT_NAME==='workflow_dispatch'};
+          const {EVENT_NAME,CERTIFY_RESULT,PREPARE_RESULT,PUBLISH_RESULT,CONSUMER_RESULT,GITHUB_STEP_SUMMARY}=process.env;
+          const passed=CERTIFY_RESULT==='success' && PREPARE_RESULT==='success' && (EVENT_NAME==='workflow_dispatch' || PUBLISH_RESULT==='success' && CONSUMER_RESULT==='success');
+          const report={event:EVENT_NAME,certification:CERTIFY_RESULT,preparation:PREPARE_RESULT,publication:PUBLISH_RESULT,nativeConsumer:CONSUMER_RESULT,status:passed?'PASS':'FAIL',preview:EVENT_NAME==='workflow_dispatch'};
           fs.writeFileSync('release-result.json',JSON.stringify(report,null,2));
           fs.appendFileSync(GITHUB_STEP_SUMMARY,'### npm release evidence\n\n```json\n'+JSON.stringify(report,null,2)+'\n```\nA failed post-publish check leaves the registry version immutable; rerun verification after repair, never substitute bytes.\n');
           process.exitCode=passed?0:1;

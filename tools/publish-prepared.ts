@@ -10,26 +10,20 @@ export type PublicationIO = {
     runNpm:(args:string[],env:NodeJS.ProcessEnv)=>void;
     wait:()=>Promise<void>;
     environment:NodeJS.ProcessEnv;
-    bootstrapToken?:string|undefined;
     summary?:string|undefined;
 };
 export async function executePublication(report:any,file:string,directory:string,io:PublicationIO) {
     const environment={...io.environment};delete environment.NPM_BOOTSTRAP_TOKEN;delete environment.NODE_AUTH_TOKEN;
-    const initial=await io.readRegistry(), action=publicationAction(initial,report,!!io.bootstrapToken);
+    const initial=await io.readRegistry(), action=publicationAction(initial,report);
     writeJSON(path.join(directory,'publication-status.json'),{state:action,source:report.sourceHead,release_id:report.release_id,version:report.version});
     const flags=[path.resolve(file),'--access','public','--tag','beta','--provenance','--ignore-scripts'];
-    if(action==='bootstrap') {
-        // A short-lived granular token WITHOUT bypass2FA may stage, never publish directly.
-        io.runNpm(['stage','publish',...flags],{...environment,NODE_AUTH_TOKEN:io.bootstrapToken});
-        console.log('BOOTSTRAP_STAGED: owner approves exact version with 2FA in npm Staged Packages; configure trust and revoke bootstrap credential. No local publish or second dispatch.');
-        if(io.summary)fs.appendFileSync(io.summary,'\nOne-time bootstrap staged. Approve the exact version in npm Staged Packages with 2FA; configure papercraftgames/Estragon / npm-release.yml / npm-publish trust and revoke bootstrap credential. Waiting up to 60 minutes.\n');
-    } else if(action==='oidc')io.runNpm(['publish',...flags],environment);
+    if(action==='oidc')io.runNpm(['publish',...flags],environment);
     // Also resumes verification after a post-publish failure or a staged-approval timeout.
     let registry:any;
     for(let attempt=0;attempt<240;attempt++) {
         registry=await io.readRegistry();
         if(registry?.versions?.[report.version])break;
-        if(attempt===239)throw Error('Publication/one-time approval not visible; release remains failed/incomplete. Approve staged version then rerun existing release jobs, never republish different bytes.');
+        if(attempt===239)throw Error('Publication not visible; release failed/incomplete. Never republish different bytes.');
         await io.wait();
     }
     verifyRegistryIdentity(registry,report);
@@ -49,6 +43,6 @@ if(import.meta.url==='file://'+process.argv[1]) {
         readRegistry:registryPackage,
         runNpm:(args,env)=>{execFileSync('npm',args,{env,stdio:'inherit'});},
         wait:()=>new Promise(resolve=>setTimeout(resolve,15000)),
-        environment:process.env,bootstrapToken:process.env.NPM_BOOTSTRAP_TOKEN,summary:process.env.GITHUB_STEP_SUMMARY,
+        environment:process.env,summary:process.env.GITHUB_STEP_SUMMARY,
     });
 }

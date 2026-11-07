@@ -148,7 +148,8 @@ export function newSandbox(selection: EngineSelection): Sandbox {
 export async function runCommand(command: string[], cwd: string, env: NodeJS.ProcessEnv,
   logFile: string, marker?: string, options: { timeout?: number; expectedErrors?: boolean;
     abortOnError?: boolean } = {}): Promise<Stage> {
-  const started = Date.now();
+  const started = performance.now();
+  let godotPID: number | undefined;
   const timeout = options.timeout ?? 60000;
   fs.mkdirSync(path.dirname(logFile), { recursive: true });
   let output = "";
@@ -158,6 +159,7 @@ export async function runCommand(command: string[], cwd: string, env: NodeJS.Pro
     const child = spawn(command[0]!, command.slice(1), {
       cwd, env, detached: process.platform !== "win32", stdio: ["ignore", "pipe", "pipe"],
     });
+    if (path.basename(command[0]!) === "godot") godotPID = child.pid;
     const stop = (): void => {
       try {
         if (process.platform !== "win32" && child.pid) process.kill(-child.pid, "SIGKILL");
@@ -183,7 +185,8 @@ export async function runCommand(command: string[], cwd: string, env: NodeJS.Pro
     options.expectedErrors ? undefined : marker, timedOut);
   const finalStatus = options.expectedErrors && marker && !output.split(/\r?\n/).includes(marker) ? "FAIL" : status;
   return { status: finalStatus, command, exit_code: code, timeout: timedOut,
-    aborted_on_error: aborted, seconds: Math.round((Date.now() - started) / 10) / 100,
+    aborted_on_error: aborted, seconds: Math.round((performance.now() - started) / 10) / 100,
+    ...(godotPID ? { godot_pid: godotPID } : {}),
     log: path.basename(logFile),
     diagnostics: output.split(/\r?\n/).filter(line => ERROR.test(line) || line.includes("at:")).slice(0, 30) };
 }
