@@ -125,6 +125,41 @@ Do not start a successor while the current review PR is open.
 
 **This protocol is mandatory for Codex and other contributors working on planned features.** Session/chat context is temporary; **GitHub issues/PRs and committed repository files are the durable team memory**.
 
+### Local-first delivery: open the PR only when the branch is review-ready
+
+**Do not use pull requests or GitHub Actions as the development loop.** A PR is a
+review handoff, not a place to park unfinished work or test each incremental
+commit. Opening a PR too early makes every subsequent branch push trigger
+another required CI run, even when GitHub cancels superseded runs.
+
+1. **Plan in the issue first.** Claim the scoped task and record the mini-plan,
+   acceptance criteria and checkpoint/handoff notes in its issue. Check that no
+   other PR is open; use a local task branch to implement the change.
+2. **Iterate locally.** Make as many local commits and focused local test runs
+   as necessary. Finish implementation, review the diff for scope and quality,
+   update the required task documentation and run available relevant checks
+   before publishing the branch. The final review-ready push should normally
+   be the first push, followed by **one non-draft PR**.
+3. **Treat CI as independent verification.** After opening the review-ready PR,
+   let its required checks run. Do not open early draft PRs, repeatedly push
+   tiny fixes, rerun Actions, toggle testing labels or dispatch expensive
+   workflows simply to discover whether work in progress passes.
+4. **Batch genuine follow-up changes.** If required CI exposes an environment-
+   specific failure, or an owner review requests changes, investigate and
+   reproduce locally where possible. Apply and validate the complete coherent
+   fix before the next push; document genuine remote-only limitations instead
+   of claiming local proof. Necessary follow-up commits are allowed, but one
+   push per debugging guess is not.
+5. **Preserve cross-session work without a premature PR.** Use the task issue
+   for durable checkpoints and handoffs. If committed branch work must be
+   pushed to persist or transfer an unfinished session, push that branch
+   without opening a PR until it is review-ready. State what remains.
+6. **Never bypass checks to save runs.** Keep required PR/main CI, focused
+   acceptance when relevant, both approved release engines, publication gates
+   and owner-controlled merges intact. Do not use skip-CI messages, disable
+   workflow triggers or weaken branch protection as a substitute for
+   finishing the work locally.
+
 ### Four different sources of truth
 
 1. **Product direction:** `docs/DESIGN_DIRECTION.md` and accepted `docs/DECISIONS.md` entries. These define what Estragon should be; an execution shortcut must not override them.
@@ -144,7 +179,7 @@ Do not start a successor while the current review PR is open.
 
 ### Plan before implementation; maintain it as work changes
 
-- In the task issue or linked draft PR, write an **actionable mini-plan**: objective, files/layers touched, steps/checklist, measurable acceptance criteria, validation commands, risks/unknowns, dependencies, and explicit out-of-scope work. Include the work ID and issue link in the PR.
+- In the task issue before coding or opening a PR, write an **actionable mini-plan**: objective, files/layers touched, steps/checklist, measurable acceptance criteria, validation commands, risks/unknowns, dependencies, and explicit out-of-scope work. Include the work ID and issue link in the PR.
 - Keep the plan **small enough for one PR**. Split unexpected scope into a linked follow-up task instead of broadening the current PR. Work in testable checkpoints; post meaningful progress to the issue/PR as steps actually land, with commit/test links where available.
 - If dependencies, task scope or the work sequence must change, propose a **reviewed plan update** to `docs/EXECUTION_PLAN.md` and the related issue, with rationale. Changes to accepted architecture also require an ADR update or explicit review. Don't silently re-plan the project in a chat reply.
 - Check current issue/PR before making a new branch, especially when running multiple Codex sessions. Other sessions may maintain issue-only backlog/research while the single PR is active; do not create competing implementation work or PRs.
