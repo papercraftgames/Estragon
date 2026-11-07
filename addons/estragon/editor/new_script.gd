@@ -7,7 +7,7 @@ const Element = preload("../runtime/composition/element.gd")
 const Entry2D = preload("../runtime/node/estragon_2d.gd")
 const Entry3D = preload("../runtime/node/estragon_3d.gd")
 const Text = preload("../runtime/node/text.gd")
-var dialog: EditorFileDialog
+var dialog: Variant
 var dimension: OptionButton
 var error: AcceptDialog
 var interface: EditorInterface
@@ -17,12 +17,15 @@ func _init(editor_interface: EditorInterface, navigator: RefCounted) -> void:
 	interface = editor_interface
 	navigation = navigator
 func start(parent: Node) -> void:
-	dialog = EditorFileDialog.new()
+	# 4.0 registers EditorFileDialog abstract; do not reference its unavailable
+	# constructor even in a dead branch. Both paths use public native dialogs.
+	dialog = ClassDB.instantiate("EditorFileDialog") if ClassDB.can_instantiate("EditorFileDialog") else FileDialog.new()
 	dialog.name = "NewGogoScript"
-	dialog.title = "New Gogo Script"
+	if dialog is FileDialog: dialog.mode_overrides_title = false
+	dialog.title = "New Gogo Script (never overwrites source)"
 	dialog.access = EditorFileDialog.ACCESS_RESOURCES
 	dialog.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
-	dialog.disable_overwrite_warning = true
+	if dialog is EditorFileDialog: dialog.disable_overwrite_warning = true
 	dialog.add_filter("*.gogo","Gogo Script")
 	dimension = OptionButton.new()
 	dimension.name = "GogoTemplate"

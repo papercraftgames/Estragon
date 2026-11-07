@@ -6,9 +6,9 @@ Author GDScript-first `.gogo` files and run scenes normally. Save and both main/
 
 ## Create a script
 
-Use **Project > Tools > New Gogo Script…**. Choose a project directory and filename, then the Node2D or Node3D starter. Both templates import the composition `Element` and a native layout entry; Node2D includes a text greeting. Imports are computed relative to the generated `.gd` directory and the actual installed resources, including direct Yarn and relocated addons. Attach the generated script to a matching native host to run it.
+Use **Project > Tools > New Gogo Script…**. Godot 4.7 uses `EditorFileDialog`; 4.0 registers that class as abstract, so a capability-checked public `FileDialog` provides the native save workflow there. Choose a project directory and filename, then the Node2D or Node3D starter. Both templates import the composition `Element` and a native layout entry; Node2D includes a text greeting. Imports are computed relative to the generated `.gd` directory and the actual installed resources, including direct Yarn and relocated addons. Attach the generated script to a matching native host to run it.
 
-The dialog appends `.gogo` when no extension is supplied. It rejects another extension, existing files/directories, missing directories, unsafe/excluded paths and locations outside configured source roots. It never overwrites source; cancel writes nothing. Fix invalid configuration or choose an eligible directory before creating a file. The addon scans the filesystem and opens the new source in the stock Script Editor.
+The dialog appends `.gogo` when no extension is supplied. It rejects another extension, existing files/directories, missing directories, unsafe/excluded paths and locations outside configured source roots. It never overwrites source; cancel writes nothing. Godot 4.0 FileDialog lacks the overwrite-warning toggle: confirming its native warning still leads to Estragon’s refusal, without modifying the existing file. Fix invalid configuration or choose an eligible directory before creating a file. The addon scans the filesystem and opens the new source in the stock Script Editor.
 
 ## Highlighting and completion
 

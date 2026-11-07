@@ -128,7 +128,7 @@ A reviewer can ask “What is done, what is blocked, and what should Codex do ne
 
 ## P02 snapshot
 
-P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) changes native internal/generated references and replaces copy-based package acceptance with direct Yarn consumption plus nonstandard relocation and standard-path consumers. See [installation/testing contract](PACKAGING.md). The live issue/sole review PR holds exact verification and remaining acceptance; this entry is not a claim of merge or publication. CI01 routine budget, CI02 bounded two-engine direct-package release gate, strict artifact/OIDC checks and both registry consumers remain required; full 73-stage / 3-layout regressions are now opt-in.
+P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) changes native internal/generated references and replaces copy-based package acceptance with direct Yarn consumption plus nonstandard relocation and standard-path consumers. See [installation/testing contract](PACKAGING.md). Merged in [PR #112](https://github.com/papercraftgames/Estragon/pull/112); the issue/PR preserve exact verification. This is not a publication claim. CI01 routine budget, CI02 bounded two-engine direct-package release gate, strict artifact/OIDC checks and both registry consumers remain required; full 73-stage / 3-layout regressions are now opt-in.
 
 ## CI02 merged
 

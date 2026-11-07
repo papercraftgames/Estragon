@@ -51,7 +51,7 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 	check(tools_action(),"Project > Tools native action exists")
 	if not await until(func(): return plugin._new_script.dialog.visible,"native file dialog visible"): return null
 	if path == HOME: await capture("creation")
-	var dialog: EditorFileDialog = plugin._new_script.dialog
+	var dialog = plugin._new_script.dialog
 	plugin._new_script.dimension.select(1 if spatial else 0)
 	dialog.current_path = path
 	dialog.get_line_edit().text = path.get_file()
@@ -148,6 +148,12 @@ func _run() -> void:
 		plugin._new_script.dialog.get_line_edit().text = rejected.get_file()
 		plugin._new_script.dialog.get_ok_button().pressed.emit()
 		await frames()
+		# 4.0 FileDialog lacks the overwrite-warning toggle. Accept its native
+		# warning and prove Estragon still refuses to write existing source.
+		if rejected.ends_with("Existing.gogo") and plugin._new_script.dialog is FileDialog:
+			for warning in plugin._new_script.dialog.find_children("*","ConfirmationDialog",true,false):
+				if warning.visible: warning.get_ok_button().pressed.emit()
+			await frames()
 		check(plugin._new_script.error.visible,"existing/ignored creation visibly rejected")
 		check(FileAccess.get_file_as_string("res://app/Existing.gogo")==existing and not FileAccess.file_exists("res://tests/Rejected.gogo"),"rejected creation preserves source")
 		plugin._new_script.error.hide()
