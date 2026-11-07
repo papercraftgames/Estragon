@@ -2,8 +2,8 @@
 extends RefCounted
 ## Re-entrant token scanner: caller supplies the offset and lexical context.
 ## Regexes classify Unicode characters only; no source rewriting/evaluation.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Source = preload("res://addons/estragon/compiler/source.gd")
+const Model = preload("model.gd")
+const Source = preload("source.gd")
 const OPERATORS := ["**=", "<<=", ">>=", ":=", "==", "!=", "<=", ">=", "<<", ">>", "**", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&&", "||", "->"]
 var file: Source
 var tokens: Array[Model.Token] = []

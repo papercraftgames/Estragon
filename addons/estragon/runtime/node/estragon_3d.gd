@@ -1,6 +1,6 @@
 @tool
 class_name Estragon3D
-extends "res://addons/estragon/runtime/node/component_3d.gd"
+extends "component_3d.gd"
 ## Explicit independent layout scope; does not assign native scene owner.
 @export var viewport_width_scale: float = 0.0:
 	set(value):

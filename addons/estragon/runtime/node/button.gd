@@ -1,6 +1,6 @@
 @tool
 class_name EstragonButton
-extends "res://addons/estragon/runtime/node/text.gd"
+extends "text.gd"
 ## Native primary-pointer button. No Control widget or polling wrapper.
 signal pressed
 const PADDING := Vector2(14,8)

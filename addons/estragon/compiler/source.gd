@@ -1,20 +1,27 @@
 @tool
 extends RefCounted
 ## Source ranges use code-point indexes internally and compatible UTF-16 externally.
-const Model = preload("res://addons/estragon/compiler/model.gd")
+const Model = preload("model.gd")
 var text: String
 var name: String
+var output_path: String
 var diagnostics: Array[Model.Diagnostic] = []
 var _lines: PackedInt32Array = [0]
 var _utf16: PackedInt32Array = [0]
 
-func _init(value: String, source_name: String = "<source>") -> void:
+func _init(value: String, source_name: String = "<source>", generated_path: String = "") -> void:
 	text = value
 	name = source_name
+	output_path = generated_path
 	for index in range(text.length()):
 		_utf16.append(_utf16[-1] + (2 if text.unicode_at(index) > 0xffff else 1))
 		if text[index] == "\n" or text[index] == "\r" and (index + 1 == text.length() or text[index + 1] != "\n"):
 			_lines.append(index + 1)
+
+func generated_path() -> String:
+	if not output_path.is_empty(): return output_path
+	if not "/" in name: return "res://Generated.gd"
+	return name.get_base_dir().path_join("generated").path_join(name.get_file().get_basename() + ".gd")
 
 func position(index: int) -> Model.Position:
 	index = clampi(index, 0, text.length())

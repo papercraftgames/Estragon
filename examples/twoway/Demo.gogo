@@ -1,12 +1,12 @@
 @bindable
 extends Node2D
 const Model = preload("res://examples/twoway/generated/Model.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const Box = preload("res://addons/estragon/runtime/node/vbox.gd")
-const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const Action = preload("res://addons/estragon/runtime/node/button.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Action = preload("../../../addons/estragon/runtime/node/button.gd")
 const Row = preload("res://examples/twoway/generated/Row.gd")
 var model: Model = Model.new()
 var enabled: bool = false

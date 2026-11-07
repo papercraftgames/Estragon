@@ -1,6 +1,6 @@
 @tool
 extends Resource
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("profile.tres")
 ## Framework-owned shared scope stack; never stored on application objects.
 var scopes: Array = []
 var records: Dictionary = {}
@@ -48,7 +48,7 @@ func lifecycle(host: Node, what: int) -> void:
 	var id := host.get_instance_id()
 	if what == Node.NOTIFICATION_READY:
 		if not records.has(id):
-			var record = preload("res://addons/estragon/runtime/composition/computation.gd").new(host,self)
+			var record = preload("computation.gd").new(host,self)
 			records[id] = record
 			record.schedule()
 	elif what == Node.NOTIFICATION_ENTER_TREE and records.has(id):

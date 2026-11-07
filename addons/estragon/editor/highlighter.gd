@@ -14,7 +14,7 @@ var _lines: Array[Dictionary] = []
 
 
 func _create() -> EditorSyntaxHighlighter:
-	return load("res://addons/estragon/editor/highlighter.gd").new()
+	return get_script().new()
 
 
 func _get_name() -> String:

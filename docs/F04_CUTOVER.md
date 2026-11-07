@@ -6,7 +6,7 @@
 
 Every GGX expression evaluates to a lightweight `Element` description. This includes markup in ordinary functions, lambdas, map callbacks, loops and helper modules; it never eagerly allocates live Godot Nodes. There is one emitter and one description API. Native expression evaluation order and lazy branches are preserved.
 
-A Node-based Gogo host automatically composes a top-level zero-argument `build_view() -> Element`, where `Element` is an explicit preload alias for `res://addons/estragon/runtime/composition/element.gd`. The generated lifecycle hook delegates to the same external manager. Observed Gogo getters in that function or any called helpers register actual read dependencies. Ordinary typed bindable getters/setters/signals work outside composition too, including RefCounted data models.
+A Node-based Gogo host automatically composes a top-level zero-argument `build_view() -> Element`, where `Element` is an explicit preload alias for the installed `runtime/composition/element.gd` Script. The standard-addon paths below are example authored imports, not a required installation root; P02 supports [direct Yarn and relocated installs](PACKAGING.md). The generated lifecycle hook delegates to the same external manager. Observed Gogo getters in that function or any called helpers register actual read dependencies. Ordinary typed bindable getters/setters/signals work outside composition too, including RefCounted data models.
 
 ```gdscript
 extends Node2D

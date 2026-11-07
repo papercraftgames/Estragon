@@ -1,8 +1,8 @@
 @bindable
-extends "res://addons/estragon/runtime/node/hbox.gd"
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+extends "../../../addons/estragon/runtime/node/hbox.gd"
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
 var item: Item = null
 var clicks: int = 0

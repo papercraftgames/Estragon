@@ -1,7 +1,7 @@
 extends "res://examples/ggx/base.gd"
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_3d.gd")
-const Native = preload("res://addons/estragon/runtime/node/native_3d.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_3d.gd")
+const Native = preload("../../../addons/estragon/runtime/node/native_3d.gd")
 const Custom = preload("res://examples/ggx/probe_3d.gd")
 
 func build_view() -> Element:
@@ -31,11 +31,11 @@ func _exit_tree() -> void:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(

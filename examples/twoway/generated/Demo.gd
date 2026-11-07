@@ -1,12 +1,12 @@
 
 extends Node2D
 const Model = preload("res://examples/twoway/generated/Model.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const Box = preload("res://addons/estragon/runtime/node/vbox.gd")
-const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const Action = preload("res://addons/estragon/runtime/node/button.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Action = preload("../../../addons/estragon/runtime/node/button.gd")
 const Row = preload("res://examples/twoway/generated/Row.gd")
 signal model_changed(previous: Model, value: Model)
 var model: Model = Model.new():
@@ -16,7 +16,7 @@ var model: Model = Model.new():
         model = _gogo_incoming_model
         model_changed.emit(_gogo_previous_model, _gogo_incoming_model)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
         return model
 
 signal enabled_changed(previous: bool, value: bool)
@@ -27,7 +27,7 @@ var enabled: bool = false:
         enabled = _gogo_incoming_enabled
         enabled_changed.emit(_gogo_previous_enabled, _gogo_incoming_enabled)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"enabled_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"enabled_changed")
         return enabled
 
 signal show_row_changed(previous: bool, value: bool)
@@ -38,7 +38,7 @@ var show_row: bool = true:
         show_row = _gogo_incoming_show_row
         show_row_changed.emit(_gogo_previous_show_row, _gogo_incoming_show_row)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"show_row_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"show_row_changed")
         return show_row
 
 signal reverse_changed(previous: bool, value: bool)
@@ -49,7 +49,7 @@ var reverse: bool = false:
         reverse = _gogo_incoming_reverse
         reverse_changed.emit(_gogo_previous_reverse, _gogo_incoming_reverse)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"reverse_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"reverse_changed")
         return reverse
 
 signal revision_changed(previous: int, value: int)
@@ -60,7 +60,7 @@ var revision: int = 0:
         revision = _gogo_incoming_revision
         revision_changed.emit(_gogo_previous_revision, _gogo_incoming_revision)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"revision_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"revision_changed")
         return revision
 
 func build_view() -> Element:
@@ -68,9 +68,9 @@ func build_view() -> Element:
     if self.reverse: rows.reverse()
     return _GogoFactories_0._gogo_build_2(
         (8.0),
-        (_GogoFactories_0._gogo_build_3((preload("res://addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled"))) if self.model != null else null),
+        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled"))) if self.model != null else null),
         ("Enabled" if self.model != null and self.model.enabled else "Disabled"),
-        (preload("res://addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
         ("Revision: %d" % self.revision),
         (rows),
         (replace_model),
@@ -93,11 +93,11 @@ func _proof() -> void:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: Row.Model) -> _GogoElement_0:

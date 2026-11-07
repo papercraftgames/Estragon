@@ -1,11 +1,11 @@
 extends Node2D
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
-const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
-const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 @bindable var count: int = 0
 var ui: Node:
     get: return get_node_or_null("UI")

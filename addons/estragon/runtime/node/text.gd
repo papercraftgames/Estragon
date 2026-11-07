@@ -1,6 +1,6 @@
 @tool
 class_name EstragonText
-extends "res://addons/estragon/runtime/node/component_2d.gd"
+extends "component_2d.gd"
 ## Native Font measure/draw, explicit lines only. No wrapping or rich text.
 @export var text: String = "":
 	set(value):

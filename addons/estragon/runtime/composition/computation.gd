@@ -1,8 +1,8 @@
 extends RefCounted
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
-const Binding = preload("res://addons/estragon/runtime/composition/binding.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Binding = preload("binding.gd")
+const Element = preload("element.gd")
 class Mounted extends RefCounted:
 	var node: WeakRef
 	var type: Variant

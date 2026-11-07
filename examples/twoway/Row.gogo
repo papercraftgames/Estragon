@@ -1,10 +1,10 @@
 @bindable
-extends "res://addons/estragon/runtime/node/hbox.gd"
+extends "../../../addons/estragon/runtime/node/hbox.gd"
 const Model = preload("res://examples/twoway/generated/Model.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Box = preload("res://addons/estragon/runtime/node/hbox.gd")
-const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Box = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 var model: Model = Model.new()
 func build_view() -> Element:
     return <Box name="RowView" gap={12.0}>

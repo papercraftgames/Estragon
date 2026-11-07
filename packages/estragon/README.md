@@ -4,23 +4,24 @@ Pre-1.0 Godot addon: native Gogo/GGX compilation/editor, signal-driven descripti
 
 ## Install into a Godot project
 
-Install the currently published beta with Yarn. The `beta` dist-tag resolves to the published package; `--exact` pins its resolved version in the consumer's manifest:
+P02 direct-install support is pending an owner-published release; earlier public betas may not contain this fix. The following contract applies to a package containing P02. Install the current beta in the Godot project root:
 
 ```sh
 yarn add --exact --ignore-scripts @papercraftgames/estragon@beta
 ```
 
-Yarn alone installs into `node_modules`; it does not register a Godot plugin. From the project root, with no existing `addons/estragon` directory:
+Keep the package where Yarn installs it. Do not copy, symlink or ignore the addon. Before opening the editor, add its full configuration path to the existing `editor_plugins/enabled` list in `project.godot` (preserve other enabled plugins):
 
-```sh
-touch node_modules/.gdignore
-mkdir -p addons
-cp -R node_modules/@papercraftgames/estragon/addons/estragon addons/estragon
+```ini
+[editor_plugins]
+enabled=PackedStringArray("res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.cfg")
 ```
 
-The `.gdignore` prevents Godot importing a duplicate copy from node_modules. Use a copy, not a source/output symlink. For upgrades, back up local addon modifications and deliberately replace the previous addon directory; do not nest/merge two addon versions. Commit the copied addon and its `.gd.uid` sidecars. A teammate receiving that project can edit/run with Godot alone; node_modules is not needed at runtime.
+Godot's Plugins panel discovers candidates under `addons/`; the enabled-plugin project setting accepts a full `res://` configuration path outside that directory. Yarn installation alone does not enable the plugin. Install dependencies before opening Godot; keep only one Estragon tree to avoid duplicate classes/UIDs. Commit the package manifest/lockfile and plugin setting, retaining the package's stable `.gd.uid` sidecars. Godot alone handles editing and Play after installation.
 
-Open Godot → Project Settings → Plugins and enable **Estragon** at `res://addons/estragon/editor/plugin.cfg`. Author `.gogo` files and normal `.tscn` hosts referencing the generated script. Optionally put `{"version":1,"source_roots":["src"]}` in project `gogo.config.json`. Normal save and both main/current Play paths compile and validate natively; invalid or unsavable source blocks stale Play and recovers after repair.
+Explicit authored preload aliases reference the chosen installation, for example `preload("../../../node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/element.gd")` in a Gogo file whose generated script lives three directories below the project root. As with ordinary GDScript, relative authored imports resolve from the **generated script's directory**. Canonical registered widget class names also work after Godot indexes the project. Internal dependencies are script-relative; compiler-injected dependencies are calculated from installed Resources and the actual output directory. A different project-relative installation needs only matching authored imports and the plugin configuration setting; no production source edits. Standard `addons/estragon` placement remains supported.
+
+Author `.gogo` files and normal `.tscn` hosts referencing generated scripts. Optional `gogo.config.json`: `{"version":1,"source_roots":["src"]}`. Native save and main/current Play compile with actual-path validation, invalid/unsavable-source rejection, rollback and repair. Generated files must be rebuilt after relocating an installed addon, just as authored imports must be updated.
 
 [Source-authored Counter example](https://github.com/papercraftgames/Estragon/tree/main/examples/counter), [language](https://github.com/papercraftgames/Estragon/blob/main/docs/GOGO_LANGUAGE.md), [native UI](https://github.com/papercraftgames/Estragon/blob/main/docs/NODE_UI.md), [editor](https://github.com/papercraftgames/Estragon/blob/main/docs/EDITOR.md), [package/release contract](https://github.com/papercraftgames/Estragon/blob/main/docs/PACKAGING.md).
 

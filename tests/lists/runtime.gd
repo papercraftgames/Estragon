@@ -221,6 +221,7 @@ func compiler_checks() -> void:
     check(evaluation_result.ok,"native helper/conditional sequence source compiles")
     if evaluation_result.ok:
         var script := GDScript.new()
+        script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
         script.source_code = evaluation_result.code
         check(script.reload()==OK,"evaluation order source passes native semantics")
         var probe = script.new()

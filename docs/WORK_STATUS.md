@@ -76,7 +76,7 @@ Previously published nine-engine results stay archived, not rerun.
 
 ## CI01 snapshot
 
-CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) is active after #108 owner-merged (`b473bdb`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; optimization remains In review until owner merge. Updated #109 requires routine PR/main <=60seconds and full73-stage two-engine certification as a hard pre-publication gate; routine main is not release evidence. No package version/publication work is included.
+CI01 [#109](https://github.com/papercraftgames/Estragon/issues/109) merged in #110 (`1b64548`), with [CI policy/evidence contract](CI_PERFORMANCE.md). Live issue/sole PR is authoritative; the merged budget remains mandatory. Updated #109 requires routine PR/main <=60seconds and full73-stage two-engine certification as a hard pre-publication gate; routine main is not release evidence. No package version/publication work is included.
 
 ## Issue/PR ownership rule
 
@@ -125,3 +125,7 @@ Also keep the **issue's checklist and PR description** accurate at meaningful mi
 A reviewer can ask “What is done, what is blocked, and what should Codex do next?” and answer it from **merged code + CI, the issue/PR timeline, and this snapshot**, without finding an old chat.
 
 **F01 review boundary:** `examples/composition/Counter.tscn`, compiler descriptor range and generated getters, external scope/computation records, static-shape native reconciliation and native editor/runtime/rendered proof. T09-B consumers remain during this deliberate spike until F04 parity/removal; no permanent duplicate runtime is required. Exact acceptance is tracked in #92.
+
+## P02 snapshot
+
+P02 [#111](https://github.com/papercraftgames/Estragon/issues/111) changes native internal/generated references and replaces copy-based package acceptance with direct Yarn consumption plus nonstandard relocation and standard-path consumers. See [installation/testing contract](PACKAGING.md). The live issue/sole review PR holds exact verification and remaining acceptance; this entry is not a claim of merge or publication. CI01 routine budget, all73 two-engine pre-publication stages, strict artifact/OIDC checks and both registry consumers remain required.

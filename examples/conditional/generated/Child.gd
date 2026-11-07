@@ -1,6 +1,6 @@
-extends "res://addons/estragon/runtime/node/vbox.gd"
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
+extends "../../../addons/estragon/runtime/node/vbox.gd"
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Model = preload("res://examples/composition/generated/Model.gd")
 signal model_changed(previous: Model, value: Model)
 var model: Model = Model.new():
@@ -10,7 +10,7 @@ var model: Model = Model.new():
         model = _gogo_incoming_model
         model_changed.emit(_gogo_previous_model, _gogo_incoming_model)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
         return model
 
 signal value_changed(previous: int, value: int)
@@ -21,7 +21,7 @@ var value: int = 0:
         value = _gogo_incoming_value
         value_changed.emit(_gogo_previous_value, _gogo_incoming_value)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"value_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"value_changed")
         return value
 
 func build_view() -> Element:
@@ -29,11 +29,11 @@ func build_view() -> Element:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:

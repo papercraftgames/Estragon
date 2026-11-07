@@ -181,10 +181,11 @@ func run() -> void:
 func compiler_checks() -> void:
     var source := FileAccess.get_file_as_string("res://examples/twoway/Demo.gogo")
     for fixture in ["BadArity","BadSignal","BadValue"]:
-        var bad_control := Compiler.compile(source.replace("res://addons/estragon/runtime/node/toggle.gd","res://tests/twoway/"+fixture+".gd"),"examples/twoway/Demo.gogo")
+        var bad_control := Compiler.compile(source.replace("../../../addons/estragon/runtime/node/toggle.gd","res://tests/twoway/"+fixture+".gd"),"examples/twoway/Demo.gogo")
         check(not bad_control.ok and "writable bool value" in bad_control.diagnostics[0].message,"reject native input contract: "+fixture)
     var collision := Compiler.compile('@bindable\nextends Node2D\nconst Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar _gogo_root: bool = false\nvar _gogo_source: bool = false\nvar _gogo_edit: bool = false\nfunc build_view() -> Element: return <Toggle bind:value={self._gogo_root} />\n',"collision.gogo")
     var collision_script := GDScript.new()
+    collision_script.resource_path = "res://_gogo_memory_%d.gd" % collision_script.get_instance_id()
     collision_script.source_code = collision.code
     check(collision.ok and collision_script.reload()==OK,"generated binding parameters avoid authored identifier collisions")
     var first := Compiler.compile(source,"examples/twoway/Demo.gogo")

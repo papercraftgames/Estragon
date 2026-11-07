@@ -3,7 +3,7 @@ class_name EstragonComponent3D
 extends Node3D
 ## Native C1 participant. Needs a contiguous same-dimensional chain to an entry.
 signal layout_applied(size: Vector3)
-const Coordinator = preload("res://addons/estragon/runtime/node/internal/coordinator.gd")
+const Coordinator = preload("internal/coordinator.gd")
 @export var width: float = -1.0:
 	set(value):
 		if not valid_length(value) or width == value: return

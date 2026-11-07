@@ -1,10 +1,10 @@
 extends Node2D
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
-const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const Row = preload("res://examples/inventory/generated/Row.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
 signal items_changed(previous: Array, value: Array)
@@ -15,7 +15,7 @@ var items: Array = [Item.new(1,"Apple"),Item.new(2,"Bread"),Item.new(3,"Carrot")
         items = _gogo_incoming_items
         items_changed.emit(_gogo_previous_items, _gogo_incoming_items)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"items_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"items_changed")
         return items
 
 signal show_note_changed(previous: bool, value: bool)
@@ -26,7 +26,7 @@ var show_note: bool = true:
         show_note = _gogo_incoming_show_note
         show_note_changed.emit(_gogo_previous_show_note, _gogo_incoming_show_note)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"show_note_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"show_note_changed")
         return show_note
 
 signal use_map_changed(previous: bool, value: bool)
@@ -37,7 +37,7 @@ var use_map: bool = false:
         use_map = _gogo_incoming_use_map
         use_map_changed.emit(_gogo_previous_use_map, _gogo_incoming_use_map)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"use_map_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"use_map_changed")
         return use_map
 
 var next_id: int = 4
@@ -104,11 +104,11 @@ func write_proof() -> void:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: Row.Item) -> _GogoElement_0:

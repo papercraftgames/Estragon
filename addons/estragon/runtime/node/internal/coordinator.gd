@@ -1,8 +1,8 @@
 @tool
 extends RefCounted
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("../../composition/profile.tres")
 ## Native event/lifetime adapter shared by both spatial branches. No layout math.
-const Core = preload("res://addons/estragon/runtime/node/internal/layout_core.gd")
+const Core = preload("layout_core.gd")
 const META := "_estragon_b2_coordinator"
 enum Mode { PROOF, PARTICIPANT, ENTRY }
 var _mode: int

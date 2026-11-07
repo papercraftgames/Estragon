@@ -2,8 +2,8 @@
 extends RefCounted
 ## Explicit Godot semantic validation, separate from deterministic source emission.
 ## Uses native Logger only for the synchronous reload window; never spawns tools.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Compiler = preload("res://addons/estragon/compiler/compiler.gd")
+const Model = preload("model.gd")
+const Compiler = preload("compiler.gd")
 
 class Validation extends RefCounted:
 	var generated_script: GDScript
@@ -19,7 +19,7 @@ static func _capture(path: String) -> Object:
 	if not OS.has_method("add_logger") or not OS.has_method("remove_logger"):
 		return null
 	var factory := GDScript.new()
-	factory.source_code = FileAccess.get_file_as_string("res://addons/estragon/compiler/diagnostic_capture.gd.txt")
+	factory.source_code = FileAccess.get_file_as_string((Compiler as Script).resource_path.get_base_dir().path_join("diagnostic_capture.gd.txt"))
 	if factory.reload() != OK: return null # Native errors remain visible.
 	var logger = factory.new()
 	logger.path = path

@@ -7,7 +7,7 @@ var width: float = 120.0:
 		width = _gogo_incoming_width
 		width_changed.emit(_gogo_previous_width, _gogo_incoming_width)
 	get:
-		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"width_changed")
+		preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"width_changed")
 		return width
 
 signal tint_changed(previous: Color, value: Color)
@@ -18,7 +18,7 @@ var tint: Color = Color(0.2,0.8,0.6):
 		tint = _gogo_incoming_tint
 		tint_changed.emit(_gogo_previous_tint, _gogo_incoming_tint)
 	get:
-		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"tint_changed")
+		preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"tint_changed")
 		return tint
 
 signal title_changed(previous: String, value: String)
@@ -29,7 +29,7 @@ var title: String = "Reactive model":
 		title = _gogo_incoming_title
 		title_changed.emit(_gogo_previous_title, _gogo_incoming_title)
 	get:
-		preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
+		preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"title_changed")
 		return title
 
 

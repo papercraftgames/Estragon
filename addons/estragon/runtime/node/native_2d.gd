@@ -1,8 +1,8 @@
 @tool
 class_name EstragonNative2D
-extends "res://addons/estragon/runtime/node/component_2d.gd"
+extends "component_2d.gd"
 ## C1 bounded native visual participant; allocation never stretches geometry.
-const Bounds = preload("res://addons/estragon/runtime/node/internal/native_bounds.gd")
+const Bounds = preload("internal/native_bounds.gd")
 @export var observe_native: bool = false:
 	set(value):
 		observe_native = value

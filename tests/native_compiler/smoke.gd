@@ -15,6 +15,7 @@ func _run() -> void:
 	if result.ok:
 		check(result.code == Compiler.compile(source, "smoke.gogo").code, "deterministic source")
 		var script := GDScript.new()
+		script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 		script.source_code = result.code
 		check(script.reload() == OK, "generated native GDScript loads")
 		if not failed:

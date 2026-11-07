@@ -1,8 +1,8 @@
 
-extends "res://addons/estragon/runtime/node/hbox.gd"
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+extends "../../../addons/estragon/runtime/node/hbox.gd"
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
 signal item_changed(previous: Item, value: Item)
 var item: Item = null:
@@ -12,7 +12,7 @@ var item: Item = null:
         item = _gogo_incoming_item
         item_changed.emit(_gogo_previous_item, _gogo_incoming_item)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"item_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"item_changed")
         return item
 
 signal clicks_changed(previous: int, value: int)
@@ -23,7 +23,7 @@ var clicks: int = 0:
         clicks = _gogo_incoming_clicks
         clicks_changed.emit(_gogo_previous_clicks, _gogo_incoming_clicks)
     get:
-        preload("res://addons/estragon/runtime/composition/state.tres").observe(self, &"clicks_changed")
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"clicks_changed")
         return clicks
 
 func build_view() -> Element:
@@ -33,11 +33,11 @@ func increment() -> void:
 
 
 func _notification(_gogo_what: int) -> void:
-    preload("res://addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
+    preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
 
 class _GogoFactories_0:
-    const _GogoElement_0 = preload("res://addons/estragon/runtime/composition/element.gd")
+    const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:

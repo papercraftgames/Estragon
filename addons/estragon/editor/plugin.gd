@@ -2,10 +2,10 @@
 extends EditorPlugin
 ## Native ScriptEditor authoring and direct Godot compilation before every Play.
 
-const BufferGuard = preload("res://addons/estragon/editor/buffer_guard.gd")
-const BuildService = preload("res://addons/estragon/editor/build_service.gd")
-const HighlighterAssociation = preload("res://addons/estragon/editor/highlighter_association.gd")
-const Highlighter = preload("res://addons/estragon/editor/highlighter.gd")
+const BufferGuard = preload("buffer_guard.gd")
+const BuildService = preload("build_service.gd")
+const HighlighterAssociation = preload("highlighter_association.gd")
+const Highlighter = preload("highlighter.gd")
 const TEXT_EXTENSIONS_SETTING := "docks/filesystem/textfile_extensions"
 
 var _highlighter: EditorSyntaxHighlighter

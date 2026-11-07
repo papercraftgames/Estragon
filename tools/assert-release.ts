@@ -55,6 +55,13 @@ export function assessFile(file: string) {
             for (const [key, value] of Object.entries(result)) {
                 const stage = value as Stage;
                 observed[group + '.' + key] = stage;
+                if(group==='package' && key!=='pack') {
+                    const runs=stage.runs as Stage[] | undefined;
+                    if(!Array.isArray(runs) || runs.length!==3 || ['direct','relocated','standard'].some(layout=>runs.filter(run=>run.layout===layout).length!==1))throw Error('Missing package installation layout proof: '+key);
+                    for(const run of runs) {
+                        if(run.status!=='PASS' || run.exit_code!==0 || run.timeout || run.aborted_on_error || !run.command?.length || !run.log || path.basename(run.log)!==run.log || !report.files[group+'/'+report.label+'/'+run.log])throw Error('Missing successful package layout execution: '+key);
+                    }
+                }
                 if (stage.command && (!stage.log || path.basename(stage.log) !== stage.log || !report.files[group + '/' + report.label + '/' + stage.log]))
                     throw Error('Missing stage execution log: ' + key);
                 if (!['package_layout', 'engine_identity'].includes(key) && (!stage.command?.length || stage.exit_code !== 0 || stage.timeout || stage.aborted_on_error))

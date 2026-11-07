@@ -1,6 +1,6 @@
 @tool
 class_name EstragonToggle
-extends "res://addons/estragon/runtime/node/button.gd"
+extends "button.gd"
 ## Controlled boolean input. Only pointer activation emits a user edit.
 signal value_changed(value: bool)
 @export var value: bool = false:

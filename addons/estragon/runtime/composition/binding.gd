@@ -1,6 +1,6 @@
 @tool
 extends RefCounted
-const Profile = preload("res://addons/estragon/runtime/composition/profile.tres")
+const Profile = preload("profile.tres")
 ## Desired typed linkage, owned only by external description/mount records.
 var root: WeakRef
 var source: WeakRef

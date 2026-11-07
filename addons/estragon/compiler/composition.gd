@@ -1,9 +1,10 @@
 @tool
 extends RefCounted
 ## Detect the automatic host entry. Every GGX expression is a description.
-const Model = preload("res://addons/estragon/compiler/model.gd")
-const Lexer = preload("res://addons/estragon/compiler/lexer.gd")
-const Resolver = preload("res://addons/estragon/compiler/native/resolver.gd")
+const Element = preload("../runtime/composition/element.gd")
+const Model = preload("model.gd")
+const Lexer = preload("lexer.gd")
+const Resolver = preload("native/resolver.gd")
 var file
 func _init(source) -> void:
 	file = source
@@ -31,7 +32,7 @@ func apply(module) -> void:
 				return
 			continue
 		var type: String = tokens[index+5].text
-		if resolver.aliases.get(type,"")!="res://addons/estragon/runtime/composition/element.gd":
+		if resolver.aliases.get(type,"")!=(Element as Script).resource_path:
 			if has_ggx and type in ["Node","Node2D","Node3D"]:
 				file.fail("build_view must return Element descriptions; eager Node-returning GGX is unsupported",tokens[index+5].span.start.index,tokens[index+5].span.end.index)
 				return
