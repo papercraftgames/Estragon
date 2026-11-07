@@ -159,7 +159,7 @@ func action(name: String) -> void:
 	check(false,"native key binding available: "+name)
 func _e03() -> String:
 	color(home,0,0)
-	var capabilities := {"engine":Engine.get_version_info().string,"native_highlighter_class":ClassDB.class_exists("GDScriptSyntaxHighlighter"),"native_highlighter_available":ClassDB.class_exists("GDScriptSyntaxHighlighter") and ClassDB.can_instantiate("GDScriptSyntaxHighlighter"),"native_highlighter_used":home.syntax_highlighter.uses_native(),"acceptance_virtual_attached":home.get_script()!=null,"native_analyzer":ClassDB.class_has_method("GDScript","complete_code")}
+	var capabilities := {"engine":Engine.get_version_info().string,"native_highlighter_class":ClassDB.class_exists("GDScriptSyntaxHighlighter"),"native_highlighter_available":ClassDB.class_exists("GDScriptSyntaxHighlighter") and ClassDB.can_instantiate("GDScriptSyntaxHighlighter"),"native_highlighter_used":home.syntax_highlighter.uses_native(),"acceptance_virtual_attached":home.get_script()!=null,"native_analyzer":ClassDB.class_has_method("GDScript","complete_code"),"cached_reference_api":ResourceLoader.has_method("get_cached_ref"),"symlink_api":DirAccess.open("res://").has_method("is_link")}
 	var file := FileAccess.open("res://e03-editor-capabilities.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(capabilities,"\t"))
 	file.close()
@@ -220,6 +220,7 @@ func _e03() -> String:
 		await until(func(): return current(HOME)!=null,"return from live model")
 		home = current(HOME)
 		await complete('extends Node2D\nconst Model = preload("LiveModel.gd")\nvar model: Model\nfunc demo():\n\tmodel.uns§\n',"unsaved_speed","model.unsaved_speed","E03 other unsaved Gogo metadata")
+		await complete('extends Node2D\nconst Custom = preload("LiveModel.gd")\nfunc build_view() -> Element:\n\treturn <Cu§ />\n',"Custom","<Custom />","E03 explicit custom Node tag without constructor execution")
 		# Restore a harmless valid source before the existing save/Play checks.
 		model.text = 'extends Node2D\nvar saved_speed: float = 1.0\n'
 	await complete('@tool\nextends Node2D\n# copyright café 😀\nfunc build_view() -> Element:\n\treturn <Te§ text="Unicode" />\n',"Text","<Text text=","E03 Unicode selection/import placement",true)
