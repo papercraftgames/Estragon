@@ -46,6 +46,7 @@ for(const selection of options.engines){
   fs.rmSync(path.join(box.project,'app/Screens/generated'),{recursive:true,force:true});
   fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addonRoot+'/editor/plugin.cfg", "res://tests/editor_ux/plugin.cfg")\n[editor]\nrun/main_run_args="--headless --audio-driver Dummy"\n');
   await command('editor',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
+  await command('editor-restart',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
   fs.copyFileSync(path.join(box.project,'e02-editor.png'),path.join(out,'editor.png'));
   for(const [name,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,name))!==hash)throw Error('Editor changed installed package bytes/UIDs: '+name);
   if(fs.existsSync(path.join(box.project,'addons/estragon')) || fs.existsSync(path.join(box.project,'node_modules/.gdignore')))throw Error('Forbidden copy/ignore fallback');

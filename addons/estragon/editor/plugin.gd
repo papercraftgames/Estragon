@@ -67,8 +67,9 @@ func _enter_tree() -> void:
 	_diagnostics.bbcode_enabled = true
 	_diagnostics.meta_clicked.connect(_diagnostic_clicked)
 	add_control_to_bottom_panel(_diagnostics, "Gogo")
-	_interface.get_resource_filesystem().filesystem_changed.connect(_schedule)
+	_interface.get_resource_filesystem().filesystem_changed.connect(_filesystem_changed)
 	_interface.get_resource_filesystem().sources_changed.connect(_sources_changed)
+	scene_changed.connect(_scene_context_changed)
 	resource_saved.connect(_resource_saved)
 	_interface.get_script_editor().editor_script_changed.connect(_script_changed)
 	# Native GGX with explicit imports can build before the editor restores
@@ -142,6 +143,15 @@ func _refresh_generated_editors() -> void:
 			code.scroll_vertical = vertical
 			code.scroll_horizontal = horizontal
 			code.tag_saved_version()
+
+
+func _filesystem_changed() -> void:
+	if _services != null: _services.invalidate()
+	_schedule()
+
+
+func _scene_context_changed(_root: Node) -> void:
+	if _services != null: _services.invalidate()
 
 
 func _sources_changed(_changed: bool) -> void:
@@ -234,8 +244,8 @@ func _exit_tree() -> void:
 	_play_save_failed = false
 	if is_instance_valid(_interface):
 		var filesystem := _interface.get_resource_filesystem()
-		if filesystem.filesystem_changed.is_connected(_schedule):
-			filesystem.filesystem_changed.disconnect(_schedule)
+		if filesystem.filesystem_changed.is_connected(_filesystem_changed):
+			filesystem.filesystem_changed.disconnect(_filesystem_changed)
 		if filesystem.sources_changed.is_connected(_sources_changed):
 			filesystem.sources_changed.disconnect(_sources_changed)
 	if is_instance_valid(_interface):

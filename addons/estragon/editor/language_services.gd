@@ -30,11 +30,12 @@ func attach(editor: ScriptEditorBase, code: CodeEdit, path: String) -> void:
 		if entries[id].path == path: return
 		_detach(id)
 	if not path.ends_with(".gogo"): return
-	entries[id] = {"code":weakref(code),"editor":weakref(editor),"path":path,"model":Completion.new(),"lexical":Context.new(),"records":[],"pending":true,"enabled":code.code_completion_enabled,"prefixes":code.code_completion_prefixes,"request":_complete.bind(id),"edit":_changed.bind(id),"gutter":_gutter_clicked.bind(id),"theme":_theme_changed.bind(id),"closing":_closed.bind(id)}
+	entries[id] = {"code":weakref(code),"editor":weakref(editor),"path":path,"model":Completion.new(),"lexical":Context.new(),"records":[],"pending":true,"marked":[],"line_count":code.get_line_count(),"enabled":code.code_completion_enabled,"prefixes":code.code_completion_prefixes,"request":_complete.bind(id),"edit":_changed.bind(id),"gutter":_gutter_clicked.bind(id),"theme":_theme_changed.bind(id),"closing":_closed.bind(id)}
 	code.code_completion_enabled = true
 	code.code_completion_prefixes = PackedStringArray([".","<","/","@","{"])
 	code.code_completion_requested.connect(entries[id].request)
 	code.text_changed.connect(entries[id].edit)
+	code.text_set.connect(entries[id].edit)
 	code.gutter_clicked.connect(entries[id].gutter)
 	code.theme_changed.connect(entries[id].theme)
 	code.tree_exiting.connect(entries[id].closing)
@@ -53,7 +54,7 @@ func _detach(id: int) -> void:
 	var entry: Dictionary = entries[id]
 	var code = entry.code.get_ref()
 	if code != null:
-		for pair in [["code_completion_requested","request"],["text_changed","edit"],["gutter_clicked","gutter"],["theme_changed","theme"],["tree_exiting","closing"]]:
+		for pair in [["code_completion_requested","request"],["text_changed","edit"],["text_set","edit"],["gutter_clicked","gutter"],["theme_changed","theme"],["tree_exiting","closing"]]:
 			if code.is_connected(pair[0],entry[pair[1]]): code.disconnect(pair[0],entry[pair[1]])
 		code.cancel_code_completion()
 		code.code_completion_enabled = entry.enabled
@@ -137,12 +138,16 @@ func _mark(entry: Dictionary) -> void:
 	if code == null: return
 	var gutter := _gutter_index(code)
 	if gutter < 0: return
-	for line in range(code.get_line_count()):
+	var stale: Array = entry.marked if entry.line_count == code.get_line_count() else range(code.get_line_count())
+	for line in stale:
 		code.set_line_gutter_text(line,gutter,"")
 		code.set_line_gutter_metadata(line,gutter,null)
 		code.set_line_gutter_clickable(line,gutter,false)
+	entry.marked = []
+	entry.line_count = code.get_line_count()
 	for record in entry.records:
 		var row := clampi(record.line-1,0,code.get_line_count()-1)
+		if row not in entry.marked: entry.marked.append(row)
 		code.set_line_gutter_text(row,gutter,"!")
 		code.set_line_gutter_item_color(row,gutter,code.get_theme_color("error_color","Editor"))
 		code.set_line_gutter_metadata(row,gutter,record)

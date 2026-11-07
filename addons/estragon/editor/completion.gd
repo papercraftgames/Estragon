@@ -27,7 +27,7 @@ func _tokens(text: String) -> Array:
 	for index in range(context.lines.size()):
 		for token in context.line(index).tokens:
 			if token.kind in ["comment","tag","property"]: continue
-			if token.kind == "string" and not result.is_empty() and result[-1].kind == "string" and result[-1].end == token.start:
+			if token.kind == "string" and not result.is_empty() and result[-1].kind == "string" and result[-1].row == index and result[-1].end == token.start:
 				result[-1].text += token.text
 				result[-1].end = token.end
 			else:
@@ -62,6 +62,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 		var scope: String = owner if tokens[index].indent > 0 else ""
 		if word == "func" and tokens[index].indent == 0:
 			owner = name
+			owners[tokens[index].row] = owner
 			if name == "_init" and index+3 < tokens.size() and tokens[index+3].text != ")": required_initializer = true
 		var type := ""
 		if index+3 < tokens.size() and tokens[index+2].text == ":": type = tokens[index+3].text
@@ -99,7 +100,7 @@ func _index(text: String, source: String) -> void:
 	_aliases = declarations.aliases
 	_base = declarations.base
 func _script(path: String) -> Dictionary:
-	var text: String = sources.get(path,FileAccess.get_file_as_string(path))
+	var text: String = sources[path] if sources.has(path) else FileAccess.get_file_as_string(path)
 	if not _script_cache.has(path) or _script_cache[path].text != text:
 		_script_cache[path] = {"text":text,"declarations":_declarations(text,path)}
 	return _script_cache[path].declarations
@@ -110,8 +111,8 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 		if _native_cache.has(name): return _native_cache[name]
 		var result: Dictionary = {}
 		for prop in ClassDB.class_get_property_list(name):
-			if not str(prop.name).contains("/") and not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY):
-				result[prop.name] = {"type":str(prop.get("class_name","")),"kind":CodeEdit.KIND_MEMBER,"value_type":prop.type,"writable":true}
+			if not str(prop.name).contains("/"):
+				result[prop.name] = {"type":str(prop.get("class_name","")),"kind":CodeEdit.KIND_MEMBER,"value_type":prop.type,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
 		for method in ClassDB.class_get_method_list(name): result[method.name] = {"type":"","kind":CodeEdit.KIND_FUNCTION}
 		for sig in ClassDB.class_get_signal_list(name): result[sig.name] = {"type":"","kind":CodeEdit.KIND_SIGNAL,"args":sig.args.map(func(arg): return arg.type)}
 		_native_cache[name] = result
@@ -150,10 +151,11 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 	while cursor >= 0 and (left[cursor].is_valid_identifier() or left[cursor].is_valid_int() or left[cursor] == ":"):
 		prefix = left[cursor]+prefix
 		cursor -= 1
+	if context.mode == "tag" and context.closing: prefix = "/"+prefix
 	var offered: Dictionary = {}
 	if context.mode == "tag":
 		if context.closing:
-			if not context.tags.is_empty(): offered[context.tags[-1]] = {"kind":CodeEdit.KIND_CLASS}
+			if not context.tags.is_empty(): offered["/"+context.tags[-1]] = {"kind":CodeEdit.KIND_CLASS}
 		elif context.name_pending or not left.substr(maxi(0,left.rfind("<"))+1).contains(" ") and not left.substr(maxi(0,left.rfind("<"))+1).contains("\t"):
 			for name in _classes:
 				if ClassDB.is_parent_class(name,"Node") and ClassDB.can_instantiate(name): offered[name] = {"kind":CodeEdit.KIND_CLASS}

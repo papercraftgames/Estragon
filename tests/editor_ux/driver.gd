@@ -115,18 +115,54 @@ func blocked(mode: String) -> void:
 	check((FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray())==uid and load(OUTPUT)==cached and cached.source_code==source,"failed Play preserves UID/Script identity")
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
+	if FileAccess.file_exists("res://.godot/e02-restart.request"):
+		await plugin._navigation.open(HOME)
+		if await until(func(): return current(HOME)!=null,"restart authenticates restored Gogo tab"):
+			home = current(HOME)
+			original = home.text
+			await complete(original.replace('return <Entry','self.glo§\n\treturn <Entry'),"global_position","self.global_position","restart completion")
+			home.text = original
+			await play("main")
+		finish()
+		return
 	interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
 	home = await create(HOME)
 	if home == null: finish(); return
 	original = home.text
 	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"valid template imports actual installation relatively")
+	# Cancel and rejected paths exercise the native dialog without touching source.
+	check(tools_action(),"creation menu can be reopened")
+	plugin._new_script.dialog.current_path = "res://app/Screens/Cancelled.gogo"
+	plugin._new_script.dialog.get_cancel_button().pressed.emit()
+	await frames()
+	check(not FileAccess.file_exists("res://app/Screens/Cancelled.gogo"),"cancel creates no source")
+	for rejected in ["res://app/Existing.gogo","res://tests/Rejected.gogo"]:
+		var existing := FileAccess.get_file_as_string("res://app/Existing.gogo")
+		tools_action()
+		plugin._new_script.dialog.current_path = rejected
+		plugin._new_script.dialog.get_line_edit().text = rejected.get_file()
+		plugin._new_script.dialog.get_ok_button().pressed.emit()
+		await frames()
+		check(plugin._new_script.error.visible,"existing/ignored creation visibly rejected")
+		check(FileAccess.get_file_as_string("res://app/Existing.gogo")==existing and not FileAccess.file_exists("res://tests/Rejected.gogo"),"rejected creation preserves source")
+		plugin._new_script.error.hide()
+		plugin._new_script.dialog.hide()
 	var model := original.replace('func build_view()', 'var greeting: String = "Hello"\nvar camera: Camera2D\nsignal accepted\nfunc build_view()')
 	await complete(model.replace('<Text name=', '<Te§ name='),"Text","<Text name=","imported tag")
 	await complete(model.replace('viewport_width_scale','view§'),"viewport_width_scale","viewport_width_scale","known attribute")
 	await complete(model.replace('return <Entry', 'self.glo§\n\treturn <Entry'),"global_position","self.global_position","self native member")
 	await complete(model.replace('text="Hello Gogo"','text={self.gree§}'),"greeting","self.greeting","GGX expression member")
 	await complete(model.replace('return <Entry','camera.zo§\n\treturn <Entry'),"zoom","camera.zoom","typed native member")
-	await complete(model.replace('</Entry>','</Ent§>'),"Entry","</Entry>","closing tag")
+	await complete(model.replace('</Entry>','</Ent§>'),"/Entry","</Entry>","closing tag")
+	set_source(home,model.replace('return <Entry','self.glo§\n\treturn <Entry'))
+	await frames()
+	var shortcut := InputEventKey.new()
+	shortcut.keycode = KEY_SPACE
+	shortcut.ctrl_pressed = true
+	shortcut.pressed = true
+	Input.parse_input_event(shortcut)
+	await until(func(): return not home.get_code_completion_options().is_empty(),"native Ctrl+Space requests completion")
+	home.cancel_code_completion()
 	for source in ['# <Node self.§','var text = "self.§"']:
 		set_source(home,source)
 		home.request_code_completion(true)
@@ -156,6 +192,18 @@ func _run() -> void:
 	home.text = original
 	await get_tree().create_timer(0.6).timeout
 	check(plugin._services.entries[home.get_instance_id()].records.is_empty(),"repair clears markers")
+	home.text = 'extends Node2D\nfunc view():\n\treturn <Node name="😀"></Wrong>\n'
+	if await until(func(): return not plugin._services.entries[home.get_instance_id()].records.is_empty(),"Unicode syntax diagnostic"):
+		var record: Dictionary = plugin._services.entries[home.get_instance_id()].records[0]
+		await plugin._services.navigate(record)
+		check(home.get_caret_column()==Services.scalar_column(home.get_line(record.line-1),record.column),"UTF-16 span navigates Unicode CodeEdit column")
+		check(home.get_caret_column()<record.column-1,"non-BMP source position is converted")
+	home.text = original
+	interface.edit_script(load("res://app/Ordinary.gd"))
+	await frames(8)
+	var ordinary: CodeEdit = interface.get_script_editor().get_current_editor().get_base_editor()
+	check(ordinary != home and ordinary.syntax_highlighter.get_script()!=Highlighter,"ordinary gd retains native highlighter")
+	check(not plugin._services.entries.has(ordinary.get_instance_id()) and plugin._services._gutter_index(ordinary)<0,"ordinary gd has no Gogo services/gutter")
 	var spatial := await create("res://app/Screens/Spatial.gogo",true)
 	check(spatial != null and spatial.text.begins_with('extends Node3D'),"second Gogo tab / spatial template")
 	await plugin._navigation.open(HOME)
@@ -166,6 +214,7 @@ func _run() -> void:
 	check(plugin._build(),"native save/build before scene attachment")
 	original = attached
 	var host := Node2D.new()
+	host.name = "Home"
 	host.set_script(load(OUTPUT))
 	var packed := PackedScene.new()
 	packed.pack(host)
@@ -192,6 +241,10 @@ func _run() -> void:
 	if await until(find_plugin,"re-enable reattaches editor services"):
 		await until(func(): return current(HOME)!=null,"visible Gogo tab reauthenticated")
 		check(home.code_completion_enabled,"re-enabled completion")
+	if not failed:
+		var restart := FileAccess.open("res://.godot/e02-restart.request",FileAccess.WRITE)
+		restart.store_string("restart")
+		restart.close()
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png("res://e02-editor.png")
 	finish()

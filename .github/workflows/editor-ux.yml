@@ -49,6 +49,15 @@ jobs:
           GODOT_CACHE_DIRECTORY: ${{ runner.tool_cache }}/estragon-godot/${{ matrix.version }}
         run: node --experimental-strip-types tools/download-compat-engine.ts
       - run: npm install --global npm@11.13.0
+      # Stock 4.7 lightmap editor probes RenderingDevice even under OpenGL.
+      # Supply software Vulkan rather than suppressing native startup errors.
+      - name: Software Vulkan capability for stock editor startup
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends mesa-vulkan-drivers
+          ICD=$(find /usr/share/vulkan/icd.d -name '*lvp*.json' -print -quit)
+          test -n "$ICD"
+          echo "VK_ICD_FILENAMES=$ICD" >> "$GITHUB_ENV"
       - name: Isolate runtime directory
         run: |
           mkdir -m 700 "$RUNNER_TEMP/e02-runtime"
