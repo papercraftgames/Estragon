@@ -1,4 +1,4 @@
-/** P01: npm-format addon installed with Yarn into a real isolated Godot consumer. */
+/** P02: npm-format addon installed with Yarn into a real isolated Godot consumer. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { ROOT, parseCLI, newSandbox, copyTree, indexProject, runCommand, sha256, writeJSON, gitHead, gitDirty } from './compat-kit.ts';
@@ -55,7 +55,7 @@ for(const selection of options.engines) {
             }
             const resourceRoot='res://'+addonRoot;
             const configureFixture=(file:string)=>fs.writeFileSync(file,fs.readFileSync(file,'utf8').replaceAll('res://addons/estragon',resourceRoot));
-            const settings='config_version=5\n[application]\nconfig/name="P01 standalone package consumer"\nrun/main_scene="res://examples/counter/Counter.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
+            const settings='config_version=5\n[application]\nconfig/name="P02 direct package consumer"\nrun/main_scene="res://examples/counter/Counter.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
             fs.writeFileSync(path.join(box.project,'project.godot'),settings);
             writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['examples/counter']});
             // Only the canonical authored source/scene, no repository generated code or assets.
@@ -82,8 +82,15 @@ for(const selection of options.engines) {
             stages.import={...imported,runs:[...(stages.import?.runs || []),imported]};
             if(imported.status!=='PASS')throw Error('Package consumer import failed');
             await godot('runtime',['--script','res://tests/package-consumer/runtime.gd'],'PACKAGE_RUNTIME_OK',true);
+            // Prove cold activation builds source before the requested scene opens;
+            // neither CLI-generated executables nor an earlier editor cache may help.
+            const generated=path.join(box.project,'examples/counter/generated');
+            const uids=Object.fromEntries(fs.readdirSync(generated).filter(name=>name.endsWith('.uid')).map(name=>[name,sha256(path.join(generated,name))]));
+            fs.rmSync(path.join(box.project,'.godot'),{recursive:true,force:true});
+            for(const name of fs.readdirSync(generated).filter(name=>!name.endsWith('.uid')))fs.rmSync(path.join(generated,name));
             fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("'+resourceRoot+'/editor/plugin.cfg", "res://tests/package-consumer/editor/plugin.cfg")\n[editor]\nrun/main_run_args="--headless --audio-driver Dummy"\n');
-            box.env.ESTRAGON_C3_PROOF='1';await godot('editor',['--editor'],'PACKAGE_EDITOR_OK',false,true);delete box.env.ESTRAGON_C3_PROOF;
+            box.env.ESTRAGON_C3_PROOF='1';await godot('editor',['--editor','res://examples/counter/Counter.tscn'],'PACKAGE_EDITOR_OK',false,true);delete box.env.ESTRAGON_C3_PROOF;
+            for(const [name,hash] of Object.entries(uids))if(sha256(path.join(generated,name))!==hash)throw Error('Cold editor changed generated UID: '+name);
             fs.writeFileSync(path.join(box.project,'project.godot'),settings);
             await godot('visual',['--script','res://tests/package-consumer/visual.gd'],'PACKAGE_VISUAL_OK',true);
             for(const name of fs.readdirSync(box.project).filter(p=>p.endsWith('.png')))fs.copyFileSync(path.join(box.project,name),path.join(out,layout+'-'+name));
