@@ -6,12 +6,14 @@ const published=process.env.ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY;
 const options=parseCLI(process.argv.slice(2));fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines) {
     const box=newSandbox(selection),out=path.join(options.output,selection.label), stages:Record<string,any>={};fs.mkdirSync(out,{recursive:true});
+    let phase='package';
     try {
         writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
         async function command(name:string,args:string[],cwd:string,env:NodeJS.ProcessEnv,marker?:string,negative=false) {
-            const logFile=path.join(out,(box.project.split('-').at(-1) || 'package')+'-'+name+'.log');
+            const logFile=path.join(out,phase+'-'+name+'.log');
             const stage=await runCommand(args,cwd,env,logFile,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?240000:120000});
             const log=fs.readFileSync(logFile,'utf8');process.stdout.write(log);
+            if(!stage.log || !fs.existsSync(path.join(out,stage.log)))throw Error('Stage log is not directly addressable by the release verifier: '+name);
             if(negative) {
                 const lines=log.split(/\r?\n/);
                 stage.unexpected_errors=lines.filter((line,i)=>{
@@ -23,7 +25,7 @@ for(const selection of options.engines) {
                 if((stage.unexpected_errors as string[]).length || /PACKAGE_EDITOR_CHECK .*: false/.test(log)||!log.includes('PACKAGE_EDITOR_CHECK'))stage.status='FAIL';
             }
             if(/instances leaked|Resources still in use/.test(log))stage.status='FAIL';
-            stage.layout=box.project.split('-').at(-1);
+            stage.layout=phase;
             const previous=stages[name];
             stages[name]={...stage, runs:[...(previous?.runs || []), stage]};writeJSON(path.join(out,'results.json'),stages);if(stage.status!=='PASS')throw Error('Package consumer '+name+' failed');
         }
@@ -37,6 +39,7 @@ for(const selection of options.engines) {
             ['standard', 'addons/estragon'],
         ] as const;
         for (const [layout, addonRoot] of layouts) {
+            phase=layout;
             box.project = originalProject + '-' + layout;
             fs.mkdirSync(box.project,{recursive:true});
             writeJSON(path.join(box.project,'package.json'),{name:'estragon-native-consumer',private:true,packageManager:'yarn@1.22.22'});
