@@ -142,7 +142,7 @@ func scan(text: String, state: Dictionary, newline: bool = true) -> Dictionary:
 			kind = "keyword" if word in KEYWORDS else "code"
 			if previous == "@": kind = "annotation"
 			elif previous in ["func","signal"] or text.substr(i).strip_edges().begins_with("(") and kind == "code": kind = "function"
-			elif ClassDB.class_exists(word) or word in state.declared or word in ["int","float","bool","String","Array","Dictionary","Vector2","Vector3","Color","Callable","StringName","NodePath"] or previous in [":","->","extends","class_name","class"]: kind = "type"
+			elif kind == "code" and (ClassDB.class_exists(word) or word in state.declared or word in ["int","float","bool","String","Array","Dictionary","Vector2","Vector3","Color","Callable","StringName","NodePath"] or previous in [":","->","extends","class_name","class"]): kind = "type"
 			if previous in ["class_name","class"] or previous == "const" and text.substr(i).strip_edges().begins_with("= preload("):
 				if word not in state.declared: state.declared.append(word)
 			state.operand = word in Parser.OPERANDS
