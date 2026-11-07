@@ -57,7 +57,7 @@ for(const selection of options.engines){
   fs.rmSync(path.join(box.project,'app/Screens/generated'),{recursive:true,force:true});
   fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addonRoot+'/editor/plugin.cfg", "res://tests/editor_ux/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
   await command('editor',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
-  fs.copyFileSync(path.join(box.project,'e03-editor-capabilities.json'),path.join(out,'editor-capabilities.json'));
+  if(!creationOnly)fs.copyFileSync(path.join(box.project,'e03-editor-capabilities.json'),path.join(out,'editor-capabilities.json'));
   await command('editor-restart',[box.binary,'--audio-driver','Dummy','--rendering-method','gl_compatibility','--rendering-driver','opengl3','--path',box.project,'--editor'],box.env,'E02_EDITOR_OK',true);
   for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));
   for(const [name,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,name))!==hash)throw Error('Editor changed installed package bytes/UIDs: '+name);
