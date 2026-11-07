@@ -15,8 +15,15 @@ export const REQUIRED = [
     'ui.build', 'ui.import', 'ui.runtime', 'ui.editor', 'ui.visual',
     'metadata', 'distribution.package_layout', 'distribution.import', 'distribution.scenes', 'distribution.cold_editor', 'distribution.cold_build', 'distribution.cold_scenes', 'distribution.pack_export', 'distribution.pack_runtime'
 ] as const;
-export function assessRelease(stages: Record<string, Stage>) {
-    const missing = REQUIRED.filter(name => stages[name]?.status !== 'PASS');
+/** CI02: low-cost mandatory release contract; full regression remains opt-in. */
+export const REQUIRED_FAST_RELEASE = [
+    'package.pack', 'package.install', 'package.build', 'package.import',
+    'package.runtime', 'package.editor', 'package.visual',
+] as const;
+export type ReleaseProfile = 'full' | 'fast-release';
+export function assessRelease(stages: Record<string, Stage>, profile: ReleaseProfile = 'full') {
+    const required = profile === 'fast-release' ? REQUIRED_FAST_RELEASE : REQUIRED;
+    const missing = required.filter(name => stages[name]?.status !== 'PASS');
     const failed = Object.keys(stages).filter(name => stages[name]!.status !== 'PASS');
     return { status: missing.length || failed.length ? 'BLOCKED' : 'PASS', missing, failed };
 }

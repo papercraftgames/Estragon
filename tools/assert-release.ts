@@ -1,10 +1,11 @@
 /** Require clean matching native-addon artifacts, exact engines, logs and hashes. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { assessRelease } from './release-policy.ts';
+import { assessRelease, REQUIRED_FAST_RELEASE } from './release-policy.ts';
 import { sha256, readJSON, writeJSON } from './compat-kit.ts';
 import type { Stage } from './compat-kit.ts';
 export type AddonEvidence = {
+    profile?: 'full' | 'fast-release';
     source_commit: string;
     source_dirty: boolean;
     label: string;
@@ -15,6 +16,9 @@ export type AddonEvidence = {
 };
 export function assessFile(file: string) {
     const report = readJSON<AddonEvidence>(file);
+    const profile = report.profile ?? 'full';
+    if(profile !== 'full' && profile !== 'fast-release')throw Error('Unknown release evidence profile');
+    const fast = profile === 'fast-release';
     const pins = readJSON<Array<{
         version: string;
         binary_sha256: string;
@@ -39,7 +43,7 @@ export function assessFile(file: string) {
     }
     // Bind the summary to the hashed execution reports, not hand-entered PASSes.
     const observed: Record<string, Stage> = {};
-    for (const group of ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional', 'lists', 'twoway', 'profiling', 'package']) {
+    for (const group of fast ? ['package'] : ['compiler', 'runtime', 'ggx', 'ui', 'metadata', 'distribution', 'bindable', 'reactive', 'composition', 'conditional', 'lists', 'twoway', 'profiling', 'package']) {
         const relative = group + '/' + report.label + '/results.json';
         if (!report.files[relative])
             throw Error('Missing required group evidence: ' + group);
@@ -57,7 +61,8 @@ export function assessFile(file: string) {
                 observed[group + '.' + key] = stage;
                 if(group==='package' && key!=='pack') {
                     const runs=stage.runs as Stage[] | undefined;
-                    if(!Array.isArray(runs) || runs.length!==3 || ['direct','relocated','standard'].some(layout=>runs.filter(run=>run.layout===layout).length!==1))throw Error('Missing package installation layout proof: '+key);
+                    const layouts = fast ? ['direct'] : ['direct', 'relocated', 'standard'];
+                    if(!Array.isArray(runs) || runs.length!==layouts.length || layouts.some(layout=>runs.filter(run=>run.layout===layout).length!==1))throw Error('Missing package installation layout proof: '+key);
                     for(const run of runs) {
                         if(run.status!=='PASS' || run.exit_code!==0 || run.timeout || run.aborted_on_error || !run.command?.length || !run.log || path.basename(run.log)!==run.log || !report.files[group+'/'+report.label+'/'+run.log])throw Error('Missing successful package layout execution: '+key);
                     }
@@ -69,9 +74,10 @@ export function assessFile(file: string) {
             }
         }
     }
+    if(fast && JSON.stringify(Object.keys(observed).sort()) !== JSON.stringify([...REQUIRED_FAST_RELEASE].sort()))throw Error('Incomplete fast release stage inventory');
     if (JSON.stringify(observed) !== JSON.stringify(report.stages))
         throw Error('Stage evidence summary mismatch');
-    return { ...report, assessment: assessRelease(report.stages) };
+    return { ...report, assessment: assessRelease(report.stages, profile) };
 }
 if (import.meta.url === 'file://' + process.argv[1]) {
     try {

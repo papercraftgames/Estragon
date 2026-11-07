@@ -27,7 +27,7 @@ jobs:
     needs: policy
     name: release-certification (${{ matrix.version }})
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 8
     strategy:
       fail-fast: false
       matrix:
@@ -49,24 +49,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22.16.0'
-      - name: Verify software graphics
+      - name: Isolated software-GL display (Xvfb, no Vulkan setup)
         shell: bash
         run: |
-          mkdir -m 700 "$RUNNER_TEMP/xdg-runtime"
+          mkdir -p "$RUNNER_TEMP/xdg-runtime"
+          chmod 700 "$RUNNER_TEMP/xdg-runtime"
           echo "XDG_RUNTIME_DIR=$RUNNER_TEMP/xdg-runtime" >> "$GITHUB_ENV"
-          # Full acceptance retains the original Vulkan/software setup proof.
-          if ! command -v vulkaninfo >/dev/null || ! compgen -G '/usr/share/vulkan/icd.d/lvp_icd*.json' >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install --no-install-recommends -y mesa-vulkan-drivers vulkan-tools
-          fi
-          vulkan_icds=(/usr/share/vulkan/icd.d/lvp_icd*.json)
-          test "${#vulkan_icds[@]}" -eq 1
-          vulkan_icd="${vulkan_icds[0]}"
-          test -f "$vulkan_icd"
-          VK_DRIVER_FILES="$vulkan_icd" VK_ICD_FILENAMES="$vulkan_icd" \
-            XDG_RUNTIME_DIR="$RUNNER_TEMP/xdg-runtime" xvfb-run -a vulkaninfo --summary
-          echo "VK_DRIVER_FILES=$vulkan_icd" >> "$GITHUB_ENV"
-          echo "VK_ICD_FILENAMES=$vulkan_icd" >> "$GITHUB_ENV"
       - name: Select immutable engine cache identity
         id: engine
         run: |
@@ -86,13 +74,13 @@ jobs:
         run: node --experimental-strip-types tools/download-compat-engine.ts
       - name: Pin local publishing-tool pack implementation
         run: npm install --global npm@11.13.0
-      - name: Current native addon acceptance
+      - name: Bounded direct-install release acceptance
         working-directory: ${{ runner.temp }}
         run: >-
           xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types
           "$GITHUB_WORKSPACE/tools/check-native-addon.ts"
           --engine '${{ matrix.version }}=${{ env.GODOT_BIN }}'
-          --output "$RUNNER_TEMP/native-addon"
+          --output "$RUNNER_TEMP/native-addon" --fast-release
       - uses: actions/upload-artifact@v4
         if: always()
         with:

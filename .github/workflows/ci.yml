@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       verification_mode:
-        description: Routine checks or explicit read-only full pre-publication preview
+        description: Routine checks or read-only bounded release preview
         type: choice
         options: [routine, certification]
         default: routine
@@ -93,7 +93,7 @@ jobs:
           TOOLING_RESULT: ${{ needs.tooling.result }}
         run: |
           test "$TOOLING_RESULT" = success
-          echo 'Routine checks only. Two-engine 73-stage certification is mandatory before publication.'
+          echo 'Routine checks only. Two-engine bounded direct-install certification is mandatory before publication.'
   certify:
     if: github.event_name == 'workflow_dispatch' && inputs.verification_mode == 'certification' && github.repository == 'papercraftgames/Estragon'
     uses: ./.github/workflows/certify.yml
