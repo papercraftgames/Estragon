@@ -6,6 +6,7 @@ var interface: EditorInterface
 var plugin: EditorPlugin
 var home: CodeEdit
 var original := ""
+var e03_screen := ""
 var failed := false
 var checks := 0
 const HOME := "res://app/Screens/Home.gogo"
@@ -73,16 +74,19 @@ func complete(text: String, option: String, inserted: String, label: String) -> 
 	var options := home.get_code_completion_options()
 	var selected := -1
 	for index in range(options.size()):
-		if options[index].display_text == option: selected = index
+		if options[index].display_text == option or options[index].display_text.begins_with(option+" "): selected = index
 	check(selected >= 0,label+" native popup contains expected candidate")
 	if selected < 0: return
 	if label == "imported tag": await capture("completion")
 	var before := home.text
+	var before_row := home.get_caret_line()
+	var before_column := home.get_caret_column()
 	home.set_code_completion_selected_index(selected)
 	home.confirm_code_completion()
 	check(home.text.contains(inserted),label+" native confirmation inserts correct text")
 	home.undo()
-	check(home.text == before,label+" insertion is undoable")
+	check(home.text == before,label+" insertion/imports are one undoable operation")
+	check(home.get_caret_line()==before_row and home.get_caret_column()==before_column,label+" undo restores caret")
 	home.redo()
 	check(home.text.contains(inserted),label+" insertion redo")
 func color(code: CodeEdit, row: int, column: int) -> Color:
@@ -112,7 +116,7 @@ func blocked(mode: String, unsavable: bool = false) -> void:
 	var uid := FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray()
 	var cached = load(OUTPUT)
 	var source: String = cached.source_code
-	home.text = original+"\n# edited unsavable buffer\n" if unsavable else original.replace('</Entry>','</Wrong>')
+	home.text = original+"\n# edited unsavable buffer\n" if unsavable else original.replace('</Entry>','</Wrong>').replace('</Entry2D>','</Wrong>')
 	if mode == "main": interface.play_main_scene()
 	else: interface.play_current_scene()
 	await get_tree().create_timer(0.8).timeout
@@ -120,6 +124,70 @@ func blocked(mode: String, unsavable: bool = false) -> void:
 	check(FileAccess.get_file_as_bytes(OUTPUT)==bytes and FileAccess.get_file_as_bytes(OUTPUT+".map.json")==maps and FileAccess.get_modified_time(OUTPUT)==stamp,"failed Play preserves bytes/maps/timestamp")
 	check((FileAccess.get_file_as_bytes(OUTPUT+".uid") if FileAccess.file_exists(OUTPUT+".uid") else PackedByteArray())==uid and load(OUTPUT)==cached and cached.source_code==source,"failed Play preserves UID/Script identity")
 	if unsavable: print("E02_EXPECTED_UNSAVABLE_END")
+func _e03() -> String:
+	var blank := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Te§ name="Greeting" text="Hello Gogo" />\n'
+	set_source(home,blank)
+	await frames()
+	var unchanged := home.text
+	home.request_code_completion(true)
+	if await until(func(): return not home.get_code_completion_options().is_empty(),"E03 installed Text discoverable before any import"):
+		check(home.get_code_completion_options().any(func(o): return o.display_text.begins_with("Text — EstragonText")),"Text catalog identifies actual Estragon widget")
+		check(home.text == unchanged and not home.text.contains("preload("),"candidate display never inserts imports")
+		home.cancel_code_completion()
+		check(home.text == unchanged,"cancel never edits source")
+	var source := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Ent§ name="UI" viewport_width_scale={0.9}>\n\t\t<VB name="Box">\n\t\t\t<Te name="Greeting" text="Hello Gogo" />\n\t\t</VBox>\n\t</Entry2D>\n'
+	await complete(source,"Entry2D","<Entry2D name=","E03 entry and Element automatic imports")
+	check(home.text.contains("const Entry2D = preload(") and home.text.contains("const Element = preload("),"entry acceptance imports real layout and Element")
+	await complete(home.text.replace('<VB name=','<VB§ name='),"VBox","<VBox name=","E03 VBox import")
+	await complete(home.text.replace('<Te name=','<Te§ name='),"Text","<Text name=","E03 Text import")
+	var screen := home.text
+	check(screen.count("const Text = preload(")==1 and screen.count("const Element = preload(")==1 and not screen.contains('res://addons/estragon'),"first screen resolves installed resources without manual paths")
+	await capture("imports")
+	await complete(screen.replace('</VBox>','<Te§ name="Second" text="Again" />\n\t\t</VBox>'),"Text","<Text name=\"Second\"","E03 repeated component")
+	check(home.text.count("const Text = preload(")==1,"repeated acceptance reuses import")
+	var manual := screen.replace('const Text =','const FancyText =').replace('<Text name=','<FancyText name=')
+	await complete(manual.replace('<FancyText name=','<Te§ name='),"Text","<FancyText name=","E03 manual alias reuse")
+	check(home.text.count("const FancyText = preload(")==1 and not home.text.contains("const Text ="),"manual preload reused without duplicate")
+	await complete(blank.replace('func build_view()', 'var Text: int = 1\nfunc build_view()'),"Text","<EstragonText name=","E03 collision chooses explicit canonical alias")
+	check(home.text.contains("var Text: int = 1") and home.text.contains("const EstragonText = preload("),"collision preserves authored declaration")
+	await complete('extends Node2D\nfunc build_view() -> Ele§:\n\treturn null\n',"Element","-> Element:","E03 explicit Element type import")
+	set_source(home,'extends Node2D\nfunc view():\n\treturn <Bu§ />\n')
+	home.request_code_completion(true)
+	if await until(func(): return not home.get_code_completion_options().is_empty(),"native Button catalog"):
+		check(home.get_code_completion_options().any(func(o): return o.display_text.begins_with("Button — Godot")),"Godot Button remains native, not UiButton")
+	home.cancel_code_completion()
+	await complete('extends Node2D\nconst Example = preload("res://app/Ord§")\n', '"res://app/Ordinary.gd"','preload("res://app/Ordinary.gd")',"E03 real resource path")
+	set_source(home,'extends Node2D\nvar arbitrary = "res://app/Ord§"\n')
+	home.request_code_completion(true)
+	check(home.get_code_completion_options().is_empty(),"ordinary strings do not get resource candidates")
+	set_source(home,'extends Node2D\nfunc demo():\n\trotate(§)\n')
+	await frames()
+	check(plugin._services.entries[home.get_instance_id()].hint.contains("radians: float"),"native ClassDB callable signature displayed")
+	await capture("call-hint")
+	await complete('extends Node2D\nfunc demo(camera: Camera2D):\n\tvar local: Camera2D\n\tlocal.zo§\n',"zoom","local.zoom","E03 typed local variable")
+	# Other authenticated unsaved Gogo source is authoritative, without new().
+	var model := await create("res://app/Screens/LiveModel.gogo")
+	if model != null:
+		model.text = 'extends Node2D\n@export var unsaved_speed: float = 1.0\nfunc _init():\n\tpush_error("AUTHORED_MODEL_MUST_NOT_EXECUTE_FOR_COMPLETION")\n'
+		await plugin._navigation.open(HOME)
+		await until(func(): return current(HOME)!=null,"return from live model")
+		home = current(HOME)
+		await complete('extends Node2D\nconst Model = preload("LiveModel.gd")\nvar model: Model\nfunc demo():\n\tmodel.uns§\n',"unsaved_speed","model.unsaved_speed","E03 other unsaved Gogo metadata")
+		# Restore a harmless valid source before the existing save/Play checks.
+		model.text = 'extends Node2D\nvar saved_speed: float = 1.0\n'
+	set_source(home,blank)
+	await frames()
+	# Explicit public Tools action also repairs typed, unbound component names.
+	home.text = blank.replace("§","").replace("<Te ","<Text ")
+	var before_fix := home.text
+	for menu in interface.get_base_control().find_children("*","PopupMenu",true,false):
+		for index in range(menu.item_count):
+			if menu.get_item_text(index)=="Add Missing Gogo Imports": menu.index_pressed.emit(index)
+	check(home.text.contains("const Text = preload(") and home.text.contains("const Element = preload("),"explicit missing-import action")
+	home.undo()
+	check(home.text==before_fix,"explicit import repair is one undoable operation")
+	home.text = screen
+	return screen
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
 	if FileAccess.file_exists("res://.godot/e02-restart.request"):
@@ -136,6 +204,8 @@ func _run() -> void:
 	home = await create(HOME)
 	if home == null: finish(); return
 	original = home.text
+	e03_screen = await _e03()
+	home.text = original
 	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"valid template imports actual installation relatively")
 	# Cancel and rejected paths exercise the native dialog without touching source.
 	check(tools_action(),"creation menu can be reopened")
@@ -243,7 +313,8 @@ func _run() -> void:
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to Home tab")
 	home = current(HOME)
-	var attached := original+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _game_proof.call_deferred()\nfunc _game_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI/Greeting").text}))\n\toutput.close()\n'
+	original = e03_screen
+	var attached := original+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _game_proof.call_deferred()\nfunc _game_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png(\"res://e03-game.png\")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI").find_child("Greeting",true,false).text}))\n\toutput.close()\n'
 	home.text = attached
 	check(plugin._build(),"native save/build before scene attachment")
 	original = attached

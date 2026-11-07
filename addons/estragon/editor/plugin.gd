@@ -55,6 +55,7 @@ func _enter_tree() -> void:
 	_new_script = NewScript.new(_interface,_navigation)
 	_new_script.start(self)
 	add_tool_menu_item("New Gogo Script…",_new_script.show_dialog)
+	add_tool_menu_item("Add Missing Gogo Imports",_services.add_missing_imports)
 	_timer = Timer.new()
 	_timer.one_shot = true
 	_timer.wait_time = 0.4
@@ -235,6 +236,7 @@ func _show_report() -> void:
 func _exit_tree() -> void:
 	_active = false
 	remove_tool_menu_item("New Gogo Script…")
+	remove_tool_menu_item("Add Missing Gogo Imports")
 	if _navigation != null: _navigation.stop()
 	if _new_script != null: _new_script.stop(); _new_script = null
 	if _services != null: _services.stop(); _services.free(); _services = null
