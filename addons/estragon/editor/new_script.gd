@@ -20,13 +20,15 @@ func start(parent: Node) -> void:
 	# 4.0 registers EditorFileDialog abstract; do not reference its unavailable
 	# constructor even in a dead branch. Both paths use public native dialogs.
 	dialog = ClassDB.instantiate("EditorFileDialog") if ClassDB.can_instantiate("EditorFileDialog") else FileDialog.new()
-	dialog.name = "NewGogoScript"
+	dialog.name = "NewGogoComponent"
 	if dialog is FileDialog: dialog.mode_overrides_title = false
-	dialog.title = "New Gogo Script (never overwrites source)"
+	dialog.title = "New Gogo Component"
 	dialog.access = EditorFileDialog.ACCESS_RESOURCES
 	dialog.file_mode = EditorFileDialog.FILE_MODE_SAVE_FILE
 	if dialog is EditorFileDialog: dialog.disable_overwrite_warning = true
-	dialog.add_filter("*.gogo","Gogo Script")
+	# Native save filters append their suffix even to explicit wrong extensions
+	# (Bad.txt becomes Bad.txt.gogo). Let the shared validator own suffixes.
+	dialog.add_filter("*","Gogo Component (.gogo)")
 	dimension = OptionButton.new()
 	dimension.name = "GogoTemplate"
 	dimension.add_item("Node2D — native layout and text")
@@ -35,22 +37,14 @@ func start(parent: Node) -> void:
 	dialog.file_selected.connect(_selected)
 	parent.add_child(dialog)
 	error = AcceptDialog.new()
-	error.title = "New Gogo Script"
+	error.title = "New Gogo Component"
 	parent.add_child(error)
-func show_dialog() -> void:
+func show_dialog(context_directory: String = "") -> void:
 	if not active: return
-	var directory := interface.get_current_directory()
-	if not directory.begins_with("res://"): directory = "res://"
-	if FileAccess.file_exists("res://gogo.config.json"):
-		var config = JSON.parse_string(FileAccess.get_file_as_string("res://gogo.config.json"))
-		if config is Dictionary and config.get("source_roots") is Array and not config.source_roots.is_empty():
-			var root = config.source_roots[0]
-			if root is String:
-				var preferred: String = "res://"+root
-				if preferred.ends_with(".gogo"): preferred = preferred.get_base_dir()
-				if DirAccess.dir_exists_absolute(preferred): directory = preferred
+	var directory := context_directory if not context_directory.is_empty() else interface.get_current_directory()
+	if not directory.begins_with("res://") or not DirAccess.dir_exists_absolute(directory): directory = "res://"
 	dialog.current_dir = directory
-	dialog.current_file = "NewScript.gogo"
+	dialog.current_file = "NewComponent.gogo"
 	dialog.popup_centered_ratio(0.65)
 static func template(path: String, spatial: bool) -> String:
 	var directory := Build.output_for(path).get_base_dir()

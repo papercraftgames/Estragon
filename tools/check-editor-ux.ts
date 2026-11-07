@@ -35,6 +35,7 @@ for(const selection of options.engines){
   const installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
   for(const [name,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,name))!==hash)throw Error('Installed byte mismatch: '+name);
   fs.mkdirSync(path.join(box.project,'app/Screens'),{recursive:true});
+  fs.mkdirSync(path.join(box.project,'app/Screens/Nested'),{recursive:true});
   fs.writeFileSync(path.join(box.project,'app/Existing.gogo'),'extends Node2D\nvar existing: int = 1\n');
   fs.writeFileSync(path.join(box.project,'app/Ordinary.gd'),'extends Node\nvar ordinary: int = 1\n');
   fs.writeFileSync(path.join(box.project,'app/ProjectRect.gd'),'class_name Rect\nextends Node2D\n');
