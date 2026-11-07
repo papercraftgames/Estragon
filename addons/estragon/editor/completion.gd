@@ -110,6 +110,7 @@ func _script(path: String) -> Dictionary:
 func _type_name(info: Dictionary) -> String:
 	var class_name_value: String = str(info.get("class_name",""))
 	if not class_name_value.is_empty(): return class_name_value
+	if info.get("type",TYPE_NIL) == TYPE_NIL: return "Variant" if int(info.get("usage",0)) & PROPERTY_USAGE_NIL_IS_VARIANT else "void"
 	return type_string(info.get("type",TYPE_NIL))
 func _method_hint(method: Dictionary) -> String:
 	var args: Array = []
@@ -211,6 +212,12 @@ func _path_options(left: String, context: Dictionary, source: String, row: int, 
 	var prefix := value.substr(slash+1)
 	var target := directory if directory.begins_with("res://") else base.path_join(directory).simplify_path()
 	if not target.begins_with("res://") or target.contains("/../"): return []
+	for part in target.trim_prefix("res://").split("/"):
+		if part.begins_with("."): return []
+	if target != "res://":
+		var containment := Build.new()
+		containment._project = ProjectSettings.globalize_path("res://").trim_suffix("/")
+		if not containment._safe(ProjectSettings.globalize_path(target).trim_suffix("/")): return []
 	var access := DirAccess.open(target)
 	if access == null: return []
 	var result: Array = []

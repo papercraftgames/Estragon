@@ -237,6 +237,11 @@ func _e03() -> String:
 	return screen
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
+	var editor_settings := interface.get_editor_settings()
+	if editor_settings.has_setting("run/window_placement/game_embed_mode"):
+		editor_settings.set_setting("run/window_placement/game_embed_mode",-1)
+		get_tree().root.propagate_notification(EditorSettings.NOTIFICATION_EDITOR_SETTINGS_CHANGED)
+		await frames()
 	if FileAccess.file_exists("res://.godot/e02-restart.request"):
 		await plugin._navigation.open(HOME)
 		if await until(func(): return current(HOME)!=null,"restart authenticates restored Gogo tab"):
