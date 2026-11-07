@@ -1,8 +1,12 @@
 # Release notes
 
-## Next automated prerelease
+## Gogo editor experience — upcoming beta
 
-P02 makes runtime/compiler/editor dependencies location-independent and derives injected Gogo dependencies from the installed Resources and actual generated destination. Yarn packages run directly in node_modules; full-path plugin activation, cold editor/Play, nonstandard relocation and standard addon placement are covered by native consumer acceptance. This change is not yet published. The **one** release version is set in the Godot plugin configuration; the npm manifest is generated from it during packaging. The owner-controlled GitHub prerelease will exercise npm OIDC trusted publishing, provenance, byte-for-byte package verification and the approved Linux Godot consumer checks. These publication checks remain pending until the release actually runs.
+The native Gogo editor now provides theme-aware GDScript/GGX syntax highlighting, context-sensitive CodeEdit completion and insertion/undo, source-positioned diagnostics/navigation, and **Project > Tools > New Gogo Script** templates for 2D/3D. No external compiler, language server or custom Godot build is needed for editing and Play. Dedicated native editor and Play checks passed on the two approved Linux Godot engines. Completion intentionally supports bounded lexical/ClassDB information rather than full GDScript type inference; the documented hidden, never-associated tab exception remains.
+
+## Previous direct Yarn installation beta
+
+P02 made compiler/runtime/editor dependencies location-independent: packages work directly from Yarn `node_modules` without addon copying/symlinks. Internal references and generated dependencies resolve against installed Resources and actual destinations; Godot's enabled-plugin project setting accepts the full addon configuration path. That previous beta was published using the owner-controlled GitHub prerelease, with npm trusted-publisher OIDC, provenance/byte checks and native registry consumers. CI02 subsequently reduced mandatory certification to bounded direct-install validation; the full native regression suite remains opt-in.
 
 ## Initial public beta
 
