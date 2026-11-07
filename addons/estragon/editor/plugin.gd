@@ -57,7 +57,7 @@ func _enter_tree() -> void:
 	_new_script.start(self)
 	add_tool_menu_item("New Gogo Component…",_new_script.show_dialog)
 	# Never parse a script extending a newer native class on Godot 4.0.
-	if has_method("add_context_menu_plugin") and has_method("remove_context_menu_plugin") and ClassDB.class_exists("EditorContextMenuPlugin"):
+	if has_method("add_context_menu_plugin") and has_method("remove_context_menu_plugin") and ClassDB.class_exists("EditorContextMenuPlugin") and "CONTEXT_SLOT_FILESYSTEM_CREATE" in ClassDB.class_get_integer_constant_list("EditorContextMenuPlugin"):
 		var adapter := GDScript.new()
 		adapter.source_code = FileAccess.get_file_as_string((get_script() as Script).resource_path.get_base_dir().path_join("creation_menu.gd.txt"))
 		if adapter.reload() == OK:

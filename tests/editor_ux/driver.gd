@@ -70,12 +70,13 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 # context slot and never searches or edits Godot's PopupMenus.
 func menu_key(menu: PopupMenu, key: Key) -> void:
 	var event := InputEventKey.new()
+	event.window_id = menu.get_window_id()
 	event.keycode = key
 	event.pressed = true
-	menu.push_input(event)
+	Input.parse_input_event(event)
 	event = event.duplicate()
 	event.pressed = false
-	menu.push_input(event)
+	Input.parse_input_event(event)
 	await frames()
 func menu_click(menu: PopupMenu, index: int) -> void:
 	# Locate the row by native hover feedback, without hardcoded theme metrics.
@@ -85,21 +86,26 @@ func menu_click(menu: PopupMenu, index: int) -> void:
 	for y in range(8,menu.size.y-4,4):
 		point.y = y
 		var motion := InputEventMouseMotion.new()
+		motion.window_id = menu.get_window_id()
 		motion.position = point
-		menu.push_input(motion)
+		motion.global_position = Vector2(menu.position)+point
+		Input.parse_input_event(motion)
+		Input.flush_buffered_events()
 		if menu.get_focused_item() == index:
 			found = true
 			break
 	check(found,"native hover locates component menu row")
 	if not found: return
 	var event := InputEventMouseButton.new()
+	event.window_id = menu.get_window_id()
 	event.position = point
+	event.global_position = Vector2(menu.position)+point
 	event.button_index = MOUSE_BUTTON_LEFT
 	event.pressed = true
-	menu.push_input(event)
+	Input.parse_input_event(event)
 	event = event.duplicate()
 	event.pressed = false
-	menu.push_input(event)
+	Input.parse_input_event(event)
 	await frames()
 func filesystem_action(directory: String, empty: bool = false, expected_count: int = 1) -> void:
 	var dock := interface.get_file_system_dock()
