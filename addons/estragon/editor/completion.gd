@@ -291,6 +291,8 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 	else:
 		for word in Context.KEYWORDS: offered[word] = {"kind":CodeEdit.KIND_PLAIN_TEXT}
 		for name in _classes: offered[name] = {"kind":CodeEdit.KIND_CLASS}
+		for native_type in range(1,TYPE_MAX): offered[type_string(native_type)] = {"kind":CodeEdit.KIND_CLASS}
+		offered.Variant = {"kind":CodeEdit.KIND_CLASS}
 		for entry in ProjectSettings.get_global_class_list(): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS}
 		for field in _symbols:
 			if _symbols[field].owner.is_empty() or _symbols[field].owner == _owners.get(row,""): offered[field] = _symbols[field]

@@ -65,12 +65,12 @@ func _detach(id: int) -> void:
 			if code.is_connected(pair[0],entry[pair[1]]): code.disconnect(pair[0],entry[pair[1]])
 		code.set_code_hint("")
 		code.symbol_lookup_on_click = entry.lookup_enabled
-		if code.get_script() == Acceptance: code.set_script(entry.script)
 		code.cancel_code_completion()
 		code.code_completion_enabled = entry.enabled
 		code.code_completion_prefixes = entry.prefixes
 		var index := _gutter_index(code)
 		if index >= 0: code.remove_gutter(index)
+		if code.get_script() == Acceptance: code.set_script(entry.script)
 	entries.erase(id)
 func _closed(id: int) -> void:
 	if entries.has(id): _detach(id)

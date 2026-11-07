@@ -145,6 +145,12 @@ func _e03() -> String:
 	await capture("imports")
 	await complete(screen.replace('</VBox>','<Te§ name="Second" text="Again" />\n\t\t</VBox>'),"Text","<Text name=\"Second\"","E03 repeated component")
 	check(home.text.count("const Text = preload(")==1,"repeated acceptance reuses import")
+	home.symbol_lookup.emit("Text",0,0)
+	if await until(func(): return interface.get_script_editor().get_current_script()!=null and interface.get_script_editor().get_current_script().resource_path.ends_with("/runtime/node/text.gd"),"E03 alias lookup opens its real Script"):
+		check(interface.get_script_editor().get_current_script().resource_path.contains("node_modules/"),"alias navigation targets direct installation")
+	await plugin._navigation.open(HOME)
+	await until(func(): return current(HOME)!=null,"return from alias definition")
+	home = current(HOME)
 	var manual := screen.replace('const Text =','const FancyText =').replace('<Text name=','<FancyText name=')
 	await complete(manual.replace('<FancyText name=','<Te§ name='),"Text","<FancyText name=","E03 manual alias reuse")
 	check(home.text.count("const FancyText = preload(")==1 and not home.text.contains("const Text ="),"manual preload reused without duplicate")
@@ -164,6 +170,7 @@ func _e03() -> String:
 	await frames()
 	check(plugin._services.entries[home.get_instance_id()].hint.contains("radians: float"),"native ClassDB callable signature displayed")
 	await capture("call-hint")
+	await complete('extends Node2D\nvar offset: Vec§\n',"Vector2","offset: Vector2","E03 engine builtin type names")
 	await complete('extends Node2D\nfunc demo(camera: Camera2D):\n\tvar local: Camera2D\n\tlocal.zo§\n',"zoom","local.zoom","E03 typed local variable")
 	# Other authenticated unsaved Gogo source is authoritative, without new().
 	var model := await create("res://app/Screens/LiveModel.gogo")
