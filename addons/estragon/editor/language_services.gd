@@ -34,7 +34,7 @@ func attach(editor: ScriptEditorBase, code: CodeEdit, path: String) -> void:
 	entries[id] = {"code":weakref(code),"editor":weakref(editor),"path":path,"model":Completion.new(),"lexical":Context.new(),"records":[],"pending":true,"marked":[],"line_count":code.get_line_count(),"mutating":false,"snapshot":-1,"script":code.get_script(),"lookup_enabled":code.symbol_lookup_on_click,"lookup":_lookup.bind(id),"caret":_hint.bind(id),"enabled":code.code_completion_enabled,"prefixes":code.code_completion_prefixes,"request":_complete.bind(id),"edit":_changed.bind(id),"gutter":_gutter_clicked.bind(id),"theme":_theme_changed.bind(id),"closing":_closed.bind(id)}
 	if code.get_script() == null:
 		code.set_script(Acceptance)
-		code.estragon_accept = _accept.bind(id)
+		code.set("estragon_accept",_accept.bind(id))
 	code.symbol_lookup_on_click = true
 	code.symbol_lookup.connect(entries[id].lookup)
 	code.caret_changed.connect(entries[id].caret)

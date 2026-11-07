@@ -220,7 +220,7 @@ func _path_options(left: String, context: Dictionary, source: String, row: int, 
 	while not name.is_empty() and result.size() < 256:
 		if not name.begins_with(".") and name.begins_with(prefix) and not access.is_link(name) and (access.current_is_dir() or name.get_extension() in extensions):
 			var is_dir := access.current_is_dir()
-			var insert := context.quote+directory+name+("/" if is_dir else context.quote)
+			var insert: String = context.quote+directory+name+("/" if is_dir else context.quote)
 			result.append({"text":insert,"insert":insert,"kind":CodeEdit.KIND_FILE_PATH,"row":row,"start":start,"column":column,"path":true})
 		name = access.get_next()
 	access.list_dir_end()
