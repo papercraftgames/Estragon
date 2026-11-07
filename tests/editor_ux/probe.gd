@@ -76,6 +76,32 @@ func _initialize() -> void:
 			file.close()
 			var script: GDScript = load(output)
 			check(script != null and script.can_instantiate(),"E03 imports actual-path native load")
+	_native_class_removal()
 	print("E02_PROBE_ASSERTIONS ",checks)
 	if not failed: print("E02_PROBE_OK")
 	quit(1 if failed else 0)
+
+# Independent engine limitation probe: no Estragon compiler/runtime resources.
+# Record observed identity changes, never repair paths or call it acceptance PASS.
+func _native_class_removal() -> void:
+	var root := "res://.godot/e03-native-cache"
+	DirAccess.make_dir_recursive_absolute(root)
+	var dependency := root.path_join("Dependency.gd")
+	var holder_path := root.path_join("Holder.gd")
+	var consumer_path := root.path_join("Consumer.gd")
+	for pair in [[dependency,"extends RefCounted\n"],[holder_path,'extends RefCounted\nclass Nested:\n\tconst Dependency = preload("Dependency.gd")\n\tstatic func value() -> Dependency:\n\t\treturn Dependency.new()\n'],[consumer_path,'extends RefCounted\nconst Dependency = preload("Dependency.gd")\n']]:
+		var output := FileAccess.open(pair[0],FileAccess.WRITE)
+		output.store_string(pair[1])
+		output.close()
+	var original_dependency: Script = load(dependency)
+	var holder: GDScript = load(holder_path)
+	var before := original_dependency.resource_path
+	holder.source_code = "extends RefCounted\n"
+	var error := holder.reload(true)
+	var consumer: Script = load(consumer_path)
+	var current_dependency: Script = load(dependency)
+	var observed := {"engine":Engine.get_version_info().string,"reload_error":error,"before":before,"after":original_dependency.resource_path,"same_dependency_identity":original_dependency==current_dependency,"consumer_valid":consumer!=null}
+	var output := FileAccess.open("res://e03-native-cache.json",FileAccess.WRITE)
+	output.store_string(JSON.stringify(observed,"\t"))
+	output.close()
+	print("E03_NATIVE_CLASS_REMOVAL ",JSON.stringify(observed))

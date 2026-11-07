@@ -125,8 +125,6 @@ func play(mode: String) -> void:
 	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	if mode == "main": interface.play_main_scene()
 	else: interface.play_current_scene()
-	print("E03_PLAY_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
-	if not plugin.last_report.ok: print("E03_PLAY_SOURCE ",FileAccess.get_file_as_string(HOME))
 	if await until(proof,mode+" child game runs created Gogo",20): check(interface.is_playing_scene(),mode+" native child active")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"child stopped")
@@ -213,7 +211,16 @@ func _e03() -> String:
 	await complete('extends Node2D\nvar offset: Vec§\n',"Vector2","offset: Vector2","E03 engine builtin type names")
 	await complete('extends Node2D\nfunc demo(camera: Camera2D):\n\tvar local: Camera2D\n\tlocal.zo§\n',"zoom","local.zoom","E03 typed local variable")
 	# Other authenticated unsaved Gogo source is authoritative, without new().
-	var model := await create("res://app/Screens/LiveModel.gogo")
+	# A code-only model starts as code-only source. Native class-removal cache
+	# behavior is independently reproduced by probe.gd, without cache repair.
+	var model_file := FileAccess.open("res://app/Screens/LiveModel.gogo",FileAccess.WRITE)
+	model_file.store_string("extends Node2D\nvar saved_speed: float = 1.0\n")
+	model_file.close()
+	interface.get_resource_filesystem().scan()
+	await until(func(): return not plugin._filesystem_busy(),"code-only model filesystem scan")
+	await plugin._navigation.open("res://app/Screens/LiveModel.gogo")
+	await until(func(): return current("res://app/Screens/LiveModel.gogo")!=null,"code-only model opens")
+	var model := current("res://app/Screens/LiveModel.gogo")
 	if model != null:
 		model.text = 'extends Node2D\n@export var unsaved_speed: float = 1.0\nfunc _init():\n\tpush_error("AUTHORED_MODEL_MUST_NOT_EXECUTE_FOR_COMPLETION")\n'
 		await plugin._navigation.open(HOME)
@@ -373,27 +380,18 @@ func _run() -> void:
 	original = e03_screen
 	var attached := original+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _game_proof.call_deferred()\nfunc _game_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png(\"res://e03-game.png\")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI").find_child("Greeting",true,false).text}))\n\toutput.close()\n'
 	home.text = attached
-	print("E03_BEFORE_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	check(plugin._build(),"native save/build before scene attachment")
-	print("E03_AFTER_BUILD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
-	if preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path.is_empty():
-		check(false,"framework Script path preserved after build")
-		finish()
-		return
+	check(not preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path.is_empty(),"framework Script path preserved after build")
 
 	original = attached
 	var host := Node2D.new()
 	host.name = "Home"
 	var executable = load(OUTPUT)
-	print("E03_AFTER_LOAD ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	host.set_script(executable)
-	print("E03_AFTER_ATTACH ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 
 	var packed := PackedScene.new()
 	packed.pack(host)
-	print("E03_BEFORE_PACK_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	ResourceSaver.save(packed,"res://app/Home.tscn")
-	print("E03_AFTER_PACK_ELEMENT ",preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path)
 	host.free()
 	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
 	ProjectSettings.save()

@@ -48,6 +48,7 @@ for(const selection of options.engines){
   fs.writeFileSync(path.join(box.project,'project.godot'),settings);
   await command('lexical-and-template',[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
   fs.copyFileSync(path.join(box.project,'e03-capabilities.json'),path.join(out,'capabilities.json'));
+  fs.copyFileSync(path.join(box.project,'e03-native-cache.json'),path.join(out,'native-class-removal.json'));
   // Probe outputs are disposable and must not add un-authored fixtures to builds.
   fs.rmSync(path.join(box.project,'app/Screens/generated'),{recursive:true,force:true});
   fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addonRoot+'/editor/plugin.cfg", "res://tests/editor_ux/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
