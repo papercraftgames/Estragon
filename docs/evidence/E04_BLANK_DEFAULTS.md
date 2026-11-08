@@ -1,4 +1,6 @@
-# E04 follow-up #132 — blank component defaults
+# E04 follow-up #132 — initial bare-host defaults (archival)
+
+**Superseded during owner review of PR #133:** the owner requested a typed build_view starter returning a plain native grouping node. See [current starter-stub evidence](E04_STARTER_STUBS.md). This report preserves the earlier bare-extends revision and its actual results.
 
 Issue [#132](https://github.com/papercraftgames/Estragon/issues/132); native-tested clean source `8d239eb7016d69be5881cec3be3bafa7eecb2636`, base `bb96534179cf151a619490fed9cb707a16b79b5c` (merged E04 #131). Subsequent edits record documentation/evidence only. Implementation awaits owner review/merge.
 
