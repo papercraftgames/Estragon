@@ -219,9 +219,13 @@ func more_checks() -> void:
 	check(plugin._build_sources() and service.items.has(moved) and not service.items.has(old),"move updates registry without silently retargeting scene")
 	check(not plugin._build() and service.source_for(preserved.get_script()) == old,"missing attached source blocks stale generated Play")
 	check(await save_scene() == OK,"save changed component before native Play gate")
+	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	interface.play_main_scene()
+	# Background source-only builds may legitimately replace last_report after
+	# the synchronous Play gate; retain that gate's actual rejection result.
+	var rejected: bool = not plugin.last_report.ok
 	await get_tree().create_timer(0.5).timeout
-	check(not interface.is_playing_scene() and not plugin.last_report.ok,"actual main Play rejects missing authored component")
+	check(not interface.is_playing_scene() and rejected and not FileAccess.file_exists("res://.godot/e02-game.json"),"actual main Play rejects missing authored component")
 	await inspect(preserved)
 	await click(button("Attach/Change Gogo Component…"))
 	await pick(moved)
