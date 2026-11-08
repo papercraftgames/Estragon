@@ -232,8 +232,6 @@ func write(path: String, text: String) -> void:
 	file.store_string(text)
 	file.close()
 func _run() -> void:
-	get_script().changed.connect(func(): print("E05_DRIVER_SCRIPT_CHANGED"))
-	get_script().get_base_script().changed.connect(func(): print("E05_BASE_SCRIPT_CHANGED"))
 	if not await until(find_plugin,"installed addon activates for scene authoring"): finish(); return
 	interface.get_editor_settings().set_setting("text_editor/behavior/files/auto_reload_scripts_on_external_change",true)
 	if interface.get_editor_settings().has_setting("run/window_placement/game_embed_mode"):
