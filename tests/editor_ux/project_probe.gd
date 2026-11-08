@@ -58,7 +58,7 @@ func _run() -> void:
 	check(child.get_node("SettingsView/Caption")==caption and caption.text=="Updated child","nested bindable child recomposes with retained native Text")
 	child.changed.emit(true)
 	check(host.received,"typed child signal invokes native parent handler")
-	var child_ref := weakref(child)
+	var child_ref: WeakRef = weakref(child)
 	var state = load("res://addons/estragon/runtime/composition/state.tres")
 	host.free()
 	await frames()
