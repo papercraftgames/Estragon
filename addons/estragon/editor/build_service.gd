@@ -50,12 +50,16 @@ func _run() -> Dictionary:
 	var sources := _sources.keys()
 	sources.sort()
 	var compiled: Array[Dictionary] = []
+	# Metadata resolution and code generation must read the same source snapshot.
 	for source in sources:
 		var input := FileAccess.open(_project.path_join(source), FileAccess.READ)
 		if input == null:
 			_fail(source + ": cannot read source (" + error_string(FileAccess.get_open_error()) + ")")
 			continue
-		var result := Compiler.compile(input.get_as_text(), source, _resource_path(output_for(source)), _scope())
+		_scope().texts[source] = input.get_as_text()
+	if not _report.diagnostics.is_empty(): return _report
+	for source in sources:
+		var result := Compiler.compile(_scope().read(source), source, _resource_path(output_for(source)), _scope())
 		if not result.ok:
 			for diagnostic in result.diagnostics: _fail_source(diagnostic)
 		else: compiled.append({"source": source, "output": output_for(source), "result": result})

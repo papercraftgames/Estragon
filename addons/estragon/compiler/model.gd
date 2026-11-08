@@ -65,7 +65,6 @@ class Attribute extends RefCounted:
 	var type_name: String
 
 class Component extends SyntaxNode:
-	var script_path: String = ""
 	var name: String
 	var name_span: Span
 	var runtime_class: String
@@ -75,6 +74,7 @@ class Component extends SyntaxNode:
 		kind = "component-expression"
 
 class Module extends RefCounted:
+	var project_imports: Dictionary = {}
 	var composition: bool = false
 	var parts: Array[SyntaxNode] = []
 	var identifiers: PackedStringArray = []

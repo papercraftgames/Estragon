@@ -98,6 +98,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 				if tokens[cursor].text == "set": setter = true
 			symbols[name].writable = not getter or setter
 		if word == "const" and scope.is_empty():
+			if index+3<tokens.size() and tokens[index+2].text=="=" and ClassDB.class_exists(tokens[index+3].text): aliases[name] = tokens[index+3].text
 			for cursor in range(index+2,mini(index+7,tokens.size()-2)):
 				if tokens[cursor].text == "preload" and tokens[cursor+1].text == "(" and tokens[cursor+2].kind == "string": aliases[name] = _resolve_path(tokens[cursor+2].text,source)
 	# Typed arguments/local declarations also contribute names, never inferred values.
@@ -192,13 +193,15 @@ func _node_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 	var name: String = aliases.get(type,type)
 	if name == type and not ClassDB.class_exists(type):
 		var project_path := _project_path(type)
-		if not project_path.is_empty(): name = project_path
+		if not project_path.is_empty(): return true
 	if name in visited or visited.size() >= 12: return false
 	if ClassDB.class_exists(name): return ClassDB.is_parent_class(name,"Node") and ClassDB.can_instantiate(name)
 	if not name.begins_with("res://"):
 		for entry in ProjectSettings.get_global_class_list():
 			if entry["class"] == name: return _node_type(str(entry.path),{},visited+[name])
 		return false
+	for item in _project_items():
+		if item.path == name: return true
 	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
 	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return false
@@ -230,11 +233,11 @@ func _project_items() -> Array:
 	return _project_items_cache
 func _project_path(name: String) -> String:
 	if _symbols.has(name) or ClassDB.class_exists(name): return ""
-	for entry in ProjectSettings.get_global_class_list():
-		if str(entry["class"])==name: return ""
 	var matches := []
 	for item in _project_items():
 		if item.alias == name: matches.append(item)
+	for entry in ProjectSettings.get_global_class_list():
+		if str(entry["class"])==name and (matches.size()!=1 or str(entry.path)!=matches[0].path): return ""
 	return matches[0].path if matches.size()==1 else ""
 func _project_options(prefix: String) -> Dictionary:
 	var result := {}
@@ -342,6 +345,12 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 				for alias in _aliases:
 					if _aliases[alias] == Catalog.path(item): offered.erase(alias)
 			offered.merge(_catalog_options(prefix,true))
+			# A bare native/global spelling with a project collision would fail
+			# compilation. Offer a source-qualified explicit choice instead.
+			var project_items := _project_items()
+			if not project_items.is_empty():
+				for name in offered.keys():
+					if not _aliases.has(name) and not project_index.named(str(name)).is_empty(): offered.erase(name)
 			offered.merge(_project_options(prefix))
 		else:
 			if not _node_type(context.tag,_aliases): return []

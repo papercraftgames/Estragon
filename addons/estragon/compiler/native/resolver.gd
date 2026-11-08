@@ -10,9 +10,11 @@ const ProjectSources = preload("../project_sources.gd")
 var visiting: Dictionary = {}
 var file
 var aliases: Dictionary = {}
+var native_aliases: Dictionary = {}
 var globals: Dictionary = {}
 var symbols: Dictionary = {}
 var project
+var _module
 
 func _init(source) -> void:
 	file = source
@@ -20,6 +22,7 @@ func _init(source) -> void:
 	for item in ProjectSettings.get_global_class_list(): globals[str(item["class"])] = str(item.path)
 
 func scan(module: Model.Module) -> void:
+	_module = module
 	# Only top-level lexical declarations in authored Code ranges are imports.
 	# No evaluation or regex parsing of mixed source.
 	for part in module.parts:
@@ -59,12 +62,21 @@ func scan(module: Model.Module) -> void:
 				path = output.get_base_dir().path_join(path).simplify_path()
 			if not path.is_absolute_path(): path = "res://" + path
 			aliases[name] = path
+		for index in range(tokens.size()-3):
+			if tokens[index].text!="const" or tokens[index].span.start.column!=1 or tokens[index+2].text!="=": continue
+			var target: String = tokens[index+3].text
+			if index+4<tokens.size() and tokens[index+4].span.start.line==tokens[index+3].span.start.line: continue
+			if ClassDB.class_exists(target): native_aliases[tokens[index+1].text] = target
 
 func scope():
 	if project == null: project = ProjectSources.new()
 	return project
 
 func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dictionary:
+	if native_aliases.has(name):
+		var native: String = native_aliases[name]
+		if not ClassDB.is_parent_class(native,"Node") or not ClassDB.can_instantiate(native): return _fail("Non-constructible native alias "+name,span)
+		return {"native":native,"script":null,"native_alias":native}
 	if aliases.has(name):
 		if ClassDB.class_exists(name) or globals.has(name) and globals[name] != aliases[name]:
 			return _fail("Ambiguous GGX preload alias " + name, span)
@@ -73,13 +85,24 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 		var candidates: Array = scope().named(name)
 		if not project.errors.is_empty(): return _fail("Cannot index project Gogo sources: "+str(project.errors),span)
 		if not candidates.is_empty():
-			if candidates.size()!=1 or symbols.has(name) or ClassDB.class_exists(name) or globals.has(name):
+			var same_global: bool = candidates.size()==1 and globals.get(name,"")==project.resource(ProjectSources.output_for(candidates[0]))
+			if candidates.size()!=1 or symbols.has(name) or ClassDB.class_exists(name) or globals.has(name) and not same_global:
 				return _fail("Ambiguous project Gogo component "+name+": "+", ".join(candidates)+"; select a source with an explicit uniquely named preload alias",span)
 			var source: String = candidates[0]
 			var path: String = project.resource(ProjectSources.output_for(source))
 			if project.authored(file.name) == source: return _fail("Self-reference in Gogo component "+source,span)
 			var result := _gogo(name,path,project.resource(source),span)
-			if not result.is_empty(): result.project_script = path
+			if not result.is_empty():
+				var alias: String
+				if _module.project_imports.has(path): alias = _module.project_imports[path].alias
+				else:
+					alias = "_GogoProject_"+str(_module.project_imports.size())
+					while _module.identifiers.has(alias): alias += "_"
+					_module.identifiers.append(alias)
+					_module.project_imports[path] = {"alias":alias,"span":span}
+				result.project_alias = alias
+				for property in result.get("properties",{}).values():
+					if str(property.get("class_name","")).begins_with(name+"."): property.class_name = alias+str(property.class_name).trim_prefix(name)
 			return result
 	if globals.has(name): return _script(name, globals[name], span,project_tags)
 	if not ClassDB.class_exists(name): return _fail("Unknown Node GGX component %s; use a native class or explicit preload alias" % JSON.stringify(name), span)
@@ -170,7 +193,8 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 						optional = false
 					else: parameter = true
 		if token.text=="signal" and token.span.start.column==1: signals[tokens[index+1].text] = {"name":tokens[index+1].text}
-		if token.text!="var" or token.span.start.column!=1 or tokens[index+2].text!=":": continue
+		var start: int = source.line_start(token.span.start.line)
+		if token.text!="var" or source.text.substr(start,1) in [" ","\t"] or tokens[index+2].text!=":": continue
 		var end: int = index+3
 		while end+1<tokens.size() and tokens[end+1].span.start.line==token.span.start.line and tokens[end+1].text not in ["=",":"]: end += 1
 		declarations.append({"name":tokens[index+1].text,"type_name":source.text.substr(tokens[index+3].span.start.index,tokens[end].span.end.index-tokens[index+3].span.start.index),"signal_name":""})

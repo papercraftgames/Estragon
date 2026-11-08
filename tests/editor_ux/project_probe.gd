@@ -22,7 +22,7 @@ func rejected(text: String, message: String) -> void:
 	var script = load(output)
 	var report := Build.run_build()
 	check(not report.ok and str(report.diagnostics).contains(message),message+" rejected with diagnostic")
-	check(not report.source_diagnostics.is_empty() and report.source_diagnostics.any(func(d): return str(d.source).ends_with("Home.gogo")),"authored diagnostic for "+message)
+	check(not report.source_diagnostics.is_empty() and report.source_diagnostics.any(func(d): return str(d.source).ends_with(".gogo") and d.line>0 and d.column>0),"authored diagnostic for "+message)
 	check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps and FileAccess.get_modified_time(output)==stamp and load(output)==script,"rollback/identity for "+message)
 	Fixture.write(Fixture.HOME,Fixture.home())
 func _run() -> void:
