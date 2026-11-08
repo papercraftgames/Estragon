@@ -1,0 +1,137 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "6c1c6d16326d3c5fb31349aff3f4ea2812fa692b13861ea4173fd804aacd211a"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-QQClTs/yarn-cache",
+      "file:/evidence/acceptance-ready/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.61,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "lexical-and-template": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-QQClTs/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-QQClTs/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.83,
+    "godot_pid": 7804,
+    "log": "lexical-and-template.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-QQClTs/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-QQClTs/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 19.27,
+    "godot_pid": 7823,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-QQClTs/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-QQClTs/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 9.33,
+    "godot_pid": 8503,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "unexpected_errors": []
+  },
+  "template-relocated": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-QQClTs/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-QQClTs/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.84,
+    "godot_pid": 9054,
+    "log": "template-relocated.log",
+    "diagnostics": []
+  },
+  "template-standard": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-QQClTs/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-QQClTs/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.84,
+    "godot_pid": 9073,
+    "log": "template-standard.log",
+    "diagnostics": []
+  }
+}

@@ -261,9 +261,9 @@ static func creation_check(path: String) -> Dictionary:
 	if not path.begins_with("res://") or path.get_extension() != "gogo" or "\\" in relative or ":" in relative:
 		return {"ok":false,"message":"Choose a .gogo file beneath res://."}
 	for part in relative.split("/"):
-		if part.begins_with(".") or part in EXCLUDED: return {"ok":false,"message":"This path is excluded from Gogo compilation. Choose a configured source root."}
+		if part.is_empty() or not part.is_valid_filename() or part.begins_with(".") or part in EXCLUDED: return {"ok":false,"message":"This path is invalid or excluded from Gogo compilation. Choose a valid filename in a configured source root."}
 	if FileAccess.file_exists(path) or DirAccess.dir_exists_absolute(path):
-		return {"ok":false,"message":"A file or directory already exists. New Gogo Script never overwrites existing source; choose another filename."}
+		return {"ok":false,"message":"A file or directory already exists. New Gogo Component never overwrites existing source; choose another filename."}
 	if not DirAccess.dir_exists_absolute(path.get_base_dir()): return {"ok":false,"message":"Create/select an existing project directory first."}
 	var check := new()
 	check._project = ProjectSettings.globalize_path("res://").trim_suffix("/")

@@ -9,6 +9,7 @@ var original := ""
 var e03_screen := ""
 var failed := false
 var checks := 0
+var creation_only := OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") == "1"
 const HOME := "res://app/Screens/Home.gogo"
 const OUTPUT := "res://app/Screens/generated/Home.gd"
 const PLUGIN := "res://addons/estragon/editor/plugin.cfg"
@@ -29,7 +30,10 @@ func until(condition: Callable, label: String, seconds: float = 12.0) -> bool:
 func frames(count: int = 3) -> void:
 	for index in range(count): await get_tree().process_frame
 func capture(label: String) -> void:
-	await RenderingServer.frame_post_draw
+	# Stock editors can stop drawing an unchanged viewport under native popups.
+	# Request a synchronous frame rather than waiting forever for a future draw.
+	await frames()
+	RenderingServer.force_draw(false)
 	get_viewport().get_texture().get_image().save_png("res://e02-"+label+".png")
 func find_plugin() -> bool:
 	for node in get_tree().root.find_children("*","EditorPlugin",true,false):
@@ -44,21 +48,156 @@ func current(path: String) -> CodeEdit:
 func tools_action() -> bool:
 	for menu in interface.get_base_control().find_children("*","PopupMenu",true,false):
 		for index in range(menu.item_count):
-			if menu.get_item_text(index) == "New Gogo Script…":
+			if menu.get_item_text(index) == "New Gogo Component…":
 				menu.index_pressed.emit(index)
 				return true
 	return false
 func create(path: String, spatial: bool = false) -> CodeEdit:
-	check(tools_action(),"Project > Tools native action exists")
+	var project_before := FileAccess.get_file_as_string("res://project.godot")
+	var roots_before := FileAccess.get_file_as_string("res://gogo.config.json")
+	if path == HOME and plugin._creation_menu != null:
+		await filesystem_action("res://app/Screens/")
+	else:
+		interface.get_file_system_dock().navigate_to_path(path.get_base_dir()+"/")
+		await frames()
+		check(tools_action(),"Project > Tools native action exists")
 	if not await until(func(): return plugin._new_script.dialog.visible,"native file dialog visible"): return null
+	check(plugin._new_script.dialog.current_dir.trim_suffix("/") == path.get_base_dir(),"creation retains exact selected directory")
 	if path == HOME: await capture("creation")
 	var dialog = plugin._new_script.dialog
 	plugin._new_script.dimension.select(1 if spatial else 0)
 	dialog.current_path = path
-	dialog.get_line_edit().text = path.get_file()
+	dialog.get_line_edit().text = path.get_file().get_basename() if path == HOME else path.get_file()
 	dialog.get_ok_button().pressed.emit()
 	if not await until(func(): return FileAccess.file_exists(path) and current(path) != null,"created source opens in stock ScriptEditor"): return null
+	check(current(path).syntax_highlighter.get_script() == Highlighter and current(path).code_completion_enabled and plugin._services._gutter_index(current(path)) >= 0,"created authored source immediately has Gogo highlighting/completion/diagnostics")
+	check(plugin._build(),"new component compiles without manual changes")
+	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
+	var script: Script = load(output)
+	# Non-tool authored scripts cannot instantiate in editor context; actual
+	# instantiation is proved separately by headless templates and child Play.
+	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and script.get_script_method_list().any(func(method): return method.name == "build_view"),"new component generated native metadata loads at actual output path")
+	check(FileAccess.get_file_as_string("res://project.godot") == project_before and FileAccess.get_file_as_string("res://gogo.config.json") == roots_before,"creation preserves project settings and configured source roots")
 	return current(path)
+
+# Test-only public control/input driving. Production registers the supported
+# context slot and never searches or edits Godot's PopupMenus.
+func menu_key(menu: PopupMenu, key: Key) -> void:
+	var event := InputEventKey.new()
+	event.window_id = menu.get_window_id()
+	event.keycode = key
+	event.pressed = true
+	Input.parse_input_event(event)
+	event = event.duplicate()
+	event.pressed = false
+	Input.parse_input_event(event)
+	await frames()
+func menu_click(menu: PopupMenu, index: int) -> void:
+	# Locate the row by native hover feedback, without hardcoded theme metrics.
+	menu.set_focused_item(-1)
+	var point := Vector2(24,8)
+	var found := false
+	for y in range(8,menu.size.y-4,4):
+		point.y = y
+		var motion := InputEventMouseMotion.new()
+		motion.window_id = menu.get_window_id()
+		motion.position = point
+		motion.global_position = Vector2(menu.position)+point
+		motion.relative = Vector2(0,4)
+		motion.velocity = Vector2(0,240)
+		Input.parse_input_event(motion)
+		Input.flush_buffered_events()
+		if menu.get_focused_item() == index:
+			found = true
+			break
+	check(found,"native hover locates component menu row")
+	if not found: return
+	var event := InputEventMouseButton.new()
+	event.window_id = menu.get_window_id()
+	event.position = point
+	event.global_position = Vector2(menu.position)+point
+	event.button_index = MOUSE_BUTTON_LEFT
+	event.pressed = true
+	Input.parse_input_event(event)
+	event = event.duplicate()
+	event.pressed = false
+	Input.parse_input_event(event)
+	await frames()
+func filesystem_action(directory: String, empty: bool = false, expected_count: int = 1) -> void:
+	var dock := interface.get_file_system_dock()
+	dock.navigate_to_path(directory)
+	await frames(8)
+	var tree: Tree
+	for candidate in dock.find_children("*","Tree",true,false):
+		var item: TreeItem = candidate.get_selected()
+		if candidate.is_visible_in_tree() and item != null and str(item.get_metadata(0)).trim_suffix("/") == directory.trim_suffix("/"):
+			tree = candidate
+			break
+	check(tree != null,"exact FileSystem folder selected for context input")
+	if tree == null: return
+	tree.get_window().grab_focus()
+	if tree.has_method("scroll_to_item"): tree.call("scroll_to_item",tree.get_selected())
+	else: tree.ensure_cursor_is_visible()
+	await frames()
+	# Authenticate the input row after layout/scroll changes (e.g. child Play
+	# opens the Output panel). Never assume an unscrolled rectangle is clickable.
+	var point := Vector2(tree.size.x/2,-1)
+	for y in range(8,int(tree.size.y)-12,2):
+		if tree.get_item_at_position(Vector2(point.x,y)) == tree.get_selected():
+			point.y = y+2
+			break
+	check(point.y >= 0,"native hit testing locates selected folder row")
+	if point.y < 0: return
+	if empty:
+		# Make genuinely empty space, independent of folder count/scroll position.
+		tree.get_selected().collapsed = true
+		await frames()
+		point = Vector2(tree.size.x/2,tree.size.y-24)
+		check(tree.get_item_at_position(point) == null,"empty-space input misses every tree item")
+	var motion := InputEventMouseMotion.new()
+	motion.position = tree.global_position+point
+	Input.parse_input_event(motion)
+	var event := InputEventMouseButton.new()
+	event.position = motion.position
+	event.button_index = MOUSE_BUTTON_RIGHT
+	event.pressed = true
+	Input.parse_input_event(event)
+	event = event.duplicate()
+	event.pressed = false
+	Input.parse_input_event(event)
+	await frames(5)
+	var popup: PopupMenu
+	for candidate in dock.find_children("*","PopupMenu",true,false):
+		if candidate.visible: popup = candidate; break
+	check(popup != null,"native FileSystem right-click opens menu")
+	if popup == null: return
+	if not empty:
+		var submenu := -1
+		for index in range(popup.item_count):
+			if popup.get_item_text(index).begins_with("Create New"): submenu = index
+		check(submenu >= 0,"native Create New submenu present")
+		if submenu < 0: popup.hide(); return
+		popup.set_focused_item(submenu)
+		await menu_key(popup,KEY_RIGHT)
+		popup = popup.get_node(NodePath(popup.get_item_submenu(submenu)))
+		if not await until(func(): return popup.visible,"native Create New submenu opens"): return
+	var matches: Array[int] = []
+	var ordinary_script := false
+	var ordinary_text := false
+	for index in range(popup.item_count):
+		var label := popup.get_item_text(index)
+		if label in ["Gogo Component…","New Gogo Component…"]: matches.append(index)
+		ordinary_script = ordinary_script or label in ["Script...","New Script..."]
+		ordinary_text = ordinary_text or label in ["TextFile...","New TextFile..."]
+	check(matches.size() == expected_count,"exactly expected owned creation actions")
+	check(ordinary_script and ordinary_text,"native Script and TextFile actions preserved")
+	await capture("filesystem-"+("empty" if empty else "folder")+"-"+str(expected_count))
+	# PopupMenus are separate native windows and absent from the main viewport.
+	popup.get_texture().get_image().save_png("res://e02-native-menu-"+("empty" if empty else "folder")+"-"+str(expected_count)+".png")
+	if matches.size() != 1: popup.hide(); return
+	await menu_click(popup,matches[0])
+	if await until(func(): return plugin._new_script.dialog.visible,"native menu activates shared component dialog"):
+		check(plugin._new_script.dialog.current_dir.trim_suffix("/") == ("res:/" if empty else directory.trim_suffix("/")),"context callback uses actual folder/root")
 func set_source(code: CodeEdit, text: String) -> void:
 	var marker := text.find("§")
 	var left := text.left(marker)
@@ -254,11 +393,17 @@ func _e03() -> String:
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activated"): finish(); return
 	var editor_settings := interface.get_editor_settings()
+	if creation_only:
+		# Isolated test preference: allow normal saved-source refresh on focus.
+		editor_settings.set_setting("text_editor/behavior/files/auto_reload_scripts_on_external_change",true)
 	if editor_settings.has_setting("run/window_placement/game_embed_mode"):
 		editor_settings.set_setting("run/window_placement/game_embed_mode",-1)
 		get_tree().root.propagate_notification(EditorSettings.NOTIFICATION_EDITOR_SETTINGS_CHANGED)
 		await frames()
 	if FileAccess.file_exists("res://.godot/e02-restart.request"):
+		if plugin._creation_menu != null:
+			await filesystem_action("res://app/Screens/")
+			plugin._new_script.dialog.hide()
 		await plugin._navigation.open(HOME)
 		if await until(func(): return current(HOME)!=null,"restart authenticates restored Gogo tab"):
 			home = current(HOME)
@@ -269,10 +414,11 @@ func _run() -> void:
 		finish()
 		return
 	interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
+	check((plugin._creation_menu != null) == plugin.has_method("add_context_menu_plugin"),"native hook availability matches engine; 4.0 uses Tools fallback")
 	home = await create(HOME)
 	if home == null: finish(); return
 	original = home.text
-	e03_screen = await _e03()
+	e03_screen = original if creation_only else await _e03()
 	home.text = original
 	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"valid template imports actual installation relatively")
 	# Cancel and rejected paths exercise the native dialog without touching source.
@@ -281,7 +427,12 @@ func _run() -> void:
 	plugin._new_script.dialog.get_cancel_button().pressed.emit()
 	await frames()
 	check(not FileAccess.file_exists("res://app/Screens/Cancelled.gogo"),"cancel creates no source")
-	for rejected in ["res://app/Existing.gogo","res://tests/Rejected.gogo"]:
+	if plugin._creation_menu != null:
+		await filesystem_action("res://",true)
+		plugin._new_script.dialog.get_cancel_button().pressed.emit()
+		await filesystem_action("res://")
+		plugin._new_script.dialog.get_cancel_button().pressed.emit()
+	for rejected in ["res://app/Existing.gogo","res://tests/Rejected.gogo","res://app/Screens/Bad.txt"]:
 		var existing := FileAccess.get_file_as_string("res://app/Existing.gogo")
 		tools_action()
 		plugin._new_script.dialog.current_path = rejected
@@ -296,6 +447,7 @@ func _run() -> void:
 			await frames()
 		check(plugin._new_script.error.visible,"existing/ignored creation visibly rejected")
 		check(FileAccess.get_file_as_string("res://app/Existing.gogo")==existing and not FileAccess.file_exists("res://tests/Rejected.gogo"),"rejected creation preserves source")
+		check(not FileAccess.file_exists("res://app/Screens/Bad.txt") and not FileAccess.file_exists("res://app/Screens/Bad.txt.gogo"),"bad extension leaves no source or silently suffixed file")
 		plugin._new_script.error.hide()
 		plugin._new_script.dialog.hide()
 	var model := original.replace('func build_view()', 'var greeting: String = "Hello"\nvar camera: Camera2D\nsignal accepted\nfunc build_view()')
@@ -378,7 +530,7 @@ func _run() -> void:
 	var ordinary: CodeEdit = interface.get_script_editor().get_current_editor().get_base_editor()
 	check(ordinary != home and ordinary.syntax_highlighter.get_script()!=Highlighter,"ordinary gd retains native highlighter")
 	check(not plugin._services.entries.has(ordinary.get_instance_id()) and plugin._services._gutter_index(ordinary)<0,"ordinary gd has no Gogo services/gutter")
-	var spatial := await create("res://app/Screens/Spatial.gogo",true)
+	var spatial := await create("res://app/Screens/Nested/Spatial.gogo",true)
 	check(spatial != null and spatial.text.begins_with('extends Node3D'),"second Gogo tab / spatial template")
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to Home tab")
@@ -405,6 +557,7 @@ func _run() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Home.tscn","attached scene opens")
 	for mode in ["main","current"]:
 		await play(mode)
+		if creation_only: continue
 		await blocked(mode)
 		home.text = original
 		await play(mode)
@@ -418,6 +571,7 @@ func _run() -> void:
 	var count := home.code_completion_requested.get_connections().size()
 	interface.set_plugin_enabled(PLUGIN,false)
 	await frames()
+	if has_method("add_context_menu_plugin"): await filesystem_action("res://app/Screens/",false,0)
 	check(not home.code_completion_enabled and home.code_completion_requested.get_connections().size()<count,"disable removes Gogo handlers/completion")
 	var gutter_exists := false
 	for index in range(home.get_gutter_count()): gutter_exists = gutter_exists or home.get_gutter_name(index)==Services.GUTTER
@@ -425,6 +579,9 @@ func _run() -> void:
 	plugin = null
 	interface.set_plugin_enabled(PLUGIN,true)
 	if await until(find_plugin,"re-enable reattaches editor services"):
+		if plugin._creation_menu != null:
+			await filesystem_action("res://app/Screens/")
+			plugin._new_script.dialog.hide()
 		await plugin._navigation.open(HOME)
 		await until(func(): return current(HOME)!=null,"visible Gogo tab reauthenticated")
 		check(home.code_completion_enabled,"re-enabled completion")
@@ -432,8 +589,7 @@ func _run() -> void:
 		var restart := FileAccess.open("res://.godot/e02-restart.request",FileAccess.WRITE)
 		restart.store_string("restart")
 		restart.close()
-	await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png("res://e02-editor.png")
+	await capture("editor")
 	finish()
 func finish() -> void:
 	print("E02_EDITOR_ASSERTIONS ",checks," failed=",failed)

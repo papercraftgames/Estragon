@@ -1,0 +1,97 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK native hook availability matches engine; 4.0 uses Tools fallback: true
+E02_EDITOR_CHECK Project > Tools native action exists: true
+E02_EDITOR_CHECK creation retains exact selected directory: true
+E02_EDITOR_CHECK created authored source immediately has Gogo highlighting/completion/diagnostics: true
+E02_EDITOR_CHECK new component compiles without manual changes: true
+E02_EDITOR_CHECK new component generated native metadata loads at actual output path: true
+E02_EDITOR_CHECK creation preserves project settings and configured source roots: true
+E02_EDITOR_CHECK valid template imports actual installation relatively: true
+E02_EDITOR_CHECK creation menu can be reopened: true
+E02_EDITOR_CHECK cancel creates no source: true
+E02_EDITOR_CHECK existing/ignored creation visibly rejected: true
+E02_EDITOR_CHECK rejected creation preserves source: true
+E02_EDITOR_CHECK bad extension leaves no source or silently suffixed file: true
+E02_EDITOR_CHECK existing/ignored creation visibly rejected: true
+E02_EDITOR_CHECK rejected creation preserves source: true
+E02_EDITOR_CHECK bad extension leaves no source or silently suffixed file: true
+E02_EDITOR_CHECK existing/ignored creation visibly rejected: true
+E02_EDITOR_CHECK rejected creation preserves source: true
+E02_EDITOR_CHECK bad extension leaves no source or silently suffixed file: true
+E02_EDITOR_CHECK imported tag native popup contains expected candidate: true
+E02_EDITOR_CHECK imported tag native confirmation inserts correct text: true
+E02_EDITOR_CHECK imported tag insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK imported tag undo restores caret: true
+E02_EDITOR_CHECK imported tag insertion redo: true
+E02_EDITOR_CHECK known attribute native popup contains expected candidate: true
+E02_EDITOR_CHECK known attribute native confirmation inserts correct text: true
+E02_EDITOR_CHECK known attribute insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK known attribute undo restores caret: true
+E02_EDITOR_CHECK known attribute insertion redo: true
+E02_EDITOR_CHECK self native member native popup contains expected candidate: true
+E02_EDITOR_CHECK self native member native confirmation inserts correct text: true
+E02_EDITOR_CHECK self native member insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK self native member undo restores caret: true
+E02_EDITOR_CHECK self native member insertion redo: true
+E02_EDITOR_CHECK GGX expression member native popup contains expected candidate: true
+E02_EDITOR_CHECK GGX expression member native confirmation inserts correct text: true
+E02_EDITOR_CHECK GGX expression member insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK GGX expression member undo restores caret: true
+E02_EDITOR_CHECK GGX expression member insertion redo: true
+E02_EDITOR_CHECK typed native member native popup contains expected candidate: true
+E02_EDITOR_CHECK typed native member native confirmation inserts correct text: true
+E02_EDITOR_CHECK typed native member insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK typed native member undo restores caret: true
+E02_EDITOR_CHECK typed native member insertion redo: true
+E02_EDITOR_CHECK closing tag native popup contains expected candidate: true
+E02_EDITOR_CHECK closing tag native confirmation inserts correct text: true
+E02_EDITOR_CHECK closing tag insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK closing tag undo restores caret: true
+E02_EDITOR_CHECK closing tag insertion redo: true
+E02_EDITOR_CHECK comments/strings suppress popup: true
+E02_EDITOR_CHECK comments/strings suppress popup: true
+E02_EDITOR_CHECK annotation and native/fallback type-hint theme colors: true
+E02_EDITOR_CHECK comparison remains code; multiline GGX comment: true
+E02_EDITOR_CHECK quoted markup and multiline string stay strings: true
+E02_EDITOR_CHECK live closing quote changes following scope: true
+E02_EDITOR_CHECK undo restores multiline scope: true
+E02_EDITOR_CHECK redo updates scope again: true
+E02_EDITOR_CHECK stock authenticated tab uses Gogo highlighter: true
+E02_EDITOR_CHECK GDScript theme keyword color: true
+E02_EDITOR_CHECK already-held Script metadata reused without authored load/new: true
+E02_EDITOR_CHECK theme setting changes reflected: true
+E02_EDITOR_CHECK panel link navigates authored Gogo line: true
+E02_EDITOR_CHECK idle analysis never writes incomplete buffer: true
+E02_EDITOR_CHECK repair clears markers: true
+E02_EDITOR_CHECK UTF-16 span navigates Unicode CodeEdit column: true
+E02_EDITOR_CHECK non-BMP source position is converted: true
+E02_EDITOR_CHECK ordinary gd retains native highlighter: true
+E02_EDITOR_CHECK ordinary gd has no Gogo services/gutter: true
+E02_EDITOR_CHECK Project > Tools native action exists: true
+E02_EDITOR_CHECK creation retains exact selected directory: true
+E02_EDITOR_CHECK created authored source immediately has Gogo highlighting/completion/diagnostics: true
+E02_EDITOR_CHECK new component compiles without manual changes: true
+E02_EDITOR_CHECK new component generated native metadata loads at actual output path: true
+E02_EDITOR_CHECK creation preserves project settings and configured source roots: true
+E02_EDITOR_CHECK second Gogo tab / spatial template: true
+E02_EDITOR_CHECK native save/build before scene attachment: true
+E02_EDITOR_CHECK framework Script path preserved after build: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-QQClTs/godot --path /tmp/estragon-native-QQClTs/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 7823 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-QQClTs/godot --path /tmp/estragon-native-QQClTs/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 7823 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK disable removes Gogo handlers/completion: true
+E02_EDITOR_CHECK disable removes only own diagnostic gutter: true
+E02_EDITOR_CHECK re-enabled completion: true
+E02_EDITOR_ASSERTIONS 82 failed=false
+E02_EDITOR_OK

@@ -42,6 +42,8 @@ func _initialize() -> void:
 	check(not Build.creation_check("res://ignored/File.gogo").ok,"ignored source root rejected")
 	check(not Build.creation_check("res://app/../escape.gogo").ok,"traversal rejected")
 	check(not Build.creation_check("user://File.gogo").ok,"external path rejected")
+	for rejected in ["res://app//Empty.gogo","res://app/.gogo","res://app/Bad.txt","res://app/../Escape.gogo","res://app/generated/Hidden.gogo","res://app/Invalid:Name.gogo"]:
+		check(not Build.creation_check(rejected).ok,"invalid/colliding/excluded component path rejected: "+rejected)
 	var capabilities: Dictionary = {"engine":Engine.get_version_info().string,"native_analyzer":{},"public_methods":{}}
 	for name in ["CodeEdit","ScriptEditor","GDScript","Script","ScriptLanguage","ScriptLanguageExtension"]:
 		if not ClassDB.class_exists(name):
@@ -76,7 +78,7 @@ func _initialize() -> void:
 			file.close()
 			var script: GDScript = load(output)
 			check(script != null and script.can_instantiate(),"E03 imports actual-path native load")
-	_native_class_removal()
+	if OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") != "1": _native_class_removal()
 	print("E02_PROBE_ASSERTIONS ",checks)
 	if not failed: print("E02_PROBE_OK")
 	quit(1 if failed else 0)

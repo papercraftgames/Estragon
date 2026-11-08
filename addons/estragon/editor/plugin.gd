@@ -12,6 +12,7 @@ const NewScript = preload("new_script.gd")
 var _services: Node
 var _navigation: RefCounted
 var _new_script: RefCounted
+var _creation_menu: RefCounted
 const TEXT_EXTENSIONS_SETTING := "docks/filesystem/textfile_extensions"
 
 var _highlighter: EditorSyntaxHighlighter
@@ -54,7 +55,15 @@ func _enter_tree() -> void:
 	_highlighter_association.start(_interface)
 	_new_script = NewScript.new(_interface,_navigation)
 	_new_script.start(self)
-	add_tool_menu_item("New Gogo Script…",_new_script.show_dialog)
+	add_tool_menu_item("New Gogo Component…",_new_script.show_dialog)
+	# Never parse a script extending a newer native class on Godot 4.0.
+	if has_method("add_context_menu_plugin") and has_method("remove_context_menu_plugin") and ClassDB.class_exists("EditorContextMenuPlugin") and "CONTEXT_SLOT_FILESYSTEM_CREATE" in ClassDB.class_get_integer_constant_list("EditorContextMenuPlugin"):
+		var adapter := GDScript.new()
+		adapter.source_code = FileAccess.get_file_as_string((get_script() as Script).resource_path.get_base_dir().path_join("creation_menu.gd.txt"))
+		if adapter.reload() == OK:
+			_creation_menu = adapter.new()
+			_creation_menu.create = _new_script.show_dialog
+			call("add_context_menu_plugin",3,_creation_menu) # CONTEXT_SLOT_FILESYSTEM_CREATE
 	add_tool_menu_item("Add Missing Gogo Imports",_services.add_missing_imports)
 	_timer = Timer.new()
 	_timer.one_shot = true
@@ -235,7 +244,11 @@ func _show_report() -> void:
 
 func _exit_tree() -> void:
 	_active = false
-	remove_tool_menu_item("New Gogo Script…")
+	remove_tool_menu_item("New Gogo Component…")
+	if _creation_menu != null:
+		call("remove_context_menu_plugin",_creation_menu)
+		_creation_menu.create = Callable()
+		_creation_menu = null
 	remove_tool_menu_item("Add Missing Gogo Imports")
 	if _navigation != null: _navigation.stop()
 	if _new_script != null: _new_script.stop(); _new_script = null
