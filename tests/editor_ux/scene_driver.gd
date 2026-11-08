@@ -2,6 +2,13 @@
 extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
+func save_scene() -> Error:
+	# Native 4.0 save progress pumps Main::iteration. Enter from the deferred
+	# queue, after completed process_frame await callbacks have disconnected.
+	var result := {"done":false,"error":ERR_BUSY}
+	(func(): result.error = interface.save_scene(); result.done = true).call_deferred()
+	await until(func(): return result.done,"native scene save completes")
+	return result.error
 func click(control: Control) -> void:
 	check(is_instance_valid(control),"native control available for input")
 	if not is_instance_valid(control): return
@@ -151,7 +158,7 @@ func more_checks() -> void:
 	var preserved := app.get_node("Preserved")
 	preserved.set_script(normal)
 	preserved.set("marker",13)
-	check(interface.save_scene() == OK,"ordinary Script setup saved")
+	check(await save_scene() == OK,"ordinary Script setup saved")
 	await inspect(preserved)
 	version = history().get_version()
 	await click(button("Attach/Change Gogo Component…"))
@@ -182,6 +189,7 @@ func more_checks() -> void:
 	DirAccess.rename_absolute(old,moved)
 	check(plugin._build_sources() and service.items.has(moved) and not service.items.has(old),"move updates registry without silently retargeting scene")
 	check(not plugin._build() and service.source_for(preserved.get_script()) == old,"missing attached source blocks stale generated Play")
+	check(await save_scene() == OK,"save changed component before native Play gate")
 	interface.play_main_scene()
 	await get_tree().create_timer(0.5).timeout
 	check(not interface.is_playing_scene() and not plugin.last_report.ok,"actual main Play rejects missing authored component")
@@ -209,6 +217,7 @@ func more_checks() -> void:
 	await blocked("main")
 	home.text = original
 	check(plugin._build(),"repair invalid source preserves attachment and recovers Play")
+	check(await save_scene() == OK,"save repaired association before current Play")
 	await play("current")
 	# All history methods target native objects, so pending undo remains valid
 	# while the addon is disabled. Registry and owned Inspector UI are removed.
@@ -290,7 +299,7 @@ func _run() -> void:
 		await click(button("Open Gogo Source"))
 		check(await until(func(): return current(HOME)!=null,"opens .gogo rather than generated Script"),"authored source navigation")
 	await capture("scene-inspector-attached")
-	check(interface.save_scene() == OK,"native scene save")
+	check(await save_scene() == OK,"native scene save")
 	for mode in ["main","current"]: await play(mode)
 	await native_add()
 	await inspect(app)
@@ -310,7 +319,7 @@ func _run() -> void:
 	await frames()
 	check(history().get_version() == before,"cancel leaves scene history untouched")
 	await more_checks()
-	check(interface.save_scene() == OK,"save ordinary/native component children")
+	check(await save_scene() == OK,"save ordinary/native component children")
 	write("res://.godot/e05-restart","restart")
 	await capture("scene-final")
 	finish()

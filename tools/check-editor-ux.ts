@@ -46,8 +46,7 @@ for(const selection of options.engines){
   copyTree(path.join(ROOT,'tests/editor_ux'),path.join(box.project,'tests/editor_ux'));
   if(scenes){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="scene_driver.gd"'));}
   function configure(root:string){for(const name of ['driver.gd','scene_driver.gd','probe.gd']){
-   let original=fs.readFileSync(path.join(ROOT,'tests/editor_ux',name),'utf8');
-   if(scenes && name==='scene_driver.gd')original=fs.readFileSync(path.join(ROOT,'tests/editor_ux/driver.gd'),'utf8').replace('func _run() -> void:','func _unused_full_run() -> void:')+'\n'+original.replace('@tool\nextends "driver.gd"\n','');
+   const original=fs.readFileSync(path.join(ROOT,'tests/editor_ux',name),'utf8');
    fs.writeFileSync(path.join(box.project,'tests/editor_ux',name),original.replaceAll('res://addons/estragon','res://'+root));
   }}
   configure(addonRoot);
