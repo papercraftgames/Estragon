@@ -3,6 +3,10 @@ extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
 func click(control: Control) -> void:
+	check(control != null,"native control available for input")
+	if control == null: return
+	control.get_window().grab_focus()
+	await frames(2)
 	var motion := InputEventMouseMotion.new()
 	motion.window_id = control.get_window().get_window_id()
 	motion.position = control.global_position+control.size/2
@@ -42,6 +46,64 @@ func pick(source: String) -> void:
 func history() -> UndoRedo:
 	var manager := plugin.get_undo_redo()
 	return manager.get_history_undo_redo(manager.get_object_history_id(app))
+func find_item(item: TreeItem, text: String) -> TreeItem:
+	if item == null: return null
+	if item.get_text(0) == text: return item
+	var child := item.get_first_child()
+	while child != null:
+		var found := find_item(child,text)
+		if found != null: return found
+		child = child.get_next()
+	return null
+func native_add() -> void:
+	await inspect(app)
+	var scene_tree: Tree
+	for tree in interface.get_base_control().find_children("*","Tree",true,false):
+		if tree.is_visible_in_tree() and tree.get_selected()!=null and str(tree.get_selected().get_metadata(0)) == str(app.get_path()): scene_tree = tree; break
+	check(scene_tree != null,"native Scene tree identifies selected App")
+	if scene_tree == null: return
+	scene_tree.get_window().grab_focus()
+	scene_tree.grab_focus()
+	var key := InputEventKey.new()
+	key.keycode = KEY_A
+	key.ctrl_pressed = true
+	key.pressed = true
+	Input.parse_input_event(key)
+	key = key.duplicate()
+	key.pressed = false
+	Input.parse_input_event(key)
+	await frames(8)
+	var dialog: ConfirmationDialog
+	for window in get_tree().root.find_children("*","ConfirmationDialog",true,false):
+		if window.visible and window.title == "Create New Node": dialog = window; break
+	check(dialog != null,"stock Create New Node dialog opens through native shortcut")
+	if dialog == null: return
+	var search: LineEdit
+	for line in dialog.find_children("*","LineEdit",true,false):
+		if line.is_visible_in_tree(): search = line; break
+	check(search != null,"native Create Node search control")
+	if search == null: dialog.hide(); return
+	search.text = "Home"
+	search.text_changed.emit(search.text)
+	await frames(10)
+	var selected: TreeItem
+	var options: Tree
+	for tree in dialog.find_children("*","Tree",true,false):
+		var item := find_item(tree.get_root(),plugin._scene_components.items[HOME].label)
+		if item != null: options = tree; selected = item; break
+	check(selected != null,"native search includes Home Gogo component registration")
+	if selected == null: dialog.hide(); return
+	selected.select(0)
+	options.item_selected.emit()
+	await frames()
+	RenderingServer.force_draw(false)
+	dialog.get_texture().get_image().save_png("res://e02-native-create-node.png")
+	var count := app.get_child_count()
+	await click(dialog.get_ok_button())
+	check(await until(func(): return app.get_child_count()==count+1,"native Create Node inserts component"),"native node insertion")
+	var associated := false
+	for child in app.get_children(): associated = associated or plugin._scene_components.source_for(child.get_script()) == HOME and child.owner == app
+	check(associated,"native custom type creates owned child with authored association")
 func write(path: String, text: String) -> void:
 	DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	var file := FileAccess.open(path,FileAccess.WRITE)
@@ -103,6 +165,7 @@ func _run() -> void:
 	await capture("scene-inspector-attached")
 	check(interface.save_scene() == OK,"native scene save")
 	for mode in ["main","current"]: await play(mode)
+	await native_add()
 	await inspect(app)
 	await click(button("Add Gogo Child…"))
 	await pick(HOME)
