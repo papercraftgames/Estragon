@@ -18,12 +18,13 @@ func _parse_begin(object: Object) -> void:
 	if not source.is_empty():
 		var open := Button.new()
 		open.text = "Open Gogo Source"
-		open.pressed.connect(owner.open_source.bind(source))
+		# Navigation/build can rebuild the Inspector and free this sender.
+		open.pressed.connect(owner.open_source.bind(source),CONNECT_DEFERRED)
 		panel.add_child(open)
 	for mode in ["attach","add"]:
 		var button := Button.new()
 		button.text = "Attach/Change Gogo Component…" if mode == "attach" else "Add Gogo Child…"
-		button.pressed.connect(owner.choose.bind(mode,weakref(object)))
+		button.pressed.connect(owner.choose.bind(mode,weakref(object)),CONNECT_DEFERRED)
 		panel.add_child(button)
 	owner.controls = owner.controls.filter(func(reference): return reference.get_ref() != null)
 	owner.controls.append(weakref(panel))
