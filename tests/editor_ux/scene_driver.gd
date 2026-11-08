@@ -283,6 +283,9 @@ func write(path: String, text: String) -> void:
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for scene authoring"): finish(); return
 	interface.get_editor_settings().set_setting("text_editor/behavior/files/auto_reload_scripts_on_external_change",true)
+	# Match the shared driver: prove Estragon saves/validates newest source
+	# even with native pre-Play scene/resource autosave disabled.
+	interface.get_editor_settings().set_setting("run/auto_save/save_before_running",false)
 	if interface.get_editor_settings().has_setting("run/window_placement/game_embed_mode"):
 		interface.get_editor_settings().set_setting("run/window_placement/game_embed_mode",-1)
 	if FileAccess.file_exists("res://.godot/e05-restart"):

@@ -160,10 +160,7 @@ func _refresh_generated_editors() -> void:
 			code.set_caret_column(column)
 			code.scroll_vertical = vertical
 			code.scroll_horizontal = horizontal
-		# A native Script refresh can already have copied these exact bytes
-		# while leaving its buffer dirty. Play must not save that generated tab
-		# again before a later failed Gogo build (changing output timestamps).
-		code.tag_saved_version()
+			code.tag_saved_version()
 
 
 func _filesystem_changed() -> void:
