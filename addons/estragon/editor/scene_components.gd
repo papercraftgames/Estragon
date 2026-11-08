@@ -169,8 +169,11 @@ func _commit() -> void:
 	if mode == "attach":
 		if not ClassDB.is_parent_class(node.get_class(),item.base): _fail("Component host type changed; choose a compatible node."); return
 		var values := {}
-		for prop in node.get_property_list():
-			if int(prop.usage) & PROPERTY_USAGE_SCRIPT_VARIABLE and int(prop.usage) & PROPERTY_USAGE_STORAGE: values[prop.name] = node.get(prop.name)
+		if previous != null:
+			# Placeholder/editor property lists do not consistently carry the
+			# SCRIPT_VARIABLE bit. Script metadata identifies owned stored fields.
+			for prop in previous.get_script_property_list():
+				if prop.name != "script" and int(prop.usage) & PROPERTY_USAGE_STORAGE: values[prop.name] = node.get(prop.name)
 		undo.create_action("Attach Gogo Component",UndoRedo.MERGE_DISABLE,root)
 		undo.add_do_method(node,"set_script",item.script)
 		undo.add_undo_method(node,"set_script",previous)

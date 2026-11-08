@@ -75,7 +75,8 @@ func native_add(source: String = HOME, insert: bool = true) -> void:
 	var add: Button
 	for candidate in interface.get_base_control().find_children("*","Button",true,false):
 		if candidate.is_visible_in_tree() and candidate.tooltip_text.begins_with("Add/Create a New Node"): add = candidate; break
-	await click(add)
+	if insert: await click(add)
+	elif add != null: add.pressed.emit()
 	await frames(8)
 	var dialog: ConfirmationDialog
 	for window in get_tree().root.find_children("*","ConfirmationDialog",true,false):
