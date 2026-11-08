@@ -10,6 +10,7 @@ var e03_screen := ""
 var failed := false
 var checks := 0
 var expected_text := "Hello Gogo"
+var expected_base := ""
 var creation_only := OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") == "1"
 const HOME := "res://app/Screens/Home.gogo"
 const OUTPUT := "res://app/Screens/generated/Home.gd"
@@ -46,27 +47,27 @@ func current(path: String) -> CodeEdit:
 		var code = entry.code.get_ref()
 		if entry.path == path and code != null and code.is_visible_in_tree(): return code
 	return null
-func tools_action() -> bool:
+func tools_action(spatial: bool = false) -> bool:
 	for menu in interface.get_base_control().find_children("*","PopupMenu",true,false):
 		for index in range(menu.item_count):
-			if menu.get_item_text(index) == "New Gogo Component…":
+			if menu.get_item_text(index) == "New Gogo Component ("+("3D" if spatial else "2D")+")…":
 				menu.index_pressed.emit(index)
 				return true
 	return false
 func create(path: String, spatial: bool = false) -> CodeEdit:
 	var project_before := FileAccess.get_file_as_string("res://project.godot")
 	var roots_before := FileAccess.get_file_as_string("res://gogo.config.json")
-	if path == HOME and plugin._creation_menu != null:
-		await filesystem_action("res://app/Screens/")
+	if plugin._creation_menu != null:
+		await filesystem_action(path.get_base_dir()+"/",false,2,spatial)
 	else:
 		interface.get_file_system_dock().navigate_to_path(path.get_base_dir()+"/")
 		await frames()
-		check(tools_action(),"Project > Tools native action exists")
+		check(tools_action(spatial),"Project > Tools native action exists")
 	if not await until(func(): return plugin._new_script.dialog.visible,"native file dialog visible"): return null
 	check(plugin._new_script.dialog.current_dir.trim_suffix("/") == path.get_base_dir(),"creation retains exact selected directory")
 	if path == HOME: await capture("creation")
 	var dialog = plugin._new_script.dialog
-	plugin._new_script.dimension.select(1 if spatial else 0)
+	check(plugin._new_script.dimension.selected == (1 if spatial else 0),"creation action preselects requested 2D/3D host")
 	dialog.current_path = path
 	dialog.get_line_edit().text = path.get_file().get_basename() if path == HOME else path.get_file()
 	dialog.get_ok_button().pressed.emit()
@@ -125,7 +126,7 @@ func menu_click(menu: PopupMenu, index: int) -> void:
 	event.pressed = false
 	Input.parse_input_event(event)
 	await frames()
-func filesystem_action(directory: String, empty: bool = false, expected_count: int = 1) -> void:
+func filesystem_action(directory: String, empty: bool = false, expected_count: int = 2, spatial: bool = false) -> void:
 	var dock := interface.get_file_system_dock()
 	dock.navigate_to_path(directory)
 	await frames(8)
@@ -188,7 +189,7 @@ func filesystem_action(directory: String, empty: bool = false, expected_count: i
 	var ordinary_text := false
 	for index in range(popup.item_count):
 		var label := popup.get_item_text(index)
-		if label in ["Gogo Component…","New Gogo Component…"]: matches.append(index)
+		if label in ["Gogo Component (2D)…","New Gogo Component (2D)…","Gogo Component (3D)…","New Gogo Component (3D)…"]: matches.append(index)
 		ordinary_script = ordinary_script or label in ["Script...","New Script..."]
 		ordinary_text = ordinary_text or label in ["TextFile...","New TextFile..."]
 	check(matches.size() == expected_count,"exactly expected owned creation actions")
@@ -196,8 +197,13 @@ func filesystem_action(directory: String, empty: bool = false, expected_count: i
 	await capture("filesystem-"+("empty" if empty else "folder")+"-"+str(expected_count))
 	# PopupMenus are separate native windows and absent from the main viewport.
 	popup.get_texture().get_image().save_png("res://e02-native-menu-"+("empty" if empty else "folder")+"-"+str(expected_count)+".png")
-	if matches.size() != 1: popup.hide(); return
-	await menu_click(popup,matches[0])
+	if matches.size() != 2: popup.hide(); return
+	var chosen := -1
+	for index in matches:
+		if popup.get_item_text(index).contains("(3D)" if spatial else "(2D)"): chosen = index
+	check(chosen >= 0,"native menu contains requested dimension action")
+	if chosen < 0: popup.hide(); return
+	await menu_click(popup,chosen)
 	if await until(func(): return plugin._new_script.dialog.visible,"native menu activates shared component dialog"):
 		check(plugin._new_script.dialog.current_dir.trim_suffix("/") == ("res:/" if empty else directory.trim_suffix("/")),"context callback uses actual folder/root")
 func set_source(code: CodeEdit, text: String) -> void:
@@ -280,22 +286,44 @@ func attach_home(text: String) -> void:
 	interface.open_scene_from_path("res://app/Home.tscn")
 	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Home.tscn","attached scene opens")
 func blank_play() -> void:
-	var blank := home.text
-	# Test instrumentation adds no children, view or imports. Headless probes
-	# separately instantiate the exact untouched 2D and 3D template bytes.
-	await attach_home(blank+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _blank_proof.call_deferred()\nfunc _blank_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png("res://e02-blank-game.png")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":"blank","children":get_child_count()}))\n\toutput.close()\n')
-	expected_text = "blank"
-	for mode in ["main","current"]: await play(mode)
+	# The observer is a sibling, leaving the generated component untouched.
+	for path in [HOME,"res://app/Screens/Nested/Spatial.gogo"]:
+		var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
+		var spatial: bool = path != HOME
+		var host: Node = Node3D.new() if spatial else Node2D.new()
+		host.name = "Component"
+		host.set_script(load(output))
+		var scene := Node.new()
+		scene.name = "Blank"
+		scene.add_child(host)
+		host.owner = scene
+		var observer := Node.new()
+		observer.name = "Observer"
+		observer.set_script(preload("blank_game.gd"))
+		scene.add_child(observer)
+		observer.owner = scene
+		var packed := PackedScene.new()
+		packed.pack(scene)
+		var scene_path := "res://app/Blank"+("3D" if spatial else "2D")+".tscn"
+		ResourceSaver.save(packed,scene_path)
+		scene.free()
+		ProjectSettings.set_setting("application/run/main_scene",scene_path)
+		ProjectSettings.save()
+		interface.open_scene_from_path(scene_path)
+		await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path==scene_path,"blank component scene opens")
+		expected_text = "blank"
+		expected_base = "Node3D" if spatial else "Node2D"
+		for mode in ["main","current"]: await play(mode)
 	expected_text = "Hello Gogo"
+	expected_base = ""
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to newly created blank source after Play")
 	home = current(HOME)
-	home.text = blank
-	check(plugin._build(),"blank source saves/builds again without composition artifacts")
+	check(home.text == "extends Node2D\n" and plugin._build(),"untouched blank source saves/builds after native Play")
 func proof() -> bool:
 	if not FileAccess.file_exists("res://.godot/e02-game.json"): return false
 	var json := JSON.new()
-	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == expected_text and (expected_text != "blank" or json.data.get("children") == 0)
+	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == expected_text and (expected_text != "blank" or json.data.get("children") == 0 and json.data.get("base") == expected_base)
 func play(mode: String) -> void:
 	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	if mode == "main": interface.play_main_scene()
@@ -453,19 +481,16 @@ func _run() -> void:
 	check((plugin._creation_menu != null) == plugin.has_method("add_context_menu_plugin"),"native hook availability matches engine; 4.0 uses Tools fallback")
 	home = await create(HOME)
 	if home == null: finish(); return
-	if creation_only: await blank_play()
-	original = authored_view()
-	home.text = original
-	check(plugin._build(),"developer can author a root view after blank creation")
-	e03_screen = original if creation_only else await _e03()
-	home.text = original
-	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"explicitly authored view imports actual installation relatively")
+	await capture("blank-source")
 	# Cancel and rejected paths exercise the native dialog without touching source.
 	check(tools_action(),"creation menu can be reopened")
 	plugin._new_script.dialog.current_path = "res://app/Screens/Cancelled.gogo"
 	plugin._new_script.dialog.get_cancel_button().pressed.emit()
 	await frames()
 	check(not FileAccess.file_exists("res://app/Screens/Cancelled.gogo"),"cancel creates no source")
+	check(tools_action(true),"Tools exposes separate 3D creation action")
+	check(plugin._new_script.dimension.selected == 1,"Tools 3D action preselects Node3D")
+	plugin._new_script.dialog.get_cancel_button().pressed.emit()
 	if plugin._creation_menu != null:
 		await filesystem_action("res://",true)
 		plugin._new_script.dialog.get_cancel_button().pressed.emit()
@@ -489,6 +514,19 @@ func _run() -> void:
 		check(not FileAccess.file_exists("res://app/Screens/Bad.txt") and not FileAccess.file_exists("res://app/Screens/Bad.txt.gogo"),"bad extension leaves no source or silently suffixed file")
 		plugin._new_script.error.hide()
 		plugin._new_script.dialog.hide()
+	var spatial := await create("res://app/Screens/Nested/Spatial.gogo",true)
+	check(spatial != null and spatial.text == "extends Node3D\n","second Gogo tab is a blank spatial component")
+	await capture("blank-spatial-source")
+	if creation_only: await blank_play()
+	await plugin._navigation.open(HOME)
+	await until(func(): return current(HOME)!=null,"return to Home tab")
+	home = current(HOME)
+	original = authored_view()
+	home.text = original
+	check(plugin._build(),"developer can author a root view after blank creation")
+	e03_screen = original if creation_only else await _e03()
+	home.text = original
+	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"explicitly authored view imports actual installation relatively")
 	var model := original.replace('func build_view()', 'var greeting: String = "Hello"\nvar camera: Camera2D\nsignal accepted\nfunc build_view()')
 	await complete(model.replace('<Text name=', '<Te§ name='),"Text","<Text name=","imported tag")
 	await complete(model.replace('viewport_width_scale','view§'),"viewport_width_scale","viewport_width_scale","known attribute")
@@ -569,8 +607,6 @@ func _run() -> void:
 	var ordinary: CodeEdit = interface.get_script_editor().get_current_editor().get_base_editor()
 	check(ordinary != home and ordinary.syntax_highlighter.get_script()!=Highlighter,"ordinary gd retains native highlighter")
 	check(not plugin._services.entries.has(ordinary.get_instance_id()) and plugin._services._gutter_index(ordinary)<0,"ordinary gd has no Gogo services/gutter")
-	var spatial := await create("res://app/Screens/Nested/Spatial.gogo",true)
-	check(spatial != null and spatial.text.begins_with('extends Node3D'),"second Gogo tab / spatial template")
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to Home tab")
 	home = current(HOME)

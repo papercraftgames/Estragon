@@ -5,8 +5,10 @@ var create: Callable
 var root_context := false
 func _popup_menu(paths: PackedStringArray) -> void:
 	root_context = paths.is_empty()
-	add_context_menu_item("New Gogo Component…" if paths.is_empty() else "Gogo Component…",_selected)
-func _selected(paths: PackedStringArray) -> void:
+	var prefix := "New " if paths.is_empty() else ""
+	add_context_menu_item(prefix+"Gogo Component (2D)…",_selected.bind(false))
+	add_context_menu_item(prefix+"Gogo Component (3D)…",_selected.bind(true))
+func _selected(paths: PackedStringArray, spatial: bool) -> void:
 	# The engine supplies a current directory to callbacks even when popup
 	# paths were empty. Empty-space creation deliberately starts at project root.
-	if create.is_valid(): create.call(paths[0] if not root_context and not paths.is_empty() else "res://")
+	if create.is_valid(): create.call(paths[0] if not root_context and not paths.is_empty() else "res://",spatial)

@@ -34,12 +34,13 @@ func start(parent: Node) -> void:
 	error = AcceptDialog.new()
 	error.title = "New Gogo Component"
 	parent.add_child(error)
-func show_dialog(context_directory: String = "") -> void:
+func show_dialog(context_directory: String = "", spatial: bool = false) -> void:
 	if not active: return
 	var directory := context_directory if not context_directory.is_empty() else interface.get_current_directory()
 	if not directory.begins_with("res://") or not DirAccess.dir_exists_absolute(directory): directory = "res://"
 	dialog.current_dir = directory
 	dialog.current_file = "NewComponent.gogo"
+	dimension.select(1 if spatial else 0)
 	dialog.popup_centered_ratio(0.65)
 static func template(_path: String, spatial: bool) -> String:
 	# A composition root must return an Element; null is only a child-slot value.
