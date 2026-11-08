@@ -15,20 +15,24 @@ func click(control: Control) -> void:
 		if current_button == null: check(false,"Inspector action persists after focus"); return
 		point = current_button.global_position+current_button.size/2
 	var motion := InputEventMouseMotion.new()
-	motion.window_id = window.get_window_id()
+	var native_window := window.has_method("get_window_id")
+	if native_window: motion.window_id = window.call("get_window_id")
 	motion.position = point
 	motion.relative = Vector2(1,1)
 	motion.velocity = Vector2(60,60)
-	Input.parse_input_event(motion)
+	if native_window: Input.parse_input_event(motion)
+	else: window.push_input(motion,true)
 	var event := InputEventMouseButton.new()
 	event.window_id = motion.window_id
 	event.position = motion.position
 	event.button_index = MOUSE_BUTTON_LEFT
 	event.pressed = true
-	Input.parse_input_event(event)
+	if native_window: Input.parse_input_event(event)
+	else: window.push_input(event,true)
 	event = event.duplicate()
 	event.pressed = false
-	Input.parse_input_event(event)
+	if native_window: Input.parse_input_event(event)
+	else: window.push_input(event,true)
 	await frames(4)
 func button(text: String) -> Button:
 	for candidate in interface.get_inspector().find_children("*","Button",true,false):
@@ -178,6 +182,9 @@ func more_checks() -> void:
 	DirAccess.rename_absolute(old,moved)
 	check(plugin._build_sources() and service.items.has(moved) and not service.items.has(old),"move updates registry without silently retargeting scene")
 	check(not plugin._build() and service.source_for(preserved.get_script()) == old,"missing attached source blocks stale generated Play")
+	interface.play_main_scene()
+	await get_tree().create_timer(0.5).timeout
+	check(not interface.is_playing_scene() and not plugin.last_report.ok,"actual main Play rejects missing authored component")
 	await inspect(preserved)
 	await click(button("Attach/Change Gogo Component…"))
 	await pick(moved)
@@ -195,6 +202,10 @@ func more_checks() -> void:
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to authored source for invalid Play")
 	home = current(HOME)
+	home.text = original+"\n# unsaved source edit\n"
+	check(not service.registered.has(HOME),"editing source immediately suspends stale native creation entry")
+	check(plugin._compile() and not service.registered.has(HOME),"disk-only refresh cannot re-register dirty source")
+	check(plugin._build_sources() and service.registered.has(HOME),"saved validated source restores native registration")
 	await blocked("main")
 	home.text = original
 	check(plugin._build(),"repair invalid source preserves attachment and recovers Play")
@@ -203,10 +214,13 @@ func more_checks() -> void:
 	# while the addon is disabled. Registry and owned Inspector UI are removed.
 	var count: int = service.registered.size()
 	var attached = app.get_script()
+	var scene_history := history()
 	interface.set_plugin_enabled(PLUGIN,false)
 	await frames(5)
 	check(app.get_script() == attached and button("Attach/Change Gogo Component…") == null,"disable preserves native Script and removes owned Inspector controls")
 	check(service.registered.is_empty(),"disable unregisters all owned custom types")
+	check(scene_history.undo() and service.source_for(preserved.get_script()) == old,"native replacement undo remains valid while addon disabled")
+	check(scene_history.redo() and service.source_for(preserved.get_script()) == moved,"native replacement redo remains valid while addon disabled")
 	plugin = null
 	interface.set_plugin_enabled(PLUGIN,true)
 	check(await until(find_plugin,"re-enable rebuilds one native registry"),"plugin re-enable")
@@ -227,6 +241,10 @@ func _run() -> void:
 		if await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/App.tscn","saved authored component scene reopens"):
 			app = interface.get_edited_scene_root()
 			check(plugin._scene_components.source_for(app.get_script()) == HOME,"authored association survives restart")
+			var children := 0
+			for child in app.get_children():
+				if plugin._scene_components.source_for(child.get_script()) == HOME and child.owner == app: children += 1
+			check(children >= 2,"native-dialog and Inspector-created children retain ownership/source after save/restart")
 			await inspect(app)
 			await click(button("Open Gogo Source"))
 			check(await until(func(): return current(HOME)!=null,"restart opens original source"),"restart authored editor")
