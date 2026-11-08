@@ -15,6 +15,7 @@ var globals: Dictionary = {}
 var symbols: Dictionary = {}
 var project
 var _module
+var source_only := false
 
 func _init(source) -> void:
 	file = source
@@ -115,6 +116,9 @@ func _script(name: String, path: String, span: Model.Span, check_constructor: bo
 	if path.get_base_dir().get_file()=="generated":
 		if FileAccess.file_exists(authored): return _gogo(name,path,authored,span,check_constructor)
 		if FileAccess.file_exists(path+".map.json"): return _fail("Missing authored Gogo source for "+path,span)
+	# Completion uses the same lexical metadata walk for ordinary Script bases;
+	# it must not load authored scripts (including their static initializers).
+	if source_only and FileAccess.file_exists(path): return _gogo(name,path,path,span,check_constructor)
 	if not ResourceLoader.exists(path, "GDScript"): return _fail("GGX script import not found: " + path, span)
 	var script: Script = load(path)
 	# CACHE_MODE_IGNORE still changes GDScript's internal cache on tested Godot.
@@ -144,6 +148,7 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 		return _fail("Invalid authored Gogo component metadata: "+authored,span)
 	var imported = get_script().new(source)
 	imported.visiting = visiting
+	imported.source_only = source_only
 	imported.scan(module)
 	var lexer := Lexer.new(source)
 	var tokens: Array = []

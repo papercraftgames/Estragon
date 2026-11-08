@@ -228,6 +228,7 @@ func _project_items() -> Array:
 		if authored == _path or not name.is_valid_identifier(): continue
 		var source := Source.new("",_path,"",project_index)
 		var resolver := Resolver.new(source)
+		resolver.source_only = true
 		var output: String = project_index.resource(ProjectSources.output_for(path))
 		var info: Dictionary = resolver._gogo(name,output,authored,source.span(0))
 		if info.is_empty(): continue
