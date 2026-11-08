@@ -3,12 +3,17 @@ extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
 func save_scene() -> Error:
-	# Native 4.0 save progress pumps Main::iteration. Enter from the deferred
-	# queue, after completed process_frame await callbacks have disconnected.
-	var result := {"done":false,"error":ERR_BUSY}
-	(func(): result.error = interface.save_scene(); result.done = true).call_deferred()
-	await until(func(): return result.done,"native scene save completes")
-	return result.error
+	# Native 4.0 save progress pumps Main::iteration and disallows the message
+	# queue. A one-shot Timer stops before timeout emission, preventing reentry
+	# into completed process_frame awaits (SceneTreeTimer stops after emission).
+	var timer := Timer.new()
+	timer.one_shot = true
+	add_child(timer)
+	timer.start(0.05)
+	await timer.timeout
+	var result := interface.save_scene()
+	timer.queue_free()
+	return result
 func click(control: Control) -> void:
 	check(is_instance_valid(control),"native control available for input")
 	if not is_instance_valid(control): return
