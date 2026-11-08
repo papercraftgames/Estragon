@@ -70,11 +70,11 @@ static func eligible(script: Script) -> bool:
 	if not ClassDB.class_exists(base) or not ClassDB.is_parent_class(base,"Node") or not ClassDB.can_instantiate(base): return false
 	# Non-tool can_instantiate() is false in editor even for valid scene scripts.
 	if script.has_method("is_abstract") and script.call("is_abstract"): return false
-	var current := script
-	while current != null:
-		for method in current.get_script_method_list():
-			if method.name == "_init" and method.args.size() > method.default_args.size(): return false
-		current = current.get_base_script()
+	# Public method metadata lists the derived class before its bases. Only
+	# the effective constructor's arguments are required from a new caller;
+	# a zero-argument override can supply its base's required arguments.
+	for method in script.get_script_method_list():
+		if method.name == "_init": return method.args.size() <= method.default_args.size()
 	return true
 func refresh(report: Dictionary) -> void:
 	if not active: return
