@@ -3,6 +3,13 @@ extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
 var _save_timer: Timer
+func native_progress_busy() -> bool:
+	# Test-only stock UI observation. Native filesystem documentation/class
+	# tasks can pump frames after is_scanning() becomes false; their task bars
+	# remain present until the blocking progress operation actually unwinds.
+	for dialog in get_tree().root.find_children("*","ProgressDialog",true,false):
+		if not dialog.find_children("*","ProgressBar",true,false).is_empty(): return true
+	return false
 func native_turn() -> void:
 	# Native 4.0 save progress pumps Main::iteration and disallows the message
 	# queue. A one-shot Timer stops before timeout emission, preventing reentry
@@ -13,11 +20,11 @@ func native_turn() -> void:
 		add_child(_save_timer)
 	var deadline := Time.get_ticks_msec()+12000
 	while true:
-		await until(func(): return not plugin._filesystem_busy() and not plugin._rescan_pending and plugin._timer.is_stopped(),"filesystem/build notifications settle before native progress")
+		await until(func(): return not native_progress_busy() and not plugin._filesystem_busy() and not plugin._rescan_pending and plugin._timer.is_stopped(),"filesystem/build notifications settle before native progress")
 		var builds: int = plugin.build_count
 		_save_timer.start(0.15)
 		await _save_timer.timeout
-		if not plugin._filesystem_busy() and plugin._timer.is_stopped() and plugin.build_count == builds: break
+		if not native_progress_busy() and not plugin._filesystem_busy() and plugin._timer.is_stopped() and plugin.build_count == builds: break
 		if Time.get_ticks_msec() > deadline: check(false,"bounded native progress settling"); return
 	# Keep the stopped emitter until plugin teardown: subsequent native Play
 	# can pump the message queue before this timeout emission unwinds.
