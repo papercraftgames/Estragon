@@ -102,7 +102,7 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 					_module.project_imports[path] = {"alias":alias,"span":span}
 				result.project_alias = alias
 				for property in result.get("properties",{}).values():
-					if str(property.get("class_name","")).begins_with(name+"."): property.class_name = alias+str(property.class_name).trim_prefix(name)
+						if str(property.get("class_name","")).begins_with(name+"."): property["class_name"] = alias+str(property["class_name"]).trim_prefix(name)
 			return result
 	if globals.has(name): return _script(name, globals[name], span,project_tags)
 	if not ClassDB.class_exists(name): return _fail("Unknown Node GGX component %s; use a native class or explicit preload alias" % JSON.stringify(name), span)

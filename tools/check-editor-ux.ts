@@ -6,6 +6,7 @@ import {packAddon} from './pack-addon.ts';
 const scenes=process.argv.includes('--scenes');
 const components=process.argv.includes('--components');
 const probeOnly=process.argv.includes('--probe-only');
+if(probeOnly&&!components || scenes&&components)throw Error('Use --components [--probe-only] independently of --scenes');
 const creationOnly=scenes||components||process.argv.includes('--creation');
 const options=parseCLI(process.argv.slice(2).filter(arg=>!['--creation','--scenes','--components','--probe-only'].includes(arg)));
 if(process.platform!=='linux')throw Error('E02 native acceptance uses approved Linux engines only');
@@ -46,7 +47,7 @@ for(const selection of options.engines){
   fs.writeFileSync(path.join(box.project,'app/ProjectRect.gd'),'class_name Rect\nextends Node2D\n');
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   copyTree(path.join(ROOT,'tests/editor_ux'),path.join(box.project,'tests/editor_ux'));
-  if(scenes){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="scene_driver.gd"'));}
+  if(scenes||components){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="'+(components?'project_driver.gd':'scene_driver.gd')+'"'));}
   function configure(root:string){for(const name of ['driver.gd','scene_driver.gd','probe.gd','project_fixture.gd','project_probe.gd','project_driver.gd'].filter(name=>fs.existsSync(path.join(ROOT,'tests/editor_ux',name)))){
    const original=fs.readFileSync(path.join(ROOT,'tests/editor_ux',name),'utf8');
    fs.writeFileSync(path.join(box.project,'tests/editor_ux',name),original.replaceAll('res://addons/estragon','res://'+root));
@@ -63,8 +64,10 @@ for(const selection of options.engines){
    fs.mkdirSync(path.join(box.project,'app/Screens/Nested'),{recursive:true});
    if(probeOnly)continue;
   }
-  await command('lexical-and-template',[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
-  fs.copyFileSync(path.join(box.project,'e03-capabilities.json'),path.join(out,'capabilities.json'));
+  if(!components){
+   await command('lexical-and-template',[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
+   fs.copyFileSync(path.join(box.project,'e03-capabilities.json'),path.join(out,'capabilities.json'));
+  }else box.env.ESTRAGON_E07_GAME='1';
   if(!creationOnly)fs.copyFileSync(path.join(box.project,'e03-native-cache.json'),path.join(out,'native-class-removal.json'));
   // Probe outputs are disposable and must not add un-authored fixtures to builds.
   fs.rmSync(path.join(box.project,'app/Screens/generated'),{recursive:true,force:true});
@@ -80,9 +83,13 @@ for(const selection of options.engines){
   for(const [label,root]of [['relocated','modules/UI toolkit'],['standard','addons/estragon']]){
    const target=path.join(box.project,root!);fs.mkdirSync(path.dirname(target),{recursive:true});fs.renameSync(previous,target);previous=target;
    configure(root!);fs.writeFileSync(path.join(box.project,'project.godot'),settings);fs.rmSync(path.join(box.project,'.godot'),{recursive:true,force:true});
-   await command('template-'+label,[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
+   if(components){
+    fs.rmSync(path.join(box.project,'app'),{recursive:true,force:true});
+    box.env.ESTRAGON_E07_PATH_ONLY='1';delete box.env.ESTRAGON_E07_GAME;
+   }
+   await command('template-'+label,[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/'+(components?'project_probe.gd':'probe.gd')],box.env,components?'E07_PROJECT_OK':'E02_PROBE_OK');
   }
-  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:scenes?'E05-scenes':creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
+  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:components?'E07-project-components':scenes?'E05-scenes':creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
  }finally{
   // Preserve actual graphics even when a later native/lifecycle assertion fails.
   if(fs.existsSync(box.project))for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));

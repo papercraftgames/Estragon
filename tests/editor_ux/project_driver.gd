@@ -1,0 +1,151 @@
+@tool
+extends "scene_driver.gd"
+const Fixture = preload("project_fixture.gd")
+var settings: CodeEdit
+var expected_child := "Settings child"
+func proof() -> bool:
+	if not FileAccess.file_exists("res://.godot/e07-game.json"): return false
+	var data = JSON.parse_string(FileAccess.get_file_as_string("res://.godot/e07-game.json"))
+	return data is Dictionary and data.get("text")==expected_child and data.get("leaf")==true
+func play(mode: String) -> void:
+	if FileAccess.file_exists("res://.godot/e07-game.json"): DirAccess.remove_absolute("res://.godot/e07-game.json")
+	await super.play(mode)
+func menu_imports() -> void:
+	for menu in interface.get_base_control().find_children("*","PopupMenu",true,false):
+		for index in range(menu.item_count):
+			if menu.get_item_text(index)=="Add Missing Gogo Imports":
+				menu.index_pressed.emit(index)
+				return
+	check(false,"native missing-imports Tools action exists")
+func open_home() -> void:
+	await plugin._navigation.open(HOME)
+	await until(func(): return current(HOME)!=null,"authored Home source opens")
+	home = current(HOME)
+func suggestions(prefix: String) -> Array:
+	set_source(home,Fixture.home().replace('<Settings name=','<'+prefix+'§ name='))
+	await frames()
+	home.request_code_completion(true)
+	await frames(5)
+	var options := home.get_code_completion_options()
+	home.cancel_code_completion()
+	return options
+func invalid_dependency() -> void:
+	await native_turn()
+	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(Fixture.SETTINGS)
+	var bytes := FileAccess.get_file_as_bytes(output)
+	var map := FileAccess.get_file_as_bytes(output+".map.json")
+	var stamp := FileAccess.get_modified_time(output)
+	var script = load(output)
+	var uid := FileAccess.get_file_as_bytes(output+".uid") if FileAccess.file_exists(output+".uid") else PackedByteArray()
+	settings.text = Fixture.settings().replace('</Entry2D>','</Wrong>')
+	if FileAccess.file_exists("res://.godot/e07-game.json"): DirAccess.remove_absolute("res://.godot/e07-game.json")
+	interface.play_main_scene()
+	await get_tree().create_timer(0.8).timeout
+	check(not interface.is_playing_scene() and not plugin.last_report.ok and not FileAccess.file_exists("res://.godot/e07-game.json"),"invalid unsaved child blocks actual main Play")
+	check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==map and FileAccess.get_modified_time(output)==stamp and load(output)==script,"dependency rollback preserves bytes/map/timestamp/Script")
+	check((FileAccess.get_file_as_bytes(output+".uid") if FileAccess.file_exists(output+".uid") else PackedByteArray())==uid,"failed dependency retains native UID")
+	check(plugin.last_report.source_diagnostics.any(func(item): return str(item.source).ends_with("Settings.gogo")),"child diagnostic retains authored source")
+	settings.text = Fixture.settings()
+	check(plugin._build(),"child repair recovers Play gate")
+	expected_child = "Settings child"
+	await play("current")
+func _run() -> void:
+	if not await until(find_plugin,"installed addon activates for E07"): finish(); return
+	var preferences := interface.get_editor_settings()
+	preferences.set_setting("run/auto_save/save_before_running",false)
+	preferences.set_setting("text_editor/behavior/files/auto_reload_scripts_on_external_change",true)
+	if preferences.has_setting("run/window_placement/game_embed_mode"):
+		preferences.set_setting("run/window_placement/game_embed_mode",-1)
+		get_tree().root.propagate_notification(EditorSettings.NOTIFICATION_EDITOR_SETTINGS_CHANGED)
+	if FileAccess.file_exists("res://.godot/e07-restart"):
+		interface.open_scene_from_path("res://app/Home.tscn")
+		await until(func(): return interface.get_edited_scene_root()!=null,"saved project component scene reopens")
+		app = interface.get_edited_scene_root()
+		await open_home()
+		var restart_options := await suggestions("Sett")
+		check(restart_options.any(func(item): return str(item.display_text).contains("Settings — Gogo Component")),"project source suggestions survive editor restart")
+		home.text = Fixture.home()
+		await play("main")
+		finish(); return
+	Fixture.install()
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check(plugin._build_sources(),"fresh editor compiles manual sibling tags without completion")
+	await open_home()
+	check(not home.text.contains("const Settings"),"owner repro has no manual Settings import")
+	var root := Node2D.new()
+	root.name = "Home"
+	root.set_script(load(OUTPUT))
+	var packed := PackedScene.new()
+	packed.pack(root)
+	ResourceSaver.save(packed,"res://app/Home.tscn")
+	root.free()
+	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
+	ProjectSettings.save()
+	interface.open_scene_from_path("res://app/Home.tscn")
+	await until(func(): return interface.get_edited_scene_root()!=null,"native Home scene opens")
+	app = interface.get_edited_scene_root()
+	for mode in ["main","current"]: await play(mode)
+	await open_home()
+	await capture("project-source")
+	var partial := Fixture.home().replace('<Settings name=','<Sett§ name=')
+	set_source(home,partial)
+	home.request_code_completion(true)
+	await frames(5)
+	var before := home.text
+	home.cancel_code_completion()
+	check(home.text==before,"cancelled project completion never inserts imports")
+	await complete(partial,"Settings — Gogo Component","<Settings name=","E07 source tag")
+	check(home.text.count("const Settings = preload(")==1,"native completion imports project component once")
+	check(plugin._build_sources(),"accepted project tag uses explicit native import")
+	home.text = Fixture.home()
+	menu_imports()
+	check(home.text.count("const Settings = preload(")==1,"Tools missing imports recognizes project tags")
+	home.undo()
+	check(home.text==Fixture.home(),"project import quick fix is one undo operation")
+	home.redo()
+	check(home.text.count("const Settings = preload(")==1,"project import quick fix redo")
+	home.text = Fixture.home()
+	check(plugin._build_sources(),"return to automatically resolved owner source")
+	await plugin._navigation.open(Fixture.SETTINGS)
+	await until(func(): return current(Fixture.SETTINGS)!=null,"authored dependency opens")
+	settings = current(Fixture.SETTINGS)
+	settings.text = Fixture.settings().replace('text={self.title}','text={self.title+" edited"}')
+	expected_child = "Settings child edited"
+	for mode in ["main","current"]: await play(mode)
+	check(FileAccess.get_file_as_string(Fixture.SETTINGS).contains('self.title+" edited"'),"unsaved current dependency saved before both Play paths")
+	await invalid_dependency()
+	await open_home()
+	var feature := "res://app/Feature.gogo"
+	Fixture.write(feature,"extends Node2D\n")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check((await suggestions("Feat")).any(func(item): return str(item.display_text).contains("Feature — Gogo Component")),"new saved source enters completion via filesystem invalidation")
+	DirAccess.rename_absolute(feature,"res://app/MovedFeature.gogo")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check(not (await suggestions("Feat")).any(func(item): return str(item.display_text).begins_with("Feature —")),"rename removes old source suggestion")
+	check((await suggestions("MovedFeat")).any(func(item): return str(item.display_text).contains("MovedFeature — Gogo Component")),"moved source has current identity")
+	DirAccess.remove_absolute("res://app/MovedFeature.gogo")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check(not (await suggestions("MovedFeat")).any(func(item): return str(item.display_text).contains("MovedFeature —")),"deleted source does not fall back to generated artifact")
+	home.text = Fixture.home()
+	settings.text = "extends RefCounted\n"
+	check(not (await suggestions("Sett")).any(func(item): return str(item.display_text).contains("Settings — Gogo Component")),"live unsaved non-Node dependency removed without a filesystem scan")
+	settings.text = Fixture.settings()
+	home.text = Fixture.home()
+	check(plugin._build_sources(),"repair live source catalog")
+	var script = load(OUTPUT)
+	interface.set_plugin_enabled(PLUGIN,false)
+	await frames()
+	plugin = null
+	interface.set_plugin_enabled(PLUGIN,true)
+	await until(find_plugin,"E07 addon re-enable")
+	await open_home()
+	check((await suggestions("Sett")).any(func(item): return str(item.display_text).contains("Settings — Gogo Component")) and load(OUTPUT)==script,"plugin reload rebuilds source index with stable Script identity")
+	home.text = Fixture.home()
+	check(plugin._build_sources(),"final automatic-source build")
+	await capture("project-final")
+	Fixture.write("res://.godot/e07-restart","restart")
+	finish()

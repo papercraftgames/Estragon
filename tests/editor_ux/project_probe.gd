@@ -39,6 +39,7 @@ func _run() -> void:
 	var before := FileAccess.get_file_as_bytes(output)
 	var stamp := FileAccess.get_modified_time(output)
 	check(Build.run_build().ok and FileAccess.get_modified_time(output)==stamp and load(output)==identity,"no-op build retains timestamp and Script identity")
+	if OS.get_environment("ESTRAGON_E07_PATH_ONLY")=="1": finish(); return
 	var host: Node = identity.new()
 	root.add_child(host)
 	await frames()

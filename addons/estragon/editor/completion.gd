@@ -173,6 +173,7 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 			if entry["class"] == name: return _members(str(entry.path),{},visited+[name])
 		return {}
 	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
+	if name.get_base_dir().get_file()=="generated" and FileAccess.file_exists(name+".map.json") and not FileAccess.file_exists(authored): return {}
 	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return {}
 	var declarations := _script(name)
@@ -203,6 +204,7 @@ func _node_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 	for item in _project_items():
 		if item.path == name: return true
 	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
+	if name.get_base_dir().get_file()=="generated" and FileAccess.file_exists(name+".map.json") and not FileAccess.file_exists(authored): return false
 	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return false
 	var declarations := _script(name)
