@@ -28,6 +28,7 @@ func _component(node: Model.Component) -> void:
 	var resolved: Dictionary = resolver.resolve(node.name, node.name_span)
 	if resolved.is_empty(): return
 	node.runtime_class = node.name
+	node.script_path = resolved.get("project_script","")
 	var properties: Dictionary = {}
 	var signals: Dictionary = {}
 	for property in ClassDB.class_get_property_list(resolved.native): properties[property.name] = property

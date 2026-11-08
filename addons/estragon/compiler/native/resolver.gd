@@ -6,13 +6,17 @@ const Lexer = preload("../lexer.gd")
 const Source = preload("../source.gd")
 const Parser = preload("../parser.gd")
 const Bindable = preload("../bindable.gd")
+const ProjectSources = preload("../project_sources.gd")
 var visiting: Dictionary = {}
 var file
 var aliases: Dictionary = {}
 var globals: Dictionary = {}
+var symbols: Dictionary = {}
+var project
 
 func _init(source) -> void:
 	file = source
+	project = source.project
 	for item in ProjectSettings.get_global_class_list(): globals[str(item["class"])] = str(item.path)
 
 func scan(module: Model.Module) -> void:
@@ -28,6 +32,9 @@ func scan(module: Model.Module) -> void:
 			if token == null: return
 			cursor = token.span.end.index
 			if token.kind not in ["whitespace", "comment", "newline", "continuation"]: tokens.append(token)
+		for index in range(tokens.size()-1):
+			if tokens[index].text in ["var","const","func","signal","class","class_name","for"] and tokens[index+1].kind == "identifier": symbols[tokens[index+1].text] = true
+			if index>0 and tokens[index].text == ":" and tokens[index-1].kind == "identifier": symbols[tokens[index-1].text] = true
 		for index in range(tokens.size() - 5):
 			var token = tokens[index]
 			if token.text != "const" or file.text.substr(file.line_start(token.span.start.line), token.span.start.index - file.line_start(token.span.start.line)) != "": continue
@@ -53,37 +60,60 @@ func scan(module: Model.Module) -> void:
 			if not path.is_absolute_path(): path = "res://" + path
 			aliases[name] = path
 
-func resolve(name: String, span: Model.Span) -> Dictionary:
+func scope():
+	if project == null: project = ProjectSources.new()
+	return project
+
+func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dictionary:
 	if aliases.has(name):
 		if ClassDB.class_exists(name) or globals.has(name) and globals[name] != aliases[name]:
 			return _fail("Ambiguous GGX preload alias " + name, span)
-		return _script(name, aliases[name], span)
-	if globals.has(name): return _script(name, globals[name], span)
+		return _script(name, aliases[name], span,project_tags)
+	if project_tags:
+		var candidates: Array = scope().named(name)
+		if not project.errors.is_empty(): return _fail("Cannot index project Gogo sources: "+str(project.errors),span)
+		if not candidates.is_empty():
+			if candidates.size()!=1 or symbols.has(name) or ClassDB.class_exists(name) or globals.has(name):
+				return _fail("Ambiguous project Gogo component "+name+": "+", ".join(candidates)+"; select a source with an explicit uniquely named preload alias",span)
+			var source: String = candidates[0]
+			var path: String = project.resource(ProjectSources.output_for(source))
+			if project.authored(file.name) == source: return _fail("Self-reference in Gogo component "+source,span)
+			var result := _gogo(name,path,project.resource(source),span)
+			if not result.is_empty(): result.project_script = path
+			return result
+	if globals.has(name): return _script(name, globals[name], span,project_tags)
 	if not ClassDB.class_exists(name): return _fail("Unknown Node GGX component %s; use a native class or explicit preload alias" % JSON.stringify(name), span)
 	if not ClassDB.is_parent_class(name, "Node") or not ClassDB.can_instantiate(name):
 		return _fail("Unknown or non-constructible Node GGX type " + name, span)
 	return {"native": name, "script": null}
 
-func _script(name: String, path: String, span: Model.Span) -> Dictionary:
+func _script(name: String, path: String, span: Model.Span, check_constructor: bool = true) -> Dictionary:
 	var authored := path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo")
-	if path.get_base_dir().get_file()=="generated" and FileAccess.file_exists(authored): return _gogo(name,path,authored,span)
+	if path.get_base_dir().get_file()=="generated":
+		if FileAccess.file_exists(authored): return _gogo(name,path,authored,span,check_constructor)
+		if FileAccess.file_exists(path+".map.json"): return _fail("Missing authored Gogo source for "+path,span)
 	if not ResourceLoader.exists(path, "GDScript"): return _fail("GGX script import not found: " + path, span)
 	var script: Script = load(path)
 	# CACHE_MODE_IGNORE still changes GDScript's internal cache on tested Godot.
 	# Never mutate an application's live Script during metadata analysis.
 	if script is GDScript and script.source_code.replace("\r\n","\n") != FileAccess.get_file_as_string(path).replace("\r\n","\n"):
 		return _fail("Imported Script has unsynchronized disk/cache source; reload it in Godot before compiling GGX: " + path, span)
-	if not script is GDScript or not script.can_instantiate() or not ClassDB.is_parent_class(script.get_instance_base_type(), "Node"):
+	if not script is GDScript or not ClassDB.is_parent_class(script.get_instance_base_type(), "Node") or not ClassDB.can_instantiate(script.get_instance_base_type()):
 		return _fail("GGX hierarchy script must be a constructible Node: " + name, span)
+	if script.has_method("is_abstract") and script.call("is_abstract"): return _fail("Abstract GGX component: "+name,span)
+	var required := false
 	for method in script.get_script_method_list():
-		if method.name == "_init" and method.args.size() > method.default_args.size():
-			return _fail("GGX construction requires a zero-argument initializer: " + name, span)
-	return {"native": script.get_instance_base_type(), "script": script}
+		if method.name == "_init":
+			required = method.args.size() > method.default_args.size()
+			break
+	if check_constructor and required: return _fail("GGX construction requires a zero-argument initializer: " + name, span)
+	return {"native": script.get_instance_base_type(), "script": script,"required_initializer":required}
 
-func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Dictionary:
+func _gogo(name: String, path: String, authored: String, span: Model.Span, check_constructor: bool = true) -> Dictionary:
 	if visiting.has(path): return _fail("Cyclic Gogo component inheritance: "+path,span)
 	visiting[path] = true
-	var source := Source.new(FileAccess.get_file_as_string(authored),authored)
+	var text: String = scope().read(project.authored(authored)) if project.sources.has(project.authored(authored)) else FileAccess.get_file_as_string(authored)
+	var source := Source.new(text,authored,path,project)
 	var module = Parser.new(source).parse()
 	if module != null: Bindable.new(source).apply(module)
 	if module == null or not source.diagnostics.is_empty():
@@ -107,17 +137,21 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Di
 		if target.kind=="string":
 			var literal: String = target.text.substr(1,target.text.length()-2)
 			if not literal.is_absolute_path(): literal = path.get_base_dir().path_join(literal).simplify_path()
-			base = imported._script(name,literal,span)
-		else: base = imported.resolve(target.text,span)
+			base = imported._script(name,literal,span,false)
+		else: base = imported.resolve(target.text,span,false)
 		break
 	visiting.erase(path)
 	if base.is_empty(): return _fail("Gogo component requires an explicit constructible Node base: "+authored,span)
+	if not ClassDB.is_parent_class(base.native,"Node"): return _fail("GGX hierarchy script must be a constructible Node: "+name,span)
+	var required: bool = base.get("required_initializer",false)
 	var properties: Dictionary = base.get("properties",{}).duplicate()
 	var signals: Dictionary = base.get("signals",{}).duplicate()
 	var declarations: Array = []
 	for index in range(tokens.size()-3):
 		var token = tokens[index]
+		if token.text == "@" and token.span.start.column == 1 and tokens[index+1].text == "abstract": return _fail("Abstract Gogo component: "+authored,span)
 		if token.text=="func" and token.span.start.column==1 and tokens[index+1].text=="_init":
+			required = false
 			var depth := 1
 			var parameter := false
 			var optional := false
@@ -126,12 +160,12 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Di
 				elif item.text in [")","]","}"]:
 					depth -= 1
 					if depth==0:
-						if parameter and not optional: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
+						if parameter and not optional: required = true
 						break
 				elif depth==1:
 					if item.text=="=": optional = true
 					elif item.text==",":
-						if parameter and not optional: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
+						if parameter and not optional: required = true
 						parameter = false
 						optional = false
 					else: parameter = true
@@ -148,7 +182,8 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span) -> Di
 		if type.begins_with("Array["): kind = TYPE_ARRAY
 		properties[part.name] = {"name":part.name,"type":kind,"class_name":(type if ClassDB.class_exists(type) else name+"."+type) if kind==TYPE_OBJECT else "","usage":PROPERTY_USAGE_DEFAULT}
 		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name}
-	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals}
+	if check_constructor and required: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
+	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals,"required_initializer":required}
 
 func _fail(message: String, span: Model.Span) -> Dictionary:
 	file.fail(message, span.start.index, span.end.index)

@@ -65,6 +65,7 @@ class Attribute extends RefCounted:
 	var type_name: String
 
 class Component extends SyntaxNode:
+	var script_path: String = ""
 	var name: String
 	var name_span: Span
 	var runtime_class: String
