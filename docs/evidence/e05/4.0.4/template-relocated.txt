@@ -1,0 +1,38 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+E02_PROBE_CHECK nested GGX restores expression/code scope: true
+E02_PROBE_CHECK quoted markup is string: true
+E02_PROBE_CHECK multiline string remains string: true
+E02_PROBE_CHECK unchanged prefix lines retained, changed lexical state rescanned: true
+E02_PROBE_CHECK partial source tolerated: true
+E02_PROBE_CHECK partial source tolerated: true
+E02_PROBE_CHECK partial source tolerated: true
+E02_PROBE_CHECK partial source tolerated: true
+E02_PROBE_CHECK minimal typed view contains only one needed import and unconfigured native root: true
+E02_PROBE_CHECK template compiles at current installed root: true
+E02_PROBE_CHECK template actual-path native load: true
+E02_PROBE_CHECK exact starter mounts one ordinary native leaf without Entry or content: true
+E02_PROBE_CHECK author can add a child view without an Entry scope: true
+E02_PROBE_CHECK author can extend the native grouping view without an Entry scope: true
+E02_PROBE_CHECK minimal typed view contains only one needed import and unconfigured native root: true
+E02_PROBE_CHECK template compiles at current installed root: true
+E02_PROBE_CHECK template actual-path native load: true
+E02_PROBE_CHECK exact starter mounts one ordinary native leaf without Entry or content: true
+E02_PROBE_CHECK author can add a child view without an Entry scope: true
+E02_PROBE_CHECK author can extend the native grouping view without an Entry scope: true
+E02_PROBE_CHECK ignored source root rejected: true
+E02_PROBE_CHECK traversal rejected: true
+E02_PROBE_CHECK external path rejected: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app//Empty.gogo: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app/.gogo: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app/Bad.txt: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app/../Escape.gogo: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app/generated/Hidden.gogo: true
+E02_PROBE_CHECK invalid/colliding/excluded component path rejected: res://app/Invalid:Name.gogo: true
+E03_CAPABILITIES {"engine":"4.0.4-stable (official)","native_analyzer":{"CodeEdit":false,"GDScript":false,"Script":false,"ScriptEditor":false,"ScriptLanguage":false,"ScriptLanguageExtension":false},"public_methods":{"CodeEdit":["_confirm_code_completion","set_code_hint","request_code_completion","get_language"],"GDScript":["get_script_property_list","get_script_method_list"],"Script":["get_script_property_list","get_script_method_list"],"ScriptEditor":[],"ScriptLanguage":[],"ScriptLanguageExtension":["_complete_code"]}}
+E02_PROBE_CHECK E03 selected catalog imports compile at actual installed path: true
+E02_PROBE_CHECK E03 imports actual-path native load: true
+E02_PROBE_CHECK E03 selected catalog imports compile at actual installed path: true
+E02_PROBE_CHECK E03 imports actual-path native load: true
+E02_PROBE_ASSERTIONS 33
+E02_PROBE_OK

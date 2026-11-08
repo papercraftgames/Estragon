@@ -3,8 +3,9 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,copyTree,runCommand,writeJSON,gitHead,gitDirty,sha256,ERROR} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
-const creationOnly=process.argv.includes('--creation');
-const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=='--creation'));
+const scenes=process.argv.includes('--scenes');
+const creationOnly=scenes||process.argv.includes('--creation');
+const options=parseCLI(process.argv.slice(2).filter(arg=>!['--creation','--scenes'].includes(arg)));
 if(process.platform!=='linux')throw Error('E02 native acceptance uses approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines){
@@ -43,7 +44,8 @@ for(const selection of options.engines){
   fs.writeFileSync(path.join(box.project,'app/ProjectRect.gd'),'class_name Rect\nextends Node2D\n');
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   copyTree(path.join(ROOT,'tests/editor_ux'),path.join(box.project,'tests/editor_ux'));
-  function configure(root:string){for(const name of ['driver.gd','probe.gd']){
+  if(scenes){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="scene_driver.gd"'));}
+  function configure(root:string){for(const name of ['driver.gd','scene_driver.gd','probe.gd']){
    const original=fs.readFileSync(path.join(ROOT,'tests/editor_ux',name),'utf8');
    fs.writeFileSync(path.join(box.project,'tests/editor_ux',name),original.replaceAll('res://addons/estragon','res://'+root));
   }}
@@ -69,7 +71,7 @@ for(const selection of options.engines){
    configure(root!);fs.writeFileSync(path.join(box.project,'project.godot'),settings);fs.rmSync(path.join(box.project,'.godot'),{recursive:true,force:true});
    await command('template-'+label,[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/probe.gd'],box.env,'E02_PROBE_OK');
   }
-  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
+  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:scenes?'E05-scenes':creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
  }finally{
   // Preserve actual graphics even when a later native/lifecycle assertion fails.
   if(fs.existsSync(box.project))for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));

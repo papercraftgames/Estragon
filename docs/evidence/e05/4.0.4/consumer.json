@@ -1,0 +1,13 @@
+{
+  "source": "3643d9e7665e66a42d1df1e400f3a9c59e63be72",
+  "profile": "E05-scenes",
+  "tarball_sha256": "e82fa9cfdcc856cdc6bb7f14322267abc3ed8d1a3674cee0970d22ad0facca05",
+  "direct_yarn": true,
+  "package_unchanged": true,
+  "template_layouts": [
+    "direct",
+    "relocated",
+    "standard"
+  ],
+  "external_compiler": false
+}

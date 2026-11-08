@@ -1,0 +1,194 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK exact FileSystem folder selected for context input: true
+E02_EDITOR_CHECK native hit testing locates selected folder row: true
+E02_EDITOR_CHECK native FileSystem right-click opens menu: true
+E02_EDITOR_CHECK native Create New submenu present: true
+E02_EDITOR_CHECK exactly expected owned creation actions: true
+E02_EDITOR_CHECK native Script and TextFile actions preserved: true
+E02_EDITOR_CHECK native menu contains requested dimension action: true
+E02_EDITOR_CHECK native hover locates component menu row: true
+E02_EDITOR_CHECK context callback uses actual folder/root: true
+E02_EDITOR_CHECK creation retains exact selected directory: true
+E02_EDITOR_CHECK creation action preselects requested 2D/3D host: true
+E02_EDITOR_CHECK new source has a minimal native view without content/layout or unused imports: true
+E02_EDITOR_CHECK created authored source immediately has Gogo highlighting/completion/diagnostics: true
+E02_EDITOR_CHECK new component compiles without manual changes: true
+E02_EDITOR_CHECK starter component generated native metadata includes its typed view: true
+E02_EDITOR_CHECK creation preserves project settings and configured source roots: true
+E02_EDITOR_CHECK component builds for native registry: true
+E02_EDITOR_CHECK compiled Home registered without authored new(): true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/Home.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native Script exposes durable authored association: true
+E02_EDITOR_CHECK attachment preserves native children/transforms: true
+E02_EDITOR_CHECK native scene undo attachment: true
+E02_EDITOR_CHECK undo restores original null Script: true
+E02_EDITOR_CHECK native scene redo attachment: true
+E02_EDITOR_CHECK redo restores authored component: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK authored source navigation: true
+E02_EDITOR_CHECK native scene save: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK native Scene tree identifies selected App: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK stock Create New Node dialog opens through native Add Child button: true
+E02_EDITOR_CHECK native Create Node search control: true
+E02_EDITOR_CHECK native search includes Home Gogo component registration: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native node insertion: true
+E02_EDITOR_CHECK native custom type creates owned child with authored association: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/Home.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK add-child action: true
+E02_EDITOR_CHECK child scene owner/source association: true
+E02_EDITOR_CHECK undo add removes only added child: true
+E02_EDITOR_CHECK redo restores native child: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK cancel leaves scene history untouched: true
+E02_EDITOR_CHECK new component/model files compile without construction: true
+E02_EDITOR_CHECK registry excludes data models and required constructors: true
+E02_EDITOR_CHECK effective zero-argument constructor may supply required base arguments: true
+E02_EDITOR_CHECK duplicate component names are source-qualified: true
+E02_EDITOR_CHECK native Scene tree identifies selected App: true
+E02_EDITOR_CHECK stock Create New Node dialog opens through native Add Child button: true
+E02_EDITOR_CHECK native Create Node search control: true
+E02_EDITOR_CHECK native search includes Home Gogo component registration: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/World.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK wrong-dimension validation: true
+E02_EDITOR_CHECK wrong dimension preserves Script/scene history: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/World.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native 3D creation uses matching host/owner: true
+E02_EDITOR_CHECK 3D addition supports native undo: true
+E02_EDITOR_CHECK ordinary Script setup saved: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/Home.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK replacement confirmation visible: true
+E02_EDITOR_CHECK replacement cancel preserves old Script/values/history: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Screens/Home.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK ordinary-to-Gogo replacement: true
+E02_EDITOR_CHECK undo restores ordinary Script identity and exported value: true
+E02_EDITOR_CHECK redo restores replacement: true
+E02_EDITOR_CHECK new source refreshes registry: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/MoveMe.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK Gogo-to-Gogo replacement: true
+E02_EDITOR_CHECK move updates registry without silently retargeting scene: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+Attached Gogo component is missing, invalid or excluded: res://app/MoveMe.gogo. Restore/recompile or reattach it before Play.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:205)
+         [2] more_checks (res://tests/editor_ux/scene_driver.gd:230)
+         [3] click (res://tests/editor_ux/scene_driver.gd:75)
+         [4] frames (res://tests/editor_ux/driver.gd:33)
+E02_EDITOR_CHECK missing attached source blocks stale generated Play: true
+E02_EDITOR_CHECK save changed component before native Play gate: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+Attached Gogo component is missing, invalid or excluded: res://app/MoveMe.gogo. Restore/recompile or reattach it before Play.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:205)
+         [2] more_checks (res://tests/editor_ux/scene_driver.gd:233)
+         [3] save_scene (res://tests/editor_ux/scene_driver.gd:33)
+         [4] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] more_checks (res://tests/editor_ux/scene_driver.gd:233)
+       [1] save_scene (res://tests/editor_ux/scene_driver.gd:33)
+       [2] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+E02_EDITOR_CHECK actual main Play rejects missing authored component: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK picker lists authored source: res://app/Relocated.gogo: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK reattach repairs missing association: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+Attached Gogo component is missing, invalid or excluded: res://app/Relocated.gogo. Restore/recompile or reattach it before Play.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:205)
+         [2] more_checks (res://tests/editor_ux/scene_driver.gd:246)
+         [3] click (res://tests/editor_ux/scene_driver.gd:75)
+         [4] frames (res://tests/editor_ux/driver.gd:33)
+E02_EDITOR_CHECK deleted source removed and scene Play gate fails closed: true
+E02_EDITOR_CHECK source restoration/regeneration repairs scene gate: true
+E02_EDITOR_CHECK missing generated Script regenerates through existing build transaction: true
+E02_EDITOR_CHECK editing source immediately suspends stale native creation entry: true
+E02_EDITOR_CHECK disk-only refresh cannot re-register dirty source: true
+E02_EDITOR_CHECK saved validated source restores native registration: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:9:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:220)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:200)
+         [4] blocked (res://tests/editor_ux/driver.gd:346)
+         [5] blocked (res://tests/editor_ux/scene_driver.gd:42)
+         [6] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] blocked (res://tests/editor_ux/driver.gd:346)
+       [1] blocked (res://tests/editor_ux/scene_driver.gd:42)
+       [2] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:9:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+E02_EDITOR_CHECK main invalid source blocks Play: true
+E02_EDITOR_CHECK failed Play preserves bytes/maps/timestamp: true
+E02_EDITOR_CHECK failed Play preserves UID/Script identity: true
+E05_ROLLBACK_DETAIL {"bytes":true,"maps":true,"timestamp_after":1794147357,"timestamp_before":1794147357}
+E02_EDITOR_CHECK repair invalid source preserves attachment and recovers Play: true
+E02_EDITOR_CHECK save repaired association before current Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK disable preserves native Script and removes owned Inspector controls: true
+E02_EDITOR_CHECK disable unregisters all owned custom types: true
+E02_EDITOR_CHECK native replacement undo remains valid while addon disabled: true
+E02_EDITOR_CHECK native replacement redo remains valid while addon disabled: true
+E02_EDITOR_CHECK plugin re-enable: true
+E02_EDITOR_CHECK re-enable has no duplicate registrations: true
+E02_EDITOR_CHECK save ordinary/native component children: true
+E02_EDITOR_ASSERTIONS 114 failed=false
+E02_EDITOR_OK

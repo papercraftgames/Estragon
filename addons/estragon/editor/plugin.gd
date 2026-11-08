@@ -9,6 +9,8 @@ const Highlighter = preload("highlighter.gd")
 const Services = preload("language_services.gd")
 const Navigation = preload("navigation.gd")
 const NewScript = preload("new_script.gd")
+const SceneComponents = preload("scene_components.gd")
+var _scene_components: RefCounted
 var _services: Node
 var _navigation: RefCounted
 var _new_script: RefCounted
@@ -55,6 +57,11 @@ func _enter_tree() -> void:
 	_highlighter_association.start(_interface)
 	_new_script = NewScript.new(_interface,_navigation)
 	_new_script.start(self)
+	_scene_components = SceneComponents.new(self,_navigation)
+	_scene_components.start()
+	_services.source_edited.connect(_scene_components.suspend_source)
+	add_tool_menu_item("Attach/Change Gogo Component…",_scene_components.attach_selected)
+	add_tool_menu_item("Add Gogo Component…",_scene_components.add_selected)
 	add_tool_menu_item("New Gogo Component (2D)…",_new_script.show_dialog.bind("",false))
 	add_tool_menu_item("New Gogo Component (3D)…",_new_script.show_dialog.bind("",true))
 	# Never parse a script extending a newer native class on Godot 4.0.
@@ -190,6 +197,15 @@ func _compile_saved() -> void:
 
 
 func _build() -> bool:
+	if not _build_sources(): return false
+	var problem: String = _scene_components.validate_scenes()
+	if problem.is_empty(): return true
+	last_report.ok = false
+	last_report.diagnostics.append(problem)
+	_show_report()
+	return false
+
+func _build_sources() -> bool:
 	if not _active or _building:
 		return false
 	_timer.stop()
@@ -198,6 +214,7 @@ func _build() -> bool:
 	_play_save_failed = not saved.ok
 	if not saved.ok:
 		last_report = {"ok": false, "changed": [], "outputs": [], "diagnostics": saved.diagnostics}
+		_scene_components.refresh(last_report)
 		_show_report()
 		return false
 	return _compile()
@@ -208,8 +225,12 @@ func _compile() -> bool:
 	_building = true
 	build_count += 1
 	last_report = BuildService.run_build()
+	_scene_components.refresh(last_report)
 	_show_report()
 	if last_report.ok: _refresh_generated_editors()
+	for entry in _services.entries.values():
+		var code = entry.code.get_ref()
+		if code != null and code.get_version() != code.get_saved_version(): _scene_components.suspend_source(entry.path)
 	# Refresh paths without reimporting authored source. The child game's fresh
 	# process reads these exact bytes; editor resources are synchronized as well.
 	var filesystem := _interface.get_resource_filesystem()
@@ -245,6 +266,9 @@ func _show_report() -> void:
 
 func _exit_tree() -> void:
 	_active = false
+	remove_tool_menu_item("Attach/Change Gogo Component…")
+	remove_tool_menu_item("Add Gogo Component…")
+	if _scene_components != null: _scene_components.stop(); _scene_components = null
 	remove_tool_menu_item("New Gogo Component (2D)…")
 	remove_tool_menu_item("New Gogo Component (3D)…")
 	if _creation_menu != null:
