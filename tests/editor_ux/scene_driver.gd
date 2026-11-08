@@ -23,7 +23,11 @@ func play(mode: String) -> void:
 	await super.play(mode)
 func blocked(mode: String, unsavable: bool = false) -> void:
 	await native_turn()
+	var bytes := FileAccess.get_file_as_bytes(OUTPUT)
+	var maps := FileAccess.get_file_as_bytes(OUTPUT+".map.json")
+	var stamp := FileAccess.get_modified_time(OUTPUT)
 	await super.blocked(mode,unsavable)
+	print("E05_ROLLBACK_DETAIL ",JSON.stringify({"bytes":bytes==FileAccess.get_file_as_bytes(OUTPUT),"maps":maps==FileAccess.get_file_as_bytes(OUTPUT+".map.json"),"timestamp_before":stamp,"timestamp_after":FileAccess.get_modified_time(OUTPUT)}))
 func click(control: Control) -> void:
 	check(is_instance_valid(control),"native control available for input")
 	if not is_instance_valid(control): return
