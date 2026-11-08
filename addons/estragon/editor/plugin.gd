@@ -55,7 +55,8 @@ func _enter_tree() -> void:
 	_highlighter_association.start(_interface)
 	_new_script = NewScript.new(_interface,_navigation)
 	_new_script.start(self)
-	add_tool_menu_item("New Gogo Component…",_new_script.show_dialog)
+	add_tool_menu_item("New Gogo Component (2D)…",_new_script.show_dialog.bind("",false))
+	add_tool_menu_item("New Gogo Component (3D)…",_new_script.show_dialog.bind("",true))
 	# Never parse a script extending a newer native class on Godot 4.0.
 	if has_method("add_context_menu_plugin") and has_method("remove_context_menu_plugin") and ClassDB.class_exists("EditorContextMenuPlugin") and "CONTEXT_SLOT_FILESYSTEM_CREATE" in ClassDB.class_get_integer_constant_list("EditorContextMenuPlugin"):
 		var adapter := GDScript.new()
@@ -244,7 +245,8 @@ func _show_report() -> void:
 
 func _exit_tree() -> void:
 	_active = false
-	remove_tool_menu_item("New Gogo Component…")
+	remove_tool_menu_item("New Gogo Component (2D)…")
+	remove_tool_menu_item("New Gogo Component (3D)…")
 	if _creation_menu != null:
 		call("remove_context_menu_plugin",_creation_menu)
 		_creation_menu.create = Callable()

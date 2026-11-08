@@ -29,6 +29,8 @@ func _initialize() -> void:
 	for spatial in [false,true]:
 		var path := "res://app/Screens/Template"+str(spatial)+".gogo"
 		var source := Create.template(path,spatial)
+		var kind := "Node3D" if spatial else "Node2D"
+		check(source.begins_with("extends "+kind+"\nconst Element = preload(") and source.ends_with("\nfunc build_view() -> Element:\n\treturn <"+kind+" />\n") and source.count("preload(") == 1,"minimal typed view contains only one needed import and unconfigured native root")
 		var compiled := Compiler.compile(source,path,Build.output_for(path))
 		check(compiled.ok,"template compiles at current installed root")
 		if compiled.ok:
@@ -39,6 +41,35 @@ func _initialize() -> void:
 			file.close()
 			var script: GDScript = load(output)
 			check(script != null and script.can_instantiate(),"template actual-path native load")
+			if script != null and script.can_instantiate():
+				var host: Node = script.new()
+				root.add_child(host)
+				await process_frame
+				await process_frame
+				check(host.get_child_count() == 1 and host.has_method("build_view") and host.get_child(0).get_class() == kind and host.get_child(0).get_script() == null and host.get_child(0).get_child_count() == 0,"exact starter mounts one ordinary native leaf without Entry or content")
+				host.free()
+		# An author may later add a reusable child view without an Entry scope.
+		var child_path := "res://app/Screens/Nested/Child"+str(spatial)+".gogo"
+		var body := 'extends '+kind+'\n\nfunc build_view() -> Element:\n\treturn <'+kind+'><'+kind+' /></'+kind+'>\n'
+		var plan := Completion.new().import_plan(body,child_path)
+		var lines := body.split("\n")
+		lines.insert(plan.row,plan.text.trim_suffix("\n"))
+		var child := Compiler.compile("\n".join(lines),child_path,Build.output_for(child_path))
+		check(child.ok,"author can add a child view without an Entry scope")
+		if child.ok:
+			var output := Build.output_for(child_path)
+			DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+			var file := FileAccess.open(output,FileAccess.WRITE)
+			file.store_string(child.code)
+			file.close()
+			var script: GDScript = load(output)
+			var host: Node = script.new()
+			root.add_child(host)
+			await process_frame
+			await process_frame
+			check(host.get_child_count() == 1 and host.get_child(0).get_script() == null and host.get_child(0).get_child_count() == 1,"author can extend the native grouping view without an Entry scope")
+			host.free()
+			await process_frame
 	check(not Build.creation_check("res://ignored/File.gogo").ok,"ignored source root rejected")
 	check(not Build.creation_check("res://app/../escape.gogo").ok,"traversal rejected")
 	check(not Build.creation_check("user://File.gogo").ok,"external path rejected")
