@@ -135,7 +135,19 @@ func filesystem_action(directory: String, empty: bool = false, expected_count: i
 			break
 	check(tree != null,"exact FileSystem folder selected for context input")
 	if tree == null: return
-	var point := tree.get_item_area_rect(tree.get_selected()).get_center()
+	tree.get_window().grab_focus()
+	if tree.has_method("scroll_to_item"): tree.call("scroll_to_item",tree.get_selected())
+	else: tree.ensure_cursor_is_visible()
+	await frames()
+	# Authenticate the input row after layout/scroll changes (e.g. child Play
+	# opens the Output panel). Never assume an unscrolled rectangle is clickable.
+	var point := Vector2(tree.size.x/2,-1)
+	for y in range(8,int(tree.size.y)-12,2):
+		if tree.get_item_at_position(Vector2(point.x,y)) == tree.get_selected():
+			point.y = y+2
+			break
+	check(point.y >= 0,"native hit testing locates selected folder row")
+	if point.y < 0: return
 	if empty:
 		# Make genuinely empty space, independent of folder count/scroll position.
 		tree.get_selected().collapsed = true
