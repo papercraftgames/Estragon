@@ -7,8 +7,13 @@ func click(control: Control) -> void:
 	if not is_instance_valid(control): return
 	var window := control.get_window()
 	var point := control.global_position+control.size/2
+	var action: String = control.text if control is Button and control.text in ["Attach/Change Gogo Component…","Add Gogo Child…","Open Gogo Source"] else ""
 	window.grab_focus()
 	await frames(2)
+	if not action.is_empty():
+		var current_button := button(action)
+		if current_button == null: check(false,"Inspector action persists after focus"); return
+		point = current_button.global_position+current_button.size/2
 	var motion := InputEventMouseMotion.new()
 	motion.window_id = window.get_window_id()
 	motion.position = point
@@ -33,7 +38,8 @@ func inspect(node: Node) -> void:
 	interface.get_selection().clear()
 	interface.get_selection().add_node(node)
 	interface.edit_node(node)
-	await until(func(): return button("Attach/Change Gogo Component…") != null,"native Inspector component actions appear")
+	await frames(5)
+	await until(func(): return interface.get_inspector().get_edited_object() == node and button("Attach/Change Gogo Component…") != null,"native Inspector component actions appear for selected node")
 func pick(source: String) -> void:
 	var service = plugin._scene_components
 	if not await until(func(): return service.picker.visible,"authored-source picker opens"): return
@@ -57,7 +63,7 @@ func find_item(item: TreeItem, text: String) -> TreeItem:
 		if found != null: return found
 		child = child.get_next()
 	return null
-func native_add() -> void:
+func native_add(source: String = HOME, insert: bool = true) -> void:
 	await inspect(app)
 	var scene_tree: Tree
 	for tree in interface.get_base_control().find_children("*","Tree",true,false):
@@ -81,16 +87,19 @@ func native_add() -> void:
 		if line.is_visible_in_tree(): search = line; break
 	check(search != null,"native Create Node search control")
 	if search == null: dialog.hide(); return
-	search.text = "Home"
+	search.text = source.get_file().get_basename()
 	search.text_changed.emit(search.text)
 	await frames(10)
 	var selected: TreeItem
 	var options: Tree
 	for tree in dialog.find_children("*","Tree",true,false):
-		var item := find_item(tree.get_root(),plugin._scene_components.items[HOME].label)
+		var item := find_item(tree.get_root(),plugin._scene_components.items[source].label)
 		if item != null: options = tree; selected = item; break
 	check(selected != null,"native search includes Home Gogo component registration")
 	if selected == null: dialog.hide(); return
+	if not insert:
+		dialog.get_cancel_button().pressed.emit()
+		return
 	selected.select(0)
 	options.item_selected.emit()
 	await frames()
@@ -100,8 +109,108 @@ func native_add() -> void:
 	await click(dialog.get_ok_button())
 	check(await until(func(): return app.get_child_count()==count+1,"native Create Node inserts component"),"native node insertion")
 	var associated := false
-	for child in app.get_children(): associated = associated or plugin._scene_components.source_for(child.get_script()) == HOME and child.owner == app
+	for child in app.get_children(): associated = associated or plugin._scene_components.source_for(child.get_script()) == source and child.owner == app
 	check(associated,"native custom type creates owned child with authored association")
+func more_checks() -> void:
+	var service = plugin._scene_components
+	var spatial_path := "res://app/Screens/World.gogo"
+	write(spatial_path,preload("res://addons/estragon/editor/new_script.gd").template(spatial_path,true))
+	write("res://app/Other/Home.gogo","extends Node2D\n")
+	write("res://app/Model.gogo","extends RefCounted\nvar value: int = 3\n")
+	write("res://app/Required.gogo","extends Node2D\nfunc _init(value: int) -> void:\n\tposition.x = value\n")
+	write("res://app/NoConstruct.gogo",'extends Node2D\nfunc _init() -> void:\n\tpush_error("CATALOG_MUST_NOT_CONSTRUCT_AUTHORED_NODE")\n')
+	check(plugin._build_sources(),"new component/model files compile without construction")
+	check(service.items.has(spatial_path) and not service.items.has("res://app/Model.gogo") and not service.items.has("res://app/Required.gogo"),"registry excludes data models and required constructors")
+	check(service.items[HOME].label != service.items["res://app/Other/Home.gogo"].label and service.items[HOME].label.contains("app/Screens"),"duplicate component names are source-qualified")
+	await native_add("res://app/Other/Home.gogo",false)
+	await inspect(app)
+	var version := history().get_version()
+	var previous = app.get_script()
+	await click(button("Attach/Change Gogo Component…"))
+	await pick(spatial_path)
+	check(await until(func(): return service.error.visible,"incompatible host visibly rejected"),"wrong-dimension validation")
+	check(app.get_script() == previous and history().get_version() == version,"wrong dimension preserves Script/scene history")
+	service.error.hide()
+	await inspect(app)
+	await click(button("Add Gogo Child…"))
+	await pick(spatial_path)
+	var world: Node
+	await until(func(): return app.find_child("World",false,false)!=null,"3D component can be added as native child")
+	world = app.find_child("World",false,false)
+	check(world is Node3D and world.owner == app and service.source_for(world.get_script()) == spatial_path,"native 3D creation uses matching host/owner")
+	check(history().undo() and not world.is_inside_tree(),"3D addition supports native undo")
+	# A normal .gd script is preserved until explicit confirmation; undo restores
+	# both its Script identity and stored exported values, without helper callbacks.
+	write("res://app/OrdinaryScene.gd","extends Node2D\n@export var marker: int = 7\n")
+	var normal: Script = load("res://app/OrdinaryScene.gd")
+	var preserved := app.get_node("Preserved")
+	preserved.set_script(normal)
+	preserved.set("marker",13)
+	check(interface.save_scene() == OK,"ordinary Script setup saved")
+	await inspect(preserved)
+	version = history().get_version()
+	await click(button("Attach/Change Gogo Component…"))
+	await pick(HOME)
+	check(await until(func(): return service.replace.visible,"ordinary Script replacement asks confirmation"),"replacement confirmation visible")
+	service.replace.get_cancel_button().pressed.emit()
+	await frames()
+	check(preserved.get_script() == normal and preserved.get("marker") == 13 and history().get_version() == version,"replacement cancel preserves old Script/values/history")
+	await inspect(preserved)
+	await click(button("Attach/Change Gogo Component…"))
+	await pick(HOME)
+	if await until(func(): return service.replace.visible,"replacement reopens"):
+		await click(service.replace.get_ok_button())
+	check(await until(func(): return service.source_for(preserved.get_script()) == HOME,"replacement attaches selected Gogo"),"ordinary-to-Gogo replacement")
+	check(history().undo() and preserved.get_script() == normal and preserved.get("marker") == 13,"undo restores ordinary Script identity and exported value")
+	check(history().redo() and service.source_for(preserved.get_script()) == HOME,"redo restores replacement")
+	# Rename/delete never-opened source to avoid unrelated TextFile reload prompts.
+	var old := "res://app/MoveMe.gogo"
+	var moved := "res://app/Relocated.gogo"
+	write(old,"extends Node2D\n")
+	check(plugin._build_sources(),"new source refreshes registry")
+	await inspect(preserved)
+	await click(button("Attach/Change Gogo Component…"))
+	await pick(old)
+	if await until(func(): return service.replace.visible,"Gogo-to-Gogo replacement confirmation"):
+		await click(service.replace.get_ok_button())
+	check(await until(func(): return service.source_for(preserved.get_script()) == old,"Gogo replacement applied"),"Gogo-to-Gogo replacement")
+	DirAccess.rename_absolute(old,moved)
+	check(plugin._build_sources() and service.items.has(moved) and not service.items.has(old),"move updates registry without silently retargeting scene")
+	check(not plugin._build() and service.source_for(preserved.get_script()) == old,"missing attached source blocks stale generated Play")
+	await inspect(preserved)
+	await click(button("Attach/Change Gogo Component…"))
+	await pick(moved)
+	if await until(func(): return service.replace.visible,"repair missing source via normal picker"):
+		await click(service.replace.get_ok_button())
+	check(await until(func(): return service.source_for(preserved.get_script()) == moved,"repair selects authored moved source"),"reattach repairs missing association")
+	DirAccess.remove_absolute(moved)
+	check(plugin._build_sources() and not service.items.has(moved) and not plugin._build(),"deleted source removed and scene Play gate fails closed")
+	write(moved,"extends Node2D\n")
+	check(plugin._build(),"source restoration/regeneration repairs scene gate")
+	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(moved)
+	DirAccess.remove_absolute(output)
+	check(plugin._build() and FileAccess.file_exists(output),"missing generated Script regenerates through existing build transaction")
+	# Real Play invalid-buffer guard + rollback retains the attached Script.
+	await plugin._navigation.open(HOME)
+	await until(func(): return current(HOME)!=null,"return to authored source for invalid Play")
+	home = current(HOME)
+	await blocked("main")
+	home.text = original
+	check(plugin._build(),"repair invalid source preserves attachment and recovers Play")
+	await play("current")
+	# All history methods target native objects, so pending undo remains valid
+	# while the addon is disabled. Registry and owned Inspector UI are removed.
+	var count: int = service.registered.size()
+	var attached = app.get_script()
+	interface.set_plugin_enabled(PLUGIN,false)
+	await frames(5)
+	check(app.get_script() == attached and button("Attach/Change Gogo Component…") == null,"disable preserves native Script and removes owned Inspector controls")
+	check(service.registered.is_empty(),"disable unregisters all owned custom types")
+	plugin = null
+	interface.set_plugin_enabled(PLUGIN,true)
+	check(await until(find_plugin,"re-enable rebuilds one native registry"),"plugin re-enable")
+	check(plugin._scene_components.registered.size() == count,"re-enable has no duplicate registrations")
+	await inspect(app)
 func write(path: String, text: String) -> void:
 	DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	var file := FileAccess.open(path,FileAccess.WRITE)
@@ -181,6 +290,7 @@ func _run() -> void:
 	plugin._scene_components.picker.get_cancel_button().pressed.emit()
 	await frames()
 	check(history().get_version() == before,"cancel leaves scene history untouched")
+	await more_checks()
 	check(interface.save_scene() == OK,"save ordinary/native component children")
 	write("res://.godot/e05-restart","restart")
 	await capture("scene-final")
