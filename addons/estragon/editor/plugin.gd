@@ -59,6 +59,7 @@ func _enter_tree() -> void:
 	_new_script.start(self)
 	_scene_components = SceneComponents.new(self,_navigation)
 	_scene_components.start()
+	_services.source_edited.connect(_scene_components.suspend_source)
 	add_tool_menu_item("Attach/Change Gogo Component…",_scene_components.attach_selected)
 	add_tool_menu_item("Add Gogo Component…",_scene_components.add_selected)
 	add_tool_menu_item("New Gogo Component (2D)…",_new_script.show_dialog.bind("",false))
@@ -227,6 +228,9 @@ func _compile() -> bool:
 	_scene_components.refresh(last_report)
 	_show_report()
 	if last_report.ok: _refresh_generated_editors()
+	for entry in _services.entries.values():
+		var code = entry.code.get_ref()
+		if code != null and code.get_version() != code.get_saved_version(): _scene_components.suspend_source(entry.path)
 	# Refresh paths without reimporting authored source. The child game's fresh
 	# process reads these exact bytes; editor resources are synchronized as well.
 	var filesystem := _interface.get_resource_filesystem()

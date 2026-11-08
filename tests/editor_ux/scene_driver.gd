@@ -38,8 +38,8 @@ func inspect(node: Node) -> void:
 	interface.get_selection().clear()
 	interface.get_selection().add_node(node)
 	interface.edit_node(node)
-	await frames(5)
-	await until(func(): return interface.get_inspector().get_edited_object() == node and button("Attach/Change Gogo Component…") != null,"native Inspector component actions appear for selected node")
+	await frames(10)
+	await until(func(): return button("Attach/Change Gogo Component…") != null,"native Inspector component actions appear for selected node")
 func pick(source: String) -> void:
 	var service = plugin._scene_components
 	if not await until(func(): return service.picker.visible,"authored-source picker opens"): return

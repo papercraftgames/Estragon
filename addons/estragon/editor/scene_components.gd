@@ -104,6 +104,12 @@ func refresh(report: Dictionary) -> void:
 		plugin.add_custom_type(item.label,item.base,item.script,icon)
 		registered[source] = item
 	items = next
+func suspend_source(source: String) -> void:
+	# Never offer last-built code as a new native component while its authored
+	# buffer is changing. Re-registration requires the existing saved build.
+	if not active or not registered.has(source): return
+	plugin.remove_custom_type(registered[source].label)
+	registered.erase(source)
 func editable(node: Node) -> bool:
 	if not active or not is_instance_valid(node): return false
 	var root := interface.get_edited_scene_root()

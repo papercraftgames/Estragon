@@ -2,6 +2,7 @@
 extends Node
 ## Owns only authenticated Gogo CodeEdit connections and a dedicated gutter.
 signal diagnostics_changed(records, phase)
+signal source_edited(path)
 const Context = preload("lexical_context.gd")
 const Acceptance = preload("completion_edit.gd")
 const Catalog = preload("components.gd")
@@ -93,6 +94,7 @@ func _changed(id: int, request_completion: bool = true) -> void:
 	if not _active or not entries.has(id) or entries[id].mutating: return
 	var entry: Dictionary = entries[id]
 	entry.pending = true
+	source_edited.emit(entry.path)
 	entry.records = []
 	_mark(entry)
 	var code = entry.code.get_ref()
