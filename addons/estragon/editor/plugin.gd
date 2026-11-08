@@ -213,6 +213,7 @@ func _build_sources() -> bool:
 	_play_save_failed = not saved.ok
 	if not saved.ok:
 		last_report = {"ok": false, "changed": [], "outputs": [], "diagnostics": saved.diagnostics}
+		_scene_components.refresh(last_report)
 		_show_report()
 		return false
 	return _compile()

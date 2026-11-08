@@ -25,5 +25,6 @@ func _parse_begin(object: Object) -> void:
 		button.text = "Attach/Change Gogo Component…" if mode == "attach" else "Add Gogo Child…"
 		button.pressed.connect(owner.choose.bind(mode,weakref(object)))
 		panel.add_child(button)
+	owner.controls = owner.controls.filter(func(reference): return reference.get_ref() != null)
 	owner.controls.append(weakref(panel))
 	add_custom_control(panel)

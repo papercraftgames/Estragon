@@ -3,13 +3,15 @@ extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
 func click(control: Control) -> void:
-	check(control != null,"native control available for input")
-	if control == null: return
-	control.get_window().grab_focus()
+	check(is_instance_valid(control),"native control available for input")
+	if not is_instance_valid(control): return
+	var window := control.get_window()
+	var point := control.global_position+control.size/2
+	window.grab_focus()
 	await frames(2)
 	var motion := InputEventMouseMotion.new()
-	motion.window_id = control.get_window().get_window_id()
-	motion.position = control.global_position+control.size/2
+	motion.window_id = window.get_window_id()
+	motion.position = point
 	motion.relative = Vector2(1,1)
 	motion.velocity = Vector2(60,60)
 	Input.parse_input_event(motion)
@@ -64,19 +66,15 @@ func native_add() -> void:
 	if scene_tree == null: return
 	scene_tree.get_window().grab_focus()
 	scene_tree.grab_focus()
-	var key := InputEventKey.new()
-	key.keycode = KEY_A
-	key.ctrl_pressed = true
-	key.pressed = true
-	Input.parse_input_event(key)
-	key = key.duplicate()
-	key.pressed = false
-	Input.parse_input_event(key)
+	var add: Button
+	for candidate in interface.get_base_control().find_children("*","Button",true,false):
+		if candidate.is_visible_in_tree() and candidate.tooltip_text.begins_with("Add/Create a New Node"): add = candidate; break
+	await click(add)
 	await frames(8)
 	var dialog: ConfirmationDialog
 	for window in get_tree().root.find_children("*","ConfirmationDialog",true,false):
 		if window.visible and window.title == "Create New Node": dialog = window; break
-	check(dialog != null,"stock Create New Node dialog opens through native shortcut")
+	check(dialog != null,"stock Create New Node dialog opens through native Add Child button")
 	if dialog == null: return
 	var search: LineEdit
 	for line in dialog.find_children("*","LineEdit",true,false):
@@ -129,6 +127,7 @@ func _run() -> void:
 	# Deliberately authored render proof, not template content.
 	var source := authored_view()+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _proof.call_deferred()\nfunc _proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png("res://e02-scene-game.png")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI").find_child("Greeting",true,false).text}))\n\toutput.close()\n'
 	home.text = source
+	original = source
 	check(plugin._build_sources(),"component builds for native registry")
 	check(plugin._scene_components.items.has(HOME),"compiled Home registered without authored new()")
 	var root := Node2D.new()
