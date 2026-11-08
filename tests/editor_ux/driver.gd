@@ -54,6 +54,9 @@ func tools_action(spatial: bool = false) -> bool:
 				menu.index_pressed.emit(index)
 				return true
 	return false
+func starter_shape(text: String, spatial: bool = false) -> bool:
+	var kind := "Node3D" if spatial else "Node2D"
+	return text.begins_with("extends "+kind+"\nconst Element = preload(") and text.ends_with("\nfunc build_view() -> Element:\n\treturn <"+kind+" />\n") and text.count("preload(") == 1
 func create(path: String, spatial: bool = false) -> CodeEdit:
 	var project_before := FileAccess.get_file_as_string("res://project.godot")
 	var roots_before := FileAccess.get_file_as_string("res://gogo.config.json")
@@ -72,14 +75,14 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 	dialog.get_line_edit().text = path.get_file().get_basename() if path == HOME else path.get_file()
 	dialog.get_ok_button().pressed.emit()
 	if not await until(func(): return FileAccess.file_exists(path) and current(path) != null,"created source opens in stock ScriptEditor"): return null
-	check(current(path).text == "extends "+("Node3D" if spatial else "Node2D")+"\n","new source is blank with no content, layout or unused imports")
+	check(starter_shape(current(path).text,spatial),"new source has a minimal native view without content/layout or unused imports")
 	check(current(path).syntax_highlighter.get_script() == Highlighter and current(path).code_completion_enabled and plugin._services._gutter_index(current(path)) >= 0,"created authored source immediately has Gogo highlighting/completion/diagnostics")
 	check(plugin._build(),"new component compiles without manual changes")
 	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
 	var script: Script = load(output)
 	# Non-tool authored scripts cannot instantiate in editor context; actual
 	# instantiation is proved separately by headless templates and child Play.
-	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and not script.get_script_method_list().any(func(method): return method.name == "build_view"),"blank component generated native metadata loads without a composition entry")
+	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and script.get_script_method_list().any(func(method): return method.name == "build_view"),"starter component generated native metadata includes its typed view")
 	check(FileAccess.get_file_as_string("res://project.godot") == project_before and FileAccess.get_file_as_string("res://gogo.config.json") == roots_before,"creation preserves project settings and configured source roots")
 	return current(path)
 
@@ -319,11 +322,11 @@ func blank_play() -> void:
 	await plugin._navigation.open(HOME)
 	await until(func(): return current(HOME)!=null,"return to newly created blank source after Play")
 	home = current(HOME)
-	check(home.text == "extends Node2D\n" and plugin._build(),"untouched blank source saves/builds after native Play")
+	check(starter_shape(home.text) and plugin._build(),"untouched nonrendering starter saves/builds after native Play")
 func proof() -> bool:
 	if not FileAccess.file_exists("res://.godot/e02-game.json"): return false
 	var json := JSON.new()
-	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == expected_text and (expected_text != "blank" or json.data.get("children") == 0 and json.data.get("base") == expected_base)
+	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == expected_text and (expected_text != "blank" or json.data.get("children") == 1 and json.data.get("base") == expected_base)
 func play(mode: String) -> void:
 	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	if mode == "main": interface.play_main_scene()
@@ -515,7 +518,7 @@ func _run() -> void:
 		plugin._new_script.error.hide()
 		plugin._new_script.dialog.hide()
 	var spatial := await create("res://app/Screens/Nested/Spatial.gogo",true)
-	check(spatial != null and spatial.text == "extends Node3D\n","second Gogo tab is a blank spatial component")
+	check(spatial != null and starter_shape(spatial.text,true),"second Gogo tab is a minimal spatial view")
 	await capture("blank-spatial-source")
 	if creation_only: await blank_play()
 	await plugin._navigation.open(HOME)

@@ -2,6 +2,8 @@
 extends RefCounted
 ## User-invoked creation only. Never overwrites source or edits project config.
 const Build = preload("build_service.gd")
+const Source = preload("../compiler/source.gd")
+const Element = preload("../runtime/composition/element.gd")
 var dialog: Variant
 var dimension: OptionButton
 var error: AcceptDialog
@@ -42,10 +44,12 @@ func show_dialog(context_directory: String = "", spatial: bool = false) -> void:
 	dialog.current_file = "NewComponent.gogo"
 	dimension.select(1 if spatial else 0)
 	dialog.popup_centered_ratio(0.65)
-static func template(_path: String, spatial: bool) -> String:
-	# A composition root must return an Element; null is only a child-slot value.
-	# Leave composition/layout to the author instead of mounting a dummy root.
-	return "extends "+("Node3D" if spatial else "Node2D")+"\n"
+static func template(path: String, spatial: bool) -> String:
+	var kind := "Node3D" if spatial else "Node2D"
+	var directory := Build.output_for(path).get_base_dir()
+	var element := JSON.stringify(Source.relative_path(directory,(Element as Script).resource_path))
+	# Ordinary native grouping node: no drawing, layout scope or configuration.
+	return "extends "+kind+"\nconst Element = preload("+element+")\n\nfunc build_view() -> Element:\n\treturn <"+kind+" />\n"
 func _selected(path: String) -> void:
 	if not active: return
 	if path.get_extension().is_empty(): path += ".gogo"

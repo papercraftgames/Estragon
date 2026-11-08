@@ -29,7 +29,8 @@ func _initialize() -> void:
 	for spatial in [false,true]:
 		var path := "res://app/Screens/Template"+str(spatial)+".gogo"
 		var source := Create.template(path,spatial)
-		check(source == "extends "+("Node3D" if spatial else "Node2D")+"\n","blank template contains only the requested host declaration")
+		var kind := "Node3D" if spatial else "Node2D"
+		check(source.begins_with("extends "+kind+"\nconst Element = preload(") and source.ends_with("\nfunc build_view() -> Element:\n\treturn <"+kind+" />\n") and source.count("preload(") == 1,"minimal typed view contains only one needed import and unconfigured native root")
 		var compiled := Compiler.compile(source,path,Build.output_for(path))
 		check(compiled.ok,"template compiles at current installed root")
 		if compiled.ok:
@@ -45,11 +46,11 @@ func _initialize() -> void:
 				root.add_child(host)
 				await process_frame
 				await process_frame
-				check(host.get_child_count() == 0 and not host.has_method("build_view"),"exact blank template enters the native tree without content or composition")
+				check(host.get_child_count() == 1 and host.has_method("build_view") and host.get_child(0).get_class() == kind and host.get_child(0).get_script() == null and host.get_child(0).get_child_count() == 0,"exact starter mounts one ordinary native leaf without Entry or content")
 				host.free()
 		# An author may later add a reusable child view without an Entry scope.
 		var child_path := "res://app/Screens/Nested/Child"+str(spatial)+".gogo"
-		var body := source+'\nfunc build_view() -> Element:\n\treturn <'+("Node3D" if spatial else "Node2D")+' />\n'
+		var body := 'extends '+kind+'\n\nfunc build_view() -> Element:\n\treturn <'+kind+'><'+kind+' /></'+kind+'>\n'
 		var plan := Completion.new().import_plan(body,child_path)
 		var lines := body.split("\n")
 		lines.insert(plan.row,plan.text.trim_suffix("\n"))
@@ -66,7 +67,7 @@ func _initialize() -> void:
 			root.add_child(host)
 			await process_frame
 			await process_frame
-			check(host.get_child_count() == 1 and host.get_child(0).get_script() == null,"authored child view mounts only the requested native child")
+			check(host.get_child_count() == 1 and host.get_child(0).get_script() == null and host.get_child(0).get_child_count() == 1,"author can extend the native grouping view without an Entry scope")
 			host.free()
 			await process_frame
 	check(not Build.creation_check("res://ignored/File.gogo").ok,"ignored source root rejected")
