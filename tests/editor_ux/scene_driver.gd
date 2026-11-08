@@ -3,7 +3,7 @@ extends "driver.gd"
 ## E05 scoped stock-editor workflow; shared native input/navigation helpers.
 var app: Node
 var _save_timer: Timer
-func save_scene() -> Error:
+func native_turn() -> void:
 	# Native 4.0 save progress pumps Main::iteration and disallows the message
 	# queue. A one-shot Timer stops before timeout emission, preventing reentry
 	# into completed process_frame awaits (SceneTreeTimer stops after emission).
@@ -15,7 +15,15 @@ func save_scene() -> Error:
 	await _save_timer.timeout
 	# Keep the stopped emitter until plugin teardown: subsequent native Play
 	# can pump the message queue before this timeout emission unwinds.
+func save_scene() -> Error:
+	await native_turn()
 	return interface.save_scene()
+func play(mode: String) -> void:
+	await native_turn()
+	await super.play(mode)
+func blocked(mode: String, unsavable: bool = false) -> void:
+	await native_turn()
+	await super.blocked(mode,unsavable)
 func click(control: Control) -> void:
 	check(is_instance_valid(control),"native control available for input")
 	if not is_instance_valid(control): return
@@ -68,6 +76,10 @@ func pick(source: String) -> void:
 	if index < 0: service.picker.hide(); return
 	service.list.select(index)
 	service.list.item_selected.emit(index)
+	if source == HOME and not FileAccess.file_exists("res://e02-scene-source-picker.png"):
+		await frames()
+		RenderingServer.force_draw(false)
+		service.picker.get_texture().get_image().save_png("res://e02-scene-source-picker.png")
 	await click(service.picker.get_ok_button())
 func history() -> UndoRedo:
 	var manager := plugin.get_undo_redo()
