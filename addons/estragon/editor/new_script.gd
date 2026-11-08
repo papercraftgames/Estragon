@@ -2,11 +2,6 @@
 extends RefCounted
 ## User-invoked creation only. Never overwrites source or edits project config.
 const Build = preload("build_service.gd")
-const Source = preload("../compiler/source.gd")
-const Element = preload("../runtime/composition/element.gd")
-const Entry2D = preload("../runtime/node/estragon_2d.gd")
-const Entry3D = preload("../runtime/node/estragon_3d.gd")
-const Text = preload("../runtime/node/text.gd")
 var dialog: Variant
 var dimension: OptionButton
 var error: AcceptDialog
@@ -31,8 +26,8 @@ func start(parent: Node) -> void:
 	dialog.add_filter("*","Gogo Component (.gogo)")
 	dimension = OptionButton.new()
 	dimension.name = "GogoTemplate"
-	dimension.add_item("Node2D — native layout and text")
-	dimension.add_item("Node3D — native spatial layout")
+	dimension.add_item("Node2D — blank component")
+	dimension.add_item("Node3D — blank component")
 	dialog.get_vbox().add_child(dimension)
 	dialog.file_selected.connect(_selected)
 	parent.add_child(dialog)
@@ -46,15 +41,10 @@ func show_dialog(context_directory: String = "") -> void:
 	dialog.current_dir = directory
 	dialog.current_file = "NewComponent.gogo"
 	dialog.popup_centered_ratio(0.65)
-static func template(path: String, spatial: bool) -> String:
-	var directory := Build.output_for(path).get_base_dir()
-	var element := JSON.stringify(Source.relative_path(directory,(Element as Script).resource_path))
-	var entry := JSON.stringify(Source.relative_path(directory,((Entry3D if spatial else Entry2D) as Script).resource_path))
-	var result := "extends "+("Node3D" if spatial else "Node2D")+"\nconst Element = preload("+element+")\nconst Entry = preload("+entry+")\n"
-	if spatial:
-		return result+"\nfunc build_view() -> Element:\n\treturn <Entry name=\"Layout\" width={4.0} height={2.0} depth={1.0} />\n"
-	var text := JSON.stringify(Source.relative_path(directory,(Text as Script).resource_path))
-	return result+"const Text = preload("+text+")\n\nfunc build_view() -> Element:\n\treturn <Entry name=\"UI\" viewport_width_scale={0.9}>\n\t\t<Text name=\"Greeting\" text=\"Hello Gogo\" />\n\t</Entry>\n"
+static func template(_path: String, spatial: bool) -> String:
+	# A composition root must return an Element; null is only a child-slot value.
+	# Leave composition/layout to the author instead of mounting a dummy root.
+	return "extends "+("Node3D" if spatial else "Node2D")+"\n"
 func _selected(path: String) -> void:
 	if not active: return
 	if path.get_extension().is_empty(): path += ".gogo"

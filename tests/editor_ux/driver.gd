@@ -9,6 +9,7 @@ var original := ""
 var e03_screen := ""
 var failed := false
 var checks := 0
+var expected_text := "Hello Gogo"
 var creation_only := OS.get_environment("ESTRAGON_EDITOR_CREATION_ONLY") == "1"
 const HOME := "res://app/Screens/Home.gogo"
 const OUTPUT := "res://app/Screens/generated/Home.gd"
@@ -70,13 +71,14 @@ func create(path: String, spatial: bool = false) -> CodeEdit:
 	dialog.get_line_edit().text = path.get_file().get_basename() if path == HOME else path.get_file()
 	dialog.get_ok_button().pressed.emit()
 	if not await until(func(): return FileAccess.file_exists(path) and current(path) != null,"created source opens in stock ScriptEditor"): return null
+	check(current(path).text == "extends "+("Node3D" if spatial else "Node2D")+"\n","new source is blank with no content, layout or unused imports")
 	check(current(path).syntax_highlighter.get_script() == Highlighter and current(path).code_completion_enabled and plugin._services._gutter_index(current(path)) >= 0,"created authored source immediately has Gogo highlighting/completion/diagnostics")
 	check(plugin._build(),"new component compiles without manual changes")
 	var output: String = preload("res://addons/estragon/editor/build_service.gd").output_for(path)
 	var script: Script = load(output)
 	# Non-tool authored scripts cannot instantiate in editor context; actual
 	# instantiation is proved separately by headless templates and child Play.
-	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and script.get_script_method_list().any(func(method): return method.name == "build_view"),"new component generated native metadata loads at actual output path")
+	check(script != null and script.get_instance_base_type() == ("Node3D" if spatial else "Node2D") and not script.get_script_method_list().any(func(method): return method.name == "build_view"),"blank component generated native metadata loads without a composition entry")
 	check(FileAccess.get_file_as_string("res://project.godot") == project_before and FileAccess.get_file_as_string("res://gogo.config.json") == roots_before,"creation preserves project settings and configured source roots")
 	return current(path)
 
@@ -256,10 +258,44 @@ func native_reference(text: String, row: int, column: int) -> Color:
 		if key <= column: result = colors[key].color
 	edit.free()
 	return result
+func authored_view() -> String:
+	# Deliberately authored test UI, independent of the blank creation service.
+	var body := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Entry2D name="UI" viewport_width_scale={0.9}>\n\t\t<Text name="Greeting" text="Hello Gogo" />\n\t</Entry2D>\n'
+	var plan := preload("res://addons/estragon/editor/completion.gd").new().import_plan(body,HOME)
+	var lines := body.split("\n")
+	lines.insert(plan.row,plan.text.trim_suffix("\n"))
+	return "\n".join(lines)
+func attach_home(text: String) -> void:
+	home.text = text
+	check(plugin._build(),"native save/build before scene attachment")
+	var host := Node2D.new()
+	host.name = "Home"
+	host.set_script(load(OUTPUT))
+	var packed := PackedScene.new()
+	packed.pack(host)
+	ResourceSaver.save(packed,"res://app/Home.tscn")
+	host.free()
+	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
+	ProjectSettings.save()
+	interface.open_scene_from_path("res://app/Home.tscn")
+	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Home.tscn","attached scene opens")
+func blank_play() -> void:
+	var blank := home.text
+	# Test instrumentation adds no children, view or imports. Headless probes
+	# separately instantiate the exact untouched 2D and 3D template bytes.
+	await attach_home(blank+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _blank_proof.call_deferred()\nfunc _blank_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png("res://e02-blank-game.png")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":"blank","children":get_child_count()}))\n\toutput.close()\n')
+	expected_text = "blank"
+	for mode in ["main","current"]: await play(mode)
+	expected_text = "Hello Gogo"
+	await plugin._navigation.open(HOME)
+	await until(func(): return current(HOME)!=null,"return to newly created blank source after Play")
+	home = current(HOME)
+	home.text = blank
+	check(plugin._build(),"blank source saves/builds again without composition artifacts")
 func proof() -> bool:
 	if not FileAccess.file_exists("res://.godot/e02-game.json"): return false
 	var json := JSON.new()
-	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == "Hello Gogo"
+	return json.parse(FileAccess.get_file_as_string("res://.godot/e02-game.json")) == OK and json.data is Dictionary and json.data.get("text") == expected_text and (expected_text != "blank" or json.data.get("children") == 0)
 func play(mode: String) -> void:
 	if FileAccess.file_exists("res://.godot/e02-game.json"): DirAccess.remove_absolute("res://.godot/e02-game.json")
 	if mode == "main": interface.play_main_scene()
@@ -417,10 +453,13 @@ func _run() -> void:
 	check((plugin._creation_menu != null) == plugin.has_method("add_context_menu_plugin"),"native hook availability matches engine; 4.0 uses Tools fallback")
 	home = await create(HOME)
 	if home == null: finish(); return
-	original = home.text
+	if creation_only: await blank_play()
+	original = authored_view()
+	home.text = original
+	check(plugin._build(),"developer can author a root view after blank creation")
 	e03_screen = original if creation_only else await _e03()
 	home.text = original
-	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"valid template imports actual installation relatively")
+	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"explicitly authored view imports actual installation relatively")
 	# Cancel and rejected paths exercise the native dialog without touching source.
 	check(tools_action(),"creation menu can be reopened")
 	plugin._new_script.dialog.current_path = "res://app/Screens/Cancelled.gogo"
@@ -456,7 +495,7 @@ func _run() -> void:
 	await complete(model.replace('return <Entry', 'self.glo§\n\treturn <Entry'),"global_position","self.global_position","self native member")
 	await complete(model.replace('text="Hello Gogo"','text={self.gree§}'),"greeting","self.greeting","GGX expression member")
 	await complete(model.replace('return <Entry','camera.zo§\n\treturn <Entry'),"zoom","camera.zoom","typed native member")
-	await complete(model.replace('</Entry>','</Ent§>'),"/Entry","</Entry>","closing tag")
+	await complete(model.replace('</Entry2D>','</Ent§>'),"/Entry2D","</Entry2D>","closing tag")
 	set_source(home,model.replace('return <Entry','self.glo§\n\treturn <Entry'))
 	await frames()
 	var shortcut := InputEventKey.new()
@@ -507,7 +546,7 @@ func _run() -> void:
 	check(color(home,0,0)==Color(0.9,0.2,0.1),"theme setting changes reflected")
 	settings.set_setting("text_editor/theme/highlighting/keyword_color",old_color)
 	highlighter.update_cache()
-	home.text = original.replace('</Entry>','</Wrong>')
+	home.text = original.replace('</Entry2D>','</Wrong>')
 	if await until(func(): return home.get_line_gutter_text(home.get_line_count()-2,plugin._services._gutter_index(home))=="!","authored syntax diagnostic gutter"):
 		await capture("diagnostic")
 		var record: Dictionary = plugin._services.entries[home.get_instance_id()].records[0]
@@ -537,24 +576,10 @@ func _run() -> void:
 	home = current(HOME)
 	original = e03_screen
 	var attached := original+'\nfunc _ready() -> void:\n\tif not Engine.is_editor_hint(): _game_proof.call_deferred()\nfunc _game_proof() -> void:\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\tawait RenderingServer.frame_post_draw\n\tget_viewport().get_texture().get_image().save_png(\"res://e03-game.png\")\n\tvar output := FileAccess.open("res://.godot/e02-game.json",FileAccess.WRITE)\n\toutput.store_string(JSON.stringify({"text":get_node("UI").find_child("Greeting",true,false).text}))\n\toutput.close()\n'
-	home.text = attached
-	check(plugin._build(),"native save/build before scene attachment")
+	await attach_home(attached)
 	check(not preload("res://addons/estragon/editor/components.gd").named("Element").script.resource_path.is_empty(),"framework Script path preserved after build")
 
 	original = attached
-	var host := Node2D.new()
-	host.name = "Home"
-	var executable = load(OUTPUT)
-	host.set_script(executable)
-
-	var packed := PackedScene.new()
-	packed.pack(host)
-	ResourceSaver.save(packed,"res://app/Home.tscn")
-	host.free()
-	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
-	ProjectSettings.save()
-	interface.open_scene_from_path("res://app/Home.tscn")
-	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Home.tscn","attached scene opens")
 	for mode in ["main","current"]:
 		await play(mode)
 		if creation_only: continue
