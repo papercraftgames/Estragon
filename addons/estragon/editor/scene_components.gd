@@ -133,8 +133,9 @@ func choose(action: String, selected: WeakRef) -> void:
 	sources.sort()
 	for source in sources:
 		var item: Dictionary = items[source]
-		list.add_item(item.label+" — "+item.base+"\n"+source)
+		list.add_item(item.label+" — "+item.base+" — "+source)
 		list.set_item_metadata(list.item_count-1,source)
+		list.set_item_tooltip(list.item_count-1,source)
 	message.text = "Attach to "+str(node.name) if mode == "attach" else "Add a native child beneath "+str(node.name)
 	if sources.is_empty(): message.text += "\nNo eligible Node components. Create/fix a Gogo component in the configured source roots."
 	picker.get_ok_button().disabled = true

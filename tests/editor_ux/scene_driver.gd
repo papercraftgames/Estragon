@@ -11,8 +11,14 @@ func native_turn() -> void:
 		_save_timer = Timer.new()
 		_save_timer.one_shot = true
 		add_child(_save_timer)
-	_save_timer.start(0.05)
-	await _save_timer.timeout
+	var deadline := Time.get_ticks_msec()+12000
+	while true:
+		await until(func(): return not plugin._filesystem_busy() and not plugin._rescan_pending and plugin._timer.is_stopped(),"filesystem/build notifications settle before native progress")
+		var builds: int = plugin.build_count
+		_save_timer.start(0.15)
+		await _save_timer.timeout
+		if not plugin._filesystem_busy() and plugin._timer.is_stopped() and plugin.build_count == builds: break
+		if Time.get_ticks_msec() > deadline: check(false,"bounded native progress settling"); return
 	# Keep the stopped emitter until plugin teardown: subsequent native Play
 	# can pump the message queue before this timeout emission unwinds.
 func save_scene() -> Error:
