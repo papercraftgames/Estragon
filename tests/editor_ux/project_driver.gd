@@ -61,6 +61,7 @@ func global_cases() -> void:
 	var alias: String = preload("res://addons/estragon/editor/imports.gd").declaration("ChosenSettings",OUTPUT.get_base_dir().path_join("Settings.gd"),HOME)
 	home.text = Fixture.home().replace("func build_view()",alias+"func build_view()").replace("<Settings name=","<ChosenSettings name=")
 	check(plugin._build_sources(),"explicit source-qualified alias disambiguates a real global collision")
+	await native_turn()
 	# Remove the declaration while its file still exists, so native global
 	# reload does not try to reopen a physically deleted cached Script.
 	Fixture.write(conflict,"extends Node2D\n")
@@ -139,8 +140,8 @@ func _run() -> void:
 	check(home.text.count("const Settings = preload(")==1,"project import quick fix redo")
 	home.text = Fixture.home()
 	check(plugin._build_sources(),"return to automatically resolved owner source")
-	await plugin._navigation.open(Fixture.SETTINGS)
-	await until(func(): return current(Fixture.SETTINGS)!=null,"authored dependency opens")
+	home.symbol_lookup.emit("Settings",13,5)
+	check(await until(func(): return current(Fixture.SETTINGS)!=null,"project symbol opens authored dependency"),"native symbol lookup navigates to original Gogo source")
 	settings = current(Fixture.SETTINGS)
 	settings.text = Fixture.settings().replace('text={self.title}','text={self.title+" edited"}')
 	expected_child = "Settings child edited"
