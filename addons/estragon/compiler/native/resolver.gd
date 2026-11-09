@@ -84,7 +84,8 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 	if aliases.has(name):
 		if ClassDB.class_exists(name):
 			return _fail("Ambiguous GGX preload alias " + name, span)
-		return _script(name, aliases[name], span,project_tags)
+		var explicit := _script(name,aliases[name],span,project_tags)
+		return _import(name,explicit,explicit.get("gogo_path",""),span) if project_tags else explicit
 	if project_tags:
 		var candidates: Array = scope().named(name)
 		if not project.errors.is_empty(): return _fail("Cannot index project Gogo sources: "+str(project.errors),span)
@@ -96,23 +97,28 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 			var path: String = project.resource(ProjectSources.output_for(source))
 			if project.authored(file.name) == source: return _fail("Self-reference in Gogo component "+source,span)
 			var result := _gogo(name,path,project.resource(source),span)
-			if not result.is_empty():
-				var alias: String
-				if _module.project_imports.has(path): alias = _module.project_imports[path].alias
-				else:
-					alias = "_GogoProject_"+str(_module.project_imports.size())
-					while _module.identifiers.has(alias): alias += "_"
-					_module.identifiers.append(alias)
-					_module.project_imports[path] = {"alias":alias,"span":span}
-				result.project_alias = alias
-				for property in result.get("properties",{}).values():
-						if str(property.get("class_name","")).begins_with(name+"."): property["class_name"] = alias+str(property["class_name"]).trim_prefix(name)
-			return result
-	if globals.has(name): return _script(name, globals[name], span,project_tags)
+			return _import(name,result,path,span)
+	if globals.has(name):
+		var global := _script(name,globals[name],span,project_tags)
+		return _import(name,global,global.get("gogo_path",""),span) if project_tags else global
 	if not ClassDB.class_exists(name): return _fail("Unknown Node GGX component %s; use a native class or explicit preload alias" % JSON.stringify(name), span)
 	if not ClassDB.is_parent_class(name, "Node") or not ClassDB.can_instantiate(name):
 		return _fail("Unknown or non-constructible Node GGX type " + name, span)
 	return {"native": name, "script": null}
+
+func _import(name: String, result: Dictionary, path: String, span: Model.Span) -> Dictionary:
+	if result.is_empty() or path.is_empty(): return result
+	var alias: String
+	if _module.project_imports.has(path): alias = _module.project_imports[path].alias
+	else:
+		alias = "_GogoProject_"+str(_module.project_imports.size())
+		while _module.identifiers.has(alias): alias += "_"
+		_module.identifiers.append(alias)
+		_module.project_imports[path] = {"alias":alias,"span":span}
+	result.project_alias = alias
+	for property in result.get("properties",{}).values():
+		if str(property.get("class_name",""))==name or str(property.get("class_name","")).begins_with(name+"."): property["class_name"] = alias+str(property["class_name"]).trim_prefix(name)
+	return result
 
 func _script(name: String, path: String, span: Model.Span, check_constructor: bool = true) -> Dictionary:
 	var authored := path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo")
@@ -163,6 +169,9 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 		cursor = token.span.end.index
 		if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append(token)
 	var base := {}
+	var declared_name := ""
+	for index in range(tokens.size()-1):
+		if tokens[index].text=="class_name" and tokens[index].span.start.column==1: declared_name = tokens[index+1].text
 	for index in range(tokens.size()-1):
 		if tokens[index].text!="extends" or tokens[index].span.start.column!=1: continue
 		var target = tokens[index+1]
@@ -214,10 +223,15 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 		var type: String = part.type_name
 		var kind: int = {"bool":TYPE_BOOL,"int":TYPE_INT,"float":TYPE_FLOAT,"String":TYPE_STRING,"StringName":TYPE_STRING_NAME,"Vector2":TYPE_VECTOR2,"Vector2i":TYPE_VECTOR2I,"Rect2":TYPE_RECT2,"Rect2i":TYPE_RECT2I,"Vector3":TYPE_VECTOR3,"Vector3i":TYPE_VECTOR3I,"Transform2D":TYPE_TRANSFORM2D,"Vector4":TYPE_VECTOR4,"Vector4i":TYPE_VECTOR4I,"Plane":TYPE_PLANE,"Quaternion":TYPE_QUATERNION,"AABB":TYPE_AABB,"Basis":TYPE_BASIS,"Transform3D":TYPE_TRANSFORM3D,"Projection":TYPE_PROJECTION,"Color":TYPE_COLOR,"NodePath":TYPE_NODE_PATH,"RID":TYPE_RID,"Callable":TYPE_CALLABLE,"Signal":TYPE_SIGNAL,"Dictionary":TYPE_DICTIONARY,"Array":TYPE_ARRAY,"PackedByteArray":TYPE_PACKED_BYTE_ARRAY,"PackedInt32Array":TYPE_PACKED_INT32_ARRAY,"PackedInt64Array":TYPE_PACKED_INT64_ARRAY,"PackedFloat32Array":TYPE_PACKED_FLOAT32_ARRAY,"PackedFloat64Array":TYPE_PACKED_FLOAT64_ARRAY,"PackedStringArray":TYPE_PACKED_STRING_ARRAY,"PackedVector2Array":TYPE_PACKED_VECTOR2_ARRAY,"PackedVector3Array":TYPE_PACKED_VECTOR3_ARRAY,"PackedColorArray":TYPE_PACKED_COLOR_ARRAY}.get(type,TYPE_OBJECT)
 		if type.begins_with("Array["): kind = TYPE_ARRAY
-		properties[part.name] = {"name":part.name,"type":kind,"class_name":(type if ClassDB.class_exists(type) else name+"."+type) if kind==TYPE_OBJECT else "","usage":PROPERTY_USAGE_DEFAULT}
+		var qualified := ""
+		if kind==TYPE_OBJECT:
+			if type==declared_name: qualified = name
+			elif ClassDB.class_exists(type.get_slice(".",0)) or imported.globals.has(type.get_slice(".",0)): qualified = type
+			else: qualified = name+"."+type
+		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT}
 		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name}
 	if check_constructor and required: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
-	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals,"required_initializer":required}
+	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals,"required_initializer":required,"gogo_path":path}
 
 func _fail(message: String, span: Model.Span) -> Dictionary:
 	file.fail(message, span.start.index, span.end.index)

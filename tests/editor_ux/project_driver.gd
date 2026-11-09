@@ -67,9 +67,9 @@ func global_cases() -> void:
 	await native_turn()
 	check(plugin._build_sources(),"global removal restores unqualified project name")
 	var thing := "res://app/GlobalThing.gogo"
-	Fixture.write(thing,Fixture.header(thing,"Node2D",["Element"]).replace("extends Node2D","class_name GlobalThing\nextends Node2D")+"func build_view() -> Element:\n\treturn <Node2D />\n")
+	Fixture.write(thing,Fixture.header(thing,"Node2D",["Element"]).replace("extends Node2D","class_name GlobalThing\nextends Node2D")+"@export var peer: GlobalThing = null\nfunc build_view() -> Element:\n\treturn <Node2D />\n")
 	var consumer := "res://app/GlobalConsumer.gogo"
-	Fixture.write(consumer,Fixture.header(consumer,"Node2D",["Element"])+"func build_view() -> Element:\n\treturn <GlobalThing />\n")
+	Fixture.write(consumer,Fixture.header(consumer,"Node2D",["Element"])+"func build_view() -> Element:\n\treturn <GlobalThing peer={null} />\n")
 	check(plugin._build_sources(),"first build bootstraps an authored class_name project component")
 	interface.get_resource_filesystem().update_file(preload("res://addons/estragon/editor/build_service.gd").output_for(thing))
 	interface.get_resource_filesystem().scan()
