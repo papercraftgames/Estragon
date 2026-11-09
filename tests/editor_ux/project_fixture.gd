@@ -16,6 +16,9 @@ static func header(path: String, base: String, names: Array) -> String:
 	return result
 static func settings(path: String = SETTINGS) -> String:
 	return header(path,"Node2D",["Element","Entry2D","Text"])+'''@bindable var title: String = "Settings child"
+class Shared extends RefCounted:
+	var count: int = 1
+@export var payload: Shared = null
 signal changed(value: bool)
 func build_view() -> Element:
 	return <Entry2D name="SettingsView" position={Vector2(0,60)} viewport_width_scale={0.8}>
@@ -36,7 +39,7 @@ func build_view() -> Element:
 	return <Entry2D name="UI">
 		<VBox name="Column" fill_width={true} fill_height={true}>
 			<Text name="Greeting" text={"Hello World! " + str(self.tick)} />
-			<Settings name="SettingsChild" title={"Settings child"} changed={self.on_changed} />
+			<Settings name="SettingsChild" title={"Settings child"} payload={null} changed={self.on_changed} />
 			<Boundary name="BoundaryChild" />
 		</VBox>
 	</Entry2D>

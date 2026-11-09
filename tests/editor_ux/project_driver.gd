@@ -49,6 +49,28 @@ func invalid_dependency() -> void:
 	check(plugin._build(),"child repair recovers Play gate")
 	expected_child = "Settings child"
 	await play("current")
+func global_cases() -> void:
+	var conflict := "res://app/GlobalSettings.gd"
+	Fixture.write(conflict,"class_name Settings\nextends Node2D\n")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check(not plugin._build_sources() and str(plugin.last_report.diagnostics).contains("Ambiguous project Gogo component"),"real global class/project name collision fails closed")
+	var alias: String = preload("res://addons/estragon/editor/imports.gd").declaration("ChosenSettings",OUTPUT.get_base_dir().path_join("Settings.gd"),HOME)
+	home.text = Fixture.home().replace("func build_view()",alias+"func build_view()").replace("<Settings name=","<ChosenSettings name=")
+	check(plugin._build_sources(),"explicit source-qualified alias disambiguates a real global collision")
+	DirAccess.remove_absolute(conflict)
+	home.text = Fixture.home()
+	interface.get_resource_filesystem().scan()
+	await native_turn()
+	check(plugin._build_sources(),"global removal restores unqualified project name")
+	var thing := "res://app/GlobalThing.gogo"
+	Fixture.write(thing,Fixture.header(thing,"Node2D",["Element"]).replace("extends Node2D","class_name GlobalThing\nextends Node2D")+"func build_view() -> Element:\n\treturn <Node2D />\n")
+	var consumer := "res://app/GlobalConsumer.gogo"
+	Fixture.write(consumer,Fixture.header(consumer,"Node2D",["Element"])+"func build_view() -> Element:\n\treturn <GlobalThing />\n")
+	check(plugin._build_sources(),"first build bootstraps an authored class_name project component")
+	await native_turn()
+	check(ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="GlobalThing"),"native global class cache contains generated component")
+	check(plugin._build_sources(),"matching global and project source retain the same identity")
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for E07"): finish(); return
 	var preferences := interface.get_editor_settings()
@@ -136,6 +158,7 @@ func _run() -> void:
 	settings.text = Fixture.settings()
 	home.text = Fixture.home()
 	check(plugin._build_sources(),"repair live source catalog")
+	await global_cases()
 	var script = load(OUTPUT)
 	interface.set_plugin_enabled(PLUGIN,false)
 	await frames()
