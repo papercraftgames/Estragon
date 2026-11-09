@@ -67,6 +67,10 @@ func scan(module: Model.Module) -> void:
 					file.fail("Unknown preload UID: "+path,tokens[next+3].span.start.index)
 					return
 				path = ResourceUID.get_id_path(uid)
+				# Baseline Godot resolves ResourceUIDs but cannot preload Scripts by
+				# UID. Emit the resolved path at this exact lexical literal on both
+				# engines; authored source and native Resource identity stay intact.
+				module.resource_imports.append({"span":tokens[next+3].span,"path":path})
 			elif not path.is_absolute_path():
 				var output: String = file.generated_path()
 				path = output.get_base_dir().path_join(path).simplify_path()

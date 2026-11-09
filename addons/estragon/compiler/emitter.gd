@@ -107,9 +107,21 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 
 func _parts(parts: Array[Model.SyntaxNode]) -> void:
 	for part in parts:
-		if part is Model.Code: _writer.append(_file.slice(part.span), part.span, true)
+		if part is Model.Code: _code(part.span)
 		elif part is Model.Bindable: _bindable(part)
 		else: _call(part)
+
+func _code(span: Model.Span) -> void:
+	var cursor: int = span.start.index
+	for imported in _module.resource_imports:
+		var literal_span: Model.Span = imported.span
+		if literal_span.start.index < cursor or literal_span.end.index > span.end.index: continue
+		var before := _file.span(cursor,literal_span.start.index)
+		_writer.append(_file.slice(before),before,true)
+		_writer.append(_string(Source.relative_path(_output_directory,imported.path)),literal_span)
+		cursor = literal_span.end.index
+	var rest := _file.span(cursor,span.end.index)
+	_writer.append(_file.slice(rest),rest,true)
 
 func _call(node: Model.Component) -> void:
 	var factory := Factory.new()

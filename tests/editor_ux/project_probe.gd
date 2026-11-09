@@ -88,6 +88,7 @@ func _run() -> void:
 	var uid_alias := 'const Settings = preload('+JSON.stringify(ResourceUID.id_to_text(uid))+')\n'
 	Fixture.write(Fixture.HOME,Fixture.home().replace("func build_view()",uid_alias+"func build_view()"))
 	check(Build.run_build().ok,"stable UID preload resolves authored Gogo metadata and coherent dependency order")
+	check(FileAccess.get_file_as_string(Fixture.HOME).contains(uid_alias) and not FileAccess.get_file_as_string(Build.output_for(Fixture.HOME)).contains("uid://"),"UID import bridge preserves authored declaration and emits native baseline path")
 	Fixture.write(Fixture.HOME,Fixture.home())
 	rejected(Fixture.home().replace('<Settings name=', '<Unknown name='),"Unknown Node GGX component")
 	rejected(Fixture.home().replace('<Settings name=', '<settings name='),"Unknown Node GGX component")
