@@ -240,7 +240,7 @@ func _project_path(name: String) -> String:
 	for item in _project_items():
 		if item.alias == name: matches.append(item)
 	for entry in ProjectSettings.get_global_class_list():
-		if str(entry["class"])==name and (matches.size()!=1 or str(entry.path)!=matches[0].path): return ""
+		if str(entry["class"])==name and FileAccess.file_exists(str(entry.path)) and (matches.size()!=1 or str(entry.path)!=matches[0].path): return ""
 	return matches[0].path if matches.size()==1 else ""
 func _project_options(prefix: String) -> Dictionary:
 	var result := {}

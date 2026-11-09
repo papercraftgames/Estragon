@@ -20,7 +20,10 @@ var source_only := false
 func _init(source) -> void:
 	file = source
 	project = source.project
-	for item in ProjectSettings.get_global_class_list(): globals[str(item["class"])] = str(item.path)
+	# Native filesystem refresh can retain a deleted class cache entry. Never
+	# let a missing Script reserve a name or fall back to its cached executable.
+	for item in ProjectSettings.get_global_class_list():
+		if FileAccess.file_exists(str(item.path)): globals[str(item["class"])] = str(item.path)
 
 func scan(module: Model.Module) -> void:
 	_module = module
@@ -200,6 +203,7 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 		if token.text=="signal" and token.span.start.column==1: signals[tokens[index+1].text] = {"name":tokens[index+1].text}
 		var start: int = source.line_start(token.span.start.line)
 		if token.text!="var" or source.text.substr(start,1) in [" ","\t"] or tokens[index+2].text!=":": continue
+		if index>0 and tokens[index-1].text=="static" and tokens[index-1].span.start.line==token.span.start.line: continue
 		var end: int = index+3
 		while end+1<tokens.size() and tokens[end+1].span.start.line==token.span.start.line and tokens[end+1].text not in ["=",":"]: end += 1
 		declarations.append({"name":tokens[index+1].text,"type_name":source.text.substr(tokens[index+3].span.start.index,tokens[end].span.end.index-tokens[index+3].span.start.index),"signal_name":""})

@@ -7,7 +7,7 @@ const Catalog = preload("components.gd")
 static func occupied(name: String, resource: String, symbols: Dictionary) -> bool:
 	if symbols.has(name) or ClassDB.class_exists(name): return true
 	for entry in ProjectSettings.get_global_class_list():
-		if str(entry["class"]) == name and str(entry.path) != resource: return true
+		if str(entry["class"]) == name and str(entry.path) != resource and FileAccess.file_exists(str(entry.path)): return true
 	return false
 static func alias_for(item: Dictionary, symbols: Dictionary, aliases: Dictionary) -> String:
 	for name in aliases:
