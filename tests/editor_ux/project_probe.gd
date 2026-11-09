@@ -27,6 +27,15 @@ func rejected(text: String, message: String) -> void:
 	Fixture.write(Fixture.HOME,Fixture.home())
 func _run() -> void:
 	Fixture.install()
+	var plain := "res://app/PlainBase.gd"
+	var derived := "res://app/Derived.gogo"
+	Fixture.write(plain,"extends Node2D\n@export var caption: String = \"Base\"\n")
+	Fixture.write(derived,'extends "../PlainBase.gd"\n')
+	var source_completion := Completion.new()
+	var source_options: Array = source_completion.candidates('extends Node2D\nfunc view(): return <Deri',Fixture.HOME,Context.new(),1,26)
+	check(source_options.any(func(item): return item.text.begins_with("Derived — Gogo Component")) and not ResourceLoader.has_cached(plain),"completion indexes ordinary Script inheritance without loading authored code")
+	DirAccess.remove_absolute(derived)
+	DirAccess.remove_absolute(plain)
 	check(not FileAccess.file_exists(Build.output_for(Fixture.SETTINGS)),"cold source discovery before generated Settings exists")
 	var direct := Compiler.compile(Fixture.home(),Fixture.HOME,Build.output_for(Fixture.HOME))
 	check(direct.ok and direct.code.contains('preload("Settings.gd")') and not Fixture.home().contains("const Settings"),"manually typed project tag lowers without editor/import action")
@@ -118,6 +127,10 @@ func _run() -> void:
 	rejected(Fixture.home(),"zero-argument initializer")
 	Fixture.write(Fixture.SETTINGS,"extends RefCounted\n")
 	rejected(Fixture.home(),"constructible Node")
+	Fixture.write(Fixture.SETTINGS,"@abstract\nextends Node2D\n")
+	rejected(Fixture.home(),"Abstract Gogo component")
+	Fixture.write(Fixture.SETTINGS,Fixture.settings()+"\nfunc _init(value: int = 1) -> void:\n\tposition.x = value\n")
+	check(Build.run_build().ok,"optional constructor arguments remain constructible")
 	Fixture.write(Fixture.SETTINGS,Fixture.settings().replace("_GogoProject_", "_unused_"))
 	Fixture.write(Fixture.HOME,Fixture.home().replace("func build_view()",'const _GogoProject_0 = 1\nfunc build_view()'))
 	check(Build.run_build().ok,"private compiler import aliases avoid authored identifiers")

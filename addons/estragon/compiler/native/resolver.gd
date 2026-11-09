@@ -82,7 +82,7 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 		if not ClassDB.is_parent_class(native,"Node") or not ClassDB.can_instantiate(native): return _fail("Non-constructible native alias "+name,span)
 		return {"native":native,"script":null,"native_alias":native}
 	if aliases.has(name):
-		if ClassDB.class_exists(name) or globals.has(name) and globals[name] != aliases[name]:
+		if ClassDB.class_exists(name):
 			return _fail("Ambiguous GGX preload alias " + name, span)
 		return _script(name, aliases[name], span,project_tags)
 	if project_tags:
@@ -130,6 +130,7 @@ func _script(name: String, path: String, span: Model.Span, check_constructor: bo
 		return _fail("Imported Script has unsynchronized disk/cache source; reload it in Godot before compiling GGX: " + path, span)
 	if not script is GDScript or not ClassDB.is_parent_class(script.get_instance_base_type(), "Node") or not ClassDB.can_instantiate(script.get_instance_base_type()):
 		return _fail("GGX hierarchy script must be a constructible Node: " + name, span)
+	if not Engine.is_editor_hint() and not script.can_instantiate(): return _fail("GGX hierarchy script must be a constructible Node: "+name,span)
 	if script.has_method("is_abstract") and script.call("is_abstract"): return _fail("Abstract GGX component: "+name,span)
 	var required := false
 	for method in script.get_script_method_list():
