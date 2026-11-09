@@ -16,7 +16,7 @@ static func header(path: String, base: String, names: Array) -> String:
 	return result
 static func settings(path: String = SETTINGS) -> String:
 	return header(path,"Node2D",["Element","Entry2D","Text"])+'''@bindable var title: String = "Settings child"
-class Shared extends RefCounted:
+class Shared extends Resource:
 	var count: int = 1
 @export var payload: Shared = null
 signal changed(value: bool)
