@@ -58,6 +58,7 @@ func global_cases() -> void:
 	var direct_alias: String = preload("res://addons/estragon/editor/imports.gd").declaration("Settings",OUTPUT.get_base_dir().path_join("Settings.gd"),HOME)
 	home.text = Fixture.home().replace("func build_view()",direct_alias+"func build_view()")
 	check(plugin._build_sources(),"existing declared Settings preload overrides a different global Script")
+	await native_turn()
 	var alias: String = preload("res://addons/estragon/editor/imports.gd").declaration("ChosenSettings",OUTPUT.get_base_dir().path_join("Settings.gd"),HOME)
 	home.text = Fixture.home().replace("func build_view()",alias+"func build_view()").replace("<Settings name=","<ChosenSettings name=")
 	check(plugin._build_sources(),"explicit source-qualified alias disambiguates a real global collision")
@@ -71,6 +72,7 @@ func global_cases() -> void:
 	interface.get_resource_filesystem().scan()
 	await native_turn()
 	check(plugin._build_sources(),"global removal restores unqualified project name")
+	await native_turn()
 	var thing := "res://app/GlobalThing.gogo"
 	Fixture.write(thing,Fixture.header(thing,"Node2D",["Element"]).replace("extends Node2D","class_name GlobalThing\nextends Node2D")+"@export var peer: GlobalThing = null\nfunc build_view() -> Element:\n\treturn <Node2D />\n")
 	var consumer := "res://app/GlobalConsumer.gogo"
