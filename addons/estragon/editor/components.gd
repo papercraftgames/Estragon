@@ -11,7 +11,7 @@ const ITEMS := [
 	{"alias":"Entry3D","canonical":"Estragon3D","script":preload("../runtime/node/estragon_3d.gd"),"dimension":3,"origin":"layout entry"},
 	{"alias":"Element","canonical":"Element","script":preload("../runtime/composition/element.gd"),"dimension":0,"origin":"GGX description type"}
 ]
-static func path(item: Dictionary) -> String: return (item.script as Script).resource_path
+static func path(item: Dictionary) -> String: return item.path if item.has("path") else (item.script as Script).resource_path
 static func named(name: String) -> Dictionary:
 	for item in ITEMS:
 		if name in [item.alias,item.canonical]: return item

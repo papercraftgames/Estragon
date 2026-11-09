@@ -1,0 +1,149 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "3b6d51f42a87cce90a24e9ed5f05ba2b4aa76a18de98d171fb8c2b3f44a99fc0"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-9A0x64/yarn-cache",
+      "file:/evidence/e07-final/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.63,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "project-components": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-9A0x64/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-9A0x64/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.83,
+    "godot_pid": 13568,
+    "log": "project-components.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-9A0x64/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-9A0x64/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 45.83,
+    "godot_pid": 13585,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-9A0x64/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-9A0x64/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 10.54,
+    "godot_pid": 14472,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ],
+    "unexpected_errors": []
+  },
+  "template-relocated": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-9A0x64/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-9A0x64/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.59,
+    "godot_pid": 14925,
+    "log": "template-relocated.log",
+    "diagnostics": []
+  },
+  "template-standard": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-9A0x64/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-9A0x64/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.5,
+    "godot_pid": 14942,
+    "log": "template-standard.log",
+    "diagnostics": []
+  }
+}

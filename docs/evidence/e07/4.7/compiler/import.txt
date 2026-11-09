@@ -1,0 +1,76 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (56 steps)
+[   0% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   5% ] update_scripts_classes |
+[   7% ] update_scripts_classes |
+[   8% ] update_scripts_classes |
+[  10% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  19% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  24% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  29% ] update_scripts_classes |
+[  31% ] update_scripts_classes |
+[  33% ] update_scripts_classes |
+[  35% ] update_scripts_classes |
+[  36% ] update_scripts_classes |
+[  38% ] update_scripts_classes |
+[  40% ] update_scripts_classes |
+[  42% ] update_scripts_classes |
+[  43% ] update_scripts_classes |
+[  45% ] update_scripts_classes |
+[  47% ] update_scripts_classes |
+[  49% ] update_scripts_classes |
+[  50% ] update_scripts_classes |
+[  52% ] update_scripts_classes |
+[  54% ] update_scripts_classes |
+[  56% ] update_scripts_classes |
+[  57% ] update_scripts_classes |
+[  59% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  66% ] update_scripts_classes |
+[  68% ] update_scripts_classes | EstragonButton
+[  70% ] update_scripts_classes | EstragonComponent2D
+[  71% ] update_scripts_classes | EstragonComponent3D
+[  73% ] update_scripts_classes | Estragon2D
+[  75% ] update_scripts_classes | Estragon3D
+[  77% ] update_scripts_classes | EstragonHBox
+[  78% ] update_scripts_classes | EstragonNative2D
+[  80% ] update_scripts_classes | EstragonNative3D
+[  82% ] update_scripts_classes | EstragonRect
+[  84% ] update_scripts_classes | EstragonText
+[  85% ] update_scripts_classes | EstragonToggle
+[  87% ] update_scripts_classes | EstragonVBox
+[  89% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  94% ] update_scripts_classes |
+[  96% ] update_scripts_classes | EstragonPublicationProbe
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+C01_PROJECT_INDEX_READY

@@ -1,0 +1,13 @@
+{
+  "source": "faecb3bf34e50885aa9f25cb1e417f0bd10622e7",
+  "profile": "E07-project-components",
+  "tarball_sha256": "3b6d51f42a87cce90a24e9ed5f05ba2b4aa76a18de98d171fb8c2b3f44a99fc0",
+  "direct_yarn": true,
+  "package_unchanged": true,
+  "template_layouts": [
+    "direct",
+    "relocated",
+    "standard"
+  ],
+  "external_compiler": false
+}

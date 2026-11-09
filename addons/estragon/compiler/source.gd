@@ -5,14 +5,16 @@ const Model = preload("model.gd")
 var text: String
 var name: String
 var output_path: String
+var project
 var diagnostics: Array[Model.Diagnostic] = []
 var _lines: PackedInt32Array = [0]
 var _utf16: PackedInt32Array = [0]
 
-func _init(value: String, source_name: String = "<source>", generated_path: String = "") -> void:
+func _init(value: String, source_name: String = "<source>", generated_path: String = "", project_sources = null) -> void:
 	text = value
 	name = source_name
 	output_path = generated_path
+	project = project_sources
 	for index in range(text.length()):
 		_utf16.append(_utf16[-1] + (2 if text.unicode_at(index) > 0xffff else 1))
 		if text[index] == "\n" or text[index] == "\r" and (index + 1 == text.length() or text[index + 1] != "\n"):

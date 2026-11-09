@@ -8,8 +8,8 @@ const Bindable = preload("bindable.gd")
 const Validator = preload("validator.gd")
 const Composition = preload("composition.gd")
 
-static func analyze(text: String, source_name: String = "<source>", output_path: String = "") -> Model.Result:
-	var file := Source.new(text, source_name, output_path)
+static func analyze(text: String, source_name: String = "<source>", output_path: String = "", project_sources = null) -> Model.Result:
+	var file := Source.new(text, source_name, output_path, project_sources)
 	var parser := Parser.new(file)
 	var result := Model.Result.new()
 	var module := parser.parse()

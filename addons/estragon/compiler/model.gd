@@ -74,6 +74,8 @@ class Component extends SyntaxNode:
 		kind = "component-expression"
 
 class Module extends RefCounted:
+	var project_imports: Dictionary = {}
+	var resource_imports: Array = []
 	var composition: bool = false
 	var parts: Array[SyntaxNode] = []
 	var identifiers: PackedStringArray = []

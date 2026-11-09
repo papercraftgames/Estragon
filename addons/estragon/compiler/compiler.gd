@@ -14,9 +14,9 @@ class Compilation extends RefCounted:
 	var ok: bool:
 		get: return diagnostics.is_empty() and source_map != null
 
-static func compile(source: String, source_name: String = "<source>", output_path: String = "") -> Compilation:
+static func compile(source: String, source_name: String = "<source>", output_path: String = "", project_sources = null) -> Compilation:
 	var result := Compilation.new()
-	var frontend := Frontend.analyze(source, source_name, output_path)
+	var frontend := Frontend.analyze(source, source_name, output_path, project_sources)
 	result.diagnostics = frontend.diagnostics
 	if not frontend.ok: return result
 	result.source_map = Emitter.new(frontend.module, Source.new(source, source_name, output_path)).emit()

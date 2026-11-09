@@ -7,6 +7,11 @@ const Context = preload("lexical_context.gd")
 const Catalog = preload("components.gd")
 const Imports = preload("imports.gd")
 const Build = preload("build_service.gd")
+const ProjectSources = preload("../compiler/project_sources.gd")
+const Resolver = preload("../compiler/native/resolver.gd")
+var project_index
+var _project_items_cache: Array = []
+var _project_key := ""
 var sources: Dictionary = {}
 var metadata: Dictionary = {}
 var metadata_reads := 0
@@ -24,6 +29,8 @@ var _types = Validator.new(Source.new(""))
 func _init() -> void:
 	_classes = ClassDB.get_class_list()
 func invalidate() -> void:
+	project_index = null
+	_project_key = ""
 	_text = ""
 	_native_cache.clear()
 	_script_cache.clear()
@@ -91,6 +98,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 				if tokens[cursor].text == "set": setter = true
 			symbols[name].writable = not getter or setter
 		if word == "const" and scope.is_empty():
+			if index+3<tokens.size() and tokens[index+2].text=="=" and ClassDB.class_exists(tokens[index+3].text): aliases[name] = tokens[index+3].text
 			for cursor in range(index+2,mini(index+7,tokens.size()-2)):
 				if tokens[cursor].text == "preload" and tokens[cursor+1].text == "(" and tokens[cursor+2].kind == "string": aliases[name] = _resolve_path(tokens[cursor+2].text,source)
 	# Typed arguments/local declarations also contribute names, never inferred values.
@@ -146,6 +154,9 @@ func call_hint(text: String, source: String, lexical: RefCounted, row: int, colu
 	return ""
 func _members(type: String, aliases: Dictionary, visited: Array = []) -> Dictionary:
 	var name: String = aliases.get(type,type)
+	if name == type and not ClassDB.class_exists(type):
+		var project_path := _project_path(type)
+		if not project_path.is_empty(): name = project_path
 	if name.is_empty() or name in visited or visited.size() >= 12: return {}
 	if ClassDB.class_exists(name):
 		if _native_cache.has(name): return _native_cache[name]
@@ -162,6 +173,7 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 			if entry["class"] == name: return _members(str(entry.path),{},visited+[name])
 		return {}
 	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
+	if name.get_base_dir().get_file()=="generated" and FileAccess.file_exists(name+".map.json") and not FileAccess.file_exists(authored): return {}
 	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return {}
 	var declarations := _script(name)
@@ -180,17 +192,64 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 	return result
 func _node_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 	var name: String = aliases.get(type,type)
+	if name == type and not ClassDB.class_exists(type):
+		var project_path := _project_path(type)
+		if not project_path.is_empty(): return true
 	if name in visited or visited.size() >= 12: return false
 	if ClassDB.class_exists(name): return ClassDB.is_parent_class(name,"Node") and ClassDB.can_instantiate(name)
 	if not name.begins_with("res://"):
 		for entry in ProjectSettings.get_global_class_list():
 			if entry["class"] == name: return _node_type(str(entry.path),{},visited+[name])
 		return false
+	for item in _project_items():
+		if item.path == name: return true
 	var authored := name.get_base_dir().get_base_dir().path_join(name.get_file().get_basename()+".gogo")
+	if name.get_base_dir().get_file()=="generated" and FileAccess.file_exists(name+".map.json") and not FileAccess.file_exists(authored): return false
 	if name.get_base_dir().get_file() == "generated" and FileAccess.file_exists(authored): name = authored
 	if not FileAccess.file_exists(name): return false
 	var declarations := _script(name)
 	return not declarations.required_initializer and _node_type(declarations.base,declarations.aliases,visited+[name])
+func _project_items() -> Array:
+	if project_index == null:
+		project_index = ProjectSources.new()
+		project_index.discover()
+	project_index.overrides = sources.duplicate()
+	if _path.ends_with(".gogo"): project_index.overrides[_path] = _text
+	var cache_key := _path+str(project_index.overrides.hash())
+	if _project_key == cache_key: return _project_items_cache
+	_project_key = cache_key
+	_project_items_cache = []
+	if not project_index.errors.is_empty(): return []
+	var paths: Array = project_index.sources.keys()
+	paths.sort()
+	for path in paths:
+		var authored: String = project_index.resource(path)
+		var name: String = str(path).get_file().get_basename()
+		if authored == _path or not name.is_valid_identifier(): continue
+		var source := Source.new("",_path,"",project_index)
+		var resolver := Resolver.new(source)
+		resolver.source_only = true
+		var output: String = project_index.resource(ProjectSources.output_for(path))
+		var info: Dictionary = resolver._gogo(name,output,authored,source.span(0))
+		if info.is_empty(): continue
+		_project_items_cache.append({"alias":name,"canonical":name+"Component","path":output,"source":authored,"native":info.native})
+	return _project_items_cache
+func _project_path(name: String) -> String:
+	if _symbols.has(name) or ClassDB.class_exists(name): return ""
+	var matches := []
+	for item in _project_items():
+		if item.alias == name: matches.append(item)
+	for entry in ProjectSettings.get_global_class_list():
+		if str(entry["class"])==name and FileAccess.file_exists(str(entry.path)) and (matches.size()!=1 or str(entry.path)!=matches[0].path): return ""
+	return matches[0].path if matches.size()==1 else ""
+func _project_options(prefix: String) -> Dictionary:
+	var result := {}
+	for item in _project_items():
+		var alias: String = Imports.alias_for(item,_symbols,_aliases)
+		if not str(item.alias).begins_with(prefix) and not alias.begins_with(prefix): continue
+		var label: String = item.alias+" — Gogo Component — "+item.source+" ("+item.native+")"
+		result[label] = {"kind":CodeEdit.KIND_CLASS,"insert":alias,"import":{"alias":alias,"path":item.path},"match":prefix}
+	return result
 func _catalog_options(prefix: String, tags: bool) -> Dictionary:
 	var result: Dictionary = {}
 	var dimension := 3 if _base == "Node3D" or ClassDB.class_exists(_base) and ClassDB.is_parent_class(_base,"Node3D") else (2 if _base == "Node2D" or ClassDB.class_exists(_base) and ClassDB.is_parent_class(_base,"Node2D") else 0)
@@ -252,10 +311,14 @@ func import_plan(text: String, source: String, requests: Array = []) -> Dictiona
 				if token.kind != "tag" or not token.text.is_valid_identifier(): continue
 				var item := Catalog.named(token.text)
 				if not item.is_empty() and item.dimension != 0 and not _symbols.has(token.text): requests.append({"alias":token.text,"path":Catalog.path(item)})
+				if item.is_empty() and not _project_path(token.text).is_empty(): requests.append({"alias":token.text,"path":_project_path(token.text)})
 	return Imports.plan(text,source,requests,_symbols,_aliases,_tokens(text))
 func definition(text: String, source: String, symbol: String) -> String:
 	_index(text,source)
-	return _aliases.get(symbol,"")
+	var target: String = _aliases.get(symbol,_project_path(symbol))
+	for item in _project_items():
+		if item.path == target: return item.source
+	return target
 func candidates(text: String, source: String, lexical: RefCounted, row: int, column: int) -> Array:
 	_index(text,source)
 	lexical.update(text)
@@ -285,6 +348,13 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 				for alias in _aliases:
 					if _aliases[alias] == Catalog.path(item): offered.erase(alias)
 			offered.merge(_catalog_options(prefix,true))
+			# A bare native/global spelling with a project collision would fail
+			# compilation. Offer a source-qualified explicit choice instead.
+			var project_items := _project_items()
+			if not project_items.is_empty():
+				for name in offered.keys():
+					if not _aliases.has(name) and not project_index.named(str(name)).is_empty(): offered.erase(name)
+			offered.merge(_project_options(prefix))
 		else:
 			if not _node_type(context.tag,_aliases): return []
 			var members := _members(context.tag,_aliases)

@@ -5,7 +5,7 @@ extends RefCounted
 const Lexer = preload("../compiler/lexer.gd")
 const Source = preload("../compiler/source.gd")
 
-static func paths(code: String, output: String) -> PackedStringArray:
+static func paths(code: String, output: String, locations: Dictionary = {}) -> PackedStringArray:
 	var file := Source.new(code)
 	var lexer := Lexer.new(file)
 	var tokens: Array = []
@@ -41,5 +41,7 @@ static func paths(code: String, output: String) -> PackedStringArray:
 				if not ResourceUID.has_id(uid): continue
 				path = ResourceUID.get_id_path(uid)
 			elif not path.is_absolute_path(): path = output.get_base_dir().path_join(path).simplify_path()
+			path = path.simplify_path()
 			result.append(path)
+			locations[path] = tokens[next].span.start
 	return result

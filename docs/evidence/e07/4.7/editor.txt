@@ -1,0 +1,115 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK fresh editor compiles manual sibling tags without completion: true
+E02_EDITOR_CHECK owner repro has no manual Settings import: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK cancelled project completion never inserts imports: true
+E02_EDITOR_CHECK E07 source tag native popup contains expected candidate: true
+E02_EDITOR_CHECK E07 source tag native confirmation inserts correct text: true
+E02_EDITOR_CHECK E07 source tag insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK E07 source tag undo restores caret: true
+E02_EDITOR_CHECK E07 source tag insertion redo: true
+E02_EDITOR_CHECK native completion imports project component once: true
+E02_EDITOR_CHECK accepted project tag uses explicit native import: true
+E02_EDITOR_CHECK Tools missing imports recognizes project tags: true
+E02_EDITOR_CHECK project import quick fix is one undo operation: true
+E02_EDITOR_CHECK project import quick fix redo: true
+E02_EDITOR_CHECK return to automatically resolved owner source: true
+E02_EDITOR_CHECK native symbol lookup navigates to original Gogo source: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK unsaved current dependency saved before both Play paths: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:220)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:200)
+         [4] invalid_dependency (res://tests/editor_ux/project_driver.gd:42)
+         [5] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] invalid_dependency (res://tests/editor_ux/project_driver.gd:42)
+       [1] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+E02_EDITOR_CHECK invalid unsaved child blocks actual main Play: true
+E02_EDITOR_CHECK dependency rollback preserves bytes/map/timestamp/Script: true
+E02_EDITOR_CHECK failed dependency retains native UID: true
+E02_EDITOR_CHECK child diagnostic retains authored source: true
+E02_EDITOR_CHECK child repair recovers Play gate: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK new saved source enters completion via filesystem invalidation: true
+E02_EDITOR_CHECK rename removes old source suggestion: true
+E02_EDITOR_CHECK moved source has current identity: true
+E02_EDITOR_CHECK deleted source does not fall back to generated artifact: true
+E02_EDITOR_CHECK live unsaved non-Node dependency removed without a filesystem scan: true
+E02_EDITOR_CHECK repair live source catalog: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Ambiguous project Gogo component Settings: app/Screens/Settings.gogo; select a source with an explicit uniquely named preload alias
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Ambiguous project Gogo component Settings: app/Screens/Settings.gogo; select a source with an explicit uniquely named preload alias
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:264)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:229)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:220)
+         [3] global_cases (res://tests/editor_ux/project_driver.gd:57)
+         [4] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+E02_EDITOR_CHECK real global class/project name collision fails closed: true
+E02_EDITOR_CHECK existing declared Settings preload overrides a different global Script: true
+E02_EDITOR_CHECK explicit source-qualified alias disambiguates a real global collision: true
+E02_EDITOR_CHECK global removal restores unqualified project name: true
+E02_EDITOR_CHECK first build bootstraps an authored class_name project component: true
+E02_EDITOR_CHECK native global class cache contains generated component: true
+E02_EDITOR_CHECK matching global and project source retain the same identity: true
+E02_EDITOR_CHECK plugin reload rebuilds source index with stable Script identity: true
+E02_EDITOR_CHECK final automatic-source build: true
+E02_EDITOR_ASSERTIONS 41 failed=false
+E02_EDITOR_OK

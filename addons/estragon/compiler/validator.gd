@@ -27,7 +27,7 @@ func _error(message: String, span: Model.Span) -> void:
 func _component(node: Model.Component) -> void:
 	var resolved: Dictionary = resolver.resolve(node.name, node.name_span)
 	if resolved.is_empty(): return
-	node.runtime_class = node.name
+	node.runtime_class = resolved.get("project_alias",resolved.get("native_alias",node.name))
 	var properties: Dictionary = {}
 	var signals: Dictionary = {}
 	for property in ClassDB.class_get_property_list(resolved.native): properties[property.name] = property

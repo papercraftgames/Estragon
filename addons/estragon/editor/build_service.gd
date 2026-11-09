@@ -4,7 +4,9 @@ extends RefCounted
 const Compiler = preload("../compiler/compiler.gd")
 const Validation = preload("../compiler/script_validation.gd")
 const Dependencies = preload("script_dependencies.gd")
+const ProjectSources = preload("../compiler/project_sources.gd")
 const CONFIG := "gogo.config.json"
+var _project_sources
 const EXCLUDED := ["generated", "node_modules", "tests", "vendor"]
 var _project: String
 var _report := {"ok": false, "outputs": [], "changed": [], "diagnostics": [], "source_diagnostics": [], "isolated_preflight": {"status": "UNTESTED"}}
@@ -24,63 +26,21 @@ func _fail_source(diagnostic) -> void:
 	_fail(diagnostic.format())
 	_report.source_diagnostics.append({"source":diagnostic.source_name,"line":diagnostic.span.start.line,"column":diagnostic.span.start.column,"end_line":diagnostic.span.end.line,"end_column":diagnostic.span.end.column,"message":diagnostic.message})
 
+func _scope():
+	if _project_sources == null: _project_sources = ProjectSources.new(_project)
+	return _project_sources
 func _safe(path: String) -> bool:
-	if not path.begins_with(_project + "/"):
-		_fail("Generated/source path escapes the project: " + path)
-		return false
-	var current := path
-	while current != _project:
-		var directory := DirAccess.open(current.get_base_dir())
-		if directory != null and directory.has_method("is_link") and directory.call("is_link", current.get_file()):
-			_fail("Symlinks are not supported in Gogo source/output paths: " + path.trim_prefix(_project + "/"))
-			return false
-		current = current.get_base_dir()
-	return true
-
+	var scope = _scope()
+	var before: int = scope.errors.size()
+	var valid: bool = scope.safe(path)
+	_report.diagnostics.append_array(scope.errors.slice(before))
+	return valid
 func _discover() -> void:
-	var config_path := _project.path_join(CONFIG)
-	if not FileAccess.file_exists(config_path):
-		_visit(_project, true)
-		return
-	if not _safe(config_path): return
-	var json := JSON.new()
-	if json.parse(FileAccess.get_file_as_string(config_path)) != OK:
-		_fail(CONFIG + ": " + json.get_error_message())
-		return
-	var config: Variant = json.data
-	if not config is Dictionary or config.size() != 2 or config.get("version") != 1 or not config.get("source_roots") is Array or config.source_roots.is_empty():
-		_fail(CONFIG + ": expected version 1 and nonempty project-relative source_roots only")
-		return
-	for source_root in config.source_roots:
-		if not source_root is String or source_root.is_empty() or source_root.is_absolute_path() or ":" in source_root or "\\" in source_root:
-			_fail(CONFIG + ": invalid source root " + str(source_root))
-			continue
-		var invalid := false
-		for part in source_root.split("/"):
-			if part.begins_with(".") or part in EXCLUDED: invalid = true
-		if invalid:
-			_fail(CONFIG + ": invalid source root " + source_root)
-			continue
-		var path := _project.path_join(source_root).simplify_path()
-		if _safe(path): _visit(path)
-
-func _visit(path: String, default_root: bool = false) -> void:
-	if path != _project and not _safe(path): return
-	if FileAccess.file_exists(path):
-		if path.ends_with(".gogo"): _sources[path.trim_prefix(_project + "/")] = true
-		return
-	var directory := DirAccess.open(path)
-	if directory == null:
-		_fail("Cannot read Gogo source root: " + path.trim_prefix(_project + "/"))
-		return
-	var entries := Array(directory.get_directories()) + Array(directory.get_files())
-	entries.sort()
-	for name in entries:
-		if name.begins_with(".") or name in EXCLUDED or default_root and name == "addons": continue
-		_visit(path.path_join(name))
-
-static func output_for(source: String) -> String:
-	return source.get_base_dir().path_join("generated").path_join(source.get_file().trim_suffix(".gogo") + ".gd")
+	var scope = _scope()
+	scope.discover()
+	_sources = scope.sources
+	_report.diagnostics.append_array(scope.errors)
+static func output_for(source: String) -> String: return ProjectSources.output_for(source)
 
 func _run() -> Dictionary:
 	var directory := DirAccess.open(_project)
@@ -90,15 +50,21 @@ func _run() -> Dictionary:
 	var sources := _sources.keys()
 	sources.sort()
 	var compiled: Array[Dictionary] = []
+	# Metadata resolution and code generation must read the same source snapshot.
 	for source in sources:
 		var input := FileAccess.open(_project.path_join(source), FileAccess.READ)
 		if input == null:
 			_fail(source + ": cannot read source (" + error_string(FileAccess.get_open_error()) + ")")
 			continue
-		var result := Compiler.compile(input.get_as_text(), source, _resource_path(output_for(source)))
+		_scope().texts[source] = input.get_as_text()
+	if not _report.diagnostics.is_empty(): return _report
+	for source in sources:
+		var result := Compiler.compile(_scope().read(source), source, _resource_path(output_for(source)), _scope())
 		if not result.ok:
 			for diagnostic in result.diagnostics: _fail_source(diagnostic)
 		else: compiled.append({"source": source, "output": output_for(source), "result": result})
+	if not _report.diagnostics.is_empty(): return _report
+	compiled = _validation_order(compiled)
 	if not _report.diagnostics.is_empty(): return _report
 	var writes: Dictionary = {}
 	for item in compiled:
@@ -166,7 +132,6 @@ func _run() -> Dictionary:
 	var isolated := Validation.supports_isolated_path()
 	_report.isolated_preflight = {"status": "UNTESTED" if isolated else "BLOCKED", "reason": "" if isolated else "Unavailable native path API; mandatory transactional actual-path validation used instead"}
 	if _report.diagnostics.is_empty():
-		compiled = _validation_order(compiled)
 		for item in compiled:
 			if isolated:
 				var checked := Validation.validate(item.result, _resource_path(item.output))
@@ -242,18 +207,40 @@ func _validation_order(compiled: Array[Dictionary]) -> Array[Dictionary]:
 	var by_path: Dictionary = {}
 	for item in compiled:
 		by_path[_resource_path(item.output)] = item
-		item.dependencies = Dependencies.paths(item.result.code, _resource_path(item.output))
+		item.dependency_locations = {}
+		item.dependencies = Dependencies.paths(item.result.code, _resource_path(item.output),item.dependency_locations)
 	var ordered: Array[Dictionary] = []
 	var visited: Dictionary = {}
-	for item in compiled: _visit_dependencies(item, by_path, visited, ordered)
+	for item in compiled: _visit_dependencies(_resource_path(item.output),item,by_path,visited,[],ordered)
 	return ordered
 
-func _visit_dependencies(item: Dictionary, by_path: Dictionary, visited: Dictionary, ordered: Array[Dictionary]) -> void:
-	if visited.has(item.output): return # Godot diagnoses illegal dependency cycles.
-	visited[item.output] = true
-	for path in item.dependencies:
-		if by_path.has(path): _visit_dependencies(by_path[path], by_path, visited, ordered)
-	ordered.append(item)
+func _dependency_error(item: Dictionary, path: String, message: String) -> void:
+	var generated = item.dependency_locations.get(path)
+	var point = item.result.source_map.original_position(generated.line,generated.column) if generated != null else null
+	var source = item.result.source_map.source
+	source.fail(message,point.index if point != null else 0)
+	_fail_source(source.diagnostics[0])
+
+func _visit_dependencies(path: String, origin: Dictionary, by_path: Dictionary, visited: Dictionary, chain: Array, ordered: Array[Dictionary]) -> void:
+	if not _report.diagnostics.is_empty(): return
+	if visited.get(path,0)==1:
+		_dependency_error(origin,path,"Cyclic Gogo/source preload dependency: "+" -> ".join(chain+[path]))
+		return
+	if visited.get(path,0)==2: return
+	visited[path] = 1
+	var dependencies: PackedStringArray = []
+	if by_path.has(path):
+		origin = by_path[path]
+		dependencies = origin.dependencies
+	elif path.get_base_dir().get_file()=="generated" and (FileAccess.file_exists(path+".map.json") or FileAccess.file_exists(path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo"))):
+		_dependency_error(origin,path,"Gogo dependency is missing or outside configured source roots: "+path)
+		return
+	elif path.ends_with(".gd") and FileAccess.file_exists(path) and ProjectSettings.globalize_path(path).begins_with(_project+"/"):
+		if not _safe(ProjectSettings.globalize_path(path)): return
+		dependencies = Dependencies.paths(FileAccess.get_file_as_string(path),path)
+	for dependency in dependencies: _visit_dependencies(dependency,origin,by_path,visited,chain+[path],ordered)
+	visited[path] = 2
+	if by_path.has(path): ordered.append(by_path[path])
 
 ## Same discovery exclusions/containment as builds; no writes or config changes.
 static func creation_check(path: String) -> Dictionary:
