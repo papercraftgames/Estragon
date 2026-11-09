@@ -68,6 +68,9 @@ func global_cases() -> void:
 	var consumer := "res://app/GlobalConsumer.gogo"
 	Fixture.write(consumer,Fixture.header(consumer,"Node2D",["Element"])+"func build_view() -> Element:\n\treturn <GlobalThing />\n")
 	check(plugin._build_sources(),"first build bootstraps an authored class_name project component")
+	interface.get_resource_filesystem().update_file(preload("res://addons/estragon/editor/build_service.gd").output_for(thing))
+	interface.get_resource_filesystem().scan()
+	await until(func(): return ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="GlobalThing"),"native global class registration refresh")
 	await native_turn()
 	check(ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="GlobalThing"),"native global class cache contains generated component")
 	check(plugin._build_sources(),"matching global and project source retain the same identity")
