@@ -83,6 +83,12 @@ func _run() -> void:
 	check(options.any(func(item): return item.text.begins_with("Settings — Gogo Component") and item.text.contains(Fixture.SETTINGS)),"source-aware project tag completion")
 	check(completion.import_plan(Fixture.home(),Fixture.HOME).text.contains('const Settings = preload("Settings.gd")'),"Add Missing Imports handles manually authored project tag")
 	check(completion.definition(Fixture.home(),Fixture.HOME,"Settings")==Fixture.SETTINGS,"project definition opens authored source")
+	var uid := ResourceUID.create_id()
+	ResourceUID.add_id(uid,Build.output_for(Fixture.SETTINGS))
+	var uid_alias := 'const Settings = preload('+JSON.stringify(ResourceUID.id_to_text(uid))+')\n'
+	Fixture.write(Fixture.HOME,Fixture.home().replace("func build_view()",uid_alias+"func build_view()"))
+	check(Build.run_build().ok,"stable UID preload resolves authored Gogo metadata and coherent dependency order")
+	Fixture.write(Fixture.HOME,Fixture.home())
 	rejected(Fixture.home().replace('<Settings name=', '<Unknown name='),"Unknown Node GGX component")
 	rejected(Fixture.home().replace('<Settings name=', '<settings name='),"Unknown Node GGX component")
 	rejected(Fixture.home().replace('func build_view()', 'var Settings: int = 3\nfunc build_view()'),"Ambiguous project Gogo component")

@@ -61,11 +61,17 @@ func scan(module: Model.Module) -> void:
 				file.fail("Invalid preload path literal", tokens[next + 3].span.start.index)
 				return
 			var path: String = literal.call("value")
-			if not path.is_absolute_path():
+			if path.begins_with("uid://"):
+				var uid := ResourceUID.text_to_id(path)
+				if not ResourceUID.has_id(uid):
+					file.fail("Unknown preload UID: "+path,tokens[next+3].span.start.index)
+					return
+				path = ResourceUID.get_id_path(uid)
+			elif not path.is_absolute_path():
 				var output: String = file.generated_path()
 				path = output.get_base_dir().path_join(path).simplify_path()
 			if not path.is_absolute_path(): path = "res://" + path
-			aliases[name] = path
+			aliases[name] = path.simplify_path()
 		for index in range(tokens.size()-3):
 			if tokens[index].text!="const" or tokens[index].span.start.column!=1 or tokens[index+2].text!="=": continue
 			var target: String = tokens[index+3].text

@@ -61,7 +61,11 @@ func global_cases() -> void:
 	var alias: String = preload("res://addons/estragon/editor/imports.gd").declaration("ChosenSettings",OUTPUT.get_base_dir().path_join("Settings.gd"),HOME)
 	home.text = Fixture.home().replace("func build_view()",alias+"func build_view()").replace("<Settings name=","<ChosenSettings name=")
 	check(plugin._build_sources(),"explicit source-qualified alias disambiguates a real global collision")
-	DirAccess.remove_absolute(conflict)
+	# Remove the declaration while its file still exists, so native global
+	# reload does not try to reopen a physically deleted cached Script.
+	Fixture.write(conflict,"extends Node2D\n")
+	interface.get_resource_filesystem().update_file(conflict)
+	await until(func(): return not ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="Settings"),"global declaration removal refresh")
 	home.text = Fixture.home()
 	interface.get_resource_filesystem().scan()
 	await native_turn()
@@ -71,8 +75,8 @@ func global_cases() -> void:
 	var consumer := "res://app/GlobalConsumer.gogo"
 	Fixture.write(consumer,Fixture.header(consumer,"Node2D",["Element"])+"func build_view() -> Element:\n\treturn <GlobalThing peer={null} />\n")
 	check(plugin._build_sources(),"first build bootstraps an authored class_name project component")
+	await native_turn()
 	interface.get_resource_filesystem().update_file(preload("res://addons/estragon/editor/build_service.gd").output_for(thing))
-	interface.get_resource_filesystem().scan()
 	await until(func(): return ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="GlobalThing"),"native global class registration refresh")
 	await native_turn()
 	check(ProjectSettings.get_global_class_list().any(func(item): return str(item["class"])=="GlobalThing"),"native global class cache contains generated component")
