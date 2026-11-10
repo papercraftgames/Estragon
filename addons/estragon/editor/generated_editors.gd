@@ -58,6 +58,7 @@ func _verified(path: String) -> String:
 	var source := Components.source_path(path)
 	if source.is_empty() or not FileAccess.file_exists(source) or not FileAccess.file_exists(path): return ""
 	var map = JSON.parse_string(FileAccess.get_file_as_string(path+".map.json"))
+	if not map is Dictionary: return ""
 	if not map.get("sourceContent") is String or not map.get("segments") is Array: return ""
 	var text := FileAccess.get_file_as_string(path)
 	if map.has("generatedHash"):
@@ -134,8 +135,8 @@ func _replace(entry: Dictionary, text: String) -> void:
 	var horizontal: int = code.scroll_horizontal
 	var breakpoints: PackedInt32Array = code.get_breakpointed_lines()
 	if code.text != text: code.text = text
-	for breakpoint in breakpoints:
-		if breakpoint < code.get_line_count(): code.set_line_as_breakpoint(breakpoint,true)
+	for marked_line in breakpoints:
+		if marked_line < code.get_line_count(): code.set_line_as_breakpoint(marked_line,true)
 	code.set_caret_line(line)
 	code.set_caret_column(column)
 	code.scroll_vertical = vertical

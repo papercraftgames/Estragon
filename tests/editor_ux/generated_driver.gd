@@ -111,6 +111,17 @@ func _run() -> void:
 	check(FileAccess.get_file_as_string(entry.recovery).contains("# late generated edit") and compiled.text==FileAccess.get_file_as_string(output),"generated edit signal preserves bytes before synchronization")
 	# Restore the first recovered text as the newest content for restart proof.
 	compiled.text = edited
+	# A failed recovery must preserve the visible bytes and block publication.
+	var recovery_dir: String = guard.RECOVERY
+	DirAccess.rename_absolute(recovery_dir,recovery_dir+".held")
+	Fixture.write(recovery_dir,"temporary obstruction")
+	var blocked_text: String = compiled.text+"\n# cannot preserve yet\n"
+	compiled.text = blocked_text
+	check(not plugin._build_sources() and compiled.text==blocked_text and compiled.get_version()!=compiled.get_saved_version(),"recovery write failure blocks build without erasing dirty bytes")
+	DirAccess.remove_absolute(recovery_dir)
+	DirAccess.rename_absolute(recovery_dir+".held",recovery_dir)
+	check(guard.prepare() and compiled.text!=blocked_text,"recovery repair preserves pending edit then restores compiled view")
+	compiled.text = edited
 	settings = current(Fixture.SETTINGS)
 	if settings == null:
 		await plugin._navigation.open(Fixture.SETTINGS)
@@ -137,6 +148,11 @@ func _run() -> void:
 		check(ordinary.text!=FileAccess.get_file_as_string(path),"ordinary native input still edits: "+path)
 		ordinary.text = FileAccess.get_file_as_string(path)
 		ordinary.tag_saved_version()
+	var unowned := "res://unowned/generated/Normal.gd"
+	Fixture.write("res://unowned/Normal.gogo","extends Node2D\n")
+	Fixture.write(unowned,"extends Node2D\n# hand authored\n")
+	Fixture.write(unowned+".map.json",JSON.stringify({"format":"estragon.gogo.source-map","version":1,"sourceName":"unowned/Normal.gogo","sourceContent":"extends Node2D\n","segments":[],"generatedHash":"mismatched"}))
+	check((await show_script(unowned)).editable,"correct-looking but content-mismatched source map never protects an ordinary Script")
 	compiled = await show_script(output)
 	# Known authenticated tabs retain a useful status when provenance disappears;
 	# new tabs with broken maps are never adopted.
