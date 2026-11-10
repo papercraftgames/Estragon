@@ -19,6 +19,7 @@ var active := true
 var mutating := false
 var problem := ""
 var presentation := ""
+var action: Callable
 func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> void:
 	plugin = owner
 	interface = owner.get_editor_interface()
@@ -26,7 +27,6 @@ func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> v
 	association = adapter
 	panel = MenuButton.new()
 	panel.name = "GogoGeneratedView"
-	panel.get_popup().id_pressed.connect(_action,CONNECT_DEFERRED)
 	plugin.add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR,panel)
 	panel.hide()
 	interface.get_script_editor().visibility_changed.connect(_present)
@@ -169,6 +169,9 @@ func _present() -> void:
 	if signature == presentation: return
 	presentation = signature
 	var popup := panel.get_popup()
+	if action.is_valid() and popup.id_pressed.is_connected(action): popup.id_pressed.disconnect(action)
+	action = _action.bind(entry.source,entry.path,entry.recovery)
+	popup.id_pressed.connect(action,CONNECT_DEFERRED)
 	popup.clear()
 	popup.add_item(status,0)
 	popup.set_item_disabled(0,true)
@@ -177,17 +180,13 @@ func _present() -> void:
 	popup.add_separator()
 	popup.add_item("View Recovered Edit"+(" (preserved)" if not entry.recovery.is_empty() else ""),2)
 	popup.set_item_disabled(popup.get_item_index(2),entry.recovery.is_empty())
-func _action(id: int) -> void:
-	if id == 1: _open_source()
-	elif id == 2: _view_recovery()
-func _open_source() -> void:
-	if entries.has(selected) and FileAccess.file_exists(entries[selected].source): navigation.open(entries[selected].source)
-func _view_recovery() -> void:
-	if not entries.has(selected): return
-	var entry: Dictionary = entries[selected]
-	location.text = "Preserved edit for "+entry.path+"\n"+ProjectSettings.globalize_path(entry.recovery)+"\nOlder recovered versions remain in this directory. Copy intended changes into "+entry.source+"."
-	preview.text = FileAccess.get_file_as_string(entry.recovery)
-	viewer.popup_centered()
+func _action(id: int, source: String, path: String, recovery: String) -> void:
+	if not active: return
+	if id == 1 and FileAccess.file_exists(source): navigation.open(source)
+	elif id == 2 and FileAccess.file_exists(recovery):
+		location.text = "Preserved edit for "+path+"\n"+ProjectSettings.globalize_path(recovery)+"\nOlder recovered versions remain in this directory. Copy intended changes into "+source+"."
+		preview.text = FileAccess.get_file_as_string(recovery)
+		viewer.popup_centered()
 func _closed(id: int) -> void:
 	if entries.has(id): _detach(id)
 func _detach(id: int) -> void:

@@ -41,6 +41,7 @@ func generated_action(id: int) -> void:
 	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
 	await menu_click(menu.get_popup(),menu.get_popup().get_item_index(id))
 	check(picked.has(id),"native generated menu selects requested action "+str(id))
+	print("E09_ACTION_CONTEXT ",id," selected=",plugin._generated_editors.selected)
 	menu.get_popup().id_pressed.disconnect(record)
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for E09"): finish(); return
@@ -90,6 +91,10 @@ func _run() -> void:
 	await generated_action(1)
 	check(await until(func(): return current(Fixture.SETTINGS)!=null,"source action opens Settings.gogo"),"visible action navigates to exact authored source")
 	settings = current(Fixture.SETTINGS)
+	if settings == null:
+		for editor in interface.get_script_editor().get_open_script_editors():
+			print("E09_OPEN_TAB ",plugin._highlighter_association._path(editor,editor.get_base_editor(),false))
+		finish(); return
 	check(settings.editable and not guard.panel.visible,"authored Gogo remains editable without generated banner")
 	var original_settings: String = settings.text
 	settings.text += "\n# authored edit\n"
