@@ -2,6 +2,11 @@
 extends "project_driver.gd"
 const Build = preload("res://addons/estragon/editor/build_service.gd")
 var compiled: CodeEdit
+func append_compiled(text: String) -> void:
+	compiled.set_caret_line(compiled.get_line_count()-1)
+	compiled.set_caret_column(compiled.get_line(compiled.get_caret_line()).length())
+	compiled.insert_text_at_caret(text,0)
+	await frames()
 func compiled_tab(path: String) -> CodeEdit:
 	var scripts := interface.get_script_editor()
 	if scripts.get_current_script() == null or scripts.get_current_script().resource_path != path: return null
@@ -32,6 +37,41 @@ func type_character(code: CodeEdit) -> void:
 	if native_window: Input.parse_input_event(event)
 	else: window.push_input(event,true)
 	await frames()
+func generated_row(menu: PopupMenu, index: int) -> void:
+	# Locate the row by native hover feedback, without hardcoded theme metrics.
+	var native_window := menu.has_method("get_window_id")
+	menu.set_focused_item(-1)
+	var point := Vector2(24,8)
+	var found := false
+	for y in range(8,menu.size.y-4,4):
+		point.y = y
+		var motion := InputEventMouseMotion.new()
+		if native_window: motion.window_id = menu.call("get_window_id")
+		motion.position = point
+		motion.global_position = Vector2(menu.position)+point
+		motion.relative = Vector2(0,4)
+		motion.velocity = Vector2(0,240)
+		if native_window: Input.parse_input_event(motion)
+		else: menu.push_input(motion,true)
+		Input.flush_buffered_events()
+		if menu.get_focused_item() == index:
+			found = true
+			break
+	check(found,"native hover locates component menu row")
+	if not found: return
+	var event := InputEventMouseButton.new()
+	if native_window: event.window_id = menu.call("get_window_id")
+	event.position = point
+	event.global_position = Vector2(menu.position)+point
+	event.button_index = MOUSE_BUTTON_LEFT
+	event.pressed = true
+	if native_window: Input.parse_input_event(event)
+	else: menu.push_input(event,true)
+	event = event.duplicate()
+	event.pressed = false
+	if native_window: Input.parse_input_event(event)
+	else: menu.push_input(event,true)
+	await frames()
 func generated_action(id: int) -> void:
 	var menu: MenuButton = plugin._generated_editors.panel
 	var picked := []
@@ -39,7 +79,7 @@ func generated_action(id: int) -> void:
 	menu.get_popup().id_pressed.connect(record)
 	await click(menu)
 	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
-	await menu_click(menu.get_popup(),menu.get_popup().get_item_index(id))
+	await generated_row(menu.get_popup(),menu.get_popup().get_item_index(id))
 	check(picked.has(id),"native generated menu selects requested action "+str(id))
 	menu.get_popup().id_pressed.disconnect(record)
 func _run() -> void:
@@ -144,7 +184,7 @@ func _run() -> void:
 	await frames()
 	check(compiled.editable,"addon unload restores original generated CodeEdit editability")
 	var edited: String = compiled.text+"\n# previously dirty Ω\n"
-	compiled.text = edited
+	await append_compiled("\n# previously dirty Ω\n")
 	check(compiled.get_version()!=compiled.get_saved_version(),"disabled addon dirty-buffer fixture is genuinely unsaved")
 	plugin = null
 	interface.set_plugin_enabled(PLUGIN,true)
@@ -160,21 +200,21 @@ func _run() -> void:
 	await capture("generated-recovery")
 	guard.viewer.hide()
 	# Programmatic/native third-party changes cannot bypass preservation.
-	compiled.text += "\n# late generated edit\n"
+	await append_compiled("\n# late generated edit\n")
 	check(FileAccess.get_file_as_string(entry.recovery).contains("# late generated edit") and compiled.text==FileAccess.get_file_as_string(output),"generated edit signal preserves bytes before synchronization")
 	# Restore the first recovered text as the newest content for restart proof.
-	compiled.text = edited
+	await append_compiled("\n# previously dirty Ω\n")
 	# A failed recovery must preserve the visible bytes and block publication.
 	var recovery_dir: String = guard.RECOVERY
 	DirAccess.rename_absolute(recovery_dir,recovery_dir+".held")
 	Fixture.write(recovery_dir,"temporary obstruction")
 	var blocked_text: String = compiled.text+"\n# cannot preserve yet\n"
-	compiled.text = blocked_text
+	await append_compiled("\n# cannot preserve yet\n")
 	check(not plugin._build_sources() and compiled.text==blocked_text and compiled.get_version()!=compiled.get_saved_version(),"recovery write failure blocks build without erasing dirty bytes")
 	DirAccess.remove_absolute(recovery_dir)
 	DirAccess.rename_absolute(recovery_dir+".held",recovery_dir)
 	check(guard.prepare() and compiled.text!=blocked_text,"recovery repair preserves pending edit then restores compiled view")
-	compiled.text = edited
+	await append_compiled("\n# previously dirty Ω\n")
 	settings = current(Fixture.SETTINGS)
 	if settings == null:
 		await plugin._navigation.open(Fixture.SETTINGS)

@@ -129,9 +129,21 @@ func _replace(entry: Dictionary, text: String) -> void:
 	var vertical: float = code.scroll_vertical
 	var horizontal: int = code.scroll_horizontal
 	var breakpoints: PackedInt32Array = code.get_breakpointed_lines()
-	if code.text != text: code.text = text
+	if code.text != text:
+		# Whole-buffer assignment clears CodeEdit gutters and emits native
+		# breakpoint removals. Update line contents instead, retaining native
+		# inspection state on existing lines (including unchanged breakpoints).
+		var lines := text.split("\n")
+		code.begin_complex_operation()
+		while code.get_line_count() < lines.size(): code.insert_line_at(code.get_line_count()-1,"")
+		while code.get_line_count() > lines.size():
+			var last: int = code.get_line_count()-1
+			code.remove_text(last-1,code.get_line(last-1).length(),last,code.get_line(last).length())
+		for index in range(lines.size()):
+			if code.get_line(index) != lines[index]: code.set_line(index,lines[index])
+		code.end_complex_operation()
 	for marked_line in breakpoints:
-		if marked_line < code.get_line_count(): code.set_line_as_breakpoint(marked_line,true)
+		if marked_line < code.get_line_count() and not code.is_line_breakpointed(marked_line): code.set_line_as_breakpoint(marked_line,true)
 	code.set_caret_line(line)
 	code.set_caret_column(column)
 	code.scroll_vertical = vertical
