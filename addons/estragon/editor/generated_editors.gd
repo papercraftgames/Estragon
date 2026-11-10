@@ -10,10 +10,7 @@ var interface: EditorInterface
 var navigation: RefCounted
 var association: RefCounted
 var entries: Dictionary = {}
-var panel: HBoxContainer
-var label: Label
-var open: Button
-var recovered: Button
+var panel: MenuButton
 var viewer: AcceptDialog
 var preview: TextEdit
 var location: Label
@@ -26,20 +23,12 @@ func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> v
 	interface = owner.get_editor_interface()
 	navigation = navigator
 	association = adapter
-	panel = HBoxContainer.new()
+	panel = MenuButton.new()
 	panel.name = "GogoGeneratedView"
-	label = Label.new()
-	panel.add_child(label)
-	open = Button.new()
-	open.text = "Open Gogo Source"
-	open.pressed.connect(_open_source)
-	panel.add_child(open)
-	recovered = Button.new()
-	recovered.text = "View Recovered Edit"
-	recovered.pressed.connect(_view_recovery)
-	panel.add_child(recovered)
+	panel.get_popup().id_pressed.connect(_action)
 	plugin.add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR,panel)
 	panel.hide()
+	interface.get_script_editor().visibility_changed.connect(_present)
 	viewer = AcceptDialog.new()
 	viewer.title = "Recovered generated edit — copy changes into the Gogo source"
 	viewer.min_size = Vector2i(760,460)
@@ -165,19 +154,28 @@ func _present() -> void:
 	var editor := interface.get_script_editor().get_current_editor()
 	for id in entries:
 		if entries[id].editor.get_ref() == editor: selected = id; break
-	panel.visible = selected != 0
+	panel.visible = selected != 0 and interface.get_script_editor().is_visible_in_tree()
 	if selected == 0: return
 	var entry: Dictionary = entries[selected]
 	var exists := FileAccess.file_exists(entry.source)
-	label.text = "Generated from "+entry.source.get_file()+" — read-only"
-	if not exists: label.text = "Generated GDScript — Gogo source missing"
-	elif _verified(entry.path).is_empty(): label.text = "Generated GDScript — source map unavailable/changed"
-	if entry.blocked: label.text = "Generated edit recovery failed — Save/Play blocked"
-	label.tooltip_text = entry.path+"\nEdit the Gogo source: "+entry.source
-	open.disabled = not exists
-	open.tooltip_text = entry.source if exists else "Restore the missing Gogo source: "+entry.source
-	recovered.visible = not entry.recovery.is_empty()
-	recovered.tooltip_text = "Your previous edit was preserved before synchronization: "+ProjectSettings.globalize_path(entry.recovery)
+	panel.text = "Generated: "+entry.source.get_file()
+	var status := "Read-only — edit the Gogo source"
+	if not exists: status = "Gogo source missing — restore it before editing"
+	elif _verified(entry.path).is_empty(): status = "Source map unavailable/changed — inspect only"
+	if entry.blocked: status = "Recovery failed — Save/Play blocked"
+	panel.tooltip_text = status+"\n"+entry.path+"\nGogo source: "+entry.source
+	var popup := panel.get_popup()
+	popup.clear()
+	popup.add_item(status,0)
+	popup.set_item_disabled(0,true)
+	popup.add_item("Open Gogo Source",1)
+	popup.set_item_disabled(1,not exists)
+	popup.add_separator()
+	popup.add_item("View Recovered Edit"+(" (preserved)" if not entry.recovery.is_empty() else ""),2)
+	popup.set_item_disabled(popup.get_item_index(2),entry.recovery.is_empty())
+func _action(id: int) -> void:
+	if id == 1: _open_source()
+	elif id == 2: _view_recovery()
 func _open_source() -> void:
 	if entries.has(selected) and FileAccess.file_exists(entries[selected].source): navigation.open(entries[selected].source)
 func _view_recovery() -> void:
@@ -199,6 +197,7 @@ func _detach(id: int) -> void:
 func stop() -> void:
 	active = false
 	for id in entries.keys(): _detach(id)
+	interface.get_script_editor().visibility_changed.disconnect(_present)
 	plugin.remove_control_from_container(EditorPlugin.CONTAINER_TOOLBAR,panel)
 	panel.free()
 	viewer.free()

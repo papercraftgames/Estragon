@@ -9,6 +9,7 @@ func compiled_tab(path: String) -> CodeEdit:
 	return editor.get_base_editor() as CodeEdit if editor != null else null
 func show_script(path: String, line: int = 1) -> CodeEdit:
 	interface.edit_script(load(path),line,0)
+	interface.set_main_screen_editor("Script")
 	await until(func(): return compiled_tab(path)!=null,"native compiled Script tab opens")
 	await frames()
 	return compiled_tab(path)
@@ -17,16 +18,25 @@ func type_character(code: CodeEdit) -> void:
 	code.grab_focus()
 	await frames()
 	var event := InputEventKey.new()
-	event.window_id = code.get_window_id()
+	var window := code.get_window()
+	var native_window := window.has_method("get_window_id")
+	if native_window: event.window_id = window.call("get_window_id")
 	event.keycode = KEY_X
 	event.unicode = 120
 	event.pressed = true
-	Input.parse_input_event(event)
+	if native_window: Input.parse_input_event(event)
+	else: window.push_input(event,true)
 	await frames()
 	event = event.duplicate()
 	event.pressed = false
-	Input.parse_input_event(event)
+	if native_window: Input.parse_input_event(event)
+	else: window.push_input(event,true)
 	await frames()
+func generated_action(id: int) -> void:
+	var menu: MenuButton = plugin._generated_editors.panel
+	await click(menu)
+	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
+	await menu_click(menu.get_popup(),menu.get_popup().get_item_index(id))
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for E09"): finish(); return
 	var prefs := interface.get_editor_settings()
@@ -37,8 +47,8 @@ func _run() -> void:
 	if FileAccess.file_exists("res://.godot/e09-restart"):
 		compiled = await show_script(output)
 		check(not compiled.editable and plugin._generated_editors.panel.visible,"restart restores generated protection and visible origin")
-		check(plugin._generated_editors.recovered.visible,"persistent recovery remains discoverable after restart")
-		await click(plugin._generated_editors.recovered)
+		check(not plugin._generated_editors.panel.get_popup().is_item_disabled(plugin._generated_editors.panel.get_popup().get_item_index(2)),"persistent recovery remains discoverable after restart")
+		await generated_action(2)
 		check(plugin._generated_editors.preview.text.contains("# previously dirty"),"restart recovery retains exact edited bytes")
 		plugin._generated_editors.viewer.hide()
 		await capture("generated-restart")
@@ -65,14 +75,14 @@ func _run() -> void:
 	check(button("Open Gogo Source")!=null,"attached component Inspector exposes original source")
 	compiled = await show_script(output,3)
 	var guard = plugin._generated_editors
-	check(not compiled.editable and guard.panel.visible and guard.label.text.contains("Settings.gogo"),"generated Settings tab visibly identifies authored source and is read-only")
+	check(not compiled.editable and guard.panel.visible and guard.panel.text.contains("Settings.gogo"),"generated Settings tab visibly identifies authored source and is read-only")
 	check(interface.get_script_editor().get_current_script().resource_path==output,"native inspect/debug navigation stays on compiled Script")
 	compiled.set_line_as_breakpoint(2,true)
 	var before: String = compiled.text
 	await type_character(compiled)
 	check(compiled.text==before,"real native key input cannot modify protected generated buffer")
 	await capture("generated-protected")
-	await click(guard.open)
+	await generated_action(1)
 	check(await until(func(): return current(Fixture.SETTINGS)!=null,"source action opens Settings.gogo"),"visible action navigates to exact authored source")
 	settings = current(Fixture.SETTINGS)
 	check(settings.editable and not guard.panel.visible,"authored Gogo remains editable without generated banner")
@@ -101,8 +111,8 @@ func _run() -> void:
 	var entry: Dictionary = guard.entries[compiled.get_instance_id()]
 	check(FileAccess.get_file_as_bytes(entry.recovery)==edited.to_utf8_buffer(),"prior dirty edit is durably preserved byte-for-byte before reset")
 	compiled = await show_script(output)
-	check(guard.recovered.visible,"recovery is visibly discoverable on the compiled tab")
-	await click(guard.recovered)
+	check(not guard.panel.get_popup().is_item_disabled(guard.panel.get_popup().get_item_index(2)),"recovery is visibly discoverable on the compiled tab")
+	await generated_action(2)
 	check(guard.viewer.visible and guard.preview.text==edited,"visible recovered-edit viewer exposes all preserved text")
 	await capture("generated-recovery")
 	guard.viewer.hide()
@@ -158,12 +168,12 @@ func _run() -> void:
 	# new tabs with broken maps are never adopted.
 	DirAccess.rename_absolute(Fixture.SETTINGS,Fixture.SETTINGS+".missing")
 	guard.prepare()
-	check(guard.label.text.contains("missing") and guard.open.disabled,"missing source gives useful status and disables nonexistent navigation")
+	check(guard.panel.tooltip_text.contains("missing") and guard.panel.get_popup().is_item_disabled(1),"missing source gives useful status and disables nonexistent navigation")
 	DirAccess.rename_absolute(Fixture.SETTINGS+".missing",Fixture.SETTINGS)
 	var map_text := FileAccess.get_file_as_string(output+".map.json")
 	Fixture.write(output+".map.json","{}")
 	guard.prepare()
-	check(guard.label.text.contains("unavailable") and not guard.entries.is_empty(),"known compiled view reports broken association without erasing text")
+	check(guard.panel.tooltip_text.contains("unavailable") and not guard.entries.is_empty(),"known compiled view reports broken association without erasing text")
 	Fixture.write(output+".map.json",map_text)
 	guard.prepare()
 	# Exact source-qualified Unicode association, independent of shared basename.
@@ -174,7 +184,7 @@ func _run() -> void:
 	await native_turn()
 	var unicode_code := await show_script(Build.output_for(unicode_source))
 	check(not unicode_code.editable and guard.entries[unicode_code.get_instance_id()].source==unicode_source,"Unicode duplicate basename protection uses exact source path")
-	await click(guard.open)
+	await generated_action(1)
 	check(await until(func(): return current(unicode_source)!=null,"exact Unicode authored source opens"),"Unicode source action never chooses sibling Settings")
 	compiled = await show_script(output)
 	await capture("generated-final")
