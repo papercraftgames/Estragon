@@ -18,6 +18,7 @@ var selected := 0
 var active := true
 var mutating := false
 var problem := ""
+var presentation := ""
 func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> void:
 	plugin = owner
 	interface = owner.get_editor_interface()
@@ -25,7 +26,7 @@ func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> v
 	association = adapter
 	panel = MenuButton.new()
 	panel.name = "GogoGeneratedView"
-	panel.get_popup().id_pressed.connect(_action)
+	panel.get_popup().id_pressed.connect(_action,CONNECT_DEFERRED)
 	plugin.add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR,panel)
 	panel.hide()
 	interface.get_script_editor().visibility_changed.connect(_present)
@@ -164,6 +165,9 @@ func _present() -> void:
 	elif _verified(entry.path).is_empty(): status = "Source map unavailable/changed — inspect only"
 	if entry.blocked: status = "Recovery failed — Save/Play blocked"
 	panel.tooltip_text = status+"\n"+entry.path+"\nGogo source: "+entry.source
+	var signature: String = str(selected)+status+entry.recovery+str(exists)
+	if signature == presentation: return
+	presentation = signature
 	var popup := panel.get_popup()
 	popup.clear()
 	popup.add_item(status,0)

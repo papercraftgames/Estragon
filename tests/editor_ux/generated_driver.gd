@@ -34,9 +34,14 @@ func type_character(code: CodeEdit) -> void:
 	await frames()
 func generated_action(id: int) -> void:
 	var menu: MenuButton = plugin._generated_editors.panel
+	var picked := []
+	var record := func(item): picked.append(item)
+	menu.get_popup().id_pressed.connect(record)
 	await click(menu)
 	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
 	await menu_click(menu.get_popup(),menu.get_popup().get_item_index(id))
+	check(picked.has(id),"native generated menu selects requested action "+str(id))
+	menu.get_popup().id_pressed.disconnect(record)
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for E09"): finish(); return
 	var prefs := interface.get_editor_settings()
