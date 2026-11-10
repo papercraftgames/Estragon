@@ -55,12 +55,16 @@ func _verified(path: String) -> String:
 		return source if map.generatedHash == text.sha256_text() else ""
 	# Older v1 maps have no output hash. Authenticate by deterministic native
 	# emission of their recorded source; never guess from a folder/basename.
-	var result := Compiler.compile(map.sourceContent,source,path)
+	var result := Compiler.compile(map.sourceContent,map.sourceName,path)
 	return source if result.ok and result.code == text else ""
+func _display(path: String) -> String:
+	return FileAccess.get_file_as_string(path).replace("\r\n","\n")
+func _recovery_prefix(path: String) -> String:
+	return (ProjectSettings.globalize_path("res://").simplify_path()+"|"+path).sha256_text()+"-"
 func _latest(path: String) -> String:
 	var directory := DirAccess.open(RECOVERY)
 	if directory == null: return ""
-	var prefix := path.sha256_text()+"-"
+	var prefix := _recovery_prefix(path)
 	var latest := ""
 	for name in directory.get_files():
 		var file := RECOVERY.path_join(name)
@@ -77,7 +81,7 @@ func attach(editor: ScriptEditorBase, code: TextEdit, path: String) -> void:
 	if source.is_empty(): return
 	var changed := _changed.bind(id)
 	var closing := _closed.bind(id)
-	entries[id] = {"editor":weakref(editor),"code":weakref(code),"path":path,"source":source,"editable":code.editable,"baseline":FileAccess.get_file_as_string(path),"recovery":_latest(path),"changed":changed,"closing":closing,"blocked":false}
+	entries[id] = {"editor":weakref(editor),"code":weakref(code),"path":path,"source":source,"editable":code.editable,"baseline":_display(path),"recovery":_latest(path),"changed":changed,"closing":closing,"blocked":false}
 	code.editable = false
 	code.text_changed.connect(changed)
 	code.text_set.connect(changed)
@@ -87,7 +91,7 @@ func attach(editor: ScriptEditorBase, code: TextEdit, path: String) -> void:
 	_changed(id)
 	_present()
 func _preserve(entry: Dictionary, text: String) -> bool:
-	var file := RECOVERY.path_join(entry.path.sha256_text()+"-"+str(int(Time.get_unix_time_from_system()*1000000))+"-"+text.sha256_text()+".txt")
+	var file := RECOVERY.path_join(_recovery_prefix(entry.path)+str(int(Time.get_unix_time_from_system()*1000000))+"-"+text.sha256_text()+".txt")
 	var error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(RECOVERY))
 	if error == OK:
 		var output := FileAccess.open(file,FileAccess.WRITE)
@@ -111,11 +115,12 @@ func _changed(id: int) -> void:
 	if code == null: return
 	if code.text != entry.baseline:
 		# Native external reload can already contain a newly authenticated build.
-		if code.text == FileAccess.get_file_as_string(entry.path) and not _verified(entry.path).is_empty(): entry.baseline = code.text
+		if code.text == _display(entry.path) and not _verified(entry.path).is_empty(): entry.baseline = code.text
 		elif not _preserve(entry,code.text): _present(); return
 		else: _replace(entry,entry.baseline)
 	_present()
 func _replace(entry: Dictionary, text: String) -> void:
+	text = text.replace("\r\n","\n")
 	var code = entry.code.get_ref()
 	if code == null: return
 	mutating = true
@@ -177,10 +182,13 @@ func _present() -> void:
 	var entry: Dictionary = entries[selected]
 	var exists := FileAccess.file_exists(entry.source)
 	panel.text = "Generated: "+entry.source.get_file()
+	if not entry.recovery.is_empty(): panel.text = "Generated · edit recovered"
 	var status := "Read-only — edit the Gogo source"
 	if not exists: status = "Gogo source missing — restore it before editing"
 	elif _verified(entry.path).is_empty(): status = "Source map unavailable/changed — inspect only"
-	if entry.blocked: status = "Recovery failed — Save/Play blocked"
+	if entry.blocked:
+		status = "Recovery failed — Save/Play blocked"
+		panel.text = "Recovery failed!"
 	panel.tooltip_text = status+"\n"+entry.path+"\nGogo source: "+entry.source
 	var signature: String = str(selected)+status+entry.recovery+str(exists)
 	if signature == presentation: return

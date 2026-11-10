@@ -19,6 +19,7 @@ for(const selection of options.engines){
  try{
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
   async function command(name:string,args:string[],env=box.env,marker?:string,negative=false){
+   if(process.env.ESTRAGON_EDITOR_VERBOSE==='1' && name.startsWith('editor'))args.push('--verbose');
    const log=path.join(out,name+'.log');
    const stage=await runCommand(args,name==='install'?box.project:box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
    const text=fs.readFileSync(log,'utf8');process.stdout.write(text);

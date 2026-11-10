@@ -131,6 +131,12 @@ func _run() -> void:
 	settings.text = original_settings
 	check(plugin._build_sources(),"authored repair rebuild")
 	await native_turn()
+	var prior_recovery: String = guard.entries[compiled.get_instance_id()].recovery
+	Fixture.write(Fixture.SETTINGS,original_settings.replace("\n","\r\n"))
+	check(plugin._compile() and compiled.text==FileAccess.get_file_as_string(output).replace("\r\n","\n") and guard.entries[compiled.get_instance_id()].recovery==prior_recovery,"native CRLF display normalization does not manufacture a dirty recovery")
+	Fixture.write(Fixture.SETTINGS,original_settings)
+	check(plugin._compile(),"restore source line endings after normalization proof")
+	await native_turn()
 	await open_home()
 	for mode in ["main","current"]: await play(mode)
 	# Simulate a previously dirty generated buffer before protection is adopted.
