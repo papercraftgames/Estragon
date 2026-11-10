@@ -40,6 +40,20 @@ func type_character(code: CodeEdit) -> void:
 func generated_row(menu: PopupMenu, index: int) -> void:
 	# Locate the row by native hover feedback, without hardcoded theme metrics.
 	var native_window := menu.has_method("get_window_id")
+	if not native_window:
+		# Baseline Window has no public OS window id. Its embedded popup receives
+		# normal main-window keyboard input; activate the focused native row.
+		menu.set_focused_item(index)
+		var key := InputEventKey.new()
+		key.keycode = KEY_ENTER
+		key.pressed = true
+		Input.parse_input_event(key)
+		await frames()
+		key = key.duplicate()
+		key.pressed = false
+		Input.parse_input_event(key)
+		await frames()
+		return
 	menu.set_focused_item(-1)
 	var point := Vector2(24,8)
 	var found := false
