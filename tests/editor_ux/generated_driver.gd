@@ -92,6 +92,11 @@ func _run() -> void:
 	check(await until(func(): return current(Fixture.SETTINGS)!=null,"source action opens Settings.gogo"),"visible action navigates to exact authored source")
 	settings = current(Fixture.SETTINGS)
 	if settings == null:
+		print("E09_EXTENSIONS ",prefs.get_setting("docks/filesystem/textfile_extensions"))
+		print("E09_DOCK_PATH ",interface.get_file_system_dock().get_selected_paths())
+		await plugin._navigation.open(Fixture.SETTINGS)
+		await frames(10)
+		print("E09_DIRECT_OPEN ",current(Fixture.SETTINGS)!=null)
 		for editor in interface.get_script_editor().get_open_script_editors():
 			print("E09_OPEN_TAB ",plugin._highlighter_association._path(editor,editor.get_base_editor(),false))
 		finish(); return
