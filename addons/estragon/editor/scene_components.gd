@@ -58,12 +58,14 @@ static func _res(path: String) -> String:
 	return path if path.begins_with("res://") else "res://"+path
 static func source_for(script: Script) -> String:
 	if script == null or script.resource_path.is_empty(): return ""
-	var path := script.resource_path
+	return source_path(script.resource_path)
+static func source_path(path: String) -> String:
+	if not path.begins_with("res://") or path.contains("::") or path.simplify_path() != path: return ""
 	if not FileAccess.file_exists(path+".map.json"): return ""
 	var map = JSON.parse_string(FileAccess.get_file_as_string(path+".map.json"))
 	if not map is Dictionary or map.get("format") != "estragon.gogo.source-map" or map.get("version") != 1 or not map.get("sourceName") is String: return ""
 	var source := _res(map.sourceName)
-	return source if Build.output_for(source) == path else ""
+	return source if source.ends_with(".gogo") and source.simplify_path() == source and Build.output_for(source) == path else ""
 static func eligible(script: Script) -> bool:
 	if not script is GDScript: return false
 	var base := script.get_instance_base_type()

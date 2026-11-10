@@ -53,7 +53,7 @@ func to_dictionary() -> Dictionary:
 	var ranges: Array[Dictionary] = []
 	for segment in segments:
 		ranges.append({"generated": _span(segment.generated), "original": _span(segment.original), "kind": segment.kind})
-	return {"format": "estragon.gogo.source-map", "version": 1, "sourceName": source.name, "sourceContent": source.text, "segments": ranges}
+	return {"format": "estragon.gogo.source-map", "version": 1, "sourceName": source.name, "sourceContent": source.text, "generatedHash": code.sha256_text(), "segments": ranges}
 
 func serialize() -> String:
 	return JSON.stringify(to_dictionary()) + "\n"
