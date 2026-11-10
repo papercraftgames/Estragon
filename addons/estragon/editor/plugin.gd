@@ -158,7 +158,7 @@ func _resource_saved(resource: Resource) -> void:
 
 
 func _save_external_data() -> void:
-	_generated_editors.prepare()
+	if _active and _generated_editors != null: _generated_editors.prepare()
 	_schedule()
 
 

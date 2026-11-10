@@ -181,8 +181,11 @@ func _present() -> void:
 	popup.add_item("View Recovered Edit"+(" (preserved)" if not entry.recovery.is_empty() else ""),2)
 	popup.set_item_disabled(popup.get_item_index(2),entry.recovery.is_empty())
 func _action(id: int, source: String, path: String, recovery: String) -> void:
+	print("E09_NATIVE_ACTION ",id," ",source," active=",active," exists=",FileAccess.file_exists(source))
 	if not active: return
-	if id == 1 and FileAccess.file_exists(source): navigation.open(source)
+	if id == 1 and FileAccess.file_exists(source):
+		await navigation.open(source)
+		print("E09_NAVIGATION_RETURNED ",source)
 	elif id == 2 and FileAccess.file_exists(recovery):
 		location.text = "Preserved edit for "+path+"\n"+ProjectSettings.globalize_path(recovery)+"\nOlder recovered versions remain in this directory. Copy intended changes into "+source+"."
 		preview.text = FileAccess.get_file_as_string(recovery)
