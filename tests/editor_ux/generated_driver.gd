@@ -13,6 +13,7 @@ func compiled_tab(path: String) -> CodeEdit:
 	var editor := scripts.get_current_editor()
 	return editor.get_base_editor() as CodeEdit if editor != null else null
 func show_script(path: String, line: int = 1) -> CodeEdit:
+	await native_turn()
 	interface.edit_script(load(path),line,0)
 	interface.set_main_screen_editor("Script")
 	await until(func(): return compiled_tab(path)!=null,"native compiled Script tab opens")
@@ -93,6 +94,8 @@ func generated_action(id: int) -> void:
 	menu.get_popup().id_pressed.connect(record)
 	await click(menu)
 	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
+	RenderingServer.force_draw(false)
+	menu.get_popup().get_texture().get_image().save_png("res://e02-generated-menu.png")
 	await generated_row(menu.get_popup(),menu.get_popup().get_item_index(id))
 	check(picked.has(id),"native generated menu selects requested action "+str(id))
 	menu.get_popup().id_pressed.disconnect(record)
@@ -104,11 +107,16 @@ func _run() -> void:
 	if prefs.has_setting("run/window_placement/game_embed_mode"): prefs.set_setting("run/window_placement/game_embed_mode",-1)
 	var output: String = Build.output_for(Fixture.SETTINGS)
 	if FileAccess.file_exists("res://.godot/e09-restart"):
+		interface.open_scene_from_path("res://app/Home.tscn")
+		await until(func(): return interface.get_edited_scene_root()!=null,"native restart scene/layout restores before selecting a Script")
 		compiled = await show_script(output)
+		if compiled == null: check(false,"restart keeps selected native Script tab"); finish(); return
 		check(not compiled.editable and plugin._generated_editors.panel.visible,"restart restores generated protection and visible origin")
 		check(not plugin._generated_editors.panel.get_popup().is_item_disabled(plugin._generated_editors.panel.get_popup().get_item_index(2)),"persistent recovery remains discoverable after restart")
 		await generated_action(2)
 		check(plugin._generated_editors.preview.text.contains("# previously dirty"),"restart recovery retains exact edited bytes")
+		RenderingServer.force_draw(false)
+		plugin._generated_editors.viewer.get_texture().get_image().save_png("res://e02-generated-recovery-view.png")
 		plugin._generated_editors.viewer.hide()
 		await capture("generated-restart")
 		finish(); return
@@ -211,6 +219,7 @@ func _run() -> void:
 	await generated_action(2)
 	check(guard.viewer.visible and guard.preview.text==edited,"visible recovered-edit viewer exposes all preserved text")
 	await capture("generated-recovery")
+	guard.viewer.get_texture().get_image().save_png("res://e02-generated-recovery-view.png")
 	guard.viewer.hide()
 	# Programmatic/native third-party changes cannot bypass preservation.
 	await append_compiled("\n# late generated edit\n")

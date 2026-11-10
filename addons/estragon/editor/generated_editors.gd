@@ -73,6 +73,7 @@ func _latest(path: String) -> String:
 func attach(editor: ScriptEditorBase, code: TextEdit, path: String) -> void:
 	if not active or not code is CodeEdit: return
 	_present()
+	if path.is_empty(): return
 	var id := code.get_instance_id()
 	if entries.has(id):
 		if entries[id].path == path: return
@@ -155,13 +156,18 @@ func prepare() -> bool:
 	problem = ""
 	for editor in interface.get_script_editor().get_open_script_editors():
 		var code = editor.get_base_editor()
-		if code is CodeEdit: attach(editor,code,association._path(editor,code,false))
+		if code is CodeEdit: attach(editor,code,_path(editor,code))
 	for id in entries.keys():
 		_changed(id)
 		if entries.has(id) and entries[id].blocked:
 			if problem.is_empty(): problem = entries[id].path+": Generated edit recovery failed; save/build blocked."
 	_present()
 	return problem.is_empty()
+func _path(editor: ScriptEditorBase, code: TextEdit) -> String:
+	var scripts := interface.get_script_editor()
+	var script := scripts.get_current_script()
+	if script != null and scripts.get_current_editor() == editor: return script.resource_path
+	return association._path(editor,code,false)
 func refresh() -> void:
 	for entry in entries.values():
 		if not entry.blocked and not _verified(entry.path).is_empty(): _replace(entry,FileAccess.get_file_as_string(entry.path))
@@ -177,7 +183,7 @@ func _present() -> void:
 		# A missing source cannot authorize read-only or synchronization. Still
 		# explain its map claim on the selected native Script without redirecting.
 		var code = editor.get_base_editor() if editor != null else null
-		var source := Components.source_path(association._path(editor,code,false)) if code is CodeEdit else ""
+		var source := Components.source_path(_path(editor,code)) if code is CodeEdit else ""
 		if not source.is_empty() and not FileAccess.file_exists(source):
 			panel.visible = interface.get_script_editor().is_visible_in_tree()
 			panel.text = "Gogo source missing"
