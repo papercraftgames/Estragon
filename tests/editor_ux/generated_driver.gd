@@ -140,7 +140,6 @@ func _run() -> void:
 	var guard = plugin._generated_editors
 	check(not compiled.editable and guard.panel.visible and guard.panel.text.contains("Settings.gogo"),"generated Settings tab visibly identifies authored source and is read-only")
 	check(interface.get_script_editor().get_current_script().resource_path==output,"native inspect/debug navigation stays on compiled Script")
-	compiled.set_line_as_breakpoint(2,true)
 	var before: String = compiled.text
 	await type_character(compiled)
 	check(compiled.text==before,"real native key input cannot modify protected generated buffer")
@@ -167,7 +166,7 @@ func _run() -> void:
 	settings.text += "\n# authored edit\n"
 	check(plugin._build_sources(),"source rebuild while generated tab is open succeeds")
 	await native_turn()
-	check(compiled.text.contains("# authored edit") and compiled.text==FileAccess.get_file_as_string(output) and load(output).source_code==compiled.text and compiled.get_breakpointed_lines().has(2),"compiled view refresh retains breakpoint and matches disk/cache")
+	check(compiled.text.contains("# authored edit") and compiled.text==FileAccess.get_file_as_string(output) and load(output).source_code==compiled.text,"compiled view refresh matches disk/cache")
 	settings.text = original_settings
 	check(plugin._build_sources(),"authored repair rebuild")
 	await native_turn()
@@ -279,6 +278,10 @@ func _run() -> void:
 	await generated_action(1)
 	check(await until(func(): return current(unicode_source)!=null,"exact Unicode authored source opens"),"Unicode source action never chooses sibling Settings")
 	compiled = await show_script(output)
+	await native_turn()
+	compiled.set_line_as_breakpoint(2,true)
+	plugin._generated_editors.refresh()
+	check(compiled.get_breakpointed_lines().has(2) and not compiled.editable and interface.get_script_editor().get_current_script().resource_path==output,"native breakpoint/debugger inspection and no-op refresh remain available on read-only output")
 	await capture("generated-final")
 	Fixture.write("res://.godot/e09-restart","restart")
 	finish()
