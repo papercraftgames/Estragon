@@ -156,7 +156,24 @@ func _present() -> void:
 	for id in entries:
 		if entries[id].editor.get_ref() == editor: selected = id; break
 	panel.visible = selected != 0 and interface.get_script_editor().is_visible_in_tree()
-	if selected == 0: return
+	if selected == 0:
+		# A missing source cannot authorize read-only or synchronization. Still
+		# explain its map claim on the selected native Script without redirecting.
+		var code = editor.get_base_editor() if editor != null else null
+		var source := Components.source_path(association._path(editor,code,false)) if code is CodeEdit else ""
+		if not source.is_empty() and not FileAccess.file_exists(source):
+			panel.visible = interface.get_script_editor().is_visible_in_tree()
+			panel.text = "Gogo source missing"
+			panel.tooltip_text = "Unverified source association: "+source+". Restore the source; this tab remains editable."
+			if presentation != source:
+				presentation = source
+				var popup := panel.get_popup()
+				if action.is_valid() and popup.id_pressed.is_connected(action): popup.id_pressed.disconnect(action)
+				action = Callable()
+				popup.clear()
+				popup.add_item("Gogo source missing — restore "+source)
+				popup.set_item_disabled(0,true)
+		return
 	var entry: Dictionary = entries[selected]
 	var exists := FileAccess.file_exists(entry.source)
 	panel.text = "Generated: "+entry.source.get_file()
@@ -181,11 +198,9 @@ func _present() -> void:
 	popup.add_item("View Recovered Edit"+(" (preserved)" if not entry.recovery.is_empty() else ""),2)
 	popup.set_item_disabled(popup.get_item_index(2),entry.recovery.is_empty())
 func _action(id: int, source: String, path: String, recovery: String) -> void:
-	print("E09_NATIVE_ACTION ",id," ",source," active=",active," exists=",FileAccess.file_exists(source))
 	if not active: return
 	if id == 1 and FileAccess.file_exists(source):
 		await navigation.open(source)
-		print("E09_NAVIGATION_RETURNED ",source)
 	elif id == 2 and FileAccess.file_exists(recovery):
 		location.text = "Preserved edit for "+path+"\n"+ProjectSettings.globalize_path(recovery)+"\nOlder recovered versions remain in this directory. Copy intended changes into "+source+"."
 		preview.text = FileAccess.get_file_as_string(recovery)
@@ -204,6 +219,8 @@ func stop() -> void:
 	active = false
 	for id in entries.keys(): _detach(id)
 	interface.get_script_editor().visibility_changed.disconnect(_present)
+	if action.is_valid() and panel.get_popup().id_pressed.is_connected(action): panel.get_popup().id_pressed.disconnect(action)
+	action = Callable()
 	plugin.remove_control_from_container(EditorPlugin.CONTAINER_TOOLBAR,panel)
 	panel.free()
 	viewer.free()

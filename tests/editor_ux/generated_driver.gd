@@ -41,7 +41,6 @@ func generated_action(id: int) -> void:
 	await until(func(): return menu.get_popup().visible,"generated view native menu opens")
 	await menu_click(menu.get_popup(),menu.get_popup().get_item_index(id))
 	check(picked.has(id),"native generated menu selects requested action "+str(id))
-	print("E09_ACTION_CONTEXT ",id," selected=",plugin._generated_editors.selected)
 	menu.get_popup().id_pressed.disconnect(record)
 func _run() -> void:
 	if not await until(find_plugin,"installed addon activates for E09"): finish(); return
@@ -81,6 +80,22 @@ func _run() -> void:
 	interface.inspect_object(app)
 	await frames()
 	check(button("Open Gogo Source")!=null,"attached component Inspector exposes original source")
+	var script_button: Button
+	for picker in interface.get_inspector().find_children("*","EditorResourcePicker",true,false):
+		if picker.get_edited_resource() != app.get_script(): continue
+		for candidate in picker.find_children("*","Button",true,false):
+			if candidate.text == "Home.gd": script_button = candidate
+	check(script_button != null,"native Inspector Script field identifies actual generated Home resource")
+	if script_button != null:
+		await click(script_button)
+		check(await until(func(): return compiled_tab(OUTPUT)!=null,"Inspector Script click opens compiled Home"),"native Inspector Script click keeps generated inspection available")
+	# Authenticate pre-hash v1 maps without requiring a source rewrite/build.
+	var old_map := FileAccess.get_file_as_string(output+".map.json")
+	var legacy: Dictionary = JSON.parse_string(old_map)
+	legacy.erase("generatedHash")
+	Fixture.write(output+".map.json",JSON.stringify(legacy))
+	check(plugin._generated_editors._verified(output)==Fixture.SETTINGS,"legacy v1 map authentication verifies deterministic emitted content")
+	Fixture.write(output+".map.json",old_map)
 	compiled = await show_script(output,3)
 	var guard = plugin._generated_editors
 	check(not compiled.editable and guard.panel.visible and guard.panel.text.contains("Settings.gogo"),"generated Settings tab visibly identifies authored source and is read-only")
@@ -94,22 +109,25 @@ func _run() -> void:
 	check(await until(func(): return current(Fixture.SETTINGS)!=null,"source action opens Settings.gogo"),"visible action navigates to exact authored source")
 	settings = current(Fixture.SETTINGS)
 	if settings == null:
-		print("E09_EXTENSIONS ",prefs.get_setting("docks/filesystem/textfile_extensions"))
-		for tree in interface.get_file_system_dock().find_children("*","Tree",true,false):
-			var item: TreeItem = tree.get_selected()
-			print("E09_DOCK_SELECTION ",item.get_metadata(0) if item != null else "none")
-		await plugin._navigation.open(Fixture.SETTINGS)
-		await frames(10)
-		print("E09_DIRECT_OPEN ",current(Fixture.SETTINGS)!=null)
-		for editor in interface.get_script_editor().get_open_script_editors():
-			print("E09_OPEN_TAB ",plugin._highlighter_association._path(editor,editor.get_base_editor(),false))
 		finish(); return
 	check(settings.editable and not guard.panel.visible,"authored Gogo remains editable without generated banner")
+	await plugin._services.navigate({"source":Fixture.SETTINGS,"line":4,"column":1})
+	check(settings.get_caret_line()==3 and settings.editable,"source-map diagnostic navigation retains editable authored target/caret")
+	# Select the exact native script-list entry, not a basename guess.
+	var selected_script := false
+	for list in interface.get_script_editor().find_children("*","ItemList",true,false):
+		for index in range(list.item_count):
+			if list.get_item_tooltip(index) != output: continue
+			list.select(index)
+			list.item_selected.emit(index)
+			selected_script = true
+	await frames()
+	check(selected_script and compiled_tab(output)==compiled and not compiled.editable,"native script-list selection retains protected compiled inspection")
 	var original_settings: String = settings.text
 	settings.text += "\n# authored edit\n"
 	check(plugin._build_sources(),"source rebuild while generated tab is open succeeds")
 	await native_turn()
-	check(compiled.text.contains("# authored edit") and compiled.text==FileAccess.get_file_as_string(output) and compiled.get_breakpointed_lines().has(2),"compiled view refresh retains breakpoint and matches disk/cache")
+	check(compiled.text.contains("# authored edit") and compiled.text==FileAccess.get_file_as_string(output) and load(output).source_code==compiled.text and compiled.get_breakpointed_lines().has(2),"compiled view refresh retains breakpoint and matches disk/cache")
 	settings.text = original_settings
 	check(plugin._build_sources(),"authored repair rebuild")
 	await native_turn()
@@ -158,12 +176,17 @@ func _run() -> void:
 		settings = current(Fixture.SETTINGS)
 	var bytes := FileAccess.get_file_as_bytes(output)
 	var map := FileAccess.get_file_as_bytes(output+".map.json")
+	var stamp := FileAccess.get_modified_time(output)
 	var cached: Script = load(output)
 	var uid := FileAccess.get_file_as_bytes(output+".uid") if FileAccess.file_exists(output+".uid") else PackedByteArray()
 	settings.text = Fixture.settings().replace('</Entry2D>','</Wrong>')
 	check(not plugin._build_sources(),"invalid Gogo rebuild fails closed with protected generated tab")
-	check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==map and load(output)==cached and compiled.text==bytes.get_string_from_utf8(),"failed rebuild preserves compiled view, disk, maps and Script identity")
+	check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==map and FileAccess.get_modified_time(output)==stamp and load(output)==cached and cached.source_code==bytes.get_string_from_utf8() and compiled.text==bytes.get_string_from_utf8(),"failed rebuild preserves compiled view, disk, maps and Script identity")
 	check((FileAccess.get_file_as_bytes(output+".uid") if FileAccess.file_exists(output+".uid") else PackedByteArray())==uid,"failed rebuild preserves UID")
+	await native_turn()
+	interface.play_main_scene()
+	await get_tree().create_timer(0.8).timeout
+	check(not interface.is_playing_scene() and not plugin.last_report.ok,"invalid source also blocks native main Play with compiled tab open")
 	settings.text = Fixture.settings()
 	check(plugin._build_sources(),"source repair recovers with generated protection")
 	await native_turn()
@@ -182,6 +205,10 @@ func _run() -> void:
 	Fixture.write(unowned,"extends Node2D\n# hand authored\n")
 	Fixture.write(unowned+".map.json",JSON.stringify({"format":"estragon.gogo.source-map","version":1,"sourceName":"unowned/Normal.gogo","sourceContent":"extends Node2D\n","segments":[],"generatedHash":"mismatched"}))
 	check((await show_script(unowned)).editable,"correct-looking but content-mismatched source map never protects an ordinary Script")
+	var orphan := "res://unowned/generated/Missing.gd"
+	Fixture.write(orphan,"extends Node2D\n")
+	Fixture.write(orphan+".map.json",JSON.stringify({"format":"estragon.gogo.source-map","version":1,"sourceName":"unowned/Missing.gogo","sourceContent":"extends Node2D\n","segments":[],"generatedHash":"invalid"}))
+	check((await show_script(orphan)).editable and guard.panel.text=="Gogo source missing","missing source on first open gives a non-destructive unverified status")
 	compiled = await show_script(output)
 	# Known authenticated tabs retain a useful status when provenance disappears;
 	# new tabs with broken maps are never adopted.
