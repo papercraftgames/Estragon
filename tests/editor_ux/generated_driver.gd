@@ -60,6 +60,8 @@ func _run() -> void:
 		await capture("generated-restart")
 		finish(); return
 	Fixture.install()
+	interface.get_resource_filesystem().scan()
+	await native_turn()
 	check(plugin._build_sources(),"owner Home/Settings direct tags compile cold")
 	await native_turn()
 	var root := Node2D.new()
@@ -93,7 +95,9 @@ func _run() -> void:
 	settings = current(Fixture.SETTINGS)
 	if settings == null:
 		print("E09_EXTENSIONS ",prefs.get_setting("docks/filesystem/textfile_extensions"))
-		print("E09_DOCK_PATH ",interface.get_file_system_dock().get_selected_paths())
+		for tree in interface.get_file_system_dock().find_children("*","Tree",true,false):
+			var item: TreeItem = tree.get_selected()
+			print("E09_DOCK_SELECTION ",item.get_metadata(0) if item != null else "none")
 		await plugin._navigation.open(Fixture.SETTINGS)
 		await frames(10)
 		print("E09_DIRECT_OPEN ",current(Fixture.SETTINGS)!=null)
