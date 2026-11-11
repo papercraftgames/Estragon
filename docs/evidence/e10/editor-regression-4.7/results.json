@@ -1,0 +1,144 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "15fbf45d333b2a9c1ae41d1ef28df72a3fa58bcefb34ce3ec8cbbb193f845465"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-INfkaG/yarn-cache",
+      "file:/evidence/e10-editor-regression/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.62,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "lexical-and-template": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-INfkaG/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-INfkaG/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.65,
+    "godot_pid": 3369,
+    "log": "lexical-and-template.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-INfkaG/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-INfkaG/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 30.81,
+    "godot_pid": 3386,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-INfkaG/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-INfkaG/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.13,
+    "godot_pid": 4890,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ],
+    "unexpected_errors": []
+  },
+  "template-relocated": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-INfkaG/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-INfkaG/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.77,
+    "godot_pid": 5865,
+    "log": "template-relocated.log",
+    "diagnostics": []
+  },
+  "template-standard": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-INfkaG/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-INfkaG/project",
+      "--script",
+      "res://tests/editor_ux/probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.76,
+    "godot_pid": 5883,
+    "log": "template-standard.log",
+    "diagnostics": []
+  }
+}

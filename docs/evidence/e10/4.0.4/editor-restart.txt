@@ -1,0 +1,18 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK chain fixture compiles: true
+E02_EDITOR_CHECK chained native completion survives editor restart: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E10_NATIVE_EXIT_INPUT
+Running: /tmp/estragon-native-0BSPly/godot --path /tmp/estragon-native-0BSPly/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9508 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK main completed quit actually stops game: true
+E02_EDITOR_ASSERTIONS 4 failed=false
+E02_EDITOR_OK
+WARNING: Scan thread aborted...
+     at: _notification (editor/editor_file_system.cpp:1224)
