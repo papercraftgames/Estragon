@@ -32,18 +32,20 @@ func build_view() -> Element:
 	return <Entry2D name="UI" width={self.extent.x} height={self.extent.y}>
 		<VBox name="Column" fill_width={true} fill_height={true}>
 			<VBox name="Spacer" fill_height={true} />
-			<Text name="Hello" text="Hello World!" />
+			<Text name="Hello" text={"Hello World!" if self.tick==0 else "Hello World! "+str(self.tick)} />
 			<Text name="Fun" text="This is fun!" />
 			{self.views()}
 		</VBox>
 	</Entry2D>
 ''')
 	path = "res://app/Settings.gogo"
-	write(path,header(path,["Element","HBox","UiButton"])+'''@bindable var caption: String = "Exit"
+	write(path,header(path,["Element","HBox","UiButton","Text","Entry2D"])+'''@bindable var caption: String = "Exit"
 @bindable var wide: bool = false
 @bindable var view_width: float = -1
 @bindable var view_height: float = -1
 @bindable var visible_button: bool = true
+@bindable var direct: bool = false
+@bindable var independent: bool = false
 var local_state: int = 7
 func exit() -> void:
 	print("L03_EXIT_QUIT")
@@ -51,6 +53,8 @@ func exit() -> void:
 func leaf():
 	return <UiButton name="Exit" pressed={self.exit} text={self.caption} fill_width={self.wide} fill_height={self.wide} /> if self.visible_button else null
 func build_view() -> Element:
+	if self.independent: return <Entry2D name="Independent" width={180.0} height={60.0} position={Vector2(250,40)}><Text name="IndependentText" text="Independent" /></Entry2D>
+	if self.direct: return <Text name="Direct" text={self.caption} />
 	return <HBox name="Row" width={self.view_width} height={self.view_height} fill_width={self.wide} gap={5.0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Rose.gogo"
@@ -72,6 +76,14 @@ func build_view() -> Element:
 	path = "res://app/Relay.gogo"
 	write(path,header(path,["Element"])+'''func build_view() -> Element:
 	return <Settings name="Settings" />
+''')
+	path = "res://app/Spatial.gogo"
+	var spatial := "extends Node3D\n"
+	for name in ["Element","Entry3D"]: spatial += Imports.declaration(name,Catalog.path(Catalog.named(name)),path)
+	spatial += Imports.declaration("Part3D",(preload("res://addons/estragon/runtime/node/component_3d.gd") as Script).resource_path,path)
+	write(path,spatial+'''@bindable var room: float = -1
+func build_view() -> Element:
+	return <Part3D name="Row" width={self.room}><Part3D name="A" width={2.0} height={3.0} depth={4.0} /><Part3D name="B" width={5.0} height={2.0} depth={1.0} /></Part3D>
 ''')
 func _initialize() -> void:
 	install()
