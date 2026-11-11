@@ -4,11 +4,12 @@ import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,copyTree,runCommand,writeJSON,gitHead,gitDirty,sha256,ERROR} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
 const scenes=process.argv.includes('--scenes');
-const components=process.argv.includes('--components');
+const generated=process.argv.includes('--generated');
+const components=generated||process.argv.includes('--components');
 const probeOnly=process.argv.includes('--probe-only');
 if(probeOnly&&!components || scenes&&components)throw Error('Use --components [--probe-only] independently of --scenes');
 const creationOnly=scenes||components||process.argv.includes('--creation');
-const options=parseCLI(process.argv.slice(2).filter(arg=>!['--creation','--scenes','--components','--probe-only'].includes(arg)));
+const options=parseCLI(process.argv.slice(2).filter(arg=>!['--creation','--scenes','--components','--probe-only','--generated'].includes(arg)));
 if(process.platform!=='linux')throw Error('E02 native acceptance uses approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 for(const selection of options.engines){
@@ -18,6 +19,7 @@ for(const selection of options.engines){
  try{
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
   async function command(name:string,args:string[],env=box.env,marker?:string,negative=false){
+   if(process.env.ESTRAGON_EDITOR_VERBOSE==='1' && name.startsWith('editor'))args.push('--verbose');
    const log=path.join(out,name+'.log');
    const stage=await runCommand(args,name==='install'?box.project:box.workspace,env,log,marker,{abortOnError:!negative,expectedErrors:negative,timeout:negative?180000:60000});
    const text=fs.readFileSync(log,'utf8');process.stdout.write(text);
@@ -47,8 +49,8 @@ for(const selection of options.engines){
   fs.writeFileSync(path.join(box.project,'app/ProjectRect.gd'),'class_name Rect\nextends Node2D\n');
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   copyTree(path.join(ROOT,'tests/editor_ux'),path.join(box.project,'tests/editor_ux'));
-  if(scenes||components){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="'+(components?'project_driver.gd':'scene_driver.gd')+'"'));}
-  function configure(root:string){for(const name of ['driver.gd','scene_driver.gd','probe.gd','project_fixture.gd','project_probe.gd','project_driver.gd'].filter(name=>fs.existsSync(path.join(ROOT,'tests/editor_ux',name)))){
+  if(scenes||components){const cfg=path.join(box.project,'tests/editor_ux/plugin.cfg');fs.writeFileSync(cfg,fs.readFileSync(cfg,'utf8').replace('script="driver.gd"','script="'+(generated?'generated_driver.gd':components?'project_driver.gd':'scene_driver.gd')+'"'));}
+  function configure(root:string){for(const name of ['driver.gd','scene_driver.gd','probe.gd','project_fixture.gd','project_probe.gd','project_driver.gd','generated_driver.gd'].filter(name=>fs.existsSync(path.join(ROOT,'tests/editor_ux',name)))){
    const original=fs.readFileSync(path.join(ROOT,'tests/editor_ux',name),'utf8');
    fs.writeFileSync(path.join(box.project,'tests/editor_ux',name),original.replaceAll('res://addons/estragon','res://'+root));
   }}
@@ -56,7 +58,9 @@ for(const selection of options.engines){
   const settings='config_version=5\n[application]\nconfig/name="E02 direct Yarn editor"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n';
   fs.writeFileSync(path.join(box.project,'project.godot'),settings);
   if(components){
+   if(generated)box.env.ESTRAGON_E07_PATH_ONLY='1';
    await command('project-components',[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/project_probe.gd'],box.env,'E07_PROJECT_OK');
+   delete box.env.ESTRAGON_E07_PATH_ONLY;
    // Each phase begins cold: native probes must not supply generated scripts
    // or cached project state to the real editor fixture.
    fs.rmSync(path.join(box.project,'app'),{recursive:true,force:true});
@@ -89,7 +93,7 @@ for(const selection of options.engines){
    }
    await command('template-'+label,[box.binary,'--headless','--audio-driver','Dummy','--path',box.project,'--script','res://tests/editor_ux/'+(components?'project_probe.gd':'probe.gd')],box.env,components?'E07_PROJECT_OK':'E02_PROBE_OK');
   }
-  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:components?'E07-project-components':scenes?'E05-scenes':creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
+  writeJSON(path.join(out,'consumer.json'),{source:gitHead(),profile:generated?'E09-generated-editors':components?'E07-project-components':scenes?'E05-scenes':creationOnly?'E04-creation':'full-editor-ux',tarball_sha256:packed.manifest.tarball_sha256,direct_yarn:true,package_unchanged:true,template_layouts:['direct','relocated','standard'],external_compiler:false});
  }finally{
   // Preserve actual graphics even when a later native/lifecycle assertion fails.
   if(fs.existsSync(box.project))for(const file of fs.readdirSync(box.project).filter(name=>/^e0[23]-.*\.png$/.test(name)))fs.copyFileSync(path.join(box.project,file),path.join(out,file.slice(4)));

@@ -1,0 +1,121 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK owner Home/Settings direct tags compile cold: true
+E02_EDITOR_CHECK attached component Inspector exposes original source: true
+E02_EDITOR_CHECK native Inspector Script field identifies actual generated Home resource: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native Inspector Script click keeps generated inspection available: true
+E02_EDITOR_CHECK legacy v1 map authentication verifies deterministic emitted content: true
+E02_EDITOR_CHECK generated Settings tab visibly identifies authored source and is read-only: true
+E02_EDITOR_CHECK native inspect/debug navigation stays on compiled Script: true
+E02_EDITOR_CHECK real native key input cannot modify protected generated buffer: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native hover locates component menu row: true
+E02_EDITOR_CHECK native generated menu selects requested action 1: true
+E02_EDITOR_CHECK visible action navigates to exact authored source: true
+E02_EDITOR_CHECK authored Gogo remains editable without generated banner: true
+E02_EDITOR_CHECK source-map diagnostic navigation retains editable authored target/caret: true
+E02_EDITOR_CHECK native script-list selection retains protected compiled inspection: true
+E02_EDITOR_CHECK source rebuild while generated tab is open succeeds: true
+E02_EDITOR_CHECK compiled view refresh matches disk/cache: true
+E02_EDITOR_CHECK authored repair rebuild: true
+E02_EDITOR_CHECK native CRLF display normalization does not manufacture a dirty recovery: true
+E02_EDITOR_CHECK restore source line endings after normalization proof: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK addon unload restores original generated CodeEdit editability: true
+E02_EDITOR_CHECK disabled addon dirty-buffer fixture is genuinely unsaved: true
+E02_EDITOR_CHECK dirty generated view becomes protected: true
+E02_EDITOR_CHECK prior dirty edit is durably preserved byte-for-byte before reset: true
+E02_EDITOR_CHECK recovery is visibly discoverable on the compiled tab: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native hover locates component menu row: true
+E02_EDITOR_CHECK native generated menu selects requested action 2: true
+E02_EDITOR_CHECK visible recovered-edit viewer exposes all preserved text: true
+E02_EDITOR_CHECK recovered-edit window fits the native editor viewport: true
+E02_EDITOR_CHECK generated edit signal preserves bytes before synchronization: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://app/Screens/generated/Settings.gd: Cannot preserve edited generated buffer. Save/Play blocked; copy the visible edit before continuing. Recovery: /tmp/estragon-native-eKOj2O/xdg_data_home/godot/app_userdata/E02 direct Yarn editor/estragon/generated-edits/bedf362751affdd1790a5f7e551a9965b83d95f4b02ebb7690cf6b5a7c4abb90-1794422471939959-58f0dbe712763585bac87fbb3c2c3020ec39479091776c4cd8871e3311691780.txt
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _generated_failure (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:201)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:187)
+         [3] _run (res://tests/editor_ux/generated_driver.gd:237)
+         [4] append_compiled (res://tests/editor_ux/generated_driver.gd:9)
+         [5] frames (res://tests/editor_ux/driver.gd:33)
+E02_EDITOR_CHECK recovery write failure blocks build without erasing dirty bytes: true
+E02_EDITOR_CHECK recovery repair preserves pending edit then restores compiled view: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _run (res://tests/editor_ux/generated_driver.gd:253)
+         [4] append_compiled (res://tests/editor_ux/generated_driver.gd:9)
+         [5] frames (res://tests/editor_ux/driver.gd:33)
+E02_EDITOR_CHECK invalid Gogo rebuild fails closed with protected generated tab: true
+E02_EDITOR_CHECK failed rebuild preserves compiled view, disk, maps and Script identity: true
+E02_EDITOR_CHECK failed rebuild preserves UID: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _run (res://tests/editor_ux/generated_driver.gd:257)
+         [5] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/editor_ux/generated_driver.gd:257)
+       [1] native_turn (res://tests/editor_ux/scene_driver.gd:27)
+E02_EDITOR_CHECK invalid source also blocks native main Play with compiled tab open: true
+E02_EDITOR_CHECK source repair recovers with generated protection: true
+E02_EDITOR_CHECK ordinary/unrelated generated-folder Script remains editable: res://app/Ordinary.gd: true
+E02_EDITOR_CHECK ordinary native input still edits: res://app/Ordinary.gd: true
+E02_EDITOR_CHECK ordinary/unrelated generated-folder Script remains editable: res://app/unrelated/generated/Normal.gd: true
+E02_EDITOR_CHECK ordinary native input still edits: res://app/unrelated/generated/Normal.gd: true
+E02_EDITOR_CHECK correct-looking but content-mismatched source map never protects an ordinary Script: true
+E02_EDITOR_CHECK missing source on first open gives a non-destructive unverified status: true
+E02_EDITOR_CHECK missing source gives useful status and disables nonexistent navigation: true
+E02_EDITOR_CHECK known compiled view reports broken association without erasing text: true
+E02_EDITOR_CHECK Unicode same-name component builds with exact source identity: true
+E02_EDITOR_CHECK Unicode duplicate basename protection uses exact source path: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native hover locates component menu row: true
+E02_EDITOR_CHECK native generated menu selects requested action 1: true
+E02_EDITOR_CHECK Unicode source action never chooses sibling Settings: true
+E02_EDITOR_CHECK native breakpoint/debugger inspection and no-op refresh remain available on read-only output: true
+E02_EDITOR_ASSERTIONS 56 failed=false
+E02_EDITOR_OK

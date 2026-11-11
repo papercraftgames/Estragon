@@ -27,7 +27,8 @@ var _active: bool = false
 var _extensions_pending: bool = true
 var _rescan_pending: bool = false
 var _play_save_failed: bool = false
-var _generated_editors: Dictionary = {}
+const GeneratedEditors = preload("generated_editors.gd")
+var _generated_editors: RefCounted
 var last_report: Dictionary = {}
 var build_count: int = 0
 
@@ -50,6 +51,8 @@ func _enter_tree() -> void:
 	_interface.get_script_editor().register_syntax_highlighter(_highlighter)
 	_highlighter_association = HighlighterAssociation.new()
 	_navigation = Navigation.new(_interface)
+	_generated_editors = GeneratedEditors.new(self,_navigation,_highlighter_association)
+	_highlighter_association.associated.connect(_generated_editors.attach)
 	_services = Services.new(_interface,_navigation)
 	add_child(_services)
 	_services.diagnostics_changed.connect(_typing_report)
@@ -127,41 +130,12 @@ func _script_changed(script: Script) -> void:
 	if script == null or scripts.get_current_script() != script: return
 	var editor := scripts.get_current_editor()
 	if editor == null: return
-	_generated_editors[script.resource_path] = {"editor": weakref(editor), "script": weakref(script)}
+	_generated_editors.prepare()
 	_schedule()
 
 
 func _refresh_generated_editors() -> void:
-	# Native ScriptEditor buffers otherwise write pre-build text back into the
-	# Script cache and even disk on shutdown. Match only public signal/current
-	# editor associations and paths this successful build owns. Never edit Gogo.
-	var scripts := _interface.get_script_editor()
-	var current := scripts.get_current_script()
-	if current != null and scripts.get_current_editor() != null:
-		_generated_editors[current.resource_path] = {"editor": weakref(scripts.get_current_editor()), "script": weakref(current)}
-	for output in last_report.get("outputs", []):
-		var path := "res://" + str(output)
-		if not _generated_editors.has(path): continue
-		var editor = _generated_editors[path].editor.get_ref()
-		var script = _generated_editors[path].script.get_ref()
-		if editor == null or script == null or script.resource_path != path:
-			_generated_editors.erase(path)
-			continue
-		var code = editor.get_base_editor()
-		if not code is CodeEdit: continue
-		var text := FileAccess.get_file_as_string(path)
-		if code.text != text:
-			var line: int = code.get_caret_line()
-			var column: int = code.get_caret_column()
-			var vertical: float = code.scroll_vertical
-			var horizontal: int = code.scroll_horizontal
-			code.text = text
-			code.set_caret_line(line)
-			code.set_caret_column(column)
-			code.scroll_vertical = vertical
-			code.scroll_horizontal = horizontal
-			code.tag_saved_version()
-
+	_generated_editors.refresh()
 
 func _filesystem_changed() -> void:
 	if _services != null: _services.invalidate()
@@ -184,6 +158,7 @@ func _resource_saved(resource: Resource) -> void:
 
 
 func _save_external_data() -> void:
+	if _active and _generated_editors != null: _generated_editors.prepare()
 	_schedule()
 
 
@@ -209,6 +184,7 @@ func _build_sources() -> bool:
 	if not _active or _building:
 		return false
 	_timer.stop()
+	if not _generated_editors.prepare(): return _generated_failure()
 	var saved := BufferGuard.save_and_verify(_interface.get_script_editor(), _highlighter_association._path.bind(false))
 	_timer.stop()
 	_play_save_failed = not saved.ok
@@ -220,8 +196,14 @@ func _build_sources() -> bool:
 	return _compile()
 
 
+func _generated_failure() -> bool:
+	last_report = {"ok":false,"outputs":[],"changed":[],"diagnostics":[_generated_editors.problem]}
+	_show_report()
+	return false
+
 func _compile() -> bool:
 	if not _active or _building: return false
+	if not _generated_editors.prepare(): return _generated_failure()
 	_building = true
 	build_count += 1
 	last_report = BuildService.run_build()
@@ -276,6 +258,10 @@ func _exit_tree() -> void:
 		_creation_menu.create = Callable()
 		_creation_menu = null
 	remove_tool_menu_item("Add Missing Gogo Imports")
+	if _generated_editors != null:
+		_highlighter_association.associated.disconnect(_generated_editors.attach)
+		_generated_editors.stop()
+		_generated_editors = null
 	if _navigation != null: _navigation.stop()
 	if _new_script != null: _new_script.stop(); _new_script = null
 	if _services != null: _services.stop(); _services.free(); _services = null
@@ -293,7 +279,6 @@ func _exit_tree() -> void:
 		var scripts := _interface.get_script_editor()
 		if scripts.editor_script_changed.is_connected(_script_changed):
 			scripts.editor_script_changed.disconnect(_script_changed)
-	_generated_editors.clear()
 	if resource_saved.is_connected(_resource_saved):
 		resource_saved.disconnect(_resource_saved)
 	if _timer != null:
