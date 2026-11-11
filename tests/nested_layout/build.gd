@@ -21,6 +21,16 @@ static func install() -> void:
 func _ready() -> void:
 	extent = get_viewport_rect().size
 	get_viewport().size_changed.connect(resized)
+	if OS.get_environment("L03_EDITOR_PROOF")=="1": proof.call_deferred()
+func proof() -> void:
+	for frame in range(10): await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var button = get_node("UI/Column/Settings/Row/Exit")
+	var rose = get_node("UI/Column/Rose/Row/RoseText")
+	get_viewport().get_texture().get_image().save_png("res://editor-game.png")
+	var file := FileAccess.open("res://.godot/l03-game.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"caption":button.text,"button_y":button.global_position.y,"button_height":button.layout_size.y,"rose_y":rose.global_position.y,"rose_size":rose.layout_size.y,"children":get_node("UI/Column").get_child_count()}))
+	file.close()
 func resized() -> void:
 	extent = get_viewport_rect().size
 func views():
@@ -89,5 +99,15 @@ func _initialize() -> void:
 	install()
 	var report := Build.run_build()
 	print("L03_BUILD ",JSON.stringify(report))
-	if report.ok: print("L03_BUILD_OK")
+	if report.ok:
+		var node := Node2D.new()
+		node.name = "Home"
+		node.set_script(load("res://app/generated/Home.gd"))
+		var packed := PackedScene.new()
+		packed.pack(node)
+		ResourceSaver.save(packed,"res://app/Home.tscn")
+		node.free()
+		ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
+		ProjectSettings.save()
+		print("L03_BUILD_OK")
 	quit(0 if report.ok else 1)
