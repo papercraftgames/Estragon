@@ -1,0 +1,6 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+func build_view() -> Element:
+	return <HBox><Text text="Rose is cute!" /></HBox>

@@ -1,0 +1,8 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+func exit() -> void:
+	get_tree().quit()
+func build_view() -> Element:
+	return <HBox><UiButton pressed={self.exit} text="Exit" /></HBox>

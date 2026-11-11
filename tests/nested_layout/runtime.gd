@@ -188,10 +188,11 @@ func run() -> void:
 	root.add_child(home)
 	await frames()
 	check(home.get_node("UI/Column/Settings/Row/Exit").layout_size.y>0 and home.get_node("UI/Column").get_children().filter(func(n): return n.name=="Settings").size()==1,"saved/reopened host remounts one nested view with correct allocation")
-	print("L03_ASSERTIONS ",checks," failed=",failed)
-	if not failed: print("L03_RUNTIME_OK")
 	home.free()
 	await frames()
+	check(State.records.is_empty() and preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres").hosts.is_empty(),"native free releases all computation and layout registry records")
+	print("L03_ASSERTIONS ",checks," failed=",failed)
+	if not failed: print("L03_RUNTIME_OK")
 	quit(1 if failed else 0)
 
 func spatial_proof() -> void:
