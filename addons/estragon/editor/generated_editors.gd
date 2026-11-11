@@ -13,7 +13,7 @@ var entries: Dictionary = {}
 var panel: MenuButton
 var viewer: AcceptDialog
 var preview: TextEdit
-var location: Label
+var location: TextEdit
 var selected := 0
 var active := true
 var mutating := false
@@ -35,8 +35,12 @@ func _init(owner: EditorPlugin, navigator: RefCounted, adapter: RefCounted) -> v
 	viewer.min_size = Vector2i(760,460)
 	var box := VBoxContainer.new()
 	viewer.add_child(box)
-	location = Label.new()
-	location.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# A wrapping Label can feed an unbounded minimum height back into a
+	# native Window before its first layout. Keep the selectable path bounded.
+	location = TextEdit.new()
+	location.editable = false
+	location.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+	location.custom_minimum_size = Vector2(740,110)
 	box.add_child(location)
 	preview = TextEdit.new()
 	preview.editable = false

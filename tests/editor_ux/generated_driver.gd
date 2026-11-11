@@ -218,6 +218,8 @@ func _run() -> void:
 	check(not guard.panel.get_popup().is_item_disabled(guard.panel.get_popup().get_item_index(2)),"recovery is visibly discoverable on the compiled tab")
 	await generated_action(2)
 	check(guard.viewer.visible and guard.preview.text==edited,"visible recovered-edit viewer exposes all preserved text")
+	await frames()
+	check(guard.viewer.size.y<=get_viewport().get_visible_rect().size.y and guard.viewer.size.x<=get_viewport().get_visible_rect().size.x,"recovered-edit window fits the native editor viewport")
 	await capture("generated-recovery")
 	guard.viewer.get_texture().get_image().save_png("res://e02-generated-recovery-view.png")
 	guard.viewer.hide()
