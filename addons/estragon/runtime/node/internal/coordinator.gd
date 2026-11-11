@@ -3,8 +3,10 @@ extends RefCounted
 const Profile = preload("../../composition/profile.tres")
 ## Native event/lifetime adapter shared by both spatial branches. No layout math.
 const Core = preload("layout_core.gd")
+const CompositionHosts = preload("composition_hosts.tres")
 const META := "_estragon_b2_coordinator"
-enum Mode { PROOF, PARTICIPANT, ENTRY }
+enum Mode { PROOF, PARTICIPANT, ENTRY, COMPOSITION }
+var managed_root: WeakRef
 var _mode: int
 var model := Core.new()
 var active: bool = false
@@ -36,8 +38,7 @@ func participant(node: Node):
 		found = node.get_meta(META).get_ref()
 	else:
 		# Runtime references must never be serialized as Node metadata.
-		if not node.has_method("_get_layout_coordinator"): return null
-		found = node._get_layout_coordinator()
+		found = node._get_layout_coordinator() if node.has_method("_get_layout_coordinator") else CompositionHosts.find(node)
 	return found if found != null and found.active and found._dimension == _dimension else null
 
 func scope_root():
@@ -66,7 +67,7 @@ func start() -> void:
 	host.child_entered_tree.connect(_child_changed)
 	host.child_exiting_tree.connect(_child_changed)
 	if host.has_signal("child_order_changed"): host.connect("child_order_changed", _sync)
-	if _mode != Mode.PARTICIPANT:
+	if _mode in [Mode.PROOF,Mode.ENTRY]:
 		_viewport = host.get_viewport()
 		_viewport.size_changed.connect(_viewport_changed)
 	_sync()
@@ -97,7 +98,9 @@ func _sync() -> void:
 	if not active: return
 	var values: Array = []
 	var host: Node = _host.get_ref()
-	for child in host.get_children():
+	var children: Array = host.get_children() if _mode != Mode.COMPOSITION else []
+	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
+	for child in children:
 		var found = participant(child)
 		if found != null and found._mode != Mode.ENTRY: values.append(found.model)
 	var error := model.set_children(values)
@@ -117,13 +120,13 @@ func _viewport_changed() -> void:
 
 func _invalidated() -> void:
 	if Profile.is_enabled(): Profile.add("layout_invalidations")
-	if not active or _queued or parent_coordinator() != null or _mode == Mode.PARTICIPANT: return
+	if not active or _queued or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION]: return
 	_queued = true
 	call_deferred("_flush")
 
 func _flush() -> void:
 	_queued = false
-	if not active or parent_coordinator() != null or _mode == Mode.PARTICIPANT: return
+	if not active or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION]: return
 	var host = _host.get_ref()
 	if host == null or host.is_queued_for_deletion(): return
 	flush_count += 1
@@ -142,4 +145,4 @@ func _place(offset: Vector3) -> void:
 
 func _arranged(size: Vector3) -> void:
 	var host = _host.get_ref()
-	if host != null: host.apply_layout_size(size)
+	if host != null and _mode != Mode.COMPOSITION: host.apply_layout_size(size)

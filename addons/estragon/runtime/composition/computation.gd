@@ -14,6 +14,7 @@ class Mounted extends RefCounted:
 	var bindings: Dictionary = {}
 	var children: Array = []
 var host: WeakRef
+var layout_host
 var state: WeakRef
 var parent_computation: WeakRef
 var mounted: Mounted
@@ -32,6 +33,7 @@ var _consecutive := 0
 func _init(owner: Node, manager: Resource) -> void:
 	host = weakref(owner)
 	state = weakref(manager)
+	layout_host = preload("layout_host.gd").new(owner)
 	var ancestor := owner.get_parent()
 	while ancestor != null:
 		if manager.records.has(ancestor.get_instance_id()):
@@ -58,10 +60,12 @@ func depth() -> int:
 	return result
 func suspend() -> void:
 	active = false
+	layout_host.stop()
 	_disconnect_bindings(mounted)
 	_disconnect()
 func resume() -> void:
 	active = true
+	layout_host.start()
 	schedule()
 func _disconnect() -> void:
 	for pair in subscriptions.values():
@@ -110,6 +114,7 @@ func _flush() -> void:
 	# pass. Source-side effects are unsupported, but never recurse into SceneTree.
 	_rendering = true
 	mounted = _reconcile(desired,mounted,owner,owner)
+	layout_host.update(mounted.node.get_ref() if mounted != null else null)
 	_rendering = false
 	runs += 1
 	if Profile.is_enabled(): Profile.elapsed("computation",started)
