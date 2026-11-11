@@ -20,7 +20,7 @@ F05-B [bind:value](TWO_WAY_BINDINGS.md) supports typed Gogo bool lvalue paths an
 
 ## Native layout, drawing and input
 
-Canonical Node2D widgets are Rect/Text/Button/Toggle/HBox/VBox with Estragon class prefixes. Native Node2D/Node3D participants/adapters use the same composed mathematical core. Godot owns transforms, rendering, physics, platform events and SceneTree lifetime. Affected branches invalidate eventfully; idle trees do no avoidable layout work. Generic Nodes have no universal size; explicit entries cross plain-Node boundaries and adapters expose bounded geometry/authority. See [NODE_UI](NODE_UI.md), [NODE_RUNTIME](NODE_RUNTIME.md).
+Canonical Node2D widgets are Rect/Text/Button/Toggle/HBox/VBox with Estragon class prefixes. Native Node2D/Node3D participants/adapters use the same composed mathematical core. Godot owns transforms, rendering, physics, platform events and SceneTree lifetime. Affected branches invalidate eventfully; idle trees do no avoidable layout work. Generic Nodes have no universal size; explicit entries cross plain-Node boundaries and adapters expose bounded geometry/authority. L03 registers spatial composition hosts through their external Computation and forwards only the managed participant root into the same layout core; explicit Entry/non-layout/cross-dimension roots retain zero parent footprint. See [NODE_UI](NODE_UI.md), [NODE_RUNTIME](NODE_RUNTIME.md).
 
 F06 [profiling evidence](F06_PROFILING.md) keeps collection opt-in/off by default, replaces quadratic LIS discovery with binary search and reuses metadata only within one preflight tree. This is measured bounded work reduction, not a new compiler optimizer or promise of universal throughput. Native 4.0.4 large reorders remain costly.
 

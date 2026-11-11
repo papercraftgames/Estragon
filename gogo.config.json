@@ -8,6 +8,7 @@
     "examples/composition",
     "examples/conditional",
     "examples/inventory",
-    "examples/twoway"
+    "examples/twoway",
+    "examples/nested_layout"
   ]
 }

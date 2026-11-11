@@ -1,0 +1,85 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+E07_CHECK completion indexes ordinary Script inheritance without loading authored code: true
+E07_CHECK cold source discovery before generated Settings exists: true
+E07_CHECK manually typed project tag lowers without editor/import action: true
+E07_BUILD { "ok": true, "outputs": ["app/generated/Existing.gd", "app/Screens/generated/Boundary.gd", "app/Screens/Nested/generated/Leaf.gd", "app/Screens/generated/Settings.gd", "app/Screens/generated/Home.gd", "app/Screens/Nested/generated/SpatialChild.gd", "app/Screens/generated/Spatial.gd"], "changed": ["app/generated/Existing.gd", "app/generated/Existing.gd.map.json", "app/Screens/generated/Boundary.gd", "app/Screens/generated/Boundary.gd.map.json", "app/Screens/Nested/generated/Leaf.gd", "app/Screens/Nested/generated/Leaf.gd.map.json", "app/Screens/generated/Settings.gd", "app/Screens/generated/Settings.gd.map.json", "app/Screens/generated/Home.gd", "app/Screens/generated/Home.gd.map.json", "app/Screens/Nested/generated/SpatialChild.gd", "app/Screens/Nested/generated/SpatialChild.gd.map.json", "app/Screens/generated/Spatial.gd", "app/Screens/generated/Spatial.gd.map.json"], "diagnostics": [], "source_diagnostics": [], "isolated_preflight": { "status": "PASS", "reason": "" }, "symlink_checks": { "status": "PASS", "reason": "Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced." } }
+E07_CHECK fresh coherent dependency build: true
+E07_CHECK no-op build retains timestamp and Script identity: true
+E07_CHECK nested Gogo child build_view actually mounts: true
+E07_CHECK child explicit Entry supplies rendered layout: true
+E07_CHECK registered Gogo host forwards its Text root into parent layout (L03): true
+E07_CHECK unrelated parent update retains child identity: true
+E07_CHECK nested bindable child recomposes with retained native Text: true
+E07_CHECK typed child signal invokes native parent handler: true
+E07_CHECK nested ownership/subscriptions disposed on native removal: true
+E07_CHECK 3D source siblings actually mount: true
+E07_CHECK source-aware project tag completion: true
+E07_CHECK Add Missing Imports handles manually authored project tag: true
+E07_CHECK project definition opens authored source: true
+E07_CHECK stable UID preload resolves authored Gogo metadata and coherent dependency order: true
+E07_CHECK UID import bridge preserves authored declaration and emits native baseline path: true
+E07_CHECK Unknown Node GGX component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Unknown Node GGX component: true
+E07_CHECK rollback/identity for Unknown Node GGX component: true
+E07_CHECK Unknown Node GGX component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Unknown Node GGX component: true
+E07_CHECK rollback/identity for Unknown Node GGX component: true
+E07_CHECK Ambiguous project Gogo component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Ambiguous project Gogo component: true
+E07_CHECK rollback/identity for Ambiguous project Gogo component: true
+E07_CHECK Typed Node values require rejected with diagnostic: true
+E07_CHECK authored diagnostic for Typed Node values require: true
+E07_CHECK rollback/identity for Typed Node values require: true
+E07_CHECK Node signals require rejected with diagnostic: true
+E07_CHECK authored diagnostic for Node signals require: true
+E07_CHECK rollback/identity for Node signals require: true
+E07_CHECK Ambiguous project Gogo component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Ambiguous project Gogo component: true
+E07_CHECK rollback/identity for Ambiguous project Gogo component: true
+E07_CHECK explicit native constant is a native-name collision escape hatch: true
+E07_CHECK Ambiguous project Gogo component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Ambiguous project Gogo component: true
+E07_CHECK rollback/identity for Ambiguous project Gogo component: true
+E07_CHECK duplicate completion offers explicit authored-source choices: true
+E07_CHECK explicit alias remains authoritative with duplicate filenames: true
+E07_CHECK Missing authored Gogo source rejected with diagnostic: true
+E07_CHECK authored diagnostic for Missing authored Gogo source: true
+E07_CHECK rollback/identity for Missing authored Gogo source: true
+E07_CHECK Cyclic Gogo/source preload dependency rejected with diagnostic: true
+E07_CHECK authored diagnostic for Cyclic Gogo/source preload dependency: true
+E07_CHECK rollback/identity for Cyclic Gogo/source preload dependency: true
+E07_CHECK Cyclic Gogo/source preload dependency rejected with diagnostic: true
+E07_CHECK authored diagnostic for Cyclic Gogo/source preload dependency: true
+E07_CHECK rollback/identity for Cyclic Gogo/source preload dependency: true
+E07_CHECK Self-reference rejected with diagnostic: true
+E07_CHECK authored diagnostic for Self-reference: true
+E07_CHECK rollback/identity for Self-reference: true
+E07_CHECK Unknown Node GGX component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Unknown Node GGX component: true
+E07_CHECK rollback/identity for Unknown Node GGX component: true
+E07_CHECK Invalid authored Gogo component metadata rejected with diagnostic: true
+E07_CHECK authored diagnostic for Invalid authored Gogo component metadata: true
+E07_CHECK rollback/identity for Invalid authored Gogo component metadata: true
+E07_CHECK zero-argument initializer rejected with diagnostic: true
+E07_CHECK authored diagnostic for zero-argument initializer: true
+E07_CHECK rollback/identity for zero-argument initializer: true
+E07_CHECK constructible Node rejected with diagnostic: true
+E07_CHECK authored diagnostic for constructible Node: true
+E07_CHECK rollback/identity for constructible Node: true
+E07_CHECK Abstract Gogo component rejected with diagnostic: true
+E07_CHECK authored diagnostic for Abstract Gogo component: true
+E07_CHECK rollback/identity for Abstract Gogo component: true
+E07_CHECK optional constructor arguments remain constructible: true
+E07_CHECK private compiler import aliases avoid authored identifiers: true
+E07_CHECK repair restores coherent build: true
+E07_CHECK out-of-scope same-name source does not enter automatic discovery: true
+E07_CHECK outside configured source roots rejected with diagnostic: true
+E07_CHECK authored diagnostic for outside configured source roots: true
+E07_CHECK rollback/identity for outside configured source roots: true
+E07_CHECK source-root traversal rejected through shared discovery: true
+E07_CHECK native source escape symlink fixture created: true
+E07_CHECK supported native link detection rejects source-root escape: true
+E07_CHECK regenerates missing dependency through native transaction: true
+E07_ASSERTIONS 80 failed=false
+E07_PROJECT_OK

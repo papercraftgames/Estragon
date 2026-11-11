@@ -58,7 +58,7 @@ func _run() -> void:
 	var caption := child.get_node("SettingsView/Caption")
 	check(caption.text=="Settings child" and caption.layout_size.x>0,"child explicit Entry supplies rendered layout")
 	var unscoped := host.get_node("UI/Column/BoundaryChild/Unscoped")
-	check(unscoped.layout_size==Vector2.ZERO,"plain Gogo Node2D stops inherited layout scope")
+	check(unscoped.layout_size.x>0 and unscoped.layout_size.y>0,"registered Gogo host forwards its Text root into parent layout (L03)")
 	var id := child.get_instance_id()
 	host.tick = 1
 	await frames()

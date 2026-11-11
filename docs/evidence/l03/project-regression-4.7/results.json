@@ -1,0 +1,47 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "874ef7e108a57ba93ff1295314ec1a25c43f5de3c0569a07032087251f134430"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-bwDSMi/yarn-cache",
+      "file:/evidence/l03-project-regression/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.68,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "project-components": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-bwDSMi/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-bwDSMi/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 9.39,
+    "godot_pid": 9001,
+    "log": "project-components.log",
+    "diagnostics": []
+  }
+}
