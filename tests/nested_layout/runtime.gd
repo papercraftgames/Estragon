@@ -63,9 +63,18 @@ func run() -> void:
 	check(settings.owner==null and exit_button.owner==null,"managed hosts and views remain transient native Nodes")
 	if OS.get_environment("L03_EXIT")=="1":
 		print("L03_EXIT_READY")
-		await click(exit_button)
-		check(false,"actual Exit handler must quit the child process")
-		quit(1); return
+		# Do not leave a suspended test coroutine across get_tree().quit():
+		# baseline Godot retains those frames at shutdown. Native input itself
+		# is synchronous; the real authored handler requests process exit.
+		var event := InputEventMouseButton.new()
+		event.position = exit_button.get_global_transform_with_canvas()*(exit_button.layout_size/2)
+		event.button_index = MOUSE_BUTTON_LEFT
+		event.pressed = true
+		root.push_input(event,true)
+		event = event.duplicate()
+		event.pressed = false
+		root.push_input(event,true)
+		return
 	var parent_record = State.records[home.get_instance_id()]
 	var settings_id: int = settings.get_instance_id()
 	settings.local_state = 42
