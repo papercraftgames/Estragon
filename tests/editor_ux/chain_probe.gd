@@ -54,6 +54,8 @@ func _initialize() -> void:
 	var calls := options(tree+"get_tree().qu§")
 	check(calls.any(func(item): return item.text=="quit" and item.insert=="quit()" and item.kind==CodeEdit.KIND_FUNCTION and item.hint.begins_with("quit(")) and calls.all(func(item): return item.text.begins_with("qu")),"filtered callable invocation and native signature")
 	check(options(tree+"get_tree().qu§()").any(func(item): return item.text=="quit" and item.insert=="quit"),"existing invocation parenthesis not duplicated")
+	check(options(tree+'return <Node tree_exited={self.get_tree().qu§').any(func(item): return item.text=="quit" and item.insert=="quit"),"signal attribute completion preserves Callable reference rather than invoking it")
+	check(has('extends Node2D\nconst SceneTree = Node2D\nfunc demo():\n\tget_tree().qu§',"quit"),"native return identity is not redirected by a same-named source alias")
 	var helper := "res://app/ChainHelper.gd"
 	DirAccess.make_dir_recursive_absolute(helper.get_base_dir())
 	var file := FileAccess.open(helper,FileAccess.WRITE)

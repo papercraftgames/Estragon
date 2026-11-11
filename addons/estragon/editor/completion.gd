@@ -235,6 +235,15 @@ func _receiver_members(tokens: Array, end: int, row: int) -> Dictionary:
 	# Do not infer from a suffix of an unsupported binary/index/cast expression.
 	if receiver.start>0 and tokens[receiver.start-1].text in [".","]","+","-","*","/","%","as","is"]: return {}
 	return _value_members(receiver.value)
+func _callable_attribute(lexical: RefCounted, context: Dictionary, row: int, column: int) -> bool:
+	if context.frames.is_empty() or context.frames[-1].mode!="tag": return false
+	var tokens := _chain_tokens(lexical,row,column)
+	for index in range(tokens.size()-1,-1,-1):
+		if tokens[index].kind!="expression" or tokens[index].text!="{": continue
+		if index<2 or tokens[index-1].text!="=" or tokens[index-2].kind!="property": return false
+		var member: Dictionary = _members(context.frames[-1].tag,_aliases).get(tokens[index-2].text,{})
+		return member.get("kind",-1)==CodeEdit.KIND_SIGNAL or member.get("type","")=="Callable"
+	return false
 func call_hint(text: String, source: String, lexical: RefCounted, row: int, column: int) -> String:
 	_index(text,source)
 	lexical.update(text)
@@ -264,6 +273,9 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 				result[prop.name] = {"type":_type_name(prop),"kind":CodeEdit.KIND_MEMBER,"value_type":prop.type,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
 		for method in ClassDB.class_get_method_list(name): result[method.name] = {"type":_type_name(method.get("return",{})),"kind":CodeEdit.KIND_FUNCTION,"hint":_method_hint(method)}
 		for sig in ClassDB.class_get_signal_list(name): result[sig.name] = {"type":"","kind":CodeEdit.KIND_SIGNAL,"args":sig.args.map(func(arg): return arg.type)}
+		# Native return/property identities cannot be redirected by an authored
+		# alias that happens to have the same spelling as the native class.
+		for member in result.values(): member.aliases = {}
 		_native_cache[name] = result
 		return result
 	if not name.begins_with("res://"):
@@ -484,11 +496,12 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			offered.clear()
 			for name in ["bindable","tool","export","export_range","onready","warning_ignore"]: offered[name] = {"kind":CodeEdit.KIND_PLAIN_TEXT}
 	var result: Array = []
+	var callable_attribute: bool = context.mode=="gd" and _callable_attribute(lexical,context,row,column)
 	for name in offered:
 		if (str(name).begins_with(prefix) or offered[name].has("match")) and (not str(name).begins_with("_") or prefix.begins_with("_") or _symbols.has(name)):
 			var item: Dictionary = offered[name]
 			var insert: String = item.get("insert",str(name).trim_prefix("bind:") if prefix.begins_with("bind:") else str(name))
-			if context.mode=="gd" and member_cursor>=0 and left[member_cursor]=="." and item.kind==CodeEdit.KIND_FUNCTION and not lexical.lines[row].substr(column).strip_edges().begins_with("("):
+			if context.mode=="gd" and member_cursor>=0 and left[member_cursor]=="." and item.kind==CodeEdit.KIND_FUNCTION and not callable_attribute and not lexical.lines[row].substr(column).strip_edges().begins_with("("):
 				insert += "()"
 			var display: String = str(name) if item.has("import") else (str(name)+" — "+str(item.origin) if item.has("origin") else str(name))
 			if context.mode == "tag" and not item.has("import") and ClassDB.class_exists(insert): display += " — Godot "+ClassDB.get_parent_class(insert)
