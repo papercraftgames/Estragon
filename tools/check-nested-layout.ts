@@ -12,7 +12,7 @@ for(const selection of options.engines){
  try{
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash});
   async function run(name:string,args:string[],marker?:string,env=box.env){
-   const result=await runCommand(args,box.workspace,env,path.join(out,name+'.log'),marker,{abortOnError:true,timeout:60000});results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(fs.readFileSync(path.join(out,name+'.log'),'utf8'));if(result.status!=='PASS')throw Error('L03 '+name+' failed');
+   const result=await runCommand(args,name==="install"?box.project:box.workspace,env,path.join(out,name+'.log'),marker,{abortOnError:true,timeout:60000});results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(fs.readFileSync(path.join(out,name+'.log'),'utf8'));if(result.status!=='PASS')throw Error('L03 '+name+' failed');
   }
   const packed=packAddon(path.join(out,'packed'),true);results.pack={status:'PASS',tarball_sha256:packed.manifest.tarball_sha256};
   fs.mkdirSync(box.project,{recursive:true});writeJSON(path.join(box.project,'package.json'),{name:'l03-native-consumer',private:true,packageManager:'yarn@1.22.22'});
