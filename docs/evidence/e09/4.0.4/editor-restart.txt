@@ -1,0 +1,12 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK restart restores generated protection and visible origin: true
+E02_EDITOR_CHECK persistent recovery remains discoverable after restart: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native generated menu selects requested action 2: true
+E02_EDITOR_CHECK restart recovery retains exact edited bytes: true
+E02_EDITOR_ASSERTIONS 5 failed=false
+E02_EDITOR_OK

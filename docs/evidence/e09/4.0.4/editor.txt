@@ -1,0 +1,83 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK owner Home/Settings direct tags compile cold: true
+E02_EDITOR_CHECK attached component Inspector exposes original source: true
+E02_EDITOR_CHECK native Inspector Script field identifies actual generated Home resource: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native Inspector Script click keeps generated inspection available: true
+E02_EDITOR_CHECK legacy v1 map authentication verifies deterministic emitted content: true
+E02_EDITOR_CHECK generated Settings tab visibly identifies authored source and is read-only: true
+E02_EDITOR_CHECK native inspect/debug navigation stays on compiled Script: true
+E02_EDITOR_CHECK real native key input cannot modify protected generated buffer: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native generated menu selects requested action 1: true
+E02_EDITOR_CHECK visible action navigates to exact authored source: true
+E02_EDITOR_CHECK authored Gogo remains editable without generated banner: true
+E02_EDITOR_CHECK source-map diagnostic navigation retains editable authored target/caret: true
+E02_EDITOR_CHECK native script-list selection retains protected compiled inspection: true
+E02_EDITOR_CHECK source rebuild while generated tab is open succeeds: true
+E02_EDITOR_CHECK compiled view refresh matches disk/cache: true
+E02_EDITOR_CHECK authored repair rebuild: true
+E02_EDITOR_CHECK native CRLF display normalization does not manufacture a dirty recovery: true
+E02_EDITOR_CHECK restore source line endings after normalization proof: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-A3yACm/godot --path /tmp/estragon-native-A3yACm/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 320 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main native child active: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-A3yACm/godot --path /tmp/estragon-native-A3yACm/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 320 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK current native child active: true
+E02_EDITOR_CHECK addon unload restores original generated CodeEdit editability: true
+E02_EDITOR_CHECK disabled addon dirty-buffer fixture is genuinely unsaved: true
+E02_EDITOR_CHECK dirty generated view becomes protected: true
+E02_EDITOR_CHECK prior dirty edit is durably preserved byte-for-byte before reset: true
+E02_EDITOR_CHECK recovery is visibly discoverable on the compiled tab: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native generated menu selects requested action 2: true
+E02_EDITOR_CHECK visible recovered-edit viewer exposes all preserved text: true
+E02_EDITOR_CHECK recovered-edit window fits the native editor viewport: true
+E02_EDITOR_CHECK generated edit signal preserves bytes before synchronization: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://app/Screens/generated/Settings.gd: Cannot preserve edited generated buffer. Save/Play blocked; copy the visible edit before continuing. Recovery: /tmp/estragon-native-A3yACm/xdg_data_home/godot/app_userdata/E02 direct Yarn editor/estragon/generated-edits/3cfcf675f834c09acbd2e1b560a4baa273fea51f9fc8095be82580c65746915d-1794422408106351-58f0dbe712763585bac87fbb3c2c3020ec39479091776c4cd8871e3311691780.txt
+     at: push_warning (core/variant/variant_utility.cpp:923)
+E02_EDITOR_CHECK recovery write failure blocks build without erasing dirty bytes: true
+E02_EDITOR_CHECK recovery repair preserves pending edit then restores compiled view: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+E02_EDITOR_CHECK invalid Gogo rebuild fails closed with protected generated tab: true
+E02_EDITOR_CHECK failed rebuild preserves compiled view, disk, maps and Script identity: true
+E02_EDITOR_CHECK failed rebuild preserves UID: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Screens/Home.gogo:14:5: Invalid authored Gogo component metadata: res://app/Screens/Settings.gogo
+
+app/Screens/Settings.gogo:14:4: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+E02_EDITOR_CHECK invalid source also blocks native main Play with compiled tab open: true
+E02_EDITOR_CHECK source repair recovers with generated protection: true
+E02_EDITOR_CHECK ordinary/unrelated generated-folder Script remains editable: res://app/Ordinary.gd: true
+E02_EDITOR_CHECK ordinary native input still edits: res://app/Ordinary.gd: true
+E02_EDITOR_CHECK ordinary/unrelated generated-folder Script remains editable: res://app/unrelated/generated/Normal.gd: true
+E02_EDITOR_CHECK ordinary native input still edits: res://app/unrelated/generated/Normal.gd: true
+E02_EDITOR_CHECK correct-looking but content-mismatched source map never protects an ordinary Script: true
+E02_EDITOR_CHECK missing source on first open gives a non-destructive unverified status: true
+E02_EDITOR_CHECK missing source gives useful status and disables nonexistent navigation: true
+E02_EDITOR_CHECK known compiled view reports broken association without erasing text: true
+E02_EDITOR_CHECK Unicode same-name component builds with exact source identity: true
+E02_EDITOR_CHECK Unicode duplicate basename protection uses exact source path: true
+E02_EDITOR_CHECK native control available for input: true
+E02_EDITOR_CHECK native generated menu selects requested action 1: true
+E02_EDITOR_CHECK Unicode source action never chooses sibling Settings: true
+E02_EDITOR_CHECK native breakpoint/debugger inspection and no-op refresh remain available on read-only output: true
+E02_EDITOR_ASSERTIONS 53 failed=false
+E02_EDITOR_OK
