@@ -55,6 +55,8 @@ func lifecycle(host: Node, what: int) -> void:
 		records[id].resume()
 	elif what == Node.NOTIFICATION_EXIT_TREE and records.has(id):
 		records[id].suspend()
+	elif what == 12 and records.has(id): # 4.0 NOTIFICATION_MOVED_IN_PARENT
+		records[id].layout_host.order_moved()
 	elif what == NOTIFICATION_PREDELETE and records.has(id):
 		records[id].dispose(false)
 		records.erase(id)

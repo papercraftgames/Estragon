@@ -117,6 +117,18 @@ func run() -> void:
 	check(is_equal_approx(settings.rotation,0.1) and settings.scale==Vector2(1.2,1.2) and settings.get_node("Row").position==Vector2.ZERO,"layout owns host translation once and preserves native rotation/scale")
 	settings.rotation = 0
 	settings.scale = Vector2.ONE
+	var other_entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd").new()
+	other_entry.set_extent(Vector2(300,100))
+	root.add_child(other_entry)
+	column.remove_child(settings)
+	other_entry.add_child(settings)
+	await frames()
+	var moved_button = settings.get_node("Row/Exit")
+	var hit: Vector2 = moved_button.get_global_transform_with_canvas()*(moved_button.layout_size/2)
+	check(moved_button.get_layout_root()==other_entry and other_entry._get_pointer_router().pick(hit)==moved_button and settings.local_state==42,"native reparent changes layout/input scope without replacing host state")
+	other_entry.remove_child(settings)
+	column.add_child(settings)
+	other_entry.free()
 	home.reverse = true
 	await frames()
 	check(column.get_node("Settings")==settings and column.get_node("Rose")==rose and settings.local_state==42 and rose.global_position.y<settings.global_position.y,"keyed native sibling reorder retains identity/state and reflows order")

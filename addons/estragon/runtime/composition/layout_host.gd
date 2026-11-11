@@ -29,6 +29,8 @@ func stop() -> void:
 	# active=false already prevents other coordinators from adopting it.
 	layout.stop()
 	Hosts.remove(owner,layout)
+func order_moved() -> void:
+	if layout != null and layout.active: layout.order_moved()
 func _disconnect() -> void:
 	if target != null and target.model.invalidated.is_connected(_configure): target.model.invalidated.disconnect(_configure)
 	target = null
