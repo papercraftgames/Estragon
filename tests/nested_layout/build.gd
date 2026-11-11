@@ -39,7 +39,7 @@ func build_view() -> Element:
 	</Entry2D>
 ''')
 	path = "res://app/Settings.gogo"
-	write(path,header(path,["Element","HBox","Button"])+'''@bindable var caption: String = "Exit"
+	write(path,header(path,["Element","HBox","UiButton"])+'''@bindable var caption: String = "Exit"
 @bindable var wide: bool = false
 @bindable var view_width: float = -1
 @bindable var view_height: float = -1
@@ -49,18 +49,18 @@ func exit() -> void:
 	print("L03_EXIT_QUIT")
 	get_tree().quit()
 func leaf():
-	return <Button name="Exit" pressed={self.exit} text={self.caption} fill_width={self.wide} fill_height={self.wide} /> if self.visible_button else null
+	return <UiButton name="Exit" pressed={self.exit} text={self.caption} fill_width={self.wide} fill_height={self.wide} /> if self.visible_button else null
 func build_view() -> Element:
 	return <HBox name="Row" width={self.view_width} height={self.view_height} fill_width={self.wide} gap={5.0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Rose.gogo"
-	write(path,header(path,["Element","HBox","Text","Button"])+'''@bindable var button: bool = false
+	write(path,header(path,["Element","HBox","Text","UiButton"])+'''@bindable var button: bool = false
 @bindable var wide: bool = false
 var clicks: int = 0
 func pressed() -> void:
 	clicks += 1
 func leaf():
-	if self.button: return <Button name="RoseButton" pressed={self.pressed} text="Rose is cute!" fill_width={self.wide} />
+	if self.button: return <UiButton name="RoseButton" pressed={self.pressed} text="Rose is cute!" fill_width={self.wide} />
 	return <Text name="RoseText" text="Rose is cute!" />
 func build_view() -> Element:
 	return <HBox name="Row" fill_width={self.wide}>{self.leaf()}</HBox>
