@@ -1,0 +1,11 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L03_GEOMETRY after {"UI/Column/Fun":{"position":"(0, 260)","size":"(104, 28)"},"UI/Column/Hello":{"position":"(0, 232)","size":"(119, 28)"},"UI/Column/Rose/Row/RoseText":{"position":"(0, 332)","size":"(120, 28)"},"UI/Column/Settings/Row/Exit":{"position":"(0, 288)","size":"(64, 44)"}}
+L03_CHECK nested Rose Text receives nonzero allocation: true
+L03_CHECK Settings Exit follows outer texts below flex spacer: true
+L03_CHECK Rose follows Settings in bottom VBox region without overlap: true
+L03_CHECK host placement does not duplicate root offset: true
+L03_CHECK managed hosts and views remain transient native Nodes: true
+L03_EXIT_READY
+L03_EXIT_QUIT

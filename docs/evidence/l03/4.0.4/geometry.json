@@ -1,0 +1,18 @@
+{
+	"UI/Column/Fun": {
+		"position": "(0, 194)",
+		"size": "(104, 28)"
+	},
+	"UI/Column/Hello": {
+		"position": "(0, 159)",
+		"size": "(136, 28)"
+	},
+	"UI/Column/Rose/Row/RoseButton": {
+		"position": "(0, 316)",
+		"size": "(640, 44)"
+	},
+	"UI/Column/Settings/Row/Exit": {
+		"position": "(0, 229)",
+		"size": "(280, 80)"
+	}
+}

@@ -1,0 +1,44 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L03_GEOMETRY after {"UI/Column/Fun":{"position":"(0, 260)","size":"(104, 28)"},"UI/Column/Hello":{"position":"(0, 232)","size":"(119, 28)"},"UI/Column/Rose/Row/RoseText":{"position":"(0, 332)","size":"(120, 28)"},"UI/Column/Settings/Row/Exit":{"position":"(0, 288)","size":"(64, 44)"}}
+L03_CHECK nested Rose Text receives nonzero allocation: true
+L03_CHECK Settings Exit follows outer texts below flex spacer: true
+L03_CHECK Rose follows Settings in bottom VBox region without overlap: true
+L03_CHECK host placement does not duplicate root offset: true
+L03_CHECK managed hosts and views remain transient native Nodes: true
+L03_CHECK unrelated parent recomposition retains host/view identity and local state: true
+L03_CHECK child intrinsic change recomposes only its interested function once: true
+L03_CHECK child intrinsic growth reflows parent and subsequent sibling: true
+L03_CHECK child removal shrinks measured parent slot without orphaned view: true
+L03_CHECK natural nested buttons occupy distinct nonoverlapping slots: true
+L03_CHECK actual pointer press reaches Rose at its arranged hit region: true
+L03_CHECK root fill constraints forward through hosts to parent cross-axis allocation: true
+L03_CHECK filled Rose button remains clickable in its expanded hit region: true
+L03_CHECK fixed root dimensions override fill and parent sibling gaps remain deterministic: true
+L03_GEOMETRY geometry {"UI/Column/Fun":{"position":"(0, 194)","size":"(104, 28)"},"UI/Column/Hello":{"position":"(0, 159)","size":"(136, 28)"},"UI/Column/Rose/Row/RoseButton":{"position":"(0, 316)","size":"(640, 44)"},"UI/Column/Settings/Row/Exit":{"position":"(0, 229)","size":"(280, 80)"}}
+L03_CHECK native window resize reflows nested fill and bottom-aligned siblings: true
+L03_CHECK layout owns host translation once and preserves native rotation/scale: true
+L03_CHECK native reparent changes layout/input scope without replacing host state: true
+L03_CHECK keyed native sibling reorder retains identity/state and reflows order: true
+L03_CHECK root replacement from HBox to direct Text updates the same host slot: true
+L03_CHECK explicit child Entry remains an independently positioned separate scope: true
+L03_CHECK returning from independent Entry reconnects the parent scope: true
+L03_CHECK nested removal disposes native host, computation and layout registration: true
+L03_CHECK restored component mounts once with fresh local state: true
+L03_CHECK idle tree performs no composition or layout polling: true
+L03_CHECK native detach suspends nested scope: true
+L03_CHECK native detach/re-entry restores same host and continuous pointer/layout scope: true
+L03_CHECK two-plus host levels and mixed VBox/HBox roots measure and arrange continuously: true
+L03_CHECK unrelated plain Node2D remains a boundary: true
+L03_CHECK host bridge never measures or moves unmanaged scene children: true
+L03_CHECK transparent host-to-host view root inherits the same scope: true
+L03_CHECK 3D host forwards bounded native intrinsic extents and sibling placement: true
+L03_CHECK 3D reactive fixed root extent reflows parent without double translation: true
+L03_CHECK cross-dimensional host remains outside incompatible layout scope: true
+L03_CHECK PackedScene excludes transient GGX hosts/views: true
+L03_CHECK native scene saves: true
+L03_CHECK saved/reopened host remounts one nested view with correct allocation: true
+L03_CHECK native free releases all computation and layout registry records: true
+L03_ASSERTIONS 37 failed=false
+L03_RUNTIME_OK

@@ -1,0 +1,134 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+COMPOSITION_EDITOR_CHECK real native Gogo CodeEdit: true
+COMPOSITION_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 4.966
+COMPOSITION_EDITOR_CHECK normal Play saves latest native Counter: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:57)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 4.941
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:24:7: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 3.501
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 8 should be "float" but is "String".
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK project blocks stale child execution: exact authored location unavailable: true
+COMPOSITION_EDITOR_CHECK project reports useful failure: exact authored location unavailable: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 5.018
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 4.834
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/composition/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.77
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 4.933
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 5.035
+COMPOSITION_EDITOR_CHECK normal Play saves latest native Counter: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:57)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 5.251
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:24:7: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.707
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "String" as "float".
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_0()" function: argument 8 should be "float" but is "String".
+          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/composition/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK current blocks stale child execution: exact authored location unavailable: true
+COMPOSITION_EDITOR_CHECK current reports useful failure: exact authored location unavailable: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 5.213
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 5.098
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/composition/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+COMPOSITION_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+COMPOSITION_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+COMPOSITION_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.786
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-efrVIu/godot --path /tmp/estragon-native-efrVIu/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5944 res://examples/composition/Counter.tscn --headless --audio-driver Dummy
+COMPOSITION_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 5.135
+COMPOSITION_EDITOR_ASSERTIONS 42
+COMPOSITION_EDITOR_OK
