@@ -23,6 +23,7 @@ var _symbols: Dictionary = {}
 var _aliases: Dictionary = {}
 var _owners: Dictionary = {}
 var _scoped: Dictionary = {}
+var _blocks: Dictionary = {}
 var _base := "Node"
 var _native_cache: Dictionary = {}
 var _types = Validator.new(Source.new(""))
@@ -67,6 +68,16 @@ func _declared_type(tokens: Array, start: int) -> String:
 	return type
 func _declarations(text: String, source: String) -> Dictionary:
 	var tokens := _tokens(text)
+	# Indentation block identities distinguish a local declaration from names
+	# in an exited/sibling block. Compute once with the declaration index.
+	var blocks := {}
+	var stack: Array = []
+	for token in tokens:
+		if blocks.has(token.row): continue
+		while not stack.is_empty() and stack[-1].indent>token.indent: stack.pop_back()
+		if token.indent>0 and (stack.is_empty() or stack[-1].indent<token.indent): stack.append({"indent":token.indent,"id":token.row})
+		if token.indent==0: stack.clear()
+		blocks[token.row] = stack.map(func(block): return block.id)
 	var symbols: Dictionary = {}
 	var aliases: Dictionary = {}
 	var base := ""
@@ -90,7 +101,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 			if name == "_init" and index+3 < tokens.size() and tokens[index+3].text != ")": required_initializer = true
 		var type := ""
 		if index+3 < tokens.size() and tokens[index+2].text == ":": type = _declared_type(tokens,index+3)
-		symbols[name] = {"type":type,"owner":scope,"row":tokens[index].row,"writable":true,"kind":CodeEdit.KIND_FUNCTION if word == "func" else (CodeEdit.KIND_SIGNAL if word == "signal" else (CodeEdit.KIND_CONSTANT if word == "const" else (CodeEdit.KIND_CLASS if word in ["class","class_name"] else (CodeEdit.KIND_VARIABLE if not scope.is_empty() else CodeEdit.KIND_MEMBER))))}
+		symbols[name] = {"type":type,"owner":scope,"row":tokens[index].row,"block":blocks.get(tokens[index].row,[]),"writable":true,"kind":CodeEdit.KIND_FUNCTION if word == "func" else (CodeEdit.KIND_SIGNAL if word == "signal" else (CodeEdit.KIND_CONSTANT if word == "const" else (CodeEdit.KIND_CLASS if word in ["class","class_name"] else (CodeEdit.KIND_VARIABLE if not scope.is_empty() else CodeEdit.KIND_MEMBER))))}
 		if word == "func":
 			symbols[name].hint = text.split("\n")[tokens[index].row].strip_edges().trim_prefix("func ").trim_suffix(":")
 			var depth := 0
@@ -127,9 +138,9 @@ func _declarations(text: String, source: String) -> Dictionary:
 			var name: String = tokens[index-1].text
 			var scope: String = owners.get(tokens[index].row,"")
 			if not scoped.has(scope): scoped[scope] = {}
-			if not scoped[scope].has(name): scoped[scope][name] = {"type":_declared_type(tokens,index+1),"owner":scope,"row":tokens[index].row,"kind":CodeEdit.KIND_VARIABLE}
+			if not scoped[scope].has(name): scoped[scope][name] = {"type":_declared_type(tokens,index+1),"owner":scope,"row":tokens[index].row,"block":blocks.get(tokens[index].row,[]),"kind":CodeEdit.KIND_VARIABLE}
 			if not symbols.has(name): symbols[name] = scoped[scope][name]
-	return {"symbols":symbols,"scoped":scoped,"aliases":aliases,"base":base,"owners":owners,"required_initializer":required_initializer}
+	return {"symbols":symbols,"scoped":scoped,"blocks":blocks,"aliases":aliases,"base":base,"owners":owners,"required_initializer":required_initializer}
 func _index(text: String, source: String) -> void:
 	if text == _text and source == _path: return
 	_text = text
@@ -138,6 +149,7 @@ func _index(text: String, source: String) -> void:
 	_symbols = declarations.symbols
 	_owners = declarations.owners
 	_scoped = declarations.scoped
+	_blocks = declarations.blocks
 	_aliases = declarations.aliases
 	_base = declarations.base
 func _script(path: String) -> Dictionary:
@@ -184,7 +196,10 @@ func _scope_members(row: int, self_only: bool = false) -> Dictionary:
 	if not self_only:
 		for name in _scoped.get(_owners.get(row,""),{}):
 			var item: Dictionary = _scoped[_owners.get(row,"")][name]
-			if item.get("row",0)<=row: result[name] = item
+			var visible: bool = item.get("row",0)<=row
+			for block in item.get("block",[]):
+				if not _blocks.get(row,[]).has(block): visible = false
+			if visible: result[name] = item
 	return result
 func _value_members(value: Dictionary) -> Dictionary:
 	if value.get("self",false): return _scope_members(value.row,true)
