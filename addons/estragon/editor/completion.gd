@@ -58,6 +58,13 @@ func _resolve_path(raw: String, source: String) -> String:
 	if value.is_absolute_path(): return value.simplify_path()
 	var output := Build.output_for(source) if source.ends_with(".gogo") else source
 	return output.get_base_dir().path_join(value).simplify_path()
+func _declared_type(tokens: Array, start: int) -> String:
+	if start>=tokens.size() or not tokens[start].text.is_valid_identifier(): return ""
+	var type: String = tokens[start].text
+	for index in range(start+1,mini(start+17,tokens.size()-1),2):
+		if tokens[index].text!="." or not tokens[index+1].text.is_valid_identifier(): break
+		type += "."+tokens[index+1].text
+	return type
 func _declarations(text: String, source: String) -> Dictionary:
 	var tokens := _tokens(text)
 	var symbols: Dictionary = {}
@@ -82,8 +89,8 @@ func _declarations(text: String, source: String) -> Dictionary:
 			owners[tokens[index].row] = owner
 			if name == "_init" and index+3 < tokens.size() and tokens[index+3].text != ")": required_initializer = true
 		var type := ""
-		if index+3 < tokens.size() and tokens[index+2].text == ":": type = tokens[index+3].text
-		symbols[name] = {"type":type,"owner":scope,"writable":true,"kind":CodeEdit.KIND_FUNCTION if word == "func" else (CodeEdit.KIND_SIGNAL if word == "signal" else (CodeEdit.KIND_CONSTANT if word == "const" else (CodeEdit.KIND_CLASS if word in ["class","class_name"] else (CodeEdit.KIND_VARIABLE if not scope.is_empty() else CodeEdit.KIND_MEMBER))))}
+		if index+3 < tokens.size() and tokens[index+2].text == ":": type = _declared_type(tokens,index+3)
+		symbols[name] = {"type":type,"owner":scope,"row":tokens[index].row,"writable":true,"kind":CodeEdit.KIND_FUNCTION if word == "func" else (CodeEdit.KIND_SIGNAL if word == "signal" else (CodeEdit.KIND_CONSTANT if word == "const" else (CodeEdit.KIND_CLASS if word in ["class","class_name"] else (CodeEdit.KIND_VARIABLE if not scope.is_empty() else CodeEdit.KIND_MEMBER))))}
 		if word == "func":
 			symbols[name].hint = text.split("\n")[tokens[index].row].strip_edges().trim_prefix("func ").trim_suffix(":")
 			var depth := 0
@@ -92,7 +99,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 				elif tokens[cursor].text == ")":
 					depth -= 1
 					if depth == 0:
-						if tokens[cursor+1].text == "->" and tokens[cursor+2].text.is_valid_identifier(): symbols[name].type = tokens[cursor+2].text
+						if tokens[cursor+1].text == "->": symbols[name].type = _declared_type(tokens,cursor+2)
 						break
 		if word == "signal":
 			var args: Array = []
@@ -120,7 +127,7 @@ func _declarations(text: String, source: String) -> Dictionary:
 			var name: String = tokens[index-1].text
 			var scope: String = owners.get(tokens[index].row,"")
 			if not scoped.has(scope): scoped[scope] = {}
-			if not scoped[scope].has(name): scoped[scope][name] = {"type":tokens[index+1].text,"owner":scope,"kind":CodeEdit.KIND_VARIABLE}
+			if not scoped[scope].has(name): scoped[scope][name] = {"type":_declared_type(tokens,index+1),"owner":scope,"row":tokens[index].row,"kind":CodeEdit.KIND_VARIABLE}
 			if not symbols.has(name): symbols[name] = scoped[scope][name]
 	return {"symbols":symbols,"scoped":scoped,"aliases":aliases,"base":base,"owners":owners,"required_initializer":required_initializer}
 func _index(text: String, source: String) -> void:
@@ -174,7 +181,10 @@ func _chain_tokens(lexical: RefCounted, row: int, column: int) -> Array:
 func _scope_members(row: int, self_only: bool = false) -> Dictionary:
 	var result := _members(_base,_aliases).duplicate()
 	result.merge(_scoped.get("",{}),true)
-	if not self_only: result.merge(_scoped.get(_owners.get(row,""),{}),true)
+	if not self_only:
+		for name in _scoped.get(_owners.get(row,""),{}):
+			var item: Dictionary = _scoped[_owners.get(row,"")][name]
+			if item.get("row",0)<=row: result[name] = item
 	return result
 func _value_members(value: Dictionary) -> Dictionary:
 	if value.get("self",false): return _scope_members(value.row,true)
@@ -204,7 +214,9 @@ func _chain(tokens: Array, end: int, row: int, depth: int = 0) -> Dictionary:
 			value.kind = CodeEdit.KIND_VARIABLE
 			return {"start":callable.start,"value":value}
 		var grouped := _chain(tokens,end-1,row,depth+1)
-		return grouped if not grouped.is_empty() and grouped.start==opening+1 else {}
+		if grouped.is_empty() or grouped.start!=opening+1: return {}
+		grouped.start = opening
+		return grouped
 	if not token.text.is_valid_identifier() or token.kind in ["string","tag","property"]: return {}
 	if end>0 and tokens[end-1].text==".":
 		var receiver := _chain(tokens,end-2,row,depth+1)
@@ -273,10 +285,9 @@ func _members(type: String, aliases: Dictionary, visited: Array = []) -> Diction
 			for prop in cached.get_script_property_list():
 				if str(prop.name).is_valid_identifier() and not (int(prop.usage) & (PROPERTY_USAGE_CATEGORY|PROPERTY_USAGE_GROUP|PROPERTY_USAGE_SUBGROUP)): result[prop.name] = {"type":_type_name(prop),"kind":CodeEdit.KIND_MEMBER,"writable":not (int(prop.usage)&PROPERTY_USAGE_READ_ONLY)}
 			for method in cached.get_script_method_list(): result[method.name] = {"type":_type_name(method.get("return",{})),"kind":CodeEdit.KIND_FUNCTION,"hint":_method_hint(method)}
-	for field in declarations.symbols:
-		if declarations.symbols[field].owner.is_empty():
-			result[field] = declarations.symbols[field].duplicate()
-			result[field].aliases = declarations.aliases
+	for field in declarations.scoped.get("",{}):
+		result[field] = declarations.scoped[""][field].duplicate()
+		result[field].aliases = declarations.aliases
 	return result
 func _node_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 	var name: String = aliases.get(type,type)
