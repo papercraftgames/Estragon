@@ -1,7 +1,7 @@
 {
   "pack": {
     "status": "PASS",
-    "tarball_sha256": "f42963b228ff4b0b8e1e2c316231d76324586a5f9b74b3c23d336ccc5dbbf9c2"
+    "tarball_sha256": "a9eb230dc04753fad5039df8a2158888a889fc5ef566939765c40ccaeb3c2897"
   },
   "install": {
     "status": "PASS",
@@ -14,24 +14,24 @@
       "--ignore-scripts",
       "--non-interactive",
       "--cache-folder",
-      "/tmp/estragon-native-qCpck3/yarn-cache",
-      "file:/evidence/e08-final1/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+      "/tmp/estragon-native-JaVotH/yarn-cache",
+      "file:/evidence/e08-final2/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
     ],
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 0.64,
+    "seconds": 0.65,
     "log": "install.log",
     "diagnostics": []
   },
   "build": {
     "status": "PASS",
     "command": [
-      "/tmp/estragon-native-qCpck3/godot",
+      "/tmp/estragon-native-JaVotH/godot",
       "--audio-driver",
       "Dummy",
       "--path",
-      "/tmp/estragon-native-qCpck3/project",
+      "/tmp/estragon-native-JaVotH/project",
       "--headless",
       "--script",
       "res://tests/scene_projection/build.gd"
@@ -39,19 +39,19 @@
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 1.12,
-    "godot_pid": 7683,
+    "seconds": 1.03,
+    "godot_pid": 12781,
     "log": "build.log",
     "diagnostics": []
   },
   "runtime": {
     "status": "PASS",
     "command": [
-      "/tmp/estragon-native-qCpck3/godot",
+      "/tmp/estragon-native-JaVotH/godot",
       "--audio-driver",
       "Dummy",
       "--path",
-      "/tmp/estragon-native-qCpck3/project",
+      "/tmp/estragon-native-JaVotH/project",
       "--rendering-method",
       "gl_compatibility",
       "--rendering-driver",
@@ -62,8 +62,8 @@
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 2.8,
-    "godot_pid": 7700,
+    "seconds": 2.75,
+    "godot_pid": 12798,
     "log": "runtime.log",
     "diagnostics": [
       "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
@@ -72,11 +72,11 @@
   "negative": {
     "status": "PASS",
     "command": [
-      "/tmp/estragon-native-qCpck3/godot",
+      "/tmp/estragon-native-JaVotH/godot",
       "--audio-driver",
       "Dummy",
       "--path",
-      "/tmp/estragon-native-qCpck3/project",
+      "/tmp/estragon-native-JaVotH/project",
       "--rendering-method",
       "gl_compatibility",
       "--rendering-driver",
@@ -87,8 +87,8 @@
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 0.97,
-    "godot_pid": 7819,
+    "seconds": 0.98,
+    "godot_pid": 12897,
     "log": "negative.log",
     "diagnostics": [
       "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
@@ -97,6 +97,8 @@
       "ERROR: Invalid composition output or foreign boundary conflict; previous tree retained",
       "   at: push_error (core/variant/variant_utility.cpp:1023)",
       "ERROR: negative.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: /root/@Node2D@2",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: detached.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: Detached",
       "   at: push_error (core/variant/variant_utility.cpp:1023)"
     ],
     "unexpected_errors": []
@@ -104,11 +106,11 @@
   "editor": {
     "status": "PASS",
     "command": [
-      "/tmp/estragon-native-qCpck3/godot",
+      "/tmp/estragon-native-JaVotH/godot",
       "--audio-driver",
       "Dummy",
       "--path",
-      "/tmp/estragon-native-qCpck3/project",
+      "/tmp/estragon-native-JaVotH/project",
       "--rendering-method",
       "gl_compatibility",
       "--rendering-driver",
@@ -118,8 +120,8 @@
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 31.5,
-    "godot_pid": 7918,
+    "seconds": 29.52,
+    "godot_pid": 12996,
     "log": "editor.log",
     "diagnostics": [
       "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
@@ -138,11 +140,11 @@
   "editor-restart": {
     "status": "PASS",
     "command": [
-      "/tmp/estragon-native-qCpck3/godot",
+      "/tmp/estragon-native-JaVotH/godot",
       "--audio-driver",
       "Dummy",
       "--path",
-      "/tmp/estragon-native-qCpck3/project",
+      "/tmp/estragon-native-JaVotH/project",
       "--rendering-method",
       "gl_compatibility",
       "--rendering-driver",
@@ -152,8 +154,8 @@
     "exit_code": 0,
     "timeout": false,
     "aborted_on_error": false,
-    "seconds": 10.82,
-    "godot_pid": 8844,
+    "seconds": 9.91,
+    "godot_pid": 13872,
     "log": "editor-restart.log",
     "diagnostics": [
       "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",

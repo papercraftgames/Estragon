@@ -10,5 +10,8 @@ E08_CHECK repair recovers existing projection: true
 ERROR: negative.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: /root/@@2
    at: push_error (core/variant/variant_utility.cpp:903)
 E08_CHECK external native reference is rejected without parent/owner mutation: true
-E08_NEGATIVE_ASSERTIONS 3 failed=false
+ERROR: detached.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: Detached
+   at: push_error (core/variant/variant_utility.cpp:903)
+E08_CHECK detached reference rejects cleanly without asking Godot for an invalid tree path: true
+E08_NEGATIVE_ASSERTIONS 4 failed=false
 E08_NEGATIVE_OK

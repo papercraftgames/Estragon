@@ -18,22 +18,22 @@ E08_EDITOR_CHECK scene saves after delete/undo/redo: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-DEaJM1/godot --path /tmp/estragon-native-DEaJM1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4315 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 E08_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-DEaJM1/godot --path /tmp/estragon-native-DEaJM1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4315 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-DEaJM1/godot --path /tmp/estragon-native-DEaJM1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4315 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 E08_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-DEaJM1/godot --path /tmp/estragon-native-DEaJM1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4315 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
 E08_EDITOR_CHECK both Play paths forced-save unsaved Gogo dependency: true
 WARNING: Estragon: Gogo compilation failed; Play blocked.
@@ -51,7 +51,7 @@ E08_EDITOR_CHECK source repair recovers existing native compiler: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-DEaJM1/godot --path /tmp/estragon-native-DEaJM1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4315 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
 E08_EDITOR_CHECK native authored host scene saves without transient views: true
 E08_EDITOR_CHECK saved scene persists Home/Settings/Sprite only, with no transient output: true
