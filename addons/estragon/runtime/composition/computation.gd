@@ -173,7 +173,8 @@ func _flatten(values: Array, path: Array, output: Array, ancestors: Array, level
 			var manager = state.get_ref()
 			if manager.is_managed(value): continue
 			if value.get_parent() != host.get_ref():
-				push_error(ancestors.back().source+": GGX borrowed children must be persistent direct children of the rendering host: "+str(value.get_path()))
+				var label: String = str(value.get_path()) if value.is_inside_tree() else str(value.name)
+				push_error(ancestors.back().source+": GGX borrowed children must be persistent direct children of the rendering host: "+label)
 				return false
 			if value.owner == null: continue # Foreign runtime actors remain native.
 			if _borrow_seen.has(value.get_instance_id()):

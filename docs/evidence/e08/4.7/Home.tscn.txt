@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cg6boki0nxqgf"]
+
+[ext_resource type="Script" uid="uid://d4fjo22507u8j" path="res://app/generated/Home.gd" id="1_t0xsr"]
+[ext_resource type="Script" uid="uid://w6ekqhrp3jpc" path="res://app/generated/Settings.gd" id="2_5cy8r"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pp7vn"]
+width = 24
+height = 24
+
+[node name="Home" type="Node2D" unique_id=429206533]
+script = ExtResource("1_t0xsr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=410826442]
+position = Vector2(400, 220)
+texture = SubResource("GradientTexture2D_pp7vn")
+
+[node name="Settings" type="Node2D" parent="." unique_id=273197209]
+script = ExtResource("2_5cy8r")
+persisted = 42

@@ -1,0 +1,17 @@
+{
+  "sourceHead": "ccd8c77c8789516990ad5c89db96c179562ad705",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-scene-projection.ts",
+    "--editor",
+    "--engine",
+    "4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/evidence/e08-final1"
+  ]
+}

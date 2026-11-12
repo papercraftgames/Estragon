@@ -244,6 +244,10 @@ func negatives() -> void:
 	var Element = preload("res://addons/estragon/runtime/composition/element.gd")
 	check(record._normalize(Element.new("Node2D",{}, {},[foreign],"negative.gogo:1:1"))==null and foreign.get_parent()==root,"external native reference is rejected without parent/owner mutation")
 	foreign.free()
+	var detached := Node2D.new()
+	detached.name = "Detached"
+	check(record._normalize(Element.new("Node2D",{}, {},[detached],"detached.gogo:1:1"))==null and detached.get_parent()==null,"detached reference rejects cleanly without asking Godot for an invalid tree path")
+	detached.free()
 	home.free()
 	await frames()
 	print("E08_NEGATIVE_ASSERTIONS ",checks," failed=",failed)

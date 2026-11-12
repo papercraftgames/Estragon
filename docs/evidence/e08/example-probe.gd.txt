@@ -1,0 +1,16 @@
+extends SceneTree
+func _initialize() -> void: run.call_deferred()
+func run() -> void:
+	var home = load("res://examples/nested_layout/SceneHome.tscn").instantiate()
+	root.add_child(home)
+	for frame in range(8): await process_frame
+	var settings = home.get_node("Settings")
+	var button = settings.get_child(0).get_child(0)
+	var ok: bool = button.layout_size.y>0 and settings.owner==home and settings.get_parent()==home and home.get_child_count()==3
+	print("E08_EXAMPLE_GEOMETRY ",button.global_position," ",button.layout_size," native Sprite ",home.get_node("Sprite2D").position)
+	RenderingServer.force_draw(false)
+	root.get_texture().get_image().save_png("/evidence/e08-example-"+OS.get_environment("E08_EXAMPLE_VERSION")+".png")
+	home.free()
+	await process_frame
+	if ok: print("E08_EXAMPLE_OK")
+	quit(0 if ok else 1)

@@ -1,0 +1,10 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+B direct: { 22: "projection" }
+A direct: { 22: "projection" }
+A get: { 11: "state" } B get: { 22: "projection" }
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+B direct: { 22: "projection" }
+A direct: { 22: "projection" }
+A get: { 11: "state" } B get: { 22: "projection" }

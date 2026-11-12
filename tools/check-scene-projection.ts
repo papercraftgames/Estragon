@@ -24,12 +24,12 @@ for (const selection of options.engines) {
             if (negative) {
                 // Only these deliberately triggered diagnostics are permitted.
                 const expected = name === 'negative'
-                    ? /^ERROR: (?:app\/Home\.gogo:\d+:\d+: GGX scene child referenced more than once: .*|negative\.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: .*|Invalid composition output or foreign boundary conflict; previous tree retained)$/
+                    ? /^ERROR: (?:app\/Home\.gogo:\d+:\d+: GGX scene child referenced more than once: .*|(?:negative|detached)\.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: .*|Invalid composition output or foreign boundary conflict; previous tree retained)$/
                     : /^ERROR: An EditorPlugin build callback failed\.$/;
                 result.unexpected_errors = log.split(/\r?\n/).filter(line => ERROR.test(line) && !expected.test(line));
                 const count = log.split(/\r?\n/).filter(line => expected.test(line)).length;
                 if ((result.unexpected_errors as string[]).length || /E08_(?:EDITOR_)?CHECK .*: false/.test(log)
-                    || name === 'negative' && count !== 3) result.status = 'FAIL';
+                    || name === 'negative' && count !== 4) result.status = 'FAIL';
             }
             results[name] = result;
             writeJSON(path.join(out, 'results.json'), results);

@@ -1,0 +1,110 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 1: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 1: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 1: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 2: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 2: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 2: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 3: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 3: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 3: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 4: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 4: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 4: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 5: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 5: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 5: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 6: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 6: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 6: true
+ERROR: examples/inventory/Inventory.gogo:22:9: GGX borrowed children must be persistent direct children of the rendering host: /root/@Node2D@2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flatten (res://addons/estragon/runtime/composition/computation.gd:176)
+       [1] _flatten (res://addons/estragon/runtime/composition/computation.gd:169)
+       [2] _flatten (res://addons/estragon/runtime/composition/computation.gd:169)
+       [3] _normalize (res://addons/estragon/runtime/composition/computation.gd:157)
+       [4] _flatten (res://addons/estragon/runtime/composition/computation.gd:188)
+       [5] _normalize (res://addons/estragon/runtime/composition/computation.gd:157)
+       [6] _flush (res://addons/estragon/runtime/composition/computation.gd:118)
+       [7] drain (res://addons/estragon/runtime/composition/state.gd:33)
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 7: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 7: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 7: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 8: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 8: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 8: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 9: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 9: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 9: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 10: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 10: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 10: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK bad sequence/key/name/type/property atomically retains tree: 11: true
+LISTS_REJECTION_CHECK rejection preserves row subscription: 11: true
+LISTS_REJECTION_CHECK repair recovers prior subscription: 11: true
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+LISTS_REJECTION_CHECK keyed foreign rescue collision rejects before removal: true
+LISTS_REJECTION_CHECK foreign rescue conflict repairs safely: true
+LISTS_REJECTION_CHECK cyclic arrays reject with bounded traversal: true
+LISTS_REJECTION_OK

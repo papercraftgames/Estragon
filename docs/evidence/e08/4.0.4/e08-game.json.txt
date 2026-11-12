@@ -1,0 +1,1 @@
+{"button_height":44,"button_y":56,"caption":"Settings edited","children":3,"clicks":1,"hello_end":48,"middle_y":108,"native_parent":true,"owner":true,"persisted":42,"settings":true,"sprite":true}

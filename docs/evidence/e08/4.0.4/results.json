@@ -1,0 +1,155 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "f42963b228ff4b0b8e1e2c316231d76324586a5f9b74b3c23d336ccc5dbbf9c2"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-DEaJM1/yarn-cache",
+      "file:/evidence/e08-final1/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.62,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-DEaJM1/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-DEaJM1/project",
+      "--headless",
+      "--script",
+      "res://tests/scene_projection/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.51,
+    "godot_pid": 4098,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-DEaJM1/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-DEaJM1/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scene_projection/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.63,
+    "godot_pid": 4117,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "negative": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-DEaJM1/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-DEaJM1/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scene_projection/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.02,
+    "godot_pid": 4216,
+    "log": "negative.log",
+    "diagnostics": [
+      "ERROR: app/Home.gogo:40:3: GGX scene child referenced more than once: /root/Home/Settings",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Invalid composition output or foreign boundary conflict; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: negative.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: /root/@@2",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-DEaJM1/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-DEaJM1/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 37.14,
+    "godot_pid": 4315,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-DEaJM1/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-DEaJM1/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.41,
+    "godot_pid": 6605,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "unexpected_errors": []
+  }
+}

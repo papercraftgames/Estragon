@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://app/generated/Home.gd" id="1_rb76n"]
+[ext_resource type="Script" path="res://app/generated/Settings.gd" id="2_fa5q1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g7247"]
+width = 24
+height = 24
+
+[node name="Home" type="Node2D"]
+script = ExtResource("1_rb76n")
+
+[node name="Settings" type="Node2D" parent="."]
+position = Vector2(30, 56)
+script = ExtResource("2_fa5q1")
+persisted = 17
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(390, 210)
+texture = SubResource("GradientTexture2D_g7247")
+
+[connection signal="pressed" from="Settings/View/Action" to="Settings" method="pressed"]
