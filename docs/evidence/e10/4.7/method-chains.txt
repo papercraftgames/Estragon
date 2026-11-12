@@ -1,0 +1,56 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+E10_CHECK Node2D static return chain get_tree().: true
+E10_CHECK Node2D static return chain self.get_tree().: true
+E10_CHECK Node2D static return chain (get_tree()).: true
+E10_CHECK Node2D static return chain get_viewport().get_tree().: true
+E10_CHECK Node2D static return chain get_node("Path").get_tree().: true
+E10_CHECK Node2D static return chain get_node(str(foo(bar()))).get_tree().: true
+E10_CHECK Node2D viewport native return members: true
+E10_CHECK Node2D get_node conservative Node members: true
+E10_CHECK Node3D static return chain get_tree().: true
+E10_CHECK Node3D static return chain self.get_tree().: true
+E10_CHECK Node3D static return chain (get_tree()).: true
+E10_CHECK Node3D static return chain get_viewport().get_tree().: true
+E10_CHECK Node3D static return chain get_node("Path").get_tree().: true
+E10_CHECK Node3D static return chain get_node(str(foo(bar()))).get_tree().: true
+E10_CHECK Node3D viewport native return members: true
+E10_CHECK Node3D get_node conservative Node members: true
+E10_CHECK typed property/argument chains: true
+E10_CHECK typed local method chain: true
+E10_CHECK explicit typed source method return: true
+E10_CHECK explicit self source method return: true
+E10_CHECK chained native call signature: true
+E10_CHECK nested arguments do not confuse chained hint: true
+E10_CHECK whitespace between postfix tokens: true
+E10_CHECK multiline balanced call arguments: true
+E10_CHECK GGX attribute expression uses native chain completion: true
+E10_CHECK unproven receiver suppressed missing().: true
+E10_CHECK unproven receiver suppressed get_tree(.: true
+E10_CHECK unproven receiver suppressed tree[0].: true
+E10_CHECK unproven receiver suppressed get_tree().missing().: true
+E10_CHECK unproven receiver suppressed get_tree().quit().: true
+E10_CHECK unproven receiver suppressed get_tree().quit.: true
+E10_CHECK dynamic source return never fabricated: true
+E10_CHECK typed argument from different function is out of scope: true
+E10_CHECK explicit Variant receiver remains dynamic: true
+E10_CHECK comment/string suppression: true
+E10_CHECK strings in arguments stay opaque: true
+E10_CHECK nested grouped receiver: true
+E10_CHECK native returned property chain: true
+E10_CHECK later local declaration does not leak into earlier scope: true
+E10_CHECK typed local resolves inside its indentation block: true
+E10_CHECK exited block local does not leak into parent scope: true
+E10_CHECK sibling block local does not leak into another block: true
+E10_CHECK unresolved qualified type does not fabricate outer-class members: true
+E10_CHECK chain recursion bounded: true
+E10_CHECK receiver scan budget bounded: true
+E10_CHECK GGX tag completion remains available: true
+E10_CHECK filtered callable invocation and native signature: true
+E10_CHECK existing invocation parenthesis not duplicated: true
+E10_CHECK signal attribute completion preserves Callable reference rather than invoking it: true
+E10_CHECK native return identity is not redirected by a same-named source alias: true
+E10_CHECK source typed method metadata never loads authored Script: true
+E10_CHECK unsaved dependency return type overrides saved metadata: true
+E10_ASSERTIONS 52 failed=false
+E10_CHAIN_OK

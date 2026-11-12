@@ -1,0 +1,32 @@
+{
+	"engine": "4.7-stable (official)",
+	"native_analyzer": {
+		"CodeEdit": false,
+		"GDScript": false,
+		"Script": false,
+		"ScriptEditor": false,
+		"ScriptLanguage": false,
+		"ScriptLanguageExtension": false
+	},
+	"public_methods": {
+		"CodeEdit": [
+			"_confirm_code_completion",
+			"set_code_hint",
+			"request_code_completion",
+			"get_language"
+		],
+		"GDScript": [
+			"get_script_property_list",
+			"get_script_method_list"
+		],
+		"Script": [
+			"get_script_property_list",
+			"get_script_method_list"
+		],
+		"ScriptEditor": [],
+		"ScriptLanguage": [],
+		"ScriptLanguageExtension": [
+			"_complete_code"
+		]
+	}
+}
