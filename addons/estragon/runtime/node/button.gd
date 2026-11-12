@@ -15,11 +15,17 @@ var _hovered: bool = false
 var _held: bool = false
 func _enter_tree() -> void:
 	super._enter_tree()
+	_layout_scope_changed()
+	visibility_changed.connect(_cancel_pointer)
+func _layout_scope_changed() -> void:
 	var entry = get_layout_root()
+	var next = entry._get_pointer_router() if entry != null and entry.has_method("_get_pointer_router") else null
+	if _router != null and _router.get_ref() == next: return
+	if _router != null and _router.get_ref() != null: _router.get_ref().unregister_button(self)
+	_router = null
 	if entry != null and entry.has_method("_get_pointer_router"):
 		_router = weakref(entry._get_pointer_router())
 		_router.get_ref().register_button(self)
-	visibility_changed.connect(_cancel_pointer)
 func _exit_tree() -> void:
 	if _router != null and _router.get_ref() != null: _router.get_ref().unregister_button(self)
 	_router = null

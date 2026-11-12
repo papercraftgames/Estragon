@@ -4,9 +4,14 @@ const Profile = preload("profile.tres")
 ## Framework-owned shared scope stack; never stored on application objects.
 var scopes: Array = []
 var records: Dictionary = {}
+var managed: Dictionary = {}
 var dirty: Array = []
 var pending := false
 var flushing := false
+func is_managed(node: Node) -> bool:
+	var reference = managed.get(node.get_instance_id())
+	return reference != null and reference.get_ref() == node
+
 func enqueue(record) -> void:
 	if not dirty.has(record): dirty.append(record)
 	if not pending and not flushing:
@@ -55,8 +60,12 @@ func lifecycle(host: Node, what: int) -> void:
 		records[id].resume()
 	elif what == Node.NOTIFICATION_EXIT_TREE and records.has(id):
 		records[id].suspend()
+	elif what == 24 and records.has(id): # Public CHILD_ORDER_CHANGED, including 4.0
+		records[id].projection.ordered()
 	elif what == 12 and records.has(id): # 4.0 NOTIFICATION_MOVED_IN_PARENT
 		records[id].layout_host.order_moved()
+		var parent = host.get_parent()
+		if parent != null and records.has(parent.get_instance_id()): records[parent.get_instance_id()].projection.ordered()
 	elif what == NOTIFICATION_PREDELETE and records.has(id):
 		records[id].dispose(false)
 		records.erase(id)

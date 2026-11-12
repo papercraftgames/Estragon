@@ -101,5 +101,5 @@ func apply_layout_position(offset: Vector3) -> void:
 func apply_layout_size(size: Vector3) -> void:
 	_layout_size = Vector2(size.x, size.y)
 	# Explicit invalidation also restores a native position edited externally.
-	if layout.parent_coordinator() != null: apply_layout_position(layout.model.offset)
+	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
 	layout_applied.emit(_layout_size)

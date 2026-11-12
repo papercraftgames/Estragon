@@ -3,8 +3,11 @@ const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
 const Binding = preload("binding.gd")
 const Element = preload("element.gd")
+const Hosts = preload("../node/internal/composition_hosts.tres")
 class Mounted extends RefCounted:
 	var node: WeakRef
+	var id: int
+	var borrowed: WeakRef
 	var type: Variant
 	var key: Variant
 	var keyed := false
@@ -14,6 +17,9 @@ class Mounted extends RefCounted:
 	var bindings: Dictionary = {}
 	var children: Array = []
 var host: WeakRef
+var projection
+var _borrow_seen: Dictionary = {}
+var _observes_children := false
 var layout_host
 var state: WeakRef
 var parent_computation: WeakRef
@@ -33,6 +39,7 @@ var _consecutive := 0
 func _init(owner: Node, manager: Resource) -> void:
 	host = weakref(owner)
 	state = weakref(manager)
+	projection = preload("projection.gd").new(self,owner)
 	layout_host = preload("layout_host.gd").new(owner)
 	var ancestor := owner.get_parent()
 	while ancestor != null:
@@ -60,6 +67,8 @@ func depth() -> int:
 	return result
 func suspend() -> void:
 	active = false
+	projection.stop()
+	Hosts.replace_projection(self,{}, {})
 	layout_host.stop()
 	_disconnect_bindings(mounted)
 	_disconnect()
@@ -104,16 +113,26 @@ func _flush() -> void:
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
 	if Profile.is_enabled(): Profile.elapsed("view",started)
+	_borrow_seen.clear()
+	_observes_children = false
 	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
 		push_error("Invalid composition output or foreign boundary conflict; previous tree retained")
 		return
+	# A nested array may be an empty get_children() result. Observe native
+	# changes without inspecting the expression source or polling the tree.
+	if _observes_children: projection.start()
+	else: projection.stop()
 	_subscribe(reads)
 	# Catch mutation after a read during first composition/commit as a later
 	# pass. Source-side effects are unsupported, but never recurse into SceneTree.
 	_rendering = true
 	mounted = _reconcile(desired,mounted,owner,owner)
+	var projected := {}
+	var ordering := {}
+	_projection_tree(mounted,projected,ordering)
+	Hosts.replace_projection(self,projected,ordering)
 	layout_host.update(mounted.node.get_ref() if mounted != null else null)
 	_rendering = false
 	runs += 1
@@ -146,8 +165,25 @@ func _flatten(values: Array, path: Array, output: Array, ancestors: Array, level
 		slot.append(index)
 		var value = values[index]
 		if value is Array:
+			_observes_children = true
 			if not _flatten(value,slot,output,ancestors,level+1): return false
 		elif value==null: output.append(null)
+		elif value is Node:
+			_observes_children = true
+			var manager = state.get_ref()
+			if manager.is_managed(value): continue
+			if value.get_parent() != host.get_ref():
+				push_error(ancestors.back().source+": GGX borrowed children must be persistent direct children of the rendering host: "+str(value.get_path()))
+				return false
+			if value.owner == null: continue # Foreign runtime actors remain native.
+			if _borrow_seen.has(value.get_instance_id()):
+				push_error(ancestors.back().source+": GGX scene child referenced more than once: "+str(value.get_path()))
+				return false
+			_borrow_seen[value.get_instance_id()] = true
+			var child := Element.new()
+			child.borrowed = weakref(value)
+			child.slot = slot
+			output.append(child)
 		else:
 			var child = _normalize(value,ancestors,level+1)
 			if child==null: return false
@@ -156,6 +192,7 @@ func _flatten(values: Array, path: Array, output: Array, ancestors: Array, level
 	return true
 # Exact key type participates in identity (bool/float never alias int).
 func _identity(value, index: int) -> String:
+	if value.borrowed != null: return "n:"+str(value.borrowed.get_ref().get_instance_id()) if value.borrowed.get_ref() != null else "expired"
 	if value.keyed: return "k:"+str(typeof(value.key))+":"+str(value.key)
 	return "p:"+str(value.slot if not value.slot.is_empty() else [index])
 func _matches(desired: Array, previous: Array) -> Array:
@@ -168,6 +205,7 @@ func _matches(desired: Array, previous: Array) -> Array:
 	return result
 func _valid(desired: Element, previous: Mounted) -> bool:
 	if Profile.is_enabled(): Profile.add("validations")
+	if desired.borrowed != null: return desired.borrowed.get_ref() != null
 	if desired.type == null: return false
 	if desired.type is String:
 		if not ClassDB.class_exists(desired.type) or not ClassDB.is_parent_class(desired.type,"Node") or not ClassDB.can_instantiate(desired.type): return false
@@ -194,7 +232,7 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 			names[name] = true
 	return true
 func _collect_foreign(record, result: Array) -> void:
-	if record==null: return
+	if record==null or record.borrowed != null: return
 	var node = record.node.get_ref()
 	if node==null: return
 	var known: Array = []
@@ -243,10 +281,16 @@ func _boundary_clear(desired: Element, parent: Node) -> bool:
 	return true
 func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	var record := Mounted.new()
+	if desired.borrowed != null:
+		record.borrowed = desired.borrowed
+		record.node = desired.borrowed
+		return record
 	var node: Node = ClassDB.instantiate(desired.type) if desired.type is String else desired.type.new()
+	state.get_ref().managed[node.get_instance_id()] = weakref(node)
 	allocations += 1
 	if Profile.is_enabled(): Profile.add("nodes_created")
 	record.node = weakref(node)
+	record.id = node.get_instance_id()
 	record.type = desired.type
 	record.key = desired.key
 	record.keyed = desired.keyed
@@ -289,6 +333,9 @@ func _apply(desired: Element, record: Mounted) -> void:
 	record.properties = desired.properties.duplicate()
 	record.handlers = desired.handlers.duplicate()
 func _compatible(desired: Element, record: Mounted) -> bool:
+	if record == null: return false
+	if desired.borrowed != null or record.borrowed != null:
+		return desired.borrowed != null and record.borrowed != null and desired.borrowed.get_ref() != null and desired.borrowed.get_ref() == record.node.get_ref()
 	return record != null and is_same(record.type,desired.type) and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
 func _reconcile(desired, record, parent: Node, owner: Node):
 	if Profile.is_enabled(): Profile.add("reconciles")
@@ -298,6 +345,7 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 	if not _compatible(desired,record):
 		if record != null: _free_managed(record,owner)
 		return _mount(desired,parent,owner)
+	if record.borrowed != null: return record
 	_apply(desired,record)
 	var node: Node = record.node.get_ref()
 	if node.get_parent()!=parent:
@@ -345,7 +393,7 @@ func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
 func _order(children: Array, parent: Node) -> void:
 	var nodes: Array = []
 	for child in children:
-		if child!=null: nodes.append(child.node.get_ref())
+		if child!=null and child.borrowed == null: nodes.append(child.node.get_ref())
 	# Native child indices are unique. Binary-search minimal tails to recover
 	# one longest increasing subsequence without quadratic comparisons.
 	var tails: Array = []
@@ -386,6 +434,7 @@ func _order(children: Array, parent: Node) -> void:
 func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> bool:
 	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
+	if desired.borrowed != null: return desired.borrowed.get_ref() != null
 	# Cache only within this synchronous desired-tree validation. No Script
 	# contracts survive a commit or hide editor reload/metadata changes.
 	if contracts==null: contracts = {}
@@ -437,7 +486,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	var matches := _matches(desired.children,previous.children if node!=null else [])
 	for index in range(desired.children.size()):
 		var child = desired.children[index]
-		if child == null: continue
+		if child == null or child.borrowed != null: continue
 		var old = matches[index]
 		if not _preflight(child,old,null,contracts): return false
 		var name: String = str(child.properties.get("name",str(old.node.get_ref().name) if old!=null and _compatible(child,old) else ""))
@@ -449,10 +498,13 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 					if str(existing.name)==name and not known.has(existing): return false
 	return true
 func _free_managed(record: Mounted, rescue: Node = null) -> void:
+	if record.borrowed != null: return
 	for child in record.children:
 		if child != null: _free_managed(child,rescue)
 	var node = record.node.get_ref()
-	if node == null: return
+	if node == null:
+		state.get_ref().managed.erase(record.id)
+		return
 	for binding in record.bindings.values(): binding.disconnect_edit()
 	record.bindings.clear()
 	# Foreign descendants have no record. Move them outside the managed region
@@ -466,7 +518,9 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 		if owner != null:
 			owner.add_child(child)
 			if persisted_owner != null and persisted_owner.is_ancestor_of(child): child.owner = persisted_owner
+	var id: int = node.get_instance_id()
 	node.free()
+	if manager != null: manager.managed.erase(id)
 	frees += 1
 	if Profile.is_enabled(): Profile.add("nodes_freed")
 func dispose(remove_nodes: bool, rescue: Node = null) -> void:
@@ -474,9 +528,32 @@ func dispose(remove_nodes: bool, rescue: Node = null) -> void:
 	disposed = true
 	suspend()
 	if remove_nodes and mounted != null: _free_managed(mounted,rescue)
+	_unindex(mounted)
 	mounted = null
 
 func _disconnect_bindings(record) -> void:
 	if record==null: return
 	for binding in record.bindings.values(): binding.disconnect_edit()
 	for child in record.children: _disconnect_bindings(child)
+
+func _projection_tree(record, projected: Dictionary, ordering: Dictionary) -> void:
+	if record == null or record.borrowed != null: return
+	var parent = record.node.get_ref()
+	if parent == null: return
+	var nodes: Array = []
+	var has_borrowed := false
+	for child in record.children:
+		if child == null: continue
+		var node = child.node.get_ref()
+		if node == null: continue
+		nodes.append(weakref(node))
+		if child.borrowed != null:
+			projected[node.get_instance_id()] = [node,parent]
+			has_borrowed = true
+		else: _projection_tree(child,projected,ordering)
+	if has_borrowed: ordering[parent.get_instance_id()] = nodes
+
+func _unindex(record) -> void:
+	if record == null or record.borrowed != null: return
+	state.get_ref().managed.erase(record.id)
+	for child in record.children: _unindex(child)
