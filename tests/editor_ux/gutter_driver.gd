@@ -57,6 +57,8 @@ func build_view() -> Element:
 	interface.get_resource_filesystem().scan()
 	await native_turn()
 	check(plugin._build_sources(),"E11 fixture builds")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
 	for path in [HOME,SETTINGS,ROSE]:
 		await plugin._navigation.open(path)
 		if not await until(func(): return current(path)!=null,"native source tab opens"): finish(); return
