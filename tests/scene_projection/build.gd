@@ -16,6 +16,7 @@ static func install() -> void:
 	write(path,header(path,["Element","Entry2D","VBox","Text"])+'''@bindable var tick: int = 0
 @bindable var show_children: bool = true
 @bindable var alternate: bool = false
+@bindable var single: bool = false
 @bindable var repeat_children: bool = false
 @bindable var replace_root: bool = false
 func _ready() -> void:
@@ -41,6 +42,7 @@ func proof() -> void:
 	file.store_string(JSON.stringify({"settings":settings != null,"caption":button.text if button != null else "","button_y":button.global_position.y if button != null else 0,"button_height":button.layout_size.y if button != null else 0,"hello_end":hello.global_position.y+hello.layout_size.y,"middle_y":middle.global_position.y,"clicks":settings.clicks if settings != null else 0,"persisted":settings.persisted if settings != null else 0,"native_parent":settings.get_parent()==self if settings != null else false,"owner":settings.owner==self if settings != null else false,"children":get_child_count(),"sprite":get_node("Sprite2D").position==Vector2(400,220)}))
 	file.close()
 func references():
+	if self.single: return get_node("Settings")
 	return get_children() if self.show_children else []
 func build_view() -> Element:
 	if self.replace_root: return <Entry2D name="Other"><VBox name="OtherBox">{self.references()}</VBox></Entry2D>
