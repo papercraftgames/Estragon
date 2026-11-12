@@ -1,0 +1,10 @@
+extends SceneTree
+const A = preload("res://addons/estragon/runtime/composition/state.tres")
+const B = preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres")
+func _initialize() -> void:
+	A.get("records")[11] = "state"
+	B.get("projections")[22] = "projection"
+	print("B direct: ",B.projections)
+	print("A direct: ",A.records)
+	print("A get: ",A.get("records")," B get: ",B.get("projections"))
+	quit()

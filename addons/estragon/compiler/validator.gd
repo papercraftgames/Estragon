@@ -226,7 +226,7 @@ func _child_result(tokens: Array, span) -> void:
 		if begin<tokens.size()-1: _child_result(tokens.slice(begin,tokens.size()-1),span)
 		return
 	# Unknown native expressions (locals, typed helper returns, Array.map) are
-	# runtime-validated as a complete desired tree. Obvious scalar/live Node
+	# runtime-validated as a complete desired tree. Obvious scalar/newly-created Node
 	# leaves fail at their authored span, including conditional alternatives.
 	if not tokens.is_empty():
 		var first: String = tokens[0].text
@@ -234,7 +234,7 @@ func _child_result(tokens: Array, span) -> void:
 		var scalar_call: bool = tokens.size()>1 and tokens[1].text=="(" and _direct_call(tokens,1) and first in ["int","float","bool","String","StringName","Vector2","Vector3","Color","Dictionary","NodePath"]
 		if tokens[0].kind=="identifier" and first not in ["true","false"] and not scalar_call and (not constructor or resolver.aliases.get(first,"")==(Element as Script).resource_path):
 			return
-	_error("GGX children require Element, null or nested Arrays of descriptions; scalars/live Nodes reject",tokens[0].span if not tokens.is_empty() else span)
+	_error("GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject",tokens[0].span if not tokens.is_empty() else span)
 
 func _native_type(property: Dictionary) -> String:
 	if property.type == TYPE_OBJECT:

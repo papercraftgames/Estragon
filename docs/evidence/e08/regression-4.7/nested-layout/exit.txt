@@ -1,0 +1,13 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L03_GEOMETRY after {"UI/Column/Fun":{"position":"(0.0, 260.0)","size":"(104.0, 28.0)"},"UI/Column/Hello":{"position":"(0.0, 232.0)","size":"(119.0, 28.0)"},"UI/Column/Rose/Row/RoseText":{"position":"(0.0, 332.0)","size":"(120.0, 28.0)"},"UI/Column/Settings/Row/Exit":{"position":"(0.0, 288.0)","size":"(64.0, 44.0)"}}
+L03_CHECK nested Rose Text receives nonzero allocation: true
+L03_CHECK Settings Exit follows outer texts below flex spacer: true
+L03_CHECK Rose follows Settings in bottom VBox region without overlap: true
+L03_CHECK host placement does not duplicate root offset: true
+L03_CHECK managed hosts and views remain transient native Nodes: true
+L03_EXIT_READY
+L03_EXIT_QUIT

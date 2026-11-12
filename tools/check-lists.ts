@@ -25,6 +25,9 @@ for (const selection of options.engines) {
                     if (!/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(l))
                         return false;
                     if (name === 'rejection' && l === 'ERROR: Invalid composition output or foreign boundary conflict; previous tree retained') return false;
+                    // Mode7 deliberately returns self: E08 now explains why this
+                    // is not an eligible persistent direct scene-child reference.
+                    if (name === 'rejection' && /^ERROR: examples\/inventory\/Inventory\.gogo:\d+:\d+: GGX borrowed children must be persistent direct children of the rendering host: \/root\/[^/]+$/.test(l)) return false;
                     if (l === 'ERROR: An EditorPlugin build callback failed.' || l === 'ERROR: Cannot save text file \'res://examples/inventory/Inventory.gogo\'.')
                         return false;
                     if ((/^SCRIPT ERROR: Parse Error:/.test(l) && /res:\/\/examples\/inventory\/generated\/Inventory\.gd:\d+\)/.test(lines[i + 1] || '') || /^examples\/inventory\/Inventory\.gogo:\d+:\d+: Parse Error:/.test(l)) && /Identifier "missing_handler" not declared|Cannot find member|Cannot assign|Cannot pass|Invalid argument|Cannot convert|Invalid access/.test(l)) return false;

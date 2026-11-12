@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjnu2tp81ydjs"]
+
+[ext_resource type="Script" path="res://app/generated/Home.gd" id="1_hl5co"]
+[ext_resource type="Script" path="res://app/generated/Settings.gd" id="2_j7y1j"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7qp33"]
+width = 24
+height = 24
+
+[node name="Home" type="Node2D"]
+script = ExtResource("1_hl5co")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(400, 220)
+texture = SubResource("GradientTexture2D_7qp33")
+
+[node name="Settings" type="Node2D" parent="."]
+script = ExtResource("2_j7y1j")
+persisted = 42

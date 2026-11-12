@@ -121,6 +121,8 @@ The **reconciler record**, external to Godot Nodes, holds previous declared valu
 
 **Foreign children:** reconcile only descendants explicitly owned by the declared GGX managed region. A native game script's unrelated children stay untouched, including when parent Node happens to be a managed type. If a foreign child conflicts with the desired sibling position/name/ownership, fail visibly or use a well-defined managed insertion boundary; **never delete foreign Nodes to make a virtual tree match**. A rendering root registers its managed boundaries with the runtime manager, not by tagging child Nodes.
 
+**E08 borrowed scene children:** [ordinary native child expressions](SCENE_CHILDREN.md) can explicitly reference persistent direct children of the rendering host. Borrowed records never construct/apply properties/free/unmount or reparent those Nodes. External managed-node identities exclude generated output; external logical layout edges/order reuse the existing coordinator/core while native owner/parent/path, rendering/physics and scene serialization remain authoritative. Plain nodes have no inferred footprint; duplicates/external references reject before commit. This is bounded explicit borrowing, not reconciliation ownership of the full native scene.
+
 **No full-scene rendering:** a component's dependent change reexecutes that component's function; siblings outside its dependency scope are not touched. Inside the affected component it is fine to walk its declarative children, because maintaining *more* fine-grained tracking than the cost of recomposition may be counterproductive. Optimize static subtrees, descriptor allocation or child recomposition only after measuring.
 
 ## 6. Update scheduler, deep nesting and safety

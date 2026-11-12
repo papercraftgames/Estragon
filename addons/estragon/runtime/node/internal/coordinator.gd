@@ -28,7 +28,8 @@ func _init(host: Node, dimension: int, mode: int = Mode.PROOF) -> void:
 func parent_coordinator():
 	var host = _host.get_ref()
 	if host == null or _mode == Mode.ENTRY: return null
-	return participant(host.get_parent())
+	var projected = CompositionHosts.projected_parent(host)
+	return participant(projected if projected != null else host.get_parent())
 
 func participant(node: Node):
 	if node == null: return null
@@ -100,6 +101,7 @@ func _sync() -> void:
 	var host: Node = _host.get_ref()
 	var children: Array = host.get_children() if _mode != Mode.COMPOSITION else []
 	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
+	children = CompositionHosts.children(host,children)
 	for child in children:
 		var found = participant(child)
 		if found != null and found._mode != Mode.ENTRY: values.append(found.model)
@@ -135,6 +137,7 @@ func _flush() -> void:
 	if _viewport_scale(host) > 0 and _viewport != null:
 		available.x = _viewport.get_visible_rect().size.x * _viewport_scale(host)
 	model.arrange(available)
+	CompositionHosts.refresh_positions(self)
 
 func _place(offset: Vector3) -> void:
 	var host = _host.get_ref()
@@ -142,6 +145,12 @@ func _place(offset: Vector3) -> void:
 	if host.has_method("apply_layout_position"): host.apply_layout_position(offset)
 	elif _dimension == 2: host.position = Vector2(offset.x, offset.y)
 	else: host.position = offset
+	var projected = CompositionHosts.projected_parent(host)
+	if projected != null:
+		# Apply the participant/adapter's own origin policy first, then convert
+		# its logical position using Godot transforms (including top_level).
+		if host is Node2D and projected is Node2D: host.global_position = projected.to_global(host.position)
+		elif host is Node3D and projected is Node3D: host.global_position = projected.to_global(host.position)
 
 func _arranged(size: Vector3) -> void:
 	var host = _host.get_ref()

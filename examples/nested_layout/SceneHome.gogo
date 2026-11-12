@@ -1,0 +1,13 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+func build_view() -> Element:
+	return <Entry2D position={Vector2(24,24)}>
+		<VBox gap={8.0}>
+			<Text text="Hello World!" />
+			{get_children()}
+			<Text text="After the scene-authored Settings" />
+		</VBox>
+	</Entry2D>

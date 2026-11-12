@@ -1,0 +1,430 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+LISTS_EDITOR_CHECK real native Gogo CodeEdit: true
+LISTS_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 2.742
+LISTS_EDITOR_CHECK normal Play saves latest native inventory: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/inventory/generated/Inventory.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://addons/estragon/editor/plugin.gd:175)
+              [7] _play (res://tests/lists/editor/driver.gd:81)
+              [8] _blocked (res://tests/lists/editor/driver.gd:107)
+              [9] _run (res://tests/lists/editor/driver.gd:139)
+              [10] _success (res://tests/lists/editor/driver.gd:96)
+              [11] _until (res://tests/lists/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:28:37: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:81)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:139)
+         [7] _success (res://tests/lists/editor/driver.gd:96)
+         [8] _until (res://tests/lists/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:81)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:139)
+       [3] _success (res://tests/lists/editor/driver.gd:96)
+       [4] _until (res://tests/lists/editor/driver.gd:33)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/inventory/generated/Inventory.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:28:37: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK project blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK project reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 5.235
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:41:4: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:81)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:141)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:81)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:141)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:41:4: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK project blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK project reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 2.541
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:25:16: GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:81)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:143)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:81)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:143)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:25:16: GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK project blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK project reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 2.957
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:17:48: GGX key must be an integer or nonempty String
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:81)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:145)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:81)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:145)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:17:48: GGX key must be an integer or nonempty String
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK project blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK project reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 2.96
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 2.948
+ERROR: Cannot save text file 'res://examples/inventory/Inventory.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://addons/estragon/editor/plugin.gd:188)
+       [2] _build (res://addons/estragon/editor/plugin.gd:175)
+       [3] _play (res://tests/lists/editor/driver.gd:81)
+       [4] _blocked (res://tests/lists/editor/driver.gd:107)
+       [5] _run (res://tests/lists/editor/driver.gd:152)
+       [6] _success (res://tests/lists/editor/driver.gd:96)
+       [7] _until (res://tests/lists/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/inventory/Inventory.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _build_sources (res://addons/estragon/editor/plugin.gd:194)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/lists/editor/driver.gd:81)
+         [4] _blocked (res://tests/lists/editor/driver.gd:107)
+         [5] _run (res://tests/lists/editor/driver.gd:152)
+         [6] _success (res://tests/lists/editor/driver.gd:96)
+         [7] _until (res://tests/lists/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:81)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:152)
+       [3] _success (res://tests/lists/editor/driver.gd:96)
+       [4] _until (res://tests/lists/editor/driver.gd:33)
+LISTS_EDITOR_CHECK project blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK project reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.765
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 2.777
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 2.848
+LISTS_EDITOR_CHECK normal Play saves latest native inventory: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/inventory/generated/Inventory.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://addons/estragon/editor/plugin.gd:175)
+              [7] _play (res://tests/lists/editor/driver.gd:82)
+              [8] _blocked (res://tests/lists/editor/driver.gd:107)
+              [9] _run (res://tests/lists/editor/driver.gd:139)
+              [10] _success (res://tests/lists/editor/driver.gd:96)
+              [11] _until (res://tests/lists/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:28:37: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:82)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:139)
+         [7] _success (res://tests/lists/editor/driver.gd:96)
+         [8] _until (res://tests/lists/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:82)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:139)
+       [3] _success (res://tests/lists/editor/driver.gd:96)
+       [4] _until (res://tests/lists/editor/driver.gd:33)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/inventory/generated/Inventory.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:28:37: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK current blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK current reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 5.297
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:41:4: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:82)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:141)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:82)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:141)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:41:4: Expected </RefCounted>, found </Entry>
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK current blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK current reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 2.801
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:25:16: GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:82)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:143)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:82)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:143)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:25:16: GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK current blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK current reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.204
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:17:48: GGX key must be an integer or nonempty String
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/lists/editor/driver.gd:82)
+         [5] _blocked (res://tests/lists/editor/driver.gd:107)
+         [6] _run (res://tests/lists/editor/driver.gd:145)
+         [7] _blocked (res://tests/lists/editor/driver.gd:114)
+         [8] _wait (res://tests/lists/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:82)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:145)
+       [3] _blocked (res://tests/lists/editor/driver.gd:114)
+       [4] _wait (res://tests/lists/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/inventory/Inventory.gogo:17:48: GGX key must be an integer or nonempty String
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:171)
+LISTS_EDITOR_CHECK current blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK current reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.453
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 2.957
+ERROR: Cannot save text file 'res://examples/inventory/Inventory.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://addons/estragon/editor/plugin.gd:188)
+       [2] _build (res://addons/estragon/editor/plugin.gd:175)
+       [3] _play (res://tests/lists/editor/driver.gd:82)
+       [4] _blocked (res://tests/lists/editor/driver.gd:107)
+       [5] _run (res://tests/lists/editor/driver.gd:152)
+       [6] _success (res://tests/lists/editor/driver.gd:96)
+       [7] _until (res://tests/lists/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/inventory/Inventory.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+         [1] _build_sources (res://addons/estragon/editor/plugin.gd:194)
+         [2] _build (res://addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/lists/editor/driver.gd:82)
+         [4] _blocked (res://tests/lists/editor/driver.gd:107)
+         [5] _run (res://tests/lists/editor/driver.gd:152)
+         [6] _success (res://tests/lists/editor/driver.gd:96)
+         [7] _until (res://tests/lists/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/lists/editor/driver.gd:82)
+       [1] _blocked (res://tests/lists/editor/driver.gd:107)
+       [2] _run (res://tests/lists/editor/driver.gd:152)
+       [3] _success (res://tests/lists/editor/driver.gd:96)
+       [4] _until (res://tests/lists/editor/driver.gd:33)
+LISTS_EDITOR_CHECK current blocks stale child execution: Inventory.gogo:: true
+LISTS_EDITOR_CHECK current reports useful failure: Inventory.gogo:: true
+LISTS_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+LISTS_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.781
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LISTS_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 3.107
+LISTS_EDITOR_ASSERTIONS 50
+LISTS_EDITOR_OK

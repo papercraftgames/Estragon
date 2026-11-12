@@ -1,0 +1,59 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E08_EDITOR_CHECK Settings authored source offered through existing native scene integration: true
+E08_EDITOR_CHECK actual Settings native instance has authored association/owner: true
+E08_EDITOR_CHECK native Undo removes Settings without deleting the retained instance: true
+E08_EDITOR_CHECK native Redo restores the same Settings instance: true
+E08_EDITOR_CHECK native scene API authors owned Sprite2D alongside Gogo child: true
+E08_EDITOR_CHECK native authored exported property is editable: true
+E08_EDITOR_CHECK native authored children save before Play: true
+E08_EDITOR_CHECK native scene deletion retains undo reference: true
+E08_EDITOR_CHECK Undo deletion restores exact instance, exported state and ownership: true
+E08_EDITOR_CHECK Redo deletion removes only authored child: true
+E08_EDITOR_CHECK second Undo repairs scene before Play: true
+E08_EDITOR_CHECK scene saves after delete/undo/redo: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E08_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E08_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+E08_EDITOR_CHECK both Play paths forced-save unsaved Gogo dependency: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Settings.gogo:11:98: Expected </VBox>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Settings.gogo:11:98: Expected </VBox>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+E08_EDITOR_CHECK invalid child Gogo blocks native Play: true
+E08_EDITOR_CHECK failed source reload retains maps/bytes/timestamps/Script identity: true
+E08_EDITOR_CHECK failed source reload retains native UID: true
+E08_EDITOR_CHECK source repair recovers existing native compiler: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-Zr2Y9P/godot --path /tmp/estragon-native-Zr2Y9P/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11187 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E08_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+E08_EDITOR_CHECK native authored host scene saves without transient views: true
+E08_EDITOR_CHECK saved scene persists Home/Settings/Sprite only, with no transient output: true
+E08_EDITOR_ASSERTIONS 24 failed=false
+E08_EDITOR_OK

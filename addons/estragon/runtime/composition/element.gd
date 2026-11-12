@@ -2,6 +2,8 @@
 extends RefCounted
 const Profile = preload("profile.tres")
 ## Desired values only. No native Node is allocated during description creation.
+# Internal normalized weak reference, only populated by child normalization.
+var borrowed: WeakRef
 var type: Variant
 var properties: Dictionary
 var bindings: Dictionary = {}

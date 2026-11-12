@@ -1,0 +1,40 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+ERROR: app/Home.gogo:40:3: GGX scene child referenced more than once: /root/Home/Settings
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flatten (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:181)
+       [1] _flatten (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:169)
+       [2] _normalize (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:157)
+       [3] _flatten (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:189)
+       [4] _normalize (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:157)
+       [5] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:118)
+       [6] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:121)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+E08_CHECK duplicate projections reject atomically before mutating previous native tree: true
+E08_CHECK repair recovers existing projection: true
+ERROR: negative.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: /root/@Node2D@2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flatten (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:177)
+       [1] _normalize (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:157)
+       [2] negatives (res://tests/scene_projection/runtime.gd:245)
+       [3] frames (res://tests/scene_projection/runtime.gd:15)
+ERROR: detached.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: Detached
+   at: push_error (core/variant/variant_utility.cpp:1023)
+E08_CHECK external native reference is rejected without parent/owner mutation: true
+   GDScript backtrace (most recent call first):
+       [0] _flatten (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:177)
+       [1] _normalize (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:157)
+       [2] negatives (res://tests/scene_projection/runtime.gd:249)
+       [3] frames (res://tests/scene_projection/runtime.gd:15)
+E08_CHECK detached reference rejects cleanly without asking Godot for an invalid tree path: true
+E08_NEGATIVE_ASSERTIONS 4 failed=false
+E08_NEGATIVE_OK
