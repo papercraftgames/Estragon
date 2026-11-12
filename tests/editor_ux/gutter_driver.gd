@@ -124,8 +124,10 @@ func build_view() -> Element:
 	# Short buffer detach/remove must preserve source/undo/native marks.
 	var short_path := "res://app/Short.gogo"
 	Fixture.write(short_path,"extends Node2D")
+	interface.get_resource_filesystem().scan()
+	await native_turn()
 	await plugin._navigation.open(short_path)
-	await until(func(): return current(short_path)!=null,"one-line source opens")
+	if not await until(func(): return current(short_path)!=null,"one-line source opens"): finish(); return
 	var short_code := current(short_path)
 	phase(short_code,"one-line source")
 	var short_text := short_code.text
