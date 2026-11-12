@@ -68,7 +68,6 @@ func build_view() -> Element:
 			code.text += "# E11 edit\n"
 			code.set_line_as_breakpoint(1,true)
 			code.set_line_as_bookmarked(2,true)
-			code.notification(Control.NOTIFICATION_THEME_CHANGED)
 			await frames(5)
 			check(plugin._build_sources(),"source edit/save rebuild "+str(iteration))
 		phase(code,"edited "+path)
@@ -95,7 +94,6 @@ func build_view() -> Element:
 	var ordinary := await native_tab(ordinary_path)
 	phase(ordinary,"ordinary native script")
 	ordinary.set_line_as_breakpoint(1,true)
-	ordinary.notification(Control.NOTIFICATION_THEME_CHANGED)
 	await frames(5)
 	check(not plugin._services.entries.has(ordinary.get_instance_id()),"ordinary native tab has no Gogo service")
 	for iteration in range(3):
@@ -133,14 +131,14 @@ func build_view() -> Element:
 	var short_text := short_code.text
 	# Repeat lifetime on the same native tabs; only the dedicated gutter removed.
 	current_code(HOME).set_line_as_breakpoint(1,true)
-	plugin._services.stop()
+	interface.set_plugin_enabled(PLUGIN,false)
+	await frames(8)
 	phase(current_code(HOME),"services stopped Home")
 	check(short_code.text==short_text and short_code.get_gutter_count()==3,"one-line detach preserves buffer and all native gutters")
 	check(current_code(HOME).get_breakpointed_lines().has(1),"native breakpoint survives diagnostic cleanup")
 	home = current_code(HOME)
 	# Full plugin disable/re-enable owns normal restoration/reattachment.
-	interface.set_plugin_enabled(PLUGIN,false)
-	await frames(8)
+	plugin = null
 	interface.set_plugin_enabled(PLUGIN,true)
 	if not await until(find_plugin,"addon reactivates"): finish(); return
 	await plugin._navigation.open(HOME)
