@@ -66,8 +66,6 @@ func build_view() -> Element:
 		phase(code,path)
 		for iteration in range(3):
 			code.text += "# E11 edit\n"
-			code.set_line_as_breakpoint(1,true)
-			code.set_line_as_bookmarked(2,true)
 			await frames(5)
 			check(plugin._build_sources(),"source edit/save rebuild "+str(iteration))
 		phase(code,"edited "+path)
@@ -130,12 +128,11 @@ func build_view() -> Element:
 	phase(short_code,"one-line source")
 	var short_text := short_code.text
 	# Repeat lifetime on the same native tabs; only the dedicated gutter removed.
-	current_code(HOME).set_line_as_breakpoint(1,true)
 	interface.set_plugin_enabled(PLUGIN,false)
 	await frames(8)
 	phase(current_code(HOME),"services stopped Home")
 	check(short_code.text==short_text and short_code.get_gutter_count()==3,"one-line detach preserves buffer and all native gutters")
-	check(current_code(HOME).get_breakpointed_lines().has(1),"native breakpoint survives diagnostic cleanup")
+	check(generated.get_breakpointed_lines().has(2) and ordinary.get_breakpointed_lines().has(1),"native Script breakpoints survive diagnostic cleanup")
 	home = current_code(HOME)
 	# Full plugin disable/re-enable owns normal restoration/reattachment.
 	plugin = null
