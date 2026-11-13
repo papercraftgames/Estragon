@@ -354,7 +354,9 @@ func examples() -> void:
 		await frames()
 		if name=="NativeHome":
 			var button: Button = node.find_children("*","Button",true,false)[0]
-			var texts: Array = node.find_children("*","EstragonText",true,false)
+			var texts: Array = []
+			for child in node.find_children("*","",true,false):
+				if child.get_script()==preload("res://addons/estragon/runtime/node/text.gd"): texts.append(child)
 			check(button!=null and texts.size()==3 and texts[2].global_position.y>=button.global_position.y+button.size.y,"runnable owner native example has separated Exit/Rose")
 		else:
 			var borrowed: Button = node.get_node("SceneButton")

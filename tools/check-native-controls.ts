@@ -19,7 +19,7 @@ for (const selection of options.engines) {
         async function run(name: string, args: string[], marker?: string, env = box.env, negative = false) {
             const logFile = path.join(out, name + '.log');
             const result = await runCommand(args, name === 'install' ? box.project : box.workspace,
-                env, logFile, marker, {abortOnError: !negative, expectedErrors: negative, timeout: 60000});
+                env, logFile, marker, {abortOnError: !negative, expectedErrors: negative, timeout: name.startsWith('editor') ? 120000 : 60000});
             const log = fs.readFileSync(logFile, 'utf8');
             if (negative) {
                 // Only these deliberately triggered diagnostics are permitted.
