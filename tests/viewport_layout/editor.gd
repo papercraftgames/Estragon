@@ -23,6 +23,11 @@ func ready() -> bool:
 	for node in get_tree().root.find_children("*","EditorPlugin",true,false):
 		if node!=self and node.get_script()!=null and node.get_script().resource_path=="res://addons/estragon/editor/plugin.gd": plugin = node
 	return plugin!=null and plugin.last_report.get("ok",false) and not plugin._extensions_pending
+func home_code() -> CodeEdit:
+	for item in plugin._services.entries.values():
+		var code = item.code.get_ref()
+		if item.path=="res://app/Home.gogo" and code!=null and code.is_visible_in_tree(): return code
+	return null
 func proof_ready() -> bool:
 	var path := "res://.godot/l05-game.json"
 	if not FileAccess.file_exists(path): return false
@@ -47,10 +52,8 @@ func run() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null,"authored scene opens")
 	if not FileAccess.file_exists("res://.godot/l05-restart"):
 		await plugin._navigation.open("res://app/Home.gogo")
-		var code: CodeEdit
-		for item in plugin._services.entries.values():
-			if item.path=="res://app/Home.gogo": code = item.code.get_ref()
-		check(code!=null,"native authored source editor opens")
+		await until(func(): return home_code()!=null,"native authored source editor opens")
+		var code := home_code()
 		if code!=null:
 			var original := code.text
 			var at := original.find("viewport_height_scale")

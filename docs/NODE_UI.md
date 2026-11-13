@@ -128,3 +128,34 @@ func build_view() -> Element:
 ```
 
 The TextureRect's texture supplies its natural minimum under Godot's native expand mode. The example creates a 64×24 ImageTexture in `_ready`. `<NativeSettings />` returns an HBox/native Button and inherits its parent's Entry; it needs no independent Entry. [Exact focused Linux evidence](evidence/L04_NATIVE_CONTROLS.md) distinguishes native graphics/editor proof from manual-interactive or release certification.
+
+## L05 — follow both viewport dimensions
+
+Entries expose independent exported float properties `viewport_width_scale` and `viewport_height_scale`, both defaulting to `0.0` (disabled). Positive scales allocate that axis from the Entry's own native `get_visible_rect().size`. A positive scale overrides the Entry's fixed `width`/`height` on that axis; zero uses its normal fixed/natural measurement. This preserves existing width precedence and applies the same rule to height. Finite nonnegative values are accepted; negative/NAN/INF writes retain the previous valid value, and equal writes do no layout work.
+
+```gogo
+func build_view() -> Element:
+    return <Entry2D viewport_width_scale={1.0} viewport_height_scale={1.0}>
+        <VBox fill_width={true} fill_height={true}>
+            <VBox fill_height={true} />
+            <Text text="Hello World!" />
+            <Text text="This is fun!" />
+            <NativeSettings />
+            <Rose />
+        </VBox>
+    </Entry2D>
+```
+
+Run [NativeHome.tscn](../examples/nested_layout/NativeHome.tscn), whose [source](../examples/nested_layout/NativeHome.gogo) now uses this API without application resize handlers. Native viewport resize signals coalesce a deferred layout pass. Existing nested hosts, native Controls and borrowed scene children keep their identities and layout/input contracts; Gogo views do not rerun for this layout-only event. Unchanged sibling measurements stay cached and idle frames add no layout passes. Each independent Entry owns its own viewport listener, disconnected/rebound on detach/re-entry.
+
+| Scales | Allocation |
+| --- | --- |
+| X=1, Y=1 | Full live visible viewport on both axes |
+| X=0.9, Y=0.75 | Independent live fractions |
+| X=1, Y=0 | Live width; normal fixed/natural height |
+| X=0, Y=1 | Normal fixed/natural width; live height |
+| X=0, Y=0 | Existing fixed/natural defaults |
+
+`width={get_viewport_rect().size.x}` and `height={get_viewport_rect().size.y}` are **snapshots when the Gogo function composes**. Reading those native methods does not subscribe the function to resize; use the explicit scale API to follow a viewport. It does not make all GDScript expressions reactive. Viewport scales are unrelated to parent-relative percentages (#129), Box padding/margins (#55) or a CSS `100%` grammar.
+
+Dimensions are native visible viewport coordinates, including SubViewport/stretch/project scaling behavior, rather than OS window chrome or raw render-target pixels. Native zero/near-zero viewport requests may be clamped by Godot; layout follows the actual visible rect. `Entry3D` exposes the same two properties with **application-chosen world units per visible viewport pixel**: e.g. X=0.01, Y=0.02. There is no automatic conversion or depth scaling; Z keeps its existing fixed/natural value. See [native API](NODE_RUNTIME.md), [focused evidence](evidence/L05_VIEWPORT_LAYOUT.md).

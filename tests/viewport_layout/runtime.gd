@@ -159,6 +159,15 @@ func axes_and_lifetime() -> void:
 		check(independent.get_layout_root()==independent and is_equal_approx(independent.layout.model.size.y,45*world) and not entry.layout.model.children.has(independent.layout.model),"nested Entry remains an independent native viewport scope "+str(dimension))
 		other.free()
 		await frames()
+	var spatial = load("res://app/generated/Spatial.gd").new()
+	view.add_child(spatial)
+	await frames()
+	check(spatial.get_node("UI").layout_size.is_equal_approx(Vector3(4,6,7)),"compiled Gogo Entry3D uses explicit X/Y world scales and preserves depth")
+	view.size_2d_override = Vector2i(320,180)
+	view.size_2d_override_stretch = true
+	await frames()
+	var visible := view.get_visible_rect().size
+	check(spatial.get_node("UI").layout_size.is_equal_approx(Vector3(visible.x*0.01,visible.y*0.02,7)),"native viewport stretch uses visible coordinates instead of render-target pixels")
 	view.free()
 	await frames()
 
@@ -174,5 +183,9 @@ func language() -> void:
 	preload("build.gd").write("res://app/Home.gogo",original.replace("viewport_height_scale","viewport_heigth_scale"))
 	var report := Build.run_build()
 	check(not report.ok and str(report.diagnostics).contains("viewport_heigth_scale") and FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps and load(output)==script,"misspelled GGX scale rejects with authored diagnostic and keeps valid Script/maps")
+	preload("build.gd").write("res://app/Home.gogo",original.replace('viewport_height_scale={1.0}','viewport_height_scale="bad"'))
+	report = Build.run_build()
+	print("L05_TYPED_DIAGNOSTIC ",JSON.stringify(report))
+	check(not report.ok and str(report.diagnostics).contains("Typed Node values require") and not report.source_diagnostics.is_empty() and FileAccess.get_file_as_bytes(output)==bytes,"non-string scale retains authored typed GGX expression validation")
 	preload("build.gd").write("res://app/Home.gogo",original)
 	check(Build.run_build().ok,"repair recovers native actual-path compilation")

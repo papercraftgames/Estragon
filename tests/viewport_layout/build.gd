@@ -67,6 +67,10 @@ func build_view() -> Element:
 	write(path,header(path,["Element","HBox","Text"])+'''func build_view() -> Element:
 	return <HBox name="Row"><Text name="RoseText" text="Rose is cute!" /></HBox>
 ''')
+	path = "res://app/Spatial.gogo"
+	write(path,header(path,["Element","Entry3D"]).replace("extends Node2D","extends Node3D")+'''func build_view() -> Element:
+	return <Entry3D name="UI" viewport_width_scale={0.01} viewport_height_scale={0.02} depth={7.0} />
+''')
 	var result := Build.run_build()
 	print("L05_BUILD ",JSON.stringify(result))
 	if result.ok:
