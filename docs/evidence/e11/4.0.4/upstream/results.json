@@ -1,0 +1,27 @@
+{
+  "upstream_probe": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XYszyx/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--path",
+      "/tmp/estragon-native-XYszyx/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 13.55,
+    "godot_pid": 2605,
+    "log": "upstream.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "expected_lazy_validation_errors": 0,
+  "unexpected_errors": [],
+  "normal_activation_control": "PASS"
+}

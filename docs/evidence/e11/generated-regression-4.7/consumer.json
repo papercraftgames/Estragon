@@ -1,0 +1,13 @@
+{
+  "source": "47e0f9db4554b5a25e243afca8c9a1c20fcd34d6",
+  "profile": "E09-generated-editors",
+  "tarball_sha256": "a9eb230dc04753fad5039df8a2158888a889fc5ef566939765c40ccaeb3c2897",
+  "direct_yarn": true,
+  "package_unchanged": true,
+  "template_layouts": [
+    "direct",
+    "relocated",
+    "standard"
+  ],
+  "external_compiler": false
+}

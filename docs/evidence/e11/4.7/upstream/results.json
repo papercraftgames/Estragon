@@ -1,0 +1,35 @@
+{
+  "upstream_probe": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-UM8pPC/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--path",
+      "/tmp/estragon-native-UM8pPC/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 14.84,
+    "godot_pid": 3248,
+    "log": "upstream.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: Index p_gutter = -1 is out of bounds (gutters.size() = 4).",
+      "   at: set_line_gutter_item_color (scene/gui/text_edit.cpp:6981)",
+      "ERROR: Index p_gutter = -1 is out of bounds (gutters.size() = 4).",
+      "   at: set_line_gutter_item_color (scene/gui/text_edit.cpp:6981)",
+      "ERROR: Index p_gutter = -1 is out of bounds (gutters.size() = 4).",
+      "   at: set_line_gutter_item_color (scene/gui/text_edit.cpp:6981)",
+      "ERROR: Index p_gutter = -1 is out of bounds (gutters.size() = 4).",
+      "   at: set_line_gutter_item_color (scene/gui/text_edit.cpp:6981)"
+    ]
+  },
+  "expected_lazy_validation_errors": 4,
+  "unexpected_errors": [],
+  "normal_activation_control": "PASS"
+}

@@ -1,0 +1,765 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+XInput: Refreshing devices.
+XInput: No touch devices found.
+Detecting GPUs, set DRI_PRIME in the environment to override GPU detection logic.
+Text-to-Speech: Cannot initialize Speech Dispatcher synthesizer!
+Only one GPU found, using default.
+XcursorGetTheme could not get cursor theme
+Failed loading custom cursor: left_ptr
+Failed loading custom cursor: xterm
+Failed loading custom cursor: hand2
+Failed loading custom cursor: cross
+Failed loading custom cursor: watch
+Failed loading custom cursor: left_ptr_watch
+Failed loading custom cursor: fleur
+Failed loading custom cursor: dnd-move
+Failed loading custom cursor: crossed_circle
+Failed loading custom cursor: v_double_arrow
+Failed loading custom cursor: h_double_arrow
+Failed loading custom cursor: size_bdiag
+Failed loading custom cursor: size_fdiag
+Failed loading custom cursor: move
+Failed loading custom cursor: row_resize
+Failed loading custom cursor: col_resize
+Failed loading custom cursor: question_arrow
+Using "default" pen tablet driver...
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+JoypadLinux: udev enabled and loaded successfully.
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 4271155933
+EDITOR API HASH: 1077268510
+Class 'EditorPropertyNameProcessor' is not exposed, skipping.
+Class 'GDScriptEditorTranslationParserPlugin' is not exposed, skipping.
+Class 'GDScriptNativeClass' is not exposed, skipping.
+Class 'GodotPhysicsServer2D' is not exposed, skipping.
+Class 'GodotPhysicsServer3D' is not exposed, skipping.
+Class 'IPUnix' is not exposed, skipping.
+Class 'MovieWriterMJPEG' is not exposed, skipping.
+Class 'MovieWriterPNGWAV' is not exposed, skipping.
+Class 'ResourceFormatImporterSaver' is not exposed, skipping.
+Class 'ResourceImporterMP3' is not exposed, skipping.
+Class 'ResourceImporterOggVorbis' is not exposed, skipping.
+Class 'SceneCacheInterface' is not exposed, skipping.
+Class 'SceneRPCInterface' is not exposed, skipping.
+Class 'SceneReplicationInterface' is not exposed, skipping.
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+Loaded builtin certs
+EditorSettings: Save OK!
+Loading resource: res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd
+Loading resource: res://tests/editor_ux/gutter_driver.gd
+E02_EDITOR_CHECK E11 fixture builds: true
+EditorSettings: Save OK!
+E11_PHASE res://app/Screens/Home.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Home.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":34,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE res://app/Screens/Settings.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":12,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Settings.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":15,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE res://app/Screens/Rose.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":6,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Rose.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK E11 native quit completion native popup contains expected candidate: true
+E02_EDITOR_CHECK E11 native quit completion native confirmation inserts correct text: true
+E02_EDITOR_CHECK E11 native quit completion insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK E11 native quit completion undo restores caret: true
+E02_EDITOR_CHECK E11 native quit completion insertion redo: true
+E02_EDITOR_CHECK restore source after completion: true
+Loading resource: res://app/Screens/generated/Settings.gd
+E11_PHASE generated read-only {"editable":false,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":29,"script":"<null>"}
+E02_EDITOR_CHECK generated protection retains native breakpoint: true
+E02_EDITOR_CHECK generated no-op/changed native view refresh: true
+E11_PHASE generated refreshed {"editable":false,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":30,"script":"<null>"}
+E11_PHASE ordinary native script {"editable":true,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":4,"script":"<null>"}
+E02_EDITOR_CHECK ordinary native tab has no Gogo service: true
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK E11 Settings quit completion native popup contains expected candidate: true
+E02_EDITOR_CHECK E11 Settings quit completion native confirmation inserts correct text: true
+E02_EDITOR_CHECK E11 Settings quit completion insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK E11 Settings quit completion undo restores caret: true
+E02_EDITOR_CHECK E11 Settings quit completion insertion redo: true
+E02_EDITOR_CHECK Settings completion/UndoRedo preserves exact GGX buffer: true
+E02_EDITOR_CHECK completed Settings source saves/builds: true
+E02_EDITOR_CHECK diagnostic gutter is located by its owned name: true
+E11_PHASE syntax diagnostic {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":17,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK repair diagnostic source: true
+E11_PHASE one-line source {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":1,"script":"<GDScript#-9223370587722687914>"}
+E11_PHASE services stopped Home {"editable":true,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"line_numbers","type":2},{"draw":true,"index":2,"name":"fold_gutter","type":2}],"lines":31,"script":"<null>"}
+E02_EDITOR_CHECK one-line detach preserves buffer and all native gutters: true
+E02_EDITOR_CHECK native breakpoint survives diagnostic cleanup: true
+Loading resource: res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd
+E11_PHASE reactivated {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587722687914>"}
+E02_EDITOR_CHECK re-enabled source builds: true
+Loading resource: res://app/Screens/generated/Home.gd
+Loading resource: res://app/Screens/generated/Settings.gd
+Remote Debugger: Connected!
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+XInput: Refreshing devices.
+XInput: No touch devices found.
+Detecting GPUs, set DRI_PRIME in the environment to override GPU detection logic.
+Text-to-Speech: Cannot initialize Speech Dispatcher synthesizer!
+Only one GPU found, using default.
+XcursorGetTheme could not get cursor theme
+Failed loading custom cursor: left_ptr
+Failed loading custom cursor: xterm
+Failed loading custom cursor: hand2
+Failed loading custom cursor: cross
+Failed loading custom cursor: watch
+Failed loading custom cursor: left_ptr_watch
+Failed loading custom cursor: fleur
+Failed loading custom cursor: dnd-move
+Failed loading custom cursor: crossed_circle
+Failed loading custom cursor: v_double_arrow
+Failed loading custom cursor: h_double_arrow
+Failed loading custom cursor: size_bdiag
+Failed loading custom cursor: size_fdiag
+Failed loading custom cursor: move
+Failed loading custom cursor: row_resize
+Failed loading custom cursor: col_resize
+Failed loading custom cursor: question_arrow
+Using "default" pen tablet driver...
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+JoypadLinux: udev enabled and loaded successfully.
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 4271155933
+EDITOR API HASH: 1077268510
+Loaded builtin certs
+E11_GAME_GEOMETRY (0, 64) (64, 44) Rose (0, 112) (120, 28)
+XR: Clearing primary interface
+XR: Removed interfaceNative mobile
+XR: Removed interfaceOpenXR
+Running: /tmp/estragon-native-OmhhgC/godot --verbose --path /tmp/estragon-native-OmhhgC/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 6960 --position 64,188 --breakpoints res://app/Ordinary.gd:2 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK main completed quit actually stops game: true
+Failed to bind socket. Error: 3
+Remote Debugger: Connected!
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+XInput: Refreshing devices.
+XInput: No touch devices found.
+Detecting GPUs, set DRI_PRIME in the environment to override GPU detection logic.
+Text-to-Speech: Cannot initialize Speech Dispatcher synthesizer!
+Only one GPU found, using default.
+XcursorGetTheme could not get cursor theme
+Failed loading custom cursor: left_ptr
+Failed loading custom cursor: xterm
+Failed loading custom cursor: hand2
+Failed loading custom cursor: cross
+Failed loading custom cursor: watch
+Failed loading custom cursor: left_ptr_watch
+Failed loading custom cursor: fleur
+Failed loading custom cursor: dnd-move
+Failed loading custom cursor: crossed_circle
+Failed loading custom cursor: v_double_arrow
+Failed loading custom cursor: h_double_arrow
+Failed loading custom cursor: size_bdiag
+Failed loading custom cursor: size_fdiag
+Failed loading custom cursor: move
+Failed loading custom cursor: row_resize
+Failed loading custom cursor: col_resize
+Failed loading custom cursor: question_arrow
+Using "default" pen tablet driver...
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+JoypadLinux: udev enabled and loaded successfully.
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 4271155933
+EDITOR API HASH: 1077268510
+Loaded builtin certs
+E11_GAME_GEOMETRY (0, 64) (64, 44) Rose (0, 112) (120, 28)
+XR: Clearing primary interface
+XR: Removed interfaceNative mobile
+XR: Removed interfaceOpenXR
+Running: /tmp/estragon-native-OmhhgC/godot --verbose --path /tmp/estragon-native-OmhhgC/project --remote-debug tcp://127.0.0.1:6008 --editor-pid 6960 --position 64,188 --breakpoints res://app/Ordinary.gd:2 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK current actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK current completed quit actually stops game: true
+E02_EDITOR_ASSERTIONS 35 failed=false
+E02_EDITOR_OK
+EditorSettings: Save OK!
+XR: Clearing primary interface
+XR: Removed interfaceNative mobile
+XR: Removed interfaceOpenXR
+ERROR: 2 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:1982)
+Leaked instance: TreeItem:968812680582326459
+Leaked instance: TreeItem:968813780093954491
+Leaked instance: TextLine:-8254557707005006974
+Leaked instance: TextLine:-8254558806516633670
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Orphan StringName: OP_MODULE
+Orphan StringName: KEY_SYSREQ
+Orphan StringName: PROPERTY_HINT_NONE
+Orphan StringName: PROPERTY_USAGE_DEFERRED_SET_RESOURCE
+Orphan StringName: INLINE_ALIGNMENT_TO_BASELINE
+Orphan StringName: JOY_BUTTON_DPAD_LEFT
+Orphan StringName: KEY_KP_SUBTRACT
+Orphan StringName: OP_LESS
+Orphan StringName: ERR_ALREADY_IN_USE
+Orphan StringName: ERR_CANT_FORK
+Orphan StringName: MIDI_MESSAGE_CONTINUE
+Orphan StringName: MOUSE_BUTTON_MASK_LEFT
+Orphan StringName: ERR_SKIP
+Orphan StringName: KEY_ENTER
+Orphan StringName: JOY_BUTTON_LEFT_STICK
+Orphan StringName: JOY_BUTTON_BACK
+Orphan StringName: KEY_GLOBE
+Orphan StringName: PROPERTY_HINT_LAYERS_2D_PHYSICS
+Orphan StringName: MethodFlags
+Orphan StringName: OP_IN
+Orphan StringName: METHOD_FLAG_OBJECT_CORE
+Orphan StringName: TYPE_PACKED_VECTOR3_ARRAY
+Orphan StringName: OP_OR
+Orphan StringName: JOY_BUTTON_INVALID
+Orphan StringName: TYPE_RID
+Orphan StringName: HORIZONTAL_ALIGNMENT_RIGHT
+Orphan StringName: PROPERTY_HINT_ENUM
+Orphan StringName: MIDI_MESSAGE_AFTERTOUCH
+Orphan StringName: KEY_MASK_SHIFT
+Orphan StringName: METHOD_FLAG_CONST
+Orphan StringName: ERR_DATABASE_CANT_WRITE
+Orphan StringName: ERR_DOES_NOT_EXIST
+Orphan StringName: MOUSE_BUTTON_WHEEL_DOWN
+Orphan StringName: JoyAxis
+Orphan StringName: ERR_PARSE_ERROR
+Orphan StringName: KEY_SEMICOLON
+Orphan StringName: TYPE_PACKED_STRING_ARRAY
+Orphan StringName: KEY_MASK_CTRL
+Orphan StringName: ERR_FILE_MISSING_DEPENDENCIES
+Orphan StringName: Error
+Orphan StringName: KEY_SCROLLLOCK
+Orphan StringName: PROPERTY_HINT_TYPE_STRING
+Orphan StringName: KEY_BACKSPACE
+Orphan StringName: GroupViewport
+Orphan StringName: KEY_HOME
+Orphan StringName: JOY_AXIS_SDL_MAX
+Orphan StringName: line
+Orphan StringName: ERR_BUG
+Orphan StringName: METHOD_FLAGS_DEFAULT
+Orphan StringName: MOUSE_BUTTON_MASK_MIDDLE
+Orphan StringName: Variant.Operator
+Orphan StringName: MouseButtonMask
+Orphan StringName: KEY_ALT
+Orphan StringName: MIDI_MESSAGE_QUARTER_FRAME
+Orphan StringName: PROPERTY_HINT_LAYERS_3D_RENDER
+Orphan StringName: KEY_PRINT
+Orphan StringName: ERR_QUERY_FAILED
+Orphan StringName: KEY_LEFT
+Orphan StringName: KEY_BAR
+Orphan StringName: KEY_QUESTION
+Orphan StringName: INLINE_ALIGNMENT_TO_CENTER
+Orphan StringName: TYPE_DICTIONARY
+Orphan StringName: PROPERTY_USAGE_NONE
+Orphan StringName: KEY_BRACKETLEFT
+Orphan StringName: KEY_FORWARD
+Orphan StringName: KEY_LESS
+Orphan StringName: PROPERTY_USAGE_ARRAY
+Orphan StringName: PROPERTY_HINT_SAVE_FILE
+Orphan StringName: HORIZONTAL
+Orphan StringName: TYPE_PROJECTION
+Orphan StringName: PROPERTY_HINT_ENUM_SUGGESTION
+Orphan StringName: ERR_LINK_FAILED
+Orphan StringName: TYPE_BASIS
+Orphan StringName: Sky
+Orphan StringName: KEY_QUOTELEFT
+Orphan StringName: KEY_MEDIAPREVIOUS
+Orphan StringName: KEY_NUMBERSIGN
+Orphan StringName: OP_SHIFT_LEFT
+Orphan StringName: KEY_UNKNOWN
+Orphan StringName: JOY_BUTTON_DPAD_UP
+Orphan StringName: KEY_SPACE
+Orphan StringName: MIDI_MESSAGE_SONG_POSITION_POINTER
+Orphan StringName: PROPERTY_USAGE_STORAGE
+Orphan StringName: KEY_INSERT
+Orphan StringName: KEY_ESCAPE
+Orphan StringName: MIDI_MESSAGE_SYSTEM_EXCLUSIVE
+Orphan StringName: KEY_END
+Orphan StringName: KEY_F10
+Orphan StringName: KEY_F11
+Orphan StringName: KEY_F12
+Orphan StringName: KEY_F13
+Orphan StringName: KEY_F14
+Orphan StringName: KEY_F15
+Orphan StringName: KEY_F16
+Orphan StringName: KEY_F17
+Orphan StringName: KEY_F18
+Orphan StringName: KEY_F19
+Orphan StringName: KEY_F20
+Orphan StringName: KEY_F21
+Orphan StringName: KEY_F22
+Orphan StringName: KEY_F23
+Orphan StringName: KEY_F24
+Orphan StringName: KEY_F25
+Orphan StringName: KEY_F26
+Orphan StringName: KEY_F27
+Orphan StringName: KEY_F28
+Orphan StringName: KEY_F29
+Orphan StringName: KEY_F30
+Orphan StringName: KEY_F31
+Orphan StringName: KEY_F32
+Orphan StringName: KEY_F33
+Orphan StringName: KEY_F34
+Orphan StringName: KEY_F35
+Orphan StringName: PROPERTY_HINT_EXP_EASING
+Orphan StringName: INLINE_ALIGNMENT_TOP_TO
+Orphan StringName: KEY_KP_ADD
+Orphan StringName: KEY_CAPSLOCK
+Orphan StringName: CORNER_BOTTOM_LEFT
+Orphan StringName: JOY_BUTTON_A
+Orphan StringName: JOY_BUTTON_B
+Orphan StringName: PROPERTY_HINT_GLOBAL_SAVE_FILE
+Orphan StringName: JOY_BUTTON_X
+Orphan StringName: JOY_BUTTON_Y
+Orphan StringName: ERR_INVALID_PARAMETER
+Orphan StringName: HORIZONTAL_ALIGNMENT_LEFT
+Orphan StringName: Editor3DHandle
+Orphan StringName: KEY_STOP
+Orphan StringName: PROPERTY_HINT_GLOBAL_DIR
+Orphan StringName: INLINE_ALIGNMENT_TO_BOTTOM
+Orphan StringName: TYPE_BOOL
+Orphan StringName: JOY_BUTTON_TOUCHPAD
+Orphan StringName: TYPE_PLANE
+Orphan StringName: StatusSuccess
+Orphan StringName: INLINE_ALIGNMENT_TO_TOP
+Orphan StringName: METHOD_FLAG_VIRTUAL
+Orphan StringName: ERR_COMPILATION_FAILED
+Orphan StringName: KEY_SEARCH
+Orphan StringName: HORIZONTAL_ALIGNMENT_CENTER
+Orphan StringName: PROPERTY_HINT_DIR
+Orphan StringName: PROPERTY_HINT_NODE_TYPE
+Orphan StringName: ERR_INVALID_DECLARATION
+Orphan StringName: INLINE_ALIGNMENT_CENTER
+Orphan StringName: PROPERTY_USAGE_CLASS_IS_BITFIELD
+Orphan StringName: KEY_PARENRIGHT
+Orphan StringName: KEY_BACKTAB
+Orphan StringName: INLINE_ALIGNMENT_IMAGE_MASK
+Orphan StringName: ERR_FILE_BAD_PATH
+Orphan StringName: GuiResizer
+Orphan StringName: JOY_BUTTON_DPAD_RIGHT
+Orphan StringName: KEY_VOLUMEUP
+Orphan StringName: JOY_BUTTON_START
+Orphan StringName: SIDE_RIGHT
+Orphan StringName: PROPERTY_HINT_OBJECT_TOO_BIG
+Orphan StringName: ERR_ALREADY_EXISTS
+Orphan StringName: PROPERTY_USAGE_CATEGORY
+Orphan StringName: PROPERTY_USAGE_NEVER_DUPLICATE
+Orphan StringName: VERTICAL_ALIGNMENT_TOP
+Orphan StringName: KEY_PARENLEFT
+Orphan StringName: TYPE_PACKED_INT64_ARRAY
+Orphan StringName: KEY_COLON
+Orphan StringName: ERR_OUT_OF_MEMORY
+Orphan StringName: KEY_ASCIICIRCUM
+Orphan StringName: PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE
+Orphan StringName: KEY_SPECIAL
+Orphan StringName: GuiChecked
+Orphan StringName: KEY_ASTERISK
+Orphan StringName: KEY_COMMA
+Orphan StringName: MOUSE_BUTTON_WHEEL_LEFT
+Orphan StringName: GuiIndeterminate
+Orphan StringName: KEY_HYPER
+Orphan StringName: ERR_FILE_NOT_FOUND
+Orphan StringName: TYPE_PACKED_INT32_ARRAY
+Orphan StringName: EulerOrder
+Orphan StringName: ERR_SCRIPT_FAILED
+Orphan StringName: TYPE_PACKED_BYTE_ARRAY
+Orphan StringName: KEY_AMPERSAND
+Orphan StringName: PROPERTY_HINT_RESOURCE_TYPE
+Orphan StringName: KEY_MASK_META
+Orphan StringName: MOUSE_BUTTON_LEFT
+Orphan StringName: ERR_FILE_CORRUPT
+Orphan StringName: PROPERTY_USAGE_ALWAYS_DUPLICATE
+Orphan StringName: JOY_AXIS_TRIGGER_LEFT
+Orphan StringName: KEY_RIGHT
+Orphan StringName: INLINE_ALIGNMENT_BOTTOM
+Orphan StringName: JOY_AXIS_TRIGGER_RIGHT
+Orphan StringName: PROPERTY_HINT_HIDE_QUATERNION_EDIT
+Orphan StringName: CodeFoldedRightArrow
+Orphan StringName: MIDI_MESSAGE_NOTE_ON
+Orphan StringName: EditorBoneHandle
+Orphan StringName: PROPERTY_USAGE_INTERNAL
+Orphan StringName: ERR_UNAUTHORIZED
+Orphan StringName: KEY_MEDIARECORD
+Orphan StringName: INLINE_ALIGNMENT_CENTER_TO
+Orphan StringName: TYPE_ARRAY
+Orphan StringName: PropertyHint
+Orphan StringName: JOY_BUTTON_SDL_MAX
+Orphan StringName: PROPERTY_USAGE_NO_INSTANCE_STATE
+Orphan StringName: TYPE_STRING_NAME
+Orphan StringName: MIDI_MESSAGE_CHANNEL_PRESSURE
+Orphan StringName: KEY_FAVORITES
+Orphan StringName: PROPERTY_USAGE_DEFAULT
+Orphan StringName: ERR_PRINTER_ON_FIRE
+Orphan StringName: TYPE_SIGNAL
+Orphan StringName: PROPERTY_HINT_MAX
+Orphan StringName: Side
+Orphan StringName: KEY_NONE
+Orphan StringName: MOUSE_BUTTON_XBUTTON1
+Orphan StringName: MOUSE_BUTTON_XBUTTON2
+Orphan StringName: TYPE_NODE_PATH
+Orphan StringName: TYPE_STRING
+Orphan StringName: KEY_MASK_KPAD
+Orphan StringName: Godot
+Orphan StringName: KEY_MASK_ALT
+Orphan StringName: ERR_FILE_CANT_READ
+Orphan StringName: PROPERTY_USAGE_RESTART_IF_CHANGED
+Orphan StringName: ERR_TIMEOUT
+Orphan StringName: SIDE_BOTTOM
+Orphan StringName: KEY_TAB
+Orphan StringName: VERTICAL
+Orphan StringName: ZoomReset
+Orphan StringName: JOY_BUTTON_RIGHT_STICK
+Orphan StringName: TYPE_AABB
+Orphan StringName: EULER_ORDER_XYZ
+Orphan StringName: EULER_ORDER_XZY
+Orphan StringName: KEY_MEDIASTOP
+Orphan StringName: TYPE_VECTOR2
+Orphan StringName: TYPE_VECTOR3
+Orphan StringName: TYPE_VECTOR4
+Orphan StringName: OP_ADD
+Orphan StringName: KEY_PLUS
+Orphan StringName: JOY_BUTTON_MAX
+Orphan StringName: KEY_CTRL
+Orphan StringName: OP_AND
+Orphan StringName: KEY_MEDIANEXT
+Orphan StringName: EULER_ORDER_YXZ
+Orphan StringName: EULER_ORDER_YZX
+Orphan StringName: PROPERTY_USAGE_CHECKED
+Orphan StringName: MIDIMessage
+Orphan StringName: KEY_PAGEUP
+Orphan StringName: EULER_ORDER_ZXY
+Orphan StringName: EULER_ORDER_ZYX
+Orphan StringName: OK
+Orphan StringName: PROPERTY_USAGE_EDITOR
+Orphan StringName: TYPE_TRANSFORM2D
+Orphan StringName: TYPE_TRANSFORM3D
+Orphan StringName: ERR_CANT_CONNECT
+Orphan StringName: INLINE_ALIGNMENT_TEXT_MASK
+Orphan StringName: KEY_BRACKETRIGHT
+Orphan StringName: OverbrightIndicator
+Orphan StringName: KEY_STANDBY
+Orphan StringName: JOY_BUTTON_LEFT_SHOULDER
+Orphan StringName: ERR_CONNECTION_ERROR
+Orphan StringName: OP_BIT_AND
+Orphan StringName: KEY_QUOTEDBL
+Orphan StringName: TYPE_FLOAT
+Orphan StringName: GuiCloseCustomizable
+Orphan StringName: ERR_CANT_CREATE
+Orphan StringName: KEY_YEN
+Orphan StringName: MIDI_MESSAGE_PITCH_BEND
+Orphan StringName: KEY_CLEAR
+Orphan StringName: JoyButton
+Orphan StringName: Variant.Type
+Orphan StringName: OP_POWER
+Orphan StringName: CodeFoldDownArrow
+Orphan StringName: CORNER_BOTTOM_RIGHT
+Orphan StringName: OP_SHIFT_RIGHT
+Orphan StringName: InlineAlignment
+Orphan StringName: GuiTab
+Orphan StringName: OP_EQUAL
+Orphan StringName: OP_GREATER
+Orphan StringName: OP_LESS_EQUAL
+Orphan StringName: ERR_METHOD_NOT_FOUND
+Orphan StringName: StatusWarning
+Orphan StringName: PROPERTY_USAGE_SCRIPT_DEFAULT_VALUE
+Orphan StringName: KEY_KP_DIVIDE
+Orphan StringName: PROPERTY_HINT_FILE
+Orphan StringName: OP_NEGATE
+Orphan StringName: PROPERTY_HINT_LOCALE_ID
+Orphan StringName: PROPERTY_HINT_PASSWORD
+Orphan StringName: ERR_CANT_ACQUIRE_RESOURCE
+Orphan StringName: KEY_0
+Orphan StringName: KEY_1
+Orphan StringName: KEY_2
+Orphan StringName: KEY_3
+Orphan StringName: KEY_4
+Orphan StringName: KEY_5
+Orphan StringName: KEY_6
+Orphan StringName: KEY_7
+Orphan StringName: KEY_8
+Orphan StringName: KEY_9
+Orphan StringName: KEY_A
+Orphan StringName: KEY_B
+Orphan StringName: KEY_C
+Orphan StringName: KEY_D
+Orphan StringName: KEY_E
+Orphan StringName: KEY_F
+Orphan StringName: KEY_G
+Orphan StringName: KEY_H
+Orphan StringName: KEY_I
+Orphan StringName: KEY_J
+Orphan StringName: KEY_K
+Orphan StringName: KEY_L
+Orphan StringName: KEY_M
+Orphan StringName: KEY_N
+Orphan StringName: KEY_O
+Orphan StringName: KEY_P
+Orphan StringName: KEY_Q
+Orphan StringName: KEY_R
+Orphan StringName: KEY_S
+Orphan StringName: KEY_T
+Orphan StringName: KEY_U
+Orphan StringName: KEY_V
+Orphan StringName: KEY_W
+Orphan StringName: KEY_X
+Orphan StringName: KEY_Y
+Orphan StringName: KEY_Z
+Orphan StringName: KEY_REFRESH
+Orphan StringName: PROPERTY_USAGE_STORE_IF_NULL
+Orphan StringName: KEY_BACK
+Orphan StringName: KEY_OPENURL
+Orphan StringName: SIDE_TOP
+Orphan StringName: PROPERTY_HINT_LAYERS_2D_NAVIGATION
+Orphan StringName: TYPE_OBJECT
+Orphan StringName: ERR_LOCKED
+Orphan StringName: KEY_APOSTROPHE
+Orphan StringName: MOUSE_BUTTON_NONE
+Orphan StringName: JOY_BUTTON_PADDLE1
+Orphan StringName: JOY_BUTTON_PADDLE2
+Orphan StringName: JOY_BUTTON_PADDLE3
+Orphan StringName: JOY_BUTTON_PADDLE4
+Orphan StringName: EditorHandle
+Orphan StringName: GuiMiniCheckerboard
+Orphan StringName: OP_GREATER_EQUAL
+Orphan StringName: ERR_CYCLIC_LINK
+Orphan StringName: KEY_LAUNCHMEDIA
+Orphan StringName: KEY_JIS_EISU
+Orphan StringName: COUNTERCLOCKWISE
+Orphan StringName: ERR_CANT_RESOLVE
+Orphan StringName: PROPERTY_USAGE_HIGH_END_GFX
+Orphan StringName: metadata/line
+Orphan StringName: PROPERTY_USAGE_UPDATE_ALL_IF_MODIFIED
+Orphan StringName: TYPE_RECT2
+Orphan StringName: ERR_FILE_CANT_WRITE
+Orphan StringName: PROPERTY_HINT_LAYERS_3D_NAVIGATION
+Orphan StringName: KEY_KP_ENTER
+Orphan StringName: ERR_UNAVAILABLE
+Orphan StringName: LockViewport
+Orphan StringName: PROPERTY_HINT_LAYERS_3D_PHYSICS
+Orphan StringName: ClockDirection
+Orphan StringName: GuiGraphNodePort
+Orphan StringName: PROPERTY_USAGE_EDITOR_INSTANTIATE_OBJECT
+Orphan StringName: KEY_VOLUMEDOWN
+Orphan StringName: METHOD_FLAG_EDITOR
+Orphan StringName: OP_MAX
+Orphan StringName: PROPERTY_HINT_FLAGS
+Orphan StringName: ERR_FILE_NO_PERMISSION
+Orphan StringName: KEY_ASCIITILDE
+Orphan StringName: OP_BIT_OR
+Orphan StringName: VERTICAL_ALIGNMENT_CENTER
+Orphan StringName: ERR_FILE_UNRECOGNIZED
+Orphan StringName: KEY_MEDIAPLAY
+Orphan StringName: VERTICAL_ALIGNMENT_FILL
+Orphan StringName: OP_NOT
+Orphan StringName: KEY_VOLUMEMUTE
+Orphan StringName: ZoomMore
+Orphan StringName: CORNER_TOP_RIGHT
+Orphan StringName: PROPERTY_USAGE_GROUP
+Orphan StringName: METHOD_FLAG_VARARG
+Orphan StringName: KEY_MASK_GROUP_SWITCH
+Orphan StringName: PROPERTY_HINT_ARRAY_TYPE
+Orphan StringName: PROPERTY_HINT_LAYERS_2D_RENDER
+Orphan StringName: PROPERTY_USAGE_CHECKABLE
+Orphan StringName: KEY_MENU
+Orphan StringName: EditorControlAnchor
+Orphan StringName: KEY_SECTION
+Orphan StringName: KEY_META
+Orphan StringName: PROPERTY_USAGE_SCRIPT_VARIABLE
+Orphan StringName: KEY_DELETE
+Orphan StringName: PROPERTY_USAGE_RESOURCE_NOT_PERSISTENT
+Orphan StringName: Corner
+Orphan StringName: PROPERTY_USAGE_SUBGROUP
+Orphan StringName: OP_DIVIDE
+Orphan StringName: StatusError
+Orphan StringName: KEY_NUMLOCK
+Orphan StringName: FAILED
+Orphan StringName: JOY_AXIS_RIGHT_X
+Orphan StringName: JOY_AXIS_RIGHT_Y
+Orphan StringName: OP_NOT_EQUAL
+Orphan StringName: PROPERTY_HINT_NODE_PATH_VALID_TYPES
+Orphan StringName: KEY_EQUAL
+Orphan StringName: KEY_LAUNCH0
+Orphan StringName: KEY_LAUNCH1
+Orphan StringName: KEY_LAUNCH2
+Orphan StringName: KEY_LAUNCH3
+Orphan StringName: KEY_LAUNCH4
+Orphan StringName: KEY_LAUNCH5
+Orphan StringName: KEY_LAUNCH6
+Orphan StringName: KEY_LAUNCH7
+Orphan StringName: KEY_LAUNCH8
+Orphan StringName: KEY_LAUNCH9
+Orphan StringName: KEY_LAUNCHA
+Orphan StringName: KEY_LAUNCHB
+Orphan StringName: KEY_LAUNCHC
+Orphan StringName: KEY_LAUNCHD
+Orphan StringName: KEY_LAUNCHE
+Orphan StringName: KEY_LAUNCHF
+Orphan StringName: PROPERTY_HINT_OBJECT_ID
+Orphan StringName: MIDI_MESSAGE_SYSTEM_RESET
+Orphan StringName: PropertyUsageFlags
+Orphan StringName: OP_MULTIPLY
+Orphan StringName: MIDI_MESSAGE_PROGRAM_CHANGE
+Orphan StringName: VERTICAL_ALIGNMENT_BOTTOM
+Orphan StringName: PROPERTY_USAGE_NODE_PATH_FROM_SCENE_ROOT
+Orphan StringName: CORNER_TOP_LEFT
+Orphan StringName: TYPE_RECT2I
+Orphan StringName: KEY_DOLLAR
+Orphan StringName: TextLine
+Orphan StringName: MouseButton
+Orphan StringName: JOY_BUTTON_RIGHT_SHOULDER
+Orphan StringName: KEY_UNDERSCORE
+Orphan StringName: KEY_JIS_KANA
+Orphan StringName: MOUSE_BUTTON_MASK_RIGHT
+Orphan StringName: KEY_KP_0
+Orphan StringName: KEY_KP_1
+Orphan StringName: KEY_KP_2
+Orphan StringName: KEY_KP_3
+Orphan StringName: KEY_KP_4
+Orphan StringName: KEY_KP_5
+Orphan StringName: KEY_KP_6
+Orphan StringName: KEY_KP_7
+Orphan StringName: KEY_KP_8
+Orphan StringName: KEY_KP_9
+Orphan StringName: OP_POSITIVE
+Orphan StringName: PROPERTY_USAGE_EDITOR_BASIC_SETTING
+Orphan StringName: KEY_BRACERIGHT
+Orphan StringName: MIDI_MESSAGE_NOTE_OFF
+Orphan StringName: JOY_BUTTON_GUIDE
+Orphan StringName: GuiSpace
+Orphan StringName: OP_BIT_NEGATE
+Orphan StringName: PROPERTY_USAGE_READ_ONLY
+Orphan StringName: OP_SUBTRACT
+Orphan StringName: JOY_AXIS_INVALID
+Orphan StringName: TYPE_COLOR
+Orphan StringName: MIDI_MESSAGE_STOP
+Orphan StringName: ERR_UNCONFIGURED
+Orphan StringName: ERR_DATABASE_CANT_READ
+Orphan StringName: KEY_HOMEPAGE
+Orphan StringName: INLINE_ALIGNMENT_TOP
+Orphan StringName: JOY_BUTTON_DPAD_DOWN
+Orphan StringName: PROPERTY_HINT_GLOBAL_FILE
+Orphan StringName: PROPERTY_HINT_EXPRESSION
+Orphan StringName: PROPERTY_HINT_INT_IS_POINTER
+Orphan StringName: OP_XOR
+Orphan StringName: PROPERTY_HINT_LINK
+Orphan StringName: TYPE_PACKED_VECTOR2_ARRAY
+Orphan StringName: KEY_EXCLAM
+Orphan StringName: ERR_FILE_BAD_DRIVE
+Orphan StringName: EditorPivot
+Orphan StringName: KEY_GREATER
+Orphan StringName: DefaultProjectIcon
+Orphan StringName: PROPERTY_USAGE_NIL_IS_VARIANT
+Orphan StringName: ERR_DUPLICATE_SYMBOL
+Orphan StringName: KEY_PAGEDOWN
+Orphan StringName: CLOCKWISE
+Orphan StringName: PROPERTY_USAGE_NO_EDITOR
+Orphan StringName: INLINE_ALIGNMENT_BOTTOM_TO
+Orphan StringName: KEY_KP_PERIOD
+Orphan StringName: MIDI_MESSAGE_ACTIVE_SENSING
+Orphan StringName: OP_BIT_XOR
+Orphan StringName: JOY_AXIS_LEFT_X
+Orphan StringName: JOY_AXIS_LEFT_Y
+Orphan StringName: MIDI_MESSAGE_CONTROL_CHANGE
+Orphan StringName: TYPE_CALLABLE
+Orphan StringName: KeyModifierMask
+Orphan StringName: MIDI_MESSAGE_TIMING_CLOCK
+Orphan StringName: MOUSE_BUTTON_WHEEL_UP
+Orphan StringName: KEY_MASK_CMD_OR_CTRL
+Orphan StringName: TYPE_VECTOR2I
+Orphan StringName: TextEditorPlay
+Orphan StringName: TYPE_VECTOR3I
+Orphan StringName: ERR_BUSY
+Orphan StringName: TYPE_VECTOR4I
+Orphan StringName: PROPERTY_HINT_LOCALIZABLE_STRING
+Orphan StringName: PROPERTY_HINT_COLOR_NO_ALPHA
+Orphan StringName: ERR_FILE_ALREADY_IN_USE
+Orphan StringName: KEY_BACKSLASH
+Orphan StringName: Orientation
+Orphan StringName: MOUSE_BUTTON_RIGHT
+Orphan StringName: TYPE_PACKED_FLOAT64_ARRAY
+Orphan StringName: PROPERTY_USAGE_CLASS_IS_ENUM
+Orphan StringName: KEY_DOWN
+Orphan StringName: ERR_FILE_EOF
+Orphan StringName: TYPE_QUATERNION
+Orphan StringName: KEY_SHIFT
+Orphan StringName: TreeItem
+Orphan StringName: ERR_HELP
+Orphan StringName: MOUSE_BUTTON_MASK_MB_XBUTTON1
+Orphan StringName: MOUSE_BUTTON_MASK_MB_XBUTTON2
+Orphan StringName: MIDI_MESSAGE_TUNE_REQUEST
+Orphan StringName: TYPE_INT
+Orphan StringName: ERR_PARAMETER_RANGE_ERROR
+Orphan StringName: METHOD_FLAG_NORMAL
+Orphan StringName: KEY_HELP
+Orphan StringName: KEY_PERIOD
+Orphan StringName: SIDE_LEFT
+Orphan StringName: TYPE_PACKED_FLOAT32_ARRAY
+Orphan StringName: JOY_BUTTON_MISC1
+Orphan StringName: ERR_FILE_CANT_OPEN
+Orphan StringName: KEY_KP_MULTIPLY
+Orphan StringName: MOUSE_BUTTON_MIDDLE
+Orphan StringName: ZoomLess
+Orphan StringName: KEY_AT
+Orphan StringName: VerticalAlignment
+Orphan StringName: KEY_F1
+Orphan StringName: KEY_F2
+Orphan StringName: KEY_F3
+Orphan StringName: KEY_F4
+Orphan StringName: KEY_F5
+Orphan StringName: KEY_F6
+Orphan StringName: KEY_F7
+Orphan StringName: KEY_F8
+Orphan StringName: KEY_F9
+Orphan StringName: INLINE_ALIGNMENT_BASELINE_TO
+Orphan StringName: MIDI_MESSAGE_START
+Orphan StringName: KEY_UP
+Orphan StringName: KEY_CODE_MASK
+Orphan StringName: PROPERTY_HINT_RANGE
+Orphan StringName: TYPE_PACKED_COLOR_ARRAY
+Orphan StringName: JOY_AXIS_MAX
+Orphan StringName: KEY_MINUS
+Orphan StringName: ERR_CANT_OPEN
+Orphan StringName: KEY_SLASH
+Orphan StringName: ERR_INVALID_DATA
+Orphan StringName: MOUSE_BUTTON_WHEEL_RIGHT
+Orphan StringName: MIDI_MESSAGE_NONE
+Orphan StringName: HORIZONTAL_ALIGNMENT_FILL
+Orphan StringName: TYPE_MAX
+Orphan StringName: PROPERTY_HINT_MULTILINE_TEXT
+Orphan StringName: MIDI_MESSAGE_SONG_SELECT
+Orphan StringName: KEY_MODIFIER_MASK
+Orphan StringName: PROPERTY_USAGE_KEYING_INCREMENTS
+Orphan StringName: KEY_PAUSE
+Orphan StringName: METHOD_FLAG_STATIC
+Orphan StringName: KEY_LAUNCHMAIL
+Orphan StringName: PROPERTY_HINT_INT_IS_OBJECTID
+Orphan StringName: Breakpoint
+Orphan StringName: TYPE_NIL
+Orphan StringName: HorizontalAlignment
+Orphan StringName: KEY_KEYBOARD
+Orphan StringName: GuiRadioChecked
+Orphan StringName: KEY_PERCENT
+Orphan StringName: Key
+Orphan StringName: KEY_BRACELEFT
+Orphan StringName: PROPERTY_HINT_PLACEHOLDER_TEXT
+StringName: 554 unclaimed string names at exit.

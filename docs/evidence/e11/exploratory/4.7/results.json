@@ -1,0 +1,98 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "a9eb230dc04753fad5039df8a2158888a889fc5ef566939765c40ccaeb3c2897"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-D9XKxV/yarn-cache",
+      "file:/evidence/e11-editor-47/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.64,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "project-components": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-D9XKxV/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-D9XKxV/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.68,
+    "godot_pid": 7536,
+    "log": "project-components.log",
+    "diagnostics": []
+  },
+  "native-gutter-api": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-D9XKxV/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-D9XKxV/project",
+      "--script",
+      "res://tests/editor_ux/gutter_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.27,
+    "godot_pid": 7554,
+    "log": "native-gutter-api.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-D9XKxV/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-D9XKxV/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 31.91,
+    "godot_pid": 7571,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "   at: cleanup (core/object/object.cpp:2535)",
+      "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit."
+    ],
+    "unexpected_errors": [
+      "ERROR: 4 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit."
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+E07_CHECK completion indexes ordinary Script inheritance without loading authored code: true
+E07_CHECK cold source discovery before generated Settings exists: true
+E07_CHECK manually typed project tag lowers without editor/import action: true
+E07_BUILD { "ok": true, "outputs": ["app/Screens/generated/Boundary.gd", "app/Screens/Nested/generated/Leaf.gd", "app/Screens/generated/Settings.gd", "app/Screens/generated/Home.gd", "app/Screens/Nested/generated/SpatialChild.gd", "app/Screens/generated/Spatial.gd"], "changed": ["app/Screens/generated/Boundary.gd", "app/Screens/generated/Boundary.gd.map.json", "app/Screens/Nested/generated/Leaf.gd", "app/Screens/Nested/generated/Leaf.gd.map.json", "app/Screens/generated/Settings.gd", "app/Screens/generated/Settings.gd.map.json", "app/Screens/generated/Home.gd", "app/Screens/generated/Home.gd.map.json", "app/Screens/Nested/generated/SpatialChild.gd", "app/Screens/Nested/generated/SpatialChild.gd.map.json", "app/Screens/generated/Spatial.gd", "app/Screens/generated/Spatial.gd.map.json"], "diagnostics": [], "source_diagnostics": [], "isolated_preflight": { "status": "PASS", "reason": "" }, "symlink_checks": { "status": "PASS", "reason": "Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced." } }
+E07_CHECK fresh coherent dependency build: true
+E07_CHECK no-op build retains timestamp and Script identity: true
+E07_ASSERTIONS 5 failed=false
+E07_PROJECT_OK
