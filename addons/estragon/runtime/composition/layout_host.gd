@@ -39,7 +39,7 @@ func update(view: Node) -> void:
 	if layout == null or not layout.active: return
 	_disconnect()
 	layout.managed_root = root
-	target = layout.participant(view)
+	target = layout.participant(view,true)
 	if target != null and target._mode == Coordinator.Mode.ENTRY: target = null
 	if target != null: target.model.invalidated.connect(_configure)
 	layout._sync()
@@ -48,9 +48,11 @@ func _configure() -> void:
 	if layout == null or not layout.active: return
 	var requested := Vector3(-1,-1,0) if layout._dimension==2 else Vector3(-1,-1,-1)
 	var fills := Vector3.ZERO
-	if target != null:
+	var included: bool = target != null and (target._mode != Coordinator.Mode.CONTROL or target.control_adapter.participates())
+	if included:
 		requested = target.model.requested
 		fills = target.model.fill
+	layout.model.allocation_minimum = target.model.allocation_minimum if included else Vector3.ZERO
 	# One child, at zero local offset. Parent places the native host once;
 	# root constraints determine both proxy allocation and root allocation.
 	layout.model.configure(requested,0,false,0,fills)

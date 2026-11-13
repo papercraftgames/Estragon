@@ -11,6 +11,8 @@ var center: bool = false
 var axis: int = 0
 var fill := Vector3.ZERO
 var intrinsic := Vector3.ZERO
+# Native Control minimums constrain assigned slots, never read back from size.
+var allocation_minimum := Vector3.ZERO
 var children: Array = []
 var measured := Vector3.ZERO
 var size := Vector3.ZERO
@@ -93,18 +95,35 @@ func arrange(available: Vector3) -> void:
 	# follow-up instead of being overwritten when this pass finishes.
 	_arrange_dirty = false
 	var fixed: float = gap * maxi(0, children.size() - 1)
-	var flexible: int = 0
+	var flexible: Array = []
 	for child in children:
-		if child.fill[axis] > 0 and child.requested[axis] < 0: flexible += 1
+		if child.fill[axis] > 0 and child.requested[axis] < 0: flexible.append(child)
 		else: fixed += child.measured[axis]
-	var share: float = maxf(0,available[axis] - fixed) / maxi(1,flexible)
-	var row_extent: float = fixed + share * flexible
+	var remaining: float = maxf(0,available[axis] - fixed)
+	var shares: Dictionary = {}
+	# Reserve constrained native minimums, then share the remaining space.
+	# Zero floors preserve the existing equal-share Box behavior.
+	while not flexible.is_empty():
+		var share: float = remaining / flexible.size()
+		var constrained := false
+		for child in flexible.duplicate():
+			if child.allocation_minimum[axis] > share:
+				shares[child] = child.allocation_minimum[axis]
+				remaining = maxf(0,remaining-child.allocation_minimum[axis])
+				flexible.erase(child)
+				constrained = true
+		if not constrained:
+			for child in flexible: shares[child] = share
+			break
+	var row_extent: float = fixed
+	for share in shares.values(): row_extent += share
 	var cursor: float = (available[axis] - row_extent) * 0.5 if center else 0.0
 	for child in children:
 		var allocation: Vector3 = child.measured
 		for index in range(3):
 			if child.fill[index] > 0 and child.requested[index] < 0:
-				allocation[index] = share if index == axis else available[index]
+				allocation[index] = shares[child] if index == axis else available[index]
+			allocation[index] = maxf(allocation[index],child.allocation_minimum[index])
 		var next := Vector3.ZERO
 		next[axis] = cursor
 		if child.offset != next or child.arrange_count == 0:

@@ -2,6 +2,40 @@
 extends Resource
 ## External weak lookup only. Never serialized onto authored Nodes/Resources.
 var hosts: Dictionary = {}
+# Strong bridge records, weak native hosts. Native exit/projection release owns
+# teardown; no adapter lifetime or coordinator is stored on application Nodes.
+var controls: Dictionary = {}
+var exiting_controls: Dictionary = {}
+func block_control(node: Control) -> void:
+	var id := node.get_instance_id()
+	if exiting_controls.has(id): return
+	var reference := weakref(node)
+	exiting_controls[id] = reference
+	_unblock_control.call_deferred(id,reference)
+func enter_control(node: Control) -> void:
+	exiting_controls.erase(node.get_instance_id())
+func control_exiting(node: Control) -> bool:
+	var reference = exiting_controls.get(node.get_instance_id())
+	return reference != null and reference.get_ref() == node
+func _unblock_control(id: int, reference: WeakRef) -> void:
+	if exiting_controls.get(id) != reference: return
+	exiting_controls.erase(id)
+	var node = reference.get_ref()
+	if node != null and node.is_inside_tree():
+		var parent = projected_parent(node)
+		if parent == null: parent = node.get_parent()
+		var layout = _coordinator(parent)
+		if layout != null: layout._sync()
+func add_control(node: Control, coordinator: RefCounted) -> void:
+	controls[node.get_instance_id()] = coordinator
+	add(node,coordinator)
+func release_control(node: Control) -> void:
+	var id := node.get_instance_id()
+	var coordinator = controls.get(id)
+	if coordinator == null: return
+	coordinator.stop()
+	remove(node,coordinator)
+	controls.erase(id)
 func find(node: Node):
 	if node == null: return null
 	var reference = hosts.get(node.get_instance_id())
@@ -85,6 +119,7 @@ func replace_projection(owner: RefCounted, next: Dictionary, next_orders: Dictio
 		if not next.has(id):
 			projections.erase(id)
 			if node != null:
+				if node is Control: release_control(node)
 				if node.get_parent() == item.native_parent.get_ref() and item.position != null: node.position = item.position
 				refresh.append(node)
 	for id in next:
@@ -98,7 +133,7 @@ func replace_projection(owner: RefCounted, next: Dictionary, next_orders: Dictio
 			if _placement(node,parent) == null and item.position != null:
 				if node.get_parent() == item.native_parent.get_ref(): node.position = item.position
 				item.position = null
-			elif _placement(node,parent) != null and item.position == null: item.position = node.position
+			elif _placement(node,parent) != null and item.position == null and (node is Node2D or node is Node3D): item.position = node.position
 			item.parent = weakref(parent)
 		refresh.append(node)
 	for id in order_owners.keys():
