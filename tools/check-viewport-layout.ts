@@ -3,8 +3,9 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT, parseCLI, newSandbox, copyTree, runCommand, writeJSON, gitHead, gitDirty, sha256} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
-const editor = process.argv.includes('--editor');
-const options = parseCLI(process.argv.slice(2).filter(a => a !== '--editor'));
+const editorOnly = process.argv.includes('--editor-only');
+const editor = editorOnly || process.argv.includes('--editor');
+const options = parseCLI(process.argv.slice(2).filter(a => !['--editor', '--editor-only'].includes(a)));
 if (process.platform !== 'linux') throw Error('Approved Linux engines only');
 fs.mkdirSync(options.output, {recursive: true});
 for (const selection of options.engines) {
@@ -45,10 +46,12 @@ for (const selection of options.engines) {
         const args = [box.binary, '--audio-driver', 'Dummy', '--path', box.project];
         const graphics = ['--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3'];
         await run('build', [...args, '--headless', '--script', 'res://tests/viewport_layout/build.gd'], 'L05_BUILD_OK');
-        await run('runtime', [...args, ...graphics, '--script', 'res://tests/viewport_layout/runtime.gd'], 'L05_RUNTIME_OK');
-        box.env.L05_EXIT = '1';
-        await run('exit', [...args, ...graphics, '--script', 'res://tests/viewport_layout/runtime.gd'], 'L05_EXIT_QUIT');
-        delete box.env.L05_EXIT;
+        if (!editorOnly) {
+            await run('runtime', [...args, ...graphics, '--script', 'res://tests/viewport_layout/runtime.gd'], 'L05_RUNTIME_OK');
+            box.env.L05_EXIT = '1';
+            await run('exit', [...args, ...graphics, '--script', 'res://tests/viewport_layout/runtime.gd'], 'L05_EXIT_QUIT');
+            delete box.env.L05_EXIT;
+        }
         if (editor) {
             box.env.L05_EDITOR = '1';
             fs.appendFileSync(path.join(box.project, 'project.godot'), '\n[editor_plugins]\nenabled=PackedStringArray("res://' + addon + '/editor/plugin.cfg", "res://tests/viewport_layout/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
@@ -60,7 +63,7 @@ for (const selection of options.engines) {
         for (const [file, hash] of Object.entries(packed.manifest.files)) {
             if (sha256(path.join(installed, file)) !== hash) throw Error('Installed bytes/UID changed: ' + file);
         }
-        writeJSON(path.join(out, 'consumer.json'), {source: gitHead(), profile: 'L05-viewport-layout', direct_yarn: true,
+        writeJSON(path.join(out, 'consumer.json'), {source: gitHead(), profile: editorOnly ? 'L05-viewport-layout-editor' : 'L05-viewport-layout', direct_yarn: true,
             package_unchanged: true, canonical_uids: packed.manifest.canonical_uids, tarball_sha256: packed.manifest.tarball_sha256});
     } finally {
         if (fs.existsSync(box.project)) {

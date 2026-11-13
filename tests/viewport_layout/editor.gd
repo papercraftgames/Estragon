@@ -76,7 +76,7 @@ func run() -> void:
 			code.set_caret_column(rows[-1].length())
 			code.request_code_completion(true)
 			for frame in range(5): await get_tree().process_frame
-			check(code.get_code_completion_options().any(func(item): return str(item.display_text).begins_with("viewport_height_scale")),"real CodeEdit offers the new typed GGX height-scale property")
+			check(code.get_code_completion_options().any(func(item): return item.display_text=="viewport_height_scale — float" and item.insert_text=="viewport_height_scale"),"real CodeEdit shows the float property type and preserves plain insertion text")
 			code.cancel_code_completion()
 			check(code.text==original and plugin._build_sources(),"native completion preserves valid source and installed imports/maps")
 		await play("current")
