@@ -1,7 +1,7 @@
 /** L05 focused direct-Yarn native scene projection/editor/render/input proof. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {ROOT, parseCLI, newSandbox, copyTree, runCommand, writeJSON, gitHead, gitDirty, sha256, ERROR} from './compat-kit.ts';
+import {ROOT, parseCLI, newSandbox, copyTree, runCommand, writeJSON, gitHead, gitDirty, sha256} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
 const editor = process.argv.includes('--editor');
 const options = parseCLI(process.argv.slice(2).filter(a => a !== '--editor'));
@@ -16,17 +16,11 @@ for (const selection of options.engines) {
             sourceHead: gitHead(), sourceDirty: gitDirty(), version: box.version,
             original_binary_sha256: box.inputHash, command: process.argv,
         });
-        async function run(name: string, args: string[], marker?: string, env = box.env, negative = false) {
+        async function run(name: string, args: string[], marker?: string, env = box.env) {
             const logFile = path.join(out, name + '.log');
             const result = await runCommand(args, name === 'install' ? box.project : box.workspace,
-                env, logFile, marker, {abortOnError: !negative, expectedErrors: negative, timeout: name.startsWith('editor') ? 120000 : 60000});
+                env, logFile, marker, {abortOnError: true, timeout: name.startsWith('editor') ? 120000 : 60000});
             const log = fs.readFileSync(logFile, 'utf8');
-            if (negative) {
-                // Only these deliberately triggered diagnostics are permitted.
-                const expected = /^ERROR: An EditorPlugin build callback failed\.$/;
-                result.unexpected_errors = log.split(/\r?\n/).filter(line => ERROR.test(line) && !expected.test(line));
-                if ((result.unexpected_errors as string[]).length || /L05_(?:EDITOR_)?CHECK .*: false/.test(log)) result.status = 'FAIL';
-            }
             results[name] = result;
             writeJSON(path.join(out, 'results.json'), results);
             process.stdout.write(log);
@@ -59,7 +53,7 @@ for (const selection of options.engines) {
             box.env.L05_EDITOR = '1';
             fs.appendFileSync(path.join(box.project, 'project.godot'), '\n[editor_plugins]\nenabled=PackedStringArray("res://' + addon + '/editor/plugin.cfg", "res://tests/viewport_layout/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
             for (const name of ['editor', 'editor-restart']) {
-                await run(name, [...args, ...graphics, '--editor'], 'L05_EDITOR_OK', box.env, true);
+                await run(name, [...args, ...graphics, '--editor'], 'L05_EDITOR_OK');
             }
             delete box.env.L05_EDITOR;
         }
