@@ -354,7 +354,7 @@ func examples() -> void:
 		await frames()
 		if name=="NativeHome":
 			var button: Button = node.find_children("*","Button",true,false)[0]
-			var texts := node.find_children("*","EstragonText",true,false)
+			var texts: Array = node.find_children("*","EstragonText",true,false)
 			check(button!=null and texts.size()==3 and texts[2].global_position.y>=button.global_position.y+button.size.y,"runnable owner native example has separated Exit/Rose")
 		else:
 			var borrowed: Button = node.get_node("SceneButton")

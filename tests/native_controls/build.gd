@@ -103,7 +103,7 @@ func _initialize() -> void:
 		extra_sources()
 	var report := Build.run_build()
 	print("L04_BUILD ",JSON.stringify(report))
-	if report.ok:
+	if report.ok and OS.get_environment("L04_EXAMPLES")!="1":
 		for name in ["Home","Borrow"]:
 			var node := Node2D.new()
 			node.name = name
@@ -114,7 +114,7 @@ func _initialize() -> void:
 			node.free()
 		ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
 		ProjectSettings.save()
-		print("L04_BUILD_OK")
+	if report.ok: print("L04_BUILD_OK")
 	quit(0 if report.ok else 1)
 
 static func extra_sources() -> void:
