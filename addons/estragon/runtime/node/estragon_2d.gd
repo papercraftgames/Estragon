@@ -8,11 +8,17 @@ extends "component_2d.gd"
 		viewport_width_scale = value
 		if layout != null: layout._invalidated()
 
+@export var viewport_height_scale: float = 0.0:
+	set(value):
+		if not is_finite(value) or value < 0 or viewport_height_scale == value: return
+		viewport_height_scale = value
+		if layout != null: layout._invalidated()
+
 func _is_layout_entry() -> bool:
 	return true
 
-func _layout_viewport_scale() -> float:
-	return viewport_width_scale
+func _layout_viewport_scale() -> Vector2:
+	return Vector2(viewport_width_scale,viewport_height_scale)
 
 const Pointer = preload("internal/pointer_2d.gd")
 var _pointer = Pointer.new(self)

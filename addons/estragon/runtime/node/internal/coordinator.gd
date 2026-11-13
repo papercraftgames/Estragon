@@ -62,8 +62,8 @@ func root_host() -> Node:
 	var found = scope_root()
 	return found._host.get_ref() if found != null else null
 
-func _viewport_scale(host: Node) -> float:
-	return host.viewport_width_scale if _mode == Mode.PROOF else host._layout_viewport_scale()
+func _viewport_scale(host: Node) -> Vector2:
+	return Vector2(host.viewport_width_scale,0) if _mode == Mode.PROOF else host._layout_viewport_scale()
 
 func start() -> void:
 	active = true
@@ -139,7 +139,9 @@ func changed() -> void:
 
 func _viewport_changed() -> void:
 	var host = _host.get_ref()
-	if host != null and parent_coordinator() == null and _viewport_scale(host) > 0: _invalidated()
+	if host == null or parent_coordinator() != null: return
+	var scale := _viewport_scale(host)
+	if scale.x > 0 or scale.y > 0: _invalidated()
 
 func _invalidated() -> void:
 	if Profile.is_enabled(): Profile.add("layout_invalidations")
@@ -155,8 +157,11 @@ func _flush() -> void:
 	flush_count += 1
 	if Profile.is_enabled(): Profile.add("layout_flushes")
 	var available: Vector3 = model.measure()
-	if _viewport_scale(host) > 0 and _viewport != null:
-		available.x = _viewport.get_visible_rect().size.x * _viewport_scale(host)
+	if _viewport != null:
+		var scale := _viewport_scale(host)
+		var visible := _viewport.get_visible_rect().size
+		if scale.x > 0: available.x = visible.x * scale.x
+		if scale.y > 0: available.y = visible.y * scale.y
 	model.arrange(available)
 	CompositionHosts.refresh_positions(self)
 

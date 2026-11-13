@@ -52,8 +52,8 @@ func requested_extent() -> Vector3:
 func _is_layout_entry() -> bool:
 	return false
 
-func _layout_viewport_scale() -> float:
-	return 0.0
+func _layout_viewport_scale() -> Vector2:
+	return Vector2.ZERO
 
 func _changed() -> void:
 	if layout != null: layout.changed()

@@ -3,14 +3,8 @@ const Element = preload("../../../addons/estragon/runtime/composition/element.gd
 const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-@bindable var extent: Vector2 = Vector2(640,360)
-func _ready() -> void:
-	resized()
-	get_viewport().size_changed.connect(resized)
-func resized() -> void:
-	extent = get_viewport_rect().size
 func build_view() -> Element:
-	return <Entry2D width={self.extent.x} height={self.extent.y}>
+	return <Entry2D viewport_width_scale={1.0} viewport_height_scale={1.0}>
 		<VBox fill_width={true} fill_height={true}>
 			<VBox fill_height={true} />
 			<Text text="Hello World!" />
