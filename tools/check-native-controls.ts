@@ -61,7 +61,19 @@ for (const selection of options.engines) {
             for (const name of ['editor', 'editor-restart']) {
                 await run(name, [...args, ...graphics, '--editor'], 'L04_EDITOR_OK', box.env, true);
             }
+            delete box.env.L04_EDITOR_PROOF;
         }
+        const examples = path.join(box.project, 'examples/nested_layout');
+        copyTree(path.join(ROOT, 'examples/nested_layout'), examples);
+        for (const name of fs.readdirSync(examples).filter(n => n.endsWith('.gogo'))) {
+            const file = path.join(examples, name);
+            fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replaceAll('../../../addons/estragon', '../../../' + addon));
+        }
+        writeJSON(path.join(box.project, 'gogo.config.json'), {version: 1, source_roots: ['examples/nested_layout']});
+        box.env.L04_EXAMPLES = '1';
+        await run('examples-build', [...args, '--headless', '--script', 'res://tests/native_controls/build.gd'], 'L04_BUILD_OK');
+        await run('examples', [...args, ...graphics, '--script', 'res://tests/native_controls/runtime.gd'], 'L04_EXAMPLES_OK');
+        delete box.env.L04_EXAMPLES;
         for (const [file, hash] of Object.entries(packed.manifest.files)) {
             if (sha256(path.join(installed, file)) !== hash) throw Error('Installed bytes/UID changed: ' + file);
         }

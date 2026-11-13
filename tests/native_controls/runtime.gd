@@ -37,6 +37,10 @@ func cleared(label: String) -> void:
 	check(Hosts.get("controls").is_empty() and Hosts.get("exiting_controls").is_empty() and Hosts.get("hosts").is_empty() and State.get("records").is_empty(),label)
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
+	if OS.get_environment("L04_EXAMPLES")=="1":
+		await examples()
+		quit(1 if failures>0 else 0)
+		return
 	var home = load("res://app/generated/Home.gd").new()
 	root.add_child(home)
 	await frames()
@@ -72,10 +76,12 @@ func run() -> void:
 		return
 	var runs := [State.get("records")[home.get_instance_id()].runs,State.get("records")[settings.get_instance_id()].runs]
 	var initial_height: float = exit_button.size.y
+	var rose_measures: int = rose.layout.model.measure_count
 	exit_button.text = "Exit much longer\nsecond line"
 	await frames()
 	check(exit_button.size.y>initial_height and rose.global_position.y>=exit_button.global_position.y+exit_button.size.y,"native text minimum change reflows nested host and subsequent sibling")
 	check(runs==[State.get("records")[home.get_instance_id()].runs,State.get("records")[settings.get_instance_id()].runs],"native content signals do not reexecute Gogo functions")
+	check(rose.layout.model.measure_count==rose_measures,"native minimum invalidation keeps the unchanged sibling measurement cached")
 	exit_button.custom_minimum_size = Vector2(280,70)
 	await frames()
 	check(exit_button.size.x>=280 and exit_button.size.y>=70 and rose.global_position.y>=exit_button.global_position.y+exit_button.size.y,"native explicit minimum contributes to the parent slot")
@@ -110,7 +116,21 @@ func run() -> void:
 	settings.framework = false
 	await frames()
 	check(settings.get_node("Row/Exit") is Button,"native Button choice returns without remapping")
+	var retained: int = settings.get_instance_id()
+	home.reverse = true
+	await frames()
+	check(home.get_node("UI/Column/Settings").get_instance_id()==retained and settings.position.y>=home.get_node("UI/Column/Rose").position.y+rose.layout_size.y,"keyed nested native host reorder retains identity and sequential slots")
+	home.reverse = false
+	home.show_settings = false
+	await frames()
+	check(Hosts.get("controls").is_empty(),"nested native branch removal disconnects its bridges")
+	home.show_settings = true
+	root.size = Vector2i(800,480)
+	await frames()
+	exit_button = home.get_node("UI/Column/Settings/Row/Exit")
+	check(home.extent==Vector2(800,480) and rose.global_position.y==480-rose.layout_size.y and rose.global_position.y>=exit_button.global_position.y+exit_button.size.y,"viewport resize and native branch reinsertion preserve bottom-aligned geometry")
 	home.free()
+	root.size = Vector2i(640,360)
 	await frames()
 	cleared("native scene free releases all Control/layout/computation records")
 	await widgets()
@@ -326,3 +346,21 @@ func boundaries() -> void:
 	spatial.free()
 	await frames()
 	cleared("unsupported/cross-dimensional native boundaries leave no bridge records")
+
+func examples() -> void:
+	for name in ["NativeHome","NativeGallery"]:
+		var node = load("res://examples/nested_layout/"+name+".tscn").instantiate()
+		root.add_child(node)
+		await frames()
+		if name=="NativeHome":
+			var button: Button = node.find_children("*","Button",true,false)[0]
+			var texts := node.find_children("*","EstragonText",true,false)
+			check(button!=null and texts.size()==3 and texts[2].global_position.y>=button.global_position.y+button.size.y,"runnable owner native example has separated Exit/Rose")
+		else:
+			var borrowed: Button = node.get_node("SceneButton")
+			check(borrowed.get_parent()==node and borrowed.owner==node and adapter(borrowed).participates() and borrowed.size.y>=40,"runnable gallery borrows its persistent native Control")
+		capture(name)
+		node.free()
+		await frames()
+	cleared("runnable examples release all bookkeeping")
+	if failures==0: print("L04_EXAMPLES_OK")

@@ -1,5 +1,13 @@
 # E08 — borrowing scene-authored children in GGX
 
+## Native Controls (L04)
+
+A scene-owned Button/Label/LineEdit/TextureRect referenced by `{get_children()}` now receives an automatic compatible 2D Box slot from its native combined minimum. A native Container participates as one opaque outer rectangle; Godot manages its internals. Plain Sprite/Node2D/nonvisual/3D actors still require explicit bounded participation and keep native manual positions. See the [comparison, flags, coordinate limits and examples](NODE_UI.md#l04--native-control-auto-layout).
+
+Run [NativeGallery.tscn](../examples/nested_layout/NativeGallery.tscn): its SceneButton remains a persistent direct child of the Gogo host, while the returned VBox places it between the explanatory Text and NativeSettings. No wrapper/reparent/clone/metadata is added. Native `pressed` connections, focus links, disabled state, native parent/owner/identity and normal Scene-dock UndoRedo remain authoritative. Releasing its reference disconnects only bridge signals and restores the pre-allocation **position and size** if native parentage is unchanged. Packing a running scene records its current rect; saving the editor scene preserves the separately authored manual rect. Reopening reconstructs transient layout once.
+
+For borrowed Controls the logical/native parent coordinate bases must agree except for translation, with matching viewport/canvas. Nonzero anchors, local transform/pivot, top_level or a native Container parent are diagnosed and excluded without taking over their native positioning. No generic focus/clipping/Z transfer accompanies logical layout. Explicit native focus links cross separate GUI roots when needed.
+
 Add `Settings` and `Sprite2D` beneath a Gogo `Home` through Godot's Scene dock. They remain normal native children of Home. To include the existing instances in Home's desired layout, use a native child expression:
 
 ```gogo

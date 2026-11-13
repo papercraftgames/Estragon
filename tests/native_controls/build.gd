@@ -98,8 +98,9 @@ func build_view() -> Element:
 	return <Part3D name="Row" width={self.room}><Part3D name="A" width={2.0} height={3.0} depth={4.0} /><Part3D name="B" width={5.0} height={2.0} depth={1.0} /></Part3D>
 ''')
 func _initialize() -> void:
-	install()
-	extra_sources()
+	if OS.get_environment("L04_EXAMPLES")!="1":
+		install()
+		extra_sources()
 	var report := Build.run_build()
 	print("L04_BUILD ",JSON.stringify(report))
 	if report.ok:
