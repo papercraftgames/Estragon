@@ -5,7 +5,8 @@ const Profile = preload("../../composition/profile.tres")
 const Core = preload("layout_core.gd")
 const CompositionHosts = preload("composition_hosts.tres")
 const META := "_estragon_b2_coordinator"
-enum Mode { PROOF, PARTICIPANT, ENTRY, COMPOSITION }
+enum Mode { PROOF, PARTICIPANT, ENTRY, COMPOSITION, CONTROL }
+var control_adapter
 var managed_root: WeakRef
 var _mode: int
 var model := Core.new()
@@ -31,8 +32,9 @@ func parent_coordinator():
 	var projected = CompositionHosts.projected_parent(host)
 	return participant(projected if projected != null else host.get_parent())
 
-func participant(node: Node):
+func participant(node: Node, acquire_control := false):
 	if node == null: return null
+	if node is Control and CompositionHosts.control_exiting(node): return null
 	var found
 	if _mode == Mode.PROOF:
 		if not node.has_meta(META): return null
@@ -40,6 +42,10 @@ func participant(node: Node):
 	else:
 		# Runtime references must never be serialized as Node metadata.
 		found = node._get_layout_coordinator() if node.has_method("_get_layout_coordinator") else CompositionHosts.find(node)
+		if found == null and acquire_control and _dimension == 2 and node is Control and node.is_inside_tree():
+			found = get_script().new(node,2,Mode.CONTROL)
+			CompositionHosts.add_control(node,found)
+			found.start()
 	return found if found != null and found.active and found._dimension == _dimension else null
 
 func scope_root():
@@ -62,11 +68,15 @@ func _viewport_scale(host: Node) -> float:
 func start() -> void:
 	active = true
 	var host: Node = _host.get_ref()
+	if _mode == Mode.CONTROL:
+		control_adapter = preload("control_participant.gd").new(host,self)
+		control_adapter.start()
+		return
 	# PackedScene restores metadata after construction. Refresh the proof-only
 	# weak registry at entry; C1 resolves the live script field instead.
 	if _mode == Mode.PROOF: host.set_meta(META, weakref(self))
-	host.child_entered_tree.connect(_child_changed)
-	host.child_exiting_tree.connect(_child_changed)
+	host.child_entered_tree.connect(_child_entered)
+	host.child_exiting_tree.connect(_child_exiting)
 	if host.has_signal("child_order_changed"): host.connect("child_order_changed", _sync)
 	if _mode in [Mode.PROOF,Mode.ENTRY]:
 		_viewport = host.get_viewport()
@@ -79,8 +89,12 @@ func start() -> void:
 func stop() -> void:
 	active = false
 	var host: Node = _host.get_ref()
-	if host.child_entered_tree.is_connected(_child_changed): host.child_entered_tree.disconnect(_child_changed)
-	if host.child_exiting_tree.is_connected(_child_changed): host.child_exiting_tree.disconnect(_child_changed)
+	if _mode == Mode.CONTROL:
+		if control_adapter != null: control_adapter.stop()
+		model.set_children([])
+		return
+	if host.child_entered_tree.is_connected(_child_entered): host.child_entered_tree.disconnect(_child_entered)
+	if host.child_exiting_tree.is_connected(_child_exiting): host.child_exiting_tree.disconnect(_child_exiting)
 	if host.has_signal("child_order_changed") and host.is_connected("child_order_changed", _sync): host.disconnect("child_order_changed", _sync)
 	if _viewport != null and _viewport.size_changed.is_connected(_viewport_changed): _viewport.size_changed.disconnect(_viewport_changed)
 	_viewport = null
@@ -88,7 +102,12 @@ func stop() -> void:
 	var parent = parent_coordinator()
 	if parent != null: parent._sync()
 
-func _child_changed(_child: Node) -> void:
+func _child_entered(child: Node) -> void:
+	if child is Control: CompositionHosts.enter_control(child)
+	_sync()
+
+func _child_exiting(child: Node) -> void:
+	if child is Control: CompositionHosts.block_control(child)
 	_sync()
 
 func order_moved() -> void:
@@ -96,15 +115,17 @@ func order_moved() -> void:
 	if parent != null: parent._sync()
 
 func _sync() -> void:
-	if not active: return
+	if not active or _mode == Mode.CONTROL: return
 	var values: Array = []
 	var host: Node = _host.get_ref()
 	var children: Array = host.get_children() if _mode != Mode.COMPOSITION else []
 	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
 	children = CompositionHosts.children(host,children)
 	for child in children:
-		var found = participant(child)
-		if found != null and found._mode != Mode.ENTRY: values.append(found.model)
+		var found = participant(child,true)
+		if found != null and found._mode != Mode.ENTRY:
+			if found._mode == Mode.CONTROL and not found.control_adapter.participates(): continue
+			values.append(found.model)
 	var error := model.set_children(values)
 	if error != OK: push_error("Estragon layout model ownership: " + error_string(error))
 
@@ -122,13 +143,13 @@ func _viewport_changed() -> void:
 
 func _invalidated() -> void:
 	if Profile.is_enabled(): Profile.add("layout_invalidations")
-	if not active or _queued or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION]: return
+	if not active or _queued or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION,Mode.CONTROL]: return
 	_queued = true
 	call_deferred("_flush")
 
 func _flush() -> void:
 	_queued = false
-	if not active or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION]: return
+	if not active or parent_coordinator() != null or _mode in [Mode.PARTICIPANT,Mode.COMPOSITION,Mode.CONTROL]: return
 	var host = _host.get_ref()
 	if host == null or host.is_queued_for_deletion(): return
 	flush_count += 1
@@ -140,6 +161,9 @@ func _flush() -> void:
 	CompositionHosts.refresh_positions(self)
 
 func _place(offset: Vector3) -> void:
+	if _mode == Mode.CONTROL:
+		control_adapter.place(offset)
+		return
 	var host = _host.get_ref()
 	if host == null: return
 	if host.has_method("apply_layout_position"): host.apply_layout_position(offset)
@@ -153,5 +177,8 @@ func _place(offset: Vector3) -> void:
 		elif host is Node3D and projected is Node3D: host.global_position = projected.to_global(host.position)
 
 func _arranged(size: Vector3) -> void:
+	if _mode == Mode.CONTROL:
+		control_adapter.arrange(size)
+		return
 	var host = _host.get_ref()
 	if host != null and _mode != Mode.COMPOSITION: host.apply_layout_size(size)

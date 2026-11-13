@@ -1,0 +1,24 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+var picture: Texture2D
+func _ready() -> void:
+	var image := Image.create(64,24,false,Image.FORMAT_RGBA8)
+	image.fill(Color.CORNFLOWER_BLUE)
+	picture = ImageTexture.create_from_image(image)
+func exit() -> void:
+	get_tree().quit()
+func build_view() -> Element:
+	return <Entry2D position={Vector2(24,24)} width={520.0}>
+		<VBox gap={8.0} fill_width={true}>
+			<HBox gap={8.0}><Button text="Exit" pressed={self.exit} /><Label text="Ready" /></HBox>
+			<VBox gap={8.0}><LineEdit placeholder_text="Native editing" /><TextureRect texture={self.picture} /></VBox>
+			<HBoxContainer><Label text="Godot owns " /><Label text="Container internals" /></HBoxContainer>
+			<Text text="The next Button is borrowed from the Scene dock:" />
+			{get_children()}
+			<NativeSettings />
+		</VBox>
+	</Entry2D>

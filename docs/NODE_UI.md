@@ -61,7 +61,7 @@ Current [dynamic observed composition](REACTIVE_GGX.md) use these native setters
 
 ## L03 — nested Gogo views in parent layout
 
-A normal Gogo component may keep `extends Node2D` and return an HBox, VBox, Text or native Estragon Button. When that host sits in a contiguous same-dimensional layout tree, its **managed view root supplies the host's slot**: natural/fixed dimensions and fill constraints pass through to the parent, which places the real host in sibling order. The returned root is arranged at zero local offset inside that slot. Children do not need a new Entry at every level. See the runnable [Home](../examples/nested_layout/Home.gogo), [Settings](../examples/nested_layout/Settings.gogo) and [Rose](../examples/nested_layout/Rose.gogo), or run `examples/nested_layout/Home.tscn`. The example uses the explicit `UiButton` alias for `EstragonButton`; bare `Button` retains Godot's native Control meaning and is not remapped or automatically adapted.
+A normal Gogo component may keep `extends Node2D` and return an HBox, VBox, Text or native Estragon Button. When that host sits in a contiguous same-dimensional layout tree, its **managed view root supplies the host's slot**: natural/fixed dimensions and fill constraints pass through to the parent, which places the real host in sibling order. The returned root is arranged at zero local offset inside that slot. Children do not need a new Entry at every level. See the runnable [Home](../examples/nested_layout/Home.gogo), [Settings](../examples/nested_layout/Settings.gogo) and [Rose](../examples/nested_layout/Rose.gogo), or run `examples/nested_layout/Home.tscn`. The example uses the explicit `UiButton` alias for `EstragonButton`; bare `Button` retains Godot's native Control meaning and is never remapped. L03 did not adapt Controls; L04 below now supplies their automatic compatible 2D slots.
 
 The same stack rules apply through a host: fixed root dimensions override fill; natural dimensions come from the returned participant subtree; root fill flags request the parent's remaining main-axis share/cross-axis allocation. Multiple nested Gogo hosts and a host returning another Gogo host forward through the same mathematical core. Native transforms/lifetime/identity remain real. Layout owns translation of the participating host and returned root; scale/rotation remain native and are not included in intrinsic local size, just as for other participants. Do not author a second translation on a root intended to be parent-arranged.
 
@@ -74,3 +74,57 @@ The bridge is framework-owned, alongside its existing Computation: weak host loo
 L03 supersedes E07's historical plain-Gogo-host boundary proof; archived results are not relabeled. Plain **native** boundaries and explicit Entry independence remain current. General padding/margins (L01), percentages (L02), universal native adapters remain separate. Explicit scene-child projection is now scoped by [E08 #136](SCENE_CHILDREN.md). The focused `tools/check-nested-layout.ts --editor` runner records actual before/after frames, measured slots, native pointer Exit, reactivity/identity/lifecycle, direct Yarn and isolated editor main/current Play/reload. Exact evidence/review state is on [#137](https://github.com/papercraftgames/Estragon/issues/137)/its sole PR. Only Linux official4.0.4/pinned4.7.0 are freshly tested; no physical keyboard requirement or release authorization is introduced.
 
 Exact L03 acceptance: [rendered before/after, measured slots, native input/editor and lifecycle evidence](evidence/L03_NESTED_LAYOUT.md). The live issue/sole PR controls review/merge status.
+
+## L04 — native Control auto-layout
+
+Ordinary Godot Controls now occupy automatic slots as direct or [borrowed](SCENE_CHILDREN.md#native-controls-l04) children of a compatible 2D Estragon Box. Previously HBox ignored a native Button's footprint, allowing the following Rose component to overlap Exit. L04 measures native minimums through the existing coordinator/core. No wrapper, Script injection, extra Node, tag remapping or second renderer is involved. `Button` remains Godot Button; `UiButton` remains the independent Node2D EstragonButton. Naming changes are separate #146.
+
+| Child | Size and placement authority |
+| --- | --- |
+| Button, Label, LineEdit, TextureRect and other compatible Control | Godot supplies `get_combined_minimum_size()`; Estragon assigns the outer position/size in a Box slot. Godot owns appearance, GUI input, focus, theme and clipping. |
+| Native Container | Same outer slot; Godot exclusively measures/sorts its internal Control children. Estragon treats the Container as an opaque leaf. |
+| Estragon participant / nested Gogo view | Existing natural/fixed/fill contract through the same mathematical core. A compatible native Control can also be the Gogo view root. |
+| Plain Node2D, Sprite2D, Polygon2D, nonvisual Node | No automatic footprint or gap. Native authored position remains authoritative. |
+| Node3D / meshes / physics | Existing explicit world-unit participant/adapter contract; no automatic Control pixel conversion. |
+
+For bounded geometry, `EstragonNative2D` measures one direct Polygon2D's transformed vertices/offset; `EstragonNative3D` measures one direct MeshInstance3D's transformed AABB. These explicit adapters never stretch the visual. `observe_native` uses CanvasItem rect/Mesh changed signals where available; Polygon edits require `invalidate_native()`. See [supported providers and bounds](NODE_RUNTIME.md). Arbitrary visible nodes do not acquire a guessed size.
+
+### Natural minimum and allocation
+
+Native text/font/theme/texture and `custom_minimum_size` determine the **natural minimum**. An empty Control with zero native minimum stays zero; authored `size` is not a preferred-size input. Use `custom_minimum_size={Vector2(160,40)}` for intentional empty geometry. Estragon writes `position` and `size` as **outputs** while the Control participates. Reading those assigned values back as intrinsic size would create a feedback loop.
+
+Default native `SIZE_FILL` stays natural. Explicit `SIZE_EXPAND_FILL` on either native size_flags axis requests that axis's existing Box fill allocation. This is a deliberately small subset: other flag combinations remain natural; native stretch ratios/shrink alignment are not translated into a new Box algorithm. Inside a native Container, Godot supports its normal full flag semantics. Controls have no Estragon `fill_width`/`width` properties: set `fill_width`/`fill_height`, fixed `width`/`height` and `gap` on the surrounding Box instead. Fixed Box dimensions override that Box's fill request, as before. Native minimum floors reserve space before equal sharing; insufficient fixed outer space permits sequential overflow rather than shrinking a native Control below its minimum. No percentages, max constraints, margins or padding API is added.
+
+`minimum_size_changed`, `theme_changed`, `size_flags_changed`, visibility and guarded native rect changes schedule coalesced deferred measurement. Native changes reflow affected branches without rerunning Gogo functions. Self-authored Gogo bindables still use ordinary recomposition. Writes compare against the last assigned rect and suppress their own resize feedback; idle frames do no minimum reads or layout passes. A custom Control whose intrinsic data changes without a native signal must call Godot's `update_minimum_size()`. Runtime changes to unsupported coordinate configuration must likewise notify minimum-size invalidation; arbitrary ancestor transform changes are not globally observed.
+
+### One rectangle owner
+
+Supported Controls use zero anchors, zero local rotation/pivot, unit local scale and `top_level=false`, in the same native canvas/viewport as their logical Box. Native offsets are the position/size representation written by allocation. Do not simultaneously animate or manually author a participating outer rect; external rect edits cause the Box to restore its allocation. Shared transformed native ancestors remain Godot-owned. Borrowed controls support translated logical/native parent bases, not different rotation/scale bases.
+
+Nonzero anchors, local pivot/rotation/scale, top-level coordinates, incompatible CanvasLayer/viewport/bases or an actual native Container parent cause a bounded warning and exclusion from the Box. Anchors/transforms/flags are never silently reset. A released or newly ineligible Control restores its pre-allocation rect if it still has the same native parent. Its native visibility/input/lifetime continue normally; exclusion does not hide or free it. Remove it from the returned Box or use an ordinary plain boundary for deliberate native manual positioning. General reactive offsets/transforms remain #88.
+
+Borrowing never changes native clipping, CanvasLayer, Z, visibility or draw/input ancestry. Native Controls separated by Node2D Boxes can be distinct Godot GUI roots: author native `focus_next`/`focus_previous` NodePaths to cross those roots. The bridge preserves those links and native keyboard activation/text input; it does not synthesize a focus graph or dispatch Control clicks through Estragon's custom-button pointer router.
+
+### Runnable examples
+
+Run [NativeHome.tscn](../examples/nested_layout/NativeHome.tscn) for the owner's flexible-spacer Home/Settings/Rose arrangement using a native Exit button. [Home.tscn](../examples/nested_layout/Home.tscn) retains the UiButton version. [NativeGallery.tscn](../examples/nested_layout/NativeGallery.tscn) demonstrates all snippets below, a native Container, a generated Settings component and an owned Scene-dock Button. Keep the normal explicit Element/Box imports shown in its Gogo source; native class tags need no alias.
+
+```gogo
+func exit() -> void:
+    get_tree().quit()
+func build_view() -> Element:
+    return <HBox gap={8.0}>
+        <Button text="Exit" pressed={self.exit} />
+        <Label text="Ready" />
+    </HBox>
+```
+
+```gogo
+<VBox gap={8.0}>
+    <LineEdit placeholder_text="Native editing" />
+    <TextureRect texture={self.picture} />
+</VBox>
+<HBoxContainer><Label text="Left" /><Label text="Right" /></HBoxContainer>
+```
+
+The TextureRect's texture supplies its natural minimum under Godot's native expand mode. The example creates a 64×24 ImageTexture in `_ready`. `<NativeSettings />` returns an HBox/native Button and inherits its parent's Entry; it needs no independent Entry. [Exact focused Linux evidence](evidence/L04_NATIVE_CONTROLS.md) distinguishes native graphics/editor proof from manual-interactive or release certification.

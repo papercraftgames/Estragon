@@ -1,0 +1,106 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "a54c6a571c95379f5119a2348294e5f2a9f0f012cb543d5c95ef178b4888b5a9"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-JvfjXb/yarn-cache",
+      "file:/evidence/l04-e08-regression/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.5,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-JvfjXb/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-JvfjXb/project",
+      "--headless",
+      "--script",
+      "res://tests/scene_projection/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.71,
+    "godot_pid": 6941,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-JvfjXb/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-JvfjXb/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scene_projection/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.6,
+    "godot_pid": 6974,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "negative": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-JvfjXb/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-JvfjXb/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scene_projection/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.5,
+    "godot_pid": 7396,
+    "log": "negative.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: app/Home.gogo:40:3: GGX scene child referenced more than once: /root/Home/Settings",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Invalid composition output or foreign boundary conflict; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: negative.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: /root/@Node2D@2",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: detached.gogo:1:1: GGX borrowed children must be persistent direct children of the rendering host: Detached",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ],
+    "unexpected_errors": []
+  }
+}

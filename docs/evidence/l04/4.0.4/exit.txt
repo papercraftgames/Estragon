@@ -1,0 +1,7 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37, 31)","position":"(0, 301)","size":"(37, 31)"},"fun":{"position":"(0, 273)","size":"(104, 28)"},"hello":{"position":"(0, 245)","size":"(119, 28)"},"rose":{"position":"(0, 332)","size":"(120, 28)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_EXIT_QUIT

@@ -1,0 +1,70 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37, 31)","position":"(0, 301)","size":"(37, 31)"},"fun":{"position":"(0, 273)","size":"(104, 28)"},"hello":{"position":"(0, 245)","size":"(119, 28)"},"rose":{"position":"(0, 332)","size":"(120, 28)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_CHECK native text minimum change reflows nested host and subsequent sibling: true
+L04_CHECK native content signals do not reexecute Gogo functions: true
+L04_CHECK native minimum invalidation keeps the unchanged sibling measurement cached: true
+L04_CHECK native explicit minimum contributes to the parent slot: true
+L04_CHECK native theme font changes remeasure without overlap: true
+L04_CHECK native font/size overrides preserve Godot font authority: true
+L04_CHECK hidden native Control contributes no footprint: true
+L04_CHECK visibility restores allocation through native events: true
+L04_CHECK idle native Control screen performs zero minimum reads/measure/arrange/flush: true
+L04_CHECK UiButton remains the independent working Estragon widget; native bridge is removed: true
+L04_CHECK native Button choice returns without remapping: true
+L04_CHECK keyed nested native host reorder retains identity and sequential slots: true
+L04_CHECK nested native branch removal disconnects its bridges: true
+L04_CHECK viewport resize and native branch reinsertion preserve bottom-aligned geometry: true
+L04_CHECK native scene free releases all Control/layout/computation records: true
+L04_CHECK two native Buttons and framework Text occupy nonoverlapping VBox slots: true
+L04_CHECK Label/LineEdit/TextureRect use their native minimum contracts: true
+L04_CHECK Container outer participant stays opaque while Godot sorts its native children: true
+L04_CHECK native texture intrinsic change reflows following Container: true
+L04_CHECK native Container retains internal flag/sorting authority in its assigned rect: true
+L04_CHECK one native GUI click emits one Button pressed event: true
+L04_CHECK native disabled Button suppresses GUI activation: true
+L04_CHECK native focused keyboard activation remains functional: true
+L04_NATIVE_FOCUS_DEFAULT A:<Button#44442846404>
+L04_CHECK native Tab navigation follows authored native Control focus links: true
+L04_CHECK native LineEdit receives actual GUI text input: true
+L04_CHECK explicit EXPAND_FILL maps to cross-axis Box fill; default FILL remains natural: true
+L04_CHECK hidden native child consumes no VBox gap: true
+L04_CHECK under-constrained flex retains native minimum sizes and sequential slots: true
+L04_CHECK batched native minimum changes coalesce into one cached measurement: true
+L04_CHECK Gogo returning a native Control root forwards its minimum slot: true
+L04_CHECK hidden native root clears the Gogo proxy minimum: true
+L04_CHECK native root visibility restores its proxy slot: true
+L04_CHECK empty native minimum stays zero without reading manual allocated size: true
+L04_CHECK native Controls and opaque Container internals clean up without retained bridges: true
+L04_CHECK Scene-dock-equivalent persistent Control borrows a native rect in the chosen slot: true
+L04_CHECK borrowed plain Sprite remains free-positioned without inferred size: true
+L04_CHECK borrowed native Control keeps its authored GUI signal connection: true
+L04_CHECK external rect edits are restored by the participating Box without feedback: true
+L04_CHECK later projections filter managed output and reuse Control identity/cache: true
+L04_CHECK conditional release restores borrowed rect and disconnects bridge without freeing user Control: true
+L04_CHECK conditional restoration reuses the authored instance: true
+L04_CHECK projection release never disconnects application signals: true
+L04_CHECK PackedScene persists authored host/Button/Sprite only: true
+L04_CHECK borrowed Control native free releases all subscriptions/registrations: true
+L04_CHECK save/reload remounts one layout with native Control ownership intact: true
+L04_CHECK reloaded native scene releases external bookkeeping: true
+WARNING: Estragon native Control layout skipped: /root/@@6/@@7/@@8: nonzero anchors compete with Box allocation
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L04_CHECK conflicting anchors are diagnosed and retain native positioning: true
+L04_CHECK repairing native configuration restores participation without polling: true
+WARNING: Estragon native Control layout skipped: /root/@@6/@@7/@@8: top_level Control uses independent native coordinates
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L04_CHECK top_level Control stays outside Box coordinate authority: true
+WARNING: Estragon native Control layout skipped: /root/@@6/@@7/@@8: local rotation/scale/pivot requires explicit positioning
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L04_CHECK unsupported local transform retains native state without a competing allocation: true
+L04_CHECK shared transformed native ancestors preserve the common local coordinate basis: true
+L04_CHECK native Control reparent reacquires exactly one bridge: true
+L04_CHECK native minimum floor redistributes flex space without unnecessary overflow: true
+L04_CHECK 3D layout never adopts native Control pixels into world units: true
+L04_CHECK unsupported/cross-dimensional native boundaries leave no bridge records: true
+L04_ASSERTIONS 57 failures=0
+L04_RUNTIME_OK

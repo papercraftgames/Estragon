@@ -273,7 +273,7 @@ func exercise_components(dimension: int) -> void:
 	# Move an existing participant through a boundary and back, without disposal.
 	a.owner = entry
 	entry.remove_child(a)
-	check(a.owner == null and not a.layout.active and not a.child_entered_tree.is_connected(a.layout._child_changed), "remove clears invalid native owner and scoped subscriptions")
+	check(a.owner == null and not a.layout.active and not a.child_entered_tree.is_connected(a.layout._child_entered) and not a.child_exiting_tree.is_connected(a.layout._child_exiting), "remove clears invalid native owner and scoped subscriptions")
 	check(a.layout_applied.is_connected(on_component_layout), "native authored connections survive removal")
 	var detached_before = a.get_layout_stats()
 	a.width = 18

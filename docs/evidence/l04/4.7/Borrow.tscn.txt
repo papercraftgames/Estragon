@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b4k2fpx8mka2m"]
+
+[ext_resource type="Script" uid="uid://dvilh4rv0vjde" path="res://app/generated/Borrow.gd" id="1_thhie"]
+
+[node name="Borrow" type="Node2D" unique_id=1686049640]
+script = ExtResource("1_thhie")
+
+[node name="SceneButton" type="Button" parent="." unique_id=1672937858]
+custom_minimum_size = Vector2(180, 40)
+offset_left = 90.0
+offset_top = 110.0
+offset_right = 90.0
+offset_bottom = 110.0
+text = "Scene dock native Button"
