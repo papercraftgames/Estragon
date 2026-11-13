@@ -133,6 +133,8 @@ The TextureRect's texture supplies its natural minimum under Godot's native expa
 
 Entries expose independent exported float properties `viewport_width_scale` and `viewport_height_scale`, both defaulting to `0.0` (disabled). Positive scales allocate that axis from the Entry's own native `get_visible_rect().size`. A positive scale overrides the Entry's fixed `width`/`height` on that axis; zero uses its normal fixed/natural measurement. This preserves existing width precedence and applies the same rule to height. Finite nonnegative values are accepted; negative/NAN/INF writes retain the previous valid value, and equal writes do no layout work.
 
+Native Inspector metadata and typed GGX validation expose the new float property. GGX attribute completion displays known property types (for example `viewport_height_scale — float`) while inserting only the native property name. Unknown/misspelled attributes still reject with authored diagnostics and valid generated output/maps remain intact.
+
 ```gogo
 func build_view() -> Element:
     return <Entry2D viewport_width_scale={1.0} viewport_height_scale={1.0}>

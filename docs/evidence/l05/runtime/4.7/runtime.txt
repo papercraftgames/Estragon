@@ -1,0 +1,58 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L05_CHECK owner static viewport expressions remain composition snapshots after resize: true
+L05_CHECK owner four-row view follows the enlarged viewport without application resize handlers: true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (1152, 648): true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (1800, 1100): true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (760, 420): true
+L05_CHECK resize preserves actual Gogo/Control/Script identities and borrowed scene ownership: true
+L05_CHECK viewport layout never reruns views or remeasures a clean sibling: true
+L05_CHECK native Exit GUI remains single-dispatch after grow/shrink: true
+L05_CHECK scene-owned borrowed native Button keeps GUI signal authority: true
+L05_CHECK UiButton pointer routing remains functional after viewport resize: true
+L05_CHECK idle viewport tree has zero further measure/arrange/flush work: true
+L05_CHECK neither axis preserves fixed sizing 2: true
+L05_CHECK width-only retains existing fixed precedence 2: true
+L05_CHECK height-only overrides height and leaves X/Z unchanged 2: true
+L05_CHECK independent fractions follow aspect changes with explicit3D world scales 2: true
+L05_CHECK invalid/equal writes retain prior scales and do no layout work 2: true
+L05_CHECK native resize bursts coalesce to one subsequent arrange 2: true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 2(0, 0): true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 2(1, 1): true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 2(2, 3): true
+L05_CHECK positive-to-zero returns to current fixed data without stale viewport allocation 2: true
+L05_CHECK unselected natural axes remain natural 2: true
+L05_CHECK one scoped viewport listener 2: true
+L05_CHECK detach disconnects old viewport 2: true
+L05_CHECK re-entry uses new native viewport without duplicate listeners 2: true
+L05_CHECK stale viewport cannot invalidate reparented Entry 2: true
+L05_CHECK nested Entry remains an independent native viewport scope 2: true
+L05_CHECK neither axis preserves fixed sizing 3: true
+L05_CHECK width-only retains existing fixed precedence 3: true
+L05_CHECK height-only overrides height and leaves X/Z unchanged 3: true
+L05_CHECK independent fractions follow aspect changes with explicit3D world scales 3: true
+L05_CHECK invalid/equal writes retain prior scales and do no layout work 3: true
+L05_CHECK native resize bursts coalesce to one subsequent arrange 3: true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 3(0, 0): true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 3(1, 1): true
+L05_CHECK zero/near-zero request follows native visible viewport, including native minimum clamp 3(2, 3): true
+L05_CHECK positive-to-zero returns to current fixed data without stale viewport allocation 3: true
+L05_CHECK unselected natural axes remain natural 3: true
+L05_CHECK one scoped viewport listener 3: true
+L05_CHECK detach disconnects old viewport 3: true
+L05_CHECK re-entry uses new native viewport without duplicate listeners 3: true
+L05_CHECK stale viewport cannot invalidate reparented Entry 3: true
+L05_CHECK nested Entry remains an independent native viewport scope 3: true
+L05_CHECK compiled Gogo Entry3D uses explicit X/Y world scales and preserves depth: true
+L05_CHECK native viewport stretch uses visible coordinates instead of render-target pixels: true
+L05_CHECK height scale is a typed exported Inspector property: true
+L05_CHECK misspelled GGX scale rejects with authored diagnostic and keeps valid Script/maps: true
+L05_TYPED_DIAGNOSTIC {"changed":[],"diagnostics":["app/Home.gogo:33:78: Typed Node values require {GDScript expressions}; only strings may be quoted"],"isolated_preflight":{"status":"UNTESTED"},"ok":false,"outputs":[],"source_diagnostics":[{"column":78,"end_column":81,"end_line":33,"line":33,"message":"Typed Node values require {GDScript expressions}; only strings may be quoted","source":"app/Home.gogo"}],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L05_CHECK non-string scale retains authored typed GGX expression validation: true
+L05_CHECK repair recovers native actual-path compilation: true
+L05_CHECK teardown releases layout/composition/native Control records: true
+L05_ASSERTIONS 50 failed=false
+L05_RUNTIME_OK

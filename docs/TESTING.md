@@ -2,6 +2,12 @@
 
 # Current native-addon verification
 
+## L05 viewport axes
+
+`tools/check-viewport-layout.ts --editor` performs the focused direct-Yarn native build/runtime/Exit/editor/restart proof on only the two approved Linux engines. Invoke through `corepack yarn@1.22.22 node --experimental-strip-types` outside the historical Bun tooling package, using repeated `--engine LABEL=/absolute/godot` and a new absolute `--output`, under Xvfb/Openbox/software OpenGL. `--editor-only` builds a fresh installed fixture and runs editor/main/current/restart after an editor-only change, without repeating unchanged runtime assertions. Each output declares its profile and exact source/package provenance. See [exact commands/results](evidence/L05_VIEWPORT_LAYOUT.md).
+
+Native runtime covers snapshot versus live both-axis rendering, fixed/fractional/zero/invalid scales, explicit3D/Z, native stretch/SubViewport lifetime, cached/coalesced/idle layout and native/UiButton/borrowed input/ownership. Editor proof checks real typed attribute completion, installed imports/maps, actual resized main/current games and process restart. Settings and compiler PATH remain isolated; shared checkout preferences and the separate demo repo are untouched. Focused editor processes have a120-second bound; routine CI's60-second total budget and release gates remain unchanged. No physical-key, extra engine/platform or full73 requirement is introduced.
+
 ## L04 native Controls
 
 Run `tools/check-native-controls.ts --editor` through `corepack yarn@1.22.22 node --experimental-strip-types`, outside the historical Bun tooling package. Supply only official Linux4.0.4 and pinned4.7.0 with repeated `--engine LABEL=/absolute/godot` and a new absolute `--output`. Use Xvfb/Openbox/software OpenGL as in the [exact command/evidence](evidence/L04_NATIVE_CONTROLS.md). A clean tracked checkout is required for the direct-Yarn package; compiler-tool PATH and editor settings are isolated. No shared-checkout addon preference is changed.
