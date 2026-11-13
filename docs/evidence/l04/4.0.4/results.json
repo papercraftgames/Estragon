@@ -1,0 +1,193 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "a54c6a571c95379f5119a2348294e5f2a9f0f012cb543d5c95ef178b4888b5a9"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-3KSS7n/yarn-cache",
+      "file:/evidence/l04-review3/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.76,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--headless",
+      "--script",
+      "res://tests/native_controls/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.19,
+    "godot_pid": 8996,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/native_controls/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.8,
+    "godot_pid": 9015,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "exit": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/native_controls/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.84,
+    "godot_pid": 9114,
+    "log": "exit.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 66.53,
+    "godot_pid": 9233,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 28.38,
+    "godot_pid": 10566,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "unexpected_errors": []
+  },
+  "examples-build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--headless",
+      "--script",
+      "res://tests/native_controls/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.96,
+    "godot_pid": 11337,
+    "log": "examples-build.log",
+    "diagnostics": []
+  },
+  "examples": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-3KSS7n/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-3KSS7n/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/native_controls/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.95,
+    "godot_pid": 11356,
+    "log": "examples.log",
+    "diagnostics": []
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pKFyAb/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pKFyAb/project",
+      "--script",
+      "res://tests/composition/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.18,
+    "godot_pid": 7768,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pKFyAb/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-pKFyAb/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.64,
+    "godot_pid": 7887,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "37fdc5ef832511cec7c7e35e61fba3d1513117a9ba447614b82f39c4ddee6751",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pKFyAb/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pKFyAb/project",
+      "--script",
+      "res://tests/composition/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.21,
+    "godot_pid": 8131,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pKFyAb/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pKFyAb/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 69.2,
+    "godot_pid": 8148,
+    "log": "editor.log",
+    "diagnostics": [
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:57)",
+      "examples/composition/Counter.gogo:21:48: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:57)",
+      "examples/composition/Counter.gogo:21:48: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 8 should be \"float\" but is \"String\".",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)",
+      "examples/composition/Counter.gogo:20:27: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "examples/composition/Counter.gogo:20:27: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 8 should be \"float\" but is \"String\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 8 should be \"float\" but is \"String\".",
+      "          at: GDScript::reload (res://examples/composition/generated/Counter.gd:54)",
+      "examples/composition/Counter.gogo:20:27: Parse Error: Cannot pass a value of type \"String\" as \"float\".",
+      "examples/composition/Counter.gogo:20:27: Parse Error: Invalid argument for \"_gogo_build_0()\" function: argument 8 should be \"float\" but is \"String\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ],
+    "unexpected_errors": []
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pKFyAb/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pKFyAb/project",
+      "--script",
+      "res://tests/composition/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.45,
+    "godot_pid": 9706,
+    "log": "visual.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

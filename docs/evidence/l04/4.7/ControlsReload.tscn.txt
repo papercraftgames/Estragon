@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://app/generated/Borrow.gd" id="1_1h3sx"]
+
+[node name="Borrow" type="Node2D" unique_id=1058088921]
+script = ExtResource("1_1h3sx")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1821910432]
+position = Vector2(320, 220)
+
+[node name="SceneButton" type="Button" parent="." unique_id=1442384432]
+custom_minimum_size = Vector2(100, 40)
+offset_left = 30.0
+offset_top = 56.0
+offset_right = 172.0
+offset_bottom = 96.0
+text = "Borrowed button"

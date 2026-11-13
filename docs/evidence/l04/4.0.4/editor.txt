@@ -1,0 +1,66 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK main rendered nested views have correct slots, no duplicates and latest saved child source: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+L04_EDITOR_CHECK both Play paths forced-save unsaved Gogo dependency: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Home.gogo:28:18: Invalid authored Gogo component metadata: res://app/Settings.gogo
+
+app/Multi.gogo:5:39: Invalid authored Gogo component metadata: res://app/Settings.gogo
+
+app/Relay.gogo:4:10: Invalid authored Gogo component metadata: res://app/Settings.gogo
+
+app/Settings.gogo:25:124: Expected </HBox>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+L04_EDITOR_CHECK invalid child Gogo blocks native Play: true
+L04_EDITOR_CHECK failed source reload retains maps/bytes/timestamps/Script identity: true
+L04_EDITOR_CHECK failed source reload retains native UID: true
+L04_EDITOR_CHECK source repair recovers existing native compiler: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK current rendered nested views have correct slots, no duplicates and latest saved child source: true
+L04_EDITOR_CHECK native authored host scene saves without transient views: true
+L04_EDITOR_CHECK saved scene persists only authored native host: true
+L04_EDITOR_CHECK stock scene history authors a persistent native Control: true
+L04_EDITOR_CHECK native Undo removes authored Control without destroying it: true
+L04_EDITOR_CHECK native Redo restores exact Control identity and ownership: true
+L04_EDITOR_CHECK Undo deletion preserves exact native Control and authored sizing: true
+L04_EDITOR_CHECK native borrowed scene saves: true
+L04_EDITOR_CHECK editor scene persists only authored host/Control and manual rect: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Borrow.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK main borrowed Control uses native GUI/owner with one separated layout slot: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-3KSS7n/godot --path /tmp/estragon-native-3KSS7n/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9233 --position 320,332 res://app/Borrow.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L04_EDITOR_CHECK current borrowed Control uses native GUI/owner with one separated layout slot: true
+L04_EDITOR_ASSERTIONS 20 failed=false
+L04_EDITOR_OK

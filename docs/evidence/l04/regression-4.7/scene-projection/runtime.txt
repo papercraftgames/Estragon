@@ -1,0 +1,43 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E08_CHECK native parents/owners and Scene paths never change: true
+E08_CHECK borrowed Settings occupies the selected VBox slot between generated texts: true
+E08_CHECK ordinary Sprite stays native free-positioned without a fabricated footprint: true
+E08_CHECK borrowed subtree joins logical Entry input scope: true
+E08_CHECK native pointer reaches the same scene-authored Settings handler: true
+E08_CHECK a single native Node expression borrows the same child without literal get_children special-casing: true
+E08_CHECK second and later get_children exclude managed output and retain authored instances/state: true
+E08_CHECK child bindable growth reflows logical parent without recomposing Home: true
+E08_CHECK moving expression to another slot retains native identity/parent: true
+E08_CHECK conditional removal restores placement and preserves user subtree: true
+E08_CHECK conditional release detaches logical pointer/layout scope: true
+E08_CHECK managed root replacement never frees borrowed nodes: true
+E08_CHECK native scene child addition schedules projection after owner assignment: true
+E08_CHECK native child order reorders logical slots without moving physical parents: true
+E08_CHECK mixed unowned runtime child remains outside projection: true
+E08_CHECK native deletion releases borrowed record without damaging GGX tree: true
+E08_CHECK native nonparticipant property edits remain authoritative: true
+E08_CHECK PackedScene retains authored nodes and excludes transient output: true
+E08_CHECK active projected scene saves: true
+E08_CHECK native free clears weak composition/projection/layout ownership records: true
+E08_CHECK save/reload remounts once with the same authored scene structure: true
+E08_CHECK idle has no composition/layout polling: true
+E08_CHECK transformed native parent maps logical translation once and retains rotation/scale: true
+E08_CHECK eventful ancestor arrange refreshes borrowed translation even when physical parent does not move: true
+E08_CHECK native participant reorder observes host child-order notification on both engines: true
+E08_CHECK nested host/scene ownership and logical layout/input scopes remain distinct and continuous: true
+E08_CHECK explicit native adapter measures geometry and normalizes origin at the borrowed logical slot: true
+E08_CHECK native reparent transfers borrowing to the new host without a stale logical edge: true
+E08_CHECK old host disposal cannot delete a reparented authored child: true
+E08_CHECK an initially empty native child expression observes later scene addition without polling: true
+E08_CHECK native detach releases logical projection without changing scene ancestry: true
+E08_CHECK native reentry restores logical placement/input on the same instances: true
+E08_CHECK a borrowed explicit Entry remains independently positioned and scoped: true
+E08_CHECK release does not restore or seize independent Entry translation: true
+E08_CHECK 3D borrowed participant converts logical slot to unchanged native parent coordinates: true
+E08_CHECK 3D later composition excludes framework root: true
+E08_ASSERTIONS 36 failed=false
+E08_RUNTIME_OK

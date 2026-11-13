@@ -2,6 +2,12 @@
 
 # Current native-addon verification
 
+## L04 native Controls
+
+Run `tools/check-native-controls.ts --editor` through `corepack yarn@1.22.22 node --experimental-strip-types`, outside the historical Bun tooling package. Supply only official Linux4.0.4 and pinned4.7.0 with repeated `--engine LABEL=/absolute/godot` and a new absolute `--output`. Use Xvfb/Openbox/software OpenGL as in the [exact command/evidence](evidence/L04_NATIVE_CONTROLS.md). A clean tracked checkout is required for the direct-Yarn package; compiler-tool PATH and editor settings are isolated. No shared-checkout addon preference is changed.
+
+The focused runner covers native minimum/allocation, GUI input, borrowed ownership/lifecycle, native Exit quit, editor UndoRedo/save/main/current Play/rollback/restart and runnable examples. Expanded editor processes are bounded at120 seconds; other stages60. This is local/opt-in proof, separate from routine CI's unchanged60-second total budget and release certification. Inspect native captures; headless assertions are not visual proof. No physical-key or additional engine/platform gate is introduced.
+
 > **ADR-0016 verification:** current-addon groups cover F01–F03 getter/description/conditional/keyed reconciliation. F04 retargets compiler/GGX/UI/model consumers to the same engine and audits replaced eager/binder removal without dropping strict groups. F05/F06 remain future and are not certified by these checks. Exact current source/engine evidence lives in #98/PR #99.
 
 

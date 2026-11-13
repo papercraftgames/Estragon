@@ -1,0 +1,1 @@
+{"button_height":31.0,"button_y":301.0,"caption":"Exit edited","children":5,"rose_size":28.0,"rose_y":332.0}

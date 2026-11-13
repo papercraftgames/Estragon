@@ -1,0 +1,9 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37.0, 31.0)","position":"(0.0, 301.0)","size":"(37.0, 31.0)"},"fun":{"position":"(0.0, 273.0)","size":"(104.0, 28.0)"},"hello":{"position":"(0.0, 245.0)","size":"(119.0, 28.0)"},"rose":{"position":"(0.0, 332.0)","size":"(120.0, 28.0)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_EXIT_QUIT
