@@ -9,7 +9,7 @@ var exiting_controls: Dictionary = {}
 func block_control(node: Control) -> void:
 	var id := node.get_instance_id()
 	if exiting_controls.has(id): return
-	var reference := weakref(node)
+	var reference: WeakRef = weakref(node)
 	exiting_controls[id] = reference
 	_unblock_control.call_deferred(id,reference)
 func enter_control(node: Control) -> void:
