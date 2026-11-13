@@ -1,0 +1,63 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK chain fixture compiles: true
+E02_EDITOR_CHECK actual Gogo CodeEdit offers SceneTree quit invocation: true
+E02_EDITOR_CHECK native chained quit native popup contains expected candidate: true
+E02_EDITOR_CHECK native chained quit native confirmation inserts correct text: true
+E02_EDITOR_CHECK native chained quit insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native chained quit undo restores caret: true
+E02_EDITOR_CHECK native chained quit insertion redo: true
+E02_EDITOR_CHECK accepted method completion yields exact native invocation: true
+E02_EDITOR_CHECK completed source compiles through existing actual-path validation: true
+E02_EDITOR_CHECK native chain get_visible_rect native popup contains expected candidate: true
+E02_EDITOR_CHECK native chain get_visible_rect native confirmation inserts correct text: true
+E02_EDITOR_CHECK native chain get_visible_rect insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native chain get_visible_rect undo restores caret: true
+E02_EDITOR_CHECK native chain get_visible_rect insertion redo: true
+E02_EDITOR_CHECK native chain quit native popup contains expected candidate: true
+E02_EDITOR_CHECK native chain quit native confirmation inserts correct text: true
+E02_EDITOR_CHECK native chain quit insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native chain quit undo restores caret: true
+E02_EDITOR_CHECK native chain quit insertion redo: true
+E02_EDITOR_CHECK native chain quit native popup contains expected candidate: true
+E02_EDITOR_CHECK native chain quit native confirmation inserts correct text: true
+E02_EDITOR_CHECK native chain quit insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native chain quit undo restores caret: true
+E02_EDITOR_CHECK native chain quit insertion redo: true
+E02_EDITOR_CHECK native chain quit native popup contains expected candidate: true
+E02_EDITOR_CHECK native chain quit native confirmation inserts correct text: true
+E02_EDITOR_CHECK native chain quit insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native chain quit undo restores caret: true
+E02_EDITOR_CHECK native chain quit insertion redo: true
+E02_EDITOR_CHECK native explicitly typed return native popup contains expected candidate: true
+E02_EDITOR_CHECK native explicitly typed return native confirmation inserts correct text: true
+E02_EDITOR_CHECK native explicitly typed return insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK native explicitly typed return undo restores caret: true
+E02_EDITOR_CHECK native explicitly typed return insertion redo: true
+E02_EDITOR_CHECK native dynamic method return has no fabricated members: true
+E02_EDITOR_CHECK native comment/string chain requests remain suppressed: true
+E02_EDITOR_CHECK native GGX attribute expression retains chained methods: true
+E02_EDITOR_CHECK native GGX tag completion unaffected: true
+E02_EDITOR_CHECK native chained call hint uses SceneTree signature: true
+E02_EDITOR_CHECK source-map navigation keeps Gogo authoring/caret intact: true
+E02_EDITOR_CHECK ordinary .gd native editing/completion not replaced by Gogo adapter: true
+E02_EDITOR_CHECK restore accepted executable Gogo: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E10_NATIVE_EXIT_INPUT
+Running: /tmp/estragon-native-SpMhCf/godot --path /tmp/estragon-native-SpMhCf/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 10352 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK main completed quit actually stops game: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E10_NATIVE_EXIT_INPUT
+Running: /tmp/estragon-native-SpMhCf/godot --path /tmp/estragon-native-SpMhCf/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 10352 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK current actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK current completed quit actually stops game: true
+E02_EDITOR_ASSERTIONS 46 failed=false
+E02_EDITOR_OK

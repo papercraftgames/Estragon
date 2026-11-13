@@ -1,0 +1,8 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+E11_PHASE native-before ["main_gutter","line_numbers","fold_gutter"]
+E11_PHASE script-attached ["main_gutter","line_numbers","fold_gutter"]
+E11_PHASE diagnostic-added ["Estragon diagnostics","main_gutter","line_numbers","fold_gutter"]
+E11_PHASE diagnostic-removed ["main_gutter","line_numbers","fold_gutter"]
+E11_PHASE script-detached ["main_gutter","line_numbers","fold_gutter"]
+E11_PROBE_OK

@@ -1,0 +1,158 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "a9eb230dc04753fad5039df8a2158888a889fc5ef566939765c40ccaeb3c2897"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-SpMhCf/yarn-cache",
+      "file:/evidence/e11-chains-final2/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.69,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "project-components": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.26,
+    "godot_pid": 10314,
+    "log": "project-components.log",
+    "diagnostics": []
+  },
+  "method-chains": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--script",
+      "res://tests/editor_ux/chain_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.94,
+    "godot_pid": 10333,
+    "log": "method-chains.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 19.92,
+    "godot_pid": 10352,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "unexpected_errors": []
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 12.15,
+    "godot_pid": 11020,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: _notification (editor/editor_file_system.cpp:1224)"
+    ],
+    "unexpected_errors": []
+  },
+  "template-relocated": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.27,
+    "godot_pid": 11573,
+    "log": "template-relocated.log",
+    "diagnostics": []
+  },
+  "template-standard": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SpMhCf/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SpMhCf/project",
+      "--script",
+      "res://tests/editor_ux/project_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.27,
+    "godot_pid": 11592,
+    "log": "template-standard.log",
+    "diagnostics": []
+  }
+}

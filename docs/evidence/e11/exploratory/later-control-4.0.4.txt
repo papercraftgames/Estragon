@@ -1,0 +1,77 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+E02_EDITOR_CHECK E11 fixture builds: true
+E11_PHASE res://app/Screens/Home.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Home.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":34,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE res://app/Screens/Settings.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":12,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Settings.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":15,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE res://app/Screens/Rose.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":6,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK source edit/save rebuild 0: true
+E02_EDITOR_CHECK source edit/save rebuild 1: true
+E02_EDITOR_CHECK source edit/save rebuild 2: true
+E11_PHASE edited res://app/Screens/Rose.gogo {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK E11 native quit completion native popup contains expected candidate: true
+E02_EDITOR_CHECK E11 native quit completion native confirmation inserts correct text: true
+E02_EDITOR_CHECK E11 native quit completion insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK E11 native quit completion undo restores caret: true
+E02_EDITOR_CHECK E11 native quit completion insertion redo: true
+E02_EDITOR_CHECK restore source after completion: true
+E11_PHASE generated read-only {"editable":false,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":29,"script":"<null>"}
+E02_EDITOR_CHECK generated protection retains native breakpoint: true
+E02_EDITOR_CHECK generated no-op/changed native view refresh: true
+E11_PHASE generated refreshed {"editable":false,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":30,"script":"<null>"}
+E11_PHASE ordinary native script {"editable":true,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"connection_gutter","type":1},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":4,"script":"<null>"}
+E02_EDITOR_CHECK ordinary native tab has no Gogo service: true
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 0 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 1 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":9,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE switch 2 {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":16,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK E11 Settings quit completion native popup contains expected candidate: true
+E02_EDITOR_CHECK E11 Settings quit completion native confirmation inserts correct text: true
+E02_EDITOR_CHECK E11 Settings quit completion insertion/imports are one undoable operation: true
+E02_EDITOR_CHECK E11 Settings quit completion undo restores caret: true
+E02_EDITOR_CHECK E11 Settings quit completion insertion redo: true
+E02_EDITOR_CHECK Settings completion/UndoRedo preserves exact GGX buffer: true
+E02_EDITOR_CHECK completed Settings source saves/builds: true
+E02_EDITOR_CHECK diagnostic gutter is located by its owned name: true
+E11_PHASE syntax diagnostic {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":17,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK repair diagnostic source: true
+E11_PHASE one-line source {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":1,"script":"<GDScript#-9223370587789796781>"}
+E11_PHASE services stopped Home {"editable":true,"gutters":[{"draw":true,"index":0,"name":"main_gutter","type":2},{"draw":true,"index":1,"name":"line_numbers","type":2},{"draw":true,"index":2,"name":"fold_gutter","type":2}],"lines":31,"script":"<null>"}
+E02_EDITOR_CHECK one-line detach preserves buffer and all native gutters: true
+E02_EDITOR_CHECK native Script breakpoints survive diagnostic cleanup: true
+E11_PHASE reactivated {"editable":true,"gutters":[{"draw":true,"index":0,"name":"Estragon diagnostics","type":0},{"draw":true,"index":1,"name":"main_gutter","type":2},{"draw":true,"index":2,"name":"line_numbers","type":2},{"draw":true,"index":3,"name":"fold_gutter","type":2}],"lines":31,"script":"<GDScript#-9223370587789796781>"}
+E02_EDITOR_CHECK re-enabled source builds: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E11_GAME_GEOMETRY (0, 64) (64, 44) Rose (0, 112) (120, 28)
+Running: /tmp/estragon-native-IkQDt7/godot --path /tmp/estragon-native-IkQDt7/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9437 --position 64,188 --breakpoints res://app/Ordinary.gd:2 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK main actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK main completed quit actually stops game: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+E11_GAME_GEOMETRY (0, 64) (64, 44) Rose (0, 112) (120, 28)
+Running: /tmp/estragon-native-IkQDt7/godot --path /tmp/estragon-native-IkQDt7/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9437 --position 64,188 --breakpoints res://app/Ordinary.gd:2 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+E02_EDITOR_CHECK current actual game button invoked completed quit handler: true
+E02_EDITOR_CHECK current completed quit actually stops game: true
+E02_EDITOR_ASSERTIONS 35 failed=false
+E02_EDITOR_OK
+ERROR: 2 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:1982)

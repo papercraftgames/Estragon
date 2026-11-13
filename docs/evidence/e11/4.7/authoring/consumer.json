@@ -1,0 +1,13 @@
+{
+  "source": "87f7bd510b50f968768a3b167775542ec24965ac",
+  "profile": "E10-method-chains",
+  "tarball_sha256": "a9eb230dc04753fad5039df8a2158888a889fc5ef566939765c40ccaeb3c2897",
+  "direct_yarn": true,
+  "package_unchanged": true,
+  "template_layouts": [
+    "direct",
+    "relocated",
+    "standard"
+  ],
+  "external_compiler": false
+}
