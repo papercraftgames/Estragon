@@ -177,3 +177,5 @@ FAIL diagnostics and first-import asset-setting normalization remain documented
 in the B3 metadata contract; this task neither suppresses them nor repairs C01.
 
 L01 adds [2D pixel Box insets](NODE_UI.md#l01--pixel-box-model) to the existing shared mathematical core/coordinator: EstragonBox is the native HBox/VBox/Entry2D base, Box padding reduces content availability, and Component2D margins occupy outer parent space. External composition bridges forward a managed root's margin once without changing parentage/owner. Zero-inset 2D/3D behavior and explicit providers remain unchanged; 3D participants gain no pixel inset or conversion API.
+
+L02 [observed parent pixels](PARENT_PIXELS.md) uses the existing pure core's arranged content reference/parent-edge signals through an optional composition-layer helper. Fixed/viewport-backed/fill-anchored axes are usable; intrinsic child-dependent axes use deterministic0 fallback. Core math remains independent of the composition manager; only the helper registers signal reads. Existing native2D/3D providers and lifecycle rules remain unchanged.

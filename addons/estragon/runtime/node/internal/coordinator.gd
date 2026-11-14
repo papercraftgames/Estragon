@@ -157,12 +157,17 @@ func _flush() -> void:
 	flush_count += 1
 	if Profile.is_enabled(): Profile.add("layout_flushes")
 	var available: Vector3 = model.measure()
+	var external_axes := Vector3.ZERO
 	if _viewport != null:
 		var scale := _viewport_scale(host)
 		var visible := _viewport.get_visible_rect().size
-		if scale.x > 0: available.x = visible.x * scale.x
-		if scale.y > 0: available.y = visible.y * scale.y
-	model.arrange(available)
+		if scale.x > 0:
+			available.x = visible.x * scale.x
+			external_axes.x = 1
+		if scale.y > 0:
+			available.y = visible.y * scale.y
+			external_axes.y = 1
+	model.arrange(available,external_axes)
 	CompositionHosts.refresh_positions(self)
 
 func _place(offset: Vector3) -> void:

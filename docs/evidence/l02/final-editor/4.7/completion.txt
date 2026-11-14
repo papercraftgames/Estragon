@@ -1,0 +1,8 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L02_COMPLETION : true
+L02_COMPLETION 	const Pixels = 1
+: true
+L02_COMPLETION 	var Pixels: Node2D
+: true
+L02_COMPLETION_OK

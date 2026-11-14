@@ -1,0 +1,133 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "e2f85fdbe0c51b5add41598624f660f2a605d23b80a45be46382350246dd5cd8"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-EjhWSY/yarn-cache",
+      "file:/evidence/l02-final/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.29,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EjhWSY/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EjhWSY/project",
+      "--headless",
+      "--script",
+      "res://tests/parent_pixels/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4,
+    "godot_pid": 153,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EjhWSY/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EjhWSY/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/parent_pixels/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 16.51,
+    "godot_pid": 172,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EjhWSY/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EjhWSY/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 36.94,
+    "godot_pid": 278,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "editor-restart": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-EjhWSY/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EjhWSY/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 8.08,
+    "godot_pid": 950,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "ERROR: Initializing already initialized RID",
+      "   at: get_or_null (./core/templates/rid_owner.h:181)",
+      "ERROR: Condition \"!mem\" is true.",
+      "   at: initialize_rid (./core/templates/rid_owner.h:219)",
+      "ERROR: Condition \"!texture\" is true.",
+      "   at: texture_set_data (drivers/gles3/storage/texture_storage.cpp:1146)"
+    ]
+  }
+}

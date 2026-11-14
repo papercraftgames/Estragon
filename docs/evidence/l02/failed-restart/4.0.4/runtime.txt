@@ -1,0 +1,70 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L02_CHECK persistent50/75 ordinary pixel lengths at (640, 400): true
+L02_CHECK deep child uses immediate parent content instead of viewport: true
+L02_CHECK percent sibling margins fixed pixels and gaps reserve before fill: true
+L02_CHECK persistent50/75 ordinary pixel lengths at (800, 600): true
+L02_CHECK deep child uses immediate parent content instead of viewport: true
+L02_CHECK percent sibling margins fixed pixels and gaps reserve before fill: true
+L02_CHECK persistent50/75 ordinary pixel lengths at (520, 320): true
+L02_CHECK deep child uses immediate parent content instead of viewport: true
+L02_CHECK percent sibling margins fixed pixels and gaps reserve before fill: true
+L02_CHECK resize retains native component/root/input identities: true
+L02_CHECK keyed sibling reordering retains native percent root and current pixel size: true
+L02_CHECK native pointer activation follows resized percent geometry: true
+L02_CHECK idle frames perform zero rerender/measure/arrange/flush work: true
+L02_CHECK padding change observes affected geometry without parent/sibling recomposition: true
+L02_CHECK parent margins affect allocated bounds once, not a second content deduction: true
+L02_CHECK fractional pixels and above100 overflow stay ordinary finite pixel values: true
+L02_CHECK zero percentages are fixed zero pixels, independent of fill flags: true
+L02_CHECK parent resize burst coalesces one ordinary composition: true
+L02_CHECK viewport-driven fill ancestors publish explicit parent content basis: true
+L02_CHECK viewport-driven fill ancestors publish explicit parent content basis: true
+L02_CHECK native reparent retargets helper to new immediate content parent: true
+L02_CHECK old parent signal no longer schedules moved component: true
+L02_CHECK auto-size parent depending on percent child resolves zero without fixed-point iteration: true
+L02_CHECK auto/percent cycle fallback remains settled without scheduler work: true
+L02_CHECK auto-to-fixed policy change wakes dependencies even when previous arranged bounds equal fixed bounds: true
+L02_CHECK padding larger than bounds exposes clamped zero content: true
+L02_CHECK multiple percent siblings each use full parent content; margins/gaps may overflow: true
+L02_CHECK native minimum floor overflows alongside fixed percent pixels instead of shrinking or weighting them: true
+L02_CHECK logical projection retargets observed parent without native reparent or polling: true
+L02_CHECK scene pack/reopen rebuilds percent view once from authored host: true
+L02_CHECK transparent Gogo root chains do not invent self-referential content boxes: true
+L02_CHECK transparent ancestor context remains responsive: true
+L02_CHECK missing layout parent returns zero without viewport inference: true
+L02_CHECK independent Entry reference stops at its own300x200 scope: true
+L02_CHECK invalid percentage fallback -1: true
+WARNING: EstragonPixels requires a finite nonnegative percentage; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: EstragonPixels requires a finite nonnegative percentage; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: EstragonPixels requires a finite nonnegative percentage; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: EstragonPixels requires a finite nonnegative percentage; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L02_CHECK invalid percentage fallback nan: true
+L02_CHECK invalid percentage fallback inf: true
+L02_CHECK invalid percentage fallback -inf: true
+WARNING: EstragonPixels result exceeds native finite pixel range; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: EstragonPixels result exceeds native finite pixel range; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L02_CHECK overflowing helper result falls back before native vector storage: true
+WARNING: EstragonPixels context must be self in the current Gogo build_view; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: EstragonPixels context must be self in the current Gogo build_view; using 0 pixels
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L02_CHECK another Node cannot become an arbitrary cross-sibling geometry context: true
+L02_CHECK outside composition is a bounded fallback rather than an implicit binding: true
+L02_CHECK current Counter remains retained and reactive with native input: true
+L02_CHECK runnable installed example uses optional helper for50/75 of parent content: true
+L02_CHECK example changes an ordinary bindable percentage through retained input: true
+L02_CHECK percentage helper leaves authored unit diagnostics/Script/maps fail closed width="50%": true
+L02_CHECK percentage helper leaves authored unit diagnostics/Script/maps fail closed width="12px": true
+L02_CHECK percentage helper leaves authored unit diagnostics/Script/maps fail closed width="bad": true
+L02_CHECK repair recovers native helper semantics: true
+L02_CHECK composition observation/context stacks unwind together: true
+L02_ASSERTIONS 49 failed=false
+L02_RUNTIME_OK
