@@ -92,6 +92,8 @@ func _proof() -> void:
     output.close()
 
 
+const _GogoProject_0 = preload("Row.gd")
+
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
@@ -100,18 +102,18 @@ class _GogoFactories_0:
     const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
-    static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: Row.Model) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Row, {"name": "First", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:24", _gogo_value_0, true)
+    static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: _GogoProject_0.Model) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": "First", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:24", _gogo_value_0, true)
         return _gogo_element_0
 
 
-    static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: Row.Model) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Row, {"name": "Second", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:73", _gogo_value_0, true)
+    static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: _GogoProject_0.Model) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": "Second", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:73", _gogo_value_0, true)
         return _gogo_element_0
 
 
     static func _gogo_build_2(
-        _gogo_value_0: float,
+        _gogo_value_0: Variant,
         _gogo_value_1: Variant,
         _gogo_value_2: String,
         _gogo_value_3: Variant,

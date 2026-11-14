@@ -2,37 +2,36 @@
 class_name EstragonBox
 extends "component_2d.gd"
 ## Constructible horizontal Box. VBox selects the vertical axis.
-# -1 means an unset edge; explicit edges always override the shorthand.
-@export var padding: float = 0.0:
+var padding: Variant = 0.0:
 	set(value):
-		if not is_finite(value) or value < 0 or value == padding: return
+		if is_same(padding,value) or not lengths.assign("padding",value): return
 		padding = value
 		_changed()
-@export var padding_top: float = -1.0:
+var padding_top: Variant = "auto":
 	set(value):
-		if not valid_length(value) or value == padding_top: return
+		if is_same(padding_top,value) or not lengths.assign("padding_top",value): return
 		padding_top = value
 		_changed()
-@export var padding_right: float = -1.0:
+var padding_right: Variant = "auto":
 	set(value):
-		if not valid_length(value) or value == padding_right: return
+		if is_same(padding_right,value) or not lengths.assign("padding_right",value): return
 		padding_right = value
 		_changed()
-@export var padding_bottom: float = -1.0:
+var padding_bottom: Variant = "auto":
 	set(value):
-		if not valid_length(value) or value == padding_bottom: return
+		if is_same(padding_bottom,value) or not lengths.assign("padding_bottom",value): return
 		padding_bottom = value
 		_changed()
-@export var padding_left: float = -1.0:
+var padding_left: Variant = "auto":
 	set(value):
-		if not valid_length(value) or value == padding_left: return
+		if is_same(padding_left,value) or not lengths.assign("padding_left",value): return
 		padding_left = value
 		_changed()
+func _get_property_list() -> Array[Dictionary]:
+	var result: Array[Dictionary] = super._get_property_list()
+	result.append_array(Length.properties(["padding","padding_top","padding_right","padding_bottom","padding_left"]))
+	return result
 
 func _padding_insets() -> Vector4:
-	return Vector4(padding_left if padding_left >= 0 else padding,padding_top if padding_top >= 0 else padding,padding_right if padding_right >= 0 else padding,padding_bottom if padding_bottom >= 0 else padding)
-
-func _layout_options() -> Dictionary:
-	var options := super._layout_options()
-	options.padding = _padding_insets()
-	return options
+	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
+	return layout.model.padding

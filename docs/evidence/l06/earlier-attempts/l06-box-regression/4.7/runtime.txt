@@ -1,0 +1,68 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK border box excludes margins; asymmetric content origin: true
+L01_CHECK padding margins gaps reserved once before both-axis fill: true
+L01_CHECK auto aggregates outer child extents plus padding: true
+L01_CHECK too-small content clamps zero; fixed children sequentially overflow: true
+L01_CHECK center aligns the complete outer row inside content: true
+L01_CHECK core rejects invalid insets: true
+L01_CHECK core rejects nonfinite insets: true
+L01_CHECK native typed inherited pixel attributes width="100" height="auto" padding={2.5} margin_left={0}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding_left={3} padding={8} width={100}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding={8} padding_left={3}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK authored pixel diagnostics width="100oops": true
+L01_CHECK authored pixel diagnostics height="1em": true
+L01_CHECK authored pixel diagnostics padding="12wat": true
+L01_CHECK authored pixel diagnostics margin={-2}: true
+L01_CHECK authored pixel diagnostics padding_top={-1}: true
+L01_CHECK authored pixel diagnostics padding={NAN}: true
+L01_CHECK authored pixel diagnostics margin={INF}: true
+L01_CHECK authored pixel diagnostics paddding={4}: true
+L01_CHECK dynamic inset domain rejects -2.0: true
+L01_CHECK dynamic inset domain rejects nan: true
+L01_CHECK dynamic inset domain rejects inf: true
+L01_CHECK dynamic inset domain rejects 12oops: true
+L01_CHECK dynamic inset domain rejects true: true
+L01_CHECK shared real native Box hierarchy: true
+L01_CHECK Entry padding uses same core; fill bounds exclude parent padding: true
+L01_CHECK shorthand + leading override independent from attribute order: true
+L01_CHECK nested Gogo forwards margin once with root at local zero: true
+L01_CHECK nested row padding and gap use native child transforms: true
+L01_CHECK rendered pixels match nested padding/margin transforms: true
+L01_CHECK margin pixels are outside button hit bounds: true
+L01_CHECK arranged button pixels receive native pointer once: true
+L01_CHECK dynamic invalid inset rejects complete description before writes -2.0: true
+L01_CHECK dynamic invalid inset rejects complete description before writes nan: true
+L01_CHECK dynamic invalid inset rejects complete description before writes inf: true
+L01_CHECK dynamic invalid inset rejects complete description before writes 12: false
+L01_CHECK dynamic invalid inset rejects complete description before writes true: true
+L01_CHECK bindable padding recomposes in place with native identity: true
+L01_CHECK clean nested siblings remain measured once: true
+L01_CHECK root margin signal updates forwarded host exactly once: true
+L01_CHECK resized root allocates the content rectangle: true
+ERROR: Estragon length 'padding': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @padding_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/box.gd:7)
+       [2] run (res://tests/box_model/runtime.gd:124)
+       [3] frames (res://tests/box_model/runtime.gd:20)
+ERROR: Estragon length 'padding': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @padding_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/box.gd:7)
+       [2] run (res://tests/box_model/runtime.gd:125)
+       [3] frames (res://tests/box_model/runtime.gd:20)

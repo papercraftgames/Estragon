@@ -41,9 +41,9 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(
         _gogo_value_0: Vector2,
-        _gogo_value_1: float,
-        _gogo_value_2: float,
-        _gogo_value_3: float,
+        _gogo_value_1: Variant,
+        _gogo_value_2: Variant,
+        _gogo_value_3: Variant,
         _gogo_value_4: PackedVector2Array,
         _gogo_value_5: Color,
         _gogo_value_6: PackedVector2Array,

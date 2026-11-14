@@ -9,6 +9,8 @@
     "examples/conditional",
     "examples/inventory",
     "examples/twoway",
-    "examples/nested_layout"
+    "examples/nested_layout",
+    "examples/lengths",
+    "examples/box_model"
   ]
 }

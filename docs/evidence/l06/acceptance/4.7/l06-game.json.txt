@@ -1,0 +1,1 @@
+{"clicks":1,"samples":[{"content_x":1104.0,"content_y":600.0,"height":450.0,"identity":true,"spec":"50%","width":552.0},{"content_x":1392.0,"content_y":852.0,"height":639.0,"identity":true,"spec":"50%","width":696.0},{"content_x":752.0,"content_y":452.0,"height":339.0,"identity":true,"spec":"50%","width":376.0}]}

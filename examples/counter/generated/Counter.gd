@@ -26,24 +26,19 @@ func _ready() -> void:
 func build_view() -> Element:
     return _GogoFactories_0._gogo_build_0(
         (Vector2(24,24)),
-        (0.9),
-        (true),
         (16.0),
         (8.0),
-        (true),
         (Color(0.2,0.8,0.6)),
         (28),
         (Color(0.74,0.64,0.94)),
         ("Count: %d" % self.count),
         (26),
-        (true),
         (12.0),
-        (true),
+        (1),
         (increment),
-        (true),
+        (1),
         (self.count == 0),
         (reset_count),
-        (true),
         (6.0),
         (18),
         (18)
@@ -72,37 +67,32 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(
         _gogo_value_0: Vector2,
-        _gogo_value_1: float,
-        _gogo_value_2: bool,
-        _gogo_value_3: float,
-        _gogo_value_4: float,
-        _gogo_value_5: bool,
-        _gogo_value_6: Color,
+        _gogo_value_1: Variant,
+        _gogo_value_2: Variant,
+        _gogo_value_3: Color,
+        _gogo_value_4: int,
+        _gogo_value_5: Color,
+        _gogo_value_6: String,
         _gogo_value_7: int,
-        _gogo_value_8: Color,
-        _gogo_value_9: String,
-        _gogo_value_10: int,
-        _gogo_value_11: bool,
-        _gogo_value_12: float,
-        _gogo_value_13: bool,
-        _gogo_value_14: Callable,
-        _gogo_value_15: bool,
-        _gogo_value_16: bool,
-        _gogo_value_17: Callable,
-        _gogo_value_18: bool,
-        _gogo_value_19: float,
-        _gogo_value_20: int,
-        _gogo_value_21: int
+        _gogo_value_8: Variant,
+        _gogo_value_9: float,
+        _gogo_value_10: Callable,
+        _gogo_value_11: float,
+        _gogo_value_12: bool,
+        _gogo_value_13: Callable,
+        _gogo_value_14: Variant,
+        _gogo_value_15: int,
+        _gogo_value_16: int
     ) -> _GogoElement_0:
-        var _gogo_element_2 := _GogoElement_0.new(Rect, {"name": "Accent", "height": _gogo_value_4, "fill_width": _gogo_value_5, "fill": _gogo_value_6}, {}, [], "examples/counter/Counter.gogo:19:13", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Title", "text": "Estragon native Gogo Counter", "font_size": _gogo_value_7, "color": _gogo_value_8}, {}, [], "examples/counter/Counter.gogo:20:13", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_9, "font_size": _gogo_value_10}, {}, [], "examples/counter/Counter.gogo:21:13", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+", "fill_width": _gogo_value_13}, {"pressed": _gogo_value_14}, [], "examples/counter/Counter.gogo:23:17", null, false)
-        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"name": "Reset", "text": "Reset", "fill_width": _gogo_value_15, "disabled": _gogo_value_16}, {"pressed": _gogo_value_17}, [], "examples/counter/Counter.gogo:24:17", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(HBox, {"name": "Actions", "fill_width": _gogo_value_11, "gap": _gogo_value_12}, {}, [_gogo_element_6, _gogo_element_7], "examples/counter/Counter.gogo:22:13", null, false)
-        var _gogo_element_9 := _GogoElement_0.new(Text, {"name": "Hint", "text": "Click + to update retained Nodes.", "font_size": _gogo_value_20}, {}, [], "examples/counter/Counter.gogo:27:17", null, false)
-        var _gogo_element_10 := _GogoElement_0.new(Text, {"name": "Resize", "text": "Resize the window: nested native stacks reflow.", "font_size": _gogo_value_21}, {}, [], "examples/counter/Counter.gogo:28:17", null, false)
-        var _gogo_element_8 := _GogoElement_0.new(VBox, {"name": "Details", "fill_width": _gogo_value_18, "gap": _gogo_value_19}, {}, [_gogo_element_9, _gogo_element_10], "examples/counter/Counter.gogo:26:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_8], "examples/counter/Counter.gogo:18:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/counter/Counter.gogo:17:12", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(Rect, {"name": "Accent", "height": _gogo_value_2, "width": "100%", "fill": _gogo_value_3}, {}, [], "examples/counter/Counter.gogo:19:13", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Title", "text": "Estragon native Gogo Counter", "font_size": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/counter/Counter.gogo:20:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_6, "font_size": _gogo_value_7}, {}, [], "examples/counter/Counter.gogo:21:13", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+", "flex": _gogo_value_9}, {"pressed": _gogo_value_10}, [], "examples/counter/Counter.gogo:23:17", null, false)
+        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"name": "Reset", "text": "Reset", "flex": _gogo_value_11, "disabled": _gogo_value_12}, {"pressed": _gogo_value_13}, [], "examples/counter/Counter.gogo:24:17", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(HBox, {"name": "Actions", "width": "100%", "gap": _gogo_value_8}, {}, [_gogo_element_6, _gogo_element_7], "examples/counter/Counter.gogo:22:13", null, false)
+        var _gogo_element_9 := _GogoElement_0.new(Text, {"name": "Hint", "text": "Click + to update retained Nodes.", "font_size": _gogo_value_15}, {}, [], "examples/counter/Counter.gogo:27:17", null, false)
+        var _gogo_element_10 := _GogoElement_0.new(Text, {"name": "Resize", "text": "Resize the window: nested native stacks reflow.", "font_size": _gogo_value_16}, {}, [], "examples/counter/Counter.gogo:28:17", null, false)
+        var _gogo_element_8 := _GogoElement_0.new(VBox, {"name": "Details", "width": "100%", "gap": _gogo_value_14}, {}, [_gogo_element_9, _gogo_element_10], "examples/counter/Counter.gogo:26:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "gap": _gogo_value_1}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_8], "examples/counter/Counter.gogo:18:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": "90vw"}, {}, [_gogo_element_1], "examples/counter/Counter.gogo:17:12", null, false)
         return _gogo_element_0

@@ -26,7 +26,7 @@ All paths below are relative to `addons/estragon/runtime/node/`. Use explicit pr
 
 These extend `EstragonComponent2D` directly, through Text, or through the shared Box base. Use an explicit `Estragon2D` entry, same-dimensional immediate-parent scope and the [C1 boundaries/lifetime/authority contract](NODE_RUNTIME.md). Plain Nodes interrupt layout; another entry re-enters it. Godot owns rendering/transforms and Node lifetime. There is no Control substitution, RefCounted wrapper tree or custom child-adder.
 
-Width/height `-1` means natural; finite nonnegative values are fixed. A stack sums its children's natural main-axis sizes plus gaps, takes the cross-axis maximum, and includes its own intrinsic content. Fixed dimensions override natural measurement. `fill_width`/`fill_height` apply only on natural axes: main-axis fill children share nonnegative remaining space equally after fixed/natural siblings and gaps; cross-axis fill takes available space. Overflow remains visible, with no implicit clipping or negative allocation. This bounded rule is not CSS Flexbox. HBox selects X, VBox Y; existing proof/3D X defaults remain intact. No 3D wrapping/unit decision is implied.
+Length properties now accept numeric values or retained unit strings. See [unit grammar, immediate-parent percentages, viewport/reference units, flex/stretch and offsets](LENGTHS.md). Dimensions default to `"auto"`; fixed dimensions override intrinsic measurement. HBox selects X and VBox Y. Overflow remains visible.
 
 Text caches native Font metrics until text, font, font size or `Font.changed` invalidates them. Resource subscriptions connect/disconnect with native lifetime and font replacement. Layout changes invalidate the affected branch and coalesce on the existing coordinator; unrelated measurements stay cached. Paint-only colors and button pointer state queue redraw without layout. Idle trees do no layout work; no `_process` polling.
 
@@ -94,7 +94,7 @@ For bounded geometry, `EstragonNative2D` measures one direct Polygon2D's transfo
 
 Native text/font/theme/texture and `custom_minimum_size` determine the **natural minimum**. An empty Control with zero native minimum stays zero; authored `size` is not a preferred-size input. Use `custom_minimum_size={Vector2(160,40)}` for intentional empty geometry. Estragon writes `position` and `size` as **outputs** while the Control participates. Reading those assigned values back as intrinsic size would create a feedback loop.
 
-Default native `SIZE_FILL` stays natural. Explicit `SIZE_EXPAND_FILL` on either native size_flags axis requests that axis's existing Box fill allocation. This is a deliberately small subset: other flag combinations remain natural; native stretch ratios/shrink alignment are not translated into a new Box algorithm. Inside a native Container, Godot supports its normal full flag semantics. Controls have no Estragon `fill_width`/`width` properties: set `fill_width`/`fill_height`, fixed `width`/`height` and `gap` on the surrounding Box instead. Fixed Box dimensions override that Box's fill request, as before. Native minimum floors reserve space before equal sharing; insufficient fixed outer space permits sequential overflow rather than shrinking a native Control below its minimum. L04 adds no custom Control percentages/max constraints/margins/padding API. L01 separately adds [Estragon participant insets](#l01--pixel-box-model).
+Default native `SIZE_FILL` stays natural. Explicit `SIZE_EXPAND_FILL` on either native size_flags axis requests that axis's existing Box fill allocation. This is a deliberately small subset: other flag combinations remain natural; native stretch ratios/shrink alignment are not translated into a new Box algorithm. Inside a native Container, Godot supports its normal full flag semantics. Controls retain native properties: author unit `width`/`height`, `flex`, `stretch` and `gap` on the surrounding Estragon Box. Fixed Box dimensions override its corresponding growth/stretch request. Native minimum floors reserve space before equal sharing; insufficient fixed outer space permits sequential overflow rather than shrinking a native Control below its minimum. L04 adds no custom Control percentages/max constraints/margins/padding API. L01 separately adds [Estragon participant insets](#l01--pixel-box-model).
 
 `minimum_size_changed`, `theme_changed`, `size_flags_changed`, visibility and guarded native rect changes schedule coalesced deferred measurement. Native changes reflow affected branches without rerunning Gogo functions. Self-authored Gogo bindables still use ordinary recomposition. Writes compare against the last assigned rect and suppress their own resize feedback; idle frames do no minimum reads or layout passes. A custom Control whose intrinsic data changes without a native signal must call Godot's `update_minimum_size()`. Runtime changes to unsupported coordinate configuration must likewise notify minimum-size invalidation; arbitrary ancestor transform changes are not globally observed.
 
@@ -130,38 +130,9 @@ func build_view() -> Element:
 
 The TextureRect's texture supplies its natural minimum under Godot's native expand mode. The example creates a 64×24 ImageTexture in `_ready`. `<NativeSettings />` returns an HBox/native Button and inherits its parent's Entry; it needs no independent Entry. [Exact focused Linux evidence](evidence/L04_NATIVE_CONTROLS.md) distinguishes native graphics/editor proof from manual-interactive or release certification.
 
-## L05 — follow both viewport dimensions
+## Responsive layout
 
-Entries expose independent exported float properties `viewport_width_scale` and `viewport_height_scale`, both defaulting to `0.0` (disabled). Positive scales allocate that axis from the Entry's own native `get_visible_rect().size`. A positive scale overrides the Entry's fixed `width`/`height` on that axis; zero uses its normal fixed/natural measurement. This preserves existing width precedence and applies the same rule to height. Finite nonnegative values are accepted; negative/NAN/INF writes retain the previous valid value, and equal writes do no layout work.
-
-Native Inspector metadata and typed GGX validation expose the new float property. GGX attribute completion displays known property types (for example `viewport_height_scale — float`) while inserting only the native property name. Unknown/misspelled attributes still reject with authored diagnostics and valid generated output/maps remain intact.
-
-```gogo
-func build_view() -> Element:
-    return <Entry2D viewport_width_scale={1.0} viewport_height_scale={1.0}>
-        <VBox fill_width={true} fill_height={true}>
-            <VBox fill_height={true} />
-            <Text text="Hello World!" />
-            <Text text="This is fun!" />
-            <NativeSettings />
-            <Rose />
-        </VBox>
-    </Entry2D>
-```
-
-Run [NativeHome.tscn](../examples/nested_layout/NativeHome.tscn), whose [source](../examples/nested_layout/NativeHome.gogo) now uses this API without application resize handlers. Native viewport resize signals coalesce a deferred layout pass. Existing nested hosts, native Controls and borrowed scene children keep their identities and layout/input contracts; Gogo views do not rerun for this layout-only event. Unchanged sibling measurements stay cached and idle frames add no layout passes. Each independent Entry owns its own viewport listener, disconnected/rebound on detach/re-entry.
-
-| Scales | Allocation |
-| --- | --- |
-| X=1, Y=1 | Full live visible viewport on both axes |
-| X=0.9, Y=0.75 | Independent live fractions |
-| X=1, Y=0 | Live width; normal fixed/natural height |
-| X=0, Y=1 | Normal fixed/natural width; live height |
-| X=0, Y=0 | Existing fixed/natural defaults |
-
-`width={get_viewport_rect().size.x}` and `height={get_viewport_rect().size.y}` are **snapshots when the Gogo function composes**. Reading those native methods does not subscribe the function to resize; use the explicit scale API to follow a viewport. It does not make all GDScript expressions reactive. Viewport scales are unrelated to parent-relative percentages (#129), Box padding/margins (#55) or a CSS `100%` grammar.
-
-Dimensions are native visible viewport coordinates, including SubViewport/stretch/project scaling behavior, rather than OS window chrome or raw render-target pixels. Native zero/near-zero viewport requests may be clamped by Godot; layout follows the actual visible rect. `Entry3D` exposes the same two properties with **application-chosen world units per visible viewport pixel**: e.g. X=0.01, Y=0.02. There is no automatic conversion or depth scaling; Z keeps its existing fixed/natural value. See [native API](NODE_RUNTIME.md), [focused evidence](evidence/L05_VIEWPORT_LAYOUT.md).
+Use `<Entry2D width="100vw" height="100vh">`, parent-relative unit dimensions, and weighted `flex` with cross-axis `stretch`. [Complete contract and migration](LENGTHS.md). Native `get_viewport_rect()` expressions remain composition snapshots; unit specs resolve from viewport signals without recomposition.
 
 ## L01 — pixel Box model
 
@@ -174,20 +145,14 @@ Dimensions are native visible viewport coordinates, including SubViewport/stretc
 </VBox>
 ```
 
-Explicit numeric 2D lengths are pixels in native local layout coordinates. Width/height are **border-box bounds**, including padding, excluding margin. `width="100"` and `width={100}` both mean 100 pixels. `"auto"` (or native `-1`) keeps intrinsic sizing; fill flags remain independent and fixed dimensions override fill. Percent/unit strings such as `"100%"` and `"10px"` reject at their authored spans. There is no unit or parent-percentage conversion.
+Lengths use the [shared numeric/string contract](LENGTHS.md). Width/height are border-box bounds including padding and excluding margin. Shorthands default to zero; individual edge overrides default to `"auto"` and inherit the shorthand. Explicit zero edges override independently of assignment order. Invalid native writes diagnose and retain valid state; GGX rejects before commit.
 
-Box/Entry padding and every native Estragon 2D participant's margin accept finite nonnegative numeric expressions. Strings, bools and nonfinite/negative insets reject in GGX. Native setters ignore invalid writes and retain the last valid value. Shorthand defaults to zero. Each edge (`_top`, `_right`, `_bottom`, `_left`) overrides the scalar independently of source/assignment order, including an explicit zero. Native edge properties use `-1` solely as **unset / restore shorthand**, shown in the Inspector and preserved through scene packing; that sentinel is not an authored GGX inset. Change the scalar without overwriting explicit edges, or set a native edge back to `-1` to inherit it again.
-
-Auto measurement sums child outer extents along the stack axis, takes the largest outer extent across it, adds gaps once, then adds container padding once. Fixed bounds may be smaller than natural content. Arrangement subtracts padding from bounds and clamps each available content axis at zero. Main-axis child margins and gaps are reserved before equal flex sharing; cross-axis fill subtracts that child's cross margins. Native Control minimum floors still apply. Fixed/natural children and minimum-constrained native Controls overflow sequentially when insufficient space remains; a zero-minimum flex child can receive zero pixels. Padding does not clip drawing or native input. There is no margin collapse, negative spacing or implicit child shrink.
+Auto measurement sums child outer extents along the stack axis, takes the largest outer extent across it, adds gaps once, then adds container padding once. Fixed bounds may be smaller than natural content. Arrangement subtracts padding from bounds and clamps each available content axis at zero. Main-axis child margins and gaps are reserved before weighted flex sharing; cross-axis fill subtracts that child's cross margins. Native Control minimum floors still apply. Fixed/natural children and minimum-constrained native Controls overflow sequentially when insufficient space remains; a zero-minimum flex child can receive zero pixels. Padding does not clip drawing or native input. There is no margin collapse, negative spacing or implicit child shrink.
 
 Children start at the content origin plus their leading margin. Cross-axis alignment remains leading; `center` centers the complete outer row (including margins/gaps) inside the content rectangle and retains its existing symmetric overflow behavior. Margins affect parent measurement/allocation only, never the child's painted/hit bounds. A scope root's own margin has no parent to consume it. Nested Gogo hosts forward a managed root's margin once to the parent; their returned root stays at local zero. Layout retains native ownership/transforms and translates the real participating Nodes; pointer routing uses those native transforms.
 
-Padding belongs to Box/Entry containers. Text and UiButton retain their existing font measurement and UiButton's intrinsic text inset; they do not acquire container padding or text wrapping. Margin applies to Rect/Text/UiButton/Box and other EstragonComponent2D subclasses. Native Controls use their L04 minimum/size-flags API and do not gain custom properties. Bounded 3D participants retain native world-unit geometry with zero box insets; no pixel-to-world policy is introduced. Changes invalidate affected branches through existing signals/deferred flushes, without idle polling or a second layout/reconciliation path.
+Padding belongs to Box/Entry containers. Text and UiButton retain their existing font measurement and UiButton's intrinsic text inset; they do not acquire container padding or text wrapping. Margin applies to Rect/Text/UiButton/Box and other EstragonComponent2D subclasses. Native Controls use their L04 minimum/size-flags API and do not gain custom properties. Bounded 3D native geometry remains in world units; authored lengths use the explicit scale in the [shared contract](LENGTHS.md). Changes invalidate affected branches through existing signals/deferred flushes, without idle polling or a second layout/reconciliation path.
 
 Run [BoxModel.tscn](../examples/box_model/BoxModel.tscn) to change padding with a retained UiButton while keeping the explicit left edge fixed. The colored row demonstrates outer margins separately from inner padding. [Focused L01 runner](../tools/check-box-model.ts) uses fresh direct-Yarn consumers and isolated editor/game settings; exact review evidence is maintained on #55/its sole PR.
 
 [Exact L01 native acceptance, rendered geometry and editor/compile evidence](evidence/L01_BOX_MODEL.md). Both approved Linux engines pass the scoped proof; live issue/sole PR controls review and merge state.
-
-## L02 — responsive parent-relative pixels
-
-Use optional [Pixels helpers](PARENT_PIXELS.md) for50% of a containing participant's content width or75% of its content height. They return ordinary numeric pixels and participate in the existing Gogo observation/reconciliation path. This differs from remaining-space fill and viewport scales. Parent content must be independently allocated; auto/cyclic axes use documented0 fallback. See the [runnable source](../examples/parent_pixels/ResponsivePanel.gogo) and [scene](../examples/parent_pixels/ResponsiveHome.tscn). Numeric dimensions, edge precedence and unsupported quoted unit strings retain the L01 contract.

@@ -1,3 +1,5 @@
+> Historical B2 proof contract. Its sizing flags are retired. Current public API: [unit lengths](LENGTHS.md).
+
 # ADR-0015-B2: shared 2D/3D measure-arrange proof
 
 **Scope:** [#73](https://github.com/resistdesign/Estragon/issues/73), following merged [B1 PR #72](https://github.com/resistdesign/Estragon/pull/72), [ADR-0015](DECISIONS.md#adr-0015--ggx-node-native-composition-and-layout-first-estragon) and [Node migration plan](NODE_MIGRATION_PLAN.md). B2 is a bounded proof for review. The default compiler/editor, RefCounted component runtime, Counter and legacy examples remain unchanged. No B3 native bounds adapters, general component/compiler migration, bindings, volumetric wrapping or release certification is included.

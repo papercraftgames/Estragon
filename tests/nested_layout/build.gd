@@ -40,8 +40,8 @@ func views():
 	return [rose,settings] if self.reverse else [settings,rose]
 func build_view() -> Element:
 	return <Entry2D name="UI" width={self.extent.x} height={self.extent.y}>
-		<VBox name="Column" fill_width={true} fill_height={true}>
-			<VBox name="Spacer" fill_height={true} />
+		<VBox name="Column" flex={1} stretch={1}>
+			<VBox name="Spacer" flex={1} />
 			<Text name="Hello" text={"Hello World!" if self.tick==0 else "Hello World! "+str(self.tick)} />
 			<Text name="Fun" text="This is fun!" />
 			{self.views()}
@@ -61,11 +61,11 @@ func exit() -> void:
 	print("L03_EXIT_QUIT")
 	get_tree().quit()
 func leaf():
-	return <UiButton name="Exit" pressed={self.exit} text={self.caption} fill_width={self.wide} fill_height={self.wide} /> if self.visible_button else null
+	return <UiButton name="Exit" pressed={self.exit} text={self.caption} flex={1 if self.wide else 0} stretch={1 if self.wide else 0} /> if self.visible_button else null
 func build_view() -> Element:
 	if self.independent: return <Entry2D name="Independent" width={180.0} height={60.0} position={Vector2(250,40)}><Text name="IndependentText" text="Independent" /></Entry2D>
 	if self.direct: return <Text name="Direct" text={self.caption} />
-	return <HBox name="Row" width={self.view_width} height={self.view_height} fill_width={self.wide} gap={5.0}>{self.leaf()}</HBox>
+	return <HBox name="Row" width={self.view_width if self.view_width>=0 else "auto"} height={self.view_height if self.view_height>=0 else "auto"} stretch={1 if self.wide else 0} gap={5.0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Rose.gogo"
 	write(path,header(path,["Element","HBox","Text","UiButton"])+'''@bindable var button: bool = false
@@ -74,10 +74,10 @@ var clicks: int = 0
 func pressed() -> void:
 	clicks += 1
 func leaf():
-	if self.button: return <UiButton name="RoseButton" pressed={self.pressed} text="Rose is cute!" fill_width={self.wide} />
+	if self.button: return <UiButton name="RoseButton" pressed={self.pressed} text="Rose is cute!" flex={1 if self.wide else 0} />
 	return <Text name="RoseText" text="Rose is cute!" />
 func build_view() -> Element:
-	return <HBox name="Row" fill_width={self.wide}>{self.leaf()}</HBox>
+	return <HBox name="Row" stretch={1 if self.wide else 0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Multi.gogo"
 	write(path,header(path,["Element","VBox"])+'''func build_view() -> Element:

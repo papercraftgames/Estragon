@@ -18,8 +18,8 @@ func build_view() -> Element:
     else:
         for item in items:
             rows.append(<Row key={item.id} name={"Row%d" % item.id} item={item} />)
-    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
-        <VBox name="Panel" fill_width={true} gap={10.0}>
+    return <Entry name="UI" position={Vector2(24,24)} width="90vw">
+        <VBox name="Panel" width="100%" gap={10.0}>
             <Text name="Title" text="Inventory | keyed native rows" />
             {<Text name="Note" text="Select First +, then Reverse: row state travels with its key." /> if show_note else null}
             {[[], rows, null]}

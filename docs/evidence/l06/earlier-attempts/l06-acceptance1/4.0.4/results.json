@@ -1,0 +1,79 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "f217d2e0d0af4896306d8c7d71c13e38313a4f0554a60eb212f6cf4aa5cdbc8d"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-EXc0cn/yarn-cache",
+      "file:/evidence/l06-acceptance1/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.72,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EXc0cn/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EXc0cn/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.17,
+    "godot_pid": 4063,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-EXc0cn/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EXc0cn/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.48,
+    "godot_pid": 4082,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ],
+    "reason": "Unexpected native rejection output: {\"count\":0,\"unexpected\":[\"ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported\",\"ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)\",\"ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)\",\"ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)\",\"ERROR: Estragon length 'width': Length requires int, float or a unit string\"]}"
+  }
+}

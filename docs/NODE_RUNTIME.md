@@ -17,8 +17,8 @@ parity is C3. No old hierarchy was renamed or retired. Strict C01 release remain
 **BLOCKED**; this foundation does not certify every Godot minor/platform.
 
 The bounded lifecycle/coordinate proposal was recorded on #77 before code.
-This PR reviews that concrete C1 API and its limits, without settling universal
-3D units/wrapping/overlays or animated geometry observation.
+This PR reviews that concrete C1 API and its limits, without settling general
+3D wrapping/overlays or animated geometry observation. L06 adds the bounded shared length/explicit spatial scale contract.
 
 ## Public C1 API
 
@@ -31,9 +31,7 @@ Preload the corresponding file, or use its registered native-script class name:
 | `native_2d.gd`, `native_3d.gd` | `EstragonNative2D`, `EstragonNative3D`: bounded participant around one direct Polygon2D / MeshInstance3D, reusing the B3 bounds bridge |
 
 Participant properties are `width`, `height`, 3D `depth`, `gap`, and `center`.
-An extent of -1 uses the children's natural row extent, or the native adapter's
-cached geometry extent; a finite value >= 0 fixes that allocation. Gaps are finite
-and nonnegative. Invalid individual writes retain the prior valid value. Equal
+The default `"auto"` uses the children's natural extent or cached native bounds. Numeric/unit-string dimensions fix allocations through the [shared contract](LENGTHS.md). Gaps use that same nonnegative length domain. Invalid individual writes retain the prior valid value. Equal
 writes are no-ops. `set_extent(Vector2/Vector3) -> Error` checks all axes before
 changing anything and returns `ERR_INVALID_PARAMETER` without partial changes.
 
@@ -45,30 +43,9 @@ with `active`, `measure`, `arrange`, and `flush` counters for diagnostics. No
 per-frame call is required. Inherited Node `add_child`, `remove_child`,
 `move_child`, `queue_free`/`free` and native detach/add reparenting are the only
 native lifetime/attachment operations; there is no Error-returning custom adder,
-dispose, virtual DOM or manual ownership manager.
+dispose or manual ownership manager.
 
-Entries additionally export `viewport_width_scale` and `viewport_height_scale`
-(each defaults to0, disabled). Positive finite scales independently allocate X/Y
-from the Entry's own native visible viewport width/height, overriding fixed
-width/height on those selected axes. Zero restores current fixed/natural data;
-invalid/equal writes retain prior state without invalidation. The application
-chooses each3D world-unit-per-pixel scale explicitly; depth is unchanged and no
-automatic pixel-to-world conversion is imposed. The common internal hook returns
-a Vector2 of axis scales. Existing scoped size_changed listeners drive coalesced
-root arrangement; detach/re-entry disconnects/rebinds the actual viewport.
-[L05 authoring/precedence and snapshot distinction](NODE_UI.md#l05--follow-both-viewport-dimensions).
-Entry resize invalidation does not remeasure clean
-sibling branches. DPI alone is not treated as resize.
-
-Native adapters additionally export `observe_native` (default false), and expose
-`invalidate_native()`, `get_native_bounds()` (Rect2/AABB in parent axes before
-adapter translation) and `get_native_bounds_status() -> Error`. Initial status is
-`ERR_UNCONFIGURED`; deferred measurement produces OK or `ERR_INVALID_PARAMETER`
-for missing/multiple/unsupported/empty/non-finite providers. Invalid measured
-bounds become zero, with explicit fixed allocation still respected. Generic
-Nodes have no inferred size. The `layout`, `bounds`, coordinator/model fields and
-placement/measurement hooks are internal implementation details, not the stable
-authoring API. Future provider/widget extension interfaces are not defined here.
+Entries use retained viewport unit dimensions and the existing scoped native size_changed listener. See [shared length/3D scale/position authority](LENGTHS.md).
 
 ## Scope, coordinates and authority
 
@@ -85,7 +62,7 @@ Both dimensions use the same composed B2 mathematical X-row measure→arrange co
 Natural width sums children plus gaps; Y/Z use maximum child extent. Optional
 centering offsets the row within allocation. Fixed allocation does not shrink,
 stretch or clip native geometry; overflow is permitted. Local 2D coordinates use
-pixels; 3D coordinates use explicitly authored Godot world units. No wrapping,
+pixels;3D native transforms/bounds use Godot world units, with authored lengths converted by the explicit [pixel-to-world scale](LENGTHS.md). No wrapping,
 constraint solver, implicit overlay or universal volumetric policy is included.
 
 For a basic participant, the parent owns local translation and computed allocation.
@@ -178,4 +155,4 @@ in the B3 metadata contract; this task neither suppresses them nor repairs C01.
 
 L01 adds [2D pixel Box insets](NODE_UI.md#l01--pixel-box-model) to the existing shared mathematical core/coordinator: EstragonBox is the native HBox/VBox/Entry2D base, Box padding reduces content availability, and Component2D margins occupy outer parent space. External composition bridges forward a managed root's margin once without changing parentage/owner. Zero-inset 2D/3D behavior and explicit providers remain unchanged; 3D participants gain no pixel inset or conversion API.
 
-L02 [observed parent pixels](PARENT_PIXELS.md) uses the existing pure core's arranged content reference/parent-edge signals through an optional composition-layer helper. Fixed/viewport-backed/fill-anchored axes are usable; intrinsic child-dependent axes use deterministic0 fallback. Core math remains independent of the composition manager; only the helper registers signal reads. Existing native2D/3D providers and lifecycle rules remain unchanged.
+L06 [shared unit lengths](LENGTHS.md) replaces the helper API. The same core resolves immediate-parent content references without recomposing views.

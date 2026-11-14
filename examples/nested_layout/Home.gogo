@@ -11,8 +11,8 @@ func resized() -> void:
 	extent = get_viewport_rect().size
 func build_view() -> Element:
 	return <Entry2D width={self.extent.x} height={self.extent.y}>
-		<VBox fill_width={true} fill_height={true}>
-			<VBox fill_height={true} />
+		<VBox flex={1} stretch={1}>
+			<VBox flex={1} />
 			<Text text="Hello World!" />
 			<Text text="This is fun!" />
 			<Settings />

@@ -24,7 +24,7 @@ Visual 2D components inherit Node2D; 3D participants inherit Node3D. A mathemati
 
 Ordinary Nodes can appear anywhere in GGX and retain native behavior, but are not automatic layout participants. Add a new explicit entry to re-enter Estragon below an ordinary Node; never tunnel sizing through arbitrary boundaries. Plain Nodes can interrupt spatial ancestry, and 2D/3D transforms differ. Local/native coordinate conversion and any 2D overlay in 3D need explicit supported contracts.
 
-2D pixel-unit decisions remain. 3D introduces width/height/depth and native spatial placement. Volumetric RowBox/ColBox filling two axes and layering along the third is accepted as a model; axes, wrap order, spacing, world units, size constraints and overflow remain a focused specification. Pixels are not assumed to be world units.
+L06 [shared numeric/unit-string lengths](LENGTHS.md), approved in #156/ADR-0017, supersedes the old numeric-only/helper-only decision. Native2D layout remains in logical pixels; explicit3D scale converts authored pixel/reference/viewport lengths to world extents. 3D introduces width/height/depth and native spatial placement. Volumetric RowBox/ColBox filling two axes and layering along the third is accepted as a model; axes, wrap order, spacing, world units, size constraints and overflow remain a focused specification. Pixels are not assumed to be world units.
 
 ## Native adapters, identity and invalidation
 

@@ -21,7 +21,7 @@ class Shared extends Resource:
 @export var payload: Shared = null
 signal changed(value: bool)
 func build_view() -> Element:
-	return <Entry2D name="SettingsView" position={Vector2(0,60)} viewport_width_scale={0.8}>
+	return <Entry2D name="SettingsView" position={Vector2(0,60)} width="80vw">
 		<Text name="Caption" text={self.title} />
 		<Leaf name="Leaf" />
 	</Entry2D>
@@ -37,7 +37,7 @@ func on_changed(value: bool) -> void:
 	received = value
 func build_view() -> Element:
 	return <Entry2D name="UI">
-		<VBox name="Column" fill_width={true} fill_height={true}>
+		<VBox name="Column" flex={1} stretch={1}>
 			<Text name="Greeting" text={"Hello World! " + str(self.tick)} />
 			<Settings name="SettingsChild" title={"Settings child"} payload={null} changed={self.on_changed} />
 			<Boundary name="BoundaryChild" />

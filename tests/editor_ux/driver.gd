@@ -269,7 +269,7 @@ func native_reference(text: String, row: int, column: int) -> Color:
 	return result
 func authored_view() -> String:
 	# Deliberately authored test UI, independent of the blank creation service.
-	var body := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Entry2D name="UI" viewport_width_scale={0.9}>\n\t\t<Text name="Greeting" text="Hello Gogo" />\n\t</Entry2D>\n'
+	var body := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Entry2D name="UI" width="90vw">\n\t\t<Text name="Greeting" text="Hello Gogo" />\n\t</Entry2D>\n'
 	var plan := preload("res://addons/estragon/editor/completion.gd").new().import_plan(body,HOME)
 	var lines := body.split("\n")
 	lines.insert(plan.row,plan.text.trim_suffix("\n"))
@@ -379,7 +379,7 @@ func _e03() -> String:
 		check(home.text == unchanged and not home.text.contains("preload("),"candidate display never inserts imports")
 		home.cancel_code_completion()
 		check(home.text == unchanged,"cancel never edits source")
-	var source := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Ent§ name="UI" viewport_width_scale={0.9}>\n\t\t<VB name="Box">\n\t\t\t<Te name="Greeting" text="Hello Gogo" />\n\t\t</VBox>\n\t</Entry2D>\n'
+	var source := 'extends Node2D\n\nfunc build_view() -> Element:\n\treturn <Ent§ name="UI" width="90vw">\n\t\t<VB name="Box">\n\t\t\t<Te name="Greeting" text="Hello Gogo" />\n\t\t</VBox>\n\t</Entry2D>\n'
 	await complete(source,"Entry2D","<Entry2D name=","E03 entry and Element automatic imports")
 	check(home.text.contains("const Entry2D = preload(") and home.text.contains("const Element = preload("),"entry acceptance imports real layout and Element")
 	await complete(home.text.replace('<VB name=','<VB§ name='),"VBox","<VBox name=","E03 VBox import")
@@ -532,7 +532,7 @@ func _run() -> void:
 	check(original.contains('build_view() -> Element') and not original.contains('res://addons/estragon'),"explicitly authored view imports actual installation relatively")
 	var model := original.replace('func build_view()', 'var greeting: String = "Hello"\nvar camera: Camera2D\nsignal accepted\nfunc build_view()')
 	await complete(model.replace('<Text name=', '<Te§ name='),"Text","<Text name=","imported tag")
-	await complete(model.replace('viewport_width_scale','view§'),"viewport_width_scale","viewport_width_scale","known attribute")
+	await complete(model.replace('width="90vw"','wid§="90vw"'),"width","width","known attribute")
 	await complete(model.replace('return <Entry', 'self.glo§\n\treturn <Entry'),"global_position","self.global_position","self native member")
 	await complete(model.replace('text="Hello Gogo"','text={self.gree§}'),"greeting","self.greeting","GGX expression member")
 	await complete(model.replace('return <Entry','camera.zo§\n\treturn <Entry'),"zoom","camera.zoom","typed native member")

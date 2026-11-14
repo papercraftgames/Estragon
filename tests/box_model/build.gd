@@ -40,7 +40,7 @@ func proof() -> void:
 	DirAccess.rename_absolute("res://.godot/l01-game.tmp","res://.godot/l01-game.json")
 func build_view() -> Element:
 	return <Entry2D name="UI" width={500} height={400} padding={10}>
-		<VBox name="Column" fill_width={true} fill_height={true} padding_left={24} padding={self.inset} gap={8}>
+		<VBox name="Column" flex={1} stretch={1} padding_left={24} padding={self.inset} gap={8}>
 			<UiButton name="Action" text="Pixel Box" width="180" height={40} margin={5} pressed={self.pressed} />
 			<Settings name="Settings" />
 			<Box name="Ordinary" padding={3} margin={4}><Rect width={20} height={10} /></Box>

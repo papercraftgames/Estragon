@@ -2,11 +2,9 @@
 
 # Current native-addon verification
 
-## L05 viewport axes
+## L06 unit lengths
 
-`tools/check-viewport-layout.ts --editor` performs the focused direct-Yarn native build/runtime/Exit/editor/restart proof on only the two approved Linux engines. Invoke through `corepack yarn@1.22.22 node --experimental-strip-types` outside the historical Bun tooling package, using repeated `--engine LABEL=/absolute/godot` and a new absolute `--output`, under Xvfb/Openbox/software OpenGL. `--editor-only` builds a fresh installed fixture and runs editor/main/current/restart after an editor-only change, without repeating unchanged runtime assertions. Each output declares its profile and exact source/package provenance. See [exact commands/results](evidence/L05_VIEWPORT_LAYOUT.md).
-
-Native runtime covers snapshot versus live both-axis rendering, fixed/fractional/zero/invalid scales, explicit3D/Z, native stretch/SubViewport lifetime, cached/coalesced/idle layout and native/UiButton/borrowed input/ownership. Editor proof checks real typed attribute completion, installed imports/maps, actual resized main/current games and process restart. Settings and compiler PATH remain isolated; shared checkout preferences and the separate demo repo are untouched. Focused editor processes have a120-second bound; routine CI's60-second total budget and release gates remain unchanged. No physical-key, extra engine/platform or full73 requirement is introduced.
+`corepack yarn@1.22.22 node --experimental-strip-types tools/check-lengths.ts --editor --engine 4.0.4=/absolute/official/linux/godot --engine 4.7=/absolute/pinned/linux/godot --output /new/absolute/evidence` runs the focused direct-Yarn native runtime/compiler/render/input/editor/Play/restart proof under Xvfb/Openbox/software graphics. `--editor-only` limits an editor-only follow-up to fresh build/editor/restart. Settings/PATH are isolated and installed bytes/UIDs audited unchanged. [Contract](LENGTHS.md). Historical L02/L05 runners are retired; their evidence remains archival.
 
 ## L04 native Controls
 

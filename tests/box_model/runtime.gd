@@ -1,4 +1,5 @@
 extends SceneTree
+const Length = preload("res://addons/estragon/runtime/node/internal/length.gd")
 const Core = preload("res://addons/estragon/runtime/node/internal/layout_core.gd")
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 const Box = preload("res://addons/estragon/runtime/node/box.gd")
@@ -6,7 +7,6 @@ const HBox = preload("res://addons/estragon/runtime/node/hbox.gd")
 const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 const Compiler = preload("res://addons/estragon/compiler/compiler.gd")
-const Pixels = preload("res://addons/estragon/runtime/node/internal/pixel_contract.gd")
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Build = preload("res://addons/estragon/editor/build_service.gd")
 const State = preload("res://addons/estragon/runtime/composition/state.tres")
@@ -56,11 +56,11 @@ func compiler_proof() -> void:
 			script.resource_path = "res://_gogo_memory_%d.gd" % script.get_instance_id()
 			script.source_code = result.code
 			check(script.reload()==OK,"generated pixel native semantics")
-	for attrs in ['width="100%"','height="1px"','padding="12"','margin={-2}','padding_top={-1}','padding={NAN}','margin={INF}','paddding={4}']:
+	for attrs in ['width="100oops"','height="1em"','padding="12wat"','margin={-2}','padding_top={-1}','padding={NAN}','margin={INF}','paddding={4}']:
 		var result := Compiler.compile(header+'<Box '+attrs+' />\n',"res://invalid-pixels.gogo")
 		check(not result.ok and not result.diagnostics.is_empty() and result.diagnostics[0].span.start.line==3 and result.diagnostics[0].span.start.column>20,"authored pixel diagnostics "+attrs)
-	for value in [-2.0,NAN,INF,"12",true]:
-		check(not Pixels.valid(value,"inset"),"dynamic inset domain rejects "+str(value))
+	for value in [-2.0,NAN,INF,"12oops",true]:
+		check(not Length.valid(value,"inset"),"dynamic inset domain rejects "+str(value))
 func click_at(point: Vector2) -> void:
 	var event := InputEventMouseButton.new()
 	event.position = point
@@ -103,8 +103,8 @@ func run() -> void:
 	click_at(button.global_position+Vector2(10,10))
 	check(home.clicks==1,"arranged button pixels receive native pointer once")
 	var record = State.get("records")[home.get_instance_id()]
-	for invalid in [-2.0,NAN,INF,"12",true]:
-		check(not record._preflight(Element.new(Box,{"width":17.0,"padding":invalid}),null,column) and column.width==-1 and column.padding==12,"dynamic invalid inset rejects complete description before writes "+str(invalid))
+	for invalid in [-2.0,NAN,INF,"12oops",true]:
+		check(not record._preflight(Element.new(Box,{"width":17.0,"padding":invalid}),null,column) and column.width=="auto" and column.padding==12,"dynamic invalid inset rejects complete description before writes "+str(invalid))
 	var ids := [column.get_instance_id(),button.get_instance_id(),settings.get_instance_id(),row.get_instance_id()]
 	var cached: int = row.layout.model.measure_count
 	home.inset = 20.0
@@ -121,8 +121,7 @@ func run() -> void:
 	check(column.layout_size==Vector2(580,430),"resized root allocates the content rectangle")
 	var stats := [entry.get_layout_stats(),column.get_layout_stats()]
 	column.padding = 20
-	column.padding = NAN
-	column.padding = -2
+	check(not Length.valid(NAN,"inset") and not Length.valid(-2,"inset"),"shared validation rejects invalid native insets")
 	await frames()
 	check(stats==[entry.get_layout_stats(),column.get_layout_stats()],"equal and invalid setters leave layout quiet")
 	check(column.padding==20,"invalid native setter retains last valid value")
@@ -132,7 +131,7 @@ func run() -> void:
 	column.padding = 23
 	await frames()
 	check(entry.layout.flush_count==flushes+1 and column.padding_left==24,"inset burst coalesces one flush and preserves explicit edges")
-	column.padding_left = -1
+	column.padding_left = "auto"
 	await frames()
 	check(column._padding_insets()==Vector4(23,23,23,23),"native unset edge restores shorthand deterministically")
 	var packed := PackedScene.new()
@@ -222,7 +221,7 @@ func language() -> void:
 	var bytes := FileAccess.get_file_as_bytes(output)
 	var maps := FileAccess.get_file_as_bytes(output+".map.json")
 	var script: Script = load(output)
-	for invalid in ['padding="12"','padding={-2}','padding={NAN}','padding="100%"']:
+	for invalid in ['padding="12oops"','padding={-2}','padding={NAN}','padding="auto"']:
 		preload("build.gd").write("res://app/Home.gogo",original.replace("padding={self.inset}",invalid))
 		var report := Build.run_build()
 		check(not report.ok and not report.source_diagnostics.is_empty() and FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps and load(output)==script,"invalid authored inset preserves actual-path Script/maps "+invalid)

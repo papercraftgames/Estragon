@@ -4,30 +4,68 @@ extends Node2D
 ## Native C1 participant. Needs a contiguous same-dimensional chain to an entry.
 signal layout_applied(size: Vector2)
 const Coordinator = preload("internal/coordinator.gd")
-@export var width: float = -1.0:
+const ESTRAGON_LENGTHS := true
+const Length = preload("internal/length.gd")
+var lengths = Length.new()
+var width: Variant = "auto":
 	set(value):
-		if not valid_length(value) or width == value: return
+		if is_same(width,value) or not lengths.assign("width",value): return
 		width = value
 		_changed()
-@export var height: float = -1.0:
+var height: Variant = "auto":
 	set(value):
-		if not valid_length(value) or height == value: return
+		if is_same(height,value) or not lengths.assign("height",value): return
 		height = value
 		_changed()
-@export var fill_width: bool = false:
+var x: Variant = 0.0:
 	set(value):
-		if fill_width == value: return
-		fill_width = value
+		if is_same(x,value) or not lengths.assign("x",value): return
+		x = value
 		_changed()
-@export var fill_height: bool = false:
+var y: Variant = 0.0:
 	set(value):
-		if fill_height == value: return
-		fill_height = value
+		if is_same(y,value) or not lengths.assign("y",value): return
+		y = value
 		_changed()
-@export var gap: float = 0.0:
+var gap: Variant = 0.0:
 	set(value):
-		if not is_finite(value) or value < 0 or value == gap: return
+		if is_same(gap,value) or not lengths.assign("gap",value): return
 		gap = value
+		_changed()
+var margin: Variant = 0.0:
+	set(value):
+		if is_same(margin,value) or not lengths.assign("margin",value): return
+		margin = value
+		_changed()
+var margin_top: Variant = "auto":
+	set(value):
+		if is_same(margin_top,value) or not lengths.assign("margin_top",value): return
+		margin_top = value
+		_changed()
+var margin_right: Variant = "auto":
+	set(value):
+		if is_same(margin_right,value) or not lengths.assign("margin_right",value): return
+		margin_right = value
+		_changed()
+var margin_bottom: Variant = "auto":
+	set(value):
+		if is_same(margin_bottom,value) or not lengths.assign("margin_bottom",value): return
+		margin_bottom = value
+		_changed()
+var margin_left: Variant = "auto":
+	set(value):
+		if is_same(margin_left,value) or not lengths.assign("margin_left",value): return
+		margin_left = value
+		_changed()
+@export var flex: float = 0.0:
+	set(value):
+		if not is_finite(value) or value<0 or value==flex: return
+		flex = value
+		_changed()
+@export_enum("Natural", "Stretch") var stretch: int = 0:
+	set(value):
+		if value not in [0,1] or value==stretch: return
+		stretch = value
 		_changed()
 @export var center: bool = false:
 	set(value):
@@ -37,41 +75,11 @@ const Coordinator = preload("internal/coordinator.gd")
 var layout_size: Vector2:
 	get: return _layout_size
 var _layout_size := Vector2.ZERO
-# Internal bridge, deliberately not the public authoring API.
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
-
-# -1 means an unset edge; explicit edges always override the shorthand.
-@export var margin: float = 0.0:
-	set(value):
-		if not is_finite(value) or value < 0 or value == margin: return
-		margin = value
-		_changed()
-@export var margin_top: float = -1.0:
-	set(value):
-		if not valid_length(value) or value == margin_top: return
-		margin_top = value
-		_changed()
-@export var margin_right: float = -1.0:
-	set(value):
-		if not valid_length(value) or value == margin_right: return
-		margin_right = value
-		_changed()
-@export var margin_bottom: float = -1.0:
-	set(value):
-		if not valid_length(value) or value == margin_bottom: return
-		margin_bottom = value
-		_changed()
-@export var margin_left: float = -1.0:
-	set(value):
-		if not valid_length(value) or value == margin_left: return
-		margin_left = value
-		_changed()
-
-func _margin_insets() -> Vector4:
-	return Vector4(margin_left if margin_left >= 0 else margin,margin_top if margin_top >= 0 else margin,margin_right if margin_right >= 0 else margin,margin_bottom if margin_bottom >= 0 else margin)
-
-static func valid_length(value: float) -> bool:
-	return is_finite(value) and (value >= 0 or value == -1)
+func _get_property_list() -> Array[Dictionary]:
+	return Length.properties(["width","height","x","y","gap","margin","margin_top","margin_right","margin_bottom","margin_left"])
+static func valid_length(value) -> bool:
+	return Length.valid(value,"extent")
 
 func set_extent(value: Vector2) -> Error:
 	for axis in range(2):
@@ -81,7 +89,7 @@ func set_extent(value: Vector2) -> Error:
 	return OK
 
 func requested_extent() -> Vector3:
-	return Vector3(width, height, 0.0)
+	return layout.model.requested
 
 func _layout_axis() -> int:
 	return 0
@@ -91,13 +99,10 @@ func _measure_native() -> Vector2:
 
 func _layout_options() -> Dictionary:
 	var natural := _measure_native()
-	return {"margin":_margin_insets(),"axis":_layout_axis(),"fill":Vector3(1 if fill_width else 0,1 if fill_height else 0,0),"intrinsic":Vector3(natural.x,natural.y,0)}
+	return {"axis":_layout_axis(),"fill":Vector3.ZERO,"intrinsic":Vector3(natural.x,natural.y,0)}
 
 func _is_layout_entry() -> bool:
 	return false
-
-func _layout_viewport_scale() -> Vector2:
-	return Vector2.ZERO
 
 func _changed() -> void:
 	if layout != null: layout.changed()
@@ -133,3 +138,7 @@ func apply_layout_size(size: Vector3) -> void:
 	# Explicit invalidation also restores a native position edited externally.
 	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
 	layout_applied.emit(_layout_size)
+
+func _margin_insets() -> Vector4:
+	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
+	return layout.model.margin

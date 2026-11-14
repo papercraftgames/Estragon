@@ -50,8 +50,6 @@ func build_view() -> Element:
             rows.append(_GogoFactories_0._gogo_build_1((item.id), ("Row%d" % item.id), (item)))
     return _GogoFactories_0._gogo_build_2(
         (Vector2(24,24)),
-        (0.9),
-        (true),
         (10.0),
         (_GogoFactories_0._gogo_build_3() if show_note else null),
         ([[], rows, null]),
@@ -103,6 +101,8 @@ func write_proof() -> void:
     file.store_string(JSON.stringify({"count":items.size(),"text":get_node("UI/Panel/Row1/Caption").text}))
 
 
+const _GogoProject_0 = preload("Row.gd")
+
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
 
@@ -111,50 +111,48 @@ class _GogoFactories_0:
     const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
-    static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: Row.Item) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Row, {"name": _gogo_value_1, "item": _gogo_value_2}, {}, [], "examples/inventory/Inventory.gogo:17:45", _gogo_value_0, true)
+    static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: _GogoProject_0.Item) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": _gogo_value_1, "item": _gogo_value_2}, {}, [], "examples/inventory/Inventory.gogo:17:45", _gogo_value_0, true)
         return _gogo_element_0
 
 
-    static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: Row.Item) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Row, {"name": _gogo_value_1, "item": _gogo_value_2}, {}, [], "examples/inventory/Inventory.gogo:20:25", _gogo_value_0, true)
+    static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: _GogoProject_0.Item) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": _gogo_value_1, "item": _gogo_value_2}, {}, [], "examples/inventory/Inventory.gogo:20:25", _gogo_value_0, true)
         return _gogo_element_0
 
 
     static func _gogo_build_2(
         _gogo_value_0: Vector2,
-        _gogo_value_1: float,
-        _gogo_value_2: bool,
-        _gogo_value_3: float,
+        _gogo_value_1: Variant,
+        _gogo_value_2: Variant,
+        _gogo_value_3: Variant,
         _gogo_value_4: Variant,
-        _gogo_value_5: Variant,
-        _gogo_value_6: float,
+        _gogo_value_5: Callable,
+        _gogo_value_6: Callable,
         _gogo_value_7: Callable,
         _gogo_value_8: Callable,
-        _gogo_value_9: Callable,
+        _gogo_value_9: Variant,
         _gogo_value_10: Callable,
-        _gogo_value_11: float,
+        _gogo_value_11: Callable,
         _gogo_value_12: Callable,
         _gogo_value_13: Callable,
-        _gogo_value_14: Callable,
-        _gogo_value_15: Callable,
-        _gogo_value_16: Callable
+        _gogo_value_14: Callable
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Title", "text": "Inventory | keyed native rows"}, {}, [], "examples/inventory/Inventory.gogo:23:13", null, false)
         var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Footer", "text": "Static footer retains its native identity"}, {}, [], "examples/inventory/Inventory.gogo:26:13", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"text": "Append"}, {"pressed": _gogo_value_7}, [], "examples/inventory/Inventory.gogo:28:17", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"text": "Insert"}, {"pressed": _gogo_value_8}, [], "examples/inventory/Inventory.gogo:29:17", null, false)
-        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"text": "Remove"}, {"pressed": _gogo_value_9}, [], "examples/inventory/Inventory.gogo:30:17", null, false)
-        var _gogo_element_8 := _GogoElement_0.new(UiButton, {"text": "Reverse"}, {"pressed": _gogo_value_10}, [], "examples/inventory/Inventory.gogo:31:17", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(HBox, {"name": "Controls", "gap": _gogo_value_6}, {}, [_gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/inventory/Inventory.gogo:27:13", null, false)
-        var _gogo_element_10 := _GogoElement_0.new(UiButton, {"text": "Replace"}, {"pressed": _gogo_value_12}, [], "examples/inventory/Inventory.gogo:34:17", null, false)
-        var _gogo_element_11 := _GogoElement_0.new(UiButton, {"text": "First +"}, {"pressed": _gogo_value_13}, [], "examples/inventory/Inventory.gogo:35:17", null, false)
-        var _gogo_element_12 := _GogoElement_0.new(UiButton, {"text": "Rename"}, {"pressed": _gogo_value_14}, [], "examples/inventory/Inventory.gogo:36:17", null, false)
-        var _gogo_element_13 := _GogoElement_0.new(UiButton, {"text": "Note"}, {"pressed": _gogo_value_15}, [], "examples/inventory/Inventory.gogo:37:17", null, false)
-        var _gogo_element_14 := _GogoElement_0.new(UiButton, {"text": "For / map"}, {"pressed": _gogo_value_16}, [], "examples/inventory/Inventory.gogo:38:17", null, false)
-        var _gogo_element_9 := _GogoElement_0.new(HBox, {"gap": _gogo_value_11}, {}, [_gogo_element_10, _gogo_element_11, _gogo_element_12, _gogo_element_13, _gogo_element_14], "examples/inventory/Inventory.gogo:33:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_value_4, _gogo_value_5, _gogo_element_3, _gogo_element_4, _gogo_element_9], "examples/inventory/Inventory.gogo:22:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/inventory/Inventory.gogo:21:12", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"text": "Append"}, {"pressed": _gogo_value_5}, [], "examples/inventory/Inventory.gogo:28:17", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"text": "Insert"}, {"pressed": _gogo_value_6}, [], "examples/inventory/Inventory.gogo:29:17", null, false)
+        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"text": "Remove"}, {"pressed": _gogo_value_7}, [], "examples/inventory/Inventory.gogo:30:17", null, false)
+        var _gogo_element_8 := _GogoElement_0.new(UiButton, {"text": "Reverse"}, {"pressed": _gogo_value_8}, [], "examples/inventory/Inventory.gogo:31:17", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(HBox, {"name": "Controls", "gap": _gogo_value_4}, {}, [_gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/inventory/Inventory.gogo:27:13", null, false)
+        var _gogo_element_10 := _GogoElement_0.new(UiButton, {"text": "Replace"}, {"pressed": _gogo_value_10}, [], "examples/inventory/Inventory.gogo:34:17", null, false)
+        var _gogo_element_11 := _GogoElement_0.new(UiButton, {"text": "First +"}, {"pressed": _gogo_value_11}, [], "examples/inventory/Inventory.gogo:35:17", null, false)
+        var _gogo_element_12 := _GogoElement_0.new(UiButton, {"text": "Rename"}, {"pressed": _gogo_value_12}, [], "examples/inventory/Inventory.gogo:36:17", null, false)
+        var _gogo_element_13 := _GogoElement_0.new(UiButton, {"text": "Note"}, {"pressed": _gogo_value_13}, [], "examples/inventory/Inventory.gogo:37:17", null, false)
+        var _gogo_element_14 := _GogoElement_0.new(UiButton, {"text": "For / map"}, {"pressed": _gogo_value_14}, [], "examples/inventory/Inventory.gogo:38:17", null, false)
+        var _gogo_element_9 := _GogoElement_0.new(HBox, {"gap": _gogo_value_9}, {}, [_gogo_element_10, _gogo_element_11, _gogo_element_12, _gogo_element_13, _gogo_element_14], "examples/inventory/Inventory.gogo:33:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "gap": _gogo_value_1}, {}, [_gogo_element_2, _gogo_value_2, _gogo_value_3, _gogo_element_3, _gogo_element_4, _gogo_element_9], "examples/inventory/Inventory.gogo:22:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": "90vw"}, {}, [_gogo_element_1], "examples/inventory/Inventory.gogo:21:12", null, false)
         return _gogo_element_0
 
 

@@ -1,0 +1,111 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "f217d2e0d0af4896306d8c7d71c13e38313a4f0554a60eb212f6cf4aa5cdbc8d"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-Sp0VNG/yarn-cache",
+      "file:/evidence/l06-acceptance2/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.64,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Sp0VNG/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Sp0VNG/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.16,
+    "godot_pid": 4251,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Sp0VNG/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Sp0VNG/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.27,
+    "godot_pid": 4270,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "runtime": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-Sp0VNG/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Sp0VNG/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/runtime.gd"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 0.96,
+    "godot_pid": 4289,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: built_in_strtod (core/string/ustring.cpp:2524)",
+      "SCRIPT ERROR: Parse Error: Preload file \"gdscript://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/element.gd\" does not exist.",
+      "          at: GDScript::reload (gdscript://-9223371925152070469.gd:8)",
+      "SCRIPT ERROR: Parse Error: Could not resolve type for constant \"_GogoElement_0\".",
+      "          at: GDScript::reload (gdscript://-9223371925152070469.gd:8)",
+      "SCRIPT ERROR: Parse Error: \"_GogoElement_0\" is a constant but does not contain a type.",
+      "          at: GDScript::reload (gdscript://-9223371925152070469.gd:11)",
+      "SCRIPT ERROR: Parse Error: Cannot infer the type of \"_gogo_element_0\" variable because the value doesn't have a set type.",
+      "          at: GDScript::reload (gdscript://-9223371925152070469.gd:12)"
+    ]
+  }
+}

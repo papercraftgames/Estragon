@@ -28,7 +28,7 @@ class _GogoFactories_0:
     const _GogoElement_0 = preload("../../../addons/estragon/runtime/composition/element.gd")
 
 
-    static func _gogo_build_0(_gogo_value_0: float, _gogo_value_1: Variant, _gogo_value_2: String) -> _GogoElement_0:
+    static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: Variant, _gogo_value_2: String) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Toggle, {"name": "Edit", "text": "Enabled"}, {}, [], "examples/twoway/Row.gogo:11:9", null, false)
         _gogo_element_1.bindings = {"value": _gogo_value_1}
         var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Status", "text": _gogo_value_2}, {}, [], "examples/twoway/Row.gogo:12:9", null, false)

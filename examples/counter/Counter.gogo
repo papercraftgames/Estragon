@@ -14,16 +14,16 @@ func _ready() -> void:
     if OS.get_environment("ESTRAGON_C3_PROOF") == "1": write_proof.call_deferred()
 
 func build_view() -> Element:
-    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
-        <VBox name="Panel" fill_width={true} gap={16.0}>
-            <Rect name="Accent" height={8.0} fill_width={true} fill={Color(0.2,0.8,0.6)} />
+    return <Entry name="UI" position={Vector2(24,24)} width="90vw">
+        <VBox name="Panel" width="100%" gap={16.0}>
+            <Rect name="Accent" height={8.0} width="100%" fill={Color(0.2,0.8,0.6)} />
             <Text name="Title" text="Estragon native Gogo Counter" font_size={28} color={Color(0.74,0.64,0.94)} />
             <Text name="Count" text={"Count: %d" % self.count} font_size={26} />
-            <HBox name="Actions" fill_width={true} gap={12.0}>
-                <UiButton name="Increment" text="+" fill_width={true} pressed={increment} />
-                <UiButton name="Reset" text="Reset" fill_width={true} disabled={self.count == 0} pressed={reset_count} />
+            <HBox name="Actions" width="100%" gap={12.0}>
+                <UiButton name="Increment" text="+" flex={1} pressed={increment} />
+                <UiButton name="Reset" text="Reset" flex={1} disabled={self.count == 0} pressed={reset_count} />
             </HBox>
-            <VBox name="Details" fill_width={true} gap={6.0}>
+            <VBox name="Details" width="100%" gap={6.0}>
                 <Text name="Hint" text="Click + to update retained Nodes." font_size={18} />
                 <Text name="Resize" text="Resize the window: nested native stacks reflow." font_size={18} />
             </VBox>

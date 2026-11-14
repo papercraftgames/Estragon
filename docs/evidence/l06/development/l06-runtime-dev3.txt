@@ -1,0 +1,72 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200px: true
+L06_CHECK canonical conversion 50%: true
+L06_CHECK canonical conversion 10vw: true
+L06_CHECK canonical conversion 10vh: true
+L06_CHECK canonical conversion 10vmin: true
+L06_CHECK canonical conversion 10vmax: true
+L06_CHECK canonical conversion 2.5in: true
+L06_CHECK canonical conversion 1cm: true
+L06_CHECK canonical conversion 10mm: true
+L06_CHECK canonical conversion 4q: true
+L06_CHECK canonical conversion 12pt: true
+L06_CHECK canonical conversion 1pc: true
+L06_CHECK canonical conversion auto: true
+L06_CHECK canonical conversion  .5in : true
+L06_CHECK canonical conversion +2e1px: true
+L06_CHECK reject invalid extent 1em: true
+L06_CHECK reject invalid extent 1rem: true
+L06_CHECK reject invalid extent 1ex: true
+L06_CHECK reject invalid extent 1ch: true
+L06_CHECK reject invalid extent calc(2px): true
+L06_CHECK reject invalid extent 2PX: true
+L06_CHECK reject invalid extent : true
+L06_CHECK reject invalid extent --2px: true
+L06_CHECK reject invalid extent 1 px: true
+WARNING: Exponent too high
+     at: built_in_strtod (core/string/ustring.cpp:2524)
+L06_CHECK reject invalid extent 1e999px: true
+L06_CHECK reject invalid extent -1px: true
+L06_CHECK reject invalid extent -1: true
+L06_CHECK reject invalid extent nan: true
+L06_CHECK reject invalid extent inf: true
+L06_CHECK reject invalid extent true: true
+L06_CHECK reject invalid extent []: true
+L06_CHECK reject invalid extent NaN: true
+L06_CHECK reject invalid extent 100oops: true
+L06_CHECK offset signs and auto domains: true
+L06_CHECK 3D numeric and pixel strings share explicit100px/world-unit scale: true
+L06_CHECK all length properties compile and retain quoted spec 200: true
+L06_CHECK generated mixed unit native semantics 200: true
+ERROR: Another resource is loaded from path 'res://generated/Unit.gd' (possible cyclic resource inclusion).
+   at: set_path (core/io/resource.cpp:75)
+L06_CHECK all length properties compile and retain quoted spec 200px: true
+L06_CHECK generated mixed unit native semantics 200px: true
+L06_CHECK all length properties compile and retain quoted spec 50%: true
+ERROR: Another resource is loaded from path 'res://generated/Unit.gd' (possible cyclic resource inclusion).
+   at: set_path (core/io/resource.cpp:75)
+L06_CHECK generated mixed unit native semantics 50%: true
+L06_CHECK all length properties compile and retain quoted spec 10vw: false
+L06_CHECK all length properties compile and retain quoted spec 10vh: false
+L06_CHECK all length properties compile and retain quoted spec 10vmin: false
+L06_CHECK all length properties compile and retain quoted spec 10vmax: false
+L06_CHECK all length properties compile and retain quoted spec 2.5in: false
+L06_CHECK all length properties compile and retain quoted spec 1cm: false
+L06_CHECK all length properties compile and retain quoted spec 10mm: false
+L06_CHECK all length properties compile and retain quoted spec 4q: false
+L06_CHECK all length properties compile and retain quoted spec 12pt: false
+L06_CHECK all length properties compile and retain quoted spec 1pc: false
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Node not found: "UI" (relative to "/root/Home").
+   at: get_node (scene/main/node.cpp:1375)
+ERROR: Node not found: "UI/Column" (relative to "/root/Home").
+   at: get_node (scene/main/node.cpp:1375)
+SCRIPT ERROR: Attempt to call function 'get_node' in base 'null instance' on a null instance.
+          at: run (res://tests/lengths/runtime.gd:53)
+Terminated

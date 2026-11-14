@@ -45,8 +45,6 @@ func build_view() -> Element:
     var caption: String = "Count: %d" % count
     return _GogoFactories_0._gogo_build_0(
         (Vector2(24,24)),
-        (0.9),
-        (true),
         (12.0),
         (heading()),
         (Color(0.74,0.64,0.94)),
@@ -80,24 +78,22 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(
         _gogo_value_0: Vector2,
-        _gogo_value_1: float,
-        _gogo_value_2: bool,
-        _gogo_value_3: float,
+        _gogo_value_1: Variant,
+        _gogo_value_2: String,
+        _gogo_value_3: Color,
         _gogo_value_4: String,
-        _gogo_value_5: Color,
-        _gogo_value_6: String,
-        _gogo_value_7: float,
-        _gogo_value_8: float,
-        _gogo_value_9: Color,
-        _gogo_value_10: Callable,
-        _gogo_value_11: bool,
-        _gogo_value_12: Callable
+        _gogo_value_5: Variant,
+        _gogo_value_6: Variant,
+        _gogo_value_7: Color,
+        _gogo_value_8: Callable,
+        _gogo_value_9: bool,
+        _gogo_value_10: Callable
     ) -> _GogoElement_0:
-        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/composition/Counter.gogo:18:13", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_6}, {}, [], "examples/composition/Counter.gogo:19:13", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_7, "height": _gogo_value_8, "fill": _gogo_value_9}, {}, [], "examples/composition/Counter.gogo:20:13", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_10}, [], "examples/composition/Counter.gogo:21:13", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Reset", "text": "Reset", "disabled": _gogo_value_11}, {"pressed": _gogo_value_12}, [], "examples/composition/Counter.gogo:22:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "fill_width": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/composition/Counter.gogo:17:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "viewport_width_scale": _gogo_value_1}, {}, [_gogo_element_1], "examples/composition/Counter.gogo:16:12", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_2, "color": _gogo_value_3}, {}, [], "examples/composition/Counter.gogo:18:13", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_4}, {}, [], "examples/composition/Counter.gogo:19:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_5, "height": _gogo_value_6, "fill": _gogo_value_7}, {}, [], "examples/composition/Counter.gogo:20:13", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(UiButton, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_8}, [], "examples/composition/Counter.gogo:21:13", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Reset", "text": "Reset", "disabled": _gogo_value_9}, {"pressed": _gogo_value_10}, [], "examples/composition/Counter.gogo:22:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "gap": _gogo_value_1}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/composition/Counter.gogo:17:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": "90vw"}, {}, [_gogo_element_1], "examples/composition/Counter.gogo:16:12", null, false)
         return _gogo_element_0

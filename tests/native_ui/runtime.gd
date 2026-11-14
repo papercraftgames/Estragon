@@ -39,16 +39,16 @@ func run() -> void:
 	var entry := Entry.new()
 	entry.width = 100
 	var column := VBox.new()
-	column.fill_width = true
+	column.flex = 1
 	column.gap = 3
 	var row := HBox.new()
-	row.fill_width = true
+	row.stretch = 1
 	row.gap = 2
 	var a := Rect.new()
 	a.width = 10
 	a.height = 5
 	var b := Rect.new()
-	b.fill_width = true
+	b.flex = 1
 	b.height = 7
 	row.add_child(a)
 	row.add_child(b)
