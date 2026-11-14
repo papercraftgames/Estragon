@@ -4,7 +4,7 @@ const Context = preload("res://addons/estragon/editor/lexical_context.gd")
 func _initialize() -> void:
 	var failed := false
 	for declaration in ["", "\tconst Pixels = 1\n", "\tvar Pixels: Node2D\n"]:
-		var source := 'extends Node\nconst Pixels = preload("res://addons/estragon/runtime/composition/pixels.gd")\nfunc test():\n'+declaration+'\tPixels.parent_w'
+		var source: String = 'extends Node\nconst Pixels = preload("res://addons/estragon/runtime/composition/pixels.gd")\nfunc test():\n'+declaration+'\tPixels.parent_w'
 		var lexical := Context.new()
 		lexical.update(source)
 		var rows := source.split("\n")
