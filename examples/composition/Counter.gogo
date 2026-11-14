@@ -13,8 +13,8 @@ func heading() -> String:
     return model.title
 func build_view() -> Element:
     var caption: String = "Count: %d" % count
-    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
-        <VBox name="Panel" fill_width={true} gap={12.0}>
+    return <Entry name="UI" position={Vector2(24,24)} width="90vw">
+        <VBox name="Panel" width="100%" gap={12.0}>
             <Text name="Title" text={heading()} color={Color(0.74,0.64,0.94)} />
             <Text name="Count" text={caption} />
             <Rect name="Bar" width={model.width + count * 10.0} height={10.0} fill={Color(0.2,0.8,0.6)} />

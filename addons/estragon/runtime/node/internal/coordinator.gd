@@ -16,6 +16,7 @@ var _host: WeakRef
 var _dimension: int
 var _queued: bool = false
 var _viewport: Viewport
+var _root_offset := Vector3.ZERO
 
 func _init(host: Node, dimension: int, mode: int = Mode.PROOF) -> void:
 	_mode = mode
@@ -61,9 +62,6 @@ func scope_root():
 func root_host() -> Node:
 	var found = scope_root()
 	return found._host.get_ref() if found != null else null
-
-func _viewport_scale(host: Node) -> Vector2:
-	return Vector2(host.viewport_width_scale,0) if _mode == Mode.PROOF else host._layout_viewport_scale()
 
 func start() -> void:
 	active = true
@@ -134,14 +132,17 @@ func changed() -> void:
 	if host == null: return
 	if host.has_method("_layout_options"):
 		var options: Dictionary = host._layout_options()
-		model.configure(host.requested_extent(),host.gap,host.center,options.axis,options.fill,options.intrinsic,options.get("padding",Vector4.ZERO),options.get("margin",Vector4.ZERO))
+		if "lengths" in host:
+			for property in host._get_property_list():
+				if not host.lengths.specs.has(property.name): host.lengths.assign(property.name,host.get(property.name))
+			model.set_lengths(host.lengths.specs,host.flex,host.stretch,host.pixels_per_unit if _dimension==3 else 1.0)
+		model.configure(host.requested_extent(),model.gap,host.center,options.axis,options.fill,options.intrinsic,model.padding if "lengths" in host else options.get("padding",Vector4.ZERO),model.margin if "lengths" in host else options.get("margin",Vector4.ZERO))
 	else: model.configure(host.requested_extent(), host.gap, host.center)
 
 func _viewport_changed() -> void:
 	var host = _host.get_ref()
 	if host == null or parent_coordinator() != null: return
-	var scale := _viewport_scale(host)
-	if scale.x > 0 or scale.y > 0: _invalidated()
+	model.invalidate()
 
 func _invalidated() -> void:
 	if Profile.is_enabled(): Profile.add("layout_invalidations")
@@ -156,18 +157,14 @@ func _flush() -> void:
 	if host == null or host.is_queued_for_deletion(): return
 	flush_count += 1
 	if Profile.is_enabled(): Profile.add("layout_flushes")
+	var visible := _viewport.get_visible_rect().size if _viewport!=null else Vector2.ZERO
+	model.prepare(Vector3(-1,-1,-1),visible)
 	var available: Vector3 = model.measure()
-	var external_axes := Vector3.ZERO
-	if _viewport != null:
-		var scale := _viewport_scale(host)
-		var visible := _viewport.get_visible_rect().size
-		if scale.x > 0:
-			available.x = visible.x * scale.x
-			external_axes.x = 1
-		if scale.y > 0:
-			available.y = visible.y * scale.y
-			external_axes.y = 1
-	model.arrange(available,external_axes)
+	model.arrange(available)
+	if host is Node2D:
+		host.position += Vector2(model.length_offset.x-_root_offset.x,model.length_offset.y-_root_offset.y)
+	elif host is Node3D: host.position += model.length_offset-_root_offset
+	_root_offset = model.length_offset
 	CompositionHosts.refresh_positions(self)
 
 func _place(offset: Vector3) -> void:

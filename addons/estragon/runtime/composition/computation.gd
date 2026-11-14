@@ -1,5 +1,5 @@
 extends RefCounted
-const Pixels = preload("../node/internal/pixel_contract.gd")
+const Length = preload("../node/internal/length.gd")
 const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
 const Binding = preload("binding.gd")
@@ -460,8 +460,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
-		var pixel_kind := Pixels.kind(desired.type,key)
-		if not pixel_kind.is_empty() and not Pixels.valid(value,pixel_kind): return false
+		if Length.registered(desired.type,key) and not Length.valid(value,Length.domain(key)): return false
 		var kind: int = properties[key].type
 		if kind!=TYPE_NIL and typeof(value)!=kind and not (kind==TYPE_FLOAT and typeof(value)==TYPE_INT) and not (kind==TYPE_OBJECT and value==null) and not (kind in [TYPE_STRING,TYPE_STRING_NAME] and typeof(value) in [TYPE_STRING,TYPE_STRING_NAME]): return false
 		if kind==TYPE_OBJECT and value!=null:

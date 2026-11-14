@@ -322,7 +322,7 @@ func boundaries() -> void:
 	entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd").new()
 	entry.height = 100
 	column = preload("res://addons/estragon/runtime/node/vbox.gd").new()
-	column.fill_height = true
+	column.flex = 1
 	entry.add_child(column)
 	var tall := Control.new()
 	tall.custom_minimum_size.y = 70

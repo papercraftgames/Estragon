@@ -40,10 +40,12 @@ func own(node: Node) -> void:
 static func make_entry(dimension: int) -> Node:
 	var result = Entry2D.new() if dimension == 2 else Entry3D.new()
 	result.name = "Entry"
+	if dimension==3: result.pixels_per_unit = 1
 	result.position = Vector2(50,100) if dimension == 2 else Vector3(-1,0,0)
 	result.gap = 30 if dimension == 2 else 0.5
 	for index in range(2):
 		var adapter = Native2D.new() if dimension == 2 else Native3D.new()
+		if dimension==3: adapter.pixels_per_unit = 1
 		adapter.name = "NativeA" if index == 0 else "NativeB"
 		adapter.observe_native = true
 		var visual: Node
@@ -75,6 +77,7 @@ static func make_entry(dimension: int) -> Node:
 	boundary.add_child(reentry)
 	var component = Component2D.new() if dimension == 2 else Component3D.new()
 	component.name = "Participant"
+	if dimension==3: component.pixels_per_unit = 1
 	component.set_extent(Vector2(70,40) if dimension == 2 else Vector3(1,0.7,0.7))
 	reentry.add_child(component)
 	var decoration: Node

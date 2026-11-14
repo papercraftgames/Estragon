@@ -13,8 +13,8 @@ var show_bonus: bool = false
 var show_child: bool = true
 var model: Model = Model.new()
 func build_view() -> Element:
-    return <Entry name="UI" position={Vector2(24,24)} viewport_width_scale={0.9}>
-        <VBox name="Panel" fill_width={true} gap={12.0}>
+    return <Entry name="UI" position={Vector2(24,24)} width="90vw">
+        <VBox name="Panel" width="100%" gap={12.0}>
             <Text name="Always" text={"Count: %d" % count} />
             {<UiButton name="Action" text="Ready" pressed={increment} /> if count > 2 else <Text name="Prompt" text={model.title} />}
             {<VBox name="Bonus" gap={4.0}>

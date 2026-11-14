@@ -20,9 +20,9 @@ func _exit_tree() -> void:
 func invalidate_native() -> void:
 	bounds.invalidate()
 
-func requested_extent() -> Vector3:
+func _measure_native() -> Vector3:
 	var natural: Vector3 = bounds.extent if bounds != null else Vector3.ZERO
-	return Vector3(width if width >= 0 else natural.x, height if height >= 0 else natural.y, depth if depth >= 0 else natural.z)
+	return natural
 
 func apply_layout_position(offset: Vector3) -> void:
 	var value: Vector3 = offset - bounds.origin
