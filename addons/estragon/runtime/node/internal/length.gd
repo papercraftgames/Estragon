@@ -65,6 +65,21 @@ static func resolve(spec: Dictionary, reference: float, viewport: Vector2, pixel
 		"vmax": pixels = maxf(viewport.x,viewport.y)*value/100.0
 		_: pixels = value*FACTORS[unit]
 	return clampf(pixels/pixels_per_unit,-LIMIT,LIMIT)
+static func dependencies(specs: Dictionary, stack_axis: int) -> Array:
+	var parent_axes := Vector3.ZERO
+	var viewport_axes := Vector2.ZERO
+	for name in specs:
+		var unit: String = specs[name].unit
+		if unit=="%":
+			if name in ["width","x","margin_left","margin_right","padding_left","padding_right"]: parent_axes.x = 1
+			elif name in ["height","y","margin_top","margin_bottom","padding_top","padding_bottom"]: parent_axes.y = 1
+			elif name in ["depth","z"]: parent_axes.z = 1
+			elif name=="gap": parent_axes[stack_axis] = 1
+			else: parent_axes = Vector3(1,1,parent_axes.z)
+		elif unit=="vw": viewport_axes.x = 1
+		elif unit=="vh": viewport_axes.y = 1
+		elif unit in ["vmin","vmax"]: viewport_axes = Vector2.ONE
+	return [parent_axes,viewport_axes]
 static func properties(names: Array) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for name in names: result.append({"name":name,"type":TYPE_NIL,"usage":PROPERTY_USAGE_DEFAULT|PROPERTY_USAGE_NIL_IS_VARIANT})

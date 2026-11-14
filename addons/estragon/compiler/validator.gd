@@ -298,6 +298,8 @@ func _length(attribute, domain: String) -> void:
 	if tokens.size()==1 and tokens[0].kind=="string":
 		var parsed := Length.parse(text.substr(1,text.length()-2).c_unescape(),domain)
 		if parsed.has("error"): _error(parsed.error,value.span)
+	elif text in ["true","false","null"]:
+		_error("Length requires int, float or a unit string",value.span)
 	elif text in ["NAN","INF","-INF","+INF"]:
 		_error("Length must be finite",value.span)
 	elif text.is_valid_float():

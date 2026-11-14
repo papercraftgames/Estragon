@@ -37,6 +37,7 @@ var moves := 0
 var _rendering := false
 var _again := false
 var _consecutive := 0
+var validation_error := ""
 func _init(owner: Node, manager: Resource) -> void:
 	host = weakref(owner)
 	state = weakref(manager)
@@ -116,10 +117,11 @@ func _flush() -> void:
 	if Profile.is_enabled(): Profile.elapsed("view",started)
 	_borrow_seen.clear()
 	_observes_children = false
+	validation_error = ""
 	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
-		push_error("Invalid composition output or foreign boundary conflict; previous tree retained")
+		push_error(validation_error if not validation_error.is_empty() else "Invalid composition output or foreign boundary conflict; previous tree retained")
 		return
 	# A nested array may be an empty get_children() result. Observe native
 	# changes without inspecting the expression source or polling the tree.
@@ -460,7 +462,11 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
-		if Length.registered(desired.type,key) and not Length.valid(value,Length.domain(key)): return false
+		if Length.registered(desired.type,key):
+			var parsed := Length.parse(value,Length.domain(key))
+			if parsed.has("error"):
+				validation_error = desired.source+": invalid length '"+str(key)+"': "+parsed.error+"; previous tree retained"
+				return false
 		var kind: int = properties[key].type
 		if kind!=TYPE_NIL and typeof(value)!=kind and not (kind==TYPE_FLOAT and typeof(value)==TYPE_INT) and not (kind==TYPE_OBJECT and value==null) and not (kind in [TYPE_STRING,TYPE_STRING_NAME] and typeof(value) in [TYPE_STRING,TYPE_STRING_NAME]): return false
 		if kind==TYPE_OBJECT and value!=null:

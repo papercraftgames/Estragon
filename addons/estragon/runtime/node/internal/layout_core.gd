@@ -15,6 +15,9 @@ var viewport_size := Vector2.ZERO
 var parent_reference := Vector3(-1,-1,-1)
 var resolution_count := 0
 var _length_context: Array = []
+var _parent_axes := Vector3.ZERO
+var _viewport_axes := Vector2.ZERO
+var _forward_context: Array = []
 var _reported_unanchored := false
 var requested := Vector3(-1, -1, -1)
 var gap: float = 0.0
@@ -40,12 +43,15 @@ var _measure_dirty: bool = true
 var _arrange_dirty: bool = true
 var _parent: WeakRef
 
-func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float) -> void:
-	if length_specs==specs and flex==growth and stretch==cross and pixels_per_unit==scale: return
+func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, stack_axis: int) -> void:
+	if length_specs==specs and flex==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
 	length_specs = specs.duplicate(true)
 	flex = growth
 	stretch = cross
 	pixels_per_unit = scale
+	var dependencies := Length.dependencies(length_specs,stack_axis)
+	_parent_axes = dependencies[0]
+	_viewport_axes = dependencies[1]
 	_length_context = []
 	invalidate()
 
@@ -69,13 +75,15 @@ func _edges(prefix: String) -> Vector4:
 # Resolve specs only on a changed parent/viewport/spec context. No property
 # writeback, parsing in arrange, subscriptions per length, or frame polling.
 func prepare(reference: Vector3, viewport: Vector2) -> void:
-	if _length_context==[reference,viewport]: return
-	_length_context = [reference,viewport]
-	if transparent or viewport_size!=viewport and not children.is_empty():
+	if transparent and _forward_context!=[reference,viewport] or viewport_size!=viewport and not children.is_empty():
 		_measure_dirty = true
 		_arrange_dirty = true
+	_forward_context = [reference,viewport] if transparent else []
 	parent_reference = reference
 	viewport_size = viewport
+	var context := [reference*_parent_axes,viewport*_viewport_axes]
+	if _length_context==context: return
+	_length_context = context
 	resolution_count += 1
 	var before := [requested,gap,padding,margin,length_offset]
 	if not length_specs.is_empty():

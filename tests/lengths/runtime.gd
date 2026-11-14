@@ -54,6 +54,8 @@ func run() -> void:
 	var settings = column.get_node("Settings")
 	var borrowed: Button = home.get_node("Borrowed")
 	var identity: int = panel.get_instance_id()
+	var fixed_leaf = column.get_node("B")
+	var fixed_work := [fixed_leaf.layout.model.measure_count,fixed_leaf.lengths.parse_count,fixed_leaf.layout.model.resolution_count]
 	var runs: int = State.get("records")[home.get_instance_id()].runs
 	var samples: Array = []
 	for size in [Vector2i(1152,648),Vector2i(1440,900),Vector2i(800,500)]:
@@ -68,10 +70,18 @@ func run() -> void:
 	var trace := FileAccess.open("res://geometry.json",FileAccess.WRITE)
 	trace.store_string(JSON.stringify(samples))
 	trace.close()
+	check(fixed_work==[fixed_leaf.layout.model.measure_count,fixed_leaf.lengths.parse_count,fixed_leaf.layout.model.resolution_count],"viewport changes do not parse/resolve/measure fixed sibling lengths")
 	check(State.get("records")[home.get_instance_id()].runs==runs,"viewport changes never rerun build_view")
 	var record = State.get("records")[home.get_instance_id()]
-	var rejected = Element.new(Entry,{"width":"100vw"},{},[Element.new(Rect,{"width":"bad-unit"})])
-	check(not record._preflight(rejected,record.mounted,home) and panel.get_instance_id()==identity and panel.width=="50%","dynamic invalid descendant rejects before any property/tree commit")
+	var rejected = Element.new(Entry,{"width":"100vw"},{},[Element.new(Rect,{"width":"bad-unit"},{},[],"Home.gogo:9:3")])
+	check(not record._preflight(rejected,record.mounted,home) and panel.get_instance_id()==identity and panel.width=="50%" and record.validation_error.contains("Home.gogo:9:3: invalid length 'width'"),"dynamic invalid descendant rejects before any property/tree commit")
+	# The exact owner shape intentionally overflows at the smallest viewport.
+	# Native GUI accepts input only inside the visible viewport: test a tall
+	# allocation separately instead of clicking an off-window scene Button.
+	root.size = Vector2i(1152,1200)
+	await frames()
+	check(borrowed.global_position.y+borrowed.size.y<=root.get_visible_rect().size.y,"borrowed native input target is inside the visible viewport")
+	capture("native-input")
 	var action = settings.get_node("Row/Action")
 	click(action,action.layout_size)
 	check(settings.clicks==1,"actual UiButton input in percent nested host")
@@ -149,9 +159,11 @@ func native_lengths() -> void:
 	var count := clicks
 	click(first,first.layout_size)
 	check(clicks==count+1,"negative offset remains pointer hit-testable")
+	capture("offset-negative")
 	first.x = "50%"
 	await frames()
 	check(is_equal_approx(first.position.x,30+5.7+285),"x50% uses immediate content axis and survives layout flush")
+	capture("offset-percent")
 	# Native intrinsic changes must not reset already-resolved Box padding.
 	row.padding = "10px"
 	await frames()
@@ -223,7 +235,7 @@ func language() -> void:
 	var bytes := FileAccess.get_file_as_bytes(output)
 	var maps := FileAccess.get_file_as_bytes(output+".map.json")
 	var script: Script = load(output)
-	for invalid in ['width="1em"','width="garbage"','width={-1}','width={NAN}','gap="auto"','fill_height={true}','viewport_width_scale={1}']:
+	for invalid in ['width="1em"','width="garbage"','width={-1}','width={NAN}','width={true}','gap="auto"','fill_height={true}','viewport_width_scale={1}']:
 		preload("build.gd").write(path,original.replace('width="50%"',invalid))
 		var report := Build.run_build()
 		check(not report.ok and not report.source_diagnostics.is_empty() and FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps and load(output)==script,"invalid unit/removed API preserves committed Script/maps "+invalid)

@@ -103,7 +103,7 @@ func run() -> void:
 	click_at(button.global_position+Vector2(10,10))
 	check(home.clicks==1,"arranged button pixels receive native pointer once")
 	var record = State.get("records")[home.get_instance_id()]
-	for invalid in [-2.0,NAN,INF,"12",true]:
+	for invalid in [-2.0,NAN,INF,"12oops",true]:
 		check(not record._preflight(Element.new(Box,{"width":17.0,"padding":invalid}),null,column) and column.width=="auto" and column.padding==12,"dynamic invalid inset rejects complete description before writes "+str(invalid))
 	var ids := [column.get_instance_id(),button.get_instance_id(),settings.get_instance_id(),row.get_instance_id()]
 	var cached: int = row.layout.model.measure_count
@@ -121,8 +121,7 @@ func run() -> void:
 	check(column.layout_size==Vector2(580,430),"resized root allocates the content rectangle")
 	var stats := [entry.get_layout_stats(),column.get_layout_stats()]
 	column.padding = 20
-	column.padding = NAN
-	column.padding = -2
+	check(not Length.valid(NAN,"inset") and not Length.valid(-2,"inset"),"shared validation rejects invalid native insets")
 	await frames()
 	check(stats==[entry.get_layout_stats(),column.get_layout_stats()],"equal and invalid setters leave layout quiet")
 	check(column.padding==20,"invalid native setter retains last valid value")
