@@ -54,6 +54,7 @@ for (const selection of options.engines) {
         fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="L02 parent pixels"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         const args = [box.binary, '--audio-driver', 'Dummy', '--path', box.project];
         const graphics = ['--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3'];
+        await run('completion', [...args, '--headless', '--script', 'res://tests/parent_pixels/completion.gd'], 'L02_COMPLETION_OK');
         await run('build', [...args, '--headless', '--script', 'res://tests/parent_pixels/build.gd'], 'L02_BUILD_OK');
         if (!editorOnly) {
             await run('runtime', [...args, ...graphics, '--script', 'res://tests/parent_pixels/runtime.gd'], 'L02_RUNTIME_OK');
