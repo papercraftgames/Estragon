@@ -76,7 +76,7 @@ func run() -> void:
 			code.set_caret_column(rows[-1].length())
 			code.request_code_completion(true)
 			for frame in range(5): await get_tree().process_frame
-			check(code.get_code_completion_options().any(func(item): return item.display_text=="padding_left — float" and item.insert_text=="padding_left"),"real CodeEdit shows the float property type and preserves plain insertion text")
+			check(code.get_code_completion_options().any(func(item): return item.display_text=="padding_left — Variant" and item.insert_text=="padding_left"),"real CodeEdit shows the union Variant property type and preserves plain insertion text")
 			code.cancel_code_completion()
 			check(code.text==original and plugin._build_sources(),"native completion preserves valid source and installed imports/maps")
 		await play("current")

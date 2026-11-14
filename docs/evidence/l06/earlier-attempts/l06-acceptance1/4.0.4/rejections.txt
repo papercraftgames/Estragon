@@ -1,0 +1,23 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L06_EXPECTED_REJECTION_BEGIN
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+L06_EXPECTED_REJECTION_END
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_REJECTIONS_OK

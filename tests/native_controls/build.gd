@@ -40,8 +40,8 @@ func views():
 	return [rose,settings] if self.reverse else [settings,rose]
 func build_view() -> Element:
 	return <Entry2D name="UI" width={self.extent.x} height={self.extent.y}>
-		<VBox name="Column" fill_width={true} fill_height={true}>
-			<VBox name="Spacer" fill_height={true} />
+		<VBox name="Column" flex={1} stretch={1}>
+			<VBox name="Spacer" flex={1} />
 			<Text name="Hello" text={"Hello World!" if self.tick==0 else "Hello World! "+str(self.tick)} />
 			<Text name="Fun" text="This is fun!" />
 			{self.views()}
@@ -67,7 +67,7 @@ func leaf():
 func build_view() -> Element:
 	if self.independent: return <Entry2D name="Independent" width={180.0} height={60.0} position={Vector2(250,40)}><Text name="IndependentText" text="Independent" /></Entry2D>
 	if self.direct: return <Text name="Direct" text={self.caption} />
-	return <HBox name="Row" width={self.view_width} height={self.view_height} fill_width={self.wide} gap={5.0}>{self.leaf()}</HBox>
+	return <HBox name="Row" width={self.view_width if self.view_width>=0 else "auto"} height={self.view_height if self.view_height>=0 else "auto"} stretch={1 if self.wide else 0} gap={5.0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Rose.gogo"
 	write(path,header(path,["Element","HBox","Text","UiButton"])+'''@bindable var button: bool = false
@@ -79,7 +79,7 @@ func leaf():
 	if self.button: return <Button name="RoseButton" pressed={self.pressed} text="Rose is cute!" size_flags_horizontal={Control.SIZE_EXPAND_FILL if self.wide else Control.SIZE_FILL} />
 	return <Text name="RoseText" text="Rose is cute!" />
 func build_view() -> Element:
-	return <HBox name="Row" fill_width={self.wide}>{self.leaf()}</HBox>
+	return <HBox name="Row" stretch={1 if self.wide else 0}>{self.leaf()}</HBox>
 ''')
 	path = "res://app/Multi.gogo"
 	write(path,header(path,["Element","VBox"])+'''func build_view() -> Element:
@@ -129,7 +129,7 @@ func pressed() -> void:
 	clicks += 1
 func build_view() -> Element:
 	return <Entry2D name="UI" position={Vector2(20,20)} width={400.0}>
-		<VBox name="Column" gap={8.0} fill_width={true}>
+		<VBox name="Column" gap={8.0} width="100%">
 			<Button name="A" text="Native A" pressed={self.pressed} />
 			<Button name="B" text="Native B" pressed={self.pressed} />
 			<Text name="FrameworkText" text="Framework Text" />

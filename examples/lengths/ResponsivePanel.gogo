@@ -1,0 +1,15 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var width_percent: float = 50.0
+func toggle_width() -> void:
+    width_percent = 25.0 if width_percent == 50.0 else 50.0
+func build_view() -> Element:
+    return <VBox name="Panel" width={"%s%%" % self.width_percent} height="75%" padding={10} gap={8}>
+        <Text text={"%s%% width / 75%% height" % self.width_percent} font_size={18} />
+        <Rect name="Color" flex={1} stretch={1} fill={Color(0.25,0.5,0.9)} />
+        <UiButton name="Action" text="Toggle 25% / 50%" height={40} width="100%" pressed={self.toggle_width} />
+    </VBox>

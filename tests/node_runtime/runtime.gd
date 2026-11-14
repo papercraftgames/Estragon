@@ -81,8 +81,7 @@ func run() -> void:
 		await settle()
 		check(adapter.layout.model.measured == Vector3(7,9,0 if dimension == 2 else 11), "explicit allocation overrides native extent without stretching")
 		check(visual.scale == (Vector2(2,2) if dimension == 2 else Vector3(2,2,2)), "allocation does not resize native geometry")
-		adapter.width = -2
-		check(adapter.width == 7, "invalid allocation rejected retaining value")
+		check(not adapter.valid_length(-2) and adapter.width == 7, "invalid allocation rejected by shared domain")
 		adapter.observe_native = true
 		adapter.invalidate_native()
 		await settle()
@@ -185,6 +184,8 @@ func exercise_components(dimension: int) -> void:
 	var entry = entry_script.new()
 	var a = component_script.new()
 	var b = component_script.new()
+	if dimension==3:
+		for item in [entry,a,b]: item.pixels_per_unit = 1
 	a.name = "A"
 	b.name = "B"
 	a.set_extent(Vector2(10,5) if dimension == 2 else Vector3(10,5,3))
@@ -207,12 +208,9 @@ func exercise_components(dimension: int) -> void:
 	check([entry.get_layout_stats(),a.get_layout_stats(),b.get_layout_stats()] == idle, "public stats prove zero idle work")
 	var previous = a.requested_extent()
 	check(a.set_extent(Vector2(99,NAN) if dimension == 2 else Vector3(99,8,NAN)) == ERR_INVALID_PARAMETER and a.requested_extent() == previous, "invalid extent rejected atomically")
-	a.width = -2
-	a.height = INF
-	entry.gap = NAN
-	entry.viewport_width_scale = -1
+	check(not a.valid_length(-2) and not a.valid_length(INF),"invalid native lengths are rejected by shared domain")
 	await settle()
-	check(a.requested_extent() == previous and entry.gap == 2 and entry.viewport_width_scale == 0, "bad individual setters retain prior state")
+	check(a.requested_extent() == previous and entry.gap == 2 and entry.width == "auto", "bad individual setters retain prior state")
 	check([entry.get_layout_stats(),a.get_layout_stats(),b.get_layout_stats()] == idle, "rejected writes cause no layout work")
 	a.width = a.width
 	await settle()
@@ -289,7 +287,8 @@ func exercise_components(dimension: int) -> void:
 	check(weak.get_ref() == null and independent.layout.model.children.is_empty(), "queue_free releases native node and model membership")
 	# Entry viewport subscription belongs to tree lifetime, not saved-scene owner.
 	check(root.size_changed.is_connected(entry.layout._viewport_changed), "entry observes its viewport")
-	entry.viewport_width_scale = 1 if dimension == 2 else 0.01
+	entry.width = "100vw"
+	if dimension==3: entry.pixels_per_unit = 100
 	var old_size := root.size
 	root.size = Vector2i(800,420)
 	await settle()

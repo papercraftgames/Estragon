@@ -4,25 +4,58 @@ extends Node3D
 ## Native C1 participant. Needs a contiguous same-dimensional chain to an entry.
 signal layout_applied(size: Vector3)
 const Coordinator = preload("internal/coordinator.gd")
-@export var width: float = -1.0:
+const ESTRAGON_LENGTHS := true
+const Length = preload("internal/length.gd")
+var lengths = Length.new()
+var width: Variant = "auto":
 	set(value):
-		if not valid_length(value) or width == value: return
+		if is_same(width,value) or not lengths.assign("width",value): return
 		width = value
 		_changed()
-@export var height: float = -1.0:
+var height: Variant = "auto":
 	set(value):
-		if not valid_length(value) or height == value: return
+		if is_same(height,value) or not lengths.assign("height",value): return
 		height = value
 		_changed()
-@export var depth: float = -1.0:
+var depth: Variant = "auto":
 	set(value):
-		if not valid_length(value) or depth == value: return
+		if is_same(depth,value) or not lengths.assign("depth",value): return
 		depth = value
 		_changed()
-@export var gap: float = 0.0:
+var x: Variant = 0.0:
 	set(value):
-		if not is_finite(value) or value < 0 or value == gap: return
+		if is_same(x,value) or not lengths.assign("x",value): return
+		x = value
+		_changed()
+var y: Variant = 0.0:
+	set(value):
+		if is_same(y,value) or not lengths.assign("y",value): return
+		y = value
+		_changed()
+var z: Variant = 0.0:
+	set(value):
+		if is_same(z,value) or not lengths.assign("z",value): return
+		z = value
+		_changed()
+var gap: Variant = 0.0:
+	set(value):
+		if is_same(gap,value) or not lengths.assign("gap",value): return
 		gap = value
+		_changed()
+@export var flex: float = 0.0:
+	set(value):
+		if not is_finite(value) or value<0 or value==flex: return
+		flex = value
+		_changed()
+@export_enum("Natural", "Stretch") var stretch: int = 0:
+	set(value):
+		if value not in [0,1] or value==stretch: return
+		stretch = value
+		_changed()
+@export var pixels_per_unit: float = 100.0:
+	set(value):
+		if not is_finite(value) or value<=0 or pixels_per_unit==value: return
+		pixels_per_unit = value
 		_changed()
 @export var center: bool = false:
 	set(value):
@@ -32,11 +65,11 @@ const Coordinator = preload("internal/coordinator.gd")
 var layout_size: Vector3:
 	get: return _layout_size
 var _layout_size := Vector3.ZERO
-# Internal bridge, deliberately not the public authoring API.
 var layout = Coordinator.new(self, 3, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
-
-static func valid_length(value: float) -> bool:
-	return is_finite(value) and (value >= 0 or value == -1)
+func _get_property_list() -> Array[Dictionary]:
+	return Length.properties(["width","height","depth","x","y","z","gap"])
+static func valid_length(value) -> bool:
+	return Length.valid(value,"extent")
 
 func set_extent(value: Vector3) -> Error:
 	for axis in range(3):
@@ -47,13 +80,16 @@ func set_extent(value: Vector3) -> Error:
 	return OK
 
 func requested_extent() -> Vector3:
-	return Vector3(width, height, depth)
+	return layout.model.requested
+
+func _measure_native() -> Vector3:
+	return Vector3.ZERO
+
+func _layout_options() -> Dictionary:
+	return {"axis":0,"fill":Vector3.ZERO,"intrinsic":_measure_native()}
 
 func _is_layout_entry() -> bool:
 	return false
-
-func _layout_viewport_scale() -> Vector2:
-	return Vector2.ZERO
 
 func _changed() -> void:
 	if layout != null: layout.changed()
