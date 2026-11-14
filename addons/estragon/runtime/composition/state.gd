@@ -3,6 +3,7 @@ extends Resource
 const Profile = preload("profile.tres")
 ## Framework-owned shared scope stack; never stored on application objects.
 var scopes: Array = []
+var composing_hosts: Array = []
 var records: Dictionary = {}
 var managed: Dictionary = {}
 var dirty: Array = []
@@ -39,14 +40,19 @@ func drain() -> void:
 			break
 	flushing = false
 	if Profile.is_enabled() and passes>0: Profile.elapsed("drain",started)
-func begin() -> void:
+func begin(host: Node = null) -> void:
 	scopes.append({})
+	composing_hosts.append(weakref(host) if host != null else null)
+func current_host() -> Node:
+	if composing_hosts.is_empty() or composing_hosts.back() == null: return null
+	return composing_hosts.back().get_ref()
 func observe(source: Object, event: StringName) -> void:
 	if scopes.is_empty(): return
 	if Profile.is_enabled(): Profile.add("getter_reads")
 	var key := str(source.get_instance_id())+":"+str(event)
 	scopes.back()[key] = [weakref(source),event]
 func finish() -> Dictionary:
+	composing_hosts.pop_back()
 	return scopes.pop_back()
 func lifecycle(host: Node, what: int) -> void:
 	if Engine.is_editor_hint(): return

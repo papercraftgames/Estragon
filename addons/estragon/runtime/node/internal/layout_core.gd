@@ -5,6 +5,8 @@ const Profile = preload("../../composition/profile.tres")
 signal invalidated
 signal placed(offset)
 signal arranged(size)
+signal reference_changed
+signal parent_changed
 var requested := Vector3(-1, -1, -1)
 var gap: float = 0.0
 var center: bool = false
@@ -18,6 +20,9 @@ var margin := Vector4.ZERO # outside own geometry; consumed by the parent
 var transparent: bool = false # composition proxy forwards one root slot
 var children: Array = []
 var measured := Vector3.ZERO
+# -1 is an unavailable/cyclic reference axis, distinct from an arranged zero.
+var content_reference := Vector3(-1,-1,-1)
+var _external_axes := Vector3.ZERO
 var size := Vector3.ZERO
 var offset := Vector3.ZERO
 var measure_count: int = 0
@@ -61,11 +66,17 @@ func set_children(values: Array) -> Error:
 		if child._parent != null and child._parent.get_ref() != null and child._parent.get_ref() != self: return ERR_ALREADY_IN_USE
 		seen.append(child)
 	if children == values: return OK
+	var moved: Array = []
 	for child in children:
-		if not values.has(child): child._parent = null
+		if not values.has(child):
+			child._parent = null
+			moved.append(child)
 	children = values.duplicate()
-	for child in children: child._parent = weakref(self)
+	for child in children:
+		if child._parent == null or child._parent.get_ref() != self: moved.append(child)
+		child._parent = weakref(self)
 	invalidate()
+	for child in moved: child.parent_changed.emit()
 	return OK
 
 func invalidate() -> void:
@@ -102,8 +113,24 @@ func measure() -> Vector3:
 	_measure_dirty = false
 	return measured
 
-func arrange(available: Vector3) -> void:
-	if not _arrange_dirty and size == available: return
+# An auto axis cannot be a reference to its own descendants. Fill allocations
+# ignore this model's intrinsic extent and can inherit an independent basis.
+func independent_axis(index: int) -> bool:
+	if not transparent and (requested[index] >= 0 or _external_axes[index] > 0): return true
+	var parent = _parent.get_ref() if _parent != null else null
+	if parent == null: return false
+	return parent.independent_axis(index) if requested[index] < 0 and fill[index] > 0 else false
+
+func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
+	_external_axes = external_axes
+	var content := available-leading(padding)-trailing(padding)
+	var reference := Vector3(-1,-1,-1)
+	for index in range(3):
+		content[index] = maxf(0,content[index])
+		if independent_axis(index): reference[index] = content[index]
+	var changed: bool = reference != content_reference
+	if not _arrange_dirty and size == available and not changed: return
+	content_reference = reference
 	measure()
 	arrange_count += 1
 	if Profile.is_enabled(): Profile.add("layout_arranges")
@@ -118,9 +145,8 @@ func arrange(available: Vector3) -> void:
 				child.placed.emit(Vector3.ZERO)
 			child.arrange(available)
 		arranged.emit(size)
+		if changed: reference_changed.emit()
 		return
-	var content := available-leading(padding)-trailing(padding)
-	for index in range(3): content[index] = maxf(0,content[index])
 	var fixed: float = gap * maxi(0, children.size() - 1)
 	var flexible: Array = []
 	for child in children:
@@ -160,3 +186,4 @@ func arrange(available: Vector3) -> void:
 		child.arrange(allocation)
 		cursor += allocation[axis] + child.outer_extent()[axis] + gap
 	arranged.emit(size)
+	if changed: reference_changed.emit()

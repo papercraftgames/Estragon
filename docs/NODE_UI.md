@@ -187,3 +187,7 @@ Padding belongs to Box/Entry containers. Text and UiButton retain their existing
 Run [BoxModel.tscn](../examples/box_model/BoxModel.tscn) to change padding with a retained UiButton while keeping the explicit left edge fixed. The colored row demonstrates outer margins separately from inner padding. [Focused L01 runner](../tools/check-box-model.ts) uses fresh direct-Yarn consumers and isolated editor/game settings; exact review evidence is maintained on #55/its sole PR.
 
 [Exact L01 native acceptance, rendered geometry and editor/compile evidence](evidence/L01_BOX_MODEL.md). Both approved Linux engines pass the scoped proof; live issue/sole PR controls review and merge state.
+
+## L02 — responsive parent-relative pixels
+
+Use optional [Pixels helpers](PARENT_PIXELS.md) for50% of a containing participant's content width or75% of its content height. They return ordinary numeric pixels and participate in the existing Gogo observation/reconciliation path. This differs from remaining-space fill and viewport scales. Parent content must be independently allocated; auto/cyclic axes use documented0 fallback. See the [runnable source](../examples/parent_pixels/ResponsivePanel.gogo) and [scene](../examples/parent_pixels/ResponsiveHome.tscn). Numeric dimensions, edge precedence and unsupported quoted unit strings retain the L01 contract.
