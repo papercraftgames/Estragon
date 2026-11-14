@@ -36,6 +36,12 @@ All final attempts used the same development tar **`e2f85fdbe0c51b5add41598624f6
 
 [640 parent frame](l02/acceptance/4.7/parent-640.png), [800 parent frame](l02/acceptance/4.7/parent-800.png), [520 parent frame](l02/acceptance/4.7/parent-520.png), [overflow](l02/acceptance/4.7/overflow.png), [actual editor game](l02/editor-retry/4.0.4/editor-game.png). Captures were inspected against recorded pixel dimensions and native pointer tests.
 
+## Final local-shadow completion refinement
+
+Final review tightened preload receiver resolution to class-scope constants, preserving local constant shadowing. At clean `dec589fe69836b875e4536416a194dd14780982f` (4.0.4) / documentation-only successor `c392394c643274f135d8a66cd2c6b8899b43c37c` (4.7), **3 standalone completion assertions +5 editor +2 restart assertions PASS per engine**. Both use identical final tar **`9232a6f9980b22ddba539f92e5603ff3d3dfc55ccb7f7eae0b66da9d3a5ba524`**, with all59 installed addon UIDs/bytes unchanged. Only the completion guard changed from runtime-verified8c10628; helper/core/layout/runtime fixtures are unchanged, so runtime was not repeated. [Final4.0.4 results](l02/final-editor/4.0.4/results.json), [final4.7 results](l02/final-editor/4.7/results.json).4.0.4 completion/build/editor/restart wall0.83/2.63/30.21/18.83s;4.7 editor22.83s, complete4.7 runner45.28s. Exact remaining timings are in results.
+
+The first standalone completion fixture attempt failed4.0.4 String inference; a typed String corrected the fixture. A later4.0.4 completion/editor/restart run passed but the runner refused to package4.7 because the evidence document was edited mid-run. The clean-source guard was preserved; the documentation was committed and only the remaining4.7 editor proof ran. No failed native checks were bypassed, no runtime/package artifacts were patched, and no unchanged4.0.4 proof was repeated for that packaging interruption.
+
 ## Proportional regression and static checks
 
 At clean `d7abd99`, with final layout/helper runtime bytes:
