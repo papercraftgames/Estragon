@@ -166,6 +166,29 @@ func run() -> void:
 	await frames()
 	check(horizontal.layout_size==Vector2(75,20) and vertical.layout_size==Vector2(40,35),"zero-inset HBox/VBox dimensions retain pre-refactor geometry")
 	check(horizontal.get_child(1).position==Vector2(35,0) and vertical.get_child(1).position==Vector2(0,25),"zero-inset native sibling placement remains equivalent")
+	var padded := Box.new()
+	padded.width = 200
+	padded.height = 80
+	padded.padding = 10
+	var container := HBoxContainer.new()
+	container.custom_minimum_size = Vector2(80,20)
+	container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var native_child := Control.new()
+	native_child.custom_minimum_size = Vector2(20,10)
+	container.add_child(native_child)
+	var sibling := Rect.new()
+	sibling.set_extent(Vector2(20,10))
+	sibling.margin = 5
+	padded.add_child(container)
+	padded.add_child(sibling)
+	natural.add_child(padded)
+	await frames()
+	check(container.position==Vector2(10,10) and container.size==Vector2(150,20) and sibling.position==Vector2(165,15),"padded Box reserves sibling margins before native Container flex allocation")
+	check(native_child.get_parent()==container and native_child.size.x==20 and native_child.position==Vector2.ZERO,"ordinary native Container retains interior layout authority")
+	padded.width = 100
+	await frames()
+	check(container.size==Vector2(80,20) and sibling.position==Vector2(95,15),"native minimum floors overflow a small content box without double-counted margins")
+	capture("native-container")
 	natural.free()
 	var counter = load("res://app/generated/Counter.gd").new()
 	root.add_child(counter)
