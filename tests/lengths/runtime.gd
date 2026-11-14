@@ -110,6 +110,7 @@ func compiler_units() -> void:
 		check(result.ok and result.code.contains('"'+unit+'"'),"all length properties compile and retain quoted spec "+unit)
 		if result.ok:
 			var script := GDScript.new()
+			script.resource_path = "res://generated/_gogo_memory_%d.gd" % script.get_instance_id()
 			script.source_code = result.code
 			check(script.reload()==OK,"generated mixed unit native semantics "+unit)
 func native_lengths() -> void:

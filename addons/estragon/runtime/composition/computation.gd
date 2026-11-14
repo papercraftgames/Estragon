@@ -110,7 +110,7 @@ func _flush() -> void:
 	if Profile.is_enabled(): Profile.add("views")
 	_rendering = true
 	_again = false
-	manager.begin(owner)
+	manager.begin()
 	var desired = owner.call("build_view")
 	var reads: Dictionary = manager.finish()
 	if Profile.is_enabled(): Profile.elapsed("view",started)
