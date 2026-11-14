@@ -58,10 +58,15 @@ func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, sta
 func _length(name: String, axis_index: int, fallback: float) -> float:
 	if not length_specs.has(name): return fallback
 	var spec: Dictionary = length_specs[name]
-	if spec.unit=="%" and parent_reference[axis_index]<0 and not _reported_unanchored:
-		_reported_unanchored = true
-		push_warning("Estragon unanchored/cyclic percentage resolves to zero; give the containing layout axis an independent extent")
 	return Length.resolve(spec,parent_reference[axis_index],viewport_size,pixels_per_unit)
+
+func _warn_unanchored() -> void:
+	if _reported_unanchored: return
+	for index in range(3):
+		if _parent_axes[index]>0 and parent_reference[index]<0:
+			_reported_unanchored = true
+			push_warning("Estragon unanchored/cyclic percentage resolves to zero; give the containing layout axis an independent extent")
+			return
 
 func _edges(prefix: String) -> Vector4:
 	var result := Vector4.ZERO
@@ -165,6 +170,7 @@ func measure() -> Vector3:
 	if transparent and children.size()==1:
 		var child = children[0]
 		child.prepare(parent_reference,viewport_size)
+		child.measure()
 		if child.requested!=requested or child.flex!=flex or child.stretch!=stretch or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
 			requested = child.requested
 			flex = child.flex
@@ -196,13 +202,14 @@ func measure() -> Vector3:
 # An auto axis cannot be a reference to its own descendants. Fill allocations
 # ignore this model's intrinsic extent and can inherit an independent basis.
 func independent_axis(index: int) -> bool:
-	if not transparent and (requested[index] >= 0 or _external_axes[index] > 0): return true
+	if requested[index] >= 0 or _external_axes[index] > 0: return true
 	var parent = _parent.get_ref() if _parent != null else null
 	if parent == null: return false
-	return parent.independent_axis(index) if transparent or requested[index] < 0 and (fill[index] > 0 or (flex>0 if index==parent.axis else stretch>0)) else false
+	return parent.independent_axis(index) if requested[index] < 0 and (fill[index] > 0 or (flex>0 if index==parent.axis else stretch>0)) else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	_external_axes = external_axes
+	_warn_unanchored()
 	var content := available-leading(padding)-trailing(padding)
 	var reference := Vector3(-1,-1,-1)
 	for index in range(3):
@@ -224,7 +231,12 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				child.offset = Vector3.ZERO
 				child.placed.emit(Vector3.ZERO)
 			child.viewport_size = viewport_size
-			child.arrange(available)
+			# Forward actual allocation authority through transparent hosts. Their
+			# internal X axis must not reinterpret the outer Box's flex axis.
+			var authority := Vector3.ZERO
+			for index in range(3):
+				if independent_axis(index): authority[index] = 1
+			child.arrange(available,authority)
 		arranged.emit(size)
 		return
 	# Assigned content is authoritative, including flex allocations. Resolve the

@@ -105,6 +105,7 @@ func run() -> void:
 	flex_home.free()
 	home.free()
 	await frames()
+	await deep_flex()
 	await native_lengths()
 	await viewport_and_spatial()
 	await language()
@@ -112,6 +113,20 @@ func run() -> void:
 	print("L06_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_RUNTIME_OK")
 	quit(1 if failed else 0)
+func deep_flex() -> void:
+	var scene = load("res://app/generated/DeepFlex.gd").new()
+	root.add_child(scene)
+	await frames()
+	var entry = scene.get_node("UI")
+	var panel = scene.get_node("UI/Column/Wrapper/Panel/Root")
+	var half = panel.get_node("Half")
+	var identity: int = half.get_instance_id()
+	check(panel.layout_size==Vector2(600,400) and half.layout_size==Vector2(300,200),"multilevel Gogo hosts forward VBox flex allocation authority to percentage descendants")
+	entry.height = 600
+	await frames()
+	check(panel.layout_size==Vector2(600,600) and half.layout_size==Vector2(300,300) and half.get_instance_id()==identity,"nested flex percentages resize without replacing nodes")
+	scene.free()
+	await frames()
 func compiler_units() -> void:
 	var header := 'extends Node2D\nconst Box = preload("res://addons/estragon/runtime/node/box.gd")\nfunc view(): return '
 	for unit in ["200","200px","50%","10vw","10vh","10vmin","10vmax","2.5in","1cm","10mm","4q","12pt","1pc"]:

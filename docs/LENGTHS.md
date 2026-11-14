@@ -139,3 +139,5 @@ The following names are deliberately removed, with no compatibility aliases:
 produce a replacement diagnostic. Old L02/L05 fixtures/runners are replaced by
 `tools/check-lengths.ts`; their committed evidence remains historical. Original
 L01 Box arithmetic and native Control interoperability remain in the same core.
+
+[Exact two-engine proof, rendered geometry and native Inspector limitation](evidence/L06_UNIT_LENGTHS.md). The inherited-relative-class native4.7 icon diagnostic remains separate; it is not claimed fixed.

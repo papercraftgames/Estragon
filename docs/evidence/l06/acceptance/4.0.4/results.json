@@ -1,0 +1,152 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "d065559ce7aad1f9a42d94b37e6d4f4076ae5ca07493d7d244cbbafdb422ba01"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-1kWjqT/yarn-cache",
+      "file:/evidence/l06-final/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.7,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1kWjqT/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1kWjqT/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.26,
+    "godot_pid": 7465,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1kWjqT/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1kWjqT/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 7522,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1kWjqT/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1kWjqT/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 13.58,
+    "godot_pid": 7638,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: built_in_strtod (core/string/ustring.cpp:2524)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1kWjqT/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1kWjqT/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 30,
+    "godot_pid": 8063,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1kWjqT/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1kWjqT/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 17.56,
+    "godot_pid": 9014,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  }
+}

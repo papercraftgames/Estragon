@@ -74,6 +74,18 @@ func build_view() -> Element:
 	write(path,header(path,["Element","Entry2D","VBox","Text"])+'''func build_view() -> Element:
 	return <Entry2D width="100vw" height="100vh"><VBox width="100%" height="100%"><VBox flex={1} stretch={1} /><Text text="Bottom aligned" /></VBox></Entry2D>
 ''')
+	path = "res://app/FlexPanel.gogo"
+	write(path,header(path,["Element","VBox","Rect"])+'''func build_view() -> Element:
+	return <VBox name="Root" width={600} flex={1}><Rect name="Half" width="50%" height="50%" /></VBox>
+''')
+	path = "res://app/FlexWrapper.gogo"
+	write(path,header(path,["Element"])+'''func build_view() -> Element:
+	return <FlexPanel name="Panel" />
+''')
+	path = "res://app/DeepFlex.gogo"
+	write(path,header(path,["Element","Entry2D","VBox"])+'''func build_view() -> Element:
+	return <Entry2D name="UI" width={600} height={400}><VBox name="Column" width="100%" height="100%"><FlexWrapper name="Wrapper" /></VBox></Entry2D>
+''')
 	var result := Build.run_build()
 	print("L06_BUILD ",JSON.stringify(result))
 	if result.ok:

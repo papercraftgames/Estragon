@@ -17,8 +17,8 @@ parity is C3. No old hierarchy was renamed or retired. Strict C01 release remain
 **BLOCKED**; this foundation does not certify every Godot minor/platform.
 
 The bounded lifecycle/coordinate proposal was recorded on #77 before code.
-This PR reviews that concrete C1 API and its limits, without settling universal
-3D units/wrapping/overlays or animated geometry observation.
+This PR reviews that concrete C1 API and its limits, without settling general
+3D wrapping/overlays or animated geometry observation. L06 adds the bounded shared length/explicit spatial scale contract.
 
 ## Public C1 API
 
@@ -62,7 +62,7 @@ Both dimensions use the same composed B2 mathematical X-row measure→arrange co
 Natural width sums children plus gaps; Y/Z use maximum child extent. Optional
 centering offsets the row within allocation. Fixed allocation does not shrink,
 stretch or clip native geometry; overflow is permitted. Local 2D coordinates use
-pixels; 3D coordinates use explicitly authored Godot world units. No wrapping,
+pixels;3D native transforms/bounds use Godot world units, with authored lengths converted by the explicit [pixel-to-world scale](LENGTHS.md). No wrapping,
 constraint solver, implicit overlay or universal volumetric policy is included.
 
 For a basic participant, the parent owns local translation and computed allocation.

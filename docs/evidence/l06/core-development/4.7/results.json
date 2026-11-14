@@ -1,0 +1,43 @@
+{
+  "core": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-hdLlhv/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-hdLlhv/project",
+      "--script",
+      "res://tests/node_runtime/core.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.27,
+    "godot_pid": 3431,
+    "log": "core.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-hdLlhv/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-hdLlhv/project",
+      "--script",
+      "res://tests/node_runtime/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.82,
+    "godot_pid": 3448,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}
