@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L01_BUILD {"changed":["app/generated/BoxModel.gd","app/generated/BoxModel.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/BoxModel.gd","app/generated/Counter.gd","app/generated/Settings.gd","app/generated/Home.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L01_BUILD_OK

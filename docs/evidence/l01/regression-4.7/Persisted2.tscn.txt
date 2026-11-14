@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://3x8jw3c52gdk"]
+
+[ext_resource type="Script" uid="uid://ho0xmedmgf32" path="res://examples/node_runtime/demo.gd" id="1_0yy2q"]
+[ext_resource type="Script" uid="uid://bmj6hsf3muwpe" path="res://addons/estragon/runtime/node/estragon_2d.gd" id="2_8qhfm"]
+[ext_resource type="Script" uid="uid://cgeg1e4kjrmls" path="res://addons/estragon/runtime/node/native_2d.gd" id="3_viafx"]
+[ext_resource type="Script" uid="uid://b6ucicu50s6qb" path="res://addons/estragon/runtime/node/component_2d.gd" id="4_fwt7u"]
+
+[node name="Runtime2D" type="Node" unique_id=328156415]
+script = ExtResource("1_0yy2q")
+
+[node name="Entry" type="Node2D" parent="." unique_id=331210353]
+position = Vector2(50, 100)
+script = ExtResource("2_8qhfm")
+gap = 30.0
+
+[node name="NativeA" type="Node2D" parent="Entry" unique_id=1923771201]
+position = Vector2(42.929916, 47.942764)
+script = ExtResource("3_viafx")
+observe_native = true
+
+[node name="Visual" type="Polygon2D" parent="Entry/NativeA" unique_id=262378721]
+position = Vector2(11, -7)
+rotation = 0.25
+scale = Vector2(1.2, 1)
+color = Color(0.1882353, 0.7882353, 0.6901961, 1)
+polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
+
+[node name="NativeB" type="Node2D" parent="Entry" unique_id=2121232838]
+position = Vector2(178.80399, 43.836163)
+script = ExtResource("3_viafx")
+observe_native = true
+
+[node name="Visual" type="Polygon2D" parent="Entry/NativeB" unique_id=1649344486]
+position = Vector2(11, -7)
+rotation = -0.15
+scale = Vector2(1.2, 1)
+color = Color(0.52156866, 0.4, 0.8784314, 1)
+polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
+
+[node name="Boundary" type="Node2D" parent="Entry" unique_id=1571466916]
+position = Vector2(0, 150)
+
+[node name="Reentry" type="Node2D" parent="Entry/Boundary" unique_id=651989002]
+script = ExtResource("2_8qhfm")
+
+[node name="Participant" type="Node2D" parent="Entry/Boundary/Reentry" unique_id=1710367861]
+script = ExtResource("4_fwt7u")
+width = 70.0
+height = 40.0
+
+[node name="NativeDecoration" type="Polygon2D" parent="Entry/Boundary/Reentry/Participant" unique_id=2122597747]
+color = Color(0.92156863, 0.6745098, 0.30588236, 1)
+polygon = PackedVector2Array(0, 0, 70, 0, 70, 40, 0, 40)

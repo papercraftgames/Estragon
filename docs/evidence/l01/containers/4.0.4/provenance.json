@@ -1,0 +1,16 @@
+{
+  "sourceHead": "b261b6b1ee0973b5091852870748c491f1d4769b",
+  "sourceDirty": false,
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "original_binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-box-model.ts",
+    "--engine",
+    "4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/evidence/l01-containers"
+  ]
+}
