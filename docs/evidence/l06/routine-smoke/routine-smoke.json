@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "command": [
+    "/tmp/estragon-native-zPuHSI/godot",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    "/tmp/estragon-native-zPuHSI/project",
+    "--script",
+    "res://tests/native_compiler/smoke.gd"
+  ],
+  "exit_code": 0,
+  "timeout": false,
+  "aborted_on_error": false,
+  "seconds": 0.59,
+  "godot_pid": 13224,
+  "log": "smoke.log",
+  "diagnostics": []
+}

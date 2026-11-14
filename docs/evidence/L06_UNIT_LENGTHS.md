@@ -3,7 +3,7 @@
 Issue [#156](https://github.com/papercraftgames/Estragon/issues/156), branch
 `codex/l06-unit-lengths`, base `a2cd5e4` (merged #154). This is an intentional
 beta API replacement. [Current contract and migration](../LENGTHS.md).
-Implementation/testing is complete locally at **`633beea193191b178208edb6aa6d093f31fc4966`**;
+Implementation/testing is complete locally at **`7a5f7e9c6812d8370b4733ea666bbe2b41983e6f`**;
 owner review/merge remains separate. Later evidence/status commits do not alter
 runtime/compiler/editor/fixture bytes. No release certification or publication.
 
@@ -13,7 +13,7 @@ Only official Linux **4.0.4.stable.official.fc0b241c9** and pinned
 **4.7.stable.official.5b4e0cb0f** were launched. Each fresh direct-Yarn consumer
 loads the package inside node_modules without copies, symlinks or ignores. Both
 used identical reproducible development tar SHA-256
-**`d065559ce7aad1f9a42d94b37e6d4f4076ae5ca07493d7d244cbbafdb422ba01`**.
+**`0624d6b2c6b683b8b84f1808cc36387e8f7dee1aabe0bba326f6509e2face273`**.
 All **59 installed addon Script UIDs and every installed byte remain unchanged**.
 [4.0.4 provenance](l06/acceptance/4.0.4/provenance.json),
 [4.7 provenance](l06/acceptance/4.7/provenance.json),
@@ -22,11 +22,11 @@ All **59 installed addon Script UIDs and every installed byte remain unchanged**
 
 | Engine | Runtime | Native invalid writes | Editor / restart | Build / runtime / editor / restart wall seconds |
 | --- | --- | --- | --- | --- |
-| 4.0.4 | 109 PASS | 5 exact expected diagnostics; retained specs PASS | 10 / 6 PASS | 2.26 / 13.58 / 30.00 / 17.56 |
-| 4.7 | 109 PASS | 5 exact expected diagnostics; retained specs PASS | 10 / 6 PASS | 1.50 / 6.81 / 22.59 / 13.10 |
+| 4.0.4 | 111 PASS | 5 exact expected diagnostics; retained specs PASS | 10 / 6 PASS | 2.38 / 12.45 / 27.77 / 21.10 |
+| 4.7 | 111 PASS | 5 exact expected diagnostics; retained specs PASS | 10 / 6 PASS | 1.60 / 6.88 / 20.43 / 13.51 |
 
 [4.0.4 results](l06/acceptance/4.0.4/results.json),
-[4.7 results](l06/acceptance/4.7/results.json). Whole two-engine runner121.25s;
+[4.7 results](l06/acceptance/4.7/results.json). Whole two-engine runner119.71s;
 focused local graphics/editor work is separate from routine CI's60-second budget.
 The rejection runner accepts only the five exact width-domain errors within
 stderr markers; all other errors/leaks fail. The runtime's documented root
@@ -78,15 +78,15 @@ detach/re-entry and explicit3D100px/world-unit conversion/Z offsets pass. Native
 Control GUI and UiButton pointer callbacks each dispatch once. The editor uses
 actual CodeEdit completion and unsaved current-Play saving, native Inspector
 string entry/rejection/undo/redo, both Play paths and a fresh editor restart.
-No physical keypress or manual interaction claim is made.
+The permanent multilevel Gogo regression also proves a600×400 flex panel with300×200 percentage descendants, resizing to600×600 /300×300 with retained identity. No physical keypress or manual interaction claim is made.
 
 ## Focused regressions, migration and audits
 
-- At final source633beea, existing Box/Counter direct-Yarn runtime **68 PASS** on
+- At final source7a5f7e9, existing Box/Counter direct-Yarn runtime **68 PASS** on
   pinned4.7: pure core/insets/overflow/margins, clean sibling cache, intrinsic
   invalidation, packing, actual Counter input/reactivity and source rollback/
   repair. [Results](l06/box-regression/4.7/results.json).
-- At final source633beea, existing composition **49 runtime +42 real editor
+- At pre-flex-correction source633beea, existing composition **49 runtime +42 real editor
   assertions PASS**, plus import/rendered capture.77.38s editor/92.96s whole
   runner. [Results](l06/composition-regression/4.7/results.json). This verifies
   the sole observation manager after deleting the old helper context stack.
@@ -101,6 +101,7 @@ No physical keypress or manual interaction claim is made.
   old host observation context and unused geometry signals. All live consumers
   and checked-in generated GDScript/maps migrate. Old attrs occur only in explicit
   negative diagnostics/migration/history; no executable compatibility aliases.
+ 29 source/generated maps match their authored content and declared code hashes. The routine native smoke also passes ([results](l06/routine-smoke/routine-smoke.json),1.39s whole runner).
   [Native example regeneration](l06/example-build.txt). Supplied Assets,
   dependency/version metadata, workflows and release/publication controls stay
   unchanged. The former helper and viewport runners are replaced by L06.
@@ -156,11 +157,11 @@ read-only repository `/repo`, authenticated engines `/engines`, host
 Mesa software graphics. No shared checkout plugin/preferences are changed.
 
 ```sh
-docker exec -w /tmp -e XDG_RUNTIME_DIR=/tmp/e04-runtime estragon-e04-local xvfb-run -a sh -c 'openbox >/tmp/l06-final-openbox.log 2>&1 & exec corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-lengths.ts --editor --engine 4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/l06-final'
+docker exec -w /tmp -e XDG_RUNTIME_DIR=/tmp/e04-runtime estragon-e04-local xvfb-run -a sh -c 'openbox >/tmp/l06-final-flex2-openbox.log 2>&1 & exec corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-lengths.ts --editor --engine 4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/l06-final-flex2'
 ```
 
 Through the same Xvfb/Yarn entry point, `tools/check-box-model.ts --engine 4.7=…
---output /evidence/l06-box-final` and `tools/check-composition.ts --engine 4.7=…
+--output /evidence/l06-box-flex2-final` and `tools/check-composition.ts --engine 4.7=…
 --output /tmp/l06-composition-regression` produced the final regressions.
 Development `tools/check-node-runtime.ts --runtime-only --engine 4.7=… --output
 /evidence/l06-core-dev3` retains its original source/dirty provenance. Exact full
@@ -169,11 +170,4 @@ paths are retained in each results/provenance file. Logs are archived as `.txt`
 with trailing whitespace trimmed; JSON keeps original `.log` names. No certified
 artifact was patched. [Artifact SHA-256 index](l06/artifact-index.json).
 
-Final source review checkpoint: a newly added multilevel Gogo/flex regression
-exposed a percentage descendant receiving0 height from the transparent host's
-internal X-axis convention despite an actual400px vertical flex allocation.
-The correction forwards explicit independently allocated axes to the managed
-root and resolves deep proxy constraints after measuring their managed child.
-The focused development runtime now passes111 assertions. A fresh final-source
-two-engine phase is required before the review handoff; the initial633beea
-results above remain retained as their actual source, not patched artifacts.
+Final source review found a multilevel Gogo/flex regression after the initial complete phase at633beea ([retained original phase](l06/initial-complete/4.7/results.json)). A600×400 panel incorrectly gave its percentage child300×0 because the transparent host's internal X-axis convention reinterpreted vertical flex authority. The correction forwards explicit independently allocated axes and reads deep proxy constraints after managed-child measurement. The final permanent regression verifies300×200 then300×300 with retained identity. Unanchored warnings now occur only at final arrangement, not provisional measure. [Minimal reproduction](l06/development/deep-flex-repro.gd.txt), [focused development repair](l06/development/deep-flex-runtime.txt). Final111 plus editor/restart evidence above is from corrected source7a5f7e9; the earlier complete phase and pre-correction regressions retain their actual source/tar identities.

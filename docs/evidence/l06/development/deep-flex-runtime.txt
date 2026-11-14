@@ -1,0 +1,120 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200px: true
+L06_CHECK canonical conversion 50%: true
+L06_CHECK canonical conversion 10vw: true
+L06_CHECK canonical conversion 10vh: true
+L06_CHECK canonical conversion 10vmin: true
+L06_CHECK canonical conversion 10vmax: true
+L06_CHECK canonical conversion 2.5in: true
+L06_CHECK canonical conversion 1cm: true
+L06_CHECK canonical conversion 10mm: true
+L06_CHECK canonical conversion 4q: true
+L06_CHECK canonical conversion 12pt: true
+L06_CHECK canonical conversion 1pc: true
+L06_CHECK canonical conversion auto: true
+L06_CHECK canonical conversion  .5in : true
+L06_CHECK canonical conversion +2e1px: true
+L06_CHECK reject invalid extent 1em: true
+L06_CHECK reject invalid extent 1rem: true
+L06_CHECK reject invalid extent 1ex: true
+L06_CHECK reject invalid extent 1ch: true
+L06_CHECK reject invalid extent calc(2px): true
+L06_CHECK reject invalid extent 2PX: true
+L06_CHECK reject invalid extent : true
+L06_CHECK reject invalid extent --2px: true
+L06_CHECK reject invalid extent 1 px: true
+L06_CHECK reject invalid extent 1e999px: true
+L06_CHECK reject invalid extent -1px: true
+L06_CHECK reject invalid extent -1: true
+L06_CHECK reject invalid extent nan: true
+L06_CHECK reject invalid extent inf: true
+L06_CHECK reject invalid extent true: true
+L06_CHECK reject invalid extent []: true
+L06_CHECK reject invalid extent NaN: true
+L06_CHECK reject invalid extent 100oops: true
+L06_CHECK offset signs and auto domains: true
+L06_CHECK 3D numeric and pixel strings share explicit100px/world-unit scale: true
+WARNING: Exponent too high
+     at: built_in_strtod (core/string/ustring.cpp:2524)
+L06_CHECK all length properties compile and retain quoted spec 200: true
+L06_CHECK generated mixed unit native semantics 200: true
+L06_CHECK all length properties compile and retain quoted spec 200px: true
+L06_CHECK generated mixed unit native semantics 200px: true
+L06_CHECK all length properties compile and retain quoted spec 50%: true
+L06_CHECK generated mixed unit native semantics 50%: true
+L06_CHECK all length properties compile and retain quoted spec 10vw: true
+L06_CHECK generated mixed unit native semantics 10vw: true
+L06_CHECK all length properties compile and retain quoted spec 10vh: true
+L06_CHECK generated mixed unit native semantics 10vh: true
+L06_CHECK all length properties compile and retain quoted spec 10vmin: true
+L06_CHECK generated mixed unit native semantics 10vmin: true
+L06_CHECK all length properties compile and retain quoted spec 10vmax: true
+L06_CHECK generated mixed unit native semantics 10vmax: true
+L06_CHECK all length properties compile and retain quoted spec 2.5in: true
+L06_CHECK generated mixed unit native semantics 2.5in: true
+L06_CHECK all length properties compile and retain quoted spec 1cm: true
+L06_CHECK generated mixed unit native semantics 1cm: true
+L06_CHECK all length properties compile and retain quoted spec 10mm: true
+L06_CHECK generated mixed unit native semantics 10mm: true
+L06_CHECK all length properties compile and retain quoted spec 4q: true
+L06_CHECK generated mixed unit native semantics 4q: true
+L06_CHECK all length properties compile and retain quoted spec 12pt: true
+L06_CHECK generated mixed unit native semantics 12pt: true
+L06_CHECK all length properties compile and retain quoted spec 1pc: true
+L06_CHECK generated mixed unit native semantics 1pc: true
+L06_CHECK inline owner demo50/75% actual content (1152, 648): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1152, 648): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (1440, 900): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1440, 900): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (800, 500): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (800, 500): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK viewport changes do not parse/resolve/measure fixed sibling lengths: true
+L06_CHECK viewport changes never rerun build_view: true
+L06_CHECK dynamic invalid descendant rejects before any property/tree commit: true
+L06_CHECK borrowed native input target is inside the visible viewport: true
+L06_CHECK actual UiButton input in percent nested host: true
+L06_CHECK native borrowed Button GUI signal survives layout: true
+L06_CHECK keyed retained percentage children reorder: true
+L06_CHECK steady idle zero parse/resolve/measure/arrange/recomposition: true
+L06_CHECK flex bottom spacer remains distinct from100% height: true
+L06_CHECK multilevel Gogo hosts forward VBox flex allocation authority to percentage descendants: true
+L06_CHECK nested flex percentages resize without replacing nodes: true
+WARNING: Estragon unanchored/cyclic percentage resolves to zero; give the containing layout axis an independent extent
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK unanchored root percent insets explicitly resolve zero: true
+L06_CHECK native string assignment content-box widths and absolute units: true
+L06_CHECK axis-aware percent margins and negative additive slot offsets: true
+L06_CHECK weighted flex2:1 and explicit cross stretch: true
+L06_CHECK negative offset remains pointer hit-testable: true
+L06_CHECK x50% uses immediate content axis and survives layout flush: true
+L06_CHECK intrinsic invalidation preserves retained unit padding and explicit edge: true
+L06_CHECK intentional overflow above100% reserves remaining-space zero: true
+L06_CHECK native scene pack preserves authored unit specs: true
+L06_CHECK native reparent immediately uses new logical parent reference: true
+L06_CHECK cross-axis viewport units use containing SubViewport: true
+L06_CHECK SubViewport resize remains signal-driven: true
+L06_CHECK viewport disconnect on exit: true
+L06_CHECK detached viewport entry reconnects: true
+L06_CHECK bounded3D uses identical parser and explicit100px/world-unit scale: true
+L06_CHECK 3D parent-relative x and signed z offset preserve orientation: true
+L06_CHECK 3D scale is per participant; percentage world references stay coherent: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="1em": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="garbage": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={-1}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={NAN}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps gap="auto": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps fill_height={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps viewport_width_scale={1}: true
+L06_CHECK source repair recovers actual-path compilation: true
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 111 failed=false
+L06_RUNTIME_OK

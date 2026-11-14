@@ -12,13 +12,13 @@ L06_EDITOR_CHECK native completion preserves valid source and installed imports/
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-1kWjqT/godot --path /tmp/estragon-native-1kWjqT/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8063 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-EfHsuP/godot --path /tmp/estragon-native-EfHsuP/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 12080 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 L06_EDITOR_CHECK current native game keeps50/75 percent parent sizing through three resizes with retained input: true
 L06_EDITOR_CHECK current Play saves unsaved Gogo buffer before compilation: true
 Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
 OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
 
-Running: /tmp/estragon-native-1kWjqT/godot --path /tmp/estragon-native-1kWjqT/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8063 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+Running: /tmp/estragon-native-EfHsuP/godot --path /tmp/estragon-native-EfHsuP/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 12080 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
 L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
 L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
 L06_EDITOR_ASSERTIONS 10 failed=false

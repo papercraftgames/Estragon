@@ -85,6 +85,8 @@ L06_CHECK native borrowed Button GUI signal survives layout: true
 L06_CHECK keyed retained percentage children reorder: true
 L06_CHECK steady idle zero parse/resolve/measure/arrange/recomposition: true
 L06_CHECK flex bottom spacer remains distinct from100% height: true
+L06_CHECK multilevel Gogo hosts forward VBox flex allocation authority to percentage descendants: true
+L06_CHECK nested flex percentages resize without replacing nodes: true
 WARNING: Estragon unanchored/cyclic percentage resolves to zero; give the containing layout axis an independent extent
      at: push_warning (core/variant/variant_utility.cpp:923)
 L06_CHECK unanchored root percent insets explicitly resolve zero: true
@@ -114,5 +116,5 @@ L06_CHECK invalid unit/removed API preserves committed Script/maps fill_height={
 L06_CHECK invalid unit/removed API preserves committed Script/maps viewport_width_scale={1}: true
 L06_CHECK source repair recovers actual-path compilation: true
 L06_CHECK composition teardown releases all records: true
-L06_ASSERTIONS 109 failed=false
+L06_ASSERTIONS 111 failed=false
 L06_RUNTIME_OK

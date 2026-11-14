@@ -1,5 +1,5 @@
 {
-  "sourceHead": "633beea193191b178208edb6aa6d093f31fc4966",
+  "sourceHead": "7a5f7e9c6812d8370b4733ea666bbe2b41983e6f",
   "sourceDirty": false,
   "version": "4.0.4.stable.official.fc0b241c9",
   "original_binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
@@ -12,6 +12,6 @@
     "--engine",
     "4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
     "--output",
-    "/evidence/l06-final"
+    "/evidence/l06-final-flex2"
   ]
 }

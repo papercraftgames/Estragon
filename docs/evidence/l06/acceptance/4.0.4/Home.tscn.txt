@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://c17ukro0aykvg"]
+[gd_scene load_steps=2 format=3 uid="uid://dwpl41wbpup3o"]
 
-[ext_resource type="Script" path="res://app/generated/Home.gd" id="1_trhpg"]
+[ext_resource type="Script" path="res://app/generated/Home.gd" id="1_p6v7g"]
 
 [node name="Home" type="Node2D"]
-script = ExtResource("1_trhpg")
+script = ExtResource("1_p6v7g")
 
 [node name="Borrowed" type="Button" parent="."]
 text = "Native scene Button"
