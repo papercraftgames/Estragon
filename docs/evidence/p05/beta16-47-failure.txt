@@ -1,0 +1,5 @@
+certify / release-certification (4.7)	UNKNOWN STEP	2026-11-14T18:43:17.1323338Z PACKAGE_NATIVE_VERSION 0.1.0-beta.16
+certify / release-certification (4.7)	UNKNOWN STEP	2026-11-14T18:43:17.1323572Z PACKAGE_BUILD_OK
+certify / release-certification (4.7)	UNKNOWN STEP	2026-11-14T18:43:24.2574811Z ERROR: Package: relocated Node3D entry executes shared native layout
+certify / release-certification (4.7)	UNKNOWN STEP	2026-11-14T18:43:24.3238980Z Error: Package consumer runtime failed
+certify / release-certification (4.7)	UNKNOWN STEP	2026-11-14T18:43:24.3345882Z Error: package acceptance failed

@@ -1,0 +1,21 @@
+{
+  "sourceHead": "1585cac8ea6ea47c06d0574f79ca0fd3e8bcb575",
+  "overlay": {
+    "mode": "development",
+    "version": "0.0.0-dev",
+    "sourceHead": "1585cac8ea6ea47c06d0574f79ca0fd3e8bcb575",
+    "tag": null,
+    "release_id": null,
+    "overlayRecipe": "estragon-tag-overlay-v1"
+  },
+  "package_version": "0.0.0-dev",
+  "installed_tarball_sha256": "0624d6b2c6b683b8b84f1808cc36387e8f7dee1aabe0bba326f6509e2face273",
+  "source_content_sha256": "37d749cdb4fd9588fbdbd29d676095fa31d33db48191311efd9e5d9589d95e9f",
+  "addon_payload_unchanged": true,
+  "layout": "standard",
+  "addon_root": "res://addons/estragon",
+  "node_modules_ignored": false,
+  "addon_copied": false,
+  "addon_symlinked": false,
+  "external_compiler": false
+}

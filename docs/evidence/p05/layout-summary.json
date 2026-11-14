@@ -1,0 +1,262 @@
+{
+  "4.0.4": {
+    "stage_runs": {
+      "pack": [
+        {
+          "layout": "package",
+          "status": "PASS",
+          "seconds": 43.27
+        }
+      ],
+      "install": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 6.22
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 0.38
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 0.39
+        }
+      ],
+      "build": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 14.22
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 1.91
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 1.87
+        }
+      ],
+      "import": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 47.39
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 6.72
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 6.68
+        }
+      ],
+      "runtime": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 11.51
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 2.03
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 2.04
+        }
+      ],
+      "editor": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 63.45
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 30.49
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 29.94
+        }
+      ],
+      "visual": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 2.07
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 1.92
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 1.92
+        }
+      ]
+    },
+    "screenshots_match_inspected_direct_gate": {
+      "direct": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      },
+      "relocated": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      },
+      "standard": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      }
+    }
+  },
+  "4.7": {
+    "stage_runs": {
+      "pack": [
+        {
+          "layout": "package",
+          "status": "PASS",
+          "seconds": 44.11
+        }
+      ],
+      "install": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 6.04
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 0.37
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 0.36
+        }
+      ],
+      "build": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 9.64
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 1.22
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 1.22
+        }
+      ],
+      "import": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 37.24
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 4.34
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 4.26
+        }
+      ],
+      "runtime": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 10.61
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 1.08
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 0.98
+        }
+      ],
+      "editor": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 68.26
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 24
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 24.09
+        }
+      ],
+      "visual": [
+        {
+          "layout": "direct",
+          "status": "PASS",
+          "seconds": 1.09
+        },
+        {
+          "layout": "relocated",
+          "status": "PASS",
+          "seconds": 0.82
+        },
+        {
+          "layout": "standard",
+          "status": "PASS",
+          "seconds": 0.83
+        }
+      ]
+    },
+    "screenshots_match_inspected_direct_gate": {
+      "direct": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      },
+      "relocated": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      },
+      "standard": {
+        "zero": true,
+        "one": true,
+        "reset-resized": true
+      }
+    }
+  }
+}

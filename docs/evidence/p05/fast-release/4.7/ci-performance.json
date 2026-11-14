@@ -1,0 +1,165 @@
+{
+  "suites": [
+    {
+      "name": "package",
+      "seconds": 247.25,
+      "exit_code": 0
+    }
+  ],
+  "stages": [
+    {
+      "suite": "package",
+      "stage": "pack",
+      "seconds": 21.31,
+      "status": "PASS",
+      "graphics_command": false,
+      "software_graphics": false,
+      "direct_godot_command": false,
+      "direct_godot_pid": null,
+      "observed_startup_banners": 0,
+      "editor_scenarios": []
+    },
+    {
+      "suite": "package",
+      "stage": "install",
+      "seconds": 4.07,
+      "status": "PASS",
+      "graphics_command": false,
+      "software_graphics": false,
+      "direct_godot_command": false,
+      "direct_godot_pid": null,
+      "observed_startup_banners": 0,
+      "editor_scenarios": []
+    },
+    {
+      "suite": "package",
+      "stage": "build",
+      "seconds": 8.42,
+      "status": "PASS",
+      "graphics_command": false,
+      "software_graphics": false,
+      "direct_godot_command": true,
+      "direct_godot_pid": 1621,
+      "observed_startup_banners": 1,
+      "editor_scenarios": []
+    },
+    {
+      "suite": "package",
+      "stage": "import",
+      "seconds": 28.02,
+      "status": "PASS",
+      "graphics_command": false,
+      "software_graphics": false,
+      "direct_godot_command": true,
+      "direct_godot_pid": 1654,
+      "observed_startup_banners": 1,
+      "editor_scenarios": []
+    },
+    {
+      "suite": "package",
+      "stage": "runtime",
+      "seconds": 8.95,
+      "status": "PASS",
+      "graphics_command": true,
+      "software_graphics": true,
+      "direct_godot_command": true,
+      "direct_godot_pid": 1925,
+      "observed_startup_banners": 1,
+      "editor_scenarios": []
+    },
+    {
+      "suite": "package",
+      "stage": "editor",
+      "seconds": 155.85,
+      "status": "PASS",
+      "graphics_command": false,
+      "software_graphics": false,
+      "direct_godot_command": true,
+      "direct_godot_pid": 2024,
+      "observed_startup_banners": 7,
+      "editor_scenarios": [
+        {
+          "scenario": "success_project",
+          "seconds": 8.377
+        },
+        {
+          "scenario": "rejected_project",
+          "seconds": 1.764
+        },
+        {
+          "scenario": "rejected_project",
+          "seconds": 8.04
+        },
+        {
+          "scenario": "rejected_project",
+          "seconds": 1.881
+        },
+        {
+          "scenario": "rejected_project",
+          "seconds": 1.962
+        },
+        {
+          "scenario": "success_project",
+          "seconds": 11.033
+        },
+        {
+          "scenario": "rejected_project",
+          "seconds": 1.048
+        },
+        {
+          "scenario": "success_project",
+          "seconds": 13.353
+        },
+        {
+          "scenario": "success_current",
+          "seconds": 16.713
+        },
+        {
+          "scenario": "rejected_current",
+          "seconds": 3.867
+        },
+        {
+          "scenario": "rejected_current",
+          "seconds": 19.794
+        },
+        {
+          "scenario": "rejected_current",
+          "seconds": 3.852
+        },
+        {
+          "scenario": "rejected_current",
+          "seconds": 3.403
+        },
+        {
+          "scenario": "success_current",
+          "seconds": 13.663
+        },
+        {
+          "scenario": "rejected_current",
+          "seconds": 1.17
+        },
+        {
+          "scenario": "success_current",
+          "seconds": 12.302
+        }
+      ]
+    },
+    {
+      "suite": "package",
+      "stage": "visual",
+      "seconds": 6.53,
+      "status": "PASS",
+      "graphics_command": true,
+      "software_graphics": true,
+      "direct_godot_command": true,
+      "direct_godot_pid": 3331,
+      "observed_startup_banners": 1,
+      "editor_scenarios": []
+    }
+  ],
+  "total_suite_seconds": 247.25,
+  "direct_godot_commands": 5,
+  "recorded_godot_pids": 5,
+  "observed_startup_banners": 11,
+  "launch_count_scope": "direct runCommand Godot PIDs only; --version probes and nested semantic/editor/game processes excluded. Startup banners are not unique process counts."
+}

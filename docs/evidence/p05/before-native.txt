@@ -1,0 +1,7 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+P05_BEFORE_SET_EXTENT 0
+P05_BEFORE_DEFAULT_SCALE 100
+P05_BEFORE_ACTUAL (0.03, 0.04, 0.05)
+P05_BEFORE_LEGACY_MATCH false
+P05_BEFORE_CURRENT_MATCH true

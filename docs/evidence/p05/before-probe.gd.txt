@@ -1,0 +1,14 @@
+extends SceneTree
+const Entry = preload("res://addons/estragon/runtime/node/estragon_3d.gd")
+func _initialize() -> void: run.call_deferred()
+func run() -> void:
+    var spatial = Entry.new()
+    print("P05_BEFORE_SET_EXTENT ",spatial.set_extent(Vector3(3,4,5)))
+    root.add_child(spatial)
+    for frame in range(6): await process_frame
+    print("P05_BEFORE_DEFAULT_SCALE ",spatial.pixels_per_unit)
+    print("P05_BEFORE_ACTUAL ",spatial.layout_size)
+    print("P05_BEFORE_LEGACY_MATCH ",spatial.layout_size==Vector3(3,4,5))
+    print("P05_BEFORE_CURRENT_MATCH ",spatial.layout_size.is_equal_approx(Vector3(0.03,0.04,0.05)))
+    spatial.free()
+    quit()
