@@ -1,0 +1,146 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+PACKAGE_EDITOR_CHECK real native Gogo CodeEdit: true
+PACKAGE_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 1.69
+PACKAGE_EDITOR_CHECK normal Play saves latest native Counter: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:18: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.918
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.746
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:40: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.869
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK project reports useful failure: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.839
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 1.614
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/counter/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.771
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 1.502
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 2.601
+PACKAGE_EDITOR_CHECK normal Play saves latest native Counter: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:18: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.824
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 2.094
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:40: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.875
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK current reports useful failure: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.876
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 1.531
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/counter/Counter.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.77
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+Running: /tmp/estragon-native-sy14NJ/godot --path /tmp/estragon-native-sy14NJ/project-relocated --remote-debug tcp://127.0.0.1:6007 --editor-pid 5936 res://examples/counter/Counter.tscn --headless --audio-driver Dummy
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 1.558
+PACKAGE_EDITOR_ASSERTIONS 50
+PACKAGE_EDITOR_OK

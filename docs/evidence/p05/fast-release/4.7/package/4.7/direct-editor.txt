@@ -1,0 +1,506 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (63 steps)
+[   0% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   4% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   7% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  10% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  29% ] update_scripts_classes |
+[  31% ] update_scripts_classes |
+[  32% ] update_scripts_classes |
+[  34% ] update_scripts_classes |
+[  35% ] update_scripts_classes |
+[  37% ] update_scripts_classes |
+[  39% ] update_scripts_classes |
+[  40% ] update_scripts_classes |
+[  42% ] update_scripts_classes |
+[  43% ] update_scripts_classes |
+[  45% ] update_scripts_classes |
+[  46% ] update_scripts_classes |
+[  48% ] update_scripts_classes |
+[  50% ] update_scripts_classes |
+[  51% ] update_scripts_classes |
+[  53% ] update_scripts_classes |
+[  54% ] update_scripts_classes |
+[  56% ] update_scripts_classes |
+[  57% ] update_scripts_classes |
+[  59% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  67% ] update_scripts_classes |
+[  68% ] update_scripts_classes |
+[  70% ] update_scripts_classes |
+[  71% ] update_scripts_classes | EstragonBox
+[  73% ] update_scripts_classes | EstragonButton
+[  75% ] update_scripts_classes | EstragonComponent2D
+[  76% ] update_scripts_classes | EstragonComponent3D
+[  78% ] update_scripts_classes | Estragon2D
+[  79% ] update_scripts_classes | Estragon3D
+[  81% ] update_scripts_classes | EstragonHBox
+[  82% ] update_scripts_classes | EstragonNative2D
+[  84% ] update_scripts_classes | EstragonNative3D
+[  85% ] update_scripts_classes | EstragonRect
+[  87% ] update_scripts_classes | EstragonText
+[  89% ] update_scripts_classes | EstragonToggle
+[  90% ] update_scripts_classes | EstragonVBox
+[  92% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  95% ] update_scripts_classes |
+[  96% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+[   0% ] update_scripts_classes | Started Registering global classes... (2 steps)
+[   0% ] update_scripts_classes |
+[  33% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+PACKAGE_EDITOR_CHECK real native Gogo CodeEdit: true
+PACKAGE_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] update_scripts_classes | Started Registering global classes... (2 steps)
+[   0% ] update_scripts_classes |
+[  33% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 8.377
+PACKAGE_EDITOR_CHECK normal Play saves latest native Counter: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:6: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:139)
+         [7] _success (res://tests/package-consumer/editor/driver.gd:96)
+         [8] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:139)
+       [3] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [4] _until (res://tests/package-consumer/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:6: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.764
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] _play (res://tests/package-consumer/editor/driver.gd:81)
+              [8] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+              [9] _run (res://tests/package-consumer/editor/driver.gd:141)
+              [10] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+              [11] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:141)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:141)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 8.04
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:31: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:143)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:143)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:31: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.881
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:145)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:145)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK project reports useful failure: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.962
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 11.033
+ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:188)
+       [2] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+       [3] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [4] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [5] _run (res://tests/package-consumer/editor/driver.gd:152)
+       [6] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/counter/Counter.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:194)
+         [2] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [4] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [5] _run (res://tests/package-consumer/editor/driver.gd:152)
+         [6] _success (res://tests/package-consumer/editor/driver.gd:96)
+         [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:152)
+       [3] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [4] _until (res://tests/package-consumer/editor/driver.gd:33)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.048
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PACKAGE_EDITOR_CHECK project executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_project 13.353
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 16.713
+PACKAGE_EDITOR_CHECK normal Play saves latest native Counter: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:6: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:139)
+         [7] _success (res://tests/package-consumer/editor/driver.gd:96)
+         [8] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:139)
+       [3] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [4] _until (res://tests/package-consumer/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:6: Unknown or non-constructible Node GGX type Gradient
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.867
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] _play (res://tests/package-consumer/editor/driver.gd:82)
+              [8] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+              [9] _run (res://tests/package-consumer/editor/driver.gd:141)
+              [10] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+              [11] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:141)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:141)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 19.794
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:31: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:143)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:143)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:19:31: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.852
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [5] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [6] _run (res://tests/package-consumer/editor/driver.gd:145)
+         [7] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:145)
+       [3] _blocked (res://tests/package-consumer/editor/driver.gd:114)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:16:22: build_view must return Element descriptions; eager Node-returning GGX is unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK current reports useful failure: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 3.403
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 13.663
+ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:188)
+       [2] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+       [3] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [4] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [5] _run (res://tests/package-consumer/editor/driver.gd:152)
+       [6] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/counter/Counter.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:194)
+         [2] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [3] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [4] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+         [5] _run (res://tests/package-consumer/editor/driver.gd:152)
+         [6] _success (res://tests/package-consumer/editor/driver.gd:96)
+         [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [1] _blocked (res://tests/package-consumer/editor/driver.gd:107)
+       [2] _run (res://tests/package-consumer/editor/driver.gd:152)
+       [3] _success (res://tests/package-consumer/editor/driver.gd:96)
+       [4] _until (res://tests/package-consumer/editor/driver.gd:33)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+PACKAGE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 1.17
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PACKAGE_EDITOR_CHECK current executes newest Gogo native layout: true
+CI_EDITOR_TIMING success_current 12.302
+PACKAGE_EDITOR_ASSERTIONS 50
+PACKAGE_EDITOR_OK

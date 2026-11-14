@@ -100,3 +100,7 @@ Dispatch `ci.yml` with `verification_mode=certification`, an explicit `candidate
 `gh workflow run ci.yml --ref CANDIDATE_BRANCH -f verification_mode=certification -f candidate_tag="$CANDIDATE_TAG"`
 
 The tag format is `v0.<minor>.<patch>-beta.<iteration>`, with canonical decimal components (no leading zeros, build metadata or trailing content). Tag/ref/source mismatch, dirty/unreviewed release source, missing overlay, changed staged files/tar, stale jobs or either failed native consumer fail closed. Routine PR/main remains under 60 seconds; only the bounded seven-stage/two-engine preview is needed here. Actual OIDC publication and post-publish registry consumers remain owner-triggered and cannot be claimed verified by a preview.
+
+## P05 — L06 spatial consumer regression
+
+Beta.16 certification stopped before publication on the package fixture's obsolete unscaled numeric3D assertion. P05 [#158](https://github.com/papercraftgames/Estragon/issues/158) verifies the current default100px/world-unit conversion and explicit1 migration in the real installed consumer, with unchanged production API and release gate. [Exact two-engine/full-stage/all-layout proof and recovery](evidence/P05_PACKAGE_SPATIAL.md). The local development-overlay gate is not published-tag certification or publication permission. Do not rerun the old beta.16 workflow expecting new source or move that tag; after review/merge, current-source read-only preview and any new prerelease/tag are owner-controlled.
