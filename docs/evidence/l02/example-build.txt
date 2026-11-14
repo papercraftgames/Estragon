@@ -1,0 +1,3 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+{"changed":["examples/parent_pixels/generated/ResponsivePanel.gd","examples/parent_pixels/generated/ResponsivePanel.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["examples/parent_pixels/generated/ResponsivePanel.gd","examples/parent_pixels/generated/ResponsiveHome.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}

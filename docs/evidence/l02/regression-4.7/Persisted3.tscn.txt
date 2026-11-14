@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cm8k4tl2qf744"]
+
+[ext_resource type="Script" uid="uid://ho0xmedmgf32" path="res://examples/node_runtime/demo.gd" id="1_gawi5"]
+[ext_resource type="Script" uid="uid://by00wy3kqo7bw" path="res://addons/estragon/runtime/node/estragon_3d.gd" id="2_ojbss"]
+[ext_resource type="Script" uid="uid://clj7xp0nwlsgy" path="res://addons/estragon/runtime/node/native_3d.gd" id="3_a0bfo"]
+[ext_resource type="Script" uid="uid://c0lpeeb1sekft" path="res://addons/estragon/runtime/node/component_3d.gd" id="4_c8843"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hctks"]
+albedo_color = Color(0.1882353, 0.7882353, 0.6901961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t76g1"]
+size = Vector3(1.5, 1.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36488"]
+albedo_color = Color(0.52156866, 0.4, 0.8784314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fku6e"]
+size = Vector3(1.5, 1.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c116e"]
+albedo_color = Color(0.92156863, 0.6745098, 0.30588236, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bcyrd"]
+size = Vector3(1, 0.7, 0.7)
+
+[node name="Runtime3D" type="Node" unique_id=474048051]
+script = ExtResource("1_gawi5")
+dimension = 3
+
+[node name="Entry" type="Node3D" parent="." unique_id=657422841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+script = ExtResource("2_ojbss")
+gap = 0.5
+
+[node name="NativeA" type="Node3D" parent="Entry" unique_id=331006345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6501668, 0.98327655, 0.36960354)
+script = ExtResource("3_a0bfo")
+observe_native = true
+
+[node name="Visual" type="MeshInstance3D" parent="Entry/NativeA" unique_id=1154354670]
+transform = Transform3D(0.9421547, -0.16088136, 0.29404384, 0.19767681, 0.9751704, -0.09983342, -0.2706815, 0.15218417, 0.95056385, 0.3, -0.2, 0.4)
+material_override = SubResource("StandardMaterial3D_hctks")
+mesh = SubResource("BoxMesh_t76g1")
+
+[node name="NativeB" type="Node3D" parent="Entry" unique_id=1587105430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0505004, 0.98327655, 0.36960354)
+script = ExtResource("3_a0bfo")
+observe_native = true
+
+[node name="Visual" type="MeshInstance3D" parent="Entry/NativeB" unique_id=148010855]
+transform = Transform3D(0.9421547, -0.16088136, 0.29404384, 0.19767681, 0.9751704, -0.09983342, -0.2706815, 0.15218417, 0.95056385, 0.3, -0.2, 0.4)
+material_override = SubResource("StandardMaterial3D_36488")
+mesh = SubResource("BoxMesh_fku6e")
+
+[node name="Boundary" type="Node3D" parent="Entry" unique_id=2092348938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="Reentry" type="Node3D" parent="Entry/Boundary" unique_id=1554673895]
+script = ExtResource("2_ojbss")
+
+[node name="Participant" type="Node3D" parent="Entry/Boundary/Reentry" unique_id=569305037]
+script = ExtResource("4_c8843")
+width = 1.0
+height = 0.7
+depth = 0.7
+
+[node name="NativeDecoration" type="MeshInstance3D" parent="Entry/Boundary/Reentry/Participant" unique_id=210505401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.35, 0.35)
+material_override = SubResource("StandardMaterial3D_c116e")
+mesh = SubResource("BoxMesh_bcyrd")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1259508838]
+transform = Transform3D(0.99654573, -0.026179606, 0.07881104, 0, 0.9490106, 0.3152442, -0.08304548, -0.31415525, 0.9457325, 4, 5, 12)
+projection = 1
+current = true
+size = 10.0
+
+[node name="Light" type="DirectionalLight3D" parent="." unique_id=309790712]
+transform = Transform3D(0.8660254, 0.35355338, -0.35355338, 0, 0.70710677, 0.70710677, 0.5, -0.6123724, 0.6123724, 0, 0, 0)
