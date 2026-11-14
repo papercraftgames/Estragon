@@ -134,7 +134,7 @@ func changed() -> void:
 	if host == null: return
 	if host.has_method("_layout_options"):
 		var options: Dictionary = host._layout_options()
-		model.configure(host.requested_extent(),host.gap,host.center,options.axis,options.fill,options.intrinsic)
+		model.configure(host.requested_extent(),host.gap,host.center,options.axis,options.fill,options.intrinsic,options.get("padding",Vector4.ZERO),options.get("margin",Vector4.ZERO))
 	else: model.configure(host.requested_extent(), host.gap, host.center)
 
 func _viewport_changed() -> void:

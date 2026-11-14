@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "source_commit": "3c6b76b68cda3b8084be664ac7ed41b053828cf2",
+  "source_dirty": false,
+  "platform": "linux 6.12.76-linuxkit",
+  "collected_at": "2026-11-14T00:40:09.087Z",
+  "engines": [
+    {
+      "label": "4.0.4",
+      "version": "4.0.4.stable.official.fc0b241c9",
+      "input_binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+      "provenance": {
+        "minor": "4.0",
+        "version": "4.0.4.stable.official.fc0b241c9",
+        "official_archive_url": "https://github.com/godotengine/godot-builds/releases/download/4.0.4-stable/Godot_v4.0.4-stable_linux.x86_64.zip",
+        "archive_file": "Godot_v4.0.4-stable_linux.x86_64",
+        "archive_sha256": "6fc1529998a976f250bbce78c851a91f1c346712e3f27ab341a13a049a9905e4",
+        "binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+        "official_checksums_url": "https://github.com/godotengine/godot/releases/download/4.0.4-stable/SHA512-SUMS.txt",
+        "archive_sha512": "815b1664fc1173c09871d9868807ed31be8e7ab4e043aea479f81249440f28c7ce63797cc564ec52f6730e11b98dec82768ee64df36b926ac4f8580bfb208331"
+      },
+      "stages": {
+        "engine_identity": {
+          "status": "PASS"
+        },
+        "import": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/project",
+            "--editor",
+            "--audio-driver",
+            "Dummy"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 7.68,
+          "godot_pid": 2233,
+          "log": "import.log",
+          "diagnostics": [
+            "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+            "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+          ],
+          "evidence": {
+            "class_registry_sha256": "223a52e2f3b83b5d595c8be10879239669c6c1615f0ab25627527d0698735918",
+            "class_registry_log": "import.classes.json"
+          }
+        },
+        "frontend": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/frontend",
+            "--script",
+            "res://tests/native_compiler/frontend.gd"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 1.41,
+          "godot_pid": 3056,
+          "log": "frontend.log",
+          "diagnostics": []
+        },
+        "registered": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/registered",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "registered"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.74,
+          "godot_pid": 3174,
+          "log": "registered.log",
+          "diagnostics": []
+        },
+        "positive": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/positive",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "positive"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.75,
+          "godot_pid": 3195,
+          "log": "positive.log",
+          "diagnostics": []
+        },
+        "rollback": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/rollback",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "rollback"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.84,
+          "godot_pid": 3315,
+          "log": "rollback.log",
+          "diagnostics": [
+            "SCRIPT ERROR: Parse Error: Cannot return value of type \"String\" because the function return type is \"int\".",
+            "          at: GDScript::reload (res://dependency/generated/B.gd:4)"
+          ]
+        },
+        "fresh_failure": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-c0yF7u/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-c0yF7u/fresh_failure",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "fresh_failure"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.75,
+          "godot_pid": 3335,
+          "log": "fresh_failure.log",
+          "diagnostics": [
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_publication_value\" not declared in the current scope.",
+            "          at: GDScript::reload (res://fresh_failure/generated/Bad.gd:2)"
+          ]
+        }
+      }
+    },
+    {
+      "label": "4.7",
+      "version": "4.7.stable.official.5b4e0cb0f",
+      "input_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+      "provenance": {
+        "minor": "4.7",
+        "version": "4.7.stable.official.5b4e0cb0f",
+        "official_archive_url": "https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip",
+        "archive_file": "Godot_v4.7-stable_linux.x86_64",
+        "archive_sha256": "0b1a6c54c2c619c12e169fe9241edda4b81080b519451cec2984bf0d2c6cb73c",
+        "binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75"
+      },
+      "stages": {
+        "engine_identity": {
+          "status": "PASS"
+        },
+        "import": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/project",
+            "--editor",
+            "--audio-driver",
+            "Dummy"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 5.15,
+          "godot_pid": 3367,
+          "log": "import.log",
+          "diagnostics": [],
+          "evidence": {
+            "class_registry_sha256": "223a52e2f3b83b5d595c8be10879239669c6c1615f0ab25627527d0698735918",
+            "class_registry_log": "import.classes.json"
+          }
+        },
+        "frontend": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/frontend",
+            "--script",
+            "res://tests/native_compiler/frontend.gd"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.74,
+          "godot_pid": 4058,
+          "log": "frontend.log",
+          "diagnostics": []
+        },
+        "registered": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/registered",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "registered"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.46,
+          "godot_pid": 4076,
+          "log": "registered.log",
+          "diagnostics": []
+        },
+        "positive": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/positive",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "positive"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.56,
+          "godot_pid": 4093,
+          "log": "positive.log",
+          "diagnostics": []
+        },
+        "rollback": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/rollback",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "rollback"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.66,
+          "godot_pid": 4111,
+          "log": "rollback.log",
+          "diagnostics": [
+            "SCRIPT ERROR: Parse Error: Cannot return value of type \"String\" because the function return type is \"int\".",
+            "          at: GDScript::reload (res://dependency/generated/B.gd:4)"
+          ]
+        },
+        "fresh_failure": {
+          "status": "PASS",
+          "command": [
+            "/tmp/estragon-native-jpi1rP/godot",
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            "/tmp/estragon-native-jpi1rP/fresh_failure",
+            "--script",
+            "res://tests/native_compiler/publication.gd",
+            "--",
+            "fresh_failure"
+          ],
+          "exit_code": 0,
+          "timeout": false,
+          "aborted_on_error": false,
+          "seconds": 0.56,
+          "godot_pid": 4128,
+          "log": "fresh_failure.log",
+          "diagnostics": [
+            "SCRIPT ERROR: Parse Error: Identifier \"missing_publication_value\" not declared in the current scope.",
+            "          at: GDScript::reload (res://fresh_failure/generated/Bad.gd:2)"
+          ]
+        }
+      }
+    }
+  ]
+}

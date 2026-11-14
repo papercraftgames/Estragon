@@ -1,0 +1,22 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var inset: float = 12.0
+func change_padding() -> void:
+    inset = 24.0 if inset == 12.0 else 12.0
+func build_view() -> Element:
+    return <Entry name="UI" position={Vector2(24,24)} width={440} padding={8}>
+        <VBox name="Panel" padding={self.inset} padding_left={24} gap={12} fill_width={true}>
+            <Text text="Pixel padding and margins" font_size={24} />
+            <HBox padding={8} gap={10} margin_left={12}>
+                <Rect width={80} height={40} fill={Color(0.9,0.3,0.3)} margin_right={6} />
+                <Rect width={80} height={40} fill={Color(0.3,0.6,1.0)} margin_top={8} />
+            </HBox>
+            <UiButton name="Action" text="Change padding" height={44} fill_width={true} margin={4} pressed={change_padding} />
+        </VBox>
+    </Entry>

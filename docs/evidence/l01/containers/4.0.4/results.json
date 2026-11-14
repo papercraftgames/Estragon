@@ -1,0 +1,70 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "bb9b8c7040ead9dfe2556c5ae78e4c22b79f124bccb85c6493ee81d20df16eab"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-KV9sq6/yarn-cache",
+      "file:/evidence/l01-containers/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.67,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-KV9sq6/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-KV9sq6/project",
+      "--headless",
+      "--script",
+      "res://tests/box_model/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.16,
+    "godot_pid": 5613,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-KV9sq6/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-KV9sq6/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/box_model/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.5,
+    "godot_pid": 5632,
+    "log": "runtime.log",
+    "diagnostics": []
+  }
+}

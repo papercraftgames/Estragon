@@ -1,6 +1,6 @@
 @tool
 class_name Estragon2D
-extends "component_2d.gd"
+extends "box.gd"
 ## Explicit independent layout scope; does not assign native scene owner.
 @export var viewport_width_scale: float = 0.0:
 	set(value):

@@ -13,6 +13,9 @@ var fill := Vector3.ZERO
 var intrinsic := Vector3.ZERO
 # Native Control minimums constrain assigned slots, never read back from size.
 var allocation_minimum := Vector3.ZERO
+var padding := Vector4.ZERO # left, top, right, bottom; border-box insets
+var margin := Vector4.ZERO # outside own geometry; consumed by the parent
+var transparent: bool = false # composition proxy forwards one root slot
 var children: Array = []
 var measured := Vector3.ZERO
 var size := Vector3.ZERO
@@ -28,11 +31,16 @@ static func valid_extent(value: Vector3) -> bool:
 		if not is_finite(value[axis]) or value[axis] < 0 and value[axis] != -1: return false
 	return true
 
-func configure(extent: Vector3, spacing: float, centered: bool, stack_axis: int = 0, fills: Vector3 = Vector3.ZERO, content: Vector3 = Vector3.ZERO) -> Error:
+func configure(extent: Vector3, spacing: float, centered: bool, stack_axis: int = 0, fills: Vector3 = Vector3.ZERO, content: Vector3 = Vector3.ZERO, inner: Vector4 = Vector4.ZERO, outer: Vector4 = Vector4.ZERO, passthrough: bool = false) -> Error:
 	if not valid_extent(extent) or not is_finite(spacing) or spacing < 0 or stack_axis < 0 or stack_axis > 2: return ERR_INVALID_PARAMETER
 	for index in range(3):
 		if fills[index] not in [0.0,1.0] or not is_finite(content[index]) or content[index] < 0: return ERR_INVALID_PARAMETER
-	if requested == extent and gap == spacing and center == centered and axis == stack_axis and fill == fills and intrinsic == content: return OK
+	for edge in range(4):
+		if not is_finite(inner[edge]) or inner[edge] < 0 or not is_finite(outer[edge]) or outer[edge] < 0: return ERR_INVALID_PARAMETER
+	if requested == extent and gap == spacing and center == centered and axis == stack_axis and fill == fills and intrinsic == content and padding == inner and margin == outer and transparent == passthrough: return OK
+	padding = inner
+	margin = outer
+	transparent = passthrough
 	axis = stack_axis
 	fill = fills
 	intrinsic = content
@@ -67,6 +75,13 @@ func invalidate() -> void:
 	if parent != null: parent.invalidate()
 	invalidated.emit()
 
+static func leading(edges: Vector4) -> Vector3:
+	return Vector3(edges.x,edges.y,0)
+static func trailing(edges: Vector4) -> Vector3:
+	return Vector3(edges.z,edges.w,0)
+func outer_extent() -> Vector3:
+	return leading(margin)+trailing(margin)
+
 func measure() -> Vector3:
 	if not _measure_dirty: return measured
 	measure_count += 1
@@ -74,11 +89,13 @@ func measure() -> Vector3:
 	var natural := Vector3.ZERO
 	for child in children:
 		var child_size: Vector3 = child.measure()
+		if not transparent: child_size += child.outer_extent()
 		for index in range(3):
 			if index == axis: natural[index] += child_size[index]
 			else: natural[index] = maxf(natural[index],child_size[index])
 	if children.size() > 1: natural[axis] += gap * (children.size() - 1)
 	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
+	if not transparent: natural += leading(padding)+trailing(padding)
 	measured = natural
 	for axis in range(3):
 		if requested[axis] >= 0: measured[axis] = requested[axis]
@@ -94,12 +111,23 @@ func arrange(available: Vector3) -> void:
 	# Clear before callbacks so a signal-triggered change queues a genuine
 	# follow-up instead of being overwritten when this pass finishes.
 	_arrange_dirty = false
+	if transparent:
+		for child in children:
+			if child.offset != Vector3.ZERO or child.arrange_count == 0:
+				child.offset = Vector3.ZERO
+				child.placed.emit(Vector3.ZERO)
+			child.arrange(available)
+		arranged.emit(size)
+		return
+	var content := available-leading(padding)-trailing(padding)
+	for index in range(3): content[index] = maxf(0,content[index])
 	var fixed: float = gap * maxi(0, children.size() - 1)
 	var flexible: Array = []
 	for child in children:
+		fixed += child.outer_extent()[axis]
 		if child.fill[axis] > 0 and child.requested[axis] < 0: flexible.append(child)
 		else: fixed += child.measured[axis]
-	var remaining: float = maxf(0,available[axis] - fixed)
+	var remaining: float = maxf(0,content[axis] - fixed)
 	var shares: Dictionary = {}
 	# Reserve constrained native minimums, then share the remaining space.
 	# Zero floors preserve the existing equal-share Box behavior.
@@ -117,18 +145,18 @@ func arrange(available: Vector3) -> void:
 			break
 	var row_extent: float = fixed
 	for share in shares.values(): row_extent += share
-	var cursor: float = (available[axis] - row_extent) * 0.5 if center else 0.0
+	var cursor: float = (content[axis] - row_extent) * 0.5 if center else 0.0
 	for child in children:
 		var allocation: Vector3 = child.measured
 		for index in range(3):
 			if child.fill[index] > 0 and child.requested[index] < 0:
-				allocation[index] = shares[child] if index == axis else available[index]
+				allocation[index] = shares[child] if index == axis else maxf(0,content[index]-child.outer_extent()[index])
 			allocation[index] = maxf(allocation[index],child.allocation_minimum[index])
-		var next := Vector3.ZERO
-		next[axis] = cursor
+		var next := leading(padding)+leading(child.margin)
+		next[axis] += cursor
 		if child.offset != next or child.arrange_count == 0:
 			child.offset = next
 			child.placed.emit(next)
 		child.arrange(allocation)
-		cursor += allocation[axis] + gap
+		cursor += allocation[axis] + child.outer_extent()[axis] + gap
 	arranged.emit(size)
