@@ -1,0 +1,13 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L05_CHECK owner static viewport expressions remain composition snapshots after resize: true
+L05_CHECK owner four-row view follows the enlarged viewport without application resize handlers: true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (1152, 648): true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (1800, 1100): true
+L05_CHECK live X/Y allocation and bottom slots match visible viewport (760, 420): true
+L05_CHECK resize preserves actual Gogo/Control/Script identities and borrowed scene ownership: true
+L05_CHECK viewport layout never reruns views or remeasures a clean sibling: true
+L05_EXIT_QUIT

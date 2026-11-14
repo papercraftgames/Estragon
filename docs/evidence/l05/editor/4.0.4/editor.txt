@@ -1,0 +1,20 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+L05_EDITOR_CHECK real CodeEdit shows the float property type and preserves plain insertion text: true
+L05_EDITOR_CHECK native completion preserves valid source and installed imports/maps: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-ObB3CT/godot --path /tmp/estragon-native-ObB3CT/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 7184 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L05_EDITOR_CHECK current native game follows both viewport axes and retains GUI input: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-ObB3CT/godot --path /tmp/estragon-native-ObB3CT/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 7184 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L05_EDITOR_CHECK main native game follows both viewport axes and retains GUI input: true
+L05_EDITOR_CHECK editor scene retains only owned persistent native child: true
+L05_EDITOR_ASSERTIONS 5 failed=false
+L05_EDITOR_OK

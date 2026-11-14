@@ -47,10 +47,17 @@ per-frame call is required. Inherited Node `add_child`, `remove_child`,
 native lifetime/attachment operations; there is no Error-returning custom adder,
 dispose, virtual DOM or manual ownership manager.
 
-Entries additionally export `viewport_width_scale` (default 0, disabled). A
-positive finite scale allocates that entry's X extent from its own viewport's
-visible pixel width. The application chooses any 3D scale explicitly; C1 imposes
-no pixel-to-world conversion. Entry resize invalidation does not remeasure clean
+Entries additionally export `viewport_width_scale` and `viewport_height_scale`
+(each defaults to0, disabled). Positive finite scales independently allocate X/Y
+from the Entry's own native visible viewport width/height, overriding fixed
+width/height on those selected axes. Zero restores current fixed/natural data;
+invalid/equal writes retain prior state without invalidation. The application
+chooses each3D world-unit-per-pixel scale explicitly; depth is unchanged and no
+automatic pixel-to-world conversion is imposed. The common internal hook returns
+a Vector2 of axis scales. Existing scoped size_changed listeners drive coalesced
+root arrangement; detach/re-entry disconnects/rebinds the actual viewport.
+[L05 authoring/precedence and snapshot distinction](NODE_UI.md#l05--follow-both-viewport-dimensions).
+Entry resize invalidation does not remeasure clean
 sibling branches. DPI alone is not treated as resize.
 
 Native adapters additionally export `observe_native` (default false), and expose

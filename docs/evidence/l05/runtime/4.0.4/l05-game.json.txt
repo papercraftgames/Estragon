@@ -1,0 +1,1 @@
+{"button_bottom":841,"clicks":1,"height":900,"rose_bottom":900,"rose_y":872,"visible_height":900,"visible_width":1400,"width":1400}

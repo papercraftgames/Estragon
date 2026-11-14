@@ -519,6 +519,7 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			if context.mode=="gd" and member_cursor>=0 and left[member_cursor]=="." and item.kind==CodeEdit.KIND_FUNCTION and not callable_attribute and not lexical.lines[row].substr(column).strip_edges().begins_with("("):
 				insert += "()"
 			var display: String = str(name) if item.has("import") else (str(name)+" — "+str(item.origin) if item.has("origin") else str(name))
+			if context.mode == "tag" and item.kind == CodeEdit.KIND_MEMBER and not str(item.get("type","")).is_empty(): display += " — "+str(item.type)
 			if context.mode == "tag" and not item.has("import") and ClassDB.class_exists(insert): display += " — Godot "+ClassDB.get_parent_class(insert)
 			result.append({"text":display,"insert":insert,"kind":item.kind,"row":row,"start":cursor if context.mode == "tag" and context.closing else cursor+1,"column":column,"hint":item.get("hint",""),"imports":[item["import"]] if item.has("import") else []})
 	result.sort_custom(func(a,b): return a.text < b.text)
