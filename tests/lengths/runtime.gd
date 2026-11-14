@@ -44,6 +44,7 @@ func parser() -> void:
 	check(Length.resolve(Length.parse("2.5in","extent"),0,Vector2.ZERO,100)==2.4 and Length.resolve(Length.parse(200,"extent"),0,Vector2.ZERO,100)==2.0,"3D numeric and pixel strings share explicit100px/world-unit scale")
 func run() -> void:
 	parser()
+	compiler_units()
 	var home = load("res://app/Home.tscn").instantiate()
 	root.add_child(home)
 	await frames()
@@ -101,6 +102,16 @@ func run() -> void:
 	print("L06_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_RUNTIME_OK")
 	quit(1 if failed else 0)
+func compiler_units() -> void:
+	var header := 'extends Node2D\nconst Box = preload("res://addons/estragon/runtime/node/box.gd")\nfunc view(): return '
+	for unit in ["200","200px","50%","10vw","10vh","10vmin","10vmax","2.5in","1cm","10mm","4q","12pt","1pc"]:
+		var source: String = header+'<Box width="'+unit+'" height="'+unit+'" x="'+unit+'" y="-10px" gap="'+unit+'" padding="'+unit+'" margin="'+unit+'" />\n'
+		var result := Compiler.compile(source,"res://unit.gogo","res://generated/Unit.gd")
+		check(result.ok and result.code.contains('"'+unit+'"'),"all length properties compile and retain quoted spec "+unit)
+		if result.ok:
+			var script := GDScript.new()
+			script.source_code = result.code
+			check(script.reload()==OK,"generated mixed unit native semantics "+unit)
 func native_lengths() -> void:
 	var entry := Entry.new()
 	entry.width = 600
@@ -140,6 +151,14 @@ func native_lengths() -> void:
 	first.x = "50%"
 	await frames()
 	check(is_equal_approx(first.position.x,30+5.7+285),"x50% uses immediate content axis and survives layout flush")
+	# Native intrinsic changes must not reset already-resolved Box padding.
+	row.padding = "10px"
+	await frames()
+	first.text = "A changed intrinsic label"
+	await frames()
+	check(row.layout.model.padding==Vector4(30,10,10,10),"intrinsic invalidation preserves retained unit padding and explicit edge")
+	row.padding = 0
+	await frames()
 	first.width = "125%"
 	await frames()
 	check(first.layout_size.x==712.5 and second.layout_size.x==0,"intentional overflow above100% reserves remaining-space zero")
