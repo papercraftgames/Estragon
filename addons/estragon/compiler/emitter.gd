@@ -86,7 +86,7 @@ static func _string(value: String) -> String:
 	return output + '"'
 
 static func literal(value: Model.Literal) -> String:
-	return _string(value.value)
+	return str(value.value) if value.kind == "pixel-literal" else _string(value.value)
 
 func _argument(expression: Model.GdExpression, type_name: String, factory: Factory) -> void:
 	var argument := Argument.new()

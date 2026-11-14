@@ -40,6 +40,36 @@ var _layout_size := Vector2.ZERO
 # Internal bridge, deliberately not the public authoring API.
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 
+# -1 means an unset edge; explicit edges always override the shorthand.
+@export var margin: float = 0.0:
+	set(value):
+		if not is_finite(value) or value < 0 or value == margin: return
+		margin = value
+		_changed()
+@export var margin_top: float = -1.0:
+	set(value):
+		if not valid_length(value) or value == margin_top: return
+		margin_top = value
+		_changed()
+@export var margin_right: float = -1.0:
+	set(value):
+		if not valid_length(value) or value == margin_right: return
+		margin_right = value
+		_changed()
+@export var margin_bottom: float = -1.0:
+	set(value):
+		if not valid_length(value) or value == margin_bottom: return
+		margin_bottom = value
+		_changed()
+@export var margin_left: float = -1.0:
+	set(value):
+		if not valid_length(value) or value == margin_left: return
+		margin_left = value
+		_changed()
+
+func _margin_insets() -> Vector4:
+	return Vector4(margin_left if margin_left >= 0 else margin,margin_top if margin_top >= 0 else margin,margin_right if margin_right >= 0 else margin,margin_bottom if margin_bottom >= 0 else margin)
+
 static func valid_length(value: float) -> bool:
 	return is_finite(value) and (value >= 0 or value == -1)
 
@@ -61,7 +91,7 @@ func _measure_native() -> Vector2:
 
 func _layout_options() -> Dictionary:
 	var natural := _measure_native()
-	return {"axis":_layout_axis(),"fill":Vector3(1 if fill_width else 0,1 if fill_height else 0,0),"intrinsic":Vector3(natural.x,natural.y,0)}
+	return {"margin":_margin_insets(),"axis":_layout_axis(),"fill":Vector3(1 if fill_width else 0,1 if fill_height else 0,0),"intrinsic":Vector3(natural.x,natural.y,0)}
 
 func _is_layout_entry() -> bool:
 	return false

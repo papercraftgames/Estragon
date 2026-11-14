@@ -55,4 +55,4 @@ func _configure() -> void:
 	layout.model.allocation_minimum = target.model.allocation_minimum if included else Vector3.ZERO
 	# One child, at zero local offset. Parent places the native host once;
 	# root constraints determine both proxy allocation and root allocation.
-	layout.model.configure(requested,0,false,0,fills)
+	layout.model.configure(requested,0,false,0,fills,Vector3.ZERO,Vector4.ZERO,target.model.margin if included else Vector4.ZERO,true)

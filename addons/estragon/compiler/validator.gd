@@ -5,6 +5,7 @@ const Element = preload("../runtime/composition/element.gd")
 const Model = preload("model.gd")
 const Source = preload("source.gd")
 const Resolver = preload("native/resolver.gd")
+const Pixels = preload("../runtime/node/internal/pixel_contract.gd")
 const Lexer = preload("lexer.gd")
 var file: Source
 var resolver
@@ -82,7 +83,12 @@ func _component(node: Model.Component) -> void:
 		else:
 			_error("Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
 			return
+		var pixel_kind := Pixels.kind(resolved.script,name)
+		if not pixel_kind.is_empty():
+			_pixel(attribute,pixel_kind)
+			if not file.diagnostics.is_empty(): return
 		if attribute.value is Model.Literal:
+			if attribute.value.kind == "pixel-literal": continue
 			if attribute.type_name not in ["String", "StringName"]:
 				_error("Typed Node values require {GDScript expressions}; only strings may be quoted", attribute.value.span)
 				return
@@ -276,3 +282,20 @@ func _binding(attribute, node, properties: Dictionary, signals: Dictionary) -> v
 	attribute.kind = "binding"
 	attribute.type_name = "Variant"
 	attribute.binding_path = names
+
+func _pixel(attribute, domain: String) -> void:
+	var value = attribute.value
+	if value is Model.Literal:
+		var text: String = str(value.value)
+		if domain == "length" and (text == "auto" or text.is_valid_float() and Pixels.valid(float(text),domain)):
+			value.value = -1.0 if text == "auto" else float(text)
+			value.kind = "pixel-literal"
+			return
+		_error("Pixel lengths require finite nonnegative numbers; only width/height allow quoted numbers or auto",value.span)
+		return
+	var tokens := _expression_tokens(value)
+	var text := ""
+	if tokens.size()==1: text = tokens[0].text
+	elif tokens.size()==2 and tokens[0].text in ["+","-"] and tokens[1].kind=="number": text = tokens[0].text+tokens[1].text
+	if text in ["NAN","INF","-INF","+INF"] or text.is_valid_float() and not Pixels.valid(float(text),domain):
+		_error("Pixel lengths require finite nonnegative numbers (width/height also allow -1 for auto)",value.span)
