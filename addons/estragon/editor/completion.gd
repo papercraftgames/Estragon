@@ -241,7 +241,12 @@ func _chain(tokens: Array, end: int, row: int, depth: int = 0) -> Dictionary:
 		return {"start":receiver.start,"value":members[token.text]}
 	if token.text=="self": return {"start":end,"value":{"self":true,"row":row}}
 	var scope := _scope_members(row)
-	if scope.has(token.text): return {"start":end,"value":scope[token.text]}
+	if scope.has(token.text):
+		# A preload alias is also a const declaration. Its empty value type must
+		# not hide the Script receiver; local/typed shadows remain authoritative.
+		if _aliases.has(token.text) and scope[token.text].kind == CodeEdit.KIND_CONSTANT and scope[token.text].get("type","").is_empty():
+			return {"start":end,"value":{"type":token.text}}
+		return {"start":end,"value":scope[token.text]}
 	if ClassDB.class_exists(token.text) or _aliases.has(token.text): return {"start":end,"value":{"type":token.text}}
 	return {}
 func _receiver_members(tokens: Array, end: int, row: int) -> Dictionary:
