@@ -30,5 +30,8 @@ func _update_property() -> void:
 	var value = get_edited_object().get(get_edited_property())
 	input.text = "#"+value.to_html() if value is Color else str(value)
 	var parsed := Style.parse_color(value)
-	if not parsed.has("error"): picker.color = parsed.color
+	if not parsed.has("error"):
+		picker.color = parsed.color
+		input.modulate = Color.WHITE
+		input.tooltip_text = ""
 	_updating = false

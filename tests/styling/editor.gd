@@ -75,7 +75,8 @@ func inspector() -> void:
 		check(box.background_color=="#123456" and not color.input.tooltip_text.is_empty(),"invalid Inspector color explains rejection without mutation")
 		color.picker.color_changed.emit(Color.CORNFLOWER_BLUE)
 		for frame in range(5): await get_tree().process_frame
-		check(box.background_color==Color.CORNFLOWER_BLUE,"native Color picker writes native Color")
+		color = field("background_color")
+		check(box.background_color==Color.CORNFLOWER_BLUE and color.input.modulate==Color.WHITE and color.input.tooltip_text.is_empty(),"native Color picker writes Color and clears invalid-entry feedback")
 		var width := field("border_width")
 		width.input.text_submitted.emit("2.5in")
 		for frame in range(5): await get_tree().process_frame
