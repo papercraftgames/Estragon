@@ -109,7 +109,6 @@ func widget_inspectors() -> void:
 			color.input.text_submitted.emit("#123456")
 			for frame in range(5): await get_tree().process_frame
 			check(widget.background_color=="#123456","actual "+str(script.resource_path.get_file())+" Inspector authors shared hex")
-			print("S02_INSPECTOR_TARGET ",str(color.get_edited_object()==widget)," previous=",str(previous))
 			var undone: bool = history.undo()
 			var after_undo = widget.background_color
 			var redone: bool = history.redo()
