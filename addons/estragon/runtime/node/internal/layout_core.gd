@@ -251,7 +251,9 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 		arranged.emit(size)
 		return
 	if not _reported_fixed_growth and grow>0 and _parent!=null and _parent.get_ref()!=null:
-		var main: int = _parent.get_ref().axis
+		var containing = _parent.get_ref()
+		while containing.transparent and containing._parent!=null and containing._parent.get_ref()!=null: containing = containing._parent.get_ref()
+		var main: int = containing.axis
 		if requested[main]>=0:
 			_reported_fixed_growth = true
 			push_warning("Estragon explicit main-axis dimension overrides grow; use auto height/width on a remaining-space Spacer")
