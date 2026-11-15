@@ -14,6 +14,8 @@ func run() -> void:
 	event = event.duplicate()
 	event.pressed = false
 	root.push_input(event,true)
-	await process_frame
-	push_error("L07 root-percent native Exit did not quit")
-	quit(1)
+	# Return from the coroutine after synchronous native signal delivery.
+	# Awaiting another frame after quit retains a suspended state on4.0.4.
+	if home.get_node("UI/Column/Settings").clicks!=1:
+		push_error("L07 root-percent native Exit did not receive the native click")
+		quit(1)
