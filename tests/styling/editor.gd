@@ -60,7 +60,7 @@ func inspector() -> void:
 	box.name = "StyleInspector"
 	scene.add_child(box)
 	box.owner = scene
-	interface.inspect_object(box)
+	interface.get_inspector().edit(box)
 	if await until(func(): return field("background_color")!=null,"native color Inspector field"):
 		var color := field("background_color")
 		color.input.text_submitted.emit("#123456")
@@ -85,7 +85,7 @@ func inspector() -> void:
 		check(box.border_width=="2.5in" and not width.input.tooltip_text.is_empty(),"uniform border auto rejects in Inspector")
 		RenderingServer.force_draw(false)
 		get_viewport().get_texture().get_image().save_png("res://inspector.png")
-	interface.inspect_object(scene)
+	interface.get_inspector().edit(scene)
 	scene.remove_child(box)
 	box.free()
 func run() -> void:
