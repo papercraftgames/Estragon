@@ -1,4 +1,5 @@
 extends RefCounted
+const StackContract = preload("../node/internal/stack_contract.gd")
 const Length = preload("../node/internal/length.gd")
 const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
@@ -462,6 +463,16 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
+		if StackContract.registered(desired.type):
+			var fixed := StackContract.preset(desired.type)
+			var direction: String = desired.properties.get("direction",fixed if not fixed.is_empty() else "row")
+			var message := StackContract.error(key,value,direction,fixed)
+			if not message.is_empty():
+				validation_error = desired.source+": "+message+"; previous tree retained"
+				return false
+		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
+			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
+			return false
 		if Length.registered(desired.type,key):
 			var parsed := Length.parse(value,Length.domain(key))
 			if parsed.has("error"):

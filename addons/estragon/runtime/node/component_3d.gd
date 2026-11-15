@@ -42,10 +42,10 @@ var gap: Variant = 0.0:
 		if is_same(gap,value) or not lengths.assign("gap",value): return
 		gap = value
 		_changed()
-@export var flex: float = 0.0:
+@export var grow: float = 0.0:
 	set(value):
-		if not is_finite(value) or value<0 or value==flex: return
-		flex = value
+		if not is_finite(value) or value<0 or value==grow: return
+		grow = value
 		_changed()
 @export_enum("Natural", "Stretch") var stretch: int = 0:
 	set(value):

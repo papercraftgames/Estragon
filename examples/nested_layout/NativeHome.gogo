@@ -5,8 +5,8 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 func build_view() -> Element:
 	return <Entry2D width="100vw" height="100vh">
-		<VBox flex={1} stretch={1}>
-			<VBox flex={1} />
+		<VBox grow={1} stretch={1}>
+			<VBox grow={1} />
 			<Text text="Hello World!" />
 			<Text text="This is fun!" />
 			<NativeSettings />

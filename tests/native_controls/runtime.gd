@@ -197,7 +197,7 @@ func widgets() -> void:
 	b.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	home.get_node("UI").height = 50
 	await frames()
-	check(a.size.y>=a.get_combined_minimum_size().y and b.position.y>=a.position.y+a.size.y+8,"under-constrained flex retains native minimum sizes and sequential slots")
+	check(a.size.y>=a.get_combined_minimum_size().y and b.position.y>=a.position.y+a.size.y+8,"under-constrained grow retains native minimum sizes and sequential slots")
 	var bridge = adapter(a)
 	var count: int = bridge.minimum_reads
 	for index in range(3):
@@ -322,7 +322,7 @@ func boundaries() -> void:
 	entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd").new()
 	entry.height = 100
 	column = preload("res://addons/estragon/runtime/node/vbox.gd").new()
-	column.flex = 1
+	column.grow = 1
 	entry.add_child(column)
 	var tall := Control.new()
 	tall.custom_minimum_size.y = 70
@@ -334,7 +334,7 @@ func boundaries() -> void:
 	column.add_child(short)
 	root.add_child(entry)
 	await frames()
-	check(tall.size.y==70 and short.size.y==30 and short.position.y==70,"native minimum floor redistributes flex space without unnecessary overflow")
+	check(tall.size.y==70 and short.size.y==30 and short.position.y==70,"native minimum floor redistributes grow space without unnecessary overflow")
 	entry.free()
 	await frames()
 	var spatial = preload("res://addons/estragon/runtime/node/estragon_3d.gd").new()

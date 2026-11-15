@@ -1,5 +1,6 @@
 @tool
 extends RefCounted
+const StackPolicy = preload("stack_policy.gd")
 const Length = preload("length.gd")
 const Profile = preload("../../composition/profile.tres")
 ## Shared B2/C1 mathematical row layout. No Nodes, rendering or SceneTree dependencies.
@@ -7,7 +8,7 @@ signal invalidated
 signal placed(offset)
 signal arranged(size)
 var length_specs: Dictionary = {}
-var flex: float = 0.0
+var grow: float = 0.0
 var stretch: int = 0
 var pixels_per_unit: float = 1.0
 var length_offset := Vector3.ZERO
@@ -30,6 +31,9 @@ var allocation_minimum := Vector3.ZERO
 var padding := Vector4.ZERO # left, top, right, bottom; border-box insets
 var margin := Vector4.ZERO # outside own geometry; consumed by the parent
 var transparent: bool = false # composition proxy forwards one root slot
+var alignment: Array = ["start","start","start"]
+# Parent-owned border-box placements; no Node references or additive offsets.
+var slots: Array = []
 var children: Array = []
 var measured := Vector3.ZERO
 # -1 is an unavailable/cyclic reference axis, distinct from an arranged zero.
@@ -44,15 +48,20 @@ var _arrange_dirty: bool = true
 var _parent: WeakRef
 
 func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, stack_axis: int) -> void:
-	if length_specs==specs and flex==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
+	if length_specs==specs and grow==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
 	length_specs = specs.duplicate(true)
-	flex = growth
+	grow = growth
 	stretch = cross
 	pixels_per_unit = scale
 	var dependencies := Length.dependencies(length_specs,stack_axis)
 	_parent_axes = dependencies[0]
 	_viewport_axes = dependencies[1]
 	_length_context = []
+	invalidate()
+
+func set_policy(values: Array) -> void:
+	if alignment==values: return
+	alignment = values.duplicate()
 	invalidate()
 
 func _length(name: String, axis_index: int, fallback: float) -> float:
@@ -65,7 +74,7 @@ func _warn_unanchored() -> void:
 	for index in range(3):
 		if _parent_axes[index]>0 and parent_reference[index]<0:
 			_reported_unanchored = true
-			push_warning("Estragon unanchored/cyclic percentage resolves to zero; give the containing layout axis an independent extent")
+			push_warning("Estragon percentage has no definite containing content axis and resolves to zero; root Entry uses 100vw/100vh, not 100%; give auto parents an independent extent or grow allocation")
 			return
 
 func _edges(prefix: String) -> Vector4:
@@ -171,9 +180,9 @@ func measure() -> Vector3:
 		var child = children[0]
 		child.prepare(parent_reference,viewport_size)
 		child.measure()
-		if child.requested!=requested or child.flex!=flex or child.stretch!=stretch or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
+		if child.requested!=requested or child.grow!=grow or child.stretch!=stretch or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
 			requested = child.requested
-			flex = child.flex
+			grow = child.grow
 			stretch = child.stretch
 			fill = child.fill
 			margin = child.margin
@@ -205,7 +214,7 @@ func independent_axis(index: int) -> bool:
 	if requested[index] >= 0 or _external_axes[index] > 0: return true
 	var parent = _parent.get_ref() if _parent != null else null
 	if parent == null: return false
-	return parent.independent_axis(index) if requested[index] < 0 and (fill[index] > 0 or (flex>0 if index==parent.axis else stretch>0)) else false
+	return parent.independent_axis(index) if requested[index] < 0 and (fill[index] > 0 or (grow>0 if index==parent.axis else stretch>0)) else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	_external_axes = external_axes
@@ -232,56 +241,33 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				child.placed.emit(Vector3.ZERO)
 			child.viewport_size = viewport_size
 			# Forward actual allocation authority through transparent hosts. Their
-			# internal X axis must not reinterpret the outer Box's flex axis.
+			# internal X axis must not reinterpret the outer Box's grow axis.
 			var authority := Vector3.ZERO
 			for index in range(3):
 				if independent_axis(index): authority[index] = 1
 			child.arrange(available,authority)
 		arranged.emit(size)
 		return
-	# Assigned content is authoritative, including flex allocations. Resolve the
+	# Assigned content is authoritative, including grow allocations. Resolve the
 	# immediate children against this box before measuring their slots.
 	for child in children:
 		child.prepare(reference,viewport_size)
 		child.measure()
-	var fixed: float = gap * maxi(0, children.size() - 1)
-	var flexible: Array = []
+	var items: Array = []
 	for child in children:
-		fixed += child.outer_extent()[axis]
-		if (child.flex>0 or child.fill[axis]>0) and child.requested[axis] < 0: flexible.append(child)
-		else: fixed += child.measured[axis]
-	var remaining: float = maxf(0,content[axis] - fixed)
-	var shares: Dictionary = {}
-	# Reserve constrained native minimums, then share the remaining space.
-	# Zero floors preserve the existing equal-share Box behavior.
-	while not flexible.is_empty():
-		var weight := 0.0
-		for child in flexible: weight += child.flex if child.flex>0 else 1.0
-		var share: float = remaining / weight
-		var constrained := false
-		for child in flexible.duplicate():
-			if child.allocation_minimum[axis] > share*(child.flex if child.flex>0 else 1.0):
-				shares[child] = child.allocation_minimum[axis]
-				remaining = maxf(0,remaining-child.allocation_minimum[axis])
-				flexible.erase(child)
-				constrained = true
-		if not constrained:
-			for child in flexible: shares[child] = share*(child.flex if child.flex>0 else 1.0)
-			break
-	var row_extent: float = fixed
-	for share in shares.values(): row_extent += share
-	var cursor: float = (content[axis] - row_extent) * 0.5 if center else 0.0
-	for child in children:
-		var allocation: Vector3 = child.measured
-		for index in range(3):
-			if (child.fill[index]>0 or (child.flex>0 if index==axis else child.stretch>0)) and child.requested[index] < 0:
-				allocation[index] = shares[child] if index == axis else maxf(0,content[index]-child.outer_extent()[index])
-			allocation[index] = maxf(allocation[index],child.allocation_minimum[index])
-		var next: Vector3 = leading(padding)+leading(child.margin)+child.length_offset
-		next[axis] += cursor
+		items.append({"preferred":child.measured,"minimum":child.allocation_minimum,"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
+	var policy := alignment.duplicate()
+	if center: policy[axis] = "center"
+	slots = StackPolicy.slots(items,content,axis,gap,policy)
+	for index in range(children.size()):
+		var child = children[index]
+		var slot: Dictionary = slots[index]
+		var next: Vector3 = leading(padding)+slot.position+child.length_offset
 		if child.offset != next or child.arrange_count == 0:
 			child.offset = next
 			child.placed.emit(next)
-		child.arrange(allocation)
-		cursor += allocation[axis] + child.outer_extent()[axis] + gap
+		var authority := Vector3.ZERO
+		for cross in range(3):
+			if cross!=axis and policy[cross]=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
+		child.arrange(slot.extent,authority)
 	arranged.emit(size)

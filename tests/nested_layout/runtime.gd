@@ -57,7 +57,7 @@ func run() -> void:
 		await frames()
 		quit(); return
 	check(rose_text.layout_size.x>0 and rose_text.layout_size.y>0,"nested Rose Text receives nonzero allocation")
-	check(exit_button.global_position.y>=column.get_node("Fun").global_position.y+column.get_node("Fun").layout_size.y,"Settings Exit follows outer texts below flex spacer")
+	check(exit_button.global_position.y>=column.get_node("Fun").global_position.y+column.get_node("Fun").layout_size.y,"Settings Exit follows outer texts below grow spacer")
 	check(rose_text.global_position.y>=rect(exit_button).end.y and rect(rose_text).end.y<=home.extent.y+0.1,"Rose follows Settings in bottom VBox region without overlap")
 	check(settings.get_node("Row").position==Vector2.ZERO and settings.position.y>0,"host placement does not duplicate root offset")
 	check(settings.owner==null and exit_button.owner==null,"managed hosts and views remain transient native Nodes")

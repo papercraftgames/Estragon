@@ -5,6 +5,7 @@ const Element = preload("../runtime/composition/element.gd")
 const Model = preload("model.gd")
 const Source = preload("source.gd")
 const Resolver = preload("native/resolver.gd")
+const StackContract = preload("../runtime/node/internal/stack_contract.gd")
 const Length = preload("../runtime/node/internal/length.gd")
 const Lexer = preload("lexer.gd")
 var file: Source
@@ -42,6 +43,10 @@ func _component(node: Model.Component) -> void:
 		script = script.get_base_script()
 	properties.merge(resolved.get("properties",{}),true)
 	signals.merge(resolved.get("signals",{}),true)
+	var stack_direction := StackContract.preset(resolved.script)
+	if stack_direction.is_empty(): stack_direction = "row"
+	for attribute in node.attributes:
+		if attribute.name=="direction" and attribute.value is Model.Literal: stack_direction = str(attribute.value.value)
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
@@ -81,8 +86,13 @@ func _component(node: Model.Component) -> void:
 				_error("Unsupported Node property metadata: " + name, attribute.name_span)
 				return
 		else:
-			_error("Removed layout API "+name+": use unit dimensions, flex and stretch" if name in ["fill_width","fill_height","viewport_width_scale","viewport_height_scale"] else "Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
+			_error("Removed layout API "+name+": use unit dimensions, grow and stretch" if name in ["flex","fill_width","fill_height","viewport_width_scale","viewport_height_scale"] else "Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
 			return
+		if StackContract.registered(resolved.script) and attribute.value is Model.Literal:
+			var message := StackContract.error(name,attribute.value.value,stack_direction,StackContract.preset(resolved.script))
+			if not message.is_empty():
+				_error(message,attribute.value.span)
+				return
 		var is_length := Length.registered(resolved.script,name)
 		if is_length:
 			_length(attribute,Length.domain(name))

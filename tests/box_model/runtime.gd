@@ -182,7 +182,7 @@ func run() -> void:
 	padded.add_child(sibling)
 	natural.add_child(padded)
 	await frames()
-	check(container.position==Vector2(10,10) and container.size==Vector2(150,20) and sibling.position==Vector2(165,15),"padded Box reserves sibling margins before native Container flex allocation")
+	check(container.position==Vector2(10,10) and container.size==Vector2(150,20) and sibling.position==Vector2(165,15),"padded Box reserves sibling margins before native Container grow allocation")
 	check(native_child.get_parent()==container and native_child.size.x==20 and native_child.position==Vector2.ZERO,"ordinary native Container retains interior layout authority")
 	padded.width = 100
 	await frames()

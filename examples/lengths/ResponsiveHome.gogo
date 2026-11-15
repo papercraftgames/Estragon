@@ -6,14 +6,14 @@ const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 func build_view() -> Element:
     return <Entry name="UI" width="100vw" height="100vh">
-        <VBox name="Page" flex={1} stretch={1} padding={24} gap={12}>
+        <VBox name="Page" grow={1} stretch={1} padding={24} gap={12}>
             <Text text="Retained unit lengths" font_size={26} />
-            <HBox name="Content" flex={1} stretch={1} padding={12} gap={16}>
+            <HBox name="Content" grow={1} stretch={1} padding={12} gap={16}>
                 <ResponsivePanel name="Panel" />
                 <VBox width="100%" gap={8}>
                     <Text text="Resize the window." />
                     <Text text="The blue panel follows its parent content box." font_size={16} />
-                    <Text text="Percent sizes and weighted flex are distinct." font_size={16} />
+                    <Text text="Percent sizes and weighted grow are distinct." font_size={16} />
                 </VBox>
             </HBox>
         </VBox>
