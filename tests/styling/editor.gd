@@ -98,7 +98,7 @@ func widget_inspectors() -> void:
 		scene.add_child(widget)
 		widget.owner = scene
 		interface.inspect_object(widget)
-		if await until(func(): return field("background_color")!=null,"actual widget Inspector fields"):
+		if await until(func(): return field("background_color")!=null and field("background_color").get_edited_object()==widget,"actual widget Inspector fields"):
 			var previous = widget.background_color
 			var color := field("background_color")
 			color.input.text_submitted.emit("#123456")
@@ -106,7 +106,8 @@ func widget_inspectors() -> void:
 			check(widget.background_color=="#123456","actual "+str(script.resource_path.get_file())+" Inspector authors shared hex")
 			var manager := get_undo_redo()
 			var history := manager.get_history_undo_redo(manager.get_object_history_id(widget))
-			check(history.undo() and widget.background_color==previous and history.redo() and widget.background_color=="#123456","actual widget color undo/redo retains local default and authored type")
+			print("S02_INSPECTOR_TARGET ",str(color.get_edited_object()==widget)," previous=",str(previous))
+			check(history.undo() and is_same(widget.background_color,previous) and history.redo() and widget.background_color=="#123456","actual widget color undo/redo retains local default and authored type")
 			for name in ["hover_background_color","pressed_background_color","disabled_background_color","checked_background_color"]:
 				if not name in widget: continue
 				color = field(name)
@@ -115,7 +116,7 @@ func widget_inspectors() -> void:
 					var saved = widget.get(name)
 					color.input.text_submitted.emit("#abcdef")
 					for frame in range(5): await get_tree().process_frame
-					check(widget.get(name)=="#abcdef" and history.undo() and widget.get(name)==saved and history.redo() and widget.get(name)=="#abcdef","actual local state color Inspector edit/undo/redo "+name)
+					check(widget.get(name)=="#abcdef" and history.undo() and is_same(widget.get(name),saved) and history.redo() and widget.get(name)=="#abcdef","actual local state color Inspector edit/undo/redo "+name)
 			if widget.has_method("get_label_origin") and "disabled" in widget:
 				var width := field("padding")
 				width.input.text_submitted.emit("10px")
