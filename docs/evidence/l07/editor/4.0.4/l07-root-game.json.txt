@@ -1,0 +1,1 @@
+{"clicks":3,"samples":[{"actual":480,"bottom":480,"expected_width":320,"root":480,"spacer":365,"viewport":480,"width":320},{"actual":800,"bottom":800,"expected_width":500,"root":800,"spacer":685,"viewport":800,"width":500},{"actual":240,"bottom":240,"expected_width":160,"root":240,"spacer":125,"viewport":240,"width":160}]}

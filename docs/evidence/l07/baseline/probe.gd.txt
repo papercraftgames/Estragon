@@ -1,0 +1,17 @@
+extends SceneTree
+func _initialize() -> void: run.call_deferred()
+func run() -> void:
+	var home = load("res://app/generated/RootHome.gd").new()
+	root.add_child(home)
+	var samples: Array = []
+	for size in [Vector2i(640,480),Vector2i(1000,800)]:
+		root.size = size
+		for frame in range(12): await process_frame
+		var entry = home.get_node("UI")
+		var space = home.get_node("UI/Column/Space")
+		samples.append({"viewport":str(size),"root":str(entry.layout_size),"spacer":str(space.layout_size),"hello_y":home.get_node("UI/Column/Hello").position.y})
+		RenderingServer.force_draw(false)
+		root.get_texture().get_image().save_png("res://before-"+str(size.x)+".png")
+	print("L07_BASELINE_ROOT ",JSON.stringify(samples))
+	home.free()
+	quit()

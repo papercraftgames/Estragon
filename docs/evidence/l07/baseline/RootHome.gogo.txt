@@ -1,0 +1,44 @@
+extends Node2D
+const Element = preload("../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../addons/estragon/runtime/node/text.gd")
+const Settings = preload("RootSettings.gd")
+func _ready() -> void:
+	if OS.get_environment("L06_EDITOR")=="1": root_proof.call_deferred()
+func root_proof() -> void:
+	var samples: Array = []
+	for size in [Vector2i(640,480),Vector2i(1000,800),Vector2i(320,240)]:
+		get_tree().root.size = size
+		for frame in range(12): await get_tree().process_frame
+		var entry = get_node("UI")
+		var spacer = get_node("UI/Column/Space")
+		var rose = get_node("UI/Column/Rose").get_child(0)
+		var button = get_node("UI/Column/Settings/Row/Exit")
+		var event := InputEventMouseButton.new()
+		event.position = button.get_global_rect().get_center()
+		event.button_index = MOUSE_BUTTON_LEFT
+		event.pressed = true
+		get_viewport().push_input(event,true)
+		event = event.duplicate()
+		event.pressed = false
+		get_viewport().push_input(event,true)
+		samples.append({"viewport":size.y,"actual":get_viewport().get_visible_rect().size.y,"root":entry.layout_size.y,"spacer":spacer.layout_size.y,"width":spacer.layout_size.x,"expected_width":size.x*0.5,"bottom":rose.global_position.y+rose.layout_size.y})
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png("res://l07-root-editor.png")
+	var result := {"samples":samples,"clicks":get_node("UI/Column/Settings").clicks}
+	print("L07_ROOT_EDITOR_GAME ",JSON.stringify(result))
+	var file := FileAccess.open("res://.godot/l07-root-game.tmp",FileAccess.WRITE)
+	file.store_string(JSON.stringify(result))
+	file.close()
+	DirAccess.rename_absolute("res://.godot/l07-root-game.tmp","res://.godot/l07-root-game.json")
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%">
+		<VBox name="Column" width="100%" height="100%">
+			<VBox name="Space" width="50%" grow={1} />
+			<Text name="Hello" text="Hello World!" />
+			<Text name="Fun" text="This is fun!" />
+			<Settings name="Settings" />
+			<Rose name="Rose" />
+		</VBox>
+	</Entry2D>
