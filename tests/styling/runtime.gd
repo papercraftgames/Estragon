@@ -46,6 +46,8 @@ func run() -> void:
 	await lifecycle()
 	await overrides()
 	await language()
+	var widgets = preload("widgets.gd").new()
+	await widgets.run(self)
 	check(State.get("records").is_empty(),"composition records released")
 	print("S01_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("S01_RUNTIME_OK")
@@ -63,7 +65,7 @@ func parser_and_compiler() -> void:
 	for script in ["text","rect","button"]:
 		var legacy_head: String = 'extends Node2D\nconst Widget = preload("res://addons/estragon/runtime/node/'+script+'.gd")\nfunc view(): return '
 		var legacy := Compiler.compile(legacy_head+'<Widget background_color="#123456" />\n',"res://legacy.gogo")
-		check(not legacy.ok,"legacy "+script+" style paint explicitly deferred rather than overpainted")
+		check(legacy.ok,"shared "+script+" background now compiles through the base API")
 	var base = preload("res://addons/estragon/runtime/node/component_2d.gd").new()
 	base.background_color = "#123456"
 	var separate := Box.new()
@@ -197,8 +199,8 @@ func gallery() -> void:
 	check(idle==[entry.get_layout_stats(),panel.get_layout_stats(),panel.get_visual_style_stats(),panel.lengths.parse_count,record.runs],"idle has zero draw/layout/parsing/recomposition work")
 	var rejected := Element.new(Box,{"background_color":"#broken"},{},[],"Style.gogo:9:4")
 	check(not record._preflight(rejected,null,home) and record.validation_error.contains("Style.gogo:9:4: invalid style"),"computed invalid color preflight is source-located and transactional")
-	rejected = Element.new(Text,{"background_color":"#123456"},{},[],"Style.gogo:10:1")
-	check(not record._preflight(rejected,null,home) and record.validation_error.contains("deferred to S02"),"dynamic legacy widget style rejects before any native paint/property commit")
+	rejected = Element.new(Text,{"background_color":"#invalid"},{},[],"Style.gogo:10:1")
+	check(not record._preflight(rejected,null,home) and record.validation_error.contains("invalid style"),"dynamic widget style rejects invalid color before native commit")
 	rejected = Element.new(Box,{"border_width":"auto"},{},[],"Style.gogo:10:4")
 	check(not record._preflight(rejected,null,home) and record.validation_error.contains("invalid length"),"computed border misuse rejects before any commit")
 	capture("changed-style")

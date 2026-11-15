@@ -48,6 +48,7 @@ func play(mode: String) -> void:
 	if await until(func(): return FileAccess.file_exists(path),"actual styled game proof"):
 		var result = JSON.parse_string(FileAccess.get_file_as_string(path))
 		check(result.native==2 and result.ui==2 and result.samples.size()==2 and result.samples.all(func(item): return item.root and item.half==item.content/2 and item.color),mode+" real painted game/percent content/native and Estragon clicks at two sizes")
+		check(result.widgets.native==2 and result.widgets.ui==2 and result.widgets.edits==[false,true] and result.widgets.enabled and result.widgets.samples.all(func(item): return item.root and item.color),mode+" actual widget painted states/native input/controlled edit at two sizes")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
 func field(name: String) -> EditorProperty:
@@ -89,12 +90,49 @@ func inspector() -> void:
 	interface.inspect_object(scene)
 	scene.remove_child(box)
 	box.free()
+func widget_inspectors() -> void:
+	var scene := interface.get_edited_scene_root()
+	for script in [preload("res://addons/estragon/runtime/node/text.gd"),preload("res://addons/estragon/runtime/node/rect.gd"),preload("res://addons/estragon/runtime/node/button.gd"),preload("res://addons/estragon/runtime/node/toggle.gd")]:
+		var widget = script.new()
+		widget.name = "WidgetInspector"
+		scene.add_child(widget)
+		widget.owner = scene
+		interface.inspect_object(widget)
+		if await until(func(): return field("background_color")!=null,"actual widget Inspector fields"):
+			var previous = widget.background_color
+			var color := field("background_color")
+			color.input.text_submitted.emit("#123456")
+			for frame in range(5): await get_tree().process_frame
+			check(widget.background_color=="#123456","actual "+str(script.resource_path.get_file())+" Inspector authors shared hex")
+			var manager := get_undo_redo()
+			var history := manager.get_history_undo_redo(manager.get_object_history_id(widget))
+			check(history.undo() and widget.background_color==previous and history.redo() and widget.background_color=="#123456","actual widget color undo/redo retains local default and authored type")
+			for name in ["hover_background_color","pressed_background_color","disabled_background_color","checked_background_color"]:
+				if not name in widget: continue
+				color = field(name)
+				check(color!=null,"actual widget Inspector exposes "+name)
+				if color!=null:
+					var saved = widget.get(name)
+					color.input.text_submitted.emit("#abcdef")
+					for frame in range(5): await get_tree().process_frame
+					check(widget.get(name)=="#abcdef" and history.undo() and widget.get(name)==saved and history.redo() and widget.get(name)=="#abcdef","actual local state color Inspector edit/undo/redo "+name)
+			if widget.has_method("get_label_origin") and "disabled" in widget:
+				var width := field("padding")
+				width.input.text_submitted.emit("10px")
+				for frame in range(5): await get_tree().process_frame
+				check(widget.padding=="10px" and history.undo() and widget.padding=="auto" and history.redo() and widget.padding=="10px","Button padding Inspector undo restores true asymmetric local default")
+			RenderingServer.force_draw(false)
+			get_viewport().get_texture().get_image().save_png("res://inspector-"+script.resource_path.get_file()+".png")
+		interface.inspect_object(scene)
+		scene.remove_child(widget)
+		widget.free()
 func run() -> void:
 	if not await until(ready,"installed addon activates"): finish(); return
 	interface.open_scene_from_path("res://app/StyleGallery.tscn")
 	await until(func(): return interface.get_edited_scene_root()!=null,"styled scene opens")
 	await settle()
 	await inspector()
+	await widget_inspectors()
 	if not FileAccess.file_exists("res://.godot/s01-restart"):
 		await plugin._navigation.open("res://app/StyleGallery.gogo")
 		await until(func(): return code()!=null,"authored editor opens")

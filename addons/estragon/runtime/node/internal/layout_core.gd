@@ -50,8 +50,11 @@ var _measure_dirty: bool = true
 var _arrange_dirty: bool = true
 var _parent: WeakRef
 
-func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, stack_axis: int) -> void:
-	if length_specs==specs and grow==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
+var default_padding := Vector4.ZERO
+
+func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, stack_axis: int, padding_fallback: Vector4 = Vector4.ZERO) -> void:
+	if default_padding==padding_fallback and length_specs==specs and grow==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
+	default_padding = padding_fallback
 	length_specs = specs.duplicate(true)
 	grow = growth
 	stretch = cross
@@ -87,7 +90,9 @@ func _edges(prefix: String) -> Vector4:
 		var index: int = edge%2
 		var key: String = prefix+"_"+names[edge]+("_width" if prefix=="border" else "")
 		var value := _length(key,index,-1)
-		result[edge] = _length("border_width" if prefix=="border" else prefix,index,0) if value<0 else value
+		var uniform := _length("border_width" if prefix=="border" else prefix,index,0)
+		if prefix=="padding" and uniform<0: uniform = default_padding[edge]
+		result[edge] = uniform if value<0 else value
 	return result
 
 # Resolve specs only on a changed parent/viewport/spec context. No property

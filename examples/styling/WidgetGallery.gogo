@@ -1,0 +1,44 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Rose = preload("StyledRose.gd")
+@bindable var enabled: bool = true
+@bindable var flipped: bool = false
+@bindable var extra: bool = false
+var clicks: int = 0
+var native_clicks: int = 0
+func clicked() -> void:
+    clicks += 1
+func native_clicked() -> void:
+    native_clicks += 1
+func build_view() -> Element:
+    var keys = [2,1] if self.flipped else [1,2]
+    return <Entry2D name="UI" width="100%" height="100%" padding="8px" background_color="#171b24">
+        <VBox name="Panel" grow={1} stretch={1} padding="12px" gap="8px" background_color="#252b38" border_color="#8295bc" border_width="2px">
+            <Text name="Caption" text="Gold on blue" color={Color("#ffcc66")} padding="6px" padding_left="11px" background_color="#142a3a" border_color="#85aacc" border_width="1px" border_left_width="3px" />
+            <HBox name="Rects" gap="12px">
+                <Rect name="Legacy" width="60px" height="42px" fill={Color.WHITE} />
+                <Rect name="Styled" width="130px" height="42px" background_color="#2288aa" border_color="#e9efff" border_width="2px" />
+            </HBox>
+            <HBox name="Buttons" gap="8px">
+                <UiButton name="Normal" text="Continue" width="120px" height="54px" padding="10px" padding_left="16px" padding_top="5px" background_color="#355e92" hover_background_color="#477dbb" pressed_background_color="#23446e" disabled_background_color="#313947" border_color="#cbd8ed" border_width="2px" border_right_width="4px" pressed={self.clicked} />
+                <UiButton name="Hover" text="Hover" width="120px" height="54px" background_color="#355e92" hover_background_color="#477dbb" border_color="#cbd8ed" border_width="2px" />
+                <UiButton name="Held" text="Pressed" width="120px" height="54px" background_color="#355e92" pressed_background_color="#23446e" border_color="#cbd8ed" border_width="2px" />
+                <UiButton name="Disabled" text="Disabled" width="120px" height="54px" disabled={true} disabled_background_color="#313947" border_color="#cbd8ed" border_width="2px" />
+            </HBox>
+            <HBox name="Edits" gap="8px">
+                <Toggle name="Controlled" text="Enabled" bind:value={self.enabled} checked_background_color="#227a60" border_color="#cbd8ed" border_width="2px" />
+                <Toggle name="Unchecked" text="Unchecked" value={false} />
+                <Button name="Native" text="Native Button" pressed={self.native_clicked} />
+            </HBox>
+            <Rose name="Rose" />
+            <HBox name="Keys" gap="4px">{keys.map(func(id): return <Rect key={id} name={"Key"+str(id)} width="20px" height="12px" background_color="#8295bc" />)}</HBox>
+            {<Text name="Extra" text="Conditional child" background_color="#142a3a" padding="3px" /> if self.extra else null}
+        </VBox>
+    </Entry2D>

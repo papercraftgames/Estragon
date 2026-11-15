@@ -1,3 +1,4 @@
+@icon("../../editor/component_2d_icon.tres")
 @tool
 class_name EstragonComponent2D
 extends Node2D
@@ -50,6 +51,31 @@ var border_left_width: Variant = "auto":
 		border_left_width = value
 		_changed()
 		_queue_style_redraw()
+var padding: Variant = 0.0:
+	set(value):
+		if is_same(padding,value) or not lengths.assign("padding",value,Length.domain("padding",get_script())): return
+		padding = value
+		_changed()
+var padding_top: Variant = "auto":
+	set(value):
+		if is_same(padding_top,value) or not lengths.assign("padding_top",value): return
+		padding_top = value
+		_changed()
+var padding_right: Variant = "auto":
+	set(value):
+		if is_same(padding_right,value) or not lengths.assign("padding_right",value): return
+		padding_right = value
+		_changed()
+var padding_bottom: Variant = "auto":
+	set(value):
+		if is_same(padding_bottom,value) or not lengths.assign("padding_bottom",value): return
+		padding_bottom = value
+		_changed()
+var padding_left: Variant = "auto":
+	set(value):
+		if is_same(padding_left,value) or not lengths.assign("padding_left",value): return
+		padding_left = value
+		_changed()
 var width: Variant = "auto":
 	set(value):
 		if is_same(width,value) or not lengths.assign("width",value): return
@@ -120,7 +146,7 @@ var layout_size: Vector2:
 var _layout_size := Vector2.ZERO
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 func _get_property_list() -> Array[Dictionary]:
-	var properties := Length.properties(["width","height","x","y","gap","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	var properties := Length.properties(["width","height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
 	return properties
 static func valid_length(value) -> bool:
@@ -141,6 +167,17 @@ func _layout_axis() -> int:
 
 func _measure_native() -> Vector2:
 	return Vector2.ZERO
+
+func _default_padding() -> Vector4:
+	return Vector4.ZERO
+
+func _padding_insets() -> Vector4:
+	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
+	return layout.model.padding
+
+func get_content_rect() -> Rect2:
+	var insets: Vector4 = layout.model.padding+layout.model.border
+	return Rect2(Vector2(insets.x,insets.y),Vector2(maxf(0,layout_size.x-insets.x-insets.z),maxf(0,layout_size.y-insets.y-insets.w)))
 
 func _layout_options() -> Dictionary:
 	var natural := _measure_native()
@@ -199,11 +236,13 @@ func _queue_style_redraw() -> void:
 	_visual_style.redraw_count += 1
 	queue_redraw()
 func _paint_visual_style() -> void:
-	_visual_style.paint(self,layout_size,layout.model.border)
+	_visual_style.paint(self,layout_size,layout.model.border,get_background_color())
+func get_background_color() -> Color:
+	return _visual_style.colors.background_color
 func get_visual_style_stats() -> Dictionary:
 	return {"parse":_visual_style.parse_count,"draw":_visual_style.draw_count,"commands":_visual_style.command_count,"redraw":_visual_style.redraw_count}
 
 func _style_supported() -> bool:
 	if VisualStyle.supported(get_script()): return true
-	push_error("Estragon style: Text/Rect/Button painters retain their local API until S02")
+	push_error("Estragon style: shared visual styling is unsupported on this participant")
 	return false
