@@ -159,6 +159,9 @@ func _script(name: String, path: String, span: Model.Span, check_constructor: bo
 func _gogo(name: String, path: String, authored: String, span: Model.Span, check_constructor: bool = true) -> Dictionary:
 	if visiting.has(path): return _fail("Cyclic Gogo component inheritance: "+path,span)
 	visiting[path] = true
+	# Explicit imports can reach this path before project-tag lookup initializes
+	# the optional scope. Initialize it before testing its source index.
+	scope()
 	var text: String = scope().read(project.authored(authored)) if project.sources.has(project.authored(authored)) else FileAccess.get_file_as_string(authored)
 	var source := Source.new(text,authored,path,project)
 	var module = Parser.new(source).parse()
