@@ -27,9 +27,23 @@ for(const selection of options.engines) {
   const stages:Record<string,unknown>={};
   writeJSON(path.join(output,'provenance.json'),{version:sandbox.version,original_binary_sha256:sandbox.inputHash,sourceHead:gitHead(),sourceDirty:gitDirty(),sourceHashes:sourceHashes(sources),command:process.argv});
   async function run(name:string,args:string[],marker:string,graphics=false,expectedErrors=false) {
-   const stage=await runCommand([sandbox.binary,...(graphics?[]:['--headless']),'--audio-driver','Dummy','--path',sandbox.project,...args],sandbox.workspace,sandbox.env,path.join(output,name+'.log'),marker,{abortOnError:!expectedErrors,expectedErrors,timeout:expectedErrors?240000:60000});
+   const nativeRejections=name==='runtime';
+   const stage=await runCommand([sandbox.binary,...(graphics?[]:['--headless']),'--audio-driver','Dummy','--path',sandbox.project,...args],sandbox.workspace,sandbox.env,path.join(output,name+'.log'),marker,{abortOnError:!expectedErrors&&!nativeRejections,expectedErrors:expectedErrors||nativeRejections,timeout:expectedErrors?240000:60000});
    const log=fs.readFileSync(path.join(output,name+'.log'),'utf8');
    if(/ObjectDB instances leaked|Resources still in use/.test(log)){stage.status='FAIL';stage.reason='Native resource leak';}
+   if(nativeRejections) {
+    let bracket=false,count=0;const errors:string[]=[];
+    for(const line of log.split(/\r?\n/)) {
+     if(line==='C3_EXPECTED_LENGTH_REJECTIONS_BEGIN')bracket=true;
+     else if(line==='C3_EXPECTED_LENGTH_REJECTIONS_END')bracket=false;
+     else if(/SCRIPT ERROR:|^ERROR:|Parse Error:|Assertion failed:/.test(line)) {
+      if(bracket && ["width","gap"].some(property=>line==="ERROR: Estragon length '"+property+"': Expected a finite nonnegative length (negative offsets are allowed)"))count++;
+      else errors.push(line);
+     }
+    }
+    stage.unexpected_errors=errors;
+    if(bracket||count!==2||errors.length){stage.status='FAIL';stage.reason='Expected exactly two bracketed native length rejections; '+JSON.stringify({count,errors});}
+   }
    if(expectedErrors) {
     const errors=unexpectedErrors(log);
     stage.unexpected_errors=errors;
