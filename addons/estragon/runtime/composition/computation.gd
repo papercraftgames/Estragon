@@ -485,6 +485,9 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
+		if VisualStyle.property(str(key)) and VisualStyle.has_api(desired.type) and not VisualStyle.supported(desired.type):
+			validation_error = desired.source+": shared widget styling is deferred to S02; previous tree retained"
+			return false
 		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
 			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
 			return false

@@ -60,6 +60,16 @@ func parser_and_compiler() -> void:
 	for attribute in ['background_color="not-color"','border_color="#ggg"','border_width="auto"','border_left_width="-1px"','border_width={NAN}','border_width="1em"','background_color={true}']:
 		var report := Compiler.compile(head+'<Box '+attribute+' />\n',"res://styles.gogo","res://generated/Styles.gd")
 		check(not report.ok and not report.diagnostics.is_empty(),"source-located style rejection "+attribute)
+	for script in ["text","rect","button"]:
+		var legacy_head: String = 'extends Node2D\nconst Widget = preload("res://addons/estragon/runtime/node/'+script+'.gd")\nfunc view(): return '
+		var legacy := Compiler.compile(legacy_head+'<Widget background_color="#123456" />\n',"res://legacy.gogo")
+		check(not legacy.ok,"legacy "+script+" style paint explicitly deferred rather than overpainted")
+	var base = preload("res://addons/estragon/runtime/node/component_2d.gd").new()
+	base.background_color = "#123456"
+	var separate := Box.new()
+	base.add_child(separate)
+	check(base.background_color=="#123456" and separate.background_color=="transparent" and separate._visual_style.colors.background_color==Color.TRANSPARENT,"base participant style is local; child transparent value is never inherited")
+	base.free()
 	var valid := Compiler.compile(head+'<Box background_color="#252b38" border_color={Color.WHITE} border_width="2px" border_left_width="auto" />\n',"res://styles.gogo","res://generated/Styles.gd")
 	check(valid.ok and valid.code.contains('"#252b38"'),"Color union and border units compile with retained quoted specs")
 func geometry() -> void:
@@ -177,6 +187,8 @@ func gallery() -> void:
 	check(idle==[entry.get_layout_stats(),panel.get_layout_stats(),panel.get_visual_style_stats(),panel.lengths.parse_count,record.runs],"idle has zero draw/layout/parsing/recomposition work")
 	var rejected := Element.new(Box,{"background_color":"#broken"},{},[],"Style.gogo:9:4")
 	check(not record._preflight(rejected,null,home) and record.validation_error.contains("Style.gogo:9:4: invalid style"),"computed invalid color preflight is source-located and transactional")
+	rejected = Element.new(Text,{"background_color":"#123456"},{},[],"Style.gogo:10:1")
+	check(not record._preflight(rejected,null,home) and record.validation_error.contains("deferred to S02"),"dynamic legacy widget style rejects before any native paint/property commit")
 	rejected = Element.new(Box,{"border_width":"auto"},{},[],"Style.gogo:10:4")
 	check(not record._preflight(rejected,null,home) and record.validation_error.contains("invalid length"),"computed border misuse rejects before any commit")
 	capture("changed-style")

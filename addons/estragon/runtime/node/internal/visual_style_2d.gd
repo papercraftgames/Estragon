@@ -7,11 +7,19 @@ var parse_count := 0
 var draw_count := 0
 var command_count := 0
 var redraw_count := 0
-static func supported(script) -> bool:
+static func has_api(script) -> bool:
 	while script is Script:
 		if script.get_script_constant_map().get("ESTRAGON_VISUAL_STYLE",false): return true
 		script = script.get_base_script()
 	return false
+static func supported(script) -> bool:
+	var current = script
+	while current is Script:
+		if current.get_script_constant_map().get("ESTRAGON_LEGACY_PAINT",false): return false
+		current = current.get_base_script()
+	return has_api(script)
+static func property(name: String) -> bool:
+	return name in COLORS or name in ["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width"]
 static func registered(script, name: String) -> bool:
 	return name in COLORS and supported(script)
 static func parse_color(value) -> Dictionary:

@@ -9,6 +9,47 @@ const VisualStyle = preload("internal/visual_style_2d.gd")
 var _visual_style = VisualStyle.new()
 const Length = preload("internal/length.gd")
 var lengths = Length.new()
+const ESTRAGON_VISUAL_STYLE := true
+var background_color: Variant = "transparent":
+	set(value):
+		if is_same(background_color,value) or not _style_supported() or not _visual_style.assign("background_color",value): return
+		background_color = value
+		_queue_style_redraw()
+var border_color: Variant = "transparent":
+	set(value):
+		if is_same(border_color,value) or not _style_supported() or not _visual_style.assign("border_color",value): return
+		border_color = value
+		_queue_style_redraw()
+var border_width: Variant = 0.0:
+	set(value):
+		if is_same(border_width,value) or not _style_supported() or not lengths.assign("border_width",value): return
+		border_width = value
+		_changed()
+		_queue_style_redraw()
+var border_top_width: Variant = "auto":
+	set(value):
+		if is_same(border_top_width,value) or not _style_supported() or not lengths.assign("border_top_width",value): return
+		border_top_width = value
+		_changed()
+		_queue_style_redraw()
+var border_right_width: Variant = "auto":
+	set(value):
+		if is_same(border_right_width,value) or not _style_supported() or not lengths.assign("border_right_width",value): return
+		border_right_width = value
+		_changed()
+		_queue_style_redraw()
+var border_bottom_width: Variant = "auto":
+	set(value):
+		if is_same(border_bottom_width,value) or not _style_supported() or not lengths.assign("border_bottom_width",value): return
+		border_bottom_width = value
+		_changed()
+		_queue_style_redraw()
+var border_left_width: Variant = "auto":
+	set(value):
+		if is_same(border_left_width,value) or not _style_supported() or not lengths.assign("border_left_width",value): return
+		border_left_width = value
+		_changed()
+		_queue_style_redraw()
 var width: Variant = "auto":
 	set(value):
 		if is_same(width,value) or not lengths.assign("width",value): return
@@ -79,7 +120,9 @@ var layout_size: Vector2:
 var _layout_size := Vector2.ZERO
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 func _get_property_list() -> Array[Dictionary]:
-	return Length.properties(["width","height","x","y","gap","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	var properties := Length.properties(["width","height","x","y","gap","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
+	return properties
 static func valid_length(value) -> bool:
 	return Length.valid(value,"extent")
 
@@ -115,8 +158,8 @@ func _notification(what: int) -> void:
 
 func _enter_tree() -> void:
 	# Native draw signal precedes script _draw, so derived Box foreground hooks
-	# cannot accidentally bypass the shared style. Legacy widget painters have
-	# no S01 style API/marker and remain untouched until S02.
+	# cannot accidentally bypass the shared style. Legacy widget painters
+	# explicitly opt out of S01 styles and remain untouched until S02.
 	if VisualStyle.supported(get_script()) and not draw.is_connected(_paint_visual_style): draw.connect(_paint_visual_style)
 	layout.changed()
 	layout.start()
@@ -159,3 +202,8 @@ func _paint_visual_style() -> void:
 	_visual_style.paint(self,layout_size,layout.model.border)
 func get_visual_style_stats() -> Dictionary:
 	return {"parse":_visual_style.parse_count,"draw":_visual_style.draw_count,"commands":_visual_style.command_count,"redraw":_visual_style.redraw_count}
+
+func _style_supported() -> bool:
+	if VisualStyle.supported(get_script()): return true
+	push_error("Estragon style: Text/Rect/Button painters retain their local API until S02")
+	return false

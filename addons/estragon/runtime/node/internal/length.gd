@@ -4,6 +4,7 @@ extends RefCounted
 ## Numeric values preserve native units; explicit pixel/reference strings use
 ## pixels_per_unit in 3D. Percent uses the containing layout content axis;
 ## independent 2D Entries receive their visible viewport as that context.
+const VisualStyle = preload("visual_style_2d.gd")
 const LIMIT := 1.0e12
 const FACTORS := {"":1.0,"px":1.0,"in":96.0,"cm":96.0/2.54,"mm":96.0/25.4,"q":96.0/101.6,"pt":96.0/72.0,"pc":16.0}
 const DIMENSIONS := ["width","height","depth"]
@@ -21,6 +22,8 @@ static func domain(name: String) -> String:
 	return "inset" if name=="gap" else ""
 static func registered(type, name: String) -> bool:
 	if domain(name).is_empty() or not type is Script: return false
+	if name=="border_width" or name in BORDER_EDGES:
+		if not VisualStyle.supported(type): return false
 	while type != null:
 		# A declared native bridge marker avoids loading either adapter here.
 		if type.get_script_constant_map().get("ESTRAGON_LENGTHS",false): return true

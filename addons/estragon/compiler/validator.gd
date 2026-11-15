@@ -51,6 +51,9 @@ func _component(node: Model.Component) -> void:
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
+		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
+			_error("Shared visual styling on Text/Rect/Button is deferred to S02; use the existing local widget properties",attribute.name_span)
+			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
