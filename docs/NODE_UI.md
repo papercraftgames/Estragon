@@ -1,5 +1,7 @@
 # Native 2D UI — canonical C4 API
 
+L07 #160 makes independent2D Entry percentages viewport-relative for all eligible root lengths. `<Entry2D width="100%" height="100%">` fills the current visible Viewport; ordinary child percentages stay relative to immediate padded content. [Length contract](LENGTHS.md).
+
 L07A adds [parent-owned slot policies](LAYOUT_FOUNDATION.md), Box direction, physical horizontal/vertical alignment and zero-natural Spacer. `grow` replaces the beta `flex` property without an alias.
 
 > **F04 current composition path:** the canonical Counter uses a typed `build_view() -> Element`, generated bindable getter observation and the sole external manager. Eager GGX and per-target bindings are removed; see [cutover/parity](F04_CUTOVER.md) and live #98/its PR for verification/review. Native widget/layout APIs below are retained.
@@ -134,7 +136,7 @@ The TextureRect's texture supplies its natural minimum under Godot's native expa
 
 ## Responsive layout
 
-Use `<Entry2D width="100vw" height="100vh">`, parent-relative unit dimensions, and weighted `grow` with cross-axis `stretch`. [Complete contract and migration](LENGTHS.md). Native `get_viewport_rect()` expressions remain composition snapshots; unit specs resolve from viewport signals without recomposition.
+Use `<Entry2D width="100%" height="100%">` (or explicit100vw/100vh), parent-relative unit dimensions, and weighted `grow` with cross-axis `stretch`. [Complete contract and migration](LENGTHS.md). Native `get_viewport_rect()` expressions remain composition snapshots; unit specs resolve from viewport signals without recomposition.
 
 ## L01 — pixel Box model
 

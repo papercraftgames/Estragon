@@ -2,7 +2,8 @@
 extends RefCounted
 ## Sole length grammar, property domains, conversion and dependency contract.
 ## Numeric values preserve native units; explicit pixel/reference strings use
-## pixels_per_unit in 3D. Percent always uses an immediate layout content axis.
+## pixels_per_unit in 3D. Percent uses the containing layout content axis;
+## independent 2D Entries receive their visible viewport as that context.
 const LIMIT := 1.0e12
 const FACTORS := {"":1.0,"px":1.0,"in":96.0,"cm":96.0/2.54,"mm":96.0/25.4,"q":96.0/101.6,"pt":96.0/72.0,"pc":16.0}
 const DIMENSIONS := ["width","height","depth"]

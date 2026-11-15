@@ -53,6 +53,8 @@ func play(mode: String) -> void:
 	if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
 	var footer_path := "res://.godot/l07-game.json"
 	if FileAccess.file_exists(footer_path): DirAccess.remove_absolute(footer_path)
+	var owner_path := "res://.godot/l07-root-game.json"
+	if FileAccess.file_exists(owner_path): DirAccess.remove_absolute(owner_path)
 	if mode=="main": interface.play_main_scene()
 	else: interface.play_current_scene()
 	if await until(proof_ready,"actual padded game proof"):
@@ -60,6 +62,9 @@ func play(mode: String) -> void:
 	if await until(func(): return FileAccess.file_exists(footer_path),"L07A "+mode+" footer game proof"):
 		var result = JSON.parse_string(FileAccess.get_file_as_string(footer_path))
 		check(result.clicks==2 and result.samples.size()==2 and result.samples.all(func(item): return absf(item.bottom-item.viewport)<0.01 and item.spacer>0),"L07A "+mode+" real editor Play bottom spacer and native click at two sizes")
+	if await until(func(): return FileAccess.file_exists(owner_path),"L07 "+mode+" owner root-percent proof"):
+		var result = JSON.parse_string(FileAccess.get_file_as_string(owner_path))
+		check(result.clicks==3 and result.samples.size()==3 and result.samples.all(func(item): return item.root==item.actual and item.actual==item.viewport and absf(item.bottom-item.viewport)<0.01 and item.width==item.expected_width and item.spacer>0),"L07 "+mode+" exact root100% owner footer/native clicks at three visible viewport sizes")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"native game stops")
 func run() -> void:

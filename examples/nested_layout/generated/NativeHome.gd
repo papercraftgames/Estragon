@@ -27,5 +27,5 @@ class _GogoFactories_0:
 		var _gogo_element_5 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/nested_layout/NativeHome.gogo:13:4", null, false)
 		var _gogo_element_6 := _GogoElement_0.new(_GogoProject_1, {}, {}, [], "examples/nested_layout/NativeHome.gogo:14:4", null, false)
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"width": "100%", "height": "100%", "horizontal_align": "stretch", "gap": "8px"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/nested_layout/NativeHome.gogo:9:3", null, false)
-		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"width": "100vw", "height": "100vh"}, {}, [_gogo_element_1], "examples/nested_layout/NativeHome.gogo:8:9", null, false)
+		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"width": "100%", "height": "100%"}, {}, [_gogo_element_1], "examples/nested_layout/NativeHome.gogo:8:9", null, false)
 		return _gogo_element_0

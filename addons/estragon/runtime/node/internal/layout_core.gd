@@ -76,7 +76,7 @@ func _warn_unanchored() -> void:
 	for index in range(3):
 		if _parent_axes[index]>0 and parent_reference[index]<0:
 			_reported_unanchored = true
-			push_warning("Estragon percentage has no definite containing content axis and resolves to zero; root Entry uses 100vw/100vh, not 100%; give auto parents an independent extent or grow allocation")
+			push_warning("Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport")
 			return
 
 func _edges(prefix: String) -> Vector4:

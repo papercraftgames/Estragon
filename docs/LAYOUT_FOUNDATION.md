@@ -6,7 +6,7 @@ Native Nodes, owners, transforms, drawing and input remain authoritative.
 
 ```gogo
 func build_view() -> Element:
-    return <Entry2D width="100vw" height="100vh">
+    return <Entry2D width="100%" height="100%">
         <VBox width="100%" height="100%" horizontal_align="stretch" gap="8px">
             <Spacer grow={1} width="50%" />
             <Text text="Hello World!" />
@@ -33,8 +33,14 @@ shrink to hide overflow. Zero/negative free space adds zero. Pixels are floating
 point, without per-child rounding or clipping.
 
 Percentages are full definite immediate-parent **content** dimensions, never
-remaining space. Entry roots have no layout parent: use `100vw`/`100vh`.
-Unanchored percentages resolve to zero with an actionable warning. A 100% flow
+remaining space. Independent2D Entry roots use their visible Viewport as an
+implicit containing rectangle:100% is full viewport,50% half,150% overflow;
+100vw/100vh remain equivalent explicit syntax. This applies to root dimensions,
+insets, margins, direction-aware gap and additive offsets. Root margin is not
+consumed without a layout parent. All ordinary children use their immediate
+parent content box; auto/cyclic ordinary percentages remain zero with a warning.
+Nested independent Entries retain their own viewport scope. L07 #160 supersedes
+the earlier L06/L07A statement that root100% must be rejected. A 100% flow
 child alongside siblings warns that it may overflow; explicit main size with
 grow warns that size wins. Warnings are bounded per model, not repeated per frame.
 Padding, margins and gaps subtract once. A percentage child does not subtract its
@@ -72,7 +78,7 @@ Control properties, out-of-flow mode, shrink/basis shorthand or CSS engine.
 | Preferred border-box extent | `measured`; requested dimensions override intrinsic child/content measure |
 | Minimum border-box extent | `allocation_minimum`, from native adapter minima |
 | Outer preferred/minimum extent | corresponding border-box extent + `outer_extent()` (margins) |
-| Parent content / unit basis | arranged extent minus padding; `content_reference` axes are -1 when indefinite; retained specs resolve only on changed references |
+| Parent content / unit basis | arranged extent minus padding; `content_reference` axes are -1 when indefinite; an independent2D Entry receives its visible viewport containing reference; retained specs resolve only on changed references |
 | Child placement | ordered measured policy input: preferred/minimum/requested, grow, stretch, fill, outer/leading margin |
 | Allocated slot | parent `slots[index] = {position, extent}` relative to content origin, including leading child margin, excluding child offset |
 | Final arrangement | parent padding + slot position + child additive length offset; native adapter applies position/extent |

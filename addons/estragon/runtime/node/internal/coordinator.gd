@@ -159,7 +159,12 @@ func _flush() -> void:
 	flush_count += 1
 	if Profile.is_enabled(): Profile.add("layout_flushes")
 	var visible := _viewport.get_visible_rect().size if _viewport!=null else Vector2.ZERO
-	model.prepare(Vector3(-1,-1,-1),visible)
+	# An independent 2D Entry has a native containing rectangle even without
+	# an Estragon parent. Use the visible logical viewport for every eligible
+	# root percentage, including insets/gap/offsets; child preparation remains
+	# exclusively the core's immediate-content responsibility. No 3D Z inference.
+	var reference := Vector3(visible.x,visible.y,-1) if _mode==Mode.ENTRY and _dimension==2 else Vector3(-1,-1,-1)
+	model.prepare(reference,visible)
 	var available: Vector3 = model.measure()
 	model.arrange(available)
 	if host is Node2D:
