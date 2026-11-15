@@ -44,6 +44,9 @@ func proof() -> void:
 	file.store_string(JSON.stringify({"samples":samples,"clicks":button.get_parent().get_parent().clicks}))
 	file.close()
 	DirAccess.rename_absolute("res://.godot/l06-game.tmp","res://.godot/l06-game.json")
+	self.hide()
+	var footer = load("res://app/Footer.tscn").instantiate()
+	get_tree().root.add_child(footer)
 func build_view() -> Element:
 	var items = [<Rect key="a" name="A" width="10%" height="12px" fill={Color.RED} />, <Rect key="b" name="B" width={200} height="12px" fill={Color.GREEN} />]
 	if self.flipped: items.reverse()
