@@ -1,0 +1,78 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S01_BUILD {"changed":["app/generated/StyledSettings.gd","app/generated/StyledSettings.gd.map.json","app/generated/StyledRose.gd","app/generated/StyledRose.gd.map.json","app/generated/StyleGallery.gd","app/generated/StyleGallery.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/StyledSettings.gd","app/generated/StyledRose.gd","app/generated/StyleGallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+S01_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S01_CHECK shared valid color #abc: true
+S01_CHECK shared valid color #abcd: true
+S01_CHECK shared valid color #123456: true
+S01_CHECK shared valid color #12345678: true
+S01_CHECK shared valid color #AbCdEf: true
+S01_CHECK shared valid color  transparent : true
+S01_CHECK shared invalid color black: true
+S01_CHECK shared invalid color #12: true
+S01_CHECK shared invalid color #gggggg: true
+S01_CHECK shared invalid color #123456789: true
+S01_CHECK shared invalid color : true
+S01_CHECK shared invalid color true: true
+S01_CHECK shared invalid color 1: true
+S01_CHECK shared invalid color []: true
+S01_CHECK shared invalid color (nan, 0.0, 0.0, 1.0): true
+S01_CHECK short RGBA normalizes without losing authored input: true
+S01_CHECK source-located style rejection background_color="not-color": true
+S01_CHECK source-located style rejection border_color="#ggg": true
+S01_CHECK source-located style rejection border_width="auto": true
+S01_CHECK source-located style rejection border_left_width="-1px": true
+S01_CHECK source-located style rejection border_width={NAN}: true
+S01_CHECK source-located style rejection border_width="1em": true
+S01_CHECK source-located style rejection background_color={true}: true
+S01_CHECK Color union and border units compile with retained quoted specs: true
+S01_CHECK 300 border-box gives264 content atX12, vertical border/padding once: true
+S01_CHECK asymmetric border resolves centrally: true
+S01_CHECK edge overrides win when shorthand is assigned later: true
+S01_CHECK explicit auto removes local side override: true
+S01_CHECK root border percentage shares visible viewport axes: true
+S01_CHECK root percent border resize reflows actual content without reparsing: true
+S01_CHECK natural measurement includes border exactly once: true
+S01_CHECK ordinary percent borders reference immediate containing content, not viewport: true
+S01_CHECK zero content clamps safely without negative geometry: true
+S01_CHECK nested50/100% views use border+padding content at (640, 480): true
+S01_CHECK margin stays outside painting and remaining allocation: true
+S01_CHECK resize preserves native/UI/Gogo identity without recomposition: true
+S01_CHECK Estragon Button native pointer hover/press state remains intact: true
+S01_CHECK native pixels show root/panel background and asymmetric border: true
+S01_CHECK nested50/100% views use border+padding content at (1000, 800): true
+S01_CHECK margin stays outside painting and remaining allocation: true
+S01_CHECK resize preserves native/UI/Gogo identity without recomposition: true
+S01_CHECK Estragon Button native pointer hover/press state remains intact: true
+S01_CHECK native pixels show root/panel background and asymmetric border: true
+S01_CHECK nested50/100% views use border+padding content at (640, 480): true
+S01_CHECK margin stays outside painting and remaining allocation: true
+S01_CHECK resize preserves native/UI/Gogo identity without recomposition: true
+S01_CHECK Estragon Button native pointer hover/press state remains intact: true
+S01_CHECK native pixels show root/panel background and asymmetric border: true
+S01_CHECK actual native Control and Estragon Button clicks survive styled slots: true
+S01_CHECK Text direct/default colors never inherit Box styling: true
+S01_CHECK color-only changes redraw without measure/arrange/recomposition: true
+S01_CHECK authored getters retain Color/string while caches normalize: true
+S01_CHECK equal color writes remain quiet: true
+S01_CHECK border changes reflow affected branch with cached fixed sibling measure: false
+S01_CHECK idle has zero draw/layout/parsing/recomposition work: true
+S01_CHECK computed invalid color preflight is source-located and transactional: true
+S01_CHECK computed border misuse rejects before any commit: true
+S01_CHECK derived _draw cannot bypass shared native style draw hook: true
+S01_CHECK native re-entry retains exactly one style hook: true
+S01_CHECK native pack/reload retains authored style values: true
+S01_CHECK invalid style preserves generated bytes/map/Script background_color="garbage": true
+S01_CHECK invalid style preserves generated bytes/map/Script border_color="#xxzz00": true
+S01_CHECK invalid style preserves generated bytes/map/Script border_width="auto": true
+S01_CHECK invalid style preserves generated bytes/map/Script border_width="-2px": true
+S01_CHECK invalid style preserves generated bytes/map/Script border_width="1em": true
+S01_CHECK invalid style preserves generated bytes/map/Script border_width={INF}: true
+S01_CHECK style source repair recovers actual-path build: true
+S01_CHECK composition records released: true
+S01_ASSERTIONS 68 failed=true

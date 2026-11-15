@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c6hbn37gkypte"]
+
+[ext_resource type="Script" uid="uid://d1h172uohbv6i" path="res://app/generated/StyleGallery.gd" id="1_ay23c"]
+
+[node name="StyleGallery" type="Node2D" unique_id=1571025322]
+script = ExtResource("1_ay23c")
