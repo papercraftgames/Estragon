@@ -1,0 +1,5 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+NATIVE_INHERITED_DEFAULTS_EVIDENCE {"existing_first":17,"existing_second":null,"existing_value":17,"expected_initialized_value":19,"fresh_second":2,"fresh_value":3,"status":"BLOCKED"}
+Native publication assertions: 13
+ESTRAGON_NATIVE_PUBLICATION_OK

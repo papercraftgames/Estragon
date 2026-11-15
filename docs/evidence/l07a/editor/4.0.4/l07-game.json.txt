@@ -1,0 +1,1 @@
+{"clicks":2,"samples":[{"actual_viewport":480,"bottom":480,"spacer":293,"viewport":480},{"actual_viewport":800,"bottom":800,"spacer":613,"viewport":800}]}
