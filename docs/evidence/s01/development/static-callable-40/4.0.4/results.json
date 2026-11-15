@@ -1,0 +1,50 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "df54eed9af42c36c67a874de74568ff457190225d38f417c297b4e8efeb0e368"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-A8DCBq/yarn-cache",
+      "file:/evidence/s01-final/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.85,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-A8DCBq/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-A8DCBq/project",
+      "--headless",
+      "--script",
+      "res://tests/styling/build.gd"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 1.95,
+    "godot_pid": 5897,
+    "log": "build.log",
+    "diagnostics": [
+      "SCRIPT ERROR: Parse Error: Cannot find member \"run\" in base \"res://tests/styling/game.gd\".",
+      "          at: GDScript::reload (res://app/generated/StyleGallery.gd:19)"
+    ]
+  }
+}

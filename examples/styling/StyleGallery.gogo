@@ -1,0 +1,25 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Spacer = preload("../../../addons/estragon/runtime/node/spacer.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Settings = preload("StyledSettings.gd")
+const Rose = preload("StyledRose.gd")
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%" padding="8px" background_color="#171b24">
+		<VBox name="Panel" grow={1} stretch={1} margin="8px"
+		      padding="16px" padding_top="24px" padding_right="20px" padding_bottom="12px"
+		      gap="12px" background_color="#252b38" border_color="#8295bc"
+		      border_width="2px" border_left_width="3px" border_right_width="4px" border_bottom_width="5px">
+			<HBox name="Header" width="50%" padding="8px" background_color="#45506b"
+			      border_color="#ffcc66" border_width="1px">
+				<Text name="Title" text="Shared native styling" color={Color("#ffcc66")} />
+			</HBox>
+			<Spacer name="Space" grow={1} />
+			<Text name="Plain" text="Local default Text stays white." />
+			<Settings name="Settings" />
+			<Rose name="Rose" />
+		</VBox>
+	</Entry2D>

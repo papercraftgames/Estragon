@@ -1,0 +1,853 @@
+yarn node v1.22.22
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+B2_CORE_ASSERTIONS 18
+GGX_B2_CORE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+C1_COUNTERS 2 before=[8, 8, 8, 6, 0] after=[9, 9, 9, 7, 3]
+C1_COUNTERS 3 before=[8, 8, 8, 6, 1] after=[9, 9, 9, 7, 4]
+GGX_C1_RUNTIME_OK
+C1 assertions=149 failures=0
+GGX_C1_PASS 4.7.stable.official.5b4e0cb0f
+Done in 6.53s.
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:7472) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.60s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L01_BUILD {"changed":["app/generated/BoxModel.gd","app/generated/BoxModel.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/BoxModel.gd","app/generated/Counter.gd","app/generated/Settings.gd","app/generated/Home.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L01_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK border box excludes margins; asymmetric content origin: true
+L01_CHECK padding margins gaps reserved once before both-axis fill: true
+L01_CHECK auto aggregates outer child extents plus padding: true
+L01_CHECK too-small content clamps zero; fixed children sequentially overflow: true
+L01_CHECK center aligns the complete outer row inside content: true
+L01_CHECK core rejects invalid insets: true
+L01_CHECK core rejects nonfinite insets: true
+L01_CHECK native typed inherited pixel attributes width="100" height="auto" padding={2.5} margin_left={0}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding_left={3} padding={8} width={100}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding={8} padding_left={3}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK authored pixel diagnostics width="100oops": true
+L01_CHECK authored pixel diagnostics height="1em": true
+L01_CHECK authored pixel diagnostics padding="12wat": true
+L01_CHECK authored pixel diagnostics margin={-2}: true
+L01_CHECK authored pixel diagnostics padding_top={-1}: true
+L01_CHECK authored pixel diagnostics padding={NAN}: true
+L01_CHECK authored pixel diagnostics margin={INF}: true
+L01_CHECK authored pixel diagnostics paddding={4}: true
+L01_CHECK dynamic inset domain rejects -2.0: true
+L01_CHECK dynamic inset domain rejects nan: true
+L01_CHECK dynamic inset domain rejects inf: true
+L01_CHECK dynamic inset domain rejects 12oops: true
+L01_CHECK dynamic inset domain rejects true: true
+L01_CHECK shared real native Box hierarchy: true
+L01_CHECK Entry padding uses same core; fill bounds exclude parent padding: true
+L01_CHECK shorthand + leading override independent from attribute order: true
+L01_CHECK nested Gogo forwards margin once with root at local zero: true
+L01_CHECK nested row padding and gap use native child transforms: true
+L01_CHECK rendered pixels match nested padding/margin transforms: true
+L01_CHECK margin pixels are outside button hit bounds: true
+L01_CHECK arranged button pixels receive native pointer once: true
+L01_CHECK dynamic invalid inset rejects complete description before writes -2.0: true
+L01_CHECK dynamic invalid inset rejects complete description before writes nan: true
+L01_CHECK dynamic invalid inset rejects complete description before writes inf: true
+L01_CHECK dynamic invalid inset rejects complete description before writes 12oops: true
+L01_CHECK dynamic invalid inset rejects complete description before writes true: true
+L01_CHECK bindable padding recomposes in place with native identity: true
+L01_CHECK clean nested siblings remain measured once: true
+L01_CHECK root margin signal updates forwarded host exactly once: true
+L01_CHECK resized root allocates the content rectangle: true
+L01_CHECK shared validation rejects invalid native insets: true
+L01_CHECK equal and invalid setters leave layout quiet: true
+L01_CHECK invalid native setter retains last valid value: true
+L01_CHECK inset burst coalesces one flush and preserves explicit edges: true
+L01_CHECK native unset edge restores shorthand deterministically: true
+L01_CHECK scene packing preserves explicit zero edge precedence: true
+L01_CHECK native detach/reentry keeps nested margin ownership: true
+L01_CHECK zero-inset HBox/VBox dimensions retain pre-refactor geometry: true
+L01_CHECK zero-inset native sibling placement remains equivalent: true
+L01_CHECK padded Box reserves sibling margins before native Container grow allocation: true
+L01_CHECK ordinary native Container retains interior layout authority: true
+L01_CHECK native minimum floors overflow a small content box without double-counted margins: true
+L01_CHECK current Counter remains retained and reactive with native pointer input: true
+L01_CHECK runnable Box model example changes padding with retained native input: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding="12oops": true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding={-2}: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding={NAN}: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding="auto": true
+L01_CHECK repair recovers native pixel compilation: true
+L01_ASSERTIONS 68 failed=false
+L01_RUNTIME_OK
+Done in 15.34s.
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:8327) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.52s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L06_BUILD {"changed":["app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Before.gd","app/generated/Before.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/FlexPanel.gd","app/generated/FlexPanel.gd.map.json","app/generated/FlexWrapper.gd","app/generated/FlexWrapper.gd.map.json","app/generated/DeepFlex.gd","app/generated/DeepFlex.gd.map.json","app/generated/FlexHome.gd","app/generated/FlexHome.gd.map.json","app/generated/Footer.gd","app/generated/Footer.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/Policy.gd","app/generated/Policy.gd.map.json","app/generated/RootSettings.gd","app/generated/RootSettings.gd.map.json","app/generated/RootHome.gd","app/generated/RootHome.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Before.gd","app/generated/Counter.gd","app/generated/FlexPanel.gd","app/generated/FlexWrapper.gd","app/generated/DeepFlex.gd","app/generated/FlexHome.gd","app/generated/Footer.gd","app/generated/Home.gd","app/generated/Policy.gd","app/generated/RootSettings.gd","app/generated/RootHome.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+L06_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200px: true
+L06_CHECK canonical conversion 50%: true
+L06_CHECK canonical conversion 10vw: true
+L06_CHECK canonical conversion 10vh: true
+L06_CHECK canonical conversion 10vmin: true
+L06_CHECK canonical conversion 10vmax: true
+L06_CHECK canonical conversion 2.5in: true
+L06_CHECK canonical conversion 1cm: true
+L06_CHECK canonical conversion 10mm: true
+L06_CHECK canonical conversion 4q: true
+L06_CHECK canonical conversion 12pt: true
+L06_CHECK canonical conversion 1pc: true
+L06_CHECK canonical conversion auto: true
+L06_CHECK canonical conversion  .5in : true
+L06_CHECK canonical conversion +2e1px: true
+L06_CHECK reject invalid extent 1em: true
+L06_CHECK reject invalid extent 1rem: true
+L06_CHECK reject invalid extent 1ex: true
+L06_CHECK reject invalid extent 1ch: true
+L06_CHECK reject invalid extent calc(2px): true
+L06_CHECK reject invalid extent 2PX: true
+L06_CHECK reject invalid extent : true
+L06_CHECK reject invalid extent --2px: true
+L06_CHECK reject invalid extent 1 px: true
+WARNING: Exponent too high
+     at: built_in_strtod (core/string/ustring.cpp:2524)
+L06_CHECK reject invalid extent 1e999px: true
+L06_CHECK reject invalid extent -1px: true
+L06_CHECK reject invalid extent -1: true
+L06_CHECK reject invalid extent nan: true
+L06_CHECK reject invalid extent inf: true
+L06_CHECK reject invalid extent true: true
+L06_CHECK reject invalid extent []: true
+L06_CHECK reject invalid extent NaN: true
+L06_CHECK reject invalid extent 100oops: true
+L06_CHECK offset signs and auto domains: true
+L06_CHECK 3D numeric and pixel strings share explicit100px/world-unit scale: true
+L06_CHECK all length properties compile and retain quoted spec 200: true
+L06_CHECK generated mixed unit native semantics 200: true
+L06_CHECK all length properties compile and retain quoted spec 200px: true
+L06_CHECK generated mixed unit native semantics 200px: true
+L06_CHECK all length properties compile and retain quoted spec 50%: true
+L06_CHECK generated mixed unit native semantics 50%: true
+L06_CHECK all length properties compile and retain quoted spec 10vw: true
+L06_CHECK generated mixed unit native semantics 10vw: true
+L06_CHECK all length properties compile and retain quoted spec 10vh: true
+L06_CHECK generated mixed unit native semantics 10vh: true
+L06_CHECK all length properties compile and retain quoted spec 10vmin: true
+L06_CHECK generated mixed unit native semantics 10vmin: true
+L06_CHECK all length properties compile and retain quoted spec 10vmax: true
+L06_CHECK generated mixed unit native semantics 10vmax: true
+L06_CHECK all length properties compile and retain quoted spec 2.5in: true
+L06_CHECK generated mixed unit native semantics 2.5in: true
+L06_CHECK all length properties compile and retain quoted spec 1cm: true
+L06_CHECK generated mixed unit native semantics 1cm: true
+L06_CHECK all length properties compile and retain quoted spec 10mm: true
+L06_CHECK generated mixed unit native semantics 10mm: true
+L06_CHECK all length properties compile and retain quoted spec 4q: true
+L06_CHECK generated mixed unit native semantics 4q: true
+L06_CHECK all length properties compile and retain quoted spec 12pt: true
+L06_CHECK generated mixed unit native semantics 12pt: true
+L06_CHECK all length properties compile and retain quoted spec 1pc: true
+L06_CHECK generated mixed unit native semantics 1pc: true
+L06_CHECK inline owner demo50/75% actual content (1152, 648): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1152, 648): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (1440, 900): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1440, 900): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (800, 500): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (800, 500): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK viewport changes do not parse/resolve/measure fixed sibling lengths: true
+L06_CHECK viewport changes never rerun build_view: true
+L06_CHECK dynamic invalid descendant rejects before any property/tree commit: true
+L06_CHECK borrowed native input target is inside the visible viewport: true
+L06_CHECK actual UiButton input in percent nested host: true
+L06_CHECK native borrowed Button GUI signal survives layout: true
+L06_CHECK keyed retained percentage children reorder: true
+L06_CHECK steady idle zero parse/resolve/measure/arrange/recomposition: true
+L06_CHECK grow bottom spacer remains distinct from100% height: true
+L06_CHECK multilevel Gogo hosts forward VBox grow allocation authority to percentage descendants: true
+L06_CHECK nested grow percentages resize without replacing nodes: true
+L06_CHECK native string assignment content-box widths and absolute units: true
+L06_CHECK axis-aware percent margins and negative additive slot offsets: true
+L06_CHECK weighted flex2:1 and explicit cross stretch: true
+L06_CHECK negative offset remains pointer hit-testable: true
+L06_CHECK x50% uses immediate content axis and survives layout flush: true
+L06_CHECK intrinsic invalidation preserves retained unit padding and explicit edge: true
+WARNING: Estragon width=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK intentional overflow above100% reserves remaining-space zero: true
+L06_CHECK native scene pack preserves authored unit specs: true
+WARNING: Estragon width=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK native reparent immediately uses new logical parent reference: true
+L06_CHECK cross-axis viewport units use containing SubViewport: true
+L06_CHECK SubViewport resize remains signal-driven: true
+L06_CHECK viewport disconnect on exit: true
+L06_CHECK detached viewport entry reconnects: true
+L06_CHECK bounded3D uses identical parser and explicit100px/world-unit scale: true
+L06_CHECK 3D parent-relative x and signed z offset preserve orientation: true
+L06_CHECK 3D scale is per participant; percentage world references stay coherent: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="1em": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="garbage": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={-1}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={NAN}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps gap="auto": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps fill_height={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps viewport_width_scale={1}: true
+L06_CHECK source repair recovers actual-path compilation: true
+L06_CHECK L07A serializable rectangular GridDefinition: true
+L06_CHECK L07A invalid grid rejects { "error": "area \'a\' must form one rectangle" }: true
+L06_CHECK L07A invalid grid rejects { "error": "area \'a\' must form one rectangle" }: true
+L06_CHECK L07A invalid grid rejects { "error": "uneven area row or column track count mismatch" }: true
+L06_CHECK L07A invalid grid rejects { "error": "unknown placement area: unknown" }: true
+L06_CHECK L07A invalid grid rejects { "error": "duplicate/conflicting child placement at 0:0" }: true
+L06_CHECK L07A invalid grid rejects { "error": "placement exceeds track bounds" }: true
+L06_CHECK L07A invalid grid rejects { "error": "fr track weight must be finite and positive" }: true
+L06_CHECK L07A invalid grid rejects { "error": "invalid track: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported" }: true
+L06_CHECK L07A source-positioned policy/migration rejects <Box horizontal_align="stretch" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <VBox vertical_align="stretch" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <VBox direction="row" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <Box horizontal_align="space-between" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <Spacer flex={1} />: true
+L06_CHECK L07A unequal children with gap use parent X end slots: true
+L06_CHECK L07A atomic reactive direction/alignment uses same retained slot pipeline: true
+L06_CHECK L07A computed invalid policy preflight rejects with source position: true
+L06_CHECK L07A growth adds weighted free space to natural preferred sizes: true
+L06_CHECK L07A tight parent preserves natural growth bases without shrink: true
+WARNING: Estragon height=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 root percent now uses its visible viewport: true
+L06_CHECK L07A inner100% is full content height, never remaining space: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A exact bottom remaining-space spacer (640, 480): true
+L06_CHECK L07A retained borrowed/nested/native ownership; resize without recomposition: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A exact bottom remaining-space spacer (1000, 800): true
+L06_CHECK L07A retained borrowed/nested/native ownership; resize without recomposition: true
+L06_CHECK L07A real native GUI click at both viewport sizes: true
+L06_CHECK L07A zero idle layout/parsing/recomposition: true
+L06_CHECK L07A nested intrinsic resize reclaims spacer without parent recomposition: true
+L06_CHECK L07A X/Y 1:2 growth subtracts padding margins gap once: true
+L06_CHECK L07A parent policy changes slots preserving native children: true
+L06_CHECK L07A constrained parent never shrinks explicit children: true
+L06_CHECK L07A X/Y 1:2 growth subtracts padding margins gap once: true
+L06_CHECK L07A parent policy changes slots preserving native children: true
+L06_CHECK L07A constrained parent never shrinks explicit children: true
+L06_CHECK L07 exact owner root100% remaining-space footer (640, 480): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (640, 480): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+WARNING: Estragon height=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:923)
+WARNING: Estragon explicit main-axis dimension overrides grow; use auto height/width on a remaining-space Spacer
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (1000, 800): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (1000, 800): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (320, 240): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (320, 240): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (640, 480): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (640, 480): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 half viewport root height is240, not zero or remaining space: true
+L06_CHECK L07 root150% intentionally overflows visible viewport: true
+L06_CHECK L07 zero idle parse/measure/arrange/recomposition: true
+L06_CHECK L07 nested intrinsic change reflows remaining space without parent rerender: true
+L06_CHECK L07 valid root% resize never reparses or warns unanchored: true
+L06_CHECK L07 fractional root dimensions/insets/additive axes share viewport containing rectangle: true
+L06_CHECK L07 root margin/gap use viewport but margin has no allocating parent: true
+L06_CHECK L07 ordinary child percentages use actual immediate padded content, never viewport fallback: true
+L06_CHECK L07 root gap percentage follows its selected stack axis: true
+L06_CHECK L07 percentage offset applies viewport resize delta once: true
+L06_CHECK L07 nested independent Entry ignores enclosing content and plain boundary: true
+L06_CHECK L07 Entry percent uses its containing SubViewport: true
+L06_CHECK L07 SubViewport size_changed updates root percentages: true
+L06_CHECK L07 detached Entry reconnects and resolves the current viewport: true
+L06_CHECK L07 native project stretch uses visible logical viewport, not OS window size: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 ordinary cyclic/auto percentage retains zero plus warning: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 pure unanchored/proof context gains no global viewport fallback: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 actual proof coordinator has no implicit Entry viewport reference: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_CHECK L07 bounded3D percent contract remains unchanged without inferred viewport plane: true
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 195 failed=false
+L06_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L07_ROOT_EXIT_OK
+yarn add v1.22.22
+info No lockfile found.
+(node:8894) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.48s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_BUILD {"changed":["app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Before.gd","app/generated/Before.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/FlexPanel.gd","app/generated/FlexPanel.gd.map.json","app/generated/FlexWrapper.gd","app/generated/FlexWrapper.gd.map.json","app/generated/DeepFlex.gd","app/generated/DeepFlex.gd.map.json","app/generated/FlexHome.gd","app/generated/FlexHome.gd.map.json","app/generated/Footer.gd","app/generated/Footer.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/Policy.gd","app/generated/Policy.gd.map.json","app/generated/RootSettings.gd","app/generated/RootSettings.gd.map.json","app/generated/RootHome.gd","app/generated/RootHome.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Before.gd","app/generated/Counter.gd","app/generated/FlexPanel.gd","app/generated/FlexWrapper.gd","app/generated/DeepFlex.gd","app/generated/FlexHome.gd","app/generated/Footer.gd","app/generated/Home.gd","app/generated/Policy.gd","app/generated/RootSettings.gd","app/generated/RootHome.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L06_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:57)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:55)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:57)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:55)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:57)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:55)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:57)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:55)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:57)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:55)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200.0: true
+L06_CHECK canonical conversion 200: true
+L06_CHECK canonical conversion 200px: true
+L06_CHECK canonical conversion 50%: true
+L06_CHECK canonical conversion 10vw: true
+L06_CHECK canonical conversion 10vh: true
+L06_CHECK canonical conversion 10vmin: true
+L06_CHECK canonical conversion 10vmax: true
+L06_CHECK canonical conversion 2.5in: true
+L06_CHECK canonical conversion 1cm: true
+L06_CHECK canonical conversion 10mm: true
+L06_CHECK canonical conversion 4q: true
+L06_CHECK canonical conversion 12pt: true
+L06_CHECK canonical conversion 1pc: true
+L06_CHECK canonical conversion auto: true
+L06_CHECK canonical conversion  .5in : true
+L06_CHECK canonical conversion +2e1px: true
+L06_CHECK reject invalid extent 1em: true
+L06_CHECK reject invalid extent 1rem: true
+L06_CHECK reject invalid extent 1ex: true
+L06_CHECK reject invalid extent 1ch: true
+L06_CHECK reject invalid extent calc(2px): true
+L06_CHECK reject invalid extent 2PX: true
+L06_CHECK reject invalid extent : true
+L06_CHECK reject invalid extent --2px: true
+L06_CHECK reject invalid extent 1 px: true
+WARNING: Exponent too high
+     at: built_in_strtod (core/string/ustring.cpp:2553)
+     GDScript backtrace (most recent call first):
+         [0] parse (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:46)
+         [1] valid (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:52)
+         [2] parser (res://tests/lengths/runtime.gd:42)
+         [3] run (res://tests/lengths/runtime.gd:46)
+L06_CHECK reject invalid extent 1e999px: true
+L06_CHECK reject invalid extent -1px: true
+L06_CHECK reject invalid extent -1: true
+L06_CHECK reject invalid extent nan: true
+L06_CHECK reject invalid extent inf: true
+L06_CHECK reject invalid extent true: true
+L06_CHECK reject invalid extent []: true
+L06_CHECK reject invalid extent NaN: true
+L06_CHECK reject invalid extent 100oops: true
+L06_CHECK offset signs and auto domains: true
+L06_CHECK 3D numeric and pixel strings share explicit100px/world-unit scale: true
+L06_CHECK all length properties compile and retain quoted spec 200: true
+L06_CHECK generated mixed unit native semantics 200: true
+L06_CHECK all length properties compile and retain quoted spec 200px: true
+L06_CHECK generated mixed unit native semantics 200px: true
+L06_CHECK all length properties compile and retain quoted spec 50%: true
+L06_CHECK generated mixed unit native semantics 50%: true
+L06_CHECK all length properties compile and retain quoted spec 10vw: true
+L06_CHECK generated mixed unit native semantics 10vw: true
+L06_CHECK all length properties compile and retain quoted spec 10vh: true
+L06_CHECK generated mixed unit native semantics 10vh: true
+L06_CHECK all length properties compile and retain quoted spec 10vmin: true
+L06_CHECK generated mixed unit native semantics 10vmin: true
+L06_CHECK all length properties compile and retain quoted spec 10vmax: true
+L06_CHECK generated mixed unit native semantics 10vmax: true
+L06_CHECK all length properties compile and retain quoted spec 2.5in: true
+L06_CHECK generated mixed unit native semantics 2.5in: true
+L06_CHECK all length properties compile and retain quoted spec 1cm: true
+L06_CHECK generated mixed unit native semantics 1cm: true
+L06_CHECK all length properties compile and retain quoted spec 10mm: true
+L06_CHECK generated mixed unit native semantics 10mm: true
+L06_CHECK all length properties compile and retain quoted spec 4q: true
+L06_CHECK generated mixed unit native semantics 4q: true
+L06_CHECK all length properties compile and retain quoted spec 12pt: true
+L06_CHECK generated mixed unit native semantics 12pt: true
+L06_CHECK all length properties compile and retain quoted spec 1pc: true
+L06_CHECK generated mixed unit native semantics 1pc: true
+L06_CHECK inline owner demo50/75% actual content (1152, 648): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1152, 648): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (1440, 900): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (1440, 900): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK inline owner demo50/75% actual content (800, 500): true
+L06_CHECK nested Gogo host percentage skips transparent proxy (800, 500): true
+L06_CHECK borrowed native Control keeps parent/owner and receives flow slot: true
+L06_CHECK viewport changes do not parse/resolve/measure fixed sibling lengths: true
+L06_CHECK viewport changes never rerun build_view: true
+L06_CHECK dynamic invalid descendant rejects before any property/tree commit: true
+L06_CHECK borrowed native input target is inside the visible viewport: true
+L06_CHECK actual UiButton input in percent nested host: true
+L06_CHECK native borrowed Button GUI signal survives layout: true
+L06_CHECK keyed retained percentage children reorder: true
+L06_CHECK steady idle zero parse/resolve/measure/arrange/recomposition: true
+L06_CHECK grow bottom spacer remains distinct from100% height: true
+L06_CHECK multilevel Gogo hosts forward VBox grow allocation authority to percentage descendants: true
+L06_CHECK nested grow percentages resize without replacing nodes: true
+L06_CHECK native string assignment content-box widths and absolute units: true
+L06_CHECK axis-aware percent margins and negative additive slot offsets: true
+L06_CHECK weighted flex2:1 and explicit cross stretch: true
+L06_CHECK negative offset remains pointer hit-testable: true
+L06_CHECK x50% uses immediate content axis and survives layout flush: true
+L06_CHECK intrinsic invalidation preserves retained unit padding and explicit edge: true
+WARNING: Estragon width=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:274)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [2] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK intentional overflow above100% reserves remaining-space zero: true
+L06_CHECK native scene pack preserves authored unit specs: true
+WARNING: Estragon width=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:274)
+         [1] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK native reparent immediately uses new logical parent reference: true
+L06_CHECK cross-axis viewport units use containing SubViewport: true
+L06_CHECK SubViewport resize remains signal-driven: true
+L06_CHECK viewport disconnect on exit: true
+L06_CHECK detached viewport entry reconnects: true
+L06_CHECK bounded3D uses identical parser and explicit100px/world-unit scale: true
+L06_CHECK 3D parent-relative x and signed z offset preserve orientation: true
+L06_CHECK 3D scale is per participant; percentage world references stay coherent: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="1em": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width="garbage": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={-1}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={NAN}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps width={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps gap="auto": true
+L06_CHECK invalid unit/removed API preserves committed Script/maps fill_height={true}: true
+L06_CHECK invalid unit/removed API preserves committed Script/maps viewport_width_scale={1}: true
+L06_CHECK source repair recovers actual-path compilation: true
+L06_CHECK L07A serializable rectangular GridDefinition: true
+L06_CHECK L07A invalid grid rejects { "error": "area \'a\' must form one rectangle" }: true
+L06_CHECK L07A invalid grid rejects { "error": "area \'a\' must form one rectangle" }: true
+L06_CHECK L07A invalid grid rejects { "error": "uneven area row or column track count mismatch" }: true
+L06_CHECK L07A invalid grid rejects { "error": "unknown placement area: unknown" }: true
+L06_CHECK L07A invalid grid rejects { "error": "duplicate/conflicting child placement at 0:0" }: true
+L06_CHECK L07A invalid grid rejects { "error": "placement exceeds track bounds" }: true
+L06_CHECK L07A invalid grid rejects { "error": "fr track weight must be finite and positive" }: true
+L06_CHECK L07A invalid grid rejects { "error": "invalid track: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported" }: true
+L06_CHECK L07A source-positioned policy/migration rejects <Box horizontal_align="stretch" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <VBox vertical_align="stretch" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <VBox direction="row" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <Box horizontal_align="space-between" />: true
+L06_CHECK L07A source-positioned policy/migration rejects <Spacer flex={1} />: true
+L06_CHECK L07A unequal children with gap use parent X end slots: true
+L06_CHECK L07A atomic reactive direction/alignment uses same retained slot pipeline: true
+L06_CHECK L07A computed invalid policy preflight rejects with source position: true
+L06_CHECK L07A growth adds weighted free space to natural preferred sizes: true
+L06_CHECK L07A tight parent preserves natural growth bases without shrink: true
+WARNING: Estragon height=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:274)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [2] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK L07 root percent now uses its visible viewport: true
+L06_CHECK L07A inner100% is full content height, never remaining space: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A exact bottom remaining-space spacer (640, 480): true
+L06_CHECK L07A retained borrowed/nested/native ownership; resize without recomposition: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A footer sequential nonoverlap: true
+L06_CHECK L07A exact bottom remaining-space spacer (1000, 800): true
+L06_CHECK L07A retained borrowed/nested/native ownership; resize without recomposition: true
+L06_CHECK L07A real native GUI click at both viewport sizes: true
+L06_CHECK L07A zero idle layout/parsing/recomposition: true
+L06_CHECK L07A nested intrinsic resize reclaims spacer without parent recomposition: true
+L06_CHECK L07A X/Y 1:2 growth subtracts padding margins gap once: true
+L06_CHECK L07A parent policy changes slots preserving native children: true
+L06_CHECK L07A constrained parent never shrinks explicit children: true
+L06_CHECK L07A X/Y 1:2 growth subtracts padding margins gap once: true
+L06_CHECK L07A parent policy changes slots preserving native children: true
+L06_CHECK L07A constrained parent never shrinks explicit children: true
+L06_CHECK L07 exact owner root100% remaining-space footer (640, 480): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (640, 480): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+WARNING: Estragon height=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:274)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [2] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+WARNING: Estragon explicit main-axis dimension overrides grow; use auto height/width on a remaining-space Spacer
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:262)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [2] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [3] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (1000, 800): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (1000, 800): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (320, 240): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (320, 240): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 exact owner root100% remaining-space footer (640, 480): true
+L06_CHECK L07 resize preserves source specs/identity without recomposition: true
+L06_CHECK L07 real native Exit signal at (640, 480): true
+L06_CHECK L07 root% and explicit viewport units are geometrically identical: true
+L06_CHECK L07 full inner100% consumes entire content and siblings overflow without shrink: true
+L06_CHECK L07 half viewport root height is240, not zero or remaining space: true
+L06_CHECK L07 root150% intentionally overflows visible viewport: true
+L06_CHECK L07 zero idle parse/measure/arrange/recomposition: true
+L06_CHECK L07 nested intrinsic change reflows remaining space without parent rerender: true
+L06_CHECK L07 valid root% resize never reparses or warns unanchored: true
+L06_CHECK L07 fractional root dimensions/insets/additive axes share viewport containing rectangle: true
+L06_CHECK L07 root margin/gap use viewport but margin has no allocating parent: true
+L06_CHECK L07 ordinary child percentages use actual immediate padded content, never viewport fallback: true
+L06_CHECK L07 root gap percentage follows its selected stack axis: true
+L06_CHECK L07 percentage offset applies viewport resize delta once: true
+L06_CHECK L07 nested independent Entry ignores enclosing content and plain boundary: true
+L06_CHECK L07 Entry percent uses its containing SubViewport: true
+L06_CHECK L07 SubViewport size_changed updates root percentages: true
+L06_CHECK L07 detached Entry reconnects and resolves the current viewport: true
+L06_CHECK L07 native project stretch uses visible logical viewport, not OS window size: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _warn_unanchored (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:80)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:226)
+         [2] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [3] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:292)
+         [4] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK L07 ordinary cyclic/auto percentage retains zero plus warning: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _warn_unanchored (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:80)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:226)
+         [2] references (res://tests/lengths/root_reference.gd:174)
+         [3] frames (res://tests/lengths/runtime.gd:22)
+L06_CHECK L07 pure unanchored/proof context gains no global viewport fallback: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _warn_unanchored (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:80)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:226)
+         [2] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK L07 actual proof coordinator has no implicit Entry viewport reference: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _warn_unanchored (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:80)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:226)
+         [2] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:169)
+L06_CHECK L07 bounded3D percent contract remains unchanged without inferred viewport plane: true
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 195 failed=false
+L06_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L07_ROOT_EXIT_OK
+Done in 65.95s.
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:9238) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.58s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L04_BUILD {"changed":["app/generated/Borrow.gd","app/generated/Borrow.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Multi.gd","app/generated/Multi.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/NativeRoot.gd","app/generated/NativeRoot.gd.map.json","app/generated/Relay.gd","app/generated/Relay.gd.map.json","app/generated/Spatial.gd","app/generated/Spatial.gd.map.json","app/generated/Widgets.gd","app/generated/Widgets.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Borrow.gd","app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Multi.gd","app/generated/Home.gd","app/generated/NativeRoot.gd","app/generated/Relay.gd","app/generated/Spatial.gd","app/generated/Widgets.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L04_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37.0, 31.0)","position":"(0.0, 301.0)","size":"(37.0, 31.0)"},"fun":{"position":"(0.0, 273.0)","size":"(104.0, 28.0)"},"hello":{"position":"(0.0, 245.0)","size":"(119.0, 28.0)"},"rose":{"position":"(0.0, 332.0)","size":"(120.0, 28.0)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_CHECK native text minimum change reflows nested host and subsequent sibling: true
+L04_CHECK native content signals do not reexecute Gogo functions: true
+L04_CHECK native minimum invalidation keeps the unchanged sibling measurement cached: true
+L04_CHECK native explicit minimum contributes to the parent slot: true
+L04_CHECK native theme font changes remeasure without overlap: true
+L04_CHECK native font/size overrides preserve Godot font authority: true
+L04_CHECK hidden native Control contributes no footprint: true
+L04_CHECK visibility restores allocation through native events: true
+L04_CHECK idle native Control screen performs zero minimum reads/measure/arrange/flush: true
+L04_CHECK UiButton remains the independent working Estragon widget; native bridge is removed: true
+L04_CHECK native Button choice returns without remapping: true
+L04_CHECK keyed nested native host reorder retains identity and sequential slots: true
+L04_CHECK nested native branch removal disconnects its bridges: true
+L04_CHECK viewport resize and native branch reinsertion preserve bottom-aligned geometry: true
+L04_CHECK native scene free releases all Control/layout/computation records: true
+L04_CHECK two native Buttons and framework Text occupy nonoverlapping VBox slots: true
+L04_CHECK Label/LineEdit/TextureRect use their native minimum contracts: true
+L04_CHECK Container outer participant stays opaque while Godot sorts its native children: true
+L04_CHECK native texture intrinsic change reflows following Container: true
+L04_CHECK native Container retains internal flag/sorting authority in its assigned rect: true
+L04_CHECK one native GUI click emits one Button pressed event: true
+L04_CHECK native disabled Button suppresses GUI activation: true
+L04_CHECK native focused keyboard activation remains functional: true
+L04_NATIVE_FOCUS_DEFAULT A:<Button#55968794202>
+L04_CHECK native Tab navigation follows authored native Control focus links: true
+L04_CHECK native LineEdit receives actual GUI text input: true
+L04_CHECK explicit EXPAND_FILL maps to cross-axis Box fill; default FILL remains natural: true
+L04_CHECK hidden native child consumes no VBox gap: true
+L04_CHECK under-constrained grow retains native minimum sizes and sequential slots: true
+L04_CHECK batched native minimum changes coalesce into one cached measurement: true
+L04_CHECK Gogo returning a native Control root forwards its minimum slot: true
+L04_CHECK hidden native root clears the Gogo proxy minimum: true
+L04_CHECK native root visibility restores its proxy slot: true
+L04_CHECK empty native minimum stays zero without reading manual allocated size: true
+L04_CHECK native Controls and opaque Container internals clean up without retained bridges: true
+L04_CHECK Scene-dock-equivalent persistent Control borrows a native rect in the chosen slot: true
+L04_CHECK borrowed plain Sprite remains free-positioned without inferred size: true
+L04_CHECK borrowed native Control keeps its authored GUI signal connection: true
+L04_CHECK external rect edits are restored by the participating Box without feedback: true
+L04_CHECK later projections filter managed output and reuse Control identity/cache: true
+L04_CHECK conditional release restores borrowed rect and disconnects bridge without freeing user Control: true
+L04_CHECK conditional restoration reuses the authored instance: true
+L04_CHECK projection release never disconnects application signals: true
+L04_CHECK PackedScene persists authored host/Button/Sprite only: true
+L04_CHECK borrowed Control native free releases all subscriptions/registrations: true
+L04_CHECK save/reload remounts one layout with native Control ownership intact: true
+L04_CHECK reloaded native scene releases external bookkeeping: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: nonzero anchors compete with Box allocation
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+         [1] start (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:36)
+         [2] start (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:71)
+         [3] participant (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:49)
+         [4] _sync (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:123)
+         [5] _child_entered (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:105)
+         [6] boundaries (res://tests/native_controls/runtime.gd:293)
+         [7] run (res://tests/native_controls/runtime.gd:138)
+         [8] borrowing (res://tests/native_controls/runtime.gd:282)
+         [9] frames (res://tests/native_controls/runtime.gd:11)
+L04_CHECK conflicting anchors are diagnosed and retain native positioning: true
+L04_CHECK repairing native configuration restores participation without polling: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: top_level Control uses independent native coordinates
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+L04_CHECK top_level Control stays outside Box coordinate authority: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: local rotation/scale/pivot requires explicit positioning
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+L04_CHECK unsupported local transform retains native state without a competing allocation: true
+L04_CHECK shared transformed native ancestors preserve the common local coordinate basis: true
+L04_CHECK native Control reparent reacquires exactly one bridge: true
+L04_CHECK native minimum floor redistributes grow space without unnecessary overflow: true
+L04_CHECK 3D layout never adopts native Control pixels into world units: true
+L04_CHECK unsupported/cross-dimensional native boundaries leave no bridge records: true
+L04_ASSERTIONS 57 failures=0
+L04_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37.0, 31.0)","position":"(0.0, 301.0)","size":"(37.0, 31.0)"},"fun":{"position":"(0.0, 273.0)","size":"(104.0, 28.0)"},"hello":{"position":"(0.0, 245.0)","size":"(119.0, 28.0)"},"rose":{"position":"(0.0, 332.0)","size":"(120.0, 28.0)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_EXIT_QUIT
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L04_BUILD {"changed":["examples/nested_layout/generated/Settings.gd","examples/nested_layout/generated/Settings.gd.map.json","examples/nested_layout/generated/Rose.gd","examples/nested_layout/generated/Rose.gd.map.json","examples/nested_layout/generated/Home.gd","examples/nested_layout/generated/Home.gd.map.json","examples/nested_layout/generated/NativeSettings.gd","examples/nested_layout/generated/NativeSettings.gd.map.json","examples/nested_layout/generated/NativeGallery.gd","examples/nested_layout/generated/NativeGallery.gd.map.json","examples/nested_layout/generated/NativeHome.gd","examples/nested_layout/generated/NativeHome.gd.map.json","examples/nested_layout/generated/SceneHome.gd","examples/nested_layout/generated/SceneHome.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["examples/nested_layout/generated/Settings.gd","examples/nested_layout/generated/Rose.gd","examples/nested_layout/generated/Home.gd","examples/nested_layout/generated/NativeSettings.gd","examples/nested_layout/generated/NativeGallery.gd","examples/nested_layout/generated/NativeHome.gd","examples/nested_layout/generated/SceneHome.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L04_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_CHECK runnable owner native example has separated Exit/Rose: true
+L04_CHECK runnable gallery borrows its persistent native Control: true
+L04_CHECK runnable examples release all bookkeeping: true
+L04_EXAMPLES_OK
+Done in 19.41s.
+yarn node v1.22.22
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+ROUTINE_SMOKE_OK
+Done in 1.47s.

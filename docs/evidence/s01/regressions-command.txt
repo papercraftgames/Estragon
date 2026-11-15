@@ -1,0 +1,6 @@
+set -eu
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-node-runtime.ts --runtime-only --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s01-native-final
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-box-model.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s01-box-final
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-lengths.ts --engine 4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s01-lengths-final
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-controls.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s01-controls-final
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-routine-smoke.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s01-routine-final

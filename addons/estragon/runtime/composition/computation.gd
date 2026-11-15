@@ -1,5 +1,6 @@
 extends RefCounted
 const StackContract = preload("../node/internal/stack_contract.gd")
+const VisualStyle = preload("../node/internal/visual_style_2d.gd")
 const Length = preload("../node/internal/length.gd")
 const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
@@ -323,6 +324,14 @@ func _apply(desired: Element, record: Mounted) -> void:
 		binding.attach(node,self)
 	var stack := StackContract.registered(desired.type)
 	if stack: node._apply_stack_policy(desired.properties)
+	# An omitted previously declared border side removes that local override;
+	# do not turn omission into permanent native state or change other props.
+	if VisualStyle.supported(desired.type):
+		for key in record.properties:
+			if key in Length.BORDER_EDGES and not desired.properties.has(key):
+				node.set(key,"auto")
+				writes += 1
+				if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
@@ -476,9 +485,17 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
+		if VisualStyle.property(str(key)) and VisualStyle.has_api(desired.type) and not VisualStyle.supported(desired.type):
+			validation_error = desired.source+": shared widget styling is deferred to S02; previous tree retained"
+			return false
 		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
 			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
 			return false
+		if VisualStyle.registered(desired.type,key):
+			var parsed := VisualStyle.parse_color(value)
+			if parsed.has("error"):
+				validation_error = desired.source+": invalid style '"+str(key)+"': "+parsed.error+"; previous tree retained"
+				return false
 		if Length.registered(desired.type,key):
 			var parsed := Length.parse(value,Length.domain(key))
 			if parsed.has("error"):

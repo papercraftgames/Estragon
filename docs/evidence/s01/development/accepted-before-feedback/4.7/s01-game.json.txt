@@ -1,0 +1,1 @@
+{"native":2,"samples":[{"color":true,"content":565.0,"half":282.5,"panel":"(608.0, 448.0)","root":true,"viewport":"(640, 480)"},{"color":true,"content":925.0,"half":462.5,"panel":"(968.0, 768.0)","root":true,"viewport":"(1000, 800)"}],"ui":2}

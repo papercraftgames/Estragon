@@ -6,6 +6,7 @@ const Model = preload("model.gd")
 const Source = preload("source.gd")
 const Resolver = preload("native/resolver.gd")
 const StackContract = preload("../runtime/node/internal/stack_contract.gd")
+const VisualStyle = preload("../runtime/node/internal/visual_style_2d.gd")
 const Length = preload("../runtime/node/internal/length.gd")
 const Lexer = preload("lexer.gd")
 var file: Source
@@ -50,6 +51,9 @@ func _component(node: Model.Component) -> void:
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
+		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
+			_error("Shared visual styling on Text/Rect/Button is deferred to S02; use the existing local widget properties",attribute.name_span)
+			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
@@ -81,7 +85,7 @@ func _component(node: Model.Component) -> void:
 					return
 				index = token.span.end.index
 		elif properties.has(name) and name not in ["owner", "script"] and not name.contains("/") and not (int(properties[name].usage) & PROPERTY_USAGE_READ_ONLY):
-			attribute.type_name = "Variant" if Length.registered(resolved.script,name) else _native_type(properties[name])
+			attribute.type_name = "Variant" if Length.registered(resolved.script,name) or VisualStyle.registered(resolved.script,name) else _native_type(properties[name])
 			if attribute.type_name.is_empty():
 				_error("Unsupported Node property metadata: " + name, attribute.name_span)
 				return
@@ -93,12 +97,16 @@ func _component(node: Model.Component) -> void:
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
+		var is_color := VisualStyle.registered(resolved.script,name)
+		if is_color:
+			_color(attribute)
+			if not file.diagnostics.is_empty(): return
 		var is_length := Length.registered(resolved.script,name)
 		if is_length:
 			_length(attribute,Length.domain(name))
 			if not file.diagnostics.is_empty(): return
 		if attribute.value is Model.Literal:
-			if is_length:
+			if is_length or is_color:
 				attribute.value.kind = "string-literal"
 				continue
 			if attribute.type_name not in ["String", "StringName"]:
@@ -315,3 +323,16 @@ func _length(attribute, domain: String) -> void:
 	elif text.is_valid_float():
 		var parsed := Length.parse(float(text),domain)
 		if parsed.has("error"): _error(parsed.error,value.span)
+
+func _color(attribute) -> void:
+	var value = attribute.value
+	if value is Model.Literal:
+		var parsed := VisualStyle.parse_color(value.value)
+		if parsed.has("error"): _error(parsed.error,value.span)
+		return
+	var tokens := _expression_tokens(value)
+	if tokens.size()==1 and tokens[0].kind=="string":
+		var parsed := VisualStyle.parse_color(tokens[0].text.substr(1,tokens[0].text.length()-2).c_unescape())
+		if parsed.has("error"): _error(parsed.error,value.span)
+	elif tokens.size()==1 and (tokens[0].kind=="number" or tokens[0].text in ["true","false","null","NAN","INF"]):
+		_error("Style color requires a native Color or validated hex/transparent string",value.span)

@@ -1,6 +1,7 @@
 @tool
 class_name EstragonRect
 extends "component_2d.gd"
+const ESTRAGON_LEGACY_PAINT := true
 ## Native rectangle drawing. Width/height are inherited layout inputs.
 @export var fill := Color.WHITE:
 	set(value):

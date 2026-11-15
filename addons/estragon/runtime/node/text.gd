@@ -1,6 +1,7 @@
 @tool
 class_name EstragonText
 extends "component_2d.gd"
+const ESTRAGON_LEGACY_PAINT := true
 ## Native Font measure/draw, explicit lines only. No wrapping or rich text.
 @export var text: String = "":
 	set(value):

@@ -169,3 +169,7 @@ produce a replacement diagnostic. Old L02/L05 fixtures/runners are replaced by
 L01 Box arithmetic and native Control interoperability remain in the same core.
 
 [Exact two-engine proof, rendered geometry and native Inspector limitation](evidence/L06_UNIT_LENGTHS.md). The inherited-relative-class native4.7 icon diagnostic remains separate; it is not claimed fixed.
+
+## S01 border insets
+
+Eligible 2D participants use the same grammar/context for `border_width` and `border_top_width/right/bottom/left`. Uniform width rejects auto; sides default to auto and restore the local shorthand, independent of assignment order. Left/right percentages use containing width; top/bottom use height. Border plus padding lies inside explicit dimensions and is subtracted once for child content (300 minus borders2/4 and padding10/20 gives264 at X12). Margins stay outside. No new 3D border API. See [styling](STYLING.md).
