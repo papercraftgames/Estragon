@@ -40,8 +40,8 @@ func views():
 	return [rose,settings] if self.reverse else [settings,rose]
 func build_view() -> Element:
 	return <Entry2D name="UI" width={self.extent.x} height={self.extent.y}>
-		<VBox name="Column" flex={1} stretch={1}>
-			<VBox name="Spacer" flex={1} />
+		<VBox name="Column" grow={1} stretch={1}>
+			<VBox name="Spacer" grow={1} />
 			<Text name="Hello" text={"Hello World!" if self.tick==0 else "Hello World! "+str(self.tick)} />
 			<Text name="Fun" text="This is fun!" />
 			{self.views()}
@@ -61,7 +61,7 @@ func exit() -> void:
 	print("L03_EXIT_QUIT")
 	get_tree().quit()
 func leaf():
-	return <UiButton name="Exit" pressed={self.exit} text={self.caption} flex={1 if self.wide else 0} stretch={1 if self.wide else 0} /> if self.visible_button else null
+	return <UiButton name="Exit" pressed={self.exit} text={self.caption} grow={1 if self.wide else 0} stretch={1 if self.wide else 0} /> if self.visible_button else null
 func build_view() -> Element:
 	if self.independent: return <Entry2D name="Independent" width={180.0} height={60.0} position={Vector2(250,40)}><Text name="IndependentText" text="Independent" /></Entry2D>
 	if self.direct: return <Text name="Direct" text={self.caption} />
@@ -74,7 +74,7 @@ var clicks: int = 0
 func pressed() -> void:
 	clicks += 1
 func leaf():
-	if self.button: return <UiButton name="RoseButton" pressed={self.pressed} text="Rose is cute!" flex={1 if self.wide else 0} />
+	if self.button: return <UiButton name="RoseButton" pressed={self.pressed} text="Rose is cute!" grow={1 if self.wide else 0} />
 	return <Text name="RoseText" text="Rose is cute!" />
 func build_view() -> Element:
 	return <HBox name="Row" stretch={1 if self.wide else 0}>{self.leaf()}</HBox>

@@ -1,0 +1,88 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:220) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.51s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_BUILD {"changed":["app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/FlexPanel.gd","app/generated/FlexPanel.gd.map.json","app/generated/FlexWrapper.gd","app/generated/FlexWrapper.gd.map.json","app/generated/DeepFlex.gd","app/generated/DeepFlex.gd.map.json","app/generated/FlexHome.gd","app/generated/FlexHome.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Footer.gd","app/generated/Footer.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Counter.gd","app/generated/FlexPanel.gd","app/generated/FlexWrapper.gd","app/generated/DeepFlex.gd","app/generated/FlexHome.gd","app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Footer.gd","app/generated/Home.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L06_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:12)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:12)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:12)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:12)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:50)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:12)
+       [2] _initialize (res://tests/lengths/rejections.gd:8)
+L06_EXPECTED_REJECTION_END
+L06_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "occupied" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://tests/lengths/foundation.gd:37)
+file:///repo/tools/check-lengths.ts:42
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+                                                ^
+
+Error: L06 runtime failed
+    at run (file:///repo/tools/check-lengths.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:69:13
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-lengths.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/l07-dev2
+Directory: /tmp
+Output:

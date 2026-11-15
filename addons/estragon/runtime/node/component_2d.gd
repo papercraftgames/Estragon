@@ -57,10 +57,10 @@ var margin_left: Variant = "auto":
 		if is_same(margin_left,value) or not lengths.assign("margin_left",value): return
 		margin_left = value
 		_changed()
-@export var flex: float = 0.0:
+@export var grow: float = 0.0:
 	set(value):
-		if not is_finite(value) or value<0 or value==flex: return
-		flex = value
+		if not is_finite(value) or value<0 or value==grow: return
+		grow = value
 		_changed()
 @export_enum("Natural", "Stretch") var stretch: int = 0:
 	set(value):

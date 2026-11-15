@@ -37,7 +37,7 @@ func on_changed(value: bool) -> void:
 	received = value
 func build_view() -> Element:
 	return <Entry2D name="UI">
-		<VBox name="Column" flex={1} stretch={1}>
+		<VBox name="Column" grow={1} stretch={1}>
 			<Text name="Greeting" text={"Hello World! " + str(self.tick)} />
 			<Settings name="SettingsChild" title={"Settings child"} payload={null} changed={self.on_changed} />
 			<Boundary name="BoundaryChild" />

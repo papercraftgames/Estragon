@@ -1,0 +1,20 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L07_EDITOR_GAME {"clicks":2,"samples":[{"actual_viewport":480.0,"bottom":480.0,"spacer":293.0,"viewport":480},{"actual_viewport":800.0,"bottom":800.0,"spacer":613.0,"viewport":800}]}
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: true
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+L06_EDITOR_ASSERTIONS 7 failed=false
+L06_EDITOR_OK

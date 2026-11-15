@@ -20,8 +20,8 @@ func build_view() -> Element:
             <Text name="Title" text="Estragon native Gogo Counter" font_size={28} color={Color(0.74,0.64,0.94)} />
             <Text name="Count" text={"Count: %d" % self.count} font_size={26} />
             <HBox name="Actions" width="100%" gap={12.0}>
-                <UiButton name="Increment" text="+" flex={1} pressed={increment} />
-                <UiButton name="Reset" text="Reset" flex={1} disabled={self.count == 0} pressed={reset_count} />
+                <UiButton name="Increment" text="+" grow={1} pressed={increment} />
+                <UiButton name="Reset" text="Reset" grow={1} disabled={self.count == 0} pressed={reset_count} />
             </HBox>
             <VBox name="Details" width="100%" gap={6.0}>
                 <Text name="Hint" text="Click + to update retained Nodes." font_size={18} />

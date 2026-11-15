@@ -1,4 +1,5 @@
 extends RefCounted
+const StackContract = preload("../node/internal/stack_contract.gd")
 const Length = preload("../node/internal/length.gd")
 const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
@@ -320,9 +321,11 @@ func _apply(desired: Element, record: Mounted) -> void:
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 		binding.attach(node,self)
+	var stack := StackContract.registered(desired.type)
+	if stack: node._apply_stack_policy(desired.properties)
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
-			node.set(key,desired.properties[key])
+			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 	for event in record.handlers:
@@ -459,9 +462,23 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		contracts[desired.type] = {"properties":properties,"signals":signals}
 	var properties: Dictionary = contracts[desired.type].properties
 	var signals: Dictionary = contracts[desired.type].signals
+	if StackContract.registered(desired.type):
+		var policy: Dictionary = previous.properties.duplicate() if previous!=null and _compatible(desired,previous) else {}
+		policy.merge(desired.properties,true)
+		var fixed := StackContract.preset(desired.type)
+		var direction = policy.get("direction",fixed if not fixed.is_empty() else "row")
+		for key in ["direction","horizontal_align","vertical_align"]:
+			var value = policy.get(key,direction if key=="direction" else "start")
+			var message := StackContract.error(key,value,str(direction),fixed)
+			if not message.is_empty():
+				validation_error = desired.source+": "+message+"; previous tree retained"
+				return false
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
+		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
+			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
+			return false
 		if Length.registered(desired.type,key):
 			var parsed := Length.parse(value,Length.domain(key))
 			if parsed.has("error"):

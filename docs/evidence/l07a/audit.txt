@@ -1,0 +1,6 @@
+L07_UID_MAP_AUDIT PASS 192 unique paired scripts; 5 migrated source maps authenticated
+L07_EVIDENCE_VERIFIED four complete final groups PASS; matched clean tar/63UIDs
+
+UID audit: every git-tracked non-evidence .gd has a nonempty, unique uid://[a-z0-9]+ .gd.uid sidecar.
+Map audit: each migrated .gd.map.json sourceContent equals its sourceName file; generatedHash equals SHA-256 of its paired generated .gd.
+Final-group audit: every stage is PASS; provenance is clean, direct_yarn and package_unchanged are true; manifests have the matching c6964e957e1741791d142a26885ca538a880042bc3fbf4de37e5f7cb660e068c tar and63 canonical addon UIDs.

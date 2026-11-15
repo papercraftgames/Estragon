@@ -71,11 +71,11 @@ reparenting native Nodes. Plain native boundaries and independent Entries remain
 boundaries; generic actors have no inferred size. Native Controls retain their
 minimum/size-flag/Container/GUI contracts and do not acquire this unit API.
 
-A fixed/unit dimension is an independent reference. A flex-assigned natural axis
+A fixed/unit dimension is an independent reference. A grow-assigned natural axis
 can reference its allocated content. An auto axis that would derive its own size
 from percentage descendants is unanchored/cyclic: that reference resolves to zero
 and reports a warning, with no iterative solver. Give the containing axis an
-independent dimension or flex allocation. Missing/root percent references follow
+independent dimension or grow allocation. Missing/root percent references follow
 the same deterministic zero rule. A native Control's contents remain Godot-owned.
 
 `x/y/z` are additive offsets from the flow slot. They do not consume extra flow
@@ -90,16 +90,17 @@ is introduced; #88 retains broader transform/position work.
 
 ## Remaining space
 
-`flex={1}` is dimensionless main-axis growth with zero basis, matching a spacer.
-Positive weights share nonnegative remaining space after fixed/natural/% siblings,
-gaps and margins. Native minimum floors reserve constrained shares first. Explicit
+`grow={1}` is a dimensionless main-axis growth weight. Auto children retain their
+preferred natural sizes, then positive weights share extra nonnegative space after
+all preferred sizes, gaps and margins. A Spacer has zero natural size. Native
+EXPAND_FILL adapters preserve minimum-constrained zero-basis sharing. Explicit
 dimensions (including%) override growth on that axis. `stretch={1}` stretches only
 auto cross axes; default0 retains natural sizing. It is one enum, not axis booleans.
 
 ```gogo
 <Entry2D width="100vw" height="100vh">
     <VBox width="100%" height="100%">
-        <VBox flex={1} stretch={1} />
+        <Spacer grow={1} />
         <Text text="Hello World!" />
         <Text text="This is fun!" />
         <Settings />
@@ -130,12 +131,21 @@ coalesce deferred work. Resizing does not recompose Gogo functions or rewrite
 properties. Idle frames perform no parse, resolve, measure, arrange or scans.
 No helper Node, geometry observation binder, polling or second solver is involved.
 
-## Migration
+## L07A migration
+
+`grow` replaces the experimental `flex` property with no alias. Update native
+Scripts, GGX and stored scenes. This is a beta API break. Positive growth on an
+auto natural widget adds space to its preferred size; it never implicitly shrinks
+it. Use the zero-natural `Spacer` for pure remaining space.
+
+[Parent policy, slot and future track contract](LAYOUT_FOUNDATION.md).
+
+## Earlier L06 migration
 
 The following names are deliberately removed, with no compatibility aliases:
 `Pixels.parent_width/parent_height`, `EstragonPixels`, `fill_width/fill_height`,
 `viewport_width_scale/viewport_height_scale`. Use unit dimensions (`"50%"`,
-`"100vw"`, `"100vh"`) and `flex`/`stretch` as appropriate. Removed GGX attributes
+`"100vw"`, `"100vh"`) and `grow`/`stretch` as appropriate. Removed GGX attributes
 produce a replacement diagnostic. Old L02/L05 fixtures/runners are replaced by
 `tools/check-lengths.ts`; their committed evidence remains historical. Original
 L01 Box arithmetic and native Control interoperability remain in the same core.

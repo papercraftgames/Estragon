@@ -1,0 +1,238 @@
+yarn node v1.22.22
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+B2_CORE_ASSERTIONS 18
+GGX_B2_CORE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+C1_COUNTERS 2 before=[8, 8, 8, 6, 0] after=[9, 9, 9, 7, 3]
+C1_COUNTERS 3 before=[8, 8, 8, 6, 1] after=[9, 9, 9, 7, 4]
+GGX_C1_RUNTIME_OK
+C1 assertions=149 failures=0
+GGX_C1_PASS 4.7.stable.official.5b4e0cb0f
+Done in 6.75s.
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:2586) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.58s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L01_BUILD {"changed":["app/generated/BoxModel.gd","app/generated/BoxModel.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/BoxModel.gd","app/generated/Counter.gd","app/generated/Settings.gd","app/generated/Home.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L01_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK valid core configuration: true
+L01_CHECK border box excludes margins; asymmetric content origin: true
+L01_CHECK padding margins gaps reserved once before both-axis fill: true
+L01_CHECK auto aggregates outer child extents plus padding: true
+L01_CHECK too-small content clamps zero; fixed children sequentially overflow: true
+L01_CHECK center aligns the complete outer row inside content: true
+L01_CHECK core rejects invalid insets: true
+L01_CHECK core rejects nonfinite insets: true
+L01_CHECK native typed inherited pixel attributes width="100" height="auto" padding={2.5} margin_left={0}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding_left={3} padding={8} width={100}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK native typed inherited pixel attributes padding={8} padding_left={3}: true
+L01_CHECK deterministic pixel emission: true
+L01_CHECK generated pixel native semantics: true
+L01_CHECK authored pixel diagnostics width="100oops": true
+L01_CHECK authored pixel diagnostics height="1em": true
+L01_CHECK authored pixel diagnostics padding="12wat": true
+L01_CHECK authored pixel diagnostics margin={-2}: true
+L01_CHECK authored pixel diagnostics padding_top={-1}: true
+L01_CHECK authored pixel diagnostics padding={NAN}: true
+L01_CHECK authored pixel diagnostics margin={INF}: true
+L01_CHECK authored pixel diagnostics paddding={4}: true
+L01_CHECK dynamic inset domain rejects -2.0: true
+L01_CHECK dynamic inset domain rejects nan: true
+L01_CHECK dynamic inset domain rejects inf: true
+L01_CHECK dynamic inset domain rejects 12oops: true
+L01_CHECK dynamic inset domain rejects true: true
+L01_CHECK shared real native Box hierarchy: true
+L01_CHECK Entry padding uses same core; fill bounds exclude parent padding: true
+L01_CHECK shorthand + leading override independent from attribute order: true
+L01_CHECK nested Gogo forwards margin once with root at local zero: true
+L01_CHECK nested row padding and gap use native child transforms: true
+L01_CHECK rendered pixels match nested padding/margin transforms: true
+L01_CHECK margin pixels are outside button hit bounds: true
+L01_CHECK arranged button pixels receive native pointer once: true
+L01_CHECK dynamic invalid inset rejects complete description before writes -2.0: true
+L01_CHECK dynamic invalid inset rejects complete description before writes nan: true
+L01_CHECK dynamic invalid inset rejects complete description before writes inf: true
+L01_CHECK dynamic invalid inset rejects complete description before writes 12oops: true
+L01_CHECK dynamic invalid inset rejects complete description before writes true: true
+L01_CHECK bindable padding recomposes in place with native identity: true
+L01_CHECK clean nested siblings remain measured once: true
+L01_CHECK root margin signal updates forwarded host exactly once: true
+L01_CHECK resized root allocates the content rectangle: true
+L01_CHECK shared validation rejects invalid native insets: true
+L01_CHECK equal and invalid setters leave layout quiet: true
+L01_CHECK invalid native setter retains last valid value: true
+L01_CHECK inset burst coalesces one flush and preserves explicit edges: true
+L01_CHECK native unset edge restores shorthand deterministically: true
+L01_CHECK scene packing preserves explicit zero edge precedence: true
+L01_CHECK native detach/reentry keeps nested margin ownership: true
+L01_CHECK zero-inset HBox/VBox dimensions retain pre-refactor geometry: true
+L01_CHECK zero-inset native sibling placement remains equivalent: true
+L01_CHECK padded Box reserves sibling margins before native Container grow allocation: true
+L01_CHECK ordinary native Container retains interior layout authority: true
+L01_CHECK native minimum floors overflow a small content box without double-counted margins: true
+L01_CHECK current Counter remains retained and reactive with native pointer input: true
+L01_CHECK runnable Box model example changes padding with retained native input: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding="12oops": true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding={-2}: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding={NAN}: true
+L01_CHECK invalid authored inset preserves actual-path Script/maps padding="auto": true
+L01_CHECK repair recovers native pixel compilation: true
+L01_ASSERTIONS 68 failed=false
+L01_RUNTIME_OK
+Done in 13.55s.
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:2962) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.53s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L04_BUILD {"changed":["app/generated/Borrow.gd","app/generated/Borrow.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Multi.gd","app/generated/Multi.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/NativeRoot.gd","app/generated/NativeRoot.gd.map.json","app/generated/Relay.gd","app/generated/Relay.gd.map.json","app/generated/Spatial.gd","app/generated/Spatial.gd.map.json","app/generated/Widgets.gd","app/generated/Widgets.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Borrow.gd","app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Multi.gd","app/generated/Home.gd","app/generated/NativeRoot.gd","app/generated/Relay.gd","app/generated/Spatial.gd","app/generated/Widgets.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L04_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L04_GEOMETRY {"button":{"minimum":"(37.0, 31.0)","position":"(0.0, 301.0)","size":"(37.0, 31.0)"},"fun":{"position":"(0.0, 273.0)","size":"(104.0, 28.0)"},"hello":{"position":"(0.0, 245.0)","size":"(119.0, 28.0)"},"rose":{"position":"(0.0, 332.0)","size":"(120.0, 28.0)"}}
+L04_CHECK native Button and Rose occupy distinct sequential parent slots: true
+L04_CHECK Button retains native class, GUI and no injected script/metadata: true
+L04_CHECK native text minimum change reflows nested host and subsequent sibling: true
+L04_CHECK native content signals do not reexecute Gogo functions: true
+L04_CHECK native minimum invalidation keeps the unchanged sibling measurement cached: true
+L04_CHECK native explicit minimum contributes to the parent slot: true
+L04_CHECK native theme font changes remeasure without overlap: true
+L04_CHECK native font/size overrides preserve Godot font authority: true
+L04_CHECK hidden native Control contributes no footprint: true
+L04_CHECK visibility restores allocation through native events: true
+L04_CHECK idle native Control screen performs zero minimum reads/measure/arrange/flush: true
+L04_CHECK UiButton remains the independent working Estragon widget; native bridge is removed: true
+L04_CHECK native Button choice returns without remapping: true
+L04_CHECK keyed nested native host reorder retains identity and sequential slots: true
+L04_CHECK nested native branch removal disconnects its bridges: true
+L04_CHECK viewport resize and native branch reinsertion preserve bottom-aligned geometry: true
+L04_CHECK native scene free releases all Control/layout/computation records: true
+L04_CHECK two native Buttons and framework Text occupy nonoverlapping VBox slots: true
+L04_CHECK Label/LineEdit/TextureRect use their native minimum contracts: true
+L04_CHECK Container outer participant stays opaque while Godot sorts its native children: true
+L04_CHECK native texture intrinsic change reflows following Container: true
+L04_CHECK native Container retains internal flag/sorting authority in its assigned rect: true
+L04_CHECK one native GUI click emits one Button pressed event: true
+L04_CHECK native disabled Button suppresses GUI activation: true
+L04_CHECK native focused keyboard activation remains functional: true
+L04_NATIVE_FOCUS_DEFAULT A:<Button#55029270161>
+L04_CHECK native Tab navigation follows authored native Control focus links: true
+L04_CHECK native LineEdit receives actual GUI text input: true
+L04_CHECK explicit EXPAND_FILL maps to cross-axis Box fill; default FILL remains natural: true
+L04_CHECK hidden native child consumes no VBox gap: true
+L04_CHECK under-constrained grow retains native minimum sizes and sequential slots: true
+L04_CHECK batched native minimum changes coalesce into one cached measurement: true
+L04_CHECK Gogo returning a native Control root forwards its minimum slot: true
+L04_CHECK hidden native root clears the Gogo proxy minimum: true
+L04_CHECK native root visibility restores its proxy slot: true
+L04_CHECK empty native minimum stays zero without reading manual allocated size: true
+L04_CHECK native Controls and opaque Container internals clean up without retained bridges: true
+L04_CHECK Scene-dock-equivalent persistent Control borrows a native rect in the chosen slot: true
+L04_CHECK borrowed plain Sprite remains free-positioned without inferred size: true
+L04_CHECK borrowed native Control keeps its authored GUI signal connection: true
+L04_CHECK external rect edits are restored by the participating Box without feedback: true
+L04_CHECK later projections filter managed output and reuse Control identity/cache: true
+L04_CHECK conditional release restores borrowed rect and disconnects bridge without freeing user Control: true
+L04_CHECK conditional restoration reuses the authored instance: true
+L04_CHECK projection release never disconnects application signals: true
+L04_CHECK PackedScene persists authored host/Button/Sprite only: true
+L04_CHECK borrowed Control native free releases all subscriptions/registrations: true
+L04_CHECK save/reload remounts one layout with native Control ownership intact: true
+L04_CHECK reloaded native scene releases external bookkeeping: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: nonzero anchors compete with Box allocation
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+         [1] start (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:36)
+         [2] start (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:71)
+         [3] participant (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:49)
+         [4] _sync (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:123)
+         [5] _child_entered (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:105)
+         [6] boundaries (res://tests/native_controls/runtime.gd:293)
+         [7] run (res://tests/native_controls/runtime.gd:138)
+         [8] borrowing (res://tests/native_controls/runtime.gd:282)
+         [9] frames (res://tests/native_controls/runtime.gd:11)
+L04_CHECK conflicting anchors are diagnosed and retain native positioning: true
+L04_CHECK repairing native configuration restores participation without polling: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: top_level Control uses independent native coordinates
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+L04_CHECK top_level Control stays outside Box coordinate authority: true
+WARNING: Estragon native Control layout skipped: /root/@Node2D@6/@Node2D@7/@Button@8: local rotation/scale/pivot requires explicit positioning
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] refresh (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/control_participant.gd:109)
+L04_CHECK unsupported local transform retains native state without a competing allocation: true
+L04_CHECK shared transformed native ancestors preserve the common local coordinate basis: true
+L04_CHECK native Control reparent reacquires exactly one bridge: true
+L04_CHECK native minimum floor redistributes grow space without unnecessary overflow: false
+L04_CHECK 3D layout never adopts native Control pixels into world units: true
+L04_CHECK unsupported/cross-dimensional native boundaries leave no bridge records: true
+L04_ASSERTIONS 57 failures=1
+file:///repo/tools/check-native-controls.ts:33
+            if (result.status !== 'PASS') throw Error('L04 ' + name + ' failed');
+                                                ^
+
+Error: L04 runtime failed
+    at run (file:///repo/tools/check-native-controls.ts:33:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-native-controls.ts:54:9
+
+Node.js v24.22.2
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-native-controls.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/l07-controls
+Directory: /tmp
+Output:
+
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.

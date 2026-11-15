@@ -51,10 +51,15 @@ func play(mode: String) -> void:
 	await settle()
 	var path := "res://.godot/l06-game.json"
 	if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
+	var footer_path := "res://.godot/l07-game.json"
+	if FileAccess.file_exists(footer_path): DirAccess.remove_absolute(footer_path)
 	if mode=="main": interface.play_main_scene()
 	else: interface.play_current_scene()
 	if await until(proof_ready,"actual padded game proof"):
 		check(proof.samples.size()==3 and proof.samples.all(func(item): return item.width==item.content_x*0.5 and item.height==item.content_y*0.75 and item.identity and item.spec=="50%") and proof.clicks==1,mode+" native game keeps50/75 percent parent sizing through three resizes with retained input")
+	if await until(func(): return FileAccess.file_exists(footer_path),"L07A "+mode+" footer game proof"):
+		var result = JSON.parse_string(FileAccess.get_file_as_string(footer_path))
+		check(result.clicks==2 and result.samples.size()==2 and result.samples.all(func(item): return absf(item.bottom-item.viewport)<0.01 and item.spacer>0),"L07A "+mode+" real editor Play bottom spacer and native click at two sizes")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"native game stops")
 func run() -> void:
@@ -80,6 +85,15 @@ func run() -> void:
 			check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with("width")),"real CodeEdit completes the union length width property")
 			code.cancel_code_completion()
 			check(code.text==original and plugin._build_sources(),"native completion preserves valid source and installed imports/maps")
+			for fragment in ["<VBox horizontal_a","<VBox gro","<Spa"]:
+				code.text = original+"\nfunc completion_probe():\n\treturn "+fragment
+				code.set_caret_line(code.get_line_count()-1)
+				code.set_caret_column(code.get_line(code.get_line_count()-1).length())
+				code.request_code_completion(true)
+				for frame in range(5): await get_tree().process_frame
+				var expected := "horizontal_align" if fragment.contains("horizontal") else ("grow" if fragment.contains("gro") else "Spacer")
+				check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with(expected)),"L07A native CodeEdit completes "+expected)
+				code.cancel_code_completion()
 			code.text = original.replace("Hello World!","Unsaved unit view")
 		await play("current")
 		check(FileAccess.get_file_as_string("res://app/Home.gogo").contains("Unsaved unit view"),"current Play saves unsaved Gogo buffer before compilation")

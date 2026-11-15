@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c2ybcsybylcs8"]
+
+[ext_resource type="Script" uid="uid://3odx82naiuqb" path="res://app/generated/Home.gd" id="1_t0xsr"]
+
+[node name="Home" type="Node2D" unique_id=1939769401]
+script = ExtResource("1_t0xsr")
+
+[node name="Borrowed" type="Button" parent="." unique_id=2011896780]
+text = "Native scene Button"

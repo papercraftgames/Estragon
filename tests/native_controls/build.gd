@@ -40,8 +40,8 @@ func views():
 	return [rose,settings] if self.reverse else [settings,rose]
 func build_view() -> Element:
 	return <Entry2D name="UI" width={self.extent.x} height={self.extent.y}>
-		<VBox name="Column" flex={1} stretch={1}>
-			<VBox name="Spacer" flex={1} />
+		<VBox name="Column" grow={1} stretch={1}>
+			<VBox name="Spacer" grow={1} />
 			<Text name="Hello" text={"Hello World!" if self.tick==0 else "Hello World! "+str(self.tick)} />
 			<Text name="Fun" text="This is fun!" />
 			{self.views()}

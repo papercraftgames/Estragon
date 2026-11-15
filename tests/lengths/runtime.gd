@@ -100,8 +100,8 @@ func run() -> void:
 	root.add_child(flex_home)
 	await frames()
 	var footer = flex_home.get_child(0).get_child(0).get_child(1)
-	check(footer.global_position.y+footer.layout_size.y==root.get_visible_rect().size.y,"flex bottom spacer remains distinct from100% height")
-	capture("flex-bottom")
+	check(footer.global_position.y+footer.layout_size.y==root.get_visible_rect().size.y,"grow bottom spacer remains distinct from100% height")
+	capture("grow-bottom")
 	flex_home.free()
 	home.free()
 	await frames()
@@ -109,6 +109,8 @@ func run() -> void:
 	await native_lengths()
 	await viewport_and_spatial()
 	await language()
+	var foundation := preload("foundation.gd").new()
+	await foundation.run(self)
 	check(State.get("records").is_empty(),"composition teardown releases all records")
 	print("L06_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_RUNTIME_OK")
@@ -121,10 +123,10 @@ func deep_flex() -> void:
 	var panel = scene.get_node("UI/Column/Wrapper/Panel/Root")
 	var half = panel.get_node("Half")
 	var identity: int = half.get_instance_id()
-	check(panel.layout_size==Vector2(600,400) and half.layout_size==Vector2(300,200),"multilevel Gogo hosts forward VBox flex allocation authority to percentage descendants")
+	check(panel.layout_size==Vector2(600,400) and half.layout_size==Vector2(300,200),"multilevel Gogo hosts forward VBox grow allocation authority to percentage descendants")
 	entry.height = 600
 	await frames()
-	check(panel.layout_size==Vector2(600,600) and half.layout_size==Vector2(300,300) and half.get_instance_id()==identity,"nested flex percentages resize without replacing nodes")
+	check(panel.layout_size==Vector2(600,600) and half.layout_size==Vector2(300,300) and half.get_instance_id()==identity,"nested grow percentages resize without replacing nodes")
 	scene.free()
 	await frames()
 func compiler_units() -> void:
@@ -157,10 +159,10 @@ func native_lengths() -> void:
 	first.margin = "1%"
 	first.pressed.connect(func(): clicks += 1)
 	var second := Rect.new()
-	second.flex = 2
+	second.grow = 2
 	second.stretch = 1
 	var third := Rect.new()
-	third.flex = 1
+	third.grow = 1
 	row.add_child(first)
 	row.add_child(second)
 	row.add_child(third)

@@ -1,0 +1,137 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:5626) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.57s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L06_BUILD {"changed":["app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Before.gd","app/generated/Before.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/FlexPanel.gd","app/generated/FlexPanel.gd.map.json","app/generated/FlexWrapper.gd","app/generated/FlexWrapper.gd.map.json","app/generated/DeepFlex.gd","app/generated/DeepFlex.gd.map.json","app/generated/FlexHome.gd","app/generated/FlexHome.gd.map.json","app/generated/Footer.gd","app/generated/Footer.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/Policy.gd","app/generated/Policy.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Before.gd","app/generated/Counter.gd","app/generated/FlexPanel.gd","app/generated/FlexWrapper.gd","app/generated/DeepFlex.gd","app/generated/FlexHome.gd","app/generated/Footer.gd","app/generated/Home.gd","app/generated/Policy.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+L06_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+L06_EDITOR_CHECK real CodeEdit completes the union length width property: true
+L06_EDITOR_CHECK native completion preserves valid source and installed imports/maps: true
+L06_EDITOR_CHECK L07A native CodeEdit completes horizontal_align: true
+L06_EDITOR_CHECK L07A native CodeEdit completes grow: true
+L06_EDITOR_CHECK L07A native CodeEdit completes Spacer: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-SwbNls/godot --path /tmp/estragon-native-SwbNls/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5704 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L06_EDITOR_CHECK current native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A current real editor Play bottom spacer and native click at two sizes: true
+L06_EDITOR_CHECK current Play saves unsaved Gogo buffer before compilation: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-SwbNls/godot --path /tmp/estragon-native-SwbNls/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5704 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: true
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+L06_EDITOR_ASSERTIONS 15 failed=false
+L06_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-SwbNls/godot --path /tmp/estragon-native-SwbNls/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 6611 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: true
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+L06_EDITOR_ASSERTIONS 7 failed=false
+L06_EDITOR_OK
+yarn add v1.22.22
+info No lockfile found.
+(node:7454) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.50s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_BUILD {"changed":["app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/Before.gd","app/generated/Before.gd.map.json","app/generated/Counter.gd","app/generated/Counter.gd.map.json","app/generated/FlexPanel.gd","app/generated/FlexPanel.gd.map.json","app/generated/FlexWrapper.gd","app/generated/FlexWrapper.gd.map.json","app/generated/DeepFlex.gd","app/generated/DeepFlex.gd.map.json","app/generated/FlexHome.gd","app/generated/FlexHome.gd.map.json","app/generated/Footer.gd","app/generated/Footer.gd.map.json","app/generated/Home.gd","app/generated/Home.gd.map.json","app/generated/Policy.gd","app/generated/Policy.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Settings.gd","app/generated/Rose.gd","app/generated/Before.gd","app/generated/Counter.gd","app/generated/FlexPanel.gd","app/generated/FlexWrapper.gd","app/generated/DeepFlex.gd","app/generated/FlexHome.gd","app/generated/Footer.gd","app/generated/Home.gd","app/generated/Policy.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L06_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+L06_EDITOR_CHECK real CodeEdit completes the union length width property: true
+L06_EDITOR_CHECK native completion preserves valid source and installed imports/maps: true
+L06_EDITOR_CHECK L07A native CodeEdit completes horizontal_align: true
+L06_EDITOR_CHECK L07A native CodeEdit completes grow: true
+L06_EDITOR_CHECK L07A native CodeEdit completes Spacer: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK current native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A current real editor Play bottom spacer and native click at two sizes: false
+L06_EDITOR_CHECK current Play saves unsaved Gogo buffer before compilation: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: false
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+L06_EDITOR_ASSERTIONS 15 failed=true
+file:///repo/tools/check-lengths.ts:42
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+                                                ^
+
+Error: L06 editor failed
+    at run (file:///repo/tools/check-lengths.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:75:17
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-lengths.ts --editor-only --engine 4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/l07-editor-final
+Directory: /tmp
+Output:
