@@ -1,13 +1,4 @@
-[gd_resource type="GradientTexture2D" load_steps=2 format=3]
-
-[sub_resource type="Gradient" id="Gradient_frame"]
-offsets = PackedFloat32Array(0, 0.6, 0.65, 1)
-colors = PackedColorArray(0.55, 0.65, 0.95, 0, 0.55, 0.65, 0.95, 0, 0.55, 0.65, 0.95, 1, 0.55, 0.65, 0.95, 1)
+[gd_resource type="PlaceholderTexture2D" format=3]
 
 [resource]
-gradient = SubResource("Gradient_frame")
-width = 16
-height = 16
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
+size = Vector2(16, 16)

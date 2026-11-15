@@ -88,6 +88,9 @@ func run(p) -> void:
 		button.disabled = spec[2]
 		button._set_pointer_state(spec[0],spec[1])
 		p.check(button.get_background_color()==Color(spec[3]),"S02 original unstyled pointer palette/precedence "+str(spec))
+		await p.frames()
+		var state_image: Image = p.capture("widgets-default-"+str(spec[3]).trim_prefix("#"))
+		p.check(p.close_color(state_image.get_pixelv(Vector2i(button.global_position+Vector2(1,1))),Color(spec[3])),"S02 actual default pointer-state paint pixel "+str(spec[3]))
 	entry.free()
 	await p.frames()
 	await gallery(p)
@@ -241,6 +244,10 @@ func gallery(p) -> void:
 	normal.border_color = "#fedcba"
 	await p.frames()
 	p.check(normal.get_content_rect().size==Vector2.ZERO and normal.get_visual_style_stats().commands==commands,"S02 zero-size widget emits no background/border rectangles or invalid geometry")
+	normal.width = 0.5
+	normal.height = 0.25
+	await p.frames()
+	p.check(normal.layout_size==Vector2(0.5,0.25) and normal.get_content_rect().size==Vector2.ZERO and normal.get_visual_style_stats().commands>commands,"S02 positive subpixel widget paints clamped border safely with zero content")
 	host.free()
 	await p.frames()
 func language(p) -> void:
