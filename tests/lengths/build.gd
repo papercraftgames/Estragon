@@ -118,8 +118,11 @@ func editor_proof() -> void:
 	file.store_string(JSON.stringify({"samples":samples,"clicks":self.clicks}))
 	file.close()
 	DirAccess.rename_absolute("res://.godot/l07-game.tmp","res://.godot/l07-game.json")
+	self.hide()
+	var owner_screen = load("res://app/generated/RootHome.gd").new()
+	get_tree().root.add_child(owner_screen)
 func build_view() -> Element:
-	return <Entry2D name="UI" width="100vw" height="100vh"><VBox name="Column" width="100%" height="100%" horizontal_align="stretch" gap="8px">
+	return <Entry2D name="UI" width="100%" height="100%"><VBox name="Column" width="100%" height="100%" horizontal_align="stretch" gap="8px">
 		<Spacer name="Space" grow={1} width="50%" />
 		<Text name="Hello" text="Hello World!" />
 		<Text name="Fun" text="This is fun!" />
@@ -130,6 +133,57 @@ func build_view() -> Element:
 ''')
 	var footer_source := FileAccess.get_file_as_string(path)
 	write("res://app/Before.gogo",footer_source.replace('width="100vw" height="100vh"','width="100%" height="100%"').replace('<Spacer name="Space" grow={1} width="50%"','<VBox name="Space" height="100%" width="50%"'))
+	path = "res://app/RootSettings.gogo"
+	write(path,header(path,["Element","HBox"])+'''var clicks: int = 0
+func pressed() -> void:
+	clicks += 1
+	if OS.get_environment("L07_EXIT")=="1":
+		print("L07_ROOT_EXIT_OK")
+		get_tree().quit()
+func build_view() -> Element:
+	return <HBox name="Row"><Button name="Exit" text="Exit" pressed={self.pressed} /></HBox>
+''')
+	path = "res://app/RootHome.gogo"
+	write(path,header(path,["Element","Entry2D","VBox","Text"])+'''const Settings = preload("RootSettings.gd")
+func _ready() -> void:
+	if OS.get_environment("L06_EDITOR")=="1": root_proof.call_deferred()
+func root_proof() -> void:
+	var samples: Array = []
+	for size in [Vector2i(640,480),Vector2i(1000,800),Vector2i(320,240)]:
+		get_tree().root.size = size
+		for frame in range(12): await get_tree().process_frame
+		var entry = get_node("UI")
+		var spacer = get_node("UI/Column/Space")
+		var rose = get_node("UI/Column/Rose").get_child(0)
+		var button = get_node("UI/Column/Settings/Row/Exit")
+		var event := InputEventMouseButton.new()
+		event.position = button.get_global_rect().get_center()
+		event.button_index = MOUSE_BUTTON_LEFT
+		event.pressed = true
+		get_viewport().push_input(event,true)
+		event = event.duplicate()
+		event.pressed = false
+		get_viewport().push_input(event,true)
+		samples.append({"viewport":size.y,"actual":get_viewport().get_visible_rect().size.y,"root":entry.layout_size.y,"spacer":spacer.layout_size.y,"width":spacer.layout_size.x,"expected_width":size.x*0.5,"bottom":rose.global_position.y+rose.layout_size.y})
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png("res://l07-root-editor.png")
+	var result := {"samples":samples,"clicks":get_node("UI/Column/Settings").clicks}
+	print("L07_ROOT_EDITOR_GAME ",JSON.stringify(result))
+	var file := FileAccess.open("res://.godot/l07-root-game.tmp",FileAccess.WRITE)
+	file.store_string(JSON.stringify(result))
+	file.close()
+	DirAccess.rename_absolute("res://.godot/l07-root-game.tmp","res://.godot/l07-root-game.json")
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%">
+		<VBox name="Column" width="100%" height="100%">
+			<VBox name="Space" width="50%" grow={1} />
+			<Text name="Hello" text="Hello World!" />
+			<Text name="Fun" text="This is fun!" />
+			<Settings name="Settings" />
+			<Rose name="Rose" />
+		</VBox>
+	</Entry2D>
+''')
 	path = "res://app/Policy.gogo"
 	write(path,header(path,["Element","Entry2D","Box","Rect"])+'''@bindable var flipped: bool = false
 func build_view() -> Element:

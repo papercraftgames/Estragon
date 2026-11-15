@@ -1,0 +1,63 @@
+{
+  "note": "Composite focused acceptance; runtime40 later editor-startup failure is preserved as FAIL, fresh unchanged editor consumer supplies editor proof. No release certification claim.",
+  "groups": [
+    {
+      "group": "runtime40-and-startup",
+      "version": "4.0.4",
+      "selected_stages": [
+        "pack",
+        "install",
+        "build",
+        "rejections",
+        "runtime",
+        "root-exit"
+      ],
+      "status": "PASS",
+      "whole_phase_status": "FAIL",
+      "source": "4ae51dddf1c2cd8c4438701cce1fbdf1c44d5614"
+    },
+    {
+      "group": "runtime47",
+      "version": "4.7",
+      "selected_stages": [
+        "pack",
+        "install",
+        "build",
+        "rejections",
+        "runtime",
+        "root-exit"
+      ],
+      "status": "PASS",
+      "whole_phase_status": "PASS",
+      "source": "4ae51dddf1c2cd8c4438701cce1fbdf1c44d5614"
+    },
+    {
+      "group": "editor",
+      "version": "4.0.4",
+      "selected_stages": [
+        "pack",
+        "install",
+        "build",
+        "editor",
+        "editor-restart"
+      ],
+      "status": "PASS",
+      "whole_phase_status": "PASS",
+      "source": "4ae51dddf1c2cd8c4438701cce1fbdf1c44d5614"
+    },
+    {
+      "group": "editor",
+      "version": "4.7",
+      "selected_stages": [
+        "pack",
+        "install",
+        "build",
+        "editor",
+        "editor-restart"
+      ],
+      "status": "PASS",
+      "whole_phase_status": "PASS",
+      "source": "4ae51dddf1c2cd8c4438701cce1fbdf1c44d5614"
+    }
+  ]
+}

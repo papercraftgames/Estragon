@@ -1,0 +1,3 @@
+L07_ROOT_UID_MAP_AUDIT PASS: 194 unique paired committed scripts; one migrated NativeHome sourceContent/generatedHash map authenticated.
+L07_ROOT_SELECTED_STAGES PASS: both runtime195/Exit; both fresh editor17/restart8. Original4.0 combined phase retains its later native-startup FAIL.
+Same clean-addon development tar77759c3fd4a56478d918f65ca94e1a893e3777e596d3193709f7b13abb574244;63 canonical addon UIDs. Passing fresh consumer files/UIDs unchanged.

@@ -1,5 +1,8 @@
 # L07A — parent-owned layout foundation
 
+> Historical root-% contract: [L07 #160](https://github.com/papercraftgames/Estragon/issues/160) supersedes the root-zero reference tested here. Independent 2D Entries now use their visible viewport as the percentage containing rectangle. These original measurements, logs and outcomes remain unchanged; see the [current contract](../LENGTHS.md).
+
+
 Issue [#164](https://github.com/papercraftgames/Estragon/issues/164), base
 `5588095` (merged P05 #159). [Contract](../LAYOUT_FOUNDATION.md) and
 [ADR-0018](../DECISIONS.md#adr-0018--parent-owned-policies-and-measured-slots).

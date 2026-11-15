@@ -37,3 +37,5 @@ L01 [Box contract](NODE_UI.md#l01--pixel-box-model) adds the native EstragonBox 
 L06 [shared unit lengths](LENGTHS.md) retains authored numeric/string specs beneath both spatial adapters. The existing mathematical core resolves inline/logical-parent content and visible viewport references with cached event-driven layout, without function recomposition or a second solver.
 
 L07A [parent-owned layout](LAYOUT_FOUNDATION.md) isolates pure sequential slot assignment beneath native arrangement, adds grow/Spacer and physical-axis Box policies, and normalizes future Grid tracks/rectangular areas/placement independently of rendering. The current core, coordinator/lifetime and native 2D/3D substrates remain shared. Full distribution, Wrap and rendered Grid are still sequenced future work.
+
+L07 #160 supplies only independent2D Entry coordinators with a visible-viewport percentage containing rectangle. The parser/resolver and ordinary immediate-content/cyclic references remain shared and unchanged; every eligible root length uses the same context. Nested Entry scopes stay independent; no3D viewport plane or polling is introduced.

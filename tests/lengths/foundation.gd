@@ -45,8 +45,8 @@ func run(t) -> void:
 	var before = load("res://app/generated/Before.gd").new()
 	t.root.add_child(before)
 	await t.frames()
-	t.check(before.get_node("UI").layout_size==Vector2.ZERO,"L07A original root percent uses zero, never silently viewport")
-	t.capture("l07a-before-root-percent")
+	t.check(before.get_node("UI").layout_size==t.root.get_visible_rect().size,"L07 root percent now uses its visible viewport")
+	t.capture("l07-full-root-percent")
 	before.get_node("UI").width = "100vw"
 	before.get_node("UI").height = "100vh"
 	await t.frames()

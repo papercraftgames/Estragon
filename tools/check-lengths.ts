@@ -67,6 +67,7 @@ for (const selection of options.engines) {
         if (!editorOnly) {
             await run('rejections', [...args, '--headless', '--script', 'res://tests/lengths/rejections.gd'], 'L06_REJECTIONS_OK');
             await run('runtime', [...args, ...graphics, '--script', 'res://tests/lengths/runtime.gd'], 'L06_RUNTIME_OK');
+            await run('root-exit', [...args, ...graphics, '--script', 'res://tests/lengths/root_exit.gd'], 'L07_ROOT_EXIT_OK', {...box.env, L07_EXIT: '1'});
         }
         if (editor) {
             // Godot 4.7 reads GameView embedding preferences during READY,
@@ -93,7 +94,7 @@ for (const selection of options.engines) {
             for (const name of fs.readdirSync(box.project).filter(n => n.endsWith('.png') || n.endsWith('.json'))) {
                 fs.copyFileSync(path.join(box.project, name), path.join(out, name));
             }
-            for (const name of ['app/Home.tscn', '.godot/l06-game.json', '.godot/l07-game.json']) {
+            for (const name of ['app/Home.tscn', '.godot/l06-game.json', '.godot/l07-game.json', '.godot/l07-root-game.json']) {
                 const file = path.join(box.project, name);
                 if (fs.existsSync(file)) fs.copyFileSync(file, path.join(out, path.basename(name) + '.txt'));
             }

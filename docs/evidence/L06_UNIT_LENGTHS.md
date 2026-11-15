@@ -1,5 +1,8 @@
 # L06 — retained numeric/unit-string lengths
 
+> Historical root-% contract: [L07 #160](https://github.com/papercraftgames/Estragon/issues/160) supersedes the root-zero reference tested here. Independent 2D Entries now use their visible viewport as the percentage containing rectangle. These original measurements, logs and outcomes remain unchanged; see the [current contract](../LENGTHS.md).
+
+
 Issue [#156](https://github.com/papercraftgames/Estragon/issues/156), branch
 `codex/l06-unit-lengths`, base `a2cd5e4` (merged #154). This is an intentional
 beta API replacement. [Current contract and migration](../LENGTHS.md).

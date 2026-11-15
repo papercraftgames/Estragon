@@ -1,0 +1,165 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "77759c3fd4a56478d918f65ca94e1a893e3777e596d3193709f7b13abb574244"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-rFFI4o/yarn-cache",
+      "file:/evidence/l07-root-final/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.73,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-rFFI4o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rFFI4o/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.59,
+    "godot_pid": 2142,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-rFFI4o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rFFI4o/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 2161,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-rFFI4o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rFFI4o/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 24.32,
+    "godot_pid": 2180,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: built_in_strtod (core/string/ustring.cpp:2524)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "root-exit": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-rFFI4o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rFFI4o/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/root_exit.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.77,
+    "godot_pid": 2279,
+    "log": "root-exit.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-rFFI4o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rFFI4o/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 13.41,
+    "godot_pid": 2378,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "ERROR: Initializing already initialized RID",
+      "   at: get_or_null (./core/templates/rid_owner.h:181)",
+      "ERROR: Condition \"!mem\" is true.",
+      "   at: initialize_rid (./core/templates/rid_owner.h:219)",
+      "ERROR: Condition \"!texture\" is true.",
+      "   at: texture_set_data (drivers/gles3/storage/texture_storage.cpp:1146)"
+    ]
+  }
+}

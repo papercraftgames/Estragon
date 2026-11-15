@@ -8,7 +8,7 @@ extraction are needed for inline percentages.
 
 ```gogo
 func build_view() -> Element:
-    return <Entry2D width="100vw" height="100vh" padding="16px">
+    return <Entry2D width="100%" height="100%" padding="16px">
         <VBox width="100%" height="100%" gap="12px">
             <VBox width="50%" height="75%">
                 <Rect width="100%" height="100%" fill={Color.CORNFLOWER_BLUE} />
@@ -31,7 +31,7 @@ value/type; `layout_size` and `requested_extent()` are derived layout outputs.
 | Value | Resolution |
 | --- | --- |
 | `200`, `200.0`, `"200"`, `"200px"` | 200 logical layout pixels |
-| `"50%"` | half the immediate layout parent's independently arranged content axis |
+| `"50%"` | half the immediate layout parent's independently arranged content axis; on an independent2D Entry, half the current visible viewport axis |
 | `vw`, `vh` | one hundredth of the containing native visible Viewport width/height |
 | `vmin`, `vmax` | one hundredth of the smaller/larger visible Viewport axis |
 | `in`, `cm`, `mm`, `q` | 96px, 96/2.54px, 96/25.4px, 96/101.6px respectively |
@@ -75,8 +75,26 @@ A fixed/unit dimension is an independent reference. A grow-assigned natural axis
 can reference its allocated content. An auto axis that would derive its own size
 from percentage descendants is unanchored/cyclic: that reference resolves to zero
 and reports a warning, with no iterative solver. Give the containing axis an
-independent dimension or grow allocation. Missing/root percent references follow
-the same deterministic zero rule. A native Control's contents remain Godot-owned.
+independent dimension or grow allocation. Missing ordinary/proof references follow
+that deterministic zero rule. A native Control's contents remain Godot-owned.
+
+**L07 #160 corrects the former root restriction:** an independent2D Entry has its
+current native visible Viewport as an implicit containing rectangle. Root100%
+and100vw/100vh give identical geometry;50% uses half an axis and150% deliberately
+overflows. The same context applies to all eligible root percentages: dimensions,
+padding/margin edges, direction-aware gap and additive x/y. Root padding resolves
+against the viewport even if root dimensions are fractional. Root margin remains
+an outer request with no layout parent to consume it; it does not move or shrink
+the independent root. Child percentages still use their actual immediate parent
+content, after padding. Nested independent Entries use their own Viewport, never
+the surrounding Box. SubViewport, project stretch and scale follow
+get_visible_rect(), not outer OS chrome pixels. Existing size_changed signals
+resolve changed references, without reparsing strings or recomposing Gogo.
+
+This is a2D Entry scope rule, not a global percentage fallback. Auto/cyclic
+ordinary content, pure proof roots and3D Entries retain their prior unavailable
+reference semantics; no viewport plane or Z extent is inferred for3D. Explicit
+3D viewport units/pixels_per_unit remain supported.
 
 `x/y/z` are additive offsets from the flow slot. They do not consume extra flow
 space or move siblings. Negative offsets and offsets beyond the parent are valid.
@@ -98,7 +116,7 @@ dimensions (including%) override growth on that axis. `stretch={1}` stretches on
 auto cross axes; default0 retains natural sizing. It is one enum, not axis booleans.
 
 ```gogo
-<Entry2D width="100vw" height="100vh">
+<Entry2D width="100%" height="100%">
     <VBox width="100%" height="100%">
         <Spacer grow={1} />
         <Text text="Hello World!" />

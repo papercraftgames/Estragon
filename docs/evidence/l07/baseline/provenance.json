@@ -1,0 +1,7 @@
+{
+  "addon_source": "aaf33a4e22462d89ff4c96b4ee787e16b3473bd5",
+  "fixture_source": "a694dfa",
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "note": "Unchanged main addons from git archive; isolated copy of current owner-shape fixture, no L06_EDITOR/L07_EXIT environment."
+}

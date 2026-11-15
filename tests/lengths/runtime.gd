@@ -111,6 +111,8 @@ func run() -> void:
 	await language()
 	var foundation := preload("foundation.gd").new()
 	await foundation.run(self)
+	var roots := preload("root_reference.gd").new()
+	await roots.run(self)
 	check(State.get("records").is_empty(),"composition teardown releases all records")
 	print("L06_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_RUNTIME_OK")
@@ -144,7 +146,7 @@ func native_lengths() -> void:
 	var entry := Entry.new()
 	entry.width = 600
 	entry.height = 400
-	entry.padding = "10%"
+	entry.padding = 0
 	var row := Box.new()
 	row.width = "100%"
 	row.height = "100%"
@@ -169,7 +171,6 @@ func native_lengths() -> void:
 	entry.add_child(row)
 	root.add_child(entry)
 	await frames()
-	check(entry.layout.model.padding==Vector4.ZERO,"unanchored root percent insets explicitly resolve zero")
 	check(row.layout.model.padding.x==30 and first.layout_size.x==285 and first.layout_size.y==16,"native string assignment content-box widths and absolute units")
 	check(first.position==Vector2(30+5.7-10,4+100),"axis-aware percent margins and negative additive slot offsets")
 	check(is_equal_approx(second.layout_size.x,third.layout_size.x*2) and second.layout_size.y==400,"weighted flex2:1 and explicit cross stretch")
