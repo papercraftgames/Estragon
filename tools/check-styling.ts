@@ -30,11 +30,11 @@ for (const selection of options.engines) {
                     if (line === 'S01_EXPECTED_REJECTION_BEGIN') bracket = true;
                     else if (line === 'S01_EXPECTED_REJECTION_END') bracket = false;
                     else if (ERROR.test(line)) {
-                        if (bracket && /^ERROR: Estragon (style 'background_color':|length 'border_width':)/.test(line)) count++;
+                        if (bracket && /^ERROR: Estragon (style 'background_color':|length 'border_width':|style: Text/Rect/Button painters retain their local API until S02$)/.test(line)) count++;
                         else unexpected.push(line);
                     }
                 }
-                if (bracket || count !== 15 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
+                if (bracket || count !== 18 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
             }
             results[name] = result;
             writeJSON(path.join(out, 'results.json'), results);
@@ -63,7 +63,7 @@ for (const selection of options.engines) {
                     +(name==='StyleGallery'?'\nfunc _ready() -> void:\n\tif OS.get_environment("S01_EDITOR")=="1": preload("res://tests/styling/game.gd").run.call_deferred(self)\n':''));
         }
         writeJSON(path.join(box.project, 'gogo.config.json'), {version: 1, source_roots: ['app']});
-        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="S01 unit lengths"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+        fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="S01 native styling"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         const args = [box.binary, '--audio-driver', 'Dummy', '--path', box.project];
         const graphics = ['--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3'];
         await run('build', [...args, '--headless', '--script', 'res://tests/styling/build.gd'], 'S01_BUILD_OK');
