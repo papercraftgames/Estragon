@@ -42,7 +42,9 @@ static func normalize(columns, rows, areas: Array = [], placements: Array = []) 
 			if not bounds.has(name): bounds[name] = {"row":row,"column":col,"row_span":1,"column_span":1}
 			var rect: Dictionary = bounds[name]
 			rect.row_span = row-rect.row+1
-			rect.column_span = maxi(rect.column_span,col-rect.column+1)
+			var end: int = maxi(rect.column+rect.column_span,col+1)
+			rect.column = mini(rect.column,col)
+			rect.column_span = end-rect.column
 	for name in bounds:
 		var rect: Dictionary = bounds[name]
 		for row in range(rect.row,rect.row+rect.row_span):

@@ -20,6 +20,8 @@ var _parent_axes := Vector3.ZERO
 var _viewport_axes := Vector2.ZERO
 var _forward_context: Array = []
 var _reported_unanchored := false
+var _reported_full_percent := false
+var _reported_fixed_growth := false
 var requested := Vector3(-1, -1, -1)
 var gap: float = 0.0
 var center: bool = false
@@ -248,11 +250,24 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			child.arrange(available,authority)
 		arranged.emit(size)
 		return
+	if not _reported_fixed_growth and grow>0 and _parent!=null and _parent.get_ref()!=null:
+		var main: int = _parent.get_ref().axis
+		if requested[main]>=0:
+			_reported_fixed_growth = true
+			push_warning("Estragon explicit main-axis dimension overrides grow; use auto height/width on a remaining-space Spacer")
 	# Assigned content is authoritative, including grow allocations. Resolve the
 	# immediate children against this box before measuring their slots.
 	for child in children:
 		child.prepare(reference,viewport_size)
 		child.measure()
+	if not _reported_full_percent and children.size()>1:
+		var main_name: String = ["width","height","depth"][axis]
+		for child in children:
+			var spec: Dictionary = child.length_specs.get(main_name,{})
+			if spec.get("unit","")=="%" and spec.get("value",0)>=100:
+				_reported_full_percent = true
+				push_warning("Estragon "+main_name+"=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space")
+				break
 	var items: Array = []
 	for child in children:
 		items.append({"preferred":child.measured,"minimum":child.allocation_minimum,"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})

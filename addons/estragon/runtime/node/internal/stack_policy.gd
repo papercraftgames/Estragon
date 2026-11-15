@@ -9,7 +9,8 @@ static func slots(items: Array, content: Vector3, axis: int, gap: float, alignme
 	var weight := 0.0
 	var flexible: Array = []
 	for item in items:
-		var extent: Vector3 = item.preferred.max(item.minimum)
+		var extent: Vector3 = item.preferred
+		for index in range(3): extent[index] = maxf(extent[index],item.minimum[index])
 		for index in range(3):
 			if index != axis and item.requested[index]<0 and (item.stretch>0 or item.fill[index]>0 or alignment[index]=="stretch"):
 				extent[index] = maxf(item.minimum[index],content[index]-item.outer[index])

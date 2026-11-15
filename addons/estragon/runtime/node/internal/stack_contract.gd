@@ -17,5 +17,5 @@ static func error(name: String, value, direction: String, fixed: String = "") ->
 		if not fixed.is_empty() and value!=fixed: return "HBox/VBox direction is fixed; use Box to change direction"
 	elif name in ["horizontal_align","vertical_align"]:
 		if value not in ["start","center","end","stretch"]: return name+" requires start, center, end or cross-axis stretch; distribution is deferred to #161"
-		if value=="stretch" and name==("horizontal_align" if direction=="row" else "vertical_align"): return "stretch is cross-axis only; use grow for remaining main-axis space"
+		if value=="stretch" and direction in ["row","column"] and name==("horizontal_align" if direction=="row" else "vertical_align"): return "stretch is cross-axis only; use grow for remaining main-axis space"
 	return ""

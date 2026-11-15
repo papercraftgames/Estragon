@@ -80,6 +80,15 @@ func run() -> void:
 			check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with("width")),"real CodeEdit completes the union length width property")
 			code.cancel_code_completion()
 			check(code.text==original and plugin._build_sources(),"native completion preserves valid source and installed imports/maps")
+			for fragment in ["<VBox horizontal_a","<VBox gro","<Spa"]:
+				code.text = original+"\nfunc completion_probe():\n\treturn "+fragment
+				code.set_caret_line(code.get_line_count()-1)
+				code.set_caret_column(code.get_line(code.get_line_count()-1).length())
+				code.request_code_completion(true)
+				for frame in range(5): await get_tree().process_frame
+				var expected := "horizontal_align" if fragment.contains("horizontal") else ("grow" if fragment.contains("gro") else "Spacer")
+				check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with(expected)),"L07A native CodeEdit completes "+expected)
+				code.cancel_code_completion()
 			code.text = original.replace("Hello World!","Unsaved unit view")
 		await play("current")
 		check(FileAccess.get_file_as_string("res://app/Home.gogo").contains("Unsaved unit view"),"current Play saves unsaved Gogo buffer before compilation")
@@ -90,7 +99,25 @@ func run() -> void:
 	check(interface.get_edited_scene_root().get_child_count()==1,"editor scene preserves transient managed view ownership")
 	RenderingServer.force_draw(false)
 	get_viewport().get_texture().get_image().save_png("res://editor.png")
+	await footer_proof()
 	finish()
+func footer_proof() -> void:
+	interface.open_scene_from_path("res://app/Footer.tscn")
+	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/Footer.tscn","L07A footer native scene opens")
+	ProjectSettings.set_setting("application/run/main_scene","res://app/Footer.tscn")
+	ProjectSettings.save()
+	for mode in ["current","main"]:
+		var path := "res://.godot/l07-game.json"
+		if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
+		if mode=="current": interface.play_current_scene()
+		else: interface.play_main_scene()
+		if await until(func(): return FileAccess.file_exists(path),"L07A "+mode+" footer game proof"):
+			var result = JSON.parse_string(FileAccess.get_file_as_string(path))
+			check(result.clicks==2 and result.samples.size()==2 and result.samples.all(func(item): return absf(item.bottom-item.viewport)<0.01 and item.spacer>0),"L07A "+mode+" real editor Play bottom spacer and native click at two sizes")
+		interface.stop_playing_scene()
+		await until(func(): return not interface.is_playing_scene(),"L07A game stops")
+	ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
+	ProjectSettings.save()
 func inspector_field() -> EditorProperty:
 	for node in interface.get_inspector().find_children("*","EditorProperty",true,false):
 		if node.get_edited_property()=="width" and node.get_script()!=null and node.get_script().resource_path=="res://addons/estragon/editor/length_property.gd": return node

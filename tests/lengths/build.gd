@@ -90,6 +90,30 @@ func build_view() -> Element:
 	write(path,header(path,["Element","Entry2D","VBox","Spacer","Text"])+'''var clicks: int = 0
 func pressed() -> void:
 	clicks += 1
+func _ready() -> void:
+	if OS.get_environment("L06_EDITOR")=="1": editor_proof.call_deferred()
+func editor_proof() -> void:
+	var button = get_node("Borrowed")
+	button.pressed.connect(self.pressed)
+	var samples: Array = []
+	for size in [Vector2i(640,480),Vector2i(1000,800)]:
+		get_tree().root.size = size
+		for frame in range(15): await get_tree().process_frame
+		var event := InputEventMouseButton.new()
+		event.position = button.get_global_rect().get_center()
+		event.button_index = MOUSE_BUTTON_LEFT
+		event.pressed = true
+		get_viewport().push_input(event,true)
+		event = event.duplicate()
+		event.pressed = false
+		get_viewport().push_input(event,true)
+		samples.append({"bottom":button.global_position.y+button.size.y,"viewport":size.y,"spacer":get_node("UI/Column/Space").layout_size.y})
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png("res://l07-editor-game.png")
+	var file := FileAccess.open("res://.godot/l07-game.tmp",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"samples":samples,"clicks":self.clicks}))
+	file.close()
+	DirAccess.rename_absolute("res://.godot/l07-game.tmp","res://.godot/l07-game.json")
 func build_view() -> Element:
 	return <Entry2D name="UI" width="100vw" height="100vh"><VBox name="Column" width="100%" height="100%" horizontal_align="stretch" gap="8px">
 		<Spacer name="Space" grow={1} width="50%" />
@@ -99,6 +123,16 @@ func build_view() -> Element:
 		<Rose name="Rose" />
 		{get_children()}
 	</VBox></Entry2D>
+''')
+	var footer_source := FileAccess.get_file_as_string(path)
+	write("res://app/Before.gogo",footer_source.replace('width="100vw" height="100vh"','width="100%" height="100%"').replace('<Spacer name="Space" grow={1} width="50%"','<VBox name="Space" height="100%" width="50%"'))
+	path = "res://app/Policy.gogo"
+	write(path,header(path,["Element","Entry2D","Box","Rect"])+'''@bindable var flipped: bool = false
+func build_view() -> Element:
+	return <Entry2D width={500} height={400}><Box name="Policy" direction={"column" if self.flipped else "row"} horizontal_align={"stretch" if self.flipped else "end"} vertical_align={"center" if self.flipped else "stretch"} width={400} height={300} gap={12}>
+		<Rect name="A" width={40} height={20} />
+		<Rect name="B" width={70} height={30} />
+	</Box></Entry2D>
 ''')
 	var result := Build.run_build()
 	print("L06_BUILD ",JSON.stringify(result))
@@ -117,5 +151,16 @@ func build_view() -> Element:
 		home.free()
 		ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
 		ProjectSettings.save()
+		var footer = Node2D.new()
+		footer.set_script(load("res://app/generated/Footer.gd"))
+		var button := Button.new()
+		button.name = "Borrowed"
+		button.text = "Native footer button"
+		footer.add_child(button)
+		button.owner = footer
+		var scene := PackedScene.new()
+		scene.pack(footer)
+		ResourceSaver.save(scene,"res://app/Footer.tscn")
+		footer.free()
 		print("L06_BUILD_OK")
 	quit(0 if result.ok else 1)

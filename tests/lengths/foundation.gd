@@ -11,12 +11,49 @@ const State = preload("res://addons/estragon/runtime/composition/state.tres")
 func run(t) -> void:
 	var definition := Grid.normalize(["220px","1fr"],["64px","1fr"],["header header","sidebar main"],[{"area":"header"},{"area":"sidebar"},{"area":"main"}])
 	t.check(not definition.has("error") and definition.bounds.header=={"row":0,"column":0,"row_span":1,"column_span":2} and definition.placements[2]=={"row":1,"column":1,"row_span":1,"column_span":1},"L07A serializable rectangular GridDefinition")
-	for invalid in [Grid.normalize(2,2,["a a","a b"]),Grid.normalize(2,2,["a","b c"]),Grid.normalize(2,2,[],[{"area":"unknown"}]),Grid.normalize(2,2,["a a","b c"],[{"area":"a"},{"area":"a"}]),Grid.normalize(2,2,[],[{"row":0,"column":0,"row_span":3}]),Grid.normalize(["0fr"],1),Grid.normalize(["1em"],1)]:
+	for invalid in [Grid.normalize(2,2,["a a","a b"]),Grid.normalize(2,2,[". a","a a"]),Grid.normalize(2,2,["a","b c"]),Grid.normalize(2,2,[],[{"area":"unknown"}]),Grid.normalize(2,2,["a a","b c"],[{"area":"a"},{"area":"a"}]),Grid.normalize(2,2,[],[{"row":0,"column":0,"row_span":3}]),Grid.normalize(["0fr"],1),Grid.normalize(["1em"],1)]:
 		t.check(invalid.has("error"),"L07A invalid grid rejects "+str(invalid))
 	var source := Build.header("res://app/Test.gogo",["Element","Box","VBox","Spacer"])
 	for invalid in ['<Box horizontal_align="stretch" />','<VBox vertical_align="stretch" />','<VBox direction="row" />','<Box horizontal_align="space-between" />','<Spacer flex={1} />']:
 		var result := Compiler.compile(source+"func view() -> Element:\n\treturn "+invalid+"\n","res://app/Test.gogo")
 		t.check(not result.ok and not result.diagnostics.is_empty(),"L07A source-positioned policy/migration rejects "+invalid)
+	var policy = load("res://app/generated/Policy.gd").new()
+	t.root.add_child(policy)
+	await t.frames()
+	var policy_box = policy.get_child(0).get_child(0)
+	var a = policy_box.get_node("A")
+	var b = policy_box.get_node("B")
+	var aid: int = a.get_instance_id()
+	t.check(a.position==Vector2(278,0) and b.position==Vector2(330,0),"L07A unequal children with gap use parent X end slots")
+	policy.flipped = true
+	await t.frames()
+	t.check(a.position==Vector2(0,119) and b.position==Vector2(0,151) and a.get_instance_id()==aid,"L07A atomic reactive direction/alignment uses same retained slot pipeline")
+	var rec = State.get("records")[policy.get_instance_id()]
+	var invalid = preload("res://addons/estragon/runtime/composition/element.gd").new(Box,{"horizontal_align":"space-between"},{},[],"Policy.gogo:4:2")
+	t.check(not rec._preflight(invalid,null,policy) and rec.validation_error.contains("Policy.gogo:4:2"),"L07A computed invalid policy preflight rejects with source position")
+	policy.free()
+	await t.frames()
+	var item := {"preferred":Vector3(20,10,0),"minimum":Vector3.ZERO,"requested":Vector3(-1,-1,-1),"grow":1.0,"stretch":0,"fill":Vector3.ZERO,"outer":Vector3.ZERO,"leading":Vector3.ZERO}
+	var other := item.duplicate()
+	other.preferred.x = 10
+	other.grow = 2
+	var stack = preload("res://addons/estragon/runtime/node/internal/stack_policy.gd")
+	var grown: Array = stack.slots([item,other],Vector3(180,20,0),0,0,["start","start","start"])
+	t.check(grown[0].extent.x==70 and grown[1].extent.x==110,"L07A growth adds weighted free space to natural preferred sizes")
+	var tight: Array = stack.slots([item,other],Vector3(20,20,0),0,0,["start","start","start"])
+	t.check(tight[0].extent.x==20 and tight[1].extent.x==10,"L07A tight parent preserves natural growth bases without shrink")
+	var before = load("res://app/generated/Before.gd").new()
+	t.root.add_child(before)
+	await t.frames()
+	t.check(before.get_node("UI").layout_size==Vector2.ZERO,"L07A original root percent uses zero, never silently viewport")
+	t.capture("l07a-before-root-percent")
+	before.get_node("UI").width = "100vw"
+	before.get_node("UI").height = "100vh"
+	await t.frames()
+	t.check(before.get_node("UI/Column/Space").layout_size.y==t.root.size.y,"L07A inner100% is full content height, never remaining space")
+	t.capture("l07a-before-full-percent")
+	before.free()
+	await t.frames()
 	var footer = load("res://app/generated/Footer.gd").new()
 	var native := Button.new()
 	native.text = "Native Button — click"
@@ -34,7 +71,7 @@ func run(t) -> void:
 	for viewport in [Vector2i(640,480),Vector2i(1000,800)]:
 		t.root.size = viewport
 		await t.frames()
-		var occupied := column.layout.model.gap*(column.layout.model.children.size()-1)
+		var occupied: float = column.layout.model.gap*(column.layout.model.children.size()-1)
 		var last := 0.0
 		for child in column.layout.model.children:
 			if child!=spacer.layout.model: occupied += child.measured.y+child.outer_extent().y

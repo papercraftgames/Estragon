@@ -46,7 +46,7 @@ func _component(node: Model.Component) -> void:
 	var stack_direction := StackContract.preset(resolved.script)
 	if stack_direction.is_empty(): stack_direction = "row"
 	for attribute in node.attributes:
-		if attribute.name=="direction" and attribute.value is Model.Literal: stack_direction = str(attribute.value.value)
+		if attribute.name=="direction": stack_direction = str(attribute.value.value) if attribute.value is Model.Literal else StackContract.preset(resolved.script)
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
