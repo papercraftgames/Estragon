@@ -1,5 +1,5 @@
 extends RefCounted
-static func run(host: Node) -> void:
+func run(host: Node) -> void:
 	var tree := host.get_tree()
 	var samples: Array = []
 	for viewport in [Vector2i(640,480),Vector2i(1000,800)]:

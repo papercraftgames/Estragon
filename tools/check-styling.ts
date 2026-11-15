@@ -60,7 +60,7 @@ for (const selection of options.engines) {
             fs.writeFileSync(path.join(box.project, 'app', name+'.gogo'),
                 fs.readFileSync(path.join(ROOT, 'examples/styling',name+'.gogo'), 'utf8')
                     .replaceAll('../../../addons/estragon', path.posix.relative('app/generated', addon))
-                    +(name==='StyleGallery'?'\nfunc _ready() -> void:\n\tif OS.get_environment("S01_EDITOR")=="1": preload("res://tests/styling/game.gd").run.call_deferred(self)\n':''));
+                    +(name==='StyleGallery'?'\nfunc _ready() -> void:\n\tif OS.get_environment("S01_EDITOR")=="1": _s01_game_probe.call_deferred()\n\nfunc _s01_game_probe() -> void:\n\tvar probe = preload("res://tests/styling/game.gd").new()\n\tawait probe.run(self)\n':''));
         }
         writeJSON(path.join(box.project, 'gogo.config.json'), {version: 1, source_roots: ['app']});
         fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="S01 native styling"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');

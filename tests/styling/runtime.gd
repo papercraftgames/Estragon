@@ -127,11 +127,15 @@ func geometry() -> void:
 	child.border_width = "2%"
 	await frames()
 	check(child.layout.model.border.is_equal_approx(Vector4(6,2.4,6,2.4)),"ordinary percent borders reference immediate containing content, not viewport")
+	var commands: int = entry.get_visual_style_stats().commands
+	entry.background_color = "#123456"
+	entry.border_color = Color.WHITE
 	entry.width = 0
 	entry.height = 0
 	entry.border_width = 20
 	await frames()
 	check(Vector2(entry.layout.model.content_reference.x,entry.layout.model.content_reference.y)==Vector2.ZERO and child.layout_size==Vector2.ZERO,"zero content clamps safely without negative geometry")
+	check(entry.get_visual_style_stats().commands==commands,"zero-size colored border-box emits no drawing rectangles")
 	capture("zero-box")
 	entry.free()
 	await frames()
@@ -148,6 +152,7 @@ func gallery() -> void:
 	var ui = settings.get_node("Controls/Ui")
 	var rose = panel.get_node("Rose/Rose")
 	var identity := [panel.get_instance_id(),native.get_instance_id(),ui.get_instance_id()]
+	var retained := home.find_children("*","",true,false).map(func(node): return [node.get_instance_id(),node.get_parent().get_instance_id(),node.owner])
 	var record = State.get("records")[home.get_instance_id()]
 	var runs: int = record.runs
 	var traces: Array = []
@@ -158,6 +163,7 @@ func gallery() -> void:
 		check(header.layout_size.x==content.x/2 and settings.get_node("Controls").layout_size.x==content.x and rose.layout_size.x==content.x,"nested50/100% views use border+padding content at "+str(size))
 		check(panel.position==Vector2(16,16) and panel.layout_size==Vector2(size)-Vector2(32,32),"margin stays outside painting and remaining allocation")
 		check(identity==[panel.get_instance_id(),native.get_instance_id(),ui.get_instance_id()] and record.runs==runs,"resize preserves native/UI/Gogo identity without recomposition")
+		check(retained==home.find_children("*","",true,false).map(func(node): return [node.get_instance_id(),node.get_parent().get_instance_id(),node.owner]),"all nested native descendants retain parent/owner identity on resize")
 		click(native,native.size)
 		click(ui,ui.layout_size)
 		check(ui._hovered and not ui._held,"Estragon Button native pointer hover/press state remains intact")
@@ -169,9 +175,11 @@ func gallery() -> void:
 	var plain_measure: int = plain.layout.model.measure_count
 	var before := [entry.get_layout_stats(),panel.get_layout_stats(),header.get_layout_stats(),record.runs]
 	var drawn: int = panel.get_visual_style_stats().draw
+	print("S01_COUNTERS_BEFORE_COLOR ",JSON.stringify({"layout":before,"paint":panel.get_visual_style_stats()}))
 	panel.background_color = Color("#102030")
 	panel.border_color = "#ee8844"
 	await frames()
+	print("S01_COUNTERS_AFTER_COLOR ",JSON.stringify({"layout":[entry.get_layout_stats(),panel.get_layout_stats(),header.get_layout_stats(),record.runs],"paint":panel.get_visual_style_stats()}))
 	check(before==[entry.get_layout_stats(),panel.get_layout_stats(),header.get_layout_stats(),record.runs] and panel.get_visual_style_stats().draw>drawn,"color-only changes redraw without measure/arrange/recomposition")
 	check(panel.background_color is Color and panel.border_color=="#ee8844","authored getters retain Color/string while caches normalize")
 	var parses: int = panel.get_visual_style_stats().parse
@@ -182,6 +190,7 @@ func gallery() -> void:
 	panel.border_bottom_width = "11px"
 	await frames()
 	check(panel.get_layout_stats().arrange>before[1].arrange and plain.layout.model.measure_count==plain_measure and rose.global_position.y+rose.layout_size.y<=panel.global_position.y+panel.layout_size.y-23+0.01,"border changes reflow content while the unaffected intrinsic leaf stays measured")
+	print("S01_COUNTERS_AFTER_BORDER ",JSON.stringify({"layout":panel.get_layout_stats(),"paint":panel.get_visual_style_stats()}))
 	var idle := [entry.get_layout_stats(),panel.get_layout_stats(),panel.get_visual_style_stats(),panel.lengths.parse_count,record.runs]
 	await frames()
 	check(idle==[entry.get_layout_stats(),panel.get_layout_stats(),panel.get_visual_style_stats(),panel.lengths.parse_count,record.runs],"idle has zero draw/layout/parsing/recomposition work")
