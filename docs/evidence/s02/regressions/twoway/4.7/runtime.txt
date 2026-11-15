@@ -1,0 +1,57 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+TWOWAY_CHECK native initial controlled bool projection: true
+TWOWAY_CHECK actual primary-pointer route edits native model exactly once: [true, true, "Enabled", [true], [[false, true]]]: true
+TWOWAY_CHECK one composed commit retains toggle and label: true
+TWOWAY_CHECK repeat pointer click produces one transition each: true
+TWOWAY_CHECK same-value model assignment has no event or composition: true
+TWOWAY_CHECK model projection never emits reciprocal user edit: true
+TWOWAY_CHECK programmatic control assignment is not user input: true
+TWOWAY_CHECK controlled actual value restored without rerendering unaffected nested peers: true
+TWOWAY_CHECK key reorder preserves input identity and does no peer work: true
+TWOWAY_CHECK stale callback cannot write old or new model before replacement commit: true
+TWOWAY_CHECK retained input rewires to authoritative replacement and disconnects old dependencies: true
+TWOWAY_CHECK binding records and generated closures do not retain old model: true
+TWOWAY_CHECK disconnected captured callback remains inert after replacement: true
+TWOWAY_CHECK reentrant model restore wins at deferred commit even when old desired snapshot is unchanged: true
+TWOWAY_CHECK reentrant edit callback is bounded and cannot ping-pong the boundary: true
+TWOWAY_CHECK disabled pointer activation produces no edit: true
+TWOWAY_CHECK host self binding uses same manager without nested rerender: true
+TWOWAY_CHECK unmounted keyed input callback cannot write: true
+TWOWAY_CHECK null source intentionally omitted by ordinary conditional: true
+TWOWAY_CHECK present null binding rejects instead of silently becoming writable: true
+TWOWAY_CHECK binding unmount preserves foreign child and native owner: true
+TWOWAY_CHECK direct input detach disconnects callback before any deferred repair: true
+TWOWAY_CHECK safe commit restores retained declared input after native reparent: true
+TWOWAY_CHECK host detach disconnects input and suppresses captured callback: true
+TWOWAY_CHECK reparent/resume reconnects exactly once retaining native input: true
+TWOWAY_CHECK resumed pointer route writes current model: true
+TWOWAY_CHECK native scene packs without transient managed controls: true
+TWOWAY_CHECK pack/reload reconstitutes binding once with no reactive metadata: true
+TWOWAY_CHECK host free releases listeners/records and stale input cannot write: true
+TWOWAY_CHECK reject native input contract: BadArity: true
+TWOWAY_CHECK reject native input contract: BadSignal: true
+TWOWAY_CHECK reject native input contract: BadValue: true
+TWOWAY_CHECK generated binding parameters avoid authored identifier collisions: true
+TWOWAY_CHECK typed binding generation/maps deterministic: true
+TWOWAY_CHECK generated binding linkage maps to exact authored binding expression line: true
+TWOWAY_CHECK reject invalid writable/observable/type path: true: true
+TWOWAY_CHECK reject invalid writable/observable/type path: model.enabled: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.model.enabled or true: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.replace_model().enabled: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.model.note: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.position.x: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.missing: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.model.enabled[0]: true
+TWOWAY_CHECK reject invalid writable/observable/type path: self.model.enabled + 1: true
+TWOWAY_CHECK reject unsupported/conflicting binding: bind:value="bad": true
+TWOWAY_CHECK reject unsupported/conflicting binding: bind:other={self.model.enabled}: true
+TWOWAY_CHECK reject unsupported/conflicting binding: bind:value={self.model.enabled} value={true}: true
+TWOWAY_CHECK reject unsupported/conflicting binding: bind:value={self.model.enabled} value_changed={replace_model}: true
+TWOWAY_CHECK reject unsupported/conflicting binding: bind:value={self.model.enabled} bind:value={self.model.enabled}: true
+TWOWAY_CHECK reject input without typed value/signal contract: true
+TWOWAY_RUNTIME_ASSERTIONS 50 failures=0
+TWOWAY_RUNTIME_OK

@@ -1,0 +1,51 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S01_EDITOR_CHECK Inspector retains authored hex: true
+S01_EDITOR_CHECK Inspector color undo: true
+S01_EDITOR_CHECK Inspector color redo: true
+S01_EDITOR_CHECK invalid Inspector color explains rejection without mutation: true
+S01_EDITOR_CHECK native Color picker writes Color and clears invalid-entry feedback: true
+S01_EDITOR_CHECK border Inspector reuses unit union control: true
+S01_EDITOR_CHECK uniform border auto rejects in Inspector: true
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (1.0, 1.0, 1.0, 1.0), (1.0, 1.0, 1.0, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes pressed_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo pressed_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes disabled_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo disabled_background_color: true
+S01_EDITOR_CHECK Button padding Inspector undo restores true asymmetric local default: true
+S01_EDITOR_CHECK actual toggle.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes pressed_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo pressed_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes disabled_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo disabled_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes checked_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo checked_background_color: true
+S01_EDITOR_CHECK Button padding Inspector undo restores true asymmetric local default: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S02_EDITOR_GAME {"edits":[false,true],"enabled":true,"native":2,"samples":[{"checked":false,"color":true,"content":"[P: (18.0, 7.0), S: (88.0, 35.0)]","origin":"(18.0, 10.5)","root":true},{"checked":true,"color":true,"content":"[P: (18.0, 7.0), S: (88.0, 35.0)]","origin":"(18.0, 10.5)","root":true}],"ui":2}
+S01_EDITOR_GAME {"native":2,"samples":[{"color":true,"content":565.0,"half":282.5,"panel":"(608.0, 448.0)","root":true,"viewport":"(640, 480)"},{"color":true,"content":925.0,"half":462.5,"panel":"(968.0, 768.0)","root":true,"viewport":"(1000, 800)"}],"ui":2,"widgets":{"edits":[false,true],"enabled":true,"native":2,"samples":[{"checked":false,"color":true,"content":"[P: (18.0, 7.0), S: (88.0, 35.0)]","origin":"(18.0, 10.5)","root":true},{"checked":true,"color":true,"content":"[P: (18.0, 7.0), S: (88.0, 35.0)]","origin":"(18.0, 10.5)","root":true}],"ui":2}}
+S01_EDITOR_CHECK main real painted game/percent content/native and Estragon clicks at two sizes: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 33 failed=false
+S01_EDITOR_OK

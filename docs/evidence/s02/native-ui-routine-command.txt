@@ -1,0 +1,4 @@
+set -eu
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-ui.ts --runtime-only --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /tmp/s02-ui-checked
+cp -r /tmp/s02-ui-checked /evidence/s02-ui-checked
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-routine-smoke.ts --engine 4.7=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/s02-routine

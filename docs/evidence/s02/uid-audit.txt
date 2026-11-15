@@ -1,0 +1,33 @@
+MAP examples/styling/generated/StyleGallery.gd.map.json [
+  'format',
+  'generatedHash',
+  'segments',
+  'sourceContent',
+  'sourceName',
+  'version'
+]
+MAP examples/styling/generated/StyledRose.gd.map.json [
+  'format',
+  'generatedHash',
+  'segments',
+  'sourceContent',
+  'sourceName',
+  'version'
+]
+MAP examples/styling/generated/StyledSettings.gd.map.json [
+  'format',
+  'generatedHash',
+  'segments',
+  'sourceContent',
+  'sourceName',
+  'version'
+]
+MAP examples/styling/generated/WidgetGallery.gd.map.json [
+  'format',
+  'generatedHash',
+  'segments',
+  'sourceContent',
+  'sourceName',
+  'version'
+]
+UID_PAIRS_UNIQUE 207 NEW_MAPS 4

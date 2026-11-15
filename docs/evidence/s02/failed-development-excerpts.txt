@@ -1,0 +1,484 @@
+Original development logs remain at the paths below. These are exact relevant excerpts, not relabeled passes.
+
+--- /tmp/s02-dev1.log ---
+S01_CHECK source-located style rejection background_color={true}: true
+S01_CHECK legacy text style paint explicitly deferred rather than overpainted: false
+S01_CHECK legacy rect style paint explicitly deferred rather than overpainted: false
+S01_CHECK legacy button style paint explicitly deferred rather than overpainted: false
+S01_CHECK base participant style is local; child transparent value is never inherited: true
+S01_CHECK Color union and border units compile with retained quoted specs: true
+S01_CHECK 300 border-box gives264 content atX12, vertical border/padding once: true
+S01_CHECK computed invalid color preflight is source-located and transactional: true
+S01_CHECK dynamic legacy widget style rejects before any native paint/property commit: false
+S01_CHECK computed border misuse rejects before any commit: true
+S01_CHECK derived _draw cannot bypass shared native style draw hook: true
+S01_CHECK native re-entry retains exactly one style hook: true
+S01_CHECK composition records released: true
+S01_ASSERTIONS 79 failed=true
+
+
+--- /tmp/s02-dev2.log ---
+
+SCRIPT ERROR: Parse Error: The member "Button" shadows a native class.
+          at: GDScript::reload (res://tests/styling/widgets.gd:4)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://tests/styling/runtime.gd:0)
+ERROR: Failed to load script "res://tests/styling/runtime.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+S01_CHECK style source repair recovers actual-path build: true
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: run (res://tests/styling/runtime.gd:49)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/styling/runtime.gd:49)
+
+--- /tmp/s02-dev3.log ---
+S01_CHECK S02 font size change reflows text: true
+S01_CHECK S02 native font Resource change remains observed: false
+S01_CHECK S02 unstyled Rect remains white: true
+S01_CHECK S02 canonical background retains string and fill reads normalized drawn Color: true
+S01_CHECK S02 native fill alias shares one canonical background, last write wins: true
+S01_CHECK composition records released: true
+S01_ASSERTIONS 147 failed=true
+
+
+--- /tmp/s02-editor-dev.log ---
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+SCRIPT ERROR: Invalid operands 'String' and 'Color' in operator '=='.
+          at: widget_inspectors (res://tests/styling/editor.gd:109)
+          GDScript backtrace (most recent call first):
+              [0] widget_inspectors (res://tests/styling/editor.gd:109)
+
+Error: S01 editor failed
+    at run (file:///repo/tools/check-styling.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-styling.ts:85:17
+
+--- /tmp/s02-editor-dev2.log ---
+S02_INSPECTOR_TARGET true previous=(1.0, 1.0, 1.0, 1.0)
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: false
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_TARGET true previous=(0.3176, 0.2549, 0.4549, 1.0)
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 39 failed=true
+file:///repo/tools/check-styling.ts:42
+            if (result.status !== 'PASS') throw Error('S01 ' + name + ' failed');
+                                                ^
+
+Error: S01 editor failed
+    at run (file:///repo/tools/check-styling.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-styling.ts:85:17
+
+--- /tmp/s02-editor-dev3.log ---
+S02_INSPECTOR_TARGET true previous=transparent
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_TARGET true previous=(1.0, 1.0, 1.0, 1.0)
+S02_INSPECTOR_UNDO [true, (1.0, 1.0, 1.0, 1.0), "#123456", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: false
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_TARGET true previous=(0.3176, 0.2549, 0.4549, 1.0)
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), "#123456", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: false
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual widget Inspector exposes pressed_background_color: true
+S02_INSPECTOR_TARGET true previous=(0.3176, 0.2549, 0.4549, 1.0)
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 39 failed=true
+file:///repo/tools/check-styling.ts:42
+            if (result.status !== 'PASS') throw Error('S01 ' + name + ' failed');
+                                                ^
+
+Error: S01 editor failed
+    at run (file:///repo/tools/check-styling.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-styling.ts:85:17
+
+--- /tmp/s02-final.log ---
+S01_CHECK composition records released: true
+S01_ASSERTIONS 152 failed=false
+S01_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+SCRIPT ERROR: Cannot call method 'get_edited_object' on a previously freed instance.
+          at: widget_inspectors (res://tests/styling/editor.gd:112)
+file:///repo/tools/check-styling.ts:42
+            if (result.status !== 'PASS') throw Error('S01 ' + name + ' failed');
+
+Error: S01 editor failed
+    at run (file:///repo/tools/check-styling.ts:42:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-styling.ts:85:17
+
+--- /tmp/s02-accept.log ---
+S01_CHECK composition records released: true
+S01_ASSERTIONS 152 failed=false
+S01_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (1, 1, 1, 1), (1, 1, 1, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1), (0.3176, 0.2549, 0.4549, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual toggle.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1), (0.3176, 0.2549, 0.4549, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 39 failed=false
+S01_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (1, 1, 1, 1), (1, 1, 1, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1), (0.3176, 0.2549, 0.4549, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual toggle.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1), (0.3176, 0.2549, 0.4549, 1), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 33 failed=false
+S01_EDITOR_OK
+yarn add v1.22.22
+info No lockfile found.
+S01_CHECK composition records released: true
+S01_ASSERTIONS 152 failed=false
+S01_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (1.0, 1.0, 1.0, 1.0), (1.0, 1.0, 1.0, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual toggle.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 39 failed=false
+S01_EDITOR_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+S01_EDITOR_CHECK actual text.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, "transparent", "transparent", true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual rect.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (1.0, 1.0, 1.0, 1.0), (1.0, 1.0, 1.0, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual button.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK actual toggle.gd Inspector authors shared hex: true
+S02_INSPECTOR_UNDO [true, (0.3176, 0.2549, 0.4549, 1.0), (0.3176, 0.2549, 0.4549, 1.0), true, "#123456"]
+S01_EDITOR_CHECK actual widget color undo/redo retains local default and authored type: true
+S01_EDITOR_CHECK actual widget Inspector exposes hover_background_color: true
+S01_EDITOR_CHECK actual local state color Inspector edit/undo/redo hover_background_color: true
+S01_EDITOR_CHECK main actual widget painted states/native input/controlled edit at two sizes: true
+S01_EDITOR_ASSERTIONS 33 failed=false
+S01_EDITOR_OK
+file:///repo/tools/check-styling.ts:90
+            if (sha256(path.join(installed, file)) !== hash) throw Error('Installed bytes/UID changed: ' + file);
+                                                                   ^
+
+Error: Installed bytes/UID changed: addons/estragon/runtime/node/internal/component_2d_icon.tres
+    at file:///repo/tools/check-styling.ts:90:68
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+
+--- /tmp/s02-regress.log ---
+CI_EDITOR_TIMING rejected_project 0.934
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+CI_EDITOR_TIMING rejected_current 0.853
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+CI_EDITOR_TIMING rejected_project 0.842
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+CI_EDITOR_TIMING rejected_current 0.709
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+
+Error: EACCES: permission denied, chmod '/evidence/s02-ggx/4.7/generated/ThreeD.gd.uid'
+    at chmodSync (node:fs:2110:11)
+    at setDestMode (node:internal/fs/cp/cp-sync:123:10)
+    at copyFile (node:internal/fs/cp/cp-sync:103:10)
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'chmod',
+  path: '/evidence/s02-ggx/4.7/generated/ThreeD.gd.uid'
+}
+
+--- /tmp/s02-regress-tail.log ---
+CI_EDITOR_TIMING rejected_project 0.692
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/ggx/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+CI_EDITOR_TIMING rejected_current 0.721
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/ggx/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+CI_EDITOR_TIMING rejected_project 0.795
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:19)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/ggx/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:19)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+CI_EDITOR_TIMING rejected_current 0.798
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:19)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/ggx/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/ggx/generated/ThreeD.gd:19)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/ggx/ThreeD.gogo:15:47: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+
+Error: EACCES: permission denied, chmod '/evidence/s02-twoway/4.7/generated/Demo.gd.uid'
+    at chmodSync (node:fs:2110:11)
+    at setDestMode (node:internal/fs/cp/cp-sync:123:10)
+    at copyFile (node:internal/fs/cp/cp-sync:103:10)
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'chmod',
+  path: '/evidence/s02-twoway/4.7/generated/Demo.gd.uid'
+}
+
+--- /tmp/s02-final-regress.log ---
+CI_EDITOR_TIMING rejected_project 1.339
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+CI_EDITOR_TIMING rejected_current 0.939
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+CI_EDITOR_TIMING rejected_project 0.759
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+CI_EDITOR_TIMING rejected_current 0.728
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+TWOWAY_CHECK host free releases listeners/records and stale input cannot write: true
+SCRIPT ERROR: Invalid call. Nonexistent function 'authored' in base 'Nil'.
+file:///repo/tools/check-twoway.ts:41
+                throw Error('TwoWay ' + name + ' failed');
+                      ^
+
+Error: TwoWay runtime failed
+    at run (file:///repo/tools/check-twoway.ts:41:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-twoway.ts:57:9
+
+--- /tmp/s02-last.log ---
+TWOWAY_EDITOR_CHECK normal Play saves latest native Demo: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/twoway/generated/Demo.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/twoway/Demo.gogo:26:40: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _until (res://tests/twoway/editor/driver.gd:33)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/twoway/generated/Demo.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/twoway/Demo.gogo:26:40: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+TWOWAY_EDITOR_CHECK normal Play saves latest native Demo: true
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/twoway/generated/Demo.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/twoway/Demo.gogo:26:40: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+       [4] _until (res://tests/twoway/editor/driver.gd:33)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/twoway/generated/Demo.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/twoway/Demo.gogo:26:40: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:246)
+
+Error: C3 runtime failed
+    at run (file:///repo/tools/check-native-ui.ts:39:35)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-native-ui.ts:55:4
