@@ -127,14 +127,15 @@ func geometry() -> void:
 	child.border_width = "2%"
 	await frames()
 	check(child.layout.model.border.is_equal_approx(Vector4(6,2.4,6,2.4)),"ordinary percent borders reference immediate containing content, not viewport")
-	var commands: int = entry.get_visual_style_stats().commands
-	entry.background_color = "#123456"
-	entry.border_color = Color.WHITE
 	entry.width = 0
 	entry.height = 0
 	entry.border_width = 20
 	await frames()
 	check(Vector2(entry.layout.model.content_reference.x,entry.layout.model.content_reference.y)==Vector2.ZERO and child.layout_size==Vector2.ZERO,"zero content clamps safely without negative geometry")
+	var commands: int = entry.get_visual_style_stats().commands
+	entry.background_color = "#123456"
+	entry.border_color = Color.WHITE
+	await frames()
 	check(entry.get_visual_style_stats().commands==commands,"zero-size colored border-box emits no drawing rectangles")
 	capture("zero-box")
 	entry.free()
