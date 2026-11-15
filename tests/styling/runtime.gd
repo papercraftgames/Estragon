@@ -152,7 +152,7 @@ func gallery() -> void:
 	var ui = settings.get_node("Controls/Ui")
 	var rose = panel.get_node("Rose/Rose")
 	var identity := [panel.get_instance_id(),native.get_instance_id(),ui.get_instance_id()]
-	var retained := home.find_children("*","",true,false).map(func(node): return [node.get_instance_id(),node.get_parent().get_instance_id(),node.owner])
+	var retained: Array = home.find_children("*","",true,false).map(func(node): return [node.get_instance_id(),node.get_parent().get_instance_id(),node.owner])
 	var record = State.get("records")[home.get_instance_id()]
 	var runs: int = record.runs
 	var traces: Array = []
