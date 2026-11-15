@@ -56,7 +56,7 @@ func field(name: String) -> EditorProperty:
 	return null
 func inspector() -> void:
 	var scene := interface.get_edited_scene_root()
-	var box = preload("res://addons/estragon/runtime/node/box.gd").new()
+	var box = preload("custom_box.gd").new()
 	box.name = "StyleInspector"
 	scene.add_child(box)
 	box.owner = scene
