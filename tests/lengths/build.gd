@@ -110,10 +110,11 @@ func editor_proof() -> void:
 		event = event.duplicate()
 		event.pressed = false
 		get_viewport().push_input(event,true)
-		samples.append({"bottom":button.global_position.y+button.size.y,"viewport":size.y,"spacer":get_node("UI/Column/Space").layout_size.y})
+		samples.append({"bottom":button.global_position.y+button.size.y,"viewport":size.y,"actual_viewport":get_viewport().get_visible_rect().size.y,"spacer":get_node("UI/Column/Space").layout_size.y})
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png("res://l07-editor-game.png")
 	var file := FileAccess.open("res://.godot/l07-game.tmp",FileAccess.WRITE)
+	print("L07_EDITOR_GAME ",JSON.stringify({"samples":samples,"clicks":self.clicks}))
 	file.store_string(JSON.stringify({"samples":samples,"clicks":self.clicks}))
 	file.close()
 	DirAccess.rename_absolute("res://.godot/l07-game.tmp","res://.godot/l07-game.json")

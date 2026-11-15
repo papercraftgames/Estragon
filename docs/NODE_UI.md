@@ -1,5 +1,7 @@
 # Native 2D UI — canonical C4 API
 
+L07A adds [parent-owned slot policies](LAYOUT_FOUNDATION.md), Box direction, physical horizontal/vertical alignment and zero-natural Spacer. `grow` replaces the beta `flex` property without an alias.
+
 > **F04 current composition path:** the canonical Counter uses a typed `build_view() -> Element`, generated bindable getter observation and the sole external manager. Eager GGX and per-target bindings are removed; see [cutover/parity](F04_CUTOVER.md) and live #98/its PR for verification/review. Native widget/layout APIs below are retained.
 
 

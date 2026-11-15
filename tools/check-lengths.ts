@@ -69,6 +69,13 @@ for (const selection of options.engines) {
             await run('runtime', [...args, ...graphics, '--script', 'res://tests/lengths/runtime.gd'], 'L06_RUNTIME_OK');
         }
         if (editor) {
+            // Godot 4.7 reads GameView embedding preferences during READY,
+            // before a test plugin can change EditorSettings. Seed only this
+            // fresh consumer's project metadata so native window resizes are
+            // not overridden by the embedded game workspace (fixed-size mode).
+            fs.mkdirSync(path.join(box.project, '.godot/editor'), {recursive: true});
+            fs.writeFileSync(path.join(box.project, '.godot/editor/project_metadata.cfg'),
+                '[game_view]\nembed_on_play=false\nmake_floating_on_play=false\n');
             box.env.L06_EDITOR = '1';
             fs.appendFileSync(path.join(box.project, 'project.godot'), '\n[editor_plugins]\nenabled=PackedStringArray("res://' + addon + '/editor/plugin.cfg", "res://tests/lengths/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
             for (const name of ['editor', 'editor-restart']) {
@@ -86,7 +93,7 @@ for (const selection of options.engines) {
             for (const name of fs.readdirSync(box.project).filter(n => n.endsWith('.png') || n.endsWith('.json'))) {
                 fs.copyFileSync(path.join(box.project, name), path.join(out, name));
             }
-            for (const name of ['app/Home.tscn', '.godot/l06-game.json']) {
+            for (const name of ['app/Home.tscn', '.godot/l06-game.json', '.godot/l07-game.json']) {
                 const file = path.join(box.project, name);
                 if (fs.existsSync(file)) fs.copyFileSync(file, path.join(out, path.basename(name) + '.txt'));
             }
