@@ -5,6 +5,8 @@ extends Node2D
 signal layout_applied(size: Vector2)
 const Coordinator = preload("internal/coordinator.gd")
 const ESTRAGON_LENGTHS := true
+const VisualStyle = preload("internal/visual_style_2d.gd")
+var _visual_style = VisualStyle.new()
 const Length = preload("internal/length.gd")
 var lengths = Length.new()
 var width: Variant = "auto":
@@ -112,10 +114,15 @@ func _notification(what: int) -> void:
 	if what == 12 and layout != null: layout.order_moved()
 
 func _enter_tree() -> void:
+	# Native draw signal precedes script _draw, so derived Box foreground hooks
+	# cannot accidentally bypass the shared style. Legacy widget painters have
+	# no S01 style API/marker and remain untouched until S02.
+	if VisualStyle.supported(get_script()) and not draw.is_connected(_paint_visual_style): draw.connect(_paint_visual_style)
 	layout.changed()
 	layout.start()
 
 func _exit_tree() -> void:
+	if draw.is_connected(_paint_visual_style): draw.disconnect(_paint_visual_style)
 	layout.stop()
 
 func invalidate_layout() -> void:
@@ -134,7 +141,9 @@ func apply_layout_position(offset: Vector3) -> void:
 	position = Vector2(offset.x, offset.y)
 
 func apply_layout_size(size: Vector3) -> void:
-	_layout_size = Vector2(size.x, size.y)
+	var next := Vector2(size.x,size.y)
+	if next!=_layout_size: _queue_style_redraw()
+	_layout_size = next
 	# Explicit invalidation also restores a native position edited externally.
 	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
 	layout_applied.emit(_layout_size)
@@ -142,3 +151,11 @@ func apply_layout_size(size: Vector3) -> void:
 func _margin_insets() -> Vector4:
 	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
 	return layout.model.margin
+
+func _queue_style_redraw() -> void:
+	_visual_style.redraw_count += 1
+	queue_redraw()
+func _paint_visual_style() -> void:
+	_visual_style.paint(self,layout_size,layout.model.border)
+func get_visual_style_stats() -> Dictionary:
+	return {"parse":_visual_style.parse_count,"draw":_visual_style.draw_count,"commands":_visual_style.command_count,"redraw":_visual_style.redraw_count}

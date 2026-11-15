@@ -1,6 +1,8 @@
 @tool
 extends EditorInspectorPlugin
 ## Authored-source presentation alongside the untouched native Script property.
+const VisualStyle = preload("../runtime/node/internal/visual_style_2d.gd")
+const ColorProperty = preload("color_property.gd")
 const Length = preload("../runtime/node/internal/length.gd")
 const LengthProperty = preload("length_property.gd")
 var service: WeakRef
@@ -8,6 +10,9 @@ func _can_handle(object: Object) -> bool:
 	var owner = service.get_ref() if service != null else null
 	return owner != null and owner.active and object is Node and (owner.editable(object) or object.has_method("_get_layout_coordinator"))
 func _parse_property(object: Object, _type: Variant.Type, name: String, _hint: PropertyHint, _hint_text: String, _usage: int, _wide: bool) -> bool:
+	if VisualStyle.registered(object.get_script(),name):
+		add_property_editor(name,ColorProperty.new())
+		return true
 	if not Length.registered(object.get_script(),name): return false
 	add_property_editor(name,LengthProperty.new())
 	return true

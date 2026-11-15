@@ -31,6 +31,7 @@ var intrinsic := Vector3.ZERO
 # Native Control minimums constrain assigned slots, never read back from size.
 var allocation_minimum := Vector3.ZERO
 var padding := Vector4.ZERO # left, top, right, bottom; border-box insets
+var border := Vector4.ZERO # inside the border-box, before padding
 var margin := Vector4.ZERO # outside own geometry; consumed by the parent
 var transparent: bool = false # composition proxy forwards one root slot
 var alignment: Array = ["start","start","start"]
@@ -84,8 +85,9 @@ func _edges(prefix: String) -> Vector4:
 	var names := ["left","top","right","bottom"]
 	for edge in range(4):
 		var index: int = edge%2
-		var value := _length(prefix+"_"+names[edge],index,-1)
-		result[edge] = _length(prefix,index,0) if value<0 else value
+		var key: String = prefix+"_"+names[edge]+("_width" if prefix=="border" else "")
+		var value := _length(key,index,-1)
+		result[edge] = _length("border_width" if prefix=="border" else prefix,index,0) if value<0 else value
 	return result
 
 # Resolve specs only on a changed parent/viewport/spec context. No property
@@ -101,22 +103,23 @@ func prepare(reference: Vector3, viewport: Vector2) -> void:
 	if _length_context==context: return
 	_length_context = context
 	resolution_count += 1
-	var before := [requested,gap,padding,margin,length_offset]
+	var before := [requested,gap,padding,border,margin,length_offset]
 	if not length_specs.is_empty():
 		for index in range(3):
 			requested[index] = _length(["width","height","depth"][index],index,requested[index])
 			length_offset[index] = _length(["x","y","z"][index],index,0)
 		gap = _length("gap",axis,0)
 		padding = _edges("padding")
+		border = _edges("border")
 		margin = _edges("margin")
-	if before!=[requested,gap,padding,margin,length_offset]:
+	if before!=[requested,gap,padding,border,margin,length_offset]:
 		_measure_dirty = true
 		_arrange_dirty = true
 
 func _content_basis() -> Vector3:
 	var basis := Vector3(-1,-1,-1)
 	for index in range(3):
-		if requested[index]>=0: basis[index] = maxf(0,requested[index]-leading(padding)[index]-trailing(padding)[index])
+		if requested[index]>=0: basis[index] = maxf(0,requested[index]-leading(padding+border)[index]-trailing(padding+border)[index])
 	return basis
 
 static func valid_extent(value: Vector3) -> bool:
@@ -203,7 +206,7 @@ func measure() -> Vector3:
 			else: natural[index] = maxf(natural[index],child_size[index])
 	if children.size() > 1: natural[axis] += gap * (children.size() - 1)
 	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
-	if not transparent: natural += leading(padding)+trailing(padding)
+	if not transparent: natural += leading(padding+border)+trailing(padding+border)
 	measured = natural
 	for axis in range(3):
 		if requested[axis] >= 0: measured[axis] = requested[axis]
@@ -221,7 +224,7 @@ func independent_axis(index: int) -> bool:
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	_external_axes = external_axes
 	_warn_unanchored()
-	var content := available-leading(padding)-trailing(padding)
+	var content := available-leading(padding+border)-trailing(padding+border)
 	var reference := Vector3(-1,-1,-1)
 	for index in range(3):
 		content[index] = maxf(0,content[index])
@@ -279,7 +282,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	for index in range(children.size()):
 		var child = children[index]
 		var slot: Dictionary = slots[index]
-		var next: Vector3 = leading(padding)+slot.position+child.length_offset
+		var next: Vector3 = leading(padding+border)+slot.position+child.length_offset
 		if child.offset != next or child.arrange_count == 0:
 			child.offset = next
 			child.placed.emit(next)

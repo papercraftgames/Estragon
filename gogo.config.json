@@ -11,6 +11,7 @@
     "examples/twoway",
     "examples/nested_layout",
     "examples/lengths",
-    "examples/box_model"
+    "examples/box_model",
+    "examples/styling"
   ]
 }

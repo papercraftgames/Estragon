@@ -1,0 +1,9 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+func build_view() -> Element:
+	return <VBox name="Rose" width="100%" padding="8px" background_color="#344139"
+	             border_color="#83b698" border_width="1px" border_left_width="4px">
+		<Text name="Caption" text="Rose — local Text color" color={Color("#ffcc66")} />
+	</VBox>

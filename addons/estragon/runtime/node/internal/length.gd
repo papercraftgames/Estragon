@@ -7,12 +7,15 @@ extends RefCounted
 const LIMIT := 1.0e12
 const FACTORS := {"":1.0,"px":1.0,"in":96.0,"cm":96.0/2.54,"mm":96.0/25.4,"q":96.0/101.6,"pt":96.0/72.0,"pc":16.0}
 const DIMENSIONS := ["width","height","depth"]
+const BORDER_EDGES := ["border_top_width","border_right_width","border_bottom_width","border_left_width"]
 const OFFSETS := ["x","y","z"]
 const EDGES := ["padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"]
 var specs: Dictionary = {}
 var parse_count := 0
 static func domain(name: String) -> String:
 	if name in DIMENSIONS: return "extent"
+	if name=="border_width": return "inset"
+	if name in BORDER_EDGES: return "edge"
 	if name in OFFSETS: return "offset"
 	if name in EDGES: return "edge" if name.contains("_") else "inset"
 	return "inset" if name=="gap" else ""
@@ -72,8 +75,8 @@ static func dependencies(specs: Dictionary, stack_axis: int) -> Array:
 	for name in specs:
 		var unit: String = specs[name].unit
 		if unit=="%":
-			if name in ["width","x","margin_left","margin_right","padding_left","padding_right"]: parent_axes.x = 1
-			elif name in ["height","y","margin_top","margin_bottom","padding_top","padding_bottom"]: parent_axes.y = 1
+			if name in ["width","x","margin_left","margin_right","padding_left","padding_right","border_left_width","border_right_width"]: parent_axes.x = 1
+			elif name in ["height","y","margin_top","margin_bottom","padding_top","padding_bottom","border_top_width","border_bottom_width"]: parent_axes.y = 1
 			elif name in ["depth","z"]: parent_axes.z = 1
 			elif name=="gap": parent_axes[stack_axis] = 1
 			else: parent_axes = Vector3(1,1,parent_axes.z)

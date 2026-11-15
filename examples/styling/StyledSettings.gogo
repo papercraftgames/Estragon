@@ -1,0 +1,16 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+var native_clicks: int = 0
+var ui_clicks: int = 0
+func native_pressed() -> void:
+	native_clicks += 1
+func ui_pressed() -> void:
+	ui_clicks += 1
+func build_view() -> Element:
+	return <HBox name="Controls" width="100%" padding="8px" gap="12px"
+	             background_color="#30394d" border_color="#8295bc" border_width="1px">
+		<Button name="Native" text="Native Button" pressed={self.native_pressed} />
+		<UiButton name="Ui" text="Estragon Button" pressed={self.ui_pressed} />
+	</HBox>

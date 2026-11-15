@@ -55,6 +55,47 @@ func _layout_options() -> Dictionary:
 	var result := super._layout_options()
 	result["alignment"] = [horizontal_align,vertical_align,"start"]
 	return result
+const ESTRAGON_VISUAL_STYLE := true
+var background_color: Variant = "transparent":
+	set(value):
+		if is_same(background_color,value) or not _visual_style.assign("background_color",value): return
+		background_color = value
+		_queue_style_redraw()
+var border_color: Variant = "transparent":
+	set(value):
+		if is_same(border_color,value) or not _visual_style.assign("border_color",value): return
+		border_color = value
+		_queue_style_redraw()
+var border_width: Variant = 0.0:
+	set(value):
+		if is_same(border_width,value) or not lengths.assign("border_width",value): return
+		border_width = value
+		_changed()
+		_queue_style_redraw()
+var border_top_width: Variant = "auto":
+	set(value):
+		if is_same(border_top_width,value) or not lengths.assign("border_top_width",value): return
+		border_top_width = value
+		_changed()
+		_queue_style_redraw()
+var border_right_width: Variant = "auto":
+	set(value):
+		if is_same(border_right_width,value) or not lengths.assign("border_right_width",value): return
+		border_right_width = value
+		_changed()
+		_queue_style_redraw()
+var border_bottom_width: Variant = "auto":
+	set(value):
+		if is_same(border_bottom_width,value) or not lengths.assign("border_bottom_width",value): return
+		border_bottom_width = value
+		_changed()
+		_queue_style_redraw()
+var border_left_width: Variant = "auto":
+	set(value):
+		if is_same(border_left_width,value) or not lengths.assign("border_left_width",value): return
+		border_left_width = value
+		_changed()
+		_queue_style_redraw()
 var padding: Variant = 0.0:
 	set(value):
 		if is_same(padding,value) or not lengths.assign("padding",value): return
@@ -82,7 +123,7 @@ var padding_left: Variant = "auto":
 		_changed()
 func _get_property_list() -> Array[Dictionary]:
 	var result: Array[Dictionary] = super._get_property_list()
-	result.append_array(Length.properties(["padding","padding_top","padding_right","padding_bottom","padding_left"]))
+	result.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color","padding","padding_top","padding_right","padding_bottom","padding_left"]))
 	return result
 
 func _padding_insets() -> Vector4:
