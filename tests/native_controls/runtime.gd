@@ -323,6 +323,8 @@ func boundaries() -> void:
 	entry.height = 100
 	column = preload("res://addons/estragon/runtime/node/vbox.gd").new()
 	column.grow = 1
+	# Entry flows along X; cross-axis stretch gives this VBox its definite100px Y.
+	column.stretch = 1
 	entry.add_child(column)
 	var tall := Control.new()
 	tall.custom_minimum_size.y = 70

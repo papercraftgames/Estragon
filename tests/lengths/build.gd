@@ -152,6 +152,7 @@ func build_view() -> Element:
 		ProjectSettings.set_setting("application/run/main_scene","res://app/Home.tscn")
 		ProjectSettings.save()
 		var footer = Node2D.new()
+		footer.name = "Footer"
 		footer.set_script(load("res://app/generated/Footer.gd"))
 		var button := Button.new()
 		button.name = "Borrowed"
