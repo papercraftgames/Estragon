@@ -99,13 +99,16 @@ func widget_inspectors() -> void:
 		widget.owner = scene
 		interface.inspect_object(widget)
 		if await until(func(): return field("background_color")!=null and field("background_color").get_edited_object()==widget,"actual widget Inspector fields"):
+			# Isolate each newly created fixture: native MERGE_ENDS merges rapid
+			# same-named property actions even across disposable objects.
+			var manager := get_undo_redo()
+			var history := manager.get_history_undo_redo(manager.get_object_history_id(widget))
+			history.clear_history()
 			var previous = widget.background_color
 			var color := field("background_color")
 			color.input.text_submitted.emit("#123456")
 			for frame in range(5): await get_tree().process_frame
 			check(widget.background_color=="#123456","actual "+str(script.resource_path.get_file())+" Inspector authors shared hex")
-			var manager := get_undo_redo()
-			var history := manager.get_history_undo_redo(manager.get_object_history_id(widget))
 			print("S02_INSPECTOR_TARGET ",str(color.get_edited_object()==widget)," previous=",str(previous))
 			var undone: bool = history.undo()
 			var after_undo = widget.background_color

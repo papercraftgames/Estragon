@@ -1,7 +1,7 @@
 # Unit lengths — L06
 
 L06 #156 intentionally replaces the experimental numeric-only/helper APIs. All
-Estragon dimensions, declarative offsets, gaps and applicable 2D Box padding and
+Estragon dimensions, declarative offsets, gaps and shared 2D participant padding and
 participant margins accept `int`, `float`, or a validated `String`. Ordinary
 Godot Node/Control properties retain their native types. No imports or component
 extraction are needed for inline percentages.
@@ -22,7 +22,7 @@ func build_view() -> Element:
 ```
 
 Use ordinary explicit Element/Entry2D/VBox/Rect/Text imports. Rect makes the inline
-Box bounds visible; Box has no background styling API. The same properties work
+Box bounds visible; Box also supports local background/borders (see STYLING.md). The same properties work
 in native GDScript (`panel.width = "50%"`) and the enabled addon's native Inspector
 length entry, with native undo/redo and scene storage. Inspector bare numerics
 produce numbers; units and auto produce strings. Reads preserve the exact authored
@@ -173,3 +173,5 @@ L01 Box arithmetic and native Control interoperability remain in the same core.
 ## S01 border insets
 
 Eligible 2D participants use the same grammar/context for `border_width` and `border_top_width/right/bottom/left`. Uniform width rejects auto; sides default to auto and restore the local shorthand, independent of assignment order. Left/right percentages use containing width; top/bottom use height. Border plus padding lies inside explicit dimensions and is subtracted once for child content (300 minus borders2/4 and padding10/20 gives264 at X12). Margins stay outside. No new 3D border API. See [styling](STYLING.md).
+
+S02 hoists padding to Component2D. Button/Toggle uniform `padding="auto"` selects local14px horizontal/8px vertical defaults in the same core; numeric/unit shorthand replaces all four defaults, side auto follows shorthand. Other uniform padding domains still reject auto. No intrinsic text padding is added twice. See [widget styling](STYLING.md#s02--text-rect-button-and-toggle).
