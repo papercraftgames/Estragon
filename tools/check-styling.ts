@@ -30,7 +30,7 @@ for (const selection of options.engines) {
                     if (line === 'S01_EXPECTED_REJECTION_BEGIN') bracket = true;
                     else if (line === 'S01_EXPECTED_REJECTION_END') bracket = false;
                     else if (ERROR.test(line)) {
-                        if (bracket && /^ERROR: Estragon (style 'background_color':|length 'border_width':|style: Text/Rect/Button painters retain their local API until S02$)/.test(line)) count++;
+                        if (bracket && (/^ERROR: Estragon (style 'background_color':|length 'border_width':)/.test(line) || line === 'ERROR: Estragon style: Text/Rect/Button painters retain their local API until S02')) count++;
                         else unexpected.push(line);
                     }
                 }
