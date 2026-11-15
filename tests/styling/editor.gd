@@ -107,7 +107,11 @@ func widget_inspectors() -> void:
 			var manager := get_undo_redo()
 			var history := manager.get_history_undo_redo(manager.get_object_history_id(widget))
 			print("S02_INSPECTOR_TARGET ",str(color.get_edited_object()==widget)," previous=",str(previous))
-			check(history.undo() and is_same(widget.background_color,previous) and history.redo() and widget.background_color=="#123456","actual widget color undo/redo retains local default and authored type")
+			var undone: bool = history.undo()
+			var after_undo = widget.background_color
+			var redone: bool = history.redo()
+			print("S02_INSPECTOR_UNDO ",str([undone,previous,after_undo,redone,widget.background_color]))
+			check(undone and is_same(after_undo,previous) and redone and widget.background_color=="#123456","actual widget color undo/redo retains local default and authored type")
 			for name in ["hover_background_color","pressed_background_color","disabled_background_color","checked_background_color"]:
 				if not name in widget: continue
 				color = field(name)

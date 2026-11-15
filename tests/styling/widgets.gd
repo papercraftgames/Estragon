@@ -139,19 +139,22 @@ func gallery(p) -> void:
 	var content: Rect2 = normal.get_content_rect()
 	var glyphs := 0
 	var caption_glyphs := 0
+	var glyphs_inside := true
+	var caption_inside := true
 	for y in range(int(normal.layout_size.y)):
 		for x in range(int(normal.layout_size.x)):
 			var pixel: Color = alpha_image.get_pixelv(Vector2i(normal.global_position)+Vector2i(x,y))
 			if p.close_color(pixel,Color.WHITE):
 				glyphs += 1
-				p.check(content.grow(1).has_point(Vector2(x,y)),"S02 foreground label pixel lies in centered inner content") if glyphs==1 else null
+				glyphs_inside = glyphs_inside and content.grow(1).has_point(Vector2(x,y))
 	var caption_content: Rect2 = caption.get_content_rect()
 	for y in range(int(caption.layout_size.y)):
 		for x in range(int(caption.layout_size.x)):
 			var pixel: Color = alpha_image.get_pixelv(Vector2i(caption.global_position)+Vector2i(x,y))
 			if p.close_color(pixel,Color("#ffcc66")):
 				caption_glyphs += 1
-				p.check(caption_content.has_point(Vector2(x,y)),"S02 direct Text glyph pixel begins after border and padding") if caption_glyphs==1 else null
+				caption_inside = caption_inside and caption_content.has_point(Vector2(x,y))
+	p.check(glyphs_inside and caption_inside,"S02 every foreground label/Text pixel stays within resolved inner content")
 	p.check(glyphs>0 and caption_glyphs>0,"S02 actual legible label and explicit-color Text foreground pixels are present")
 	var toggle_before := [toggle.get_layout_stats(),toggle.lengths.parse_count,record.runs]
 	toggle.checked_background_color = "#207050"

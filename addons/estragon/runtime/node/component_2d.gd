@@ -1,4 +1,4 @@
-@icon("../../editor/component_2d_icon.tres")
+@icon("internal/component_2d_icon.tres")
 @tool
 class_name EstragonComponent2D
 extends Node2D
