@@ -1,0 +1,151 @@
+Original development logs remain at the paths below. Relevant exact excerpts, not relabeled passes.
+
+--- /tmp/l08-math1.log ---
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "stretch" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://tests/alignment/math.gd:55)
+ERROR: Failed to load script "res://tests/alignment/math.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+
+
+--- /tmp/l08-ready.log ---
+L08_FRONTEND_CHECK repair resumes actual-path compilation: true
+L08_FRONTEND_ASSERTIONS 25 failed=false
+L08_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L08_CHECK self distribution rejects: true
+L08_MATH_ASSERTIONS 112 failed=false
+L08_MATH_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L08_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "horizontal_align": "stretch" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "horizontal_align": "stretch" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "vertical_align": "space-between" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "vertical_align": "space-between" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "vertical_align": "space-around" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "vertical_align": "space-around" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "vertical_align": "space-evenly" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "vertical_align": "space-evenly" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "direction": "column", "vertical_align": "stretch" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "direction": "column", "vertical_align": "stretch" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "direction": "column", "horizontal_align": "space-between" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "direction": "column", "horizontal_align": "space-between" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "direction": "column", "horizontal_align": "space-around" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "direction": "column", "horizontal_align": "space-around" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "direction": "column", "horizontal_align": "space-evenly" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "direction": "column", "horizontal_align": "space-evenly" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align requires start, center, end, main-axis space-between/around/evenly or cross-axis stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "horizontal_align": "bad" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "horizontal_align": "bad" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align requires start, center, end, main-axis space-between/around/evenly or cross-axis stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "vertical_align": true }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "vertical_align": true }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'direction'): direction requires row or column; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "direction": "bad" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "direction": "bad" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:13:51 (spread key 'direction'): HBox/VBox direction is fixed; use Box to change direction; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["row", { "direction": "column" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["row", { "direction": "column" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:14:56 (spread key 'direction'): HBox/VBox direction is fixed; use Box to change direction; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["column", { "direction": "row" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["column", { "direction": "row" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'align_self'): attribute 'align_self': align_self requires auto, start, center, end or stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "align_self": "space-between" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "align_self": "space-between" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'align_self'): attribute 'align_self': align_self requires auto, start, center, end or stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "align_self": true }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "align_self": true }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'justify'): attribute 'justify': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "justify": "center" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "justify": "center" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:35 (spread key 'align'): attribute 'align': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK invalid final spread retains complete tree/geometry ["box", { "align": "end" }]: true
+L08_REJECTION_CHECK spread/key authored origin ["box", { "align": "end" }]: true
+L08_REJECTION_CHECK repair recomposes retained node: true
+ERROR: app/RejectionHost.gogo:15:51: attribute 'align_self': align_self requires auto, start, center, end or stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK direct dynamic align_self rejects with authored source and unchanged placement: true
+L08_REJECTION_CHECK dynamic self repair: true
+ERROR: Estragon Box: vertical_align: space distribution is main-axis only
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon Box: stretch is cross-axis only; use grow for remaining main-axis space
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon alignment: align_self requires auto, start, center, end or stretch
+   at: push_error (core/variant/variant_utility.cpp:903)
+L08_REJECTION_CHECK native invalid enum setters preserve prior fields: true
+L08_EXPECTED_REJECTION_END
+L08_REJECTION_ASSERTIONS 54 failed=false expected_errors=21
+L08_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+L08_RUNTIME_CHECK teardown cleans records/subscriptions and borrowed owner safely: true
+L08_RUNTIME_ASSERTIONS 35 failed=false
+L08_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+L08_EDITOR_CHECK current invalid unsaved alignment blocks stale Play with authored diagnostic: true
+L08_EDITOR_CHECK current invalid alignment retains code/map/UID/timestamp/cached Script: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/AlignmentGallery.gogo:29:67: stretch is cross-axis only; use grow for remaining main-axis space
+L08_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+L08_EDITOR_ASSERTIONS 19 failed=false
+L08_EDITOR_OK
+ERROR: 1 RID allocations of type 'N5GLES37TextureE' were leaked at exit.
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:1982)
+file:///repo/tools/check-alignment.ts:32
+   if(result.status!=='PASS')throw Error('L08 '+name+' failed');
+
+Error: L08 editor failed
+    at run (file:///repo/tools/check-alignment.ts:32:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-alignment.ts:66:51

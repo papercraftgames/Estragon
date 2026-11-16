@@ -133,6 +133,8 @@ func run() -> void:
 	var native = row.get_node("Native")
 	var nested = content.get_node("Nested")
 	var body = nested.get_node("Body")
+	var tile_ids := {}
+	for key in ["a","b","c"]: tile_ids[key] = even.get_node(key).get_instance_id()
 	var record = State.records[host.get_instance_id()]
 	var ids = [button.get_instance_id(),toggle.get_instance_id(),native.get_instance_id(),body.get_instance_id(),borrowed.get_instance_id(),borrowed.owner]
 	toggle.value_changed.connect(edited)
@@ -158,7 +160,7 @@ func run() -> void:
 	host.order = ["c","a","b"]
 	host.show_extra = false
 	await frames()
-	check(even.get_child(0).name==&"c" and even.get_child(1).name==&"a" and not content.has_node("Extra"),"keyed reorder and conditional removal use retained native output")
+	check(even.get_child(0).name==&"c" and even.get_child(1).name==&"a" and ["a","b","c"].all(func(key): return even.get_node(key).get_instance_id()==tile_ids[key]) and not content.has_node("Extra"),"keyed reorder and conditional removal use retained native output")
 	check(ids==[button.get_instance_id(),toggle.get_instance_id(),native.get_instance_id(),body.get_instance_id(),borrowed.get_instance_id(),borrowed.owner] and borrowed.get_parent()==host,"identity/owners/borrowed boundary and subscriptions persist")
 	host.child_props = {}
 	await frames()
@@ -170,9 +172,10 @@ func run() -> void:
 	host.policy = {"direction":"row","horizontal_align":"space-around","vertical_align":"end"}
 	await frames()
 	check(row.direction=="row" and button.position.y==row.layout_size.y-8-button.layout_size.y,"physical policies transpose back without replacing native nodes")
+	var before_native: int = record.runs
 	body.align_self = "start"
 	await frames()
-	check(body.global_position.x==content.global_position.x,"native nested override invalidates parent placement without composition")
+	check(body.global_position.x==content.global_position.x and record.runs==before_native,"native nested override invalidates parent placement without composition")
 	var idle := [record.runs,record.writes,row.get_layout_stats(),even.get_layout_stats(),button.get_layout_stats(),button.get_visual_style_stats(),button.lengths.parse_count]
 	host.policy = host.policy
 	body.align_self = "start"

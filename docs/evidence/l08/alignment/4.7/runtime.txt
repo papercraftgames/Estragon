@@ -1,0 +1,52 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L08_RUNTIME_CHECK border/padding/margins/uneven extents/gap and additive x/y once after slots: true
+L08_RUNTIME_CHECK legacy center=true overrides main space-between without changing cross alignment: true
+L08_RUNTIME_CHECK auto cross stretch includes margins and preserves explicit percentage main width: true
+L08_RUNTIME_CHECK explicit percentage cross axis is never stretched: true
+L08_RUNTIME_CHECK cross floor overflows deterministically with leading margin/additive offset: true
+L08_RUNTIME_CHECK explicit self override beats old stretch, auto restores it start: true
+L08_RUNTIME_CHECK explicit self override beats old stretch, auto restores it center: true
+L08_RUNTIME_CHECK explicit self override beats old stretch, auto restores it end: true
+L08_RUNTIME_CHECK explicit self override beats old stretch, auto restores it auto: true
+L08_RUNTIME_CHECK self stretch supplies existing definite percentage authority to descendants: true
+WARNING: Estragon percentage has no definite containing content axis and resolves to zero; give the containing auto layout axis an independent extent or grow allocation; independent 2D Entries use their visible viewport
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _warn_unanchored (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:91)
+         [1] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:256)
+         [2] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:322)
+         [3] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:322)
+         [4] arrange (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:322)
+         [5] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:170)
+L08_RUNTIME_CHECK explicit self start removes old stretch percentage authority without churn: true
+L08_RUNTIME_CHECK native Control floor/growth precedes distribution even under overflow width100: true
+L08_RUNTIME_CHECK native Control floor/growth precedes distribution even under overflow width120: true
+L08_RUNTIME_CHECK native Control floor/growth precedes distribution even under overflow width80: true
+L08_RUNTIME_CHECK ordinary native Control receives no align_self API: true
+L08_RUNTIME_CHECK 3D public component API remains unchanged: true
+L08_RUNTIME_CHECK real HBox evenly positions at (640, 480): true
+L08_RUNTIME_CHECK align_self=end overrides parent center on cross axis only: true
+L08_RUNTIME_CHECK nested Gogo root forwards explicit self/end and percentage width through transparent host: true
+L08_RUNTIME_CHECK native rendered header border remains in border-box: true
+L08_RUNTIME_CHECK real HBox evenly positions at (1000, 800): true
+L08_RUNTIME_CHECK align_self=end overrides parent center on cross axis only: true
+L08_RUNTIME_CHECK nested Gogo root forwards explicit self/end and percentage width through transparent host: true
+L08_RUNTIME_CHECK native rendered header border remains in border-box: true
+L08_RUNTIME_CHECK distributed full outer hit targets/native Control/controlled Toggle exactly once: true
+L08_RUNTIME_CHECK responsive minima update self placement with retained slots (640, 480): true
+L08_RUNTIME_CHECK responsive minima update self placement with retained slots (1000, 800): true
+L08_RUNTIME_CHECK keyed reorder and conditional removal use retained native output: true
+L08_RUNTIME_CHECK identity/owners/borrowed boundary and subscriptions persist: true
+L08_RUNTIME_CHECK omitted spread align_self clears to auto on retained child: true
+L08_RUNTIME_CHECK direction plus axis policies commit atomically on retained Box: true
+L08_RUNTIME_CHECK physical policies transpose back without replacing native nodes: true
+L08_RUNTIME_CHECK native nested override invalidates parent placement without composition: true
+L08_RUNTIME_CHECK equal native/reactive updates and idle frames have no reflow/repaint/reparse/recomposition: true
+L08_COUNTERS [8,75,{"active":true,"arrange":6,"flush":0,"measure":6},{"active":true,"arrange":6,"flush":0,"measure":6},{"active":true,"arrange":1,"flush":0,"measure":1},{"commands":6,"draw":6,"parse":1,"redraw":6},23]
+L08_RUNTIME_CHECK teardown cleans records/subscriptions and borrowed owner safely: true
+L08_RUNTIME_ASSERTIONS 35 failed=false
+L08_RUNTIME_OK

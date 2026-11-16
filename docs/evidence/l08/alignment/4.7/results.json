@@ -1,0 +1,246 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "db33feb94aa545864e3aa1865509d8f3fe571c4e21485bff3993f826212024f4"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-vwsXQl/yarn-cache",
+      "file:/evidence/l08-final/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.72,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--headless",
+      "--script",
+      "res://tests/alignment/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.69,
+    "godot_pid": 80776,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--headless",
+      "--script",
+      "res://tests/alignment/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.46,
+    "godot_pid": 80793,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "math": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--headless",
+      "--script",
+      "res://tests/alignment/math.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.28,
+    "godot_pid": 80810,
+    "log": "math.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--headless",
+      "--script",
+      "res://tests/alignment/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.35,
+    "godot_pid": 80827,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align: space distribution is main-axis only; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'horizontal_align'): horizontal_align requires start, center, end, main-axis space-between/around/evenly or cross-axis stretch; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'vertical_align'): vertical_align requires start, center, end, main-axis space-between/around/evenly or cross-axis stretch; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'direction'): direction requires row or column; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:13:51 (spread key 'direction'): HBox/VBox direction is fixed; use Box to change direction; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:14:56 (spread key 'direction'): HBox/VBox direction is fixed; use Box to change direction; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'align_self'): attribute 'align_self': align_self requires auto, start, center, end or stretch; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:15:35 (spread key 'align_self'): attribute 'align_self': align_self requires auto, start, center, end or stretch; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/alignment/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.18,
+    "godot_pid": 80844,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.16,
+    "godot_pid": 80943,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "b858d0ac1d89cf58a03db810e3e4e49b63b29788332147137e94402c68632a7e",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 23.28,
+    "godot_pid": 81187,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-vwsXQl/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-vwsXQl/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 14.86,
+    "godot_pid": 81756,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

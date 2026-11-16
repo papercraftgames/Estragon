@@ -66,7 +66,7 @@ Changing direction plus alignment in one desired description commits atomically.
 ```
 
 Physical names are canonical; no align-items/justify-content alias family.
-L08 below completes main-axis space-between/around/evenly and eligible2D align_self.
+L08 below completes main-axis space-between/around/evenly and eligible 2D align_self.
 Legacy `center` remains the older main-axis centering option (and takes precedence
 if explicitly true); new examples use physical-axis policies. No new native
 Control properties, out-of-flow mode, shrink/basis shorthand or CSS engine.
@@ -136,9 +136,9 @@ including margins and base gap between adjacent items. Only remaining positive
 free space is distributed. Main grow consumes its allocation before any space-*
 calculation; distribution never allocates that space twice. Native fill keeps its
 existing minimum water-filling. Padding/border consume content once; margins stay
-outside each child. No integer rounding, shrink, clipping or negative placement.
+outside each child. No integer rounding, shrink, clipping or negative distribution offsets.
 
-For300px content, three40px children and10px base gap, occupied140px leaves160px:
+For 300px content, three 40px children and 10px base gap, 140px occupied leaves 160px:
 
 | Main policy | Child positions relative to content origin |
 | --- | --- |
@@ -162,7 +162,7 @@ end or stretch. It overrides only the actual parent's cross axis. Explicit
 non-auto wins over old child stretch; auto uses an existing child stretch/fill
 request first, otherwise the parent's cross policy. Ordinary native Godot Controls
 participate in parent cross alignment/minimums without acquiring align_self.
-Public3D properties are unchanged. All cross stretching applies only to auto child
+Public 3D properties are unchanged. All cross stretching applies only to auto child
 axes; explicit percentage/fixed dimensions win, and authored/native minima remain
 floors. Outer margins are subtracted before cross placement; x/y remain additive
 post-slot offsets. Self stretch carries the existing definite percentage authority
