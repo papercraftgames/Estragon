@@ -140,7 +140,7 @@ From a clean committed branch, run under Linux Xvfb/software graphics with the
 same two approved binaries (absolute output directory must be new):
 
 ```sh
-corepack yarn@1.22.22 node --experimental-strip-types tools/check-ux01.ts --engine 4.0.4=/absolute/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/Godot_v4.7-stable_linux.x86_64 --editor --output /absolute/new-ux01-evidence
+COREPACK_ENABLE_PROJECT_SPEC=0 corepack yarn@1.22.22 node --experimental-strip-types tools/check-ux01.ts --engine 4.0.4=/absolute/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/Godot_v4.7-stable_linux.x86_64 --editor --output /absolute/new-ux01-evidence
 ```
 
 The collector packs identical immutable addon bytes, installs by actual direct
@@ -149,3 +149,6 @@ checks, and optionally real isolated editor Inspector/undo/both Play paths/sourc
 repair/restart. It audits installed package hashes/UIDs after editor shutdown.
 `--editor-only` isolates editor development diagnostics. It does not run release
 certification or alter routine CI. [Public contracts and boundaries](UX01.md).
+Optional `--candidate-tag v0.1.0-beta.24` applies the deterministic read-only
+preview overlay to staged package metadata; it creates no tag or release and
+does not authorize publication. Omit it for a development package.

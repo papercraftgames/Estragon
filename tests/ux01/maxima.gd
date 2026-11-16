@@ -32,6 +32,20 @@ func run():
 	parent.set_children([first,second])
 	parent.arrange(parent.measure())
 	check(first.size.x==100 and second.size.x==400,"growth water-fills after maximum, no double allocation")
+	for strategy in ["stack","wrap","grid"]:
+		var containing := Core.new()
+		containing.configure(Vector3(500,200,0),0,false)
+		containing.strategy = strategy
+		if strategy=="grid": containing.grid_config = {"columns":1}
+		containing.alignment = ["end","stretch","start"]
+		var capped := Core.new()
+		capped.set_lengths({"width":Length.parse(400,"extent"),"height":Length.parse("auto","extent"),"max_width":Length.parse(120,"edge"),"max_height":Length.parse(60,"edge")},0,0,1,0)
+		containing.set_children([capped])
+		containing.arrange(containing.measure())
+		check(capped.size.x==120 and capped.size.y<=60,"shared "+strategy+" two-axis cap before alignment/stretch")
+	var native_floor = model(500,0,50)
+	native_floor.allocation_minimum = Vector3(80,0,0)
+	check(native_floor.measure().x==80,"native allocation floor wins maximum")
 	var entry := Entry.new()
 	entry.width = 640
 	entry.height = 240
