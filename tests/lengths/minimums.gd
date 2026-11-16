@@ -36,10 +36,11 @@ func run(p) -> void:
 	await p.frames()
 	p.check(box.width==80 and box.height==40 and box.layout_size==Vector2(120,60),"L11 explicit authored extents stay readable while allocated border-box clamps to minima")
 	p.check(child.layout_size==Vector2(86,56) and child.position==Vector2(12,2),"L11 percentage child uses clamped content after asymmetric border+padding once")
-	for width in [120,150,80]:
-		box.width = width
+	for extent in [Vector2(120,60),Vector2(150,80),Vector2(80,40)]:
+		box.width = extent.x
+		box.height = extent.y
 		await p.frames()
-		p.check(box.layout_size.x==maxi(width,120),"L11 requested width below/equal/above minimum: "+str(width))
+		p.check(box.layout_size==Vector2(maxf(extent.x,120),maxf(extent.y,60)),"L11 requested dimensions below/equal/above minima: "+str(extent))
 	box.min_width = "50%"
 	box.min_height = "25%"
 	await p.frames()

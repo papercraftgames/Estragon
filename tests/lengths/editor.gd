@@ -179,7 +179,6 @@ func minimum_editor_proof() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/MinimumGallery.tscn","L11 authored minimum scene opens")
 	await settle()
 	ProjectSettings.set_setting("application/run/main_scene","res://app/MinimumGallery.tscn")
-	ProjectSettings.save()
 	if not FileAccess.file_exists("res://.godot/l11-tested"):
 		await plugin._navigation.open("res://app/MinimumGallery.gogo")
 		await until(func(): return minimum_code()!=null,"L11 authored minimum buffer associates")
@@ -207,7 +206,6 @@ func minimum_editor_proof() -> void:
 		file.close()
 	await minimum_play("main")
 	ProjectSettings.set_setting("application/run/main_scene",main)
-	ProjectSettings.save()
 func finish() -> void:
 	print("L06_EDITOR_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_EDITOR_OK")
