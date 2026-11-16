@@ -534,25 +534,6 @@ Owner [#161](https://github.com/papercraftgames/Estragon/issues/161), after owne
 Acceptance: exact300px six-mode transposed table;0/1/overflow/uneven/growth/minimum/cross/self math and native geometry; literal/dynamic/spread/native rejection, source/map/cache rollback and repair; real responsive nested/keyed/conditional/borrowed Gogo gallery and native Control/Toggle drawing/input at640x480/1000x800; isolated Inspector edit/undo/restart and both actual Play paths. Focused development then bounded two-engine direct-Yarn official Linux4.0.4/pinned4.7.0, UID/map/package audits, relevant current layout/style/spread/Controls/Counter/shared3D regressions, frozen/static and CI<=60s. Concise honest evidence/checkpoints/handoff and one review-ready PR, owner merges. No #162/#163/#88/S04/style layer/3D expansion, extra versions/platforms/full73/Python/workflows/Assets/GogoDemo/version/tag/release/publication/merge changes.
 
 
-## L09-10 — combined responsive wrapping and native Grid
-
-Owner [#176](https://github.com/papercraftgames/Estragon/issues/176) consolidates
-#162/#163 after owner-merged L08 #175 (`b2cf0e5`). One work ID and one review PR
-deliver BOTH pure slot strategies over the existing shared core, native Grid,
-physical gaps, Box wrap/line alignment, track/template/area/span placement and
-Element/external-record metadata. [Contract](RESPONSIVE_LAYOUT.md).
-
-Acceptance: exact160/230 transposed Wrap and320/620/fractional Grid geometry;
-intrinsic/minimum/margins/percent/overflow/line/cell alignment, native Controls and
-nested Gogo, keyed/conditional/borrowed ownership/lifetime/input, whole-description
-rollback/repair with spread provenance, Inspector/undo/completion and both actual
-Play paths/restart/pack-reload. Focused development then one proportional official
-Linux4.0.4/pinned4.7.0 actual-node_modules direct-Yarn acceptance, immutable package/UID/map
-proof, inspected320/640/1000 captures, current native/layout/compiler regressions
-and frozen/static checks. GitHub holds checkpoints/evidence/handoffs; sole review-ready
-PR, owner merges. CI<=60s unchanged; no extra engines/platforms/full73/Python/Assets/
-GogoDemo/workflows/version/tag/release/publication/S04 changes.
-
 ## L09-10 — combined responsive Wrap and native Grid
 
 Owner [#176](https://github.com/papercraftgames/Estragon/issues/176) consolidates former Wrap #162/Grid #163 after owner-merged L08 #175 (`b2cf0e5`). One work ID/branch/PR delivers both pure slot strategies over the existing shared core, native Box wrap/physical gaps/line distribution and native Component2D Grid tracks/spans/areas/template. Element/external placement supports Gogo/Control children; whole-description validation/rollback and retained identity remain common. [ADR-0025](DECISIONS.md#adr-0025--combined-responsive-wrap-and-native-grid-slot-strategies), [contract](RESPONSIVE_LAYOUT.md).

@@ -23,22 +23,26 @@ static func tracks(values) -> Dictionary:
 	return {"tracks":result}
 static func normalize(columns, rows, areas: Array = [], placements: Array = []) -> Dictionary:
 	var cols := tracks(columns)
-	if cols.has("error"): return cols
+	if cols.has("error"):
+		cols.field = "columns"
+		return cols
 	var lines := tracks(rows)
-	if lines.has("error"): return lines
+	if lines.has("error"):
+		lines.field = "rows"
+		return lines
 	var matrix: Array = []
 	var bounds := {}
-	if not areas.is_empty() and areas.size()!=lines.tracks.size(): return {"error":"area row count must match row tracks"}
+	if not areas.is_empty() and areas.size()!=lines.tracks.size(): return {"error":"area row count must match row tracks","field":"areas"}
 	for row in range(areas.size()):
-		if not areas[row] is String: return {"error":"each area row must be a space-separated string"}
+		if not areas[row] is String: return {"error":"each area row must be a space-separated string","field":"areas"}
 		var cells: Array = []
 		for cell in areas[row].replace("\t"," ").split(" ",false): cells.append(cell)
-		if cells.size()!=cols.tracks.size(): return {"error":"uneven area row or column track count mismatch"}
+		if cells.size()!=cols.tracks.size(): return {"error":"uneven area row or column track count mismatch","field":"areas"}
 		matrix.append(cells)
 		for col in range(cells.size()):
 			var name: String = cells[col]
 			if name==".": continue
-			if not name.is_valid_identifier(): return {"error":"area names must be identifiers or ."}
+			if not name.is_valid_identifier(): return {"error":"area names must be identifiers or .","field":"areas"}
 			if not bounds.has(name): bounds[name] = {"row":row,"column":col,"row_span":1,"column_span":1}
 			var rect: Dictionary = bounds[name]
 			rect.row_span = row-rect.row+1
@@ -49,7 +53,7 @@ static func normalize(columns, rows, areas: Array = [], placements: Array = []) 
 		var rect: Dictionary = bounds[name]
 		for row in range(rect.row,rect.row+rect.row_span):
 			for col in range(rect.column,rect.column+rect.column_span):
-				if matrix[row][col]!=name: return {"error":"area '"+name+"' must form one rectangle"}
+				if matrix[row][col]!=name: return {"error":"area '"+name+"' must form one rectangle","field":"areas"}
 	var positioned := place(placements,cols.tracks.size(),lines.tracks.size(),bounds,false)
 	if positioned.has("error"): return positioned
 	return {"columns":cols.tracks,"rows":lines.tracks,"areas":matrix,"bounds":bounds,"placements":positioned.placements}
@@ -81,9 +85,11 @@ static func template(value: String) -> Dictionary:
 
 static func resolve(columns = null, rows = null, areas: Array = [], text: String = "", placements: Array = []) -> Dictionary:
 	if not text.is_empty():
-		if columns!=null or rows!=null or not areas.is_empty(): return {"error":"template conflicts with explicit columns/rows/areas"}
+		if columns!=null or rows!=null or not areas.is_empty(): return {"error":"template conflicts with explicit columns/rows/areas","field":"template"}
 		var parsed := template(text)
-		if parsed.has("error"): return parsed
+		if parsed.has("error"):
+			parsed.field = "template"
+			return parsed
 		return resolve(parsed.columns,parsed.rows,parsed.areas,"",placements)
 	var cols := tracks(1 if columns==null else columns)
 	if cols.has("error"): return cols

@@ -87,7 +87,11 @@ static func dependencies(specs: Dictionary, stack_axis: int) -> Array:
 			if name in ["width","min_width","x","column_gap","margin_left","margin_right","padding_left","padding_right","border_left_width","border_right_width"]: parent_axes.x = 1
 			elif name in ["height","min_height","y","row_gap","margin_top","margin_bottom","padding_top","padding_bottom","border_top_width","border_bottom_width"]: parent_axes.y = 1
 			elif name in ["depth","z"]: parent_axes.z = 1
-			elif name=="gap": parent_axes[stack_axis] = 1
+			elif name=="gap":
+				parent_axes[stack_axis] = 1
+				if specs.has("row_gap") or specs.has("column_gap"):
+					parent_axes.x = 1
+					parent_axes.y = 1
 			else: parent_axes = Vector3(1,1,parent_axes.z)
 		elif unit=="vw": viewport_axes.x = 1
 		elif unit=="vh": viewport_axes.y = 1

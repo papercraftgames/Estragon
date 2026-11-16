@@ -110,7 +110,9 @@ func run() -> void:
 			{"columns":2,"horizontal_align":"space-between"}, {"columns":2,"row_gap":"-1px"}, {"columns":2,"column_gap":INF}
 		]
 		for config in invalid_configs:
-			host.grid_props = config
+			var merged := {"columns":["140px","1fr"],"rows":["48px","auto"],"areas":["header header","sidebar main"]}
+			merged.merge(config,true)
+			host.grid_props = merged
 			await frames()
 			check(ui.get_instance_id()==mounted_id and named.width==old_width and named.columns==["140px","1fr"],"invalid complete config rollback "+str(config))
 		print("L0910_EXPECTED_REJECTION_END")
@@ -136,6 +138,15 @@ func run() -> void:
 		print("L0910_EXPECTED_REJECTION_END")
 		host.header_props = {}
 		await frames()
+		var header_id: int = header.get_instance_id()
+		named.remove_child(header)
+		await frames()
+		named.add_child(header)
+		await frames()
+		check(header.position==Vector2(12,12) and header.get_instance_id()==header_id,"native removal/re-entry preserves external area and instance")
+		header.free()
+		await frames()
+		check(not preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres").placements.has(header_id),"native individual free prunes weak placement without parent recomposition")
 	host.free()
 	await frames()
 	check(preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres").placements.is_empty(),"placement records released on unmount")

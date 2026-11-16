@@ -603,7 +603,11 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 					for key in ["anchor_left","anchor_right","anchor_top","anchor_bottom","rotation","scale","pivot_offset","top_level"]: values[key] = existing.get(key) if key!="top_level" else existing.is_set_as_top_level()
 				values.merge(child.properties,true)
 				var message := GridDefinition.control_error(values)
-				if not message.is_empty(): return _invalid_attribute(child,"area",message)
+				if not message.is_empty():
+					var field := "area"
+					for key in ["anchor_left","anchor_right","anchor_top","anchor_bottom","rotation","scale","pivot_offset","top_level"]:
+						if child.properties.has(key): field = key
+					return _invalid_attribute(child,field,message)
 			placements.append(child.placement)
 			grid_children.append(child)
 		var parsed := GridDefinition.configuration(config,placements)
@@ -688,6 +692,7 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 		if child != null: _free_managed(child,rescue)
 	var node = record.node.get_ref()
 	if node == null:
+		Hosts.clear_placement(record.id)
 		state.get_ref().managed.erase(record.id)
 		return
 	for binding in record.bindings.values(): binding.disconnect_edit()
@@ -742,6 +747,5 @@ func _projection_tree(record, projected: Dictionary, ordering: Dictionary) -> vo
 func _unindex(record) -> void:
 	if record == null or record.borrowed != null: return
 	state.get_ref().managed.erase(record.id)
-	Hosts.placements.erase(record.id)
-	if record.node.get_ref()!=null: Hosts.set_placement(record.node.get_ref(),{})
+	Hosts.clear_placement(record.id)
 	for child in record.children: _unindex(child)
