@@ -19,7 +19,7 @@ for(const selection of options.engines){
    if(semantic){
     let bracket=false,count=0,starts=0;const unexpected:string[]=[];const lines=log.split(/\r?\n/);
     for(let i=0;i<lines.length;i++){
-     const line=lines[i];
+     const line=lines[i]!;
      if(line==='S03_EXPECTED_SEMANTIC_BEGIN'){bracket=true;starts++;}
      else if(line==='S03_EXPECTED_SEMANTIC_END')bracket=false;
      else if(ERROR.test(line)){
