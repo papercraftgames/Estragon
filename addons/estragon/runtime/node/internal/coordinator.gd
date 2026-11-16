@@ -122,7 +122,7 @@ func _sync() -> void:
 	if not active or _mode == Mode.CONTROL: return
 	var values: Array = []
 	var host: Node = _host.get_ref()
-	var children: Array = host.get_children() if _mode != Mode.COMPOSITION else []
+	var children: Array = (host._layout_children() if host.has_method("_layout_children") else host.get_children()) if _mode != Mode.COMPOSITION else []
 	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
 	children = CompositionHosts.children(host,children)
 	for child in children:

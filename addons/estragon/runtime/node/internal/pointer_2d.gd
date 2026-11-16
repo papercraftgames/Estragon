@@ -40,11 +40,21 @@ func _z(button: CanvasItem) -> int:
 		button = parent
 		parent = button.get_parent_item()
 	return result
+static func inside_clips(item: CanvasItem, position: Vector2) -> bool:
+	var parent := item.get_parent()
+	while parent!=null:
+		if parent.has_method("_content_pointer_allowed") and not parent._content_pointer_allowed(position): return false
+		if parent is Control and parent.clip_contents:
+			var point: Vector2 = parent.get_global_transform_with_canvas().affine_inverse()*position
+			if not Rect2(Vector2.ZERO,parent.size).has_point(point): return false
+		parent = parent.get_parent()
+	return true
+
 func pick(position: Vector2):
 	var found
 	for ref in _buttons:
 		var button = ref.get_ref()
-		if button == null or button.is_queued_for_deletion() or not button.is_inside_tree() or not button.is_visible_in_tree() or not button._pointer_contains(position): continue
+		if button == null or button.is_queued_for_deletion() or not button.is_inside_tree() or not button.is_visible_in_tree() or not button._pointer_contains(position) or not inside_clips(button,position): continue
 		if found == null or _z(button) > _z(found) or _z(button) == _z(found) and button.is_greater_than(found): found = button
 	return found
 func input(event: InputEvent) -> bool:

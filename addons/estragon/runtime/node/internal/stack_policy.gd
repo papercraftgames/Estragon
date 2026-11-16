@@ -14,6 +14,7 @@ static func slots(items: Array, content: Vector3, axis: int, gap: float, alignme
 		for index in range(3):
 			if index != axis and item.requested[index]<0 and cross_alignment(item,alignment[index],index)=="stretch":
 				extent[index] = maxf(item.minimum[index],content[index]-item.outer[index])
+		extent = limit_extent(extent,item)
 		# Native fill remains a zero-basis allocation with a native minimum floor.
 		if item.fill[axis]>0 and item.requested[axis]<0: extent[axis] = 0.0
 		extents.append(extent)
@@ -29,6 +30,14 @@ static func slots(items: Array, content: Vector3, axis: int, gap: float, alignme
 		for index in flexible.duplicate():
 			var item: Dictionary = items[index]
 			var part: float = remaining*(item.grow if item.grow>0 else 1.0)/weight
+			var cap: Vector3 = item.get("maximum",Vector3(-1,-1,-1))
+			if cap[axis]>=0 and part>maxf(0,maxf(item.minimum[axis],cap[axis])-extents[index][axis]):
+				shares[index] = maxf(0,maxf(item.minimum[axis],cap[axis])-extents[index][axis])
+				remaining = maxf(0,remaining-shares[index])
+				weight -= item.grow if item.grow>0 else 1.0
+				flexible.erase(index)
+				constrained = true
+				continue
 			var floor_extra: float = maxf(0,item.minimum[axis]-extents[index][axis])
 			if floor_extra>part:
 				shares[index] = floor_extra
@@ -77,3 +86,10 @@ static func cross_alignment(item: Dictionary, parent: String, index: int) -> Str
 	return "stretch" if item.stretch>0 or item.fill[index]>0 else parent
 static func factor(value: String) -> float:
 	return 0.5 if value=="center" else (1.0 if value=="end" else 0.0)
+
+static func limit_extent(extent: Vector3, item: Dictionary) -> Vector3:
+	var cap: Vector3 = item.get("maximum",Vector3(-1,-1,-1))
+	for index in range(3):
+		if cap[index]>=0: extent[index] = minf(extent[index],cap[index])
+		extent[index] = maxf(extent[index],item.minimum[index])
+	return extent

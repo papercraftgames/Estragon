@@ -175,12 +175,16 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 	imported.scan(module)
 	var lexer := Lexer.new(source)
 	var tokens: Array = []
-	var cursor := 0
-	while cursor < source.text.length():
-		var token = lexer.next_token(cursor)
-		if token == null: break
-		cursor = token.span.end.index
-		if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append(token)
+	# Declarations belong to GDScript Code spans. Body punctuation/quotes are
+	# markup data and must never enter the GDScript lexer during import lookup.
+	for part in module.parts:
+		if not part is Model.Code: continue
+		var cursor: int = part.span.start.index
+		while cursor < part.span.end.index:
+			var token = lexer.next_token(cursor)
+			if token == null: break
+			cursor = token.span.end.index
+			if token.kind not in ["whitespace","comment","newline","continuation"]: tokens.append(token)
 	var base := {}
 	var declared_name := ""
 	for index in range(tokens.size()-1):

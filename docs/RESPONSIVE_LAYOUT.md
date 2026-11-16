@@ -161,3 +161,10 @@ equal assignments and idle frames do not parse templates or recompute layout.
 Runtime layout Nodes remain transient; authored scene owners and native pack/reload
 semantics are unchanged. See `tests/responsive` and `tools/check-responsive.ts` for
 focused mathematical, native, actual-path, direct-Yarn graphics/editor verification.
+
+### UX01 available capacity refinement
+
+An auto main-axis Wrap can use definite immediate-parent capacity to break lines
+without an authored width/height. Short groups retain natural size; this ceiling
+does not confer percentage authority. Ordinary overflow remains visible. Maxima
+and ScrollView use the same core and parent slot policies. [Contract](UX01.md).

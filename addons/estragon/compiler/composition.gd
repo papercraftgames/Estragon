@@ -13,12 +13,16 @@ func apply(module) -> void:
 	resolver.scan(module)
 	var lexer := Lexer.new(file)
 	var tokens: Array = []
-	var cursor := 0
-	while cursor < file.text.length():
-		var token = lexer.next_token(cursor)
-		if token == null: return
-		cursor = token.span.end.index
-		if token.kind not in ["whitespace","newline","comment","continuation"]: tokens.append(token)
+	# Only code spans contain declarations. Literal markup bodies are not GDScript
+	# (quotes, punctuation and Unicode must never enter its token scanner).
+	for part in module.parts:
+		if not part is Model.Code: continue
+		var cursor: int = part.span.start.index
+		while cursor<part.span.end.index:
+			var token = lexer.next_token(cursor)
+			if token==null: return
+			cursor = token.span.end.index
+			if token.kind not in ["whitespace","newline","comment","continuation"]: tokens.append(token)
 	var has_ggx := false
 	for part in module.parts:
 		if part is Model.Component: has_ggx = true

@@ -1,0 +1,41 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const ScrollView = preload("../../../addons/estragon/runtime/node/scroll_view.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+@bindable var username: String = "Gogo"
+@bindable var enabled: bool = false
+@bindable var order: Array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+@bindable var extra: Dictionary = {}
+@bindable var show_overflow: bool = true
+var clicks: int = 0
+func pressed(): clicks += 1
+func row(index: int) -> Element:
+	if index==0: return <Button key={index} name="NativeRow" custom_minimum_size={Vector2(0,60)} pressed={pressed}>Native scroll button</Button>
+	if index==1: return <UiButton key={index} name="CustomRow" height="60px" pressed={pressed}>Estragon scroll button</UiButton>
+	if index==2: return <Toggle key={index} name="ToggleRow" height="60px" bind:value={self.enabled}>Enabled</Toggle>
+	if index==3: return <Grid key={index} name="GridRow" columns={2} width="100%" height="60px" gap="8px"><Text>Native Grid</Text><Rect height="60px" background_color="#477dbb" /></Grid>
+	if index==4: return <HBox key={index} name="WrapRow" wrap height="60px" gap="8px"><Text>Wrap</Text><Text>inside</Text><Text>viewport</Text></HBox>
+	return <UiButton key={index} name={"Row"+str(index)} height="60px" pressed={pressed}>Item {str(index)}</UiButton>
+func build_view() -> Element:
+	var panel := {"background_color":"#252b38","padding":"8px"}
+	return <Entry2D name="UI" width="100%" height="100%" padding="12px" background_color="#171b24">
+		<VBox name="Content" width="100%" height="100%" gap="6px" horizontal_align="end">
+			<Text name="Greeting">Hello {self.username}!</Text>
+			<HBox name="Wrap" wrap gap="8px" row_gap="6px">
+				<Text>One</Text><Text>Two</Text><Text>Three</Text>
+				<Button name="Native" pressed={pressed}>Native</Button>
+				<UiButton name="Custom" pressed={pressed}>Estragon</UiButton>
+			</HBox>
+			{<HBox key="overflow" name="Overflow" width="500px" max_width="180px" height="26px" align_self="start"><Text width="240px" height="26px" background_color="#477dbb">Visible overflow</Text></HBox> if self.show_overflow else null}
+			<ScrollView name="Scroll" width="100%" height="30vh" max_height="380px" vertical_scroll {...panel} {...self.extra}>
+				<VBox name="List" width="100%" horizontal_align="stretch">{self.order.map(row)}</VBox>
+			</ScrollView>
+		</VBox>
+	</Entry2D>

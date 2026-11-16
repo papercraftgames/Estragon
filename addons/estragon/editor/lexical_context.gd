@@ -33,7 +33,7 @@ func context(index: int, column: int) -> Dictionary:
 	var result := scan(lines[index].left(column), state, false)
 	var end: Dictionary = result.state
 	end["tokens"] = result.tokens
-	end["suppressed"] = end.comment or not end.quote.is_empty()
+	end["suppressed"] = end.comment or not end.quote.is_empty() or end.mode=="body"
 	return end
 
 static func _add(tokens: Array, kind: String, start: int, end: int, word: String, native: bool = true) -> void:
@@ -75,6 +75,10 @@ func scan(text: String, state: Dictionary, newline: bool = true) -> Dictionary:
 			_add(tokens,"comment",i,text.length(),text.substr(i))
 			if not newline: state.comment = true
 			i = text.length()
+			continue
+		if state.mode=="body" and ch not in ["<","{"]:
+			while i<text.length() and text[i] not in ["<","{"]: i += 1
+			_add(tokens,"string",start,i,text.substr(start,i-start),false)
 			continue
 		if ch in ['"',"'"]:
 			state.quote = ch.repeat(3) if text.substr(i,3) == ch.repeat(3) else ch
