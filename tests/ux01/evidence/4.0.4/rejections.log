@@ -1,0 +1,62 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'max_height'): invalid length 'max_height': Length is negative, nonfinite or outside the supported range; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_height": "-1px" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'max_width'): invalid length 'max_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_width": "2em" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (-1, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (inf, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'vertical_scroll'): attribute 'vertical_scroll': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "vertical_scroll": 1 }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_range'): attribute 'scroll_range': read-only ScrollView measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_range": (0, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'content_extent'): attribute 'content_extent': read-only ScrollView measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "content_extent": (0, 0) }: true
+UX01_REJECTION valid dynamic cap: true
+UX01_REJECTION omitted max resets auto and repairs: true
+UX01_REJECTION conditional removal retains sibling content: true
+UX01_REJECTION conditional restoration retains sibling content: true
+UX01_REJECTION declarative initial offset survives mount before natural measurement: true
+UX01_REJECTION changed viewport clamps authored offset against new range: true
+UX01_REJECTION offset-first attributes restore against enlarged new range: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:16:1: attribute 'children': ScrollView requires exactly one content root; use an explicit VBox or Grid; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: 0: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:16:1: attribute 'children': ScrollView requires exactly one content root; use an explicit VBox or Grid; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: 2: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:12:1: attribute 'children': ScrollView content needs a bounded native 2D participant, Control or Gogo component; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: -1: true
+UX01_REJECTION composition subscriptions and records released: true
+UX01_REJECTIONS_OK

@@ -149,6 +149,6 @@ checks, and optionally real isolated editor Inspector/undo/both Play paths/sourc
 repair/restart. It audits installed package hashes/UIDs after editor shutdown.
 `--editor-only` isolates editor development diagnostics. It does not run release
 certification or alter routine CI. [Public contracts and boundaries](UX01.md).
-Optional `--candidate-tag v0.1.0-beta.24` applies the deterministic read-only
+Optional `--candidate-tag VALIDATED_PRERELEASE_TAG` applies the deterministic read-only
 preview overlay to staged package metadata; it creates no tag or release and
 does not authorize publication. Omit it for a development package.

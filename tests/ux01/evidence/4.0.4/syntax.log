@@ -1,0 +1,41 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_B source-located strict negative <HBox width />: true
+UX01_B source-located strict negative <HBox imaginary />: true
+UX01_B source-located strict negative <Button pressed />: true
+UX01_B source-located strict negative <Button key />: true
+UX01_B source-located strict negative <Button bind:value />: true
+UX01_B source-located strict negative <Button disabled disabled={false} />: true
+UX01_B source-located strict negative <Text text="x">body</Text>: true
+UX01_B source-located strict negative <HBox>bad text</HBox>: true
+UX01_B source-located strict negative <Text>Mixed<Button>Child</Button></Text>: true
+UX01_B source-located strict negative <Text>{42}</Text>: true
+UX01_B source-located strict negative <Text>{true}</Text>: true
+UX01_B source-located strict negative <Text>unclosed: true
+UX01_B source-located strict negative <Text></Button>: true
+UX01_B source-located strict negative <Text>{"unfinished"</Text>: true
+UX01_B explicit GDScript newline String interpolation compiles: true
+UX01_B source-owned typed Gogo Bool/String fields remain writable on native subtype: true
+UX01_B String interpolation Unicode: true
+UX01_B literal quotes are markup, never GDScript: true
+UX01_B multiline whitespace: true
+UX01_B newline/interpolation boundaries fold once: true
+UX01_B empty body: true
+UX01_B bare true and ordered spread: true
+UX01_B later spread overrides bare true: true
+UX01_B retained observed text update: true
+UX01_B String expression preserves explicit newlines on native Button: true
+UX01_B body text uses existing native font measurement and retained node: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:42:24 (spread key 'text'): text property conflicts with text body; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B spread/body complete-description conflict rollback: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:35:24: text body expression requires String; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B dynamic non-String rejects atomically without coercion: true
+UX01_B each String interpolation evaluates once per description: true
+UX01_B_OK
