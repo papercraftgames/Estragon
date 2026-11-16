@@ -5,6 +5,7 @@ const Element = preload("../runtime/composition/element.gd")
 const Model = preload("model.gd")
 const Source = preload("source.gd")
 const Resolver = preload("native/resolver.gd")
+const GridDefinition = preload("../runtime/node/internal/grid_definition.gd")
 const StackContract = preload("../runtime/node/internal/stack_contract.gd")
 const VisualStyle = preload("../runtime/node/internal/visual_style_2d.gd")
 const Length = preload("../runtime/node/internal/length.gd")
@@ -93,6 +94,9 @@ func _component(node: Model.Component) -> void:
 					_error("Inline anonymous GGX handlers are not supported; use a named handler/Callable", token.span)
 					return
 				index = token.span.end.index
+		elif name in GridDefinition.PLACEMENT and not properties.has(name):
+			attribute.kind = "placement"
+			attribute.type_name = "String" if attribute.value is Model.Literal and name=="area" else "Variant"
 		elif properties.has(name) and NativeAttributes.writable(resolved.native,resolved.script,name,properties[name]):
 			attribute.type_name = "Variant" if Length.registered(resolved.script,name) or VisualStyle.registered(resolved.script,name) else _native_type(properties[name])
 			if attribute.type_name.is_empty():
@@ -106,11 +110,23 @@ func _component(node: Model.Component) -> void:
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
+		if not expanded and GridDefinition.marked(resolved.script) and attribute.value is Model.Literal:
+			if name in ["horizontal_align","vertical_align"] and attribute.value.value not in ["start","center","end","stretch"]:
+				_error("Grid per-cell "+name+" requires start/center/end/stretch",attribute.value.span)
+				return
+			if name=="template":
+				var parsed := GridDefinition.resolve(null,null,[],str(attribute.value.value))
+				if parsed.has("error"):
+					_error("Grid template: "+parsed.error,attribute.value.span)
+					return
 		if name=="align_self" and StackContract.self_registered(resolved.script) and attribute.value is Model.Literal:
 			var message := StackContract.error(name,attribute.value.value,"")
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
+		if GridDefinition.marked(resolved.script) and name in ["horizontal_align","vertical_align"] and attribute.value is Model.Literal and attribute.value.value not in ["start","center","end","stretch"]:
+			_error("Grid "+name+" requires start, center, end or stretch",attribute.value.span)
+			return
 		var is_color := VisualStyle.registered(resolved.script,name)
 		if is_color:
 			_color(attribute)
@@ -140,6 +156,11 @@ func _component(node: Model.Component) -> void:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
+		if not GridDefinition.marked(resolved.script):
+			for attribute in child.attributes:
+				if attribute.kind=="placement":
+					_error("GGX placement "+attribute.name+" requires a Grid parent",attribute.name_span)
+					return
 		if child is Model.Component and not child.attributes.any(func(item): return item.kind=="spread"):
 			for attribute in child.attributes:
 				if attribute.name=="name" and attribute.value is Model.Literal:

@@ -122,3 +122,14 @@ The existing strict bindable group now proves class-scope grammar, idempotent ex
 ## L08 alignment/distribution
 
 `corepack yarn@1.22.22 node --experimental-strip-types tools/check-alignment.ts --editor --engine 4.0.4=/absolute/official/linux/godot --engine 4.7=/absolute/pinned/linux/godot --output /absolute/new-output` runs pure transposed slot math, source/rollback/repair, exact runtime/native rejections, retained native geometry/input/counters and isolated Inspector/undo/current+main Play/restart captures. Packages remain immutable at the actual node_modules path; clean native import precedes plugin activation. Focused development then one proportionate two-engine acceptance, relevant existing regressions/static/UID/maps; no routine workflow expansion or exhaustive73. Record exact evidence/provenance, failed attempts, inspected captures and manual interactive smoke status in #161/sole PR.
+
+
+### L09-10 responsive Wrap/Grid
+
+`tests/responsive` and `tools/check-responsive.ts` exercise pure Wrap/Grid slots,
+compiler/placement/completion, complete-description rollback, native lifecycle,
+rendered resize/input/pack-reload and optional isolated real editor Inspector/Play/
+restart. Use the approved engines and genuine direct-Yarn node_modules consumer;
+`--editor` adds editor proof, `--editor-only` resumes only that changed scope.
+[Exact commands, source qualification and retained failures](evidence/L0910_RESPONSIVE_GRID.md).
+This is a focused local acceptance tool, not an added routine CI job or full73 gate.

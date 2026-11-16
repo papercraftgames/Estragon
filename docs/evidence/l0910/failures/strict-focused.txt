@@ -1,0 +1,39 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:93553) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.57s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
+          at: GDScript::reload (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/composition_hosts.gd:170)
+file:///repo/tools/check-responsive.ts:32
+   if(result.status!=='PASS')throw Error('L0910 '+name+' failed');
+                                   ^
+
+Error: L0910 build failed
+    at run (file:///repo/tools/check-responsive.ts:32:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-responsive.ts:51:3
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-responsive.ts --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/176-final-focused
+Directory: /tmp
+Output:
+

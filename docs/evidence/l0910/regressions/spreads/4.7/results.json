@@ -1,0 +1,168 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "da6597e2adf73b6d1596b3d6ee3fcaa512ffec20893605c1aeb39bc83eaf9fce"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-IO4HoN/yarn-cache",
+      "file:/evidence/176-regression-spreads/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.78,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-IO4HoN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-IO4HoN/project",
+      "--headless",
+      "--script",
+      "res://tests/spreads/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.97,
+    "godot_pid": 91188,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-IO4HoN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-IO4HoN/project",
+      "--headless",
+      "--script",
+      "res://tests/spreads/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.84,
+    "godot_pid": 91226,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "publication": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-IO4HoN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-IO4HoN/project",
+      "--headless",
+      "--script",
+      "res://tests/spreads/publication.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.26,
+    "godot_pid": 91243,
+    "log": "publication.log",
+    "diagnostics": [
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_spread_expression\" not declared in the current scope.",
+      "          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)",
+      "SCRIPT ERROR: Parse Error: Expected expression after \"+\" operator.",
+      "          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)"
+    ]
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-IO4HoN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-IO4HoN/project",
+      "--headless",
+      "--script",
+      "res://tests/spreads/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.75,
+    "godot_pid": 91333,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread key  requires a nonempty String/StringName; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread key text requires a nonempty String/StringName; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'key' must be explicitly authored; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/RejectionHost.gogo:19:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-IO4HoN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-IO4HoN/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/spreads/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.6,
+    "godot_pid": 91384,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

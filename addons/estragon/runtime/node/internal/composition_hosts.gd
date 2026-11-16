@@ -157,3 +157,40 @@ func refresh_positions(root: RefCounted) -> void:
 		var node = item.node.get_ref()
 		var coordinator = _coordinator(node)
 		if coordinator != null and coordinator._mode != coordinator.Mode.ENTRY and coordinator.scope_root() == root: coordinator._place(coordinator.model.offset)
+
+# Authored Grid placements are external weak records, never foreign properties.
+var placements: Dictionary = {}
+func set_placement(node: Node, value: Dictionary) -> void:
+	var id := node.get_instance_id()
+	if value.is_empty():
+		clear_placement(id)
+		return
+	var entry: Array = placements.get(id,[])
+	if entry.is_empty():
+		var reference: WeakRef = weakref(node)
+		var callback: Callable = _placement_exited.bind(id,reference)
+		node.tree_exited.connect(callback)
+		entry = [reference,{},callback]
+	entry[1] = value.duplicate(true)
+	placements[id] = entry
+	var coordinator = _coordinator(node)
+	if coordinator!=null: coordinator.model.set_placement(value)
+func clear_placement(id: int) -> void:
+	var entry: Array = placements.get(id,[])
+	placements.erase(id)
+	if entry.is_empty(): return
+	var node = entry[0].get_ref()
+	if node==null: return
+	if node.tree_exited.is_connected(entry[2]): node.tree_exited.disconnect(entry[2])
+	var coordinator = _coordinator(node)
+	if coordinator!=null: coordinator.model.set_placement({})
+func _placement_exited(id: int, reference: WeakRef) -> void:
+	# Exit alone may be a reversible native remove/re-entry. Prune only after
+	# native destruction, without retaining the Node or polling idle frames.
+	_prune_placement.call_deferred(id,reference)
+func _prune_placement(id: int, reference: WeakRef) -> void:
+	var entry: Array = placements.get(id,[])
+	if not entry.is_empty() and entry[0]==reference and reference.get_ref()==null: clear_placement(id)
+func get_placement(node: Node) -> Dictionary:
+	var entry: Array = placements.get(node.get_instance_id(),[])
+	return entry[1] if not entry.is_empty() and entry[0].get_ref()==node else {}

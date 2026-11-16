@@ -19,7 +19,9 @@ static func preset(script) -> String:
 		script = script.get_base_script()
 	return ""
 static func error(name: String, value, direction: String, fixed: String = "") -> String:
-	if name=="align_self":
+	if name=="align_content":
+		if value not in ["start","center","end","stretch"]+DISTRIBUTION: return "align_content requires start/center/end/space-between/around/evenly/stretch"
+	elif name=="align_self":
 		if value not in SELF: return "align_self requires auto, start, center, end or stretch"
 	elif name=="direction":
 		if value not in ["row","column"]: return "direction requires row or column"

@@ -1,0 +1,7 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+PACKAGE_SPATIAL_DEFAULT 100 (0.03, 0.04, 0.05)
+PACKAGE_SPATIAL_EXPLICIT 1 (3, 4, 5) child=(1.5, 2, 2.5)
+PACKAGE_RUNTIME_ASSERTIONS 24 failures=0
+PACKAGE_RUNTIME_OK

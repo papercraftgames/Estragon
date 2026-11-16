@@ -1,0 +1,34 @@
+yarn node v1.22.22
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+C3_BUILD_OK
+node:fs:2110
+  binding.chmod(path, mode);
+          ^
+
+Error: EACCES: permission denied, chmod '/evidence/176-regression-native-ui/4.7/generated/Counter.gd.map.json'
+    at chmodSync (node:fs:2110:11)
+    at setDestMode (node:internal/fs/cp/cp-sync:123:10)
+    at copyFile (node:internal/fs/cp/cp-sync:103:10)
+    at onFile (node:internal/fs/cp/cp-sync:83:25)
+    at getStats (node:internal/fs/cp/cp-sync:72:12)
+    at copyDir (node:internal/fs/cp/cp-sync:185:9)
+    at onDir (node:internal/fs/cp/cp-sync:136:25)
+    at getStats (node:internal/fs/cp/cp-sync:68:12)
+    at cpSyncFn (node:internal/fs/cp/cp-sync:58:10)
+    at Module.cpSync (node:fs:3252:3) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'chmod',
+  path: '/evidence/176-regression-native-ui/4.7/generated/Counter.gd.map.json'
+}
+
+Node.js v24.22.2
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-native-ui.ts --runtime-only --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /evidence/176-regression-native-ui
+Directory: /tmp
+Output:
+
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.

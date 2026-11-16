@@ -1,0 +1,50 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "b66f06399500cfa4c3fcc3d590b3c385defc05f00ccb73e868fa66b20c6e65f0"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-mVfefn/yarn-cache",
+      "file:/evidence/176-final-focused/4.0.4/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.76,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-mVfefn/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mVfefn/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/build.gd"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 0.47,
+    "godot_pid": 93580,
+    "log": "build.log",
+    "diagnostics": [
+      "SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+      "          at: GDScript::reload (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/composition_hosts.gd:170)"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://app/generated/Borrow.gd" id="1_thhie"]
+
+[node name="Borrow" type="Node2D" unique_id=220504903]
+script = ExtResource("1_thhie")

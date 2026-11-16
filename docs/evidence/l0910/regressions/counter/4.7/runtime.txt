@@ -1,0 +1,21 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+C3_EXPECTED_LENGTH_REJECTIONS_BEGIN
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://addons/estragon/runtime/node/internal/length.gd:63)
+       [1] @width_setter (res://addons/estragon/runtime/node/component_2d.gd:105)
+       [2] run (res://tests/native_ui/runtime.gd:79)
+ERROR: Estragon length 'gap': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://addons/estragon/runtime/node/internal/length.gd:63)
+       [1] @gap_setter (res://addons/estragon/runtime/node/component_2d.gd:125)
+       [2] run (res://tests/native_ui/runtime.gd:80)
+C3_EXPECTED_LENGTH_REJECTIONS_END
+C3_RUNTIME_ASSERTIONS 32 failures=0
+C3_RUNTIME_OK

@@ -1,0 +1,14 @@
+{
+  "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "overlay": {
+    "mode": "development",
+    "version": "0.0.0-dev",
+    "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+    "tag": null,
+    "release_id": null,
+    "overlayRecipe": "estragon-tag-overlay-v1"
+  }
+}

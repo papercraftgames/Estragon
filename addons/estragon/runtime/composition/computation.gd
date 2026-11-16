@@ -1,4 +1,6 @@
 extends RefCounted
+const GridDefinition = preload("../node/internal/grid_definition.gd")
+const GRID_CONFIG := ["columns","rows","areas","template","horizontal_align","vertical_align"]
 const StackContract = preload("../node/internal/stack_contract.gd")
 const VisualStyle = preload("../node/internal/visual_style_2d.gd")
 const Length = preload("../node/internal/length.gd")
@@ -164,7 +166,8 @@ func _normalize(value, ancestors: Array = [], level: int = 0):
 	var next := ancestors.duplicate()
 	next.append(value)
 	if Profile.is_enabled(): Profile.add("normalized_elements")
-	var result := Element.new(value.type,value.properties,value.handlers,[],value.source,value.key,value.keyed)
+	var result := Element.new(value.type,value.properties.duplicate(),value.handlers,[],value.source,value.key,value.keyed)
+	result.placement = value.placement.duplicate(true)
 	result.origins = value.origins.duplicate()
 	result.spread_properties = value.spread_properties.duplicate()
 	result.bindings = value.bindings.duplicate()
@@ -342,13 +345,17 @@ func _apply(desired: Element, record: Mounted) -> void:
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 		binding.attach(node,self)
+	Hosts.set_placement(node,desired.placement)
+	var grid := GridDefinition.marked(desired.type)
+	if grid:
+		node._apply_grid(_grid_config(desired))
 	var stack := StackContract.registered(desired.type)
 	if stack:
 		var policy := resets.duplicate()
 		policy.merge(desired.properties,true)
 		node._apply_stack_policy(policy)
 	for key in resets:
-		if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,resets[key])
+		if (not stack or key not in ["direction","horizontal_align","vertical_align"]) and (not grid or key not in GRID_CONFIG): node.set(key,resets[key])
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
 	# An omitted previously declared border side removes that local override;
@@ -526,6 +533,12 @@ func _order(children: Array, parent: Node) -> void:
 				if Profile.is_enabled(): Profile.add("moves")
 		anchor = actual
 
+func _grid_config(desired: Element) -> Dictionary:
+	var result := {"columns":null,"rows":null,"areas":[],"template":"","horizontal_align":"stretch","vertical_align":"stretch"}
+	for key in GRID_CONFIG:
+		if desired.properties.has(key): result[key] = desired.properties[key]
+	return result
+
 func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> bool:
 	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
@@ -556,12 +569,52 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		policy.merge(desired.properties,true)
 		var fixed := StackContract.preset(desired.type)
 		var direction = policy.get("direction",fixed if not fixed.is_empty() else "row")
-		for key in ["direction","horizontal_align","vertical_align"]:
+		for key in ["direction","horizontal_align","vertical_align","align_content"]:
 			var value = policy.get(key,direction if key=="direction" else "start")
 			var message := StackContract.error(key,value,str(direction),fixed)
 			if not message.is_empty():
 				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
+	if GridDefinition.marked(desired.type):
+		var config := _grid_config(desired)
+		var grid_matches := _matches(desired.children,previous.children if previous!=null and _compatible(desired,previous) else [])
+		var placements: Array = []
+		var grid_children: Array = []
+		for child in desired.children:
+			if child==null: continue
+			if child.borrowed==null:
+				for key in GridDefinition.PLACEMENT:
+					if child.properties.has(key):
+						child.placement[key] = child.properties[key]
+						child.properties.erase(key)
+						child.spread_properties.erase(key)
+				var native: String = child.type if child.type is String else child.type.get_instance_base_type()
+				if not ClassDB.is_parent_class(native,"Control") and not (ClassDB.is_parent_class(native,"Node2D") and (Length.registered(child.type,"width") or GridDefinition.component(child.type))):
+					return _invalid_attribute(child,"area","Grid child requires a native 2D layout participant, Control or Gogo component")
+			if child.borrowed!=null:
+				var borrowed: Node = child.borrowed.get_ref()
+				if not borrowed is Control and not (borrowed is Node2D and (Length.registered(borrowed.get_script(),"width") or GridDefinition.component(borrowed.get_script()))): return _invalid_attribute(child,"area","Grid borrowed child has no bounded 2D layout participant")
+			var native: String = child.type if child.type is String else (child.borrowed.get_ref().get_class() if child.borrowed!=null else child.type.get_instance_base_type())
+			if ClassDB.is_parent_class(native,"Control"):
+				var values := {}
+				var old = grid_matches[desired.children.find(child)]
+				var existing = child.borrowed.get_ref() if child.borrowed!=null else (old.node.get_ref() if old!=null else null)
+				if existing!=null:
+					for key in ["anchor_left","anchor_right","anchor_top","anchor_bottom","rotation","scale","pivot_offset","top_level"]: values[key] = existing.get(key) if key!="top_level" else existing.is_set_as_top_level()
+				values.merge(child.properties,true)
+				var message := GridDefinition.control_error(values)
+				if not message.is_empty():
+					var field := "area"
+					for key in ["anchor_left","anchor_right","anchor_top","anchor_bottom","rotation","scale","pivot_offset","top_level"]:
+						if child.properties.has(key): field = key
+					return _invalid_attribute(child,field,message)
+			placements.append(child.placement)
+			grid_children.append(child)
+		var parsed := GridDefinition.configuration(config,placements)
+		if parsed.has("error"):
+			var origin = grid_children[parsed.item] if parsed.has("item") else desired
+			var key: String = str(origin.placement.keys()[0]) if parsed.has("item") and not origin.placement.is_empty() else parsed.get("field","columns")
+			return _invalid_attribute(origin,key,parsed.error)
 	if VisualStyle.rect_conflict(desired.type,desired.properties.keys()):
 		validation_error = desired.location("fill")+": Rect fill and background_color conflict; previous tree retained"
 		return false
@@ -639,6 +692,7 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 		if child != null: _free_managed(child,rescue)
 	var node = record.node.get_ref()
 	if node == null:
+		Hosts.clear_placement(record.id)
 		state.get_ref().managed.erase(record.id)
 		return
 	for binding in record.bindings.values(): binding.disconnect_edit()
@@ -655,6 +709,7 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 			owner.add_child(child)
 			if persisted_owner != null and persisted_owner.is_ancestor_of(child): child.owner = persisted_owner
 	var id: int = node.get_instance_id()
+	Hosts.set_placement(node,{})
 	node.free()
 	if manager != null: manager.managed.erase(id)
 	frees += 1
@@ -692,4 +747,5 @@ func _projection_tree(record, projected: Dictionary, ordering: Dictionary) -> vo
 func _unindex(record) -> void:
 	if record == null or record.borrowed != null: return
 	state.get_ref().managed.erase(record.id)
+	Hosts.clear_placement(record.id)
 	for child in record.children: _unindex(child)

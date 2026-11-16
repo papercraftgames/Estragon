@@ -168,3 +168,10 @@ S02 [widget styling](STYLING.md#s02--text-rect-button-and-toggle) unifies Text/R
 L11 [minimum dimensions](LENGTHS.md#l11--minimum-2d-dimensions) adds shared min_width/min_height border-box floors to native2D participants. Existing parent-owned slots preserve minima during grow/stretch and overflow, native Control floors combine by max, and Gogo omission clears the retained local constraint. Native Controls retain custom_minimum_size;3D has no new fields.
 
 L08 [complete Box alignment/distribution](LAYOUT_FOUNDATION.md#l08--complete-physical-axis-distribution-and-child-overrides) uses canonical physical horizontal_align/vertical_align with main space-between/around/evenly, cross stretch and eligible2D align_self. Spreads supply the same ordinary properties; no justify/align aliases or style layer. Explicit key/bind controls and native Control APIs remain unchanged.
+
+
+L09-10 #176 adds native `EstragonGrid` (`runtime/node/grid.gd`) alongside Box/HBox/VBox.
+Use explicit preload aliases. Box `wrap=true` groups children into responsive lines;
+Grid allocates tracks, spans and named areas with the same native participants,
+Control adapter, visual style, Length/core and input pipeline.
+[Public Wrap/Grid contract](RESPONSIVE_LAYOUT.md) and [gallery](../examples/responsive/ResponsiveGallery.tscn).

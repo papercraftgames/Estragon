@@ -1,0 +1,54 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+L0910_EDITOR_CHECK Grid actual native Inspector columns: true
+L0910_EDITOR_CHECK Grid actual native Inspector rows: true
+L0910_EDITOR_CHECK Grid actual native Inspector areas: true
+L0910_EDITOR_CHECK Grid actual native Inspector template: true
+L0910_EDITOR_CHECK Grid actual native Inspector horizontal_align: true
+L0910_EDITOR_CHECK Grid actual native Inspector row_gap: true
+L0910_EDITOR_CHECK Grid columns Inspector edit/undo/redo: true
+L0910_EDITOR_CHECK Wrap Inspector edit/undo/redo: true
+L0910_EDITOR_CHECK native line/gap Inspector: true
+L0910_EDITOR_CHECK real native authored responsive layout scene imports: true
+L0910_EDITOR_CHECK native Gogo highlighter attached to actual responsive layout source: true
+L0910_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/ResponsiveGallery.gogo:29:68: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+L0910_EDITOR_CHECK current invalid unsaved responsive layout blocks stale Play with authored diagnostic: true
+L0910_EDITOR_CHECK current invalid responsive layout retains code/map/UID/timestamp/cached Script: true
+L0910_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+L0910_EDITOR_GAME {"clicks":3,"edits":[true,false,true],"native":3,"ok":true,"samples":[{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(176, 0)","size":"(120, 36)"},{"name":"c","position":"(0, 48)","size":"(120, 36)"},{"name":"d","position":"(176, 48)","size":"(120, 36)"},{"name":"e","position":"(0, 96)","size":"(120, 36)"},{"name":"f","position":"(176, 96)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(296, 208)","owner":true,"root":true,"runs":true,"viewport":"(320, 480)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(165.3333, 0)","size":"(120, 36)"},{"name":"c","position":"(330.6667, 0)","size":"(120, 36)"},{"name":"d","position":"(496, 0)","size":"(120, 36)"},{"name":"e","position":"(0, 48)","size":"(120, 36)"},{"name":"f","position":"(496, 48)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(616, 165)","owner":true,"root":true,"runs":true,"viewport":"(640, 480)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(171.2, 0)","size":"(120, 36)"},{"name":"c","position":"(342.4, 0)","size":"(120, 36)"},{"name":"d","position":"(513.6, 0)","size":"(120, 36)"},{"name":"e","position":"(684.8, 0)","size":"(120, 36)"},{"name":"f","position":"(856, 0)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(976, 165)","owner":true,"root":true,"runs":true,"viewport":"(1000, 800)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(165.3333, 0)","size":"(120, 36)"},{"name":"c","position":"(330.6667, 0)","size":"(120, 36)"},{"name":"d","position":"(496, 0)","size":"(120, 36)"},{"name":"e","position":"(0, 48)","size":"(120, 36)"},{"name":"f","position":"(496, 48)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(616, 165)","owner":true,"root":true,"runs":true,"viewport":"(640, 480)","wrap":true}]}
+Running: /tmp/estragon-native-cF6wi6/godot --path /tmp/estragon-native-cF6wi6/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 89496 --position 320,272 res://app/ResponsiveGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L0910_EDITOR_CHECK current actual rendered responsive layout/minimum/native input/controlled Toggle at two sizes: true
+L0910_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+L0910_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/ResponsiveGallery.gogo:29:68: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+L0910_EDITOR_CHECK main invalid unsaved responsive layout blocks stale Play with authored diagnostic: true
+L0910_EDITOR_CHECK main invalid responsive layout retains code/map/UID/timestamp/cached Script: true
+L0910_EXPECTED_PLAY_REJECTION_END
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/ResponsiveGallery.gogo:29:68: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:923)
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+L0910_EDITOR_GAME {"clicks":3,"edits":[true,false,true],"native":3,"ok":true,"samples":[{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(176, 0)","size":"(120, 36)"},{"name":"c","position":"(0, 48)","size":"(120, 36)"},{"name":"d","position":"(176, 48)","size":"(120, 36)"},{"name":"e","position":"(0, 96)","size":"(120, 36)"},{"name":"f","position":"(176, 96)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(296, 208)","owner":true,"root":true,"runs":true,"viewport":"(320, 480)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(165.3333, 0)","size":"(120, 36)"},{"name":"c","position":"(330.6667, 0)","size":"(120, 36)"},{"name":"d","position":"(496, 0)","size":"(120, 36)"},{"name":"e","position":"(0, 48)","size":"(120, 36)"},{"name":"f","position":"(496, 48)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(616, 165)","owner":true,"root":true,"runs":true,"viewport":"(640, 480)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(171.2, 0)","size":"(120, 36)"},{"name":"c","position":"(342.4, 0)","size":"(120, 36)"},{"name":"d","position":"(513.6, 0)","size":"(120, 36)"},{"name":"e","position":"(684.8, 0)","size":"(120, 36)"},{"name":"f","position":"(856, 0)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(976, 165)","owner":true,"root":true,"runs":true,"viewport":"(1000, 800)","wrap":true},{"border":true,"cards":[{"name":"a","position":"(0, 0)","size":"(120, 36)"},{"name":"b","position":"(165.3333, 0)","size":"(120, 36)"},{"name":"c","position":"(330.6667, 0)","size":"(120, 36)"},{"name":"d","position":"(496, 0)","size":"(120, 36)"},{"name":"e","position":"(0, 48)","size":"(120, 36)"},{"name":"f","position":"(496, 48)","size":"(120, 36)"}],"grid":true,"idle":true,"ids":true,"named":true,"named_size":"(616, 165)","owner":true,"root":true,"runs":true,"viewport":"(640, 480)","wrap":true}]}
+Running: /tmp/estragon-native-cF6wi6/godot --path /tmp/estragon-native-cF6wi6/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 89496 --position 320,272 res://app/ResponsiveGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L0910_EDITOR_CHECK main actual rendered responsive layout/minimum/native input/controlled Toggle at two sizes: true
+L0910_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+L0910_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+L0910_EDITOR_ASSERTIONS 20 failed=false
+L0910_EDITOR_OK

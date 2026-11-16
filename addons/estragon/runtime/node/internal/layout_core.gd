@@ -1,6 +1,9 @@
 @tool
 extends RefCounted
 const StackPolicy = preload("stack_policy.gd")
+const WrapPolicy = preload("wrap_policy.gd")
+const GridDefinition = preload("grid_definition.gd")
+const GridPolicy = preload("grid_policy.gd")
 const Length = preload("length.gd")
 const Profile = preload("../../composition/profile.tres")
 ## Shared B2/C1 mathematical row layout. No Nodes, rendering or SceneTree dependencies.
@@ -23,7 +26,15 @@ var _forward_context: Array = []
 var _reported_unanchored := false
 var _reported_full_percent := false
 var _reported_fixed_growth := false
+var measurement_allocation := Vector3(-1,-1,-1)
 var requested := Vector3(-1, -1, -1)
+var placement: Dictionary = {}
+var grid_config: Dictionary = {}
+var grid_definition: Dictionary = {}
+var policy_result: Dictionary = {}
+var strategy := "stack"
+var align_content := "start"
+var physical_gaps := Vector2.ZERO
 var gap: float = 0.0
 var center: bool = false
 var axis: int = 0
@@ -68,6 +79,19 @@ func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, sta
 	_length_context = []
 	invalidate()
 
+func set_placement(value: Dictionary) -> void:
+	if placement==value: return
+	placement = value.duplicate(true)
+	invalidate()
+
+func set_strategy(value: String, content_alignment: String = "start", config: Dictionary = {}) -> void:
+	if strategy==value and align_content==content_alignment and grid_config==config: return
+	grid_config = config.duplicate(true)
+	grid_definition = {}
+	strategy = value
+	align_content = content_alignment
+	invalidate()
+
 func set_policy(values: Array) -> void:
 	if alignment==values: return
 	alignment = values.duplicate()
@@ -110,23 +134,30 @@ func prepare(reference: Vector3, viewport: Vector2) -> void:
 		_measure_dirty = true
 		_arrange_dirty = true
 	_forward_context = [reference,viewport] if transparent else []
+	for index in range(3):
+		if parent_reference[index]!=reference[index] and measurement_allocation[index]>=0:
+			measurement_allocation[index] = -1
+			_measure_dirty = true
 	parent_reference = reference
 	viewport_size = viewport
 	var context := [reference*_parent_axes,viewport*_viewport_axes]
 	if _length_context==context: return
 	_length_context = context
 	resolution_count += 1
-	var before := [requested,gap,padding,border,margin,length_offset,authored_minimum]
+	var before := [requested,gap,physical_gaps,padding,border,margin,length_offset,authored_minimum]
 	if not length_specs.is_empty():
 		for index in range(3):
 			requested[index] = _length(["width","height","depth"][index],index,requested[index])
 			length_offset[index] = _length(["x","y","z"][index],index,0)
 		authored_minimum = Vector3(maxf(0,_length("min_width",0,0)),maxf(0,_length("min_height",1,0)),0)
 		gap = _length("gap",axis,0)
+		physical_gaps = Vector2(_length("column_gap",0,-1),_length("row_gap",1,-1))
+		for index in range(2):
+			if physical_gaps[index]<0: physical_gaps[index] = _length("gap",index,0)
 		padding = _edges("padding")
 		border = _edges("border")
 		margin = _edges("margin")
-	if before!=[requested,gap,padding,border,margin,length_offset,authored_minimum]:
+	if before!=[requested,gap,physical_gaps,padding,border,margin,length_offset,authored_minimum]:
 		_measure_dirty = true
 		_arrange_dirty = true
 
@@ -144,7 +175,8 @@ func constrain(extent: Vector3) -> Vector3:
 func _content_basis() -> Vector3:
 	var basis := Vector3(-1,-1,-1)
 	for index in range(3):
-		if requested[index]>=0: basis[index] = maxf(0,maxf(requested[index],minimum()[index])-leading(padding+border)[index]-trailing(padding+border)[index])
+		var allocated: float = requested[index] if requested[index]>=0 else measurement_allocation[index]
+		if allocated>=0: basis[index] = maxf(0,maxf(allocated,minimum()[index])-leading(padding+border)[index]-trailing(padding+border)[index])
 	return basis
 
 static func valid_extent(value: Vector3) -> bool:
@@ -167,6 +199,7 @@ func configure(extent: Vector3, spacing: float, centered: bool, stack_axis: int 
 	intrinsic = content
 	requested = extent
 	gap = spacing
+	physical_gaps = Vector2(spacing,spacing)
 	center = centered
 	invalidate()
 	return OK
@@ -186,6 +219,7 @@ func set_children(values: Array) -> Error:
 		if not values.has(child):
 			child._parent = null
 	children = values.duplicate()
+	grid_definition = {}
 	for child in children:
 		child._parent = weakref(self)
 	invalidate()
@@ -205,6 +239,75 @@ static func trailing(edges: Vector4) -> Vector3:
 func outer_extent() -> Vector3:
 	return leading(margin)+trailing(margin)
 
+# A wrapping item's intrinsic main floor is its largest unbreakable child,
+# while ordinary stack preferred sizes stay unchanged. This lets a fractional
+# Grid cell assign a narrower width before the bounded cross remeasurement.
+func track_contribution() -> Vector3:
+	if transparent and children.size()==1: return children[0].track_contribution()
+	var result := measured
+	if strategy=="wrap" and requested[axis]<0:
+		result[axis] = intrinsic[axis]
+		for child in children: result[axis] = maxf(result[axis],maxf(child.measured[axis],child.minimum()[axis])+child.outer_extent()[axis])
+		result[axis] += leading(padding+border)[axis]+trailing(padding+border)[axis]
+	return result
+
+func _items() -> Array:
+	var items: Array = []
+	for child in children:
+		items.append({"preferred":child.measured,"contribution":child.track_contribution(),"minimum":child.minimum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"align_self":child.align_self,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin),"placement":child.placement})
+	return items
+
+func _grid(items: Array, content: Vector3) -> Dictionary:
+	var placements: Array = []
+	for item in items: placements.append(item.placement)
+	if grid_definition.get("source_placements",[])!=placements or grid_definition.is_empty():
+		grid_definition = GridDefinition.configuration(grid_config,placements)
+		grid_definition.source_placements = placements.duplicate(true)
+		if grid_definition.has("error"): push_error("Estragon Grid: "+grid_definition.error+"; previous native slots retained")
+	if grid_definition.has("error"):
+		# Native children may exceed an explicitly bounded grid after direct edits.
+		# Reject the layout as a whole, preserving the previous allocated slots.
+		return {"error":grid_definition.error,"extent":measured,"slots":slots}
+	if not _reported_unanchored:
+		for index in range(2):
+			for track in grid_definition.columns if index==0 else grid_definition.rows:
+				if track.unit=="%" and content[index]<0:
+					_reported_unanchored = true
+					push_warning("Estragon Grid percentage track has no definite content reference and resolves to zero")
+	return GridPolicy.layout(items,grid_definition,content,physical_gaps,alignment,viewport_size)
+
+# Allocation-dependent measurement is a bounded second pass in this same core.
+# Only independently assigned axes may supply a basis; auto cycles stay absent.
+func measure_allocated(extent: Vector3, authority: Vector3) -> void:
+	if transparent and children.size()==1:
+		children[0].measure_allocated(extent,authority)
+		_measure_dirty = true
+	elif strategy in ["wrap","grid"]:
+		var next := measurement_allocation
+		for index in range(2):
+			if requested[index]<0 and authority[index]>0: next[index] = extent[index]
+		if next==measurement_allocation: return
+		measurement_allocation = next
+		_measure_dirty = true
+	else: return
+	measure()
+
+func _slots(items: Array, content: Vector3, definite: Vector3) -> Array:
+	if strategy=="grid": return _grid(items,content).slots
+	if strategy=="wrap": return WrapPolicy.layout(items,content,axis,physical_gaps,alignment,align_content,Vector2(definite.x,definite.y)).slots
+	return StackPolicy.slots(items,content,axis,physical_gaps[axis] if axis<2 and not length_specs.is_empty() else gap,alignment)
+
+func _authority(child, item: Dictionary, basis: Vector3) -> Vector3:
+	var authority := Vector3.ZERO
+	for index in range(3):
+		if basis[index]<0 or child.requested[index]>=0: continue
+		if strategy=="grid":
+			if index<2 and alignment[index]=="stretch": authority[index] = 1
+		elif index==axis:
+			if child.grow>0 or child.fill[index]>0: authority[index] = 1
+		elif StackPolicy.cross_alignment(item,alignment[index],index)=="stretch": authority[index] = 1
+	return authority
+
 func measure() -> Vector3:
 	if transparent and children.size()==1:
 		var child = children[0]
@@ -222,6 +325,17 @@ func measure() -> Vector3:
 	if not _measure_dirty: return measured
 	measure_count += 1
 	if Profile.is_enabled(): Profile.add("layout_measures")
+	if not transparent:
+		var basis := _content_basis()
+		for child in children:
+			child.prepare(basis,viewport_size)
+			child.measure()
+		if basis.x>=0 or basis.y>=0:
+			var items := _items()
+			var definite := Vector3(1 if basis.x>=0 else 0,1 if basis.y>=0 else 0,1 if basis.z>=0 else 0)
+			var allocations := _slots(items,basis,definite)
+			if allocations.size()==children.size():
+				for index in range(children.size()): children[index].measure_allocated(allocations[index].extent,_authority(children[index],items[index],basis))
 	var natural := Vector3.ZERO
 	for child in children:
 		if not transparent: child.prepare(_content_basis(),viewport_size)
@@ -230,7 +344,12 @@ func measure() -> Vector3:
 		for index in range(3):
 			if index == axis: natural[index] += child_size[index]
 			else: natural[index] = maxf(natural[index],child_size[index])
-	if children.size() > 1: natural[axis] += gap * (children.size() - 1)
+	if children.size() > 1: natural[axis] += (physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap) * (children.size() - 1)
+	if strategy=="wrap" and not transparent:
+		var basis := _content_basis()
+		natural = WrapPolicy.layout(_items(),basis,axis,physical_gaps,alignment,align_content,Vector2(1 if basis.x>=0 else 0,1 if basis.y>=0 else 0)).extent
+	if strategy=="grid" and not transparent:
+		natural = _grid(_items(),_content_basis()).extent
 	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
 	if not transparent: natural += leading(padding+border)+trailing(padding+border)
 	measured = natural
@@ -248,6 +367,7 @@ func independent_axis(index: int) -> bool:
 	if parent == null: return false
 	var allocated := grow>0 or fill[index]>0
 	if index!=parent.axis: allocated = StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
+	if parent.strategy=="grid" and index<2: allocated = parent.alignment[index]=="stretch"
 	return parent.independent_axis(index) if requested[index] < 0 and allocated else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
@@ -303,12 +423,17 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				_reported_full_percent = true
 				push_warning("Estragon "+main_name+"=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space")
 				break
-	var items: Array = []
-	for child in children:
-		items.append({"preferred":child.measured,"minimum":child.minimum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"align_self":child.align_self,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
+	var items := _items()
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"
-	slots = StackPolicy.slots(items,content,axis,gap,policy)
+	if strategy=="wrap":
+		slots = WrapPolicy.layout(items,content,axis,physical_gaps,policy,align_content,Vector2(1 if reference.x>=0 else 0,1 if reference.y>=0 else 0)).slots
+	else:
+		slots = StackPolicy.slots(items,content,axis,physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap,policy)
+	if strategy=="grid":
+		policy_result = _grid(items,reference)
+		if policy_result.has("error"): return
+		slots = policy_result.slots
 	for index in range(children.size()):
 		var child = children[index]
 		var slot: Dictionary = slots[index]
@@ -318,6 +443,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			child.placed.emit(next)
 		var authority := Vector3.ZERO
 		for cross in range(3):
-			if cross!=axis and StackPolicy.cross_alignment(items[index],policy[cross],cross)=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
+			if strategy=="grid" and cross<2 and policy[cross]=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
+			elif strategy!="grid" and cross!=axis and StackPolicy.cross_alignment(items[index],policy[cross],cross)=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
 		child.arrange(slot.extent,authority)
 	arranged.emit(size)

@@ -197,6 +197,9 @@ func _description(node: Model.Component, indentation: String) -> String:
 		children.append(_arguments[child].name if child is Model.GdExpression else _description(child,indentation))
 	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s, %s, %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column]),key,keyed],node.span,indentation)
+	for attribute in node.attributes:
+		if attribute.kind=="placement" and not expanded: _line(variable+".origins["+_string(attribute.name)+"] = "+_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column]),attribute.name_span,indentation)
+
 	if expanded: _line(variable+".expand(["+", ".join(ordered)+"])",node.span,indentation)
 	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
 	return variable

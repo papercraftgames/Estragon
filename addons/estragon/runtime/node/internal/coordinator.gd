@@ -73,6 +73,7 @@ func start() -> void:
 	# PackedScene restores metadata after construction. Refresh the proof-only
 	# weak registry at entry; C1 resolves the live script field instead.
 	if _mode == Mode.PROOF: host.set_meta(META, weakref(self))
+	if _dimension==2 and host is CanvasItem: host.visibility_changed.connect(_visibility_changed)
 	host.child_entered_tree.connect(_child_entered)
 	host.child_exiting_tree.connect(_child_exiting)
 	if host.has_signal("child_order_changed"): host.connect("child_order_changed", _sync)
@@ -91,6 +92,7 @@ func stop() -> void:
 		if control_adapter != null: control_adapter.stop()
 		model.set_children([])
 		return
+	if _dimension==2 and host is CanvasItem and host.visibility_changed.is_connected(_visibility_changed): host.visibility_changed.disconnect(_visibility_changed)
 	if host.child_entered_tree.is_connected(_child_entered): host.child_entered_tree.disconnect(_child_entered)
 	if host.child_exiting_tree.is_connected(_child_exiting): host.child_exiting_tree.disconnect(_child_exiting)
 	if host.has_signal("child_order_changed") and host.is_connected("child_order_changed", _sync): host.disconnect("child_order_changed", _sync)
@@ -99,6 +101,10 @@ func stop() -> void:
 	model.set_children([])
 	var parent = parent_coordinator()
 	if parent != null: parent._sync()
+
+func _visibility_changed() -> void:
+	var parent = parent_coordinator()
+	if parent!=null and parent.model.strategy in ["wrap","grid"]: parent._sync()
 
 func _child_entered(child: Node) -> void:
 	if child is Control: CompositionHosts.enter_control(child)
@@ -120,9 +126,11 @@ func _sync() -> void:
 	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
 	children = CompositionHosts.children(host,children)
 	for child in children:
+		if _dimension==2 and model.strategy in ["wrap","grid"] and child is CanvasItem and not child.is_visible_in_tree(): continue
 		var found = participant(child,true)
 		if found != null and found._mode != Mode.ENTRY:
 			if found._mode == Mode.CONTROL and not found.control_adapter.participates(): continue
+			found.model.set_placement(CompositionHosts.get_placement(child))
 			values.append(found.model)
 	var error := model.set_children(values)
 	if error != OK: push_error("Estragon layout model ownership: " + error_string(error))
@@ -132,6 +140,7 @@ func changed() -> void:
 	if host == null: return
 	if host.has_method("_layout_options"):
 		var options: Dictionary = host._layout_options()
+		model.set_strategy(options.get("strategy","stack") if _dimension==2 else "stack",options.get("align_content","start"),options.get("grid",{}))
 		model.set_policy(options.get("alignment",["start","start","start"]))
 		model.set_align_self(host.align_self if _dimension==2 and "align_self" in host else "auto")
 		if "lengths" in host:
@@ -140,6 +149,7 @@ func changed() -> void:
 			model.set_lengths(host.lengths.specs,host.grow,host.stretch,host.pixels_per_unit if _dimension==3 else 1.0,options.axis,host._default_padding() if host.has_method("_default_padding") else Vector4.ZERO)
 		model.configure(host.requested_extent(),model.gap,host.center,options.axis,options.fill,options.intrinsic,model.padding if "lengths" in host else options.get("padding",Vector4.ZERO),model.margin if "lengths" in host else options.get("margin",Vector4.ZERO))
 	else: model.configure(host.requested_extent(), host.gap, host.center)
+	if active: _sync()
 
 func _viewport_changed() -> void:
 	var host = _host.get_ref()
