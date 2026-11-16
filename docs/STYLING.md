@@ -1,4 +1,4 @@
-# Local native 2D styling — S01
+# Local native 2D styling — S01 / S02
 
 S01 #167 adds native backgrounds and square borders to eligible Estragon 2D
 participants: Component2D, Box/HBox/VBox, Entry2D, Spacer and bounded Native2D
@@ -88,7 +88,9 @@ Border changes invalidate the existing affected layout branch. Repeated equal
 writes are quiet; idle frames do not parse, lay out or redraw. Style/length stats
 expose counters for the native acceptance proof, not a new scheduling system.
 
-## S01 boundary and follow-ups
+## Historical S01 boundary and follow-ups
+
+The following records S01 at merge; S02 below supersedes its temporary widget exclusion.
 
 Text, Rect and Button/Toggle still use their existing legacy foreground painters.
 They explicitly reject the new shared style properties in compiler/preflight and
@@ -103,3 +105,75 @@ shadows, gradients, textures, clipping and transitions.3D styling/materials and
 alignment/wrap/Grid are outside S01. The known inherited-relative-class4.7 icon
 limitation remains unchanged; editor field proof uses the actual shared direct
 Node2D participant API, not a class-cache patch or an error exemption.
+
+## S02 — Text, Rect, Button and Toggle
+
+S02 #169 removes the temporary S01 widget exclusions. All four widget families
+and their normal subclasses use the same Component2D background/border hook.
+Widget `_draw` methods add only foreground glyphs/checked indicator. Their
+native parentage, font subscriptions, pointer router and description manager
+remain unchanged. There is no cascade, background Node or per-frame work.
+
+Padding is declared once on Component2D, including its five authored fields.
+It uses the same Length grammar and pure core as Box. Text measures only glyph
+metrics; the core adds border+padding once. Text's first baseline is at content
+origin plus the native font ascent; explicit lines use native font height.
+Button centers its label in the content rectangle (leading border+padding,
+outer extent minus both inset sets, clamped to zero). Overflow does not imply
+clipping; text is not drawn when either content axis is zero. The outer allocated
+Button rectangle remains the transformed native hit area, including its border
+and padding.
+
+An unstyled Button/Toggle retains14px left/right and8px top/bottom padding.
+`padding` defaults to `"auto"` **only on these families**, selecting that local
+class default in the same core. It is not four authored side overrides. Set
+`padding="10px"` for10px on all four sides; explicit side values override it in
+any assignment order, and side auto restores the local shorthand. Uniform auto
+on Box/Text/Rect remains invalid. Explicit0 removes all default padding. Native
+Inspector undo/redo and PackedScene retain the distinction; no hidden permanent
+PADDING addition is made to the label measurement.
+
+| Widget property | Default / behavior |
+| --- | --- |
+| Text `color: Color` | white, direct local glyph color; no text_color alias |
+| Text background | transparent |
+| Rect background | white; canonical authored Color/hex field |
+| Rect `fill: Color` | legacy synchronized view of normalized background Color |
+| Button background | #514174, normal state only |
+| hover_background_color | #705a9e |
+| pressed_background_color | #302440; held AND hovered |
+| disabled_background_color | #38343f; wins over all other states |
+| Toggle checked_background_color | #227a60; checked wins over hover/pressed |
+
+Every state color uses the shared finite Color/hex/transparent parser and retains
+its authored value/type. `get_background_color()` returns the effective normalized
+state Color. Setting normal background does not compute or replace other state
+colors. Checked Toggle retains its #65f4b0 underline, placed inside the border
+edges; disabled label alpha remains0.5. Pointer release emits exactly one native
+`pressed`; Toggle's user activation emits one `value_changed`, while programmatic
+`value` projection remains quiet. Existing controlled `bind:value` keeps its
+native bool lvalue behavior.
+
+Rect `background_color` is the canonical visible fill. Native successful writes
+to either it or legacy `fill` update the same cached paint, last write wins;
+invalid writes retain the previous good value. Reading `fill` returns normalized
+Color even when canonical background was authored as a hex String. PackedScene
+stores only the canonical value, preserving its type. Existing fill-only GGX and
+stored scenes remain supported; migrate new authoring to background_color.
+**Authoring both on one GGX Rect is a source-located conflict**, in either order,
+and computed descriptions reject before any commit. Rect never paints a second
+background over the shared border. No fill_color alias is introduced.
+
+Color and pointer/disabled/checked state changes queue redraw only. Text/font
+metrics and padding/border updates invalidate the affected existing layout branch.
+Equal writes and settled idle frames remain quiet. Native Inspector exposes each
+applicable state color and the sole padding control, with validation and undo.
+A shared native Texture2D @icon supplies inherited widget Inspector categories
+through Godot's supported script-icon path; this is neither class-cache mutation
+nor an engine error exemption. Exact tested engine outcomes remain in the task
+evidence; earlier inherited-icon failures remain truthful historical evidence.
+
+[WidgetGallery](../examples/styling/WidgetGallery.tscn) is the runnable source-authored
+example, with styled Text/Rect, four pointer-state Buttons, controlled and unchecked
+Toggles, native Control and nested Gogo child. S03 shared resources/themes/tokens,
+focus/navigation and S04 advanced visuals remain separate.3D acquires no style API.

@@ -30,11 +30,11 @@ for (const selection of options.engines) {
                     if (line === 'S01_EXPECTED_REJECTION_BEGIN') bracket = true;
                     else if (line === 'S01_EXPECTED_REJECTION_END') bracket = false;
                     else if (ERROR.test(line)) {
-                        if (bracket && (/^ERROR: Estragon (style 'background_color':|length 'border_width':)/.test(line) || line === 'ERROR: Estragon style: Text/Rect/Button painters retain their local API until S02')) count++;
+                        if (bracket && (/^ERROR: Estragon (style '(background_color|hover_background_color|pressed_background_color|disabled_background_color|checked_background_color)':|length '(border_width|padding)':)/.test(line))) count++;
                         else unexpected.push(line);
                     }
                 }
-                if (bracket || count !== 18 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
+                if (bracket || count !== 21 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
             }
             results[name] = result;
             writeJSON(path.join(out, 'results.json'), results);
@@ -56,7 +56,7 @@ for (const selection of options.engines) {
             fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replaceAll('res://addons/estragon', 'res://' + addon));
         }
         fs.mkdirSync(path.join(box.project, 'app'), {recursive: true});
-        for (const name of ['StyleGallery', 'StyledSettings', 'StyledRose']) {
+        for (const name of ['StyleGallery', 'StyledSettings', 'StyledRose', 'WidgetGallery']) {
             fs.writeFileSync(path.join(box.project, 'app', name+'.gogo'),
                 fs.readFileSync(path.join(ROOT, 'examples/styling',name+'.gogo'), 'utf8')
                     .replaceAll('../../../addons/estragon', path.posix.relative('app/generated', addon))

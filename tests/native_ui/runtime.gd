@@ -74,8 +74,13 @@ func run() -> void:
 	await settle()
 	check(entry.layout.flush_count==flushes+1 and footer.layout.model.measure_count==cached,"affected property writes coalesce and sibling measurements stay cached")
 	check(b.layout_size.x==84,"fill uses remaining allocation after reflow")
+	print("C3_EXPECTED_LENGTH_REJECTIONS_BEGIN")
+	await process_frame
 	a.width = -2
 	row.gap = NAN
+	await process_frame
+	await process_frame
+	print("C3_EXPECTED_LENGTH_REJECTIONS_END")
 	check(a.width==14 and row.gap==2,"invalid sizes retain prior state")
 	var text := Text.new()
 	text.text = "Hello\nGodot"

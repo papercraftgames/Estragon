@@ -1,16 +1,15 @@
 @tool
 class_name EstragonRect
 extends "component_2d.gd"
-const ESTRAGON_LEGACY_PAINT := true
-## Native rectangle drawing. Width/height are inherited layout inputs.
-@export var fill := Color.WHITE:
-	set(value):
-		if fill == value: return
-		fill = value
-		queue_redraw()
-func apply_layout_size(size: Vector3) -> void:
-	super.apply_layout_size(size)
-	queue_redraw()
-func _draw() -> void:
-	if layout_size.x > 0 and layout_size.y > 0:
-		draw_rect(Rect2(Vector2.ZERO,layout_size),fill)
+## background_color is canonical; fill is the legacy native Color view.
+const ESTRAGON_RECT_STYLE := true
+var fill: Color:
+	get: return _visual_style.colors.background_color
+	set(value): background_color = value
+func _init() -> void:
+	background_color = Color.WHITE
+func _get_property_list() -> Array[Dictionary]:
+	var result: Array[Dictionary] = super._get_property_list()
+	# Store only the canonical value, preserving its authored String/Color type.
+	result.append({"name":"fill","type":TYPE_COLOR,"usage":PROPERTY_USAGE_EDITOR})
+	return result

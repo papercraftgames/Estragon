@@ -2,9 +2,9 @@
 
 # Current native-addon verification
 
-## S01 local 2D styling
+## S01 / S02 local 2D styling
 
-`corepack yarn@1.22.22 node --experimental-strip-types tools/check-styling.ts --editor --engine 4.0.4=/absolute/official/linux/godot --engine 4.7=/absolute/pinned/linux/godot --output /new/absolute/evidence` runs direct-Yarn native compiler/rejections/runtime/render/input/Inspector/completion/main/current Play/restart checks under Xvfb/Openbox/software graphics. It audits installed package bytes and UIDs unchanged, uses isolated settings and never enables the checkout addon. `--editor-only` is a bounded fresh editor follow-up. The known inherited-class4.7 Inspector icon limitation remains unchanged; the actual direct base style API supplies Inspector proof. [Contract](STYLING.md). This opt-in check does not enlarge routine CI or the release gate.
+`corepack yarn@1.22.22 node --experimental-strip-types tools/check-styling.ts --editor --engine 4.0.4=/absolute/official/linux/godot --engine 4.7=/absolute/pinned/linux/godot --output /new/absolute/evidence` runs direct-Yarn native compiler/rejections/runtime/render/input/Inspector/completion/main/current Play/restart checks, including S02 Text/Rect/Button/Toggle content/alias/state/controlled-input proofs under Xvfb/Openbox/software graphics. It audits installed package bytes and UIDs unchanged, uses isolated settings and never enables the checkout addon. `--editor-only` is a bounded fresh editor follow-up. S02 uses public inherited native script icons and directly inspects Text/Rect/Button/Toggle on both approved engines; prior S01 icon failures remain historical. Independent disposable widget fixtures isolate native undo history to avoid rapid same-named MERGE_ENDS actions across objects. [Contract](STYLING.md). This opt-in check does not enlarge routine CI or the release gate.
 
 ## L06 unit lengths
 

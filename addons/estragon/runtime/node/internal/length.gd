@@ -13,7 +13,8 @@ const OFFSETS := ["x","y","z"]
 const EDGES := ["padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"]
 var specs: Dictionary = {}
 var parse_count := 0
-static func domain(name: String) -> String:
+static func domain(name: String, script = null) -> String:
+	if name=="padding" and VisualStyle.marked(script,"ESTRAGON_BUTTON_STYLE"): return "edge"
 	if name in DIMENSIONS: return "extent"
 	if name=="border_width": return "inset"
 	if name in BORDER_EDGES: return "edge"
@@ -50,8 +51,8 @@ static func parse(value, kind: String) -> Dictionary:
 	return {"unit":unit,"value":number}
 static func valid(value, kind: String) -> bool:
 	return not parse(value,kind).has("error")
-func assign(name: String, value) -> bool:
-	var parsed := parse(value,domain(name))
+func assign(name: String, value, kind: String = "") -> bool:
+	var parsed := parse(value,domain(name) if kind.is_empty() else kind)
 	parse_count += 1
 	if parsed.has("error"):
 		push_error("Estragon length '"+name+"': "+parsed.error)

@@ -482,22 +482,29 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			if not message.is_empty():
 				validation_error = desired.source+": "+message+"; previous tree retained"
 				return false
+	if VisualStyle.rect_conflict(desired.type,desired.properties.keys()):
+		validation_error = desired.source+": Rect fill and background_color conflict; previous tree retained"
+		return false
 	for key in desired.properties:
 		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
 		var value = desired.properties[key]
 		if VisualStyle.property(str(key)) and VisualStyle.has_api(desired.type) and not VisualStyle.supported(desired.type):
-			validation_error = desired.source+": shared widget styling is deferred to S02; previous tree retained"
+			validation_error = desired.source+": shared visual styling is unsupported on this participant; previous tree retained"
 			return false
 		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
 			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
 			return false
+		if key=="fill" and VisualStyle.marked(desired.type,"ESTRAGON_RECT_STYLE"):
+			if not value is Color or VisualStyle.parse_color(value).has("error"):
+				validation_error = desired.source+": Rect fill requires a finite native Color; previous tree retained"
+				return false
 		if VisualStyle.registered(desired.type,key):
 			var parsed := VisualStyle.parse_color(value)
 			if parsed.has("error"):
 				validation_error = desired.source+": invalid style '"+str(key)+"': "+parsed.error+"; previous tree retained"
 				return false
 		if Length.registered(desired.type,key):
-			var parsed := Length.parse(value,Length.domain(key))
+			var parsed := Length.parse(value,Length.domain(key,desired.type))
 			if parsed.has("error"):
 				validation_error = desired.source+": invalid length '"+str(key)+"': "+parsed.error+"; previous tree retained"
 				return false

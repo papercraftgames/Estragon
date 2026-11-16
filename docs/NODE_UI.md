@@ -162,3 +162,5 @@ Run [BoxModel.tscn](../examples/box_model/BoxModel.tscn) to change padding with 
 [Exact L01 native acceptance, rendered geometry and editor/compile evidence](evidence/L01_BOX_MODEL.md). Both approved Linux engines pass the scoped proof; live issue/sole PR controls review and merge state.
 
 S01 [local native 2D styling](STYLING.md) adds transparent-default backgrounds and square borders on eligible Component2D descendants. The sole core includes border+padding in border-box/content geometry. Colors redraw without layout invalidation; no cascade or extra Nodes. Legacy Text/Rect/Button painters remain explicitly excluded until S02.
+
+S02 [widget styling](STYLING.md#s02--text-rect-button-and-toggle) unifies Text/Rect/Button/Toggle backgrounds/borders and shared padding on Component2D. Button14/8 defaults remain configurable; labels use the inner content rect, outer transformed hit regions remain native. Rect fill is a synchronized compatibility view; GGX fill plus background conflicts. Local pointer/checked colors do not cascade.

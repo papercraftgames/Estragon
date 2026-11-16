@@ -1,0 +1,8 @@
+set -eu
+engine=/engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-addon.ts --fast-release --engine 4.0.4=/engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=$engine --output /evidence/s02-package-final
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-twoway.ts --engine 4.7=$engine --output /tmp/s02-twoway-local
+cp -r /tmp/s02-twoway-local /evidence/s02-twoway-local
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-ui.ts --runtime-only --engine 4.7=$engine --output /tmp/s02-ui-local
+cp -r /tmp/s02-ui-local /evidence/s02-ui-local
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-routine-smoke.ts --engine 4.7=$engine --output /evidence/s02-routine

@@ -1,0 +1,378 @@
+{
+  "pack": {
+    "status": "PASS",
+    "command": [
+      "/usr/local/bin/node",
+      "--experimental-strip-types",
+      "/repo/tools/pack-addon.ts",
+      "/evidence/s02-package-ready/4.7/package/4.7/packed",
+      "--require-clean"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.94,
+    "log": "package-pack.log",
+    "diagnostics": [],
+    "layout": "package",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/usr/local/bin/node",
+          "--experimental-strip-types",
+          "/repo/tools/pack-addon.ts",
+          "/evidence/s02-package-ready/4.7/package/4.7/packed",
+          "--require-clean"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 6.94,
+        "log": "package-pack.log",
+        "diagnostics": [],
+        "layout": "package"
+      }
+    ]
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--offline",
+      "--cache-folder",
+      "/tmp/estragon-native-Dc7pD7/yarn-cache",
+      "file:/evidence/s02-package-ready/4.7/package/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.77,
+    "log": "direct-install.log",
+    "diagnostics": [],
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "corepack",
+          "yarn@1.22.22",
+          "add",
+          "--exact",
+          "--ignore-scripts",
+          "--non-interactive",
+          "--offline",
+          "--cache-folder",
+          "/tmp/estragon-native-Dc7pD7/yarn-cache",
+          "file:/evidence/s02-package-ready/4.7/package/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 0.77,
+        "log": "direct-install.log",
+        "diagnostics": [],
+        "layout": "direct"
+      }
+    ]
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Dc7pD7/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Dc7pD7/project-direct",
+      "--script",
+      "res://tests/package-consumer/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.6,
+    "godot_pid": 38438,
+    "log": "direct-build.log",
+    "diagnostics": [],
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/tmp/estragon-native-Dc7pD7/godot",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/estragon-native-Dc7pD7/project-direct",
+          "--script",
+          "res://tests/package-consumer/build.gd"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 1.6,
+        "godot_pid": 38438,
+        "log": "direct-build.log",
+        "diagnostics": [],
+        "layout": "direct"
+      }
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Dc7pD7/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-Dc7pD7/project-direct",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.29,
+    "godot_pid": 38456,
+    "log": "direct-import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "b858d0ac1d89cf58a03db810e3e4e49b63b29788332147137e94402c68632a7e",
+      "class_registry_log": "direct-import.classes.json"
+    },
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/tmp/estragon-native-Dc7pD7/godot",
+          "--headless",
+          "--path",
+          "/tmp/estragon-native-Dc7pD7/project-direct",
+          "--editor",
+          "--audio-driver",
+          "Dummy"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 6.29,
+        "godot_pid": 38456,
+        "log": "direct-import.log",
+        "diagnostics": [],
+        "evidence": {
+          "class_registry_sha256": "b858d0ac1d89cf58a03db810e3e4e49b63b29788332147137e94402c68632a7e",
+          "class_registry_log": "direct-import.classes.json"
+        },
+        "layout": "direct"
+      }
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Dc7pD7/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Dc7pD7/project-direct",
+      "--script",
+      "res://tests/package-consumer/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.09,
+    "godot_pid": 38722,
+    "log": "direct-runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ],
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/tmp/estragon-native-Dc7pD7/godot",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/estragon-native-Dc7pD7/project-direct",
+          "--script",
+          "res://tests/package-consumer/runtime.gd"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 2.09,
+        "godot_pid": 38722,
+        "log": "direct-runtime.log",
+        "diagnostics": [
+          "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+        ],
+        "layout": "direct"
+      }
+    ]
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Dc7pD7/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Dc7pD7/project-direct",
+      "--editor",
+      "res://examples/counter/Counter.tscn"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 34.97,
+    "godot_pid": 38821,
+    "log": "direct-editor.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)",
+      "examples/counter/Counter.gogo:23:58: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)",
+      "examples/counter/Counter.gogo:23:58: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.",
+      "   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)"
+    ],
+    "unexpected_errors": [],
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/tmp/estragon-native-Dc7pD7/godot",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/estragon-native-Dc7pD7/project-direct",
+          "--editor",
+          "res://examples/counter/Counter.tscn"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 34.97,
+        "godot_pid": 38821,
+        "log": "direct-editor.log",
+        "diagnostics": [
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+          "          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)",
+          "examples/counter/Counter.gogo:23:58: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)",
+          "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+          "          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)",
+          "examples/counter/Counter.gogo:23:58: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.",
+          "   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)",
+          "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+          "ERROR: An EditorPlugin build callback failed.",
+          "   at: call_build (editor/editor_node.cpp:7679)"
+        ],
+        "unexpected_errors": [],
+        "layout": "direct"
+      }
+    ]
+  },
+  "visual": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-Dc7pD7/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-Dc7pD7/project-direct",
+      "--script",
+      "res://tests/package-consumer/visual.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.17,
+    "godot_pid": 40046,
+    "log": "direct-visual.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ],
+    "layout": "direct",
+    "runs": [
+      {
+        "status": "PASS",
+        "command": [
+          "/tmp/estragon-native-Dc7pD7/godot",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/estragon-native-Dc7pD7/project-direct",
+          "--script",
+          "res://tests/package-consumer/visual.gd"
+        ],
+        "exit_code": 0,
+        "timeout": false,
+        "aborted_on_error": false,
+        "seconds": 1.17,
+        "godot_pid": 40046,
+        "log": "direct-visual.log",
+        "diagnostics": [
+          "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+        ],
+        "layout": "direct"
+      }
+    ]
+  }
+}

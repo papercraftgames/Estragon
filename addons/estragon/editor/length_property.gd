@@ -10,7 +10,7 @@ func _init() -> void:
 func _submit(text: String) -> void:
 	var name := str(get_edited_property())
 	var value: Variant = float(text) if text.is_valid_float() else text
-	var parsed := Length.parse(value,Length.domain(name))
+	var parsed := Length.parse(value,Length.domain(name,get_edited_object().get_script()))
 	if parsed.has("error"):
 		input.tooltip_text = parsed.error
 		input.modulate = Color(1,0.5,0.5)

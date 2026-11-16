@@ -1,7 +1,6 @@
 @tool
 class_name EstragonText
 extends "component_2d.gd"
-const ESTRAGON_LEGACY_PAINT := true
 ## Native Font measure/draw, explicit lines only. No wrapping or rich text.
 @export var text: String = "":
 	set(value):
@@ -62,6 +61,8 @@ func _draw_label(offset: Vector2 = Vector2.ZERO, tint: Color = Color.WHITE) -> v
 	for line in text.split("\n"):
 		if not line.is_empty(): draw_string(font,offset+Vector2(0,font.get_ascent(font_size)),line,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color*tint)
 		offset.y += font.get_height(font_size)
+func get_label_origin() -> Vector2:
+	return get_content_rect().position
 func _draw() -> void:
-	if layout_size.x <= 0 or layout_size.y <= 0: return
-	_draw_label()
+	if get_content_rect().size.x <= 0 or get_content_rect().size.y <= 0: return
+	_draw_label(get_label_origin())

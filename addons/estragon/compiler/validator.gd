@@ -48,11 +48,14 @@ func _component(node: Model.Component) -> void:
 	if stack_direction.is_empty(): stack_direction = "row"
 	for attribute in node.attributes:
 		if attribute.name=="direction": stack_direction = str(attribute.value.value) if attribute.value is Model.Literal else StackContract.preset(resolved.script)
+	if VisualStyle.rect_conflict(resolved.script,node.attributes.map(func(item): return item.name)):
+		_error("Rect fill and background_color conflict; author only the canonical background_color or legacy fill",node.name_span)
+		return
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
 		var name := attribute.name
 		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
-			_error("Shared visual styling on Text/Rect/Button is deferred to S02; use the existing local widget properties",attribute.name_span)
+			_error("Shared visual styling is unsupported on this participant",attribute.name_span)
 			return
 		if seen.has(name):
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
@@ -103,7 +106,7 @@ func _component(node: Model.Component) -> void:
 			if not file.diagnostics.is_empty(): return
 		var is_length := Length.registered(resolved.script,name)
 		if is_length:
-			_length(attribute,Length.domain(name))
+			_length(attribute,Length.domain(name,resolved.script))
 			if not file.diagnostics.is_empty(): return
 		if attribute.value is Model.Literal:
 			if is_length or is_color:

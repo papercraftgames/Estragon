@@ -1,0 +1,4 @@
+StyleGallery authenticated source/generated map PASS
+StyledRose authenticated source/generated map PASS
+StyledSettings authenticated source/generated map PASS
+WidgetGallery authenticated source/generated map PASS
