@@ -167,8 +167,8 @@ func set_placement(node: Node, value: Dictionary) -> void:
 		return
 	var entry: Array = placements.get(id,[])
 	if entry.is_empty():
-		var reference := weakref(node)
-		var callback := _placement_exited.bind(id,reference)
+		var reference: WeakRef = weakref(node)
+		var callback: Callable = _placement_exited.bind(id,reference)
 		node.tree_exited.connect(callback)
 		entry = [reference,{},callback]
 	entry[1] = value.duplicate(true)
