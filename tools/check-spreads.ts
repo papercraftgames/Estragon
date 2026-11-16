@@ -13,9 +13,22 @@ for(const selection of options.engines){
  try{
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash,command:process.argv});
   async function run(name:string,args:string[],marker?:string,env=box.env){
-   const negative=name==='rejections',editing=name.startsWith('editor'),logFile=path.join(out,name+'.log');
-   const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!negative&&!editing,expectedErrors:negative||editing,timeout:editing?120000:60000});
+   const negative=name==='rejections',semantic=name==='publication',editing=name.startsWith('editor'),logFile=path.join(out,name+'.log');
+   const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!negative&&!editing&&!semantic,expectedErrors:negative||editing||semantic,timeout:editing?120000:60000});
    const log=fs.readFileSync(logFile,'utf8');
+   if(semantic){
+    let bracket=false,count=0,starts=0;const unexpected:string[]=[];const lines=log.split(/\r?\n/);
+    for(let i=0;i<lines.length;i++){
+     const line=lines[i];
+     if(line==='S03_EXPECTED_SEMANTIC_BEGIN'){bracket=true;starts++;}
+     else if(line==='S03_EXPECTED_SEMANTIC_END')bracket=false;
+     else if(ERROR.test(line)){
+      if(bracket&&/^SCRIPT ERROR: Parse Error: (Identifier "missing_spread_expression" not declared in the current scope\.|Expected expression after "\+" operator\."?)$/.test(line)&&/at: GDScript::reload \(res:\/\/app\/generated\/SpreadGallery\.gd:\d+\)/.test(lines[i+1]||''))count++;
+      else unexpected.push(line);
+     }
+    }
+    if(bracket||starts!==2||count!==2||unexpected.length){result.status='FAIL';result.reason='Unexpected semantic diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+   }
    if(negative||editing){
     let bracket=false,starts=0,count=0;const unexpected:string[]=[];
     for(const line of log.split(/\r?\n/)){
@@ -51,6 +64,7 @@ for(const selection of options.engines){
   await run('build',[...args,'--headless','--script','res://tests/spreads/build.gd'],'S03_BUILD_OK');
   if(!editorOnly){
    await run('frontend',[...args,'--headless','--script','res://tests/spreads/frontend.gd'],'S03_FRONTEND_OK');
+   await run('publication',[...args,'--headless','--script','res://tests/spreads/publication.gd'],'S03_PUBLICATION_OK');
    await run('rejections',[...args,'--headless','--script','res://tests/spreads/rejections.gd'],'S03_REJECTIONS_OK');
    await run('runtime',[...args,...graphics,'--script','res://tests/spreads/runtime.gd'],'S03_RUNTIME_OK');
   }

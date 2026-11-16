@@ -220,3 +220,14 @@ These are serial work packages with **one open PR repo-wide**; the live issue/PR
 - [Godot 4.0 Node](https://docs.godotengine.org/en/4.0/classes/class_node.html), [GDScript properties](https://docs.godotengine.org/en/4.0/tutorials/scripting/gdscript/gdscript_basics.html), [Resource.changed](https://docs.godotengine.org/en/4.0/classes/class_resource.html): real ownership, native setters/getters and the limits of auto-observation.
 
 **Authority:** [ADR-0016 in DECISIONS](DECISIONS.md#adr-0016--signal-driven-function-recomposition-with-retained-native-nodes); this document is its detailed contract. Existing documentation of shipped T09-A/T09-B behavior remains accurate historical/current implementation evidence until migration is complete, but does not override this new target.
+
+## S03 ordered attribute expansion
+
+Owner-revised [#173](https://github.com/papercraftgames/Estragon/issues/173) adds
+[Dictionary attribute spreading](GOGO_LANGUAGE.md#ordered-attribute-spreads-s03)
+through the existing Element/preflight/reconciler. Each spread snapshots ordinary
+values in authored order; final expanded properties/handlers retain source/key
+origins. Existing bindable getter observation and complete-tree validation apply.
+External mounted records retain legitimate pre-write defaults and last committed
+spread values for scoped removals, preserving independent native edits. No user
+metadata/helper Nodes, style prop/resources/themes/utils or new reactive system.

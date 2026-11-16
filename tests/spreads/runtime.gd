@@ -172,7 +172,7 @@ func removals() -> void:
 	await frames()
 	check(node==host.get_child(0).get_child(0) and node.name==&"Node2D","spread-only name removal uses legitimate native class name instead of invalid empty set_name")
 	var timer := Element.new("Timer")
-	timer.expand([[null,{"timeout":edited.unbind(0).bind(true)},"signal.gogo:4:5"]])
+	timer.expand([[null,{"timeout":edited.bind(true)},"signal.gogo:4:5"]])
 	check(timer.attribute_error.is_empty() and timer.handlers.timeout.is_valid(),"custom bound Callable remains native without unsupported optional introspection")
 	host.free()
 	await frames()

@@ -100,7 +100,9 @@ behavior remain unchanged. No redundant text_color/fill_color API is introduced.
 All ordinary native Godot Controls retain their own theme/drawing internals.
 
 S02 owns their unified content/background/state contract and Rect fill migration.
-S03 owns explicit shared resources/tokens/themes (no CSS cascade); S04 owns radius,
+Historical S01 scope anticipated S03 resources/themes; owner revision #173 supersedes
+that plan with general-purpose [GGX attribute spreading](GOGO_LANGUAGE.md#ordered-attribute-spreads-s03).
+No style prop, resources, tokens or framework style utilities are authorized. S04 owns radius,
 shadows, gradients, textures, clipping and transitions.3D styling/materials and
 alignment/wrap/Grid are outside S01. The known inherited-relative-class4.7 icon
 limitation remains unchanged; editor field proof uses the actual shared direct
@@ -175,5 +177,7 @@ evidence; earlier inherited-icon failures remain truthful historical evidence.
 
 [WidgetGallery](../examples/styling/WidgetGallery.tscn) is the runnable source-authored
 example, with styled Text/Rect, four pointer-state Buttons, controlled and unchecked
-Toggles, native Control and nested Gogo child. S03 shared resources/themes/tokens,
-focus/navigation and S04 advanced visuals remain separate.3D acquires no style API.
+Toggles, native Control and nested Gogo child. Revised S03 #173 adds only ordinary
+GGX Dictionary attribute spreads, not shared resources/themes/tokens or a style prop.
+Future framework style support requires a separate owner design decision.
+Focus/navigation and S04 advanced visuals remain separate.3D acquires no style API.
