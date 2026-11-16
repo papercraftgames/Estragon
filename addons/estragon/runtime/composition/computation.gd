@@ -742,5 +742,6 @@ func _projection_tree(record, projected: Dictionary, ordering: Dictionary) -> vo
 func _unindex(record) -> void:
 	if record == null or record.borrowed != null: return
 	state.get_ref().managed.erase(record.id)
+	Hosts.placements.erase(record.id)
 	if record.node.get_ref()!=null: Hosts.set_placement(record.node.get_ref(),{})
 	for child in record.children: _unindex(child)

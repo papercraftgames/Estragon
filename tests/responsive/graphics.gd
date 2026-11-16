@@ -8,7 +8,8 @@ func run() -> void:
 	host.add_child(borrowed)
 	borrowed.owner = host
 	root.add_child(host)
-	var result: Dictionary = await preload("res://tests/responsive/game.gd").new().run(host)
+	var probe = preload("res://tests/responsive/game.gd").new()
+	var result: Dictionary = await probe.run(host)
 	var packed := PackedScene.new()
 	var saved: bool = packed.pack(host)==OK and ResourceSaver.save(packed,"res://packed-responsive.tscn")==OK
 	var ok: bool = result.ok and saved
