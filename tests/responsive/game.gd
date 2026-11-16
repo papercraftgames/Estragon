@@ -36,7 +36,7 @@ func run(host: Node) -> Dictionary:
 			ids = current_ids
 			initial_runs = runs
 		if extent.x>=640:
-			for target in [cards.get_node("a"),toggle,native]: click(host,target)
+			for target in [cards.get_node("a"),toggle,native,main.get_node("Body/NestedAction")]: click(host,target)
 			for frame in range(8): await tree.process_frame
 		var stats := [cards.get_layout_stats(),named.get_layout_stats(),automatic.get_layout_stats()]
 		for frame in range(8): await tree.process_frame
@@ -50,10 +50,11 @@ func run(host: Node) -> Dictionary:
 		var result := {"viewport":str(extent),"root":ui.layout_size==Vector2(extent),"wrap":cards.layout_size.y==expected_lines*36+(expected_lines-1)*12,"grid":is_equal_approx(automatic.get_node("One").layout_size.x,column) and is_equal_approx(automatic.get_node("Three").position.x,2*(column+10)),"named":main.position==Vector2(162,70),"ids":ids==current_ids,"runs":runs==initial_runs,"idle":stats==[cards.get_layout_stats(),named.get_layout_stats(),automatic.get_layout_stats()],"owner":cards.get_node("a").owner==null and main.owner==null,"border":image.get_pixelv(Vector2i(named.global_position+Vector2(1,8))).is_equal_approx(Color("#8295bc")),"cards":trace,"named_size":str(named.layout_size)}
 		samples.append(result)
 		initial_runs = [State.records[host.get_instance_id()].runs,State.records[main.get_instance_id()].runs]
-	var passed: bool = host.clicks==3 and host.native_clicks==3 and edits==[true,false,true]
+	var nested_clicks: int = host.get_node("UI/Content/Named/Main").clicks
+	var passed: bool = host.clicks==3 and host.native_clicks==3 and nested_clicks==3 and edits==[true,false,true]
 	for sample in samples:
 		for key in ["root","wrap","grid","named","ids","runs","idle","owner","border"]: passed = passed and sample[key]
-	var result := {"ok":passed,"clicks":host.clicks,"native":host.native_clicks,"edits":edits,"samples":samples}
+	var result := {"ok":passed,"clicks":host.clicks,"native":host.native_clicks,"nested":nested_clicks,"edits":edits,"samples":samples}
 	print("L0910_EDITOR_GAME ",JSON.stringify(result))
 	var file := FileAccess.open("res://.godot/l0910-game.tmp",FileAccess.WRITE)
 	file.store_string(JSON.stringify(result))

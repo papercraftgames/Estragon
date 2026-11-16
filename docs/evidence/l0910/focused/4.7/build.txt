@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L0910_BUILD {"changed":["app/generated/NestedResponsive.gd","app/generated/NestedResponsive.gd.map.json","app/generated/ResponsiveGallery.gd","app/generated/ResponsiveGallery.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/NestedResponsive.gd","app/generated/ResponsiveGallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L0910_BUILD_OK

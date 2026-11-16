@@ -1,0 +1,9 @@
+{
+  "addon_source": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+  "test_only_dirty_refinement": "tests/responsive/game.gd now clicks Body/NestedAction at all three normal-width samples and requires nested.clicks==3; same native addon bytes, existing isolated standard-path focus project, both approved engines PASS; no installed-package rerun claimed for this supplement.",
+  "commands": [
+    "/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --audio-driver Dummy --path /evidence/l0910-focus --rendering-method gl_compatibility --rendering-driver opengl3 --script res://tests/responsive/graphics.gd",
+    "/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --audio-driver Dummy --path /evidence/l0910-focus --rendering-method gl_compatibility --rendering-driver opengl3 --script res://tests/responsive/graphics.gd"
+  ],
+  "results": "Both rendered game and pack/reload PASS; card/native/nested clicks3 each; controlled Toggle edits[true,false,true]."
+}

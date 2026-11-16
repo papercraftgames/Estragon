@@ -1,0 +1,36 @@
+{
+  "final_source": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+  "source_content_sha256": "a50490ac2293808ab693f11b36d95ac524bc44aa9c7c0cec9bd0c77676f63f73",
+  "tarball_sha256": "4f7ff59f3c659e7f01e5683a3d658c2c2f511623911c8d1154d00e9367933306",
+  "canonical_uids": 69,
+  "identical_package_files": true,
+  "addon_files_still_match_checkout": true,
+  "canonical_maps": [
+    "examples/responsive/generated/ResponsiveGallery.gd.map.json",
+    "examples/responsive/generated/NestedResponsive.gd.map.json"
+  ],
+  "manifests": [
+    {
+      "path": "focused/4.0.4/package-manifest.json",
+      "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+      "sourceDirty": false
+    },
+    {
+      "path": "focused/4.7/package-manifest.json",
+      "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+      "sourceDirty": false
+    },
+    {
+      "path": "package/4.0.4/package-manifest.json",
+      "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+      "sourceDirty": false
+    },
+    {
+      "path": "package/4.7/package-manifest.json",
+      "sourceHead": "9de6acf43a8ccf329dca6b4dbf6b64401d09a711",
+      "sourceDirty": false
+    }
+  ],
+  "editor_source": "4846c6315c01401d3ded1809f2b6c26ad61384cc",
+  "editor_followup_scope": "Final source changes physical percentage-gap references, weak placement cleanup/re-entry and diagnostic origins; final focused two-engine installed tests cover them. Prior real Inspector/current/main Play/restart is source-qualified separately, not relabeled as final-source execution."
+}

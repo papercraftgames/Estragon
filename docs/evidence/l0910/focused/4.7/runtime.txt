@@ -1,0 +1,159 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L0910_RUNTIME_CHECK native wrap exact 160 geometry: true
+L0910_RUNTIME_CHECK 230 one row: true
+L0910_RUNTIME_CHECK 160 repair retained IDs: true
+L0910_RUNTIME_CHECK native visibility repacks affected branch: true
+L0910_RUNTIME_CHECK native Grid three100 tracks five items: true
+L0910_RUNTIME_CHECK native Grid resize620 retained slots: true
+L0910_RUNTIME_CHECK native Control allocated sixth cell: true
+L0910_RUNTIME_CHECK native minimum/font event changes tracks without polling: true
+L0910_RUNTIME_CHECK Control minimum change leaves unrelated Wrap branch quiet: true
+L0910_RUNTIME_CHECK native idle quiet: true
+L0910_RUNTIME_CHECK source-authored combined gallery mounts: true
+L0910_RUNTIME_CHECK Gogo project component area bridge: true
+L0910_RUNTIME_CHECK keyed Wrap reorder retained identity: true
+L0910_RUNTIME_CHECK keyed removal releases lines: true
+L0910_RUNTIME_CHECK native Control receives GGX area slot without foreign properties or metadata: true
+L0910_RUNTIME_CHECK conditional Grid removal retains other cells: true
+L0910_EXPECTED_REJECTION_BEGIN
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'columns'): attribute 'columns': fr track weight must be finite and positive; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "width": 501, "columns": ["1fr", "0fr"] }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'columns'): attribute 'columns': track count must be 1..256; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 0 }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'columns'): attribute 'columns': track count must be 1..256; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 257 }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'columns'): attribute 'columns': fr track weight must be finite and positive; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": ["NaNfr"] }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'columns'): attribute 'columns': invalid track: Length is negative, nonfinite or outside the supported range; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": ["-1px"] }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'areas'): attribute 'areas': area row count must match row tracks; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 2, "rows": 1, "areas": ["a a", "b c"] }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'areas'): attribute 'areas': area 'a' must form one rectangle; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 2, "rows": 2, "areas": ["a a", "a b"] }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'template'): attribute 'template': template conflicts with explicit columns/rows/areas; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "template": "bad" }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'template'): attribute 'template': template conflicts with explicit columns/rows/areas; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "template": "a a, auto\n\\ 1fr 1fr", "columns": 2 }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'horizontal_align'): attribute 'horizontal_align': horizontal_align requires start, center, end or stretch; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 2, "horizontal_align": "space-between" }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'row_gap'): invalid length 'row_gap': Length is negative, nonfinite or outside the supported range; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 2, "row_gap": "-1px" }: true
+ERROR: app/ResponsiveGallery.gogo:32:131 (spread key 'column_gap'): invalid length 'column_gap': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid complete config rollback { "columns": 2, "column_gap": inf }: true
+L0910_EXPECTED_REJECTION_END
+L0910_RUNTIME_CHECK invalid spread tracks preserve whole mounted description: true
+L0910_RUNTIME_CHECK template repair atomic reset and equivalent slots: true
+L0910_EXPECTED_REJECTION_BEGIN
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'area'): attribute 'area': Grid cells overlap; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "area": "header" }: true
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'area'): attribute 'area': unknown placement area: missing; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "area": "missing" }: true
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'row'): attribute 'row': placement indexes must be nonnegative integers and spans positive (maximum 256); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "row": -1 }: true
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'row_span'): attribute 'row_span': placement indexes must be nonnegative integers and spans positive (maximum 256); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "row_span": 0 }: true
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'row'): attribute 'row': Grid cells overlap; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "row": 0, "column": 0 }: true
+ERROR: app/ResponsiveGallery.gogo:38:35 (spread key 'area'): attribute 'area': area conflicts with explicit row/column placement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK invalid placement rollback { "area": "main", "row": 1 }: true
+L0910_EXPECTED_REJECTION_END
+L0910_RUNTIME_CHECK conflicting dynamic placement preserves entire tree: true
+L0910_RUNTIME_CHECK placement repair replays valid description: true
+L0910_EXPECTED_REJECTION_BEGIN
+ERROR: app/ResponsiveGallery.gogo:33:62 (spread key 'anchor_left'): attribute 'anchor_left': Grid Control requires zero anchors and rotation; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK incompatible bound Control retains whole description { "anchor_left": 0.5 }: true
+ERROR: app/ResponsiveGallery.gogo:33:62 (spread key 'rotation'): attribute 'rotation': Grid Control requires zero anchors and rotation; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK incompatible bound Control retains whole description { "rotation": 0.5 }: true
+ERROR: app/ResponsiveGallery.gogo:33:62 (spread key 'scale'): attribute 'scale': Grid Control requires native parent coordinates and an untransformed outer rectangle; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L0910_RUNTIME_CHECK incompatible bound Control retains whole description { "scale": (2.0, 1.0) }: true
+L0910_EXPECTED_REJECTION_END
+L0910_RUNTIME_CHECK native removal/re-entry preserves external area and instance: true
+L0910_RUNTIME_CHECK native individual free prunes weak placement without parent recomposition: true
+L0910_RUNTIME_CHECK placement records released on unmount: true
+L0910_RUNTIME_ASSERTIONS 44 failed=false
+L0910_RUNTIME_OK
