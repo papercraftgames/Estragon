@@ -1,7 +1,7 @@
 /** S03 bounded native attribute spread compiler/reconciler and direct-Yarn editor proof. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {ROOT, parseCLI, newSandbox, copyTree, runCommand, ERROR, writeJSON, gitHead, gitDirty, sha256} from './compat-kit.ts';
+import {ROOT, parseCLI, newSandbox, copyTree, runCommand, ERROR, writeJSON, gitHead, gitDirty, sha256, indexProject} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
 const editorOnly=process.argv.includes('--editor-only'), editor=editorOnly||process.argv.includes('--editor');
 const options=parseCLI(process.argv.slice(2).filter(a=>!['--editor','--editor-only'].includes(a)));
@@ -69,6 +69,9 @@ for(const selection of options.engines){
    await run('runtime',[...args,...graphics,'--script','res://tests/spreads/runtime.gd'],'S03_RUNTIME_OK');
   }
   if(editor){
+   results.import=await indexProject(box,box.project,path.join(out,'import.log'),['--audio-driver','Dummy']);
+   writeJSON(path.join(out,'results.json'),results);
+   if(results.import.status!=='PASS')throw Error('S03 clean import failed');
    fs.mkdirSync(path.join(box.project,'.godot/editor'),{recursive:true});
    fs.writeFileSync(path.join(box.project,'.godot/editor/project_metadata.cfg'),'[game_view]\nembed_on_play=false\nmake_floating_on_play=false\n');
    fs.appendFileSync(path.join(box.project,'project.godot'),'\n[editor_plugins]\nenabled=PackedStringArray("res://'+addon+'/editor/plugin.cfg", "res://tests/spreads/plugin.cfg")\n[editor]\nrun/main_run_args="--audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3"\n');
