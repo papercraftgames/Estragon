@@ -66,6 +66,8 @@ func _ensure_viewport() -> void:
 	add_child(_vertical,false,Node.INTERNAL_MODE_FRONT)
 	_horizontal.step = 0
 	_vertical.step = 0
+	_horizontal.custom_step = 40
+	_vertical.custom_step = 40
 	_horizontal.value_changed.connect(_horizontal_changed)
 	_vertical.value_changed.connect(_vertical_changed)
 func _composition_child_parent() -> Node:

@@ -47,7 +47,9 @@ func _gui(event: InputEvent, reference: WeakRef) -> void:
 	# BaseButton release uses cached pressing_inside, not the event position.
 	# The public scroll notification cancels that press; an outside-local point
 	# also keeps custom Control handlers from treating capture as an inside hit.
-	if not Pointer.inside_clips(node,point):
+	# Native GUI already chooses the topmost scrollbar. Bar exclusion belongs
+	# only to Estragon's separate custom picker, never to native GUI events.
+	if not Pointer.inside_clips(node,point,false):
 		if node is BaseButton: node.notification(Control.NOTIFICATION_SCROLL_BEGIN)
 		event.position = Vector2(-1,-1)
 

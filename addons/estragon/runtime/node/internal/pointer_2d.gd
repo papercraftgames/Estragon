@@ -40,10 +40,10 @@ func _z(button: CanvasItem) -> int:
 		button = parent
 		parent = button.get_parent_item()
 	return result
-static func inside_clips(item: CanvasItem, position: Vector2) -> bool:
+static func inside_clips(item: CanvasItem, position: Vector2, exclude_bars: bool = true) -> bool:
 	var parent := item.get_parent()
 	while parent!=null:
-		if parent.has_method("_content_pointer_allowed") and not parent._content_pointer_allowed(position): return false
+		if exclude_bars and parent.has_method("_content_pointer_allowed") and not parent._content_pointer_allowed(position): return false
 		if parent is Control and parent.clip_contents:
 			var point: Vector2 = parent.get_global_transform_with_canvas().affine_inverse()*position
 			if not Rect2(Vector2.ZERO,parent.size).has_point(point): return false

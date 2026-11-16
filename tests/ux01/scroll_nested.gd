@@ -4,6 +4,8 @@ const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
 const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Button2D = preload("res://addons/estragon/runtime/node/button.gd")
 var failed := false
+var content_hits := 0
+func content_hit(): content_hits += 1
 func check(ok: bool, label: String):
 	print("UX01_NESTED ",label,": ",ok)
 	failed = failed or not ok
@@ -38,6 +40,7 @@ func run():
 	var item := Button2D.new()
 	item.width = 300
 	item.height = 900
+	item.pressed.connect(content_hit)
 	inner.add_child(item)
 	column.add_child(inner)
 	outer.add_child(column)
@@ -55,7 +58,7 @@ func run():
 	inner.scroll_offset = Vector2.ZERO
 	event(MOUSE_BUTTON_LEFT,Vector2(294,175))
 	await frames()
-	check(inner.scroll_offset.y>0,"real native scrollbar click over Estragon content")
+	check(inner.scroll_offset.y>0 and content_hits==0,"real native scrollbar click over Estragon content without activating content")
 	var offset: Vector2 = inner.scroll_offset
 	entry.remove_child(outer)
 	await frames()
