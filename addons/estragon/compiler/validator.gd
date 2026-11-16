@@ -53,6 +53,7 @@ func _component(node: Model.Component) -> void:
 		_error("Rect fill and background_color conflict; author only the canonical background_color or legacy fill",node.name_span)
 		return
 	var seen: Dictionary = {}
+	var expanded := node.attributes.any(func(item): return item.kind=="spread")
 	for attribute in node.attributes:
 		if attribute.kind=="spread":
 			attribute.type_name = "Variant"
@@ -100,7 +101,7 @@ func _component(node: Model.Component) -> void:
 		else:
 			_error("Removed layout API "+name+": use unit dimensions, grow and stretch" if name in ["flex","fill_width","fill_height","viewport_width_scale","viewport_height_scale"] else "Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
 			return
-		if StackContract.registered(resolved.script) and attribute.value is Model.Literal:
+		if not expanded and StackContract.registered(resolved.script) and attribute.value is Model.Literal:
 			var message := StackContract.error(name,attribute.value.value,stack_direction,StackContract.preset(resolved.script))
 			if not message.is_empty():
 				_error(message,attribute.value.span)
@@ -134,7 +135,7 @@ func _component(node: Model.Component) -> void:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
-		if child is Model.Component:
+		if child is Model.Component and not child.attributes.any(func(item): return item.kind=="spread"):
 			for attribute in child.attributes:
 				if attribute.name=="name" and attribute.value is Model.Literal:
 					var name: String = str(attribute.value.value)

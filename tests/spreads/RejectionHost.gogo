@@ -2,14 +2,19 @@ extends Node2D
 const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
 const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 @bindable var props: Variant = {"text":"Valid", "width":160, "height":40}
+@bindable var checked: bool = false
 @bindable var kind: String = "button"
 func pressed() -> void: pass
 func wrong_arity(value: int) -> void: print(value)
 func build_view() -> Element:
 	var child: Element
 	if self.kind=="rect": child = <Rect name="Target" {...self.props} />
+	elif self.kind=="box": child = <Box name="Target" {...self.props} />
+	elif self.kind=="toggle": child = <Toggle name="Target" {...self.props} bind:value={self.checked} />
 	elif self.kind=="sprite": child = <Sprite2D name="Target" {...self.props} />
 	else: child = <UiButton name="Target" {...self.props} />
 	return <Entry2D name="UI" width="100%" height="100%">{child}</Entry2D>

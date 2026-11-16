@@ -5,6 +5,7 @@ func _initialize() -> void:
 	print("S03_BUILD ",JSON.stringify(report))
 	if not report.ok: quit(1); return
 	var node := Node2D.new()
+	node.name = "SpreadGallery"
 	node.set_script(load("res://app/generated/SpreadGallery.gd"))
 	var scene := PackedScene.new()
 	var error := scene.pack(node)

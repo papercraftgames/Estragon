@@ -26,6 +26,7 @@ func run() -> void:
 		'<Node2D { ... {"name":"A"}} />',
 		'<Node2D {... # GDScript comment\n {"name":"A"}} />',
 		'<Node2D {...{&"name":"A"}} />',
+		'<Node><Node name="same" {...{"name":"A"}} /><Node name="same" {...{"name":"B"}} /></Node>',
 		'<Node2D {...props} name="after" {...values()} />',
 		'<Node2D {...{"name":"A"}}><Node {...{"name":"child"}} /></Node2D>',
 		'<Node>{<Node2D {...props} /> if true else null}</Node>',
@@ -60,6 +61,11 @@ func run() -> void:
 		check(not Compiler.compile('extends Node\n'+expression+'\n',"negative.gogo").ok,"no spread outside attribute list "+expression)
 	for body in ['<Node multiplayer={null} />','<Timer time_left={0.0} />','<AnimationPlayer current_animation_length={0.0} />','<AnimationPlayer current_animation_position={0.0} />','<ShapeCast2D collision_result={[]} />','<ShapeCast3D collision_result={[]} />']:
 		check(not Compiler.compile('extends Node\nfunc view(): return '+body+'\n',"readonly.gogo").ok,"shared native getter-only metadata bridge "+body)
+	var policy = compile_view('<Layout horizontal_align="stretch" {...{"direction":"column"}} />','const Layout = preload("res://addons/estragon/runtime/node/box.gd")')
+	if policy!=null:
+		var host = policy.new()
+		check(host.view().properties.direction=="column","spread cross-axis policy defers to final effective values")
+		host.free()
 	var text := 'extends Node\nfunc view(): return <Node {...{ "name": "😀" }} />\n'
 	var front := Frontend.analyze(text,"map.gogo")
 	var node = front.module.parts.filter(func(part): return part is Model.Component)[0]

@@ -244,7 +244,7 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 			keys[key] = true
 		var name: String = str(child.properties.get("name",""))
 		if not name.is_empty():
-			if names.has(name): return false
+			if names.has(name): return _invalid_attribute(child,"name","duplicate declared sibling name "+name)
 			names[name] = true
 	return true
 func _collect_foreign(record, result: Array) -> void:
@@ -606,7 +606,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	if parent != null:
 		var name := _effective_name(desired,previous)
 		for existing in parent.get_children():
-			if str(existing.name)==name and (previous==null or existing!=previous.node.get_ref()): return false
+			if str(existing.name)==name and (previous==null or existing!=previous.node.get_ref()): return _invalid_attribute(desired,"name","native sibling name conflict "+name)
 	var known: Array = []
 	if node != null:
 		for child in previous.children:
@@ -620,7 +620,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		if not _preflight(child,old,null,contracts): return false
 		var name := _effective_name(child,old)
 		if not name.is_empty():
-			if names.has(name): return false
+			if names.has(name): return _invalid_attribute(child,"name","duplicate effective sibling name "+name)
 			names[name] = true
 			if node != null:
 				for existing in node.get_children():

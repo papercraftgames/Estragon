@@ -25,7 +25,9 @@ func run() -> void:
 		["button",{"min_width":"bad"},"'min_width'"],["button",{"min_height":-1},"'min_height'"],["button",{"padding":INF},"'padding'"],["button",{"border_width":true},"'border_width'"],
 		["button",{"pressed":Callable()},"'pressed'"],["button",{"pressed":"pressed"},"'pressed'"],["button",{"pressed":host.wrong_arity},"arity"],
 		["rect",{"fill":Color.RED,"background_color":"#ff0000"},"fill and background_color"],["rect",{"fill":"#ff0000"},"finite native Color"],
-		["sprite",{"texture":Resource.new()},"Object class"]
+		["sprite",{"texture":Resource.new()},"Object class"],
+		["box",{"direction":"diagonal"},"direction"],["box",{"direction":"row","horizontal_align":"stretch"},"horizontal_align"],
+		["toggle",{"value":true},"value"],["toggle",{"value_changed":host.pressed},"value_changed"]
 	]
 	print("S03_EXPECTED_REJECTION_BEGIN")
 	await process_frame
