@@ -539,3 +539,19 @@ Acceptance: exact300px six-mode transposed table;0/1/overflow/uneven/growth/mini
 Owner [#176](https://github.com/papercraftgames/Estragon/issues/176) consolidates former Wrap #162/Grid #163 after owner-merged L08 #175 (`b2cf0e5`). One work ID/branch/PR delivers both pure slot strategies over the existing shared core, native Box wrap/physical gaps/line distribution and native Component2D Grid tracks/spans/areas/template. Element/external placement supports Gogo/Control children; whole-description validation/rollback and retained identity remain common. [ADR-0025](DECISIONS.md#adr-0025--combined-responsive-wrap-and-native-grid-slot-strategies), [contract](RESPONSIVE_LAYOUT.md).
 
 Acceptance includes exact transposed160/230 Wrap and320/620/fractional Grid geometry; minimums/margins/physical distribution/implicit rows/spans/negative configs and placement; combined keyed/conditional/nested/native input/Toggle gallery at tiny/640x480/1000x800; signal-driven affected-branch/idle counters, source diagnostics/maps/repair, Inspector undo, both actual Play paths/restart/pack-reload. Focused development then proportional official Linux4.0.4/pinned4.7.0 direct-Yarn actual-node_modules review acceptance, immutable package/UID/maps and preserved layout/style/spread/Controls/Counter/shared3D regressions/static checks. One locally ready PR, routine CI<=60s unchanged, durable GitHub evidence/handoffs, owner merges. No S04/text glyph wrapping/3D wrapping/extra engines/platforms/full73/Python/workflow/Assets/GogoDemo/release changes.
+
+## UX01 — combined native authoring and scrolling
+
+Owner #183 consolidates binding #178/#180/#127/#179/#181 after owner-merged
+L09-10 PR #177 (`efea57d`). [Contract/ADR](UX01.md). Checkpoints: A exact owner
+six-Text auto-Wrap capacity reproduction; B typed bare Bool and String bodies;
+C Length maxima with visible overflow and floor-aware allocation; D native
+ScrollView clipping/input/ranges over the existing core; E combined real-Gogo
+gallery, retained keyed/conditional input and native editor/package proof.
+All five land together in one locally review-ready PR, no early child closure.
+Official Linux4.0.4/pinned4.7.0 direct-Yarn immutable package acceptance, scoped
+layout/compiler/style/spread/Controls/Counter/3D regressions, UID/maps/rollback,
+Inspector undo/current+main Play/repair/restart and inspected captures are required.
+No full release suite, extra engines/platforms, workflow/release/version changes,
+Assets/GogoDemo edits, style prop, 3D scrolling or generic TSX expansion. Live
+#183/sole PR contains exact checkpoints, provenance, limitations and handoffs.

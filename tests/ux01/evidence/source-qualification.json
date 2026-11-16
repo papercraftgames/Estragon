@@ -1,0 +1,53 @@
+{
+  "sourceHead": "d002aa6ae34eb0fc7c046163269b89f9058a7944",
+  "base": "efea57dad3d0ea10d412ff07f20227ebed29f9bd",
+  "current_addon_matches": true,
+  "identical_artifact": true,
+  "tarball_sha256": "9f1828d0a7b395744bf27fd5cc53c385c718be3ad5a77a9f19de6c672fe752e4",
+  "canonical_uids": 71,
+  "overlay": {
+    "mode": "preview",
+    "version": "0.1.0-beta.24",
+    "sourceHead": "d002aa6ae34eb0fc7c046163269b89f9058a7944",
+    "tag": "v0.1.0-beta.24",
+    "release_id": null,
+    "overlayRecipe": "estragon-tag-overlay-v1"
+  },
+  "regressions": {
+    "lengths": {
+      "sourceHead": "9b53e97f1e411d16a7d4ba5d7c7286c5a9c8014f",
+      "sourceDirty": false,
+      "status": "PASS"
+    },
+    "styling": {
+      "sourceHead": "9b53e97f1e411d16a7d4ba5d7c7286c5a9c8014f",
+      "sourceDirty": false,
+      "status": "PASS"
+    },
+    "spreads": {
+      "sourceHead": "9b53e97f1e411d16a7d4ba5d7c7286c5a9c8014f",
+      "sourceDirty": false,
+      "status": "PASS"
+    },
+    "responsive": {
+      "sourceHead": "9b53e97f1e411d16a7d4ba5d7c7286c5a9c8014f",
+      "sourceDirty": false,
+      "status": "PASS"
+    },
+    "node-runtime": {
+      "sourceHead": "9b53e97f1e411d16a7d4ba5d7c7286c5a9c8014f",
+      "sourceDirty": true,
+      "status": "PASS"
+    },
+    "native-controls": {
+      "sourceHead": "bc52a71a93690ca078e4bbbade1733896445a867",
+      "sourceDirty": false,
+      "status": "PASS"
+    },
+    "native-ui": {
+      "sourceHead": "bc52a71a93690ca078e4bbbade1733896445a867",
+      "sourceDirty": false,
+      "status": "PASS"
+    }
+  }
+}

@@ -241,3 +241,10 @@ L09-10 #176 adds optional `row_gap` / `column_gap` on native2D participants:
 `auto` falls back to the physical-axis `gap`. The shared parser and immediate-parent
 percentage references are unchanged. Grid tracks alone additionally accept positive
 `Nfr`; ordinary dimensions/minima/offsets never do. [Wrap/Grid contract](RESPONSIVE_LAYOUT.md).
+
+### UX01 maximum 2D dimensions
+
+`max_width`/`max_height` use the existing extent Length units with `auto` meaning
+unbounded and omission resetting auto. They cap the owning border-box; minima and
+native floors win, margins remain outside and descendants keep visible overflow.
+See [maxima, capacity and scrolling](UX01.md#available-capacity-and-maximum-dimensions).

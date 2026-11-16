@@ -1,0 +1,28 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Settings = preload("UXSettings.gd")
+const Rose = preload("UXRose.gd")
+func build_view() -> Element:
+	var style := {"background_color":"#0000aa"}
+	return <Entry2D name="UI" width="100%" height="100%">
+		<VBox name="Column" width="100%" height="100%" padding="20px" gap="20px" horizontal_align="end">
+			<VBox width="75%" grow={1} {...style} />
+			<VBox width="75%" grow={1} background_color="#aaaa00" />
+			<Text text="Hello World!" />
+			<Text text="This is fun!" />
+			<HBox name="Words" wrap={true}>
+				<Text text="This is the first Text" />
+				<Text text="This is the second Text" />
+				<Text text="This is the third Text" />
+				<Text text="This is the fourth Text" />
+				<Text text="This is the fifth Text" />
+				<Text text="This is the sixth Text" />
+			</HBox>
+			<Settings />
+			<Rose />
+		</VBox>
+	</Entry2D>

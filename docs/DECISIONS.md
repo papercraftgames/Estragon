@@ -454,3 +454,29 @@ Component2D align_self auto/start/center/end/stretch participates in the same pa
 Accepted owner scope: [L09-10 #176](https://github.com/papercraftgames/Estragon/issues/176), consolidating former #162/#163 after merged L08 #175. Extend ADR-0018's pure parent-owned slots with Wrap grouping and Grid tracks, through the existing Component2D/coordinator/core. A bounded allocation-dependent remeasurement supplies assigned main dimensions to nested Wrap/Grid without another tree, renderer, per-frame loop or Gogo recomposition. Native2D only; 3D stack behavior remains separate.
 
 GridDefinition is the sole count/Length/fr/area/template/placement normalization. Implicit rows grow; explicit rows are bounded. Desired child placement lives on Elements and external weak framework records, including native Controls/project components, never injected native properties/metadata. Entire-description preflight precedes atomic config/placement commit and repair. [Public contract](RESPONSIVE_LAYOUT.md) specifies floors, span overflow, percent authority, physical gaps/alignment and compact grammar. Actual source/tests and live issue/PR determine delivery status; owner review/merge is required.
+
+## ADR-0026 — native GGX ergonomics, capacity ceilings and opt-in scrolling
+
+Owner-approved UX01 [#183](https://github.com/papercraftgames/Estragon/issues/183)
+combines #178/#180/#127/#179/#181 after merged Wrap/Grid PR #177 (`efea57d`).
+[Normative contract](UX01.md). Bare Bool and String body syntax are AST-based
+shorthands for existing typed native properties, with source spans and complete
+description validation. No coercion, implicit text Nodes or new rendering model.
+Imported metadata scans authored Code spans rather than lexing body punctuation
+as GDScript. Ordered spreads preserve S03 precedence and fail closed on conflicts.
+
+The existing pure core distinguishes available Wrap capacity from independent
+percentage authority. Native2D max constraints cap owner border-box extents;
+minimum/native floors win, grow redistributes bounded shares, ordinary descendant
+paint/input overflow remains visible. This does not change public3D contracts.
+
+ScrollView opts into actual clipping and natural content overflow. The smallest
+native bridge uses Control.clip_contents, a local translation Node2D, native
+scrollbars and the same layout coordinator/core. Public4.0 APIs suffice. Native
+capture requires a scoped weak GUI guard: Control emits gui_input before native
+BaseButton processing, and NOTIFICATION_SCROLL_BEGIN cancels its cached press.
+[Official4.0 Control API](https://docs.godotengine.org/en/4.0/classes/class_control.html)
+and [official4.0.4 BaseButton source](https://github.com/godotengine/godot/blob/4.0.4-stable/scene/gui/base_button.cpp)
+explain the tested bridge. Private helper ancestry persists only as necessary for
+owned native scene content; generated descriptions remain transient. No second
+reactive/layout system, universal overflow property or user-object metadata.

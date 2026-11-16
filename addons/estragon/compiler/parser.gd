@@ -102,13 +102,23 @@ func _component(depth: int) -> Model.Component:
 			continue
 		var attribute_name := _name()
 		if attribute_name == null: return null
+		var after_name := _cursor
 		_whitespace()
-		if not _take("="): return null
-		_whitespace()
+		var bare := not _at("=")
+		if not bare:
+			if not _take("="): return null
+			_whitespace()
+		else: _cursor = after_name
 		var attribute := Model.Attribute.new()
 		attribute.name = attribute_name.text
 		attribute.name_span = attribute_name.span
-		if _at("{"):
+		if bare:
+			attribute.kind = "boolean-shorthand"
+			var value := Model.Literal.new()
+			value.value = true
+			value.span = attribute.name_span
+			attribute.value = value
+		elif _at("{"):
 			attribute.value = _expression()
 		else:
 			var quote := lexer.char_at(_cursor)
@@ -135,20 +145,27 @@ func _component(depth: int) -> Model.Component:
 		if attribute.value == null: return null
 		attribute.span = file.span(attribute.name_span.start.index,_cursor)
 		node.attributes.append(attribute)
-	_trivia()
 	while not _at("</") and file.diagnostics.is_empty():
 		if _cursor >= file.text.length():
 			file.fail("Missing closing tag </%s>" % node.name, _cursor)
 			return null
 		var child: Model.SyntaxNode
 		if _at("{"): child = _expression()
+		elif _at("<!--"):
+			_trivia()
+			continue
 		elif _at("<"): child = _component(depth + 1)
 		else:
-			file.fail("GGX children must be Node elements", _cursor)
-			return null
+			var text_start := _cursor
+			while _cursor<file.text.length() and not _at("<") and not _at("{"): _cursor += 1
+			var literal := Model.Literal.new()
+			literal.kind = "body-text"
+			literal.value = file.text.substr(text_start,_cursor-text_start)
+			literal.span = file.span(text_start,_cursor)
+			lexer.token("markup-text",text_start,_cursor)
+			child = literal
 		if child == null: return null
 		node.children.append(child)
-		_trivia()
 	if not file.diagnostics.is_empty() or not _take("</"): return null
 	var closing := _name()
 	if closing == null: return null

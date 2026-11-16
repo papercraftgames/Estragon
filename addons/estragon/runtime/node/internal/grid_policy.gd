@@ -63,6 +63,7 @@ static func layout(items: Array, definition: Dictionary, content: Vector3, gaps:
 		for axis in range(2):
 			extent[axis] = maxf(extent[axis],item.minimum[axis])
 			if item.requested[axis]<0 and alignment[axis]=="stretch": extent[axis] = maxf(item.minimum[axis],cell[axis]-item.outer[axis])
+			extent = Stack.limit_extent(extent,item)
 			position[axis] += maxf(0,cell[axis]-extent[axis]-item.outer[axis])*Stack.factor(alignment[axis])
 		slots.append({"position":position,"extent":extent})
 	return {"extent":natural,"slots":slots,"columns":columns,"rows":rows,"placements":definition.placements}

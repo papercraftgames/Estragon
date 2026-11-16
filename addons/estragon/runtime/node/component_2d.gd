@@ -90,6 +90,16 @@ var padding_left: Variant = "auto":
 		if is_same(padding_left,value) or not lengths.assign("padding_left",value): return
 		padding_left = value
 		_changed()
+var max_width: Variant = "auto":
+	set(value):
+		if is_same(max_width,value) or not lengths.assign("max_width",value): return
+		max_width = value
+		_changed()
+var max_height: Variant = "auto":
+	set(value):
+		if is_same(max_height,value) or not lengths.assign("max_height",value): return
+		max_height = value
+		_changed()
 var min_width: Variant = 0.0:
 	set(value):
 		if is_same(min_width,value) or not lengths.assign("min_width",value): return
@@ -179,7 +189,7 @@ var layout_size: Vector2:
 var _layout_size := Vector2.ZERO
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 func _get_property_list() -> Array[Dictionary]:
-	var properties := Length.properties(["width","height","min_width","min_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	var properties := Length.properties(["width","height","min_width","min_height","max_width","max_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
 	properties.append_array(Length.properties(["row_gap","column_gap"]))
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
 	return properties

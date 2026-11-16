@@ -12,6 +12,7 @@
     "examples/nested_layout",
     "examples/lengths",
     "examples/box_model",
-    "examples/styling"
+    "examples/styling",
+    "examples/ux01"
   ]
 }

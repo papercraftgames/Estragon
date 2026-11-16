@@ -158,3 +158,13 @@ tracks, template and all cells before native commit; invalid dynamic input retai
 the whole mounted tree and diagnoses the authored attribute/spread key. Root helper
 descriptions defer placement validation until mounted under their actual Grid.
 [Exact syntax/defaults/bounds](RESPONSIVE_LAYOUT.md).
+
+### UX01 body text and bare Boolean properties
+
+`<Text>Hello {username}!</Text>` supplies the existing writable String `text`
+property; native Button and imported EstragonButton support the same syntax.
+Interpolation requires String, with explicit `str(value)` for other types.
+`<HBox wrap>` supplies true only to writable native Bool metadata. Ordered
+spreads retain precedence; text-body versus explicit/spread text conflicts and
+invalid complete descriptions reject before commit. [Whitespace, validation and
+examples](UX01.md#ggx-text-and-boolean-syntax).

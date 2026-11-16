@@ -87,7 +87,7 @@ static func _string(value: String) -> String:
 	return output + '"'
 
 static func literal(value: Model.Literal) -> String:
-	return _string(value.value)
+	return ("true" if value.value else "false") if value.value is bool else _string(value.value)
 
 func _argument(expression: Model.GdExpression, type_name: String, factory: Factory) -> void:
 	var argument := Argument.new()
@@ -103,6 +103,8 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 			_argument(attribute.value, attribute.type_name, factory)
 			factory.arguments.back().spread = attribute.kind=="spread"
 			if attribute.kind=="binding": factory.arguments.back().binding_path = attribute.binding_path
+	for part in node.text_body:
+		if part is Model.GdExpression: _argument(part,"Variant",factory)
 	for child in node.children:
 		if child is Model.GdExpression: _argument(child,"Variant",factory)
 		else: _collect(child, factory)
@@ -201,6 +203,12 @@ func _description(node: Model.Component, indentation: String) -> String:
 		if attribute.kind=="placement" and not expanded: _line(variable+".origins["+_string(attribute.name)+"] = "+_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column]),attribute.name_span,indentation)
 
 	if expanded: _line(variable+".expand(["+", ".join(ordered)+"])",node.span,indentation)
+	if not node.text_body.is_empty():
+		var parts := PackedStringArray()
+		for part in node.text_body:
+			var value: String = _arguments[part].name if part is Model.GdExpression else literal(part)
+			parts.append("[%s, %s]" % [value,_string("%s:%d:%d" % [_file.name,part.span.start.line,part.span.start.column])])
+		_line(variable+".set_text_body(["+", ".join(parts)+"])",node.span,indentation)
 	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
 	return variable
 

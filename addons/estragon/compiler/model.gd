@@ -71,6 +71,7 @@ class Component extends SyntaxNode:
 	var runtime_class: String
 	var attributes: Array[Attribute] = []
 	var children: Array[SyntaxNode] = []
+	var text_body: Array[SyntaxNode] = []
 	func _init() -> void:
 		kind = "component-expression"
 

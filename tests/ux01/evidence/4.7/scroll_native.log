@@ -1,0 +1,18 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_NATIVE_SCROLL both-axis range600: true
+UX01_NATIVE_SCROLL programmatic clamp: true
+UX01_NATIVE_SCROLL wheel updates translation only: true
+UX01_NATIVE_SCROLL trackpad pan both axes: true
+UX01_NATIVE_SCROLL content shrink clamps both axes, hides bars: true
+UX01_NATIVE_SCROLL auto viewport bounded only by maximum on axis 0: true
+UX01_NATIVE_SCROLL unbounded auto viewport naturally fits content on axis 0: true
+UX01_NATIVE_SCROLL auto viewport bounded only by maximum on axis 1: true
+UX01_NATIVE_SCROLL unbounded auto viewport naturally fits content on axis 1: true
+UX01_NATIVE_SCROLL captured native Button release outside viewport never activates: true
+UX01_NATIVE_SCROLL native persistent viewport pack: true
+UX01_NATIVE_SCROLL native persistent root survives pack/reload: true
+UX01_NATIVE_SCROLL_OK

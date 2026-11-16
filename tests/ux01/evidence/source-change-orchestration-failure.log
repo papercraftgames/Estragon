@@ -1,0 +1,530 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:6605) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.24
+info All dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.24
+Done in 0.59s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+UX01_BUILD {"changed":["app/generated/Ergonomics.gd","app/generated/Ergonomics.gd.map.json","app/generated/Rose.gd","app/generated/Rose.gd.map.json","app/generated/ScrollProof.gd","app/generated/ScrollProof.gd.map.json","app/generated/Settings.gd","app/generated/Settings.gd.map.json","app/generated/UXGallery.gd","app/generated/UXGallery.gd.map.json","app/generated/WrapReproduction.gd","app/generated/WrapReproduction.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/Ergonomics.gd","app/generated/Rose.gd","app/generated/ScrollProof.gd","app/generated/Settings.gd","app/generated/UXGallery.gd","app/generated/WrapReproduction.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+UX01_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A truly indefinite remains natural: true
+UX01_A_MATH_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_B strict negative <HBox width />: true
+UX01_B strict negative <HBox imaginary />: true
+UX01_B strict negative <Button pressed />: true
+UX01_B strict negative <Button key />: true
+UX01_B strict negative <Button bind:value />: true
+UX01_B strict negative <Button disabled disabled={false} />: true
+UX01_B strict negative <Text text="x">body</Text>: true
+UX01_B strict negative <HBox>bad text</HBox>: true
+UX01_B strict negative <Text>Mixed<Button>Child</Button></Text>: true
+UX01_B strict negative <Text>{42}</Text>: true
+UX01_B strict negative <Text>{true}</Text>: true
+UX01_B strict negative <Text>unclosed: true
+UX01_B strict negative <Text></Button>: true
+UX01_B String interpolation Unicode: true
+UX01_B literal quotes are markup, never GDScript: true
+UX01_B multiline whitespace: true
+UX01_B newline/interpolation boundaries fold once: true
+UX01_B empty body: true
+UX01_B bare true and ordered spread: true
+UX01_B later spread overrides bare true: true
+UX01_B retained observed text update: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:42:24 (spread key 'text'): text property conflicts with text body; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B spread/body complete-description conflict rollback: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:35:24: text body expression requires String; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B dynamic non-String rejects atomically without coercion: true
+UX01_B each String interpolation evaluates once per description: true
+UX01_B_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_C explicit500 max300: true
+UX01_C minimum wins width100: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+UX01_C minimum wins conflicting maximum: true
+UX01_C zero max: true
+UX01_C parent percent max: true
+UX01_C viewport max: true
+UX01_C growth water-fills after maximum, no double allocation: true
+UX01_C shared stack two-axis cap before alignment/stretch: true
+UX01_C shared wrap two-axis cap before alignment/stretch: true
+UX01_C shared grid two-axis cap before alignment/stretch: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+UX01_C native allocation floor wins maximum: true
+UX01_C max caps owner only, no descendant clip or shrink: true
+UX01_C actual child paints beyond max-limited parent: true
+UX01_C ordinary visible overflow keeps actual outside-parent hit target: true
+UX01_C_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_CLIP_PROBE 4.0.4-stable (official) clicks=1 focus=true
+UX01_CLIP_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_NATIVE_SCROLL both-axis range600: true
+UX01_NATIVE_SCROLL programmatic clamp: true
+UX01_NATIVE_SCROLL wheel updates translation only: true
+UX01_NATIVE_SCROLL trackpad pan both axes: true
+UX01_NATIVE_SCROLL content shrink clamps both axes, hides bars: true
+UX01_NATIVE_SCROLL captured native Button release outside viewport never activates: true
+UX01_NATIVE_SCROLL native persistent viewport pack: true
+UX01_NATIVE_SCROLL native persistent root survives pack/reload: true
+UX01_NATIVE_SCROLL_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_NESTED nested wheel chooses inner: true
+UX01_NESTED exhausted inner bubbles outer: true
+UX01_NESTED real native scrollbar click over Estragon content without activating content: true
+UX01_NESTED remove/re-entry keeps viewport identity, range and position: true
+UX01_NESTED dynamic content shrink clamps and hides scrollbar: true
+UX01_NESTED_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_SCROLL 900 content /300 viewport =600 range: true
+UX01_SCROLL offviewport native Button cannot activate: true
+UX01_SCROLL inside Estragon Button activates once: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL visible native Button activates once and owns native focus: true
+UX01_SCROLL visible Toggle controlled edit: true
+UX01_SCROLL all offviewport pointer paths remain excluded: true
+UX01_SCROLL_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'max_height'): invalid length 'max_height': Length is negative, nonfinite or outside the supported range; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_height": "-1px" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'max_width'): invalid length 'max_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_width": "2em" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (-1, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (inf, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'vertical_scroll'): attribute 'vertical_scroll': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "vertical_scroll": 1 }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'scroll_range'): attribute 'scroll_range': read-only ScrollView measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_range": (0, 0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:37:103 (spread key 'content_extent'): attribute 'content_extent': read-only ScrollView measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "content_extent": (0, 0) }: true
+UX01_REJECTION valid dynamic cap: true
+UX01_REJECTION omitted max resets auto and repairs: true
+UX01_REJECTION conditional removal retains sibling content: true
+UX01_REJECTION conditional restoration retains sibling content: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:13:1: attribute 'children': ScrollView requires exactly one content root; use an explicit VBox or Grid; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: 0: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:13:1: attribute 'children': ScrollView requires exactly one content root; use an explicit VBox or Grid; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: 2: true
+UX01_EXPECTED_BEGIN
+ERROR: tests/ux01/rejections.gd:12:1: attribute 'children': ScrollView content needs a bounded native 2D participant, Control or Gogo component; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_REJECTION zero/multiple/unbounded roots reject before native commit: -1: true
+UX01_REJECTION composition subscriptions and records released: true
+UX01_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO resize retains nodes without Gogo recomposition: true
+UX01_REPRO exact owner reproduction wraps/end aligns width1000: true
+UX01_REPRO capacity never becomes percentage reference: true
+UX01_REPRO idle quiet: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO resize retains nodes without Gogo recomposition: true
+UX01_REPRO exact owner reproduction wraps/end aligns width640: true
+UX01_REPRO capacity never becomes percentage reference: true
+UX01_REPRO idle quiet: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO resize retains nodes without Gogo recomposition: true
+UX01_REPRO exact owner reproduction wraps/end aligns width320: true
+UX01_REPRO capacity never becomes percentage reference: true
+UX01_REPRO idle quiet: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO measured unbreakable item fits line: true
+UX01_REPRO resize retains nodes without Gogo recomposition: true
+UX01_REPRO exact owner reproduction wraps/end aligns width1000: true
+UX01_REPRO capacity never becomes percentage reference: true
+UX01_REPRO idle quiet: true
+UX01_REPRO_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK single native/custom clicks and controlled Toggle edits: true
+UX01_GAME_CHECK body text update preserves scroll identity/offset: true
+UX01_GAME_CHECK keyed shrink clamps offset and retains native child: true
+UX01_GAME_CHECK keyed Grid/Toggle/native reorder: true
+UX01_GAME_CHECK owner max only: true
+UX01_EDITOR_GAME {"assertions":29,"clicks":8,"edits":[true,false,true,false],"ok":true,"samples":[{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(600, 900)","offset":"(0, 0)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 420)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 772)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(960, 900)","offset":"(0, 0)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 420)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 676)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"}]}
+UX01_PACK_RELOAD true
+UX01_GALLERY_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UX01_EDITOR_CHECK ScrollView native Inspector horizontal_scroll: true
+UX01_EDITOR_CHECK ScrollView native Inspector vertical_scroll: true
+UX01_EDITOR_CHECK ScrollView native Inspector scroll_offset: true
+UX01_EDITOR_CHECK ScrollView native Inspector max_width: true
+UX01_EDITOR_CHECK ScrollView native Inspector max_height: true
+UX01_EDITOR_CHECK ScrollView Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK max Length Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK Wrap Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK real native authored UX01 scene imports: true
+UX01_EDITOR_CHECK native Gogo highlighter attached to actual UX01 source: true
+UX01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/UXGallery.gogo:31:22: Valueless attribute requires a writable native Bool property: width
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+UX01_EDITOR_CHECK current invalid unsaved UX01 blocks stale Play with authored diagnostic: true
+UX01_EDITOR_CHECK current invalid UX01 retains code/map/UID/timestamp/cached Script: true
+UX01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK single native/custom clicks and controlled Toggle edits: true
+UX01_GAME_CHECK body text update preserves scroll identity/offset: true
+UX01_GAME_CHECK keyed shrink clamps offset and retains native child: true
+UX01_GAME_CHECK keyed Grid/Toggle/native reorder: true
+UX01_GAME_CHECK owner max only: true
+UX01_EDITOR_GAME {"assertions":29,"clicks":8,"edits":[true,false,true,false],"ok":true,"samples":[{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(600, 900)","offset":"(0, 0)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 420)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 772)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(960, 900)","offset":"(0, 0)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 420)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 676)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"}]}
+Running: /tmp/estragon-native-ItnynF/godot --path /tmp/estragon-native-ItnynF/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8751 --position 320,272 res://app/UXGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UX01_EDITOR_CHECK current actual rendered UX01/minimum/native input/controlled Toggle at two sizes: true
+UX01_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+UX01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/UXGallery.gogo:30:32: Text body expression requires String; use explicit str(value)
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/UXGallery.gogo:30:32: Text body expression requires String; use explicit str(value)
+     at: push_warning (core/variant/variant_utility.cpp:923)
+UX01_EDITOR_CHECK main invalid unsaved UX01 blocks stale Play with authored diagnostic: true
+UX01_EDITOR_CHECK main invalid UX01 retains code/map/UID/timestamp/cached Script: true
+UX01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK single native/custom clicks and controlled Toggle edits: true
+UX01_GAME_CHECK body text update preserves scroll identity/offset: true
+UX01_GAME_CHECK keyed shrink clamps offset and retains native child: true
+UX01_GAME_CHECK keyed Grid/Toggle/native reorder: true
+UX01_GAME_CHECK owner max only: true
+UX01_EDITOR_GAME {"assertions":29,"clicks":8,"edits":[true,false,true,false],"ok":true,"samples":[{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(600, 900)","offset":"(0, 0)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 420)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 772)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(960, 900)","offset":"(0, 0)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 420)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 676)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"}]}
+Running: /tmp/estragon-native-ItnynF/godot --path /tmp/estragon-native-ItnynF/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8751 --position 320,272 res://app/UXGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UX01_EDITOR_CHECK main actual rendered UX01/minimum/native input/controlled Toggle at two sizes: true
+UX01_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+UX01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UX01_EDITOR_ASSERTIONS 19 failed=false
+UX01_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UX01_EDITOR_CHECK ScrollView native Inspector horizontal_scroll: true
+UX01_EDITOR_CHECK ScrollView native Inspector vertical_scroll: true
+UX01_EDITOR_CHECK ScrollView native Inspector scroll_offset: true
+UX01_EDITOR_CHECK ScrollView native Inspector max_width: true
+UX01_EDITOR_CHECK ScrollView native Inspector max_height: true
+UX01_EDITOR_CHECK ScrollView Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK max Length Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK Wrap Inspector edit/undo/redo: true
+UX01_EDITOR_CHECK real native authored UX01 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK single native/custom clicks and controlled Toggle edits: true
+UX01_GAME_CHECK body text update preserves scroll identity/offset: true
+UX01_GAME_CHECK keyed shrink clamps offset and retains native child: true
+UX01_GAME_CHECK keyed Grid/Toggle/native reorder: true
+UX01_GAME_CHECK owner max only: true
+UX01_EDITOR_GAME {"assertions":29,"clicks":8,"edits":[true,false,true,false],"ok":true,"samples":[{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(600, 900)","offset":"(0, 0)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 420)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 772)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(960, 900)","offset":"(0, 0)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 420)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 676)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"}]}
+Running: /tmp/estragon-native-ItnynF/godot --path /tmp/estragon-native-ItnynF/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9414 --position 320,272 res://app/UXGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UX01_EDITOR_CHECK main actual rendered UX01/minimum/native input/controlled Toggle at two sizes: true
+UX01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UX01_EDITOR_ASSERTIONS 11 failed=false
+UX01_EDITOR_OK
+file:///repo/tools/pack-addon.ts:18
+    if(overlay.sourceHead!==gitHead())throw Error("Overlay source mismatch");
+                                            ^
+
+Error: Overlay source mismatch
+    at packAddon (file:///repo/tools/pack-addon.ts:18:45)
+    at file:///repo/tools/check-ux01.ts:42:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types tools/check-ux01.ts --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --editor --candidate-tag v0.1.0-beta.24 --output /tmp/ux01-acceptance-2
+Directory: /repo
+Output:

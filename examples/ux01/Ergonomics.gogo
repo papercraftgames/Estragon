@@ -1,0 +1,44 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var username: String = "é 🌱"
+@bindable var label: String = "Click Me"
+@bindable var extra: Dictionary = {}
+@bindable var bad_text: bool = false
+var evaluations: int = 0
+func body_value() -> Variant:
+	evaluations += 1
+	return 42 if self.bad_text else "Strict"
+var clicks: int = 0
+func pressed(): clicks += 1
+func build_view() -> Element:
+	return <Entry2D width="100%" height="100%">
+		<VBox width="100%" gap="12px">
+			<Text name="Greeting">Hello {self.username}!</Text>
+			<Text name="Quote">I'm "native", é 🌱.</Text>
+			<Text name="Multiline">
+				One word
+				another line
+			</Text>
+			<Text name="Boundaries">
+				Hello
+				{self.username}
+				world
+			</Text>
+			<Text name="Expressions">{self.label}
+				{self.username}</Text>
+			<Text name="Empty"></Text>
+			<Text name="Strict">{body_value()}</Text>
+			<HBox name="Wrapped" {...{"wrap":false}} wrap>
+				<Button name="Native" pressed={pressed}>{self.label}</Button>
+				<UiButton name="Custom" pressed={pressed}>Also click me</UiButton>
+				<UiButton name="Disabled" disabled>Disabled</UiButton>
+			</HBox>
+			<HBox name="Override" wrap {...{"wrap":false}} />
+			<Text name="Spread" {...self.extra}>Body</Text>
+		</VBox>
+	</Entry2D>

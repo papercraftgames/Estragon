@@ -70,3 +70,19 @@ func _init(native_type: Variant = null, props: Dictionary = {}, events: Dictiona
 	handlers = events
 	children = descendants
 	source = location
+
+# Called after ordered explicit/spread attributes, before desired-tree preflight.
+# No conversion: a dynamic non-String rejects the entire description transaction.
+func set_text_body(parts: Array) -> void:
+	if not attribute_error.is_empty(): return
+	if properties.has("text"):
+		attribute_error = location("text")+": text property conflicts with text body; previous tree retained"
+		return
+	var value := ""
+	for part in parts:
+		if not part[0] is String:
+			attribute_error = str(part[1])+": text body expression requires String; previous tree retained"
+			return
+		value += part[0]
+	properties["text"] = value
+	origins["text"] = parts[0][1] if not parts.is_empty() else source

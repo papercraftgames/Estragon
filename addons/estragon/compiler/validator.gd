@@ -61,6 +61,9 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			continue
 		var name := attribute.name
+		if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_VIEW") and name in ["scroll_range","content_extent"]:
+			_error("Read-only ScrollView measurement: "+name,attribute.name_span)
+			return
 		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
 			_error("Shared visual styling is unsupported on this participant",attribute.name_span)
 			return
@@ -68,6 +71,12 @@ func _component(node: Model.Component) -> void:
 			_error("Duplicate Node property or signal " + name, attribute.name_span)
 			return
 		seen[name] = true
+		if attribute.kind=="boolean-shorthand":
+			if name in ["key","bind:value"] or signals.has(name) or not properties.has(name) or properties[name].type!=TYPE_BOOL or not NativeAttributes.writable(resolved.native,resolved.script,name,properties[name]):
+				_error("Valueless attribute requires a writable native Bool property: "+name,attribute.name_span)
+				return
+			attribute.type_name = "bool"
+			continue
 		if name.begins_with("bind:"):
 			_binding(attribute,node,properties,signals)
 			if not file.diagnostics.is_empty(): return
@@ -146,6 +155,47 @@ func _component(node: Model.Component) -> void:
 			attribute.value.type_name = attribute.type_name
 		else:
 			_node(attribute.value)
+	var has_literal := node.children.any(func(child): return child is Model.Literal and not str(child.value).strip_edges().is_empty())
+	var has_expression := node.children.any(func(child): return child is Model.GdExpression)
+	var text_eligible: bool = properties.has("text") and properties.text.type==TYPE_STRING and NativeAttributes.writable(resolved.native,resolved.script,"text",properties.text)
+	if has_literal or text_eligible and has_expression:
+		if not text_eligible:
+			_error("Literal text requires a writable String text property",node.children[0].span)
+			return
+		if seen.has("text"):
+			_error("Text body conflicts with explicit text property",node.name_span)
+			return
+		for index in range(node.children.size()):
+			var child = node.children[index]
+			if child is Model.Component:
+				_error("Text body cannot mix nested Element children; use a layout container",child.span)
+				return
+			if child is Model.Literal:
+				var raw: String = str(child.value)
+				child.value = _body_whitespace(raw)
+				if raw.contains("\n"):
+					var lines := raw.split("\n")
+					if index>0 and node.children[index-1] is Model.GdExpression and lines[0].strip_edges().is_empty() and not str(child.value).is_empty(): child.value = " "+child.value
+					if index<node.children.size()-1 and node.children[index+1] is Model.GdExpression and lines[-1].strip_edges().is_empty() and (not str(child.value).is_empty() or index>0 and node.children[index-1] is Model.GdExpression): child.value += " "
+				child.kind = "string-literal"
+			else:
+				_node(child)
+				var tokens := _expression_tokens(child)
+				if tokens.size()==1 and (tokens[0].kind=="number" or tokens[0].text in ["true","false","null","NAN","INF"]):
+					_error("Text body expression requires String; use explicit str(value)",child.span)
+					return
+				if child.parts.any(func(part): return part is Model.Component):
+					_error("Text body expressions require String, not Element children",child.span)
+					return
+			node.text_body.append(child)
+		node.children.clear()
+	else:
+		for index in range(node.children.size()-1,-1,-1):
+			if node.children[index] is Model.Literal: node.children.remove_at(index)
+	if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_VIEW"):
+		if node.children.is_empty() or node.children.size()>1 and node.children.all(func(child): return child is Model.Component):
+			_error("ScrollView requires exactly one content root; use an explicit VBox or Grid",node.name_span)
+			return
 	var sibling_names := {}
 	for child in node.children:
 		if child is Model.GdExpression:
@@ -371,3 +421,15 @@ func _color(attribute) -> void:
 		if parsed.has("error"): _error(parsed.error,value.span)
 	elif tokens.size()==1 and (tokens[0].kind=="number" or tokens[0].text in ["true","false","null","NAN","INF"]):
 		_error("Style color requires a native Color or validated hex/transparent string",value.span)
+
+# JSX-like source line folding; inline spaces/Unicode remain ordinary String bytes.
+func _body_whitespace(value: String) -> String:
+	if not value.contains("\n") and not value.contains("\r"): return value
+	var lines := value.replace("\r\n","\n").replace("\r","\n").replace("\t"," ").split("\n")
+	var words: Array[String] = []
+	for index in range(lines.size()):
+		var line: String = lines[index]
+		if index>0: line = line.strip_edges(true,false)
+		if index<lines.size()-1: line = line.strip_edges(false,true)
+		if not line.is_empty(): words.append(line)
+	return " ".join(words)

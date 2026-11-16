@@ -299,6 +299,7 @@ func _boundary_clear(desired: Element, parent: Node) -> bool:
 		if str(child.name)==name: return false
 	return true
 func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
+	if parent.has_method("_composition_child_parent"): parent = parent._composition_child_parent()
 	var record := Mounted.new()
 	if desired.borrowed != null:
 		record.borrowed = desired.borrowed
@@ -350,11 +351,13 @@ func _apply(desired: Element, record: Mounted) -> void:
 	if grid:
 		node._apply_grid(_grid_config(desired))
 	var stack := StackContract.registered(desired.type)
+	var scroll := VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_VIEW")
 	if stack:
 		var policy := resets.duplicate()
 		policy.merge(desired.properties,true)
 		node._apply_stack_policy(policy)
 	for key in resets:
+		if scroll and key=="scroll_offset": continue
 		if (not stack or key not in ["direction","horizontal_align","vertical_align"]) and (not grid or key not in GRID_CONFIG): node.set(key,resets[key])
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
@@ -372,13 +375,26 @@ func _apply(desired: Element, record: Mounted) -> void:
 				node.set(key,0.0)
 				writes += 1
 				if Profile.is_enabled(): Profile.add("property_writes")
+	if Length.registered(desired.type,"max_width"):
+		for key in Length.MAXIMUMS:
+			if record.properties.has(key) and not desired.properties.has(key): node.set(key,"auto")
 	if StackContract.self_registered(desired.type) and record.properties.has("align_self") and not desired.properties.has("align_self"):
 		node.set("align_self","auto")
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
+		if scroll and key=="scroll_offset": continue
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
+			writes += 1
+			if Profile.is_enabled(): Profile.add("property_writes")
+	# Apply the effective authored offset after geometry/axis flags. A dirty
+	# ScrollView retains it until the same core's next arrangement, so attribute
+	# order cannot clamp restoration against the previous viewport range.
+	if scroll:
+		var offset = desired.properties if desired.properties.has("scroll_offset") else resets
+		if offset.has("scroll_offset") and (not desired.properties.has("scroll_offset") or not record.properties.has("scroll_offset") or not is_same(record.properties.scroll_offset,offset.scroll_offset)):
+			node.set("scroll_offset",offset.scroll_offset)
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 	for event in record.handlers:
@@ -402,7 +418,7 @@ func _spread_resets(desired: Element, record) -> Dictionary:
 	if record==null or not _compatible(desired,record): return result
 	var node = record.node.get_ref()
 	for key in record.spread_applied:
-		if desired.properties.has(key) or (key=="align_self" and StackContract.self_registered(desired.type)) or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
+		if desired.properties.has(key) or (key=="align_self" and StackContract.self_registered(desired.type)) or key in Length.BORDER_EDGES or key in Length.MINIMUMS or key in Length.MAXIMUMS: continue
 		# Do not overwrite imperative native changes made since our last commit.
 		if is_same(node.get(key),record.spread_applied[key]) and not is_same(node.get(key),record.defaults[key]): result[key] = record.defaults[key]
 	return result
@@ -437,6 +453,7 @@ func _compatible(desired: Element, record: Mounted) -> bool:
 		return desired.borrowed != null and record.borrowed != null and desired.borrowed.get_ref() != null and desired.borrowed.get_ref() == record.node.get_ref()
 	return record != null and is_same(record.type,desired.type) and record.keyed==desired.keyed and (not desired.keyed or typeof(record.key)==typeof(desired.key) and record.key==desired.key) and record.node.get_ref()!=null
 func _reconcile(desired, record, parent: Node, owner: Node):
+	if parent.has_method("_composition_child_parent"): parent = parent._composition_child_parent()
 	if Profile.is_enabled(): Profile.add("reconciles")
 	if desired == null:
 		if record != null: _free_managed(record,owner)
@@ -469,6 +486,7 @@ func _reconcile(desired, record, parent: Node, owner: Node):
 # Release names that must change before applying final sibling names. Native
 # Node otherwise silently renames a valid swap against the still-old sibling.
 func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
+	if parent.has_method("_composition_child_parent"): parent = parent._composition_child_parent()
 	var pending: Array = []
 	var targets := {}
 	for index in range(desired.size()):
@@ -493,6 +511,7 @@ func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
 # Keep a longest increasing subsequence of actual native indices. Everything
 # else moves once, right to left beside its final successor; no-op moves zero.
 func _order(children: Array, parent: Node) -> void:
+	if parent.has_method("_composition_child_parent"): parent = parent._composition_child_parent()
 	var nodes: Array = []
 	for child in children:
 		if child!=null and child.borrowed == null: nodes.append(child.node.get_ref())
@@ -575,6 +594,16 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			if not message.is_empty():
 				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
+	if VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_VIEW"):
+		var content: Array = desired.children.filter(func(child): return child!=null)
+		if content.size()!=1: return _invalid_attribute(desired,"children","ScrollView requires exactly one content root; use an explicit VBox or Grid")
+		if desired.properties.has("scroll_offset") and not preload("../node/scroll_view.gd").valid_offset(desired.properties.scroll_offset): return _invalid_attribute(desired,"scroll_offset","requires a finite nonnegative Vector2")
+		for key in ["scroll_range","content_extent"]:
+			if desired.properties.has(key): return _invalid_attribute(desired,key,"read-only ScrollView measurement")
+		var child = content[0]
+		var type = child.type if child.borrowed==null else child.borrowed.get_ref().get_script()
+		var native: String = (child.type if child.type is String else child.type.get_instance_base_type()) if child.borrowed==null else child.borrowed.get_ref().get_class()
+		if not ClassDB.is_parent_class(native,"Control") and not (ClassDB.is_parent_class(native,"Node2D") and (Length.registered(type,"width") or GridDefinition.component(type))): return _invalid_attribute(child,"children","ScrollView content needs a bounded native 2D participant, Control or Gogo component")
 	if GridDefinition.marked(desired.type):
 		var config := _grid_config(desired)
 		var grid_matches := _matches(desired.children,previous.children if previous!=null and _compatible(desired,previous) else [])
@@ -703,6 +732,7 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 	var manager = state.get_ref()
 	if manager != null and manager.records.has(node.get_instance_id()): manager.unmount(node,owner)
 	for child in node.get_children():
+		if node.has_method("_composition_is_private") and node._composition_is_private(child): continue
 		var persisted_owner: Node = child.owner
 		node.remove_child(child)
 		if owner != null:
