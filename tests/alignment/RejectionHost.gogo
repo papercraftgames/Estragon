@@ -1,0 +1,16 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+@bindable var props: Dictionary = {"width":300, "height":80}
+@bindable var kind: String = "box"
+@bindable var own: String = "auto"
+func build_view() -> Element:
+	var child: Element
+	if self.kind=="row": child = <HBox name="Target" {...self.props} />
+	elif self.kind=="column": child = <VBox name="Target" {...self.props} />
+	else: child = <Box name="Target" {...self.props}><Rect name="Child" width="40px" height="20px" align_self={self.own} /></Box>
+	return <Entry2D name="UI" width="100%" height="100%">{child}</Entry2D>

@@ -133,6 +133,7 @@ func changed() -> void:
 	if host.has_method("_layout_options"):
 		var options: Dictionary = host._layout_options()
 		model.set_policy(options.get("alignment",["start","start","start"]))
+		model.set_align_self(host.align_self if _dimension==2 and "align_self" in host else "auto")
 		if "lengths" in host:
 			for property in host._get_property_list():
 				if not Core.Length.domain(property.name).is_empty() and not host.lengths.specs.has(property.name): host.lengths.assign(property.name,host.get(property.name),Core.Length.domain(property.name,host.get_script()))

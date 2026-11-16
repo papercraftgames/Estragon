@@ -10,6 +10,7 @@ signal arranged(size)
 var length_specs: Dictionary = {}
 var grow: float = 0.0
 var stretch: int = 0
+var align_self := "auto"
 var pixels_per_unit: float = 1.0
 var length_offset := Vector3.ZERO
 var viewport_size := Vector2.ZERO
@@ -70,6 +71,11 @@ func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, sta
 func set_policy(values: Array) -> void:
 	if alignment==values: return
 	alignment = values.duplicate()
+	invalidate()
+
+func set_align_self(value: String) -> void:
+	if align_self==value: return
+	align_self = value
 	invalidate()
 
 func _length(name: String, axis_index: int, fallback: float) -> float:
@@ -204,10 +210,11 @@ func measure() -> Vector3:
 		var child = children[0]
 		child.prepare(parent_reference,viewport_size)
 		child.measure()
-		if child.requested!=requested or child.grow!=grow or child.stretch!=stretch or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
+		if child.requested!=requested or child.grow!=grow or child.stretch!=stretch or child.align_self!=align_self or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
 			requested = child.requested
 			grow = child.grow
 			stretch = child.stretch
+			align_self = child.align_self
 			fill = child.fill
 			margin = child.margin
 			length_offset = child.length_offset
@@ -239,7 +246,8 @@ func independent_axis(index: int) -> bool:
 	if requested[index] >= 0 or _external_axes[index] > 0: return true
 	var parent = _parent.get_ref() if _parent != null else null
 	if parent == null: return false
-	return parent.independent_axis(index) if requested[index] < 0 and (fill[index] > 0 or (grow>0 if index==parent.axis else stretch>0)) else false
+	var allocated: bool = grow>0 or fill[index]>0 if index==parent.axis else StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
+	return parent.independent_axis(index) if requested[index] < 0 and allocated else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	available = constrain(available)
@@ -296,7 +304,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				break
 	var items: Array = []
 	for child in children:
-		items.append({"preferred":child.measured,"minimum":child.minimum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
+		items.append({"preferred":child.measured,"minimum":child.minimum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"align_self":child.align_self,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"
 	slots = StackPolicy.slots(items,content,axis,gap,policy)
@@ -309,6 +317,6 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			child.placed.emit(next)
 		var authority := Vector3.ZERO
 		for cross in range(3):
-			if cross!=axis and policy[cross]=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
+			if cross!=axis and StackPolicy.cross_alignment(items[index],policy[cross],cross)=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
 		child.arrange(slot.extent,authority)
 	arranged.emit(size)

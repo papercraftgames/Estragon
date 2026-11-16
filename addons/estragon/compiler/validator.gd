@@ -106,6 +106,11 @@ func _component(node: Model.Component) -> void:
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
+		if name=="align_self" and StackContract.self_registered(resolved.script) and attribute.value is Model.Literal:
+			var message := StackContract.error(name,attribute.value.value,"")
+			if not message.is_empty():
+				_error(message,attribute.value.span)
+				return
 		var is_color := VisualStyle.registered(resolved.script,name)
 		if is_color:
 			_color(attribute)

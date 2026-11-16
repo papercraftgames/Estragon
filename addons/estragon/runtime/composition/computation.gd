@@ -365,6 +365,10 @@ func _apply(desired: Element, record: Mounted) -> void:
 				node.set(key,0.0)
 				writes += 1
 				if Profile.is_enabled(): Profile.add("property_writes")
+	if StackContract.self_registered(desired.type) and record.properties.has("align_self") and not desired.properties.has("align_self"):
+		node.set("align_self","auto")
+		writes += 1
+		if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
@@ -391,7 +395,7 @@ func _spread_resets(desired: Element, record) -> Dictionary:
 	if record==null or not _compatible(desired,record): return result
 	var node = record.node.get_ref()
 	for key in record.spread_applied:
-		if desired.properties.has(key) or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
+		if desired.properties.has(key) or key=="align_self" or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
 		# Do not overwrite imperative native changes made since our last commit.
 		if is_same(node.get(key),record.spread_applied[key]) and not is_same(node.get(key),record.defaults[key]): result[key] = record.defaults[key]
 	return result
@@ -565,6 +569,9 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
 		if not properties.has(key) or not NativeAttributes.writable(native,desired.type,str(key),properties[key]): return _invalid_attribute(desired,str(key),"unknown, read-only or reserved native property")
 		var value = desired.properties[key]
+		if key=="align_self" and StackContract.self_registered(desired.type):
+			var message := StackContract.error(key,value,"")
+			if not message.is_empty(): return _invalid_attribute(desired,str(key),message)
 		if VisualStyle.property(str(key)) and VisualStyle.has_api(desired.type) and not VisualStyle.supported(desired.type):
 			validation_error = desired.location(str(key))+": shared visual styling is unsupported on this participant; previous tree retained"
 			return false

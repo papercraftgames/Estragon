@@ -1,0 +1,10 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+@bindable var own: String = "end"
+func build_view() -> Element:
+	return <HBox name="Body" align_self={self.own} width="50%" height="40px" horizontal_align="space-around" vertical_align="center" background_color="#252b38">
+		<Rect width="20px" height="20px" background_color="#ffc65c" />
+		<Rect width="20px" height="20px" background_color="#477dbb" />
+	</HBox>
