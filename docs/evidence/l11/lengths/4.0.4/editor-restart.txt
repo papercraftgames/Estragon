@@ -1,0 +1,35 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+L06_EDITOR_CHECK L11 native Inspector exposes min_width: true
+L06_EDITOR_CHECK L11 minimum Inspector union edit/undo/redo min_width: true
+L06_EDITOR_CHECK L11 invalid minimum Inspector input retains valid value min_width: true
+L06_EDITOR_CHECK L11 minimum Inspector auto clears local floor min_width: true
+L06_EDITOR_CHECK L11 native Inspector exposes min_height: true
+L06_EDITOR_CHECK L11 minimum Inspector union edit/undo/redo min_height: true
+L06_EDITOR_CHECK L11 invalid minimum Inspector input retains valid value min_height: true
+L06_EDITOR_CHECK L11 minimum Inspector auto clears local floor min_height: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+Running: /tmp/estragon-native-pYiqnM/godot --path /tmp/estragon-native-pYiqnM/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 53739 --position 64,188 res://app/Home.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L07_EDITOR_GAME {"clicks":2,"samples":[{"actual_viewport":480,"bottom":480,"spacer":293,"viewport":480},{"actual_viewport":800,"bottom":800,"spacer":613,"viewport":800}]}
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: true
+L07_ROOT_EDITOR_GAME {"clicks":3,"samples":[{"actual":480,"bottom":480,"expected_width":320,"root":480,"spacer":365,"viewport":480,"width":320},{"actual":800,"bottom":800,"expected_width":500,"root":800,"spacer":685,"viewport":800,"width":500},{"actual":240,"bottom":240,"expected_width":160,"root":240,"spacer":125,"viewport":240,"width":160}]}
+L06_EDITOR_CHECK L07 main exact root100% owner footer/native clicks at three visible viewport sizes: true
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L11_EDITOR_GAME {"clicks":2,"edits":[true,false],"native":2,"samples":[{"border":true,"content":588,"height":36,"origin":"(107, 7)","panel":"(616, 255)","root":true,"width":294},{"border":true,"content":948,"height":36,"origin":"(197, 7)","panel":"(976, 255)","root":true,"width":474}]}
+Running: /tmp/estragon-native-pYiqnM/godot --path /tmp/estragon-native-pYiqnM/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 53739 --position 64,188 res://app/MinimumGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 17 failed=false
+L06_EDITOR_OK

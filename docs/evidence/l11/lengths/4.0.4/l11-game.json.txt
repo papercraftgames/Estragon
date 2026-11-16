@@ -1,0 +1,1 @@
+{"clicks":2,"edits":[true,false],"native":2,"samples":[{"border":true,"content":588,"height":36,"origin":"(107, 7)","panel":"(616, 255)","root":true,"width":294},{"border":true,"content":948,"height":36,"origin":"(197, 7)","panel":"(976, 255)","root":true,"width":474}]}

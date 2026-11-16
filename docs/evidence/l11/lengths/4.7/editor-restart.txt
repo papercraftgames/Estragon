@@ -1,0 +1,37 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+L06_EDITOR_CHECK native Inspector length redo: true
+L06_EDITOR_CHECK invalid Inspector unit explains rejection and keeps valid spec: true
+L06_EDITOR_CHECK L11 native Inspector exposes min_width: true
+L06_EDITOR_CHECK L11 minimum Inspector union edit/undo/redo min_width: true
+L06_EDITOR_CHECK L11 invalid minimum Inspector input retains valid value min_width: true
+L06_EDITOR_CHECK L11 minimum Inspector auto clears local floor min_width: true
+L06_EDITOR_CHECK L11 native Inspector exposes min_height: true
+L06_EDITOR_CHECK L11 minimum Inspector union edit/undo/redo min_height: true
+L06_EDITOR_CHECK L11 invalid minimum Inspector input retains valid value min_height: true
+L06_EDITOR_CHECK L11 minimum Inspector auto clears local floor min_height: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L06_EDITOR_CHECK main native game keeps50/75 percent parent sizing through three resizes with retained input: true
+L07_EDITOR_GAME {"clicks":2,"samples":[{"actual_viewport":480.0,"bottom":480.0,"spacer":293.0,"viewport":480},{"actual_viewport":800.0,"bottom":800.0,"spacer":613.0,"viewport":800}]}
+L06_EDITOR_CHECK L07A main real editor Play bottom spacer and native click at two sizes: true
+L07_ROOT_EDITOR_GAME {"clicks":3,"samples":[{"actual":480.0,"bottom":480.0,"expected_width":320.0,"root":480.0,"spacer":365.0,"viewport":480,"width":320.0},{"actual":800.0,"bottom":800.0,"expected_width":500.0,"root":800.0,"spacer":685.0,"viewport":800,"width":500.0},{"actual":240.0,"bottom":240.0,"expected_width":160.0,"root":240.0,"spacer":125.0,"viewport":240,"width":160.0}]}
+L06_EDITOR_CHECK L07 main exact root100% owner footer/native clicks at three visible viewport sizes: true
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L11_EDITOR_GAME {"clicks":2,"edits":[true,false],"native":2,"samples":[{"border":true,"content":588.0,"height":36.0,"origin":"(107.0, 7.0)","panel":"(616.0, 255.0)","root":true,"width":294.0},{"border":true,"content":948.0,"height":36.0,"origin":"(197.0, 7.0)","panel":"(976.0, 255.0)","root":true,"width":474.0}]}
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 17 failed=false
+L06_EDITOR_OK
