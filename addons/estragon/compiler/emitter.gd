@@ -9,6 +9,7 @@ const Source = preload("source.gd")
 const MappedWriter = preload("source_map.gd")
 
 class Argument extends RefCounted:
+	var spread := false
 	var expression: Model.GdExpression
 	var type_name: String
 	var name: String
@@ -100,6 +101,7 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 	for attribute in node.attributes:
 		if attribute.value is Model.GdExpression:
 			_argument(attribute.value, attribute.type_name, factory)
+			factory.arguments.back().spread = attribute.kind=="spread"
 			if attribute.kind=="binding": factory.arguments.back().binding_path = attribute.binding_path
 	for child in node.children:
 		if child is Model.GdExpression: _argument(child,"Variant",factory)
@@ -143,8 +145,10 @@ func _call(node: Model.Component) -> void:
 		if index > 0: _writer.append("," if multiline else ", ", node.span)
 		if multiline: _writer.append("\n" + base + _module.indentation, argument.expression.span)
 		_writer.append("(", argument.expression.span)
+		if argument.spread: _writer.append("preload("+_resource(Element)+").snapshot(",argument.expression.span)
 		if argument.binding_path.is_empty(): _parts(argument.expression.parts)
 		else: _binding_argument(argument)
+		if argument.spread: _writer.append(")",argument.expression.span)
 		_writer.append(")", argument.expression.span)
 	_writer.append(("\n" + base if multiline else "") + ")", node.span)
 
@@ -172,6 +176,8 @@ func _description(node: Model.Component, indentation: String) -> String:
 	var bindings := PackedStringArray()
 	var key := "null"
 	var keyed := "false"
+	var expanded := node.attributes.any(func(item): return item.kind=="spread")
+	var ordered := PackedStringArray()
 	for attribute in node.attributes:
 		var value: String = _arguments[attribute.value].name if attribute.value is Model.GdExpression else literal(attribute.value)
 		if attribute.kind == "binding":
@@ -181,6 +187,9 @@ func _description(node: Model.Component, indentation: String) -> String:
 			key = value
 			keyed = "true"
 			continue
+		if expanded:
+			ordered.append("[%s, %s, %s]" % ["null" if attribute.kind=="spread" else _string(attribute.name),value,_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column])])
+			continue
 		var target := events if attribute.kind == "signal" else props
 		target.append(_string(attribute.name)+": "+value)
 	var children := PackedStringArray()
@@ -188,6 +197,7 @@ func _description(node: Model.Component, indentation: String) -> String:
 		children.append(_arguments[child].name if child is Model.GdExpression else _description(child,indentation))
 	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s, %s, %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column]),key,keyed],node.span,indentation)
+	if expanded: _line(variable+".expand(["+", ".join(ordered)+"])",node.span,indentation)
 	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
 	return variable
 

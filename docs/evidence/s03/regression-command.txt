@@ -1,0 +1,8 @@
+set -eu
+engine=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-addon.ts --fast-release --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=$engine --output /evidence/s03-package
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-ggx.ts --engine 4.7=$engine --output /evidence/s03-ggx
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-lengths.ts --engine 4.7=$engine --output /evidence/s03-lengths
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-styling.ts --engine 4.7=$engine --output /evidence/s03-styling
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-native-controls.ts --engine 4.7=$engine --output /evidence/s03-controls
+corepack yarn@1.22.22 node --experimental-strip-types /repo/tools/check-routine-smoke.ts --engine 4.7=$engine --output /evidence/s03-routine

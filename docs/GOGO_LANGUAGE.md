@@ -62,3 +62,85 @@ Unrelated plain native Nodes remain boundaries. A non-layout/plain root, incompa
 L01 [pixel Box layout](NODE_UI.md#l01--pixel-box-model) adds inherited typed numeric padding/margin edges, shared constructible `EstragonBox`, border-box dimensions and deterministic edge-over-shorthand precedence. L06 extends these to retained numeric/unit-string lengths with authored-span errors and whole-tree dynamic preflight; see [the current contract](LENGTHS.md). Use the [runnable example](../examples/box_model/BoxModel.gogo); native Controls and 3D geometry retain their existing bounded contracts.
 
 L06 [unit lengths](LENGTHS.md) accepts numeric expressions and retained unit strings on registered Estragon length properties, including inline elements. Literal diagnostics and dynamic whole-tree preflight share one parser.
+
+## Ordered attribute spreads (S03)
+
+GGX opening tags accept `{...expression}`. The expression is ordinary native
+GDScript and must evaluate to a Dictionary. Variable names have no special meaning:
+`{...props}`, `{...style}` and `{...theme_values}` use identical grammar.
+
+```gogo
+func panel_values() -> Dictionary:
+	return {"background_color":"#252b38", "padding":"12px", "min_width":"280px"}
+
+func build_view() -> Element:
+	var emphasis := {"border_color":"#8295bc", "border_width":"2px"}
+	return <VBox {...panel_values()} padding="20px" {...emphasis}>
+		<UiButton {...{"text":"Continue", "min_height":"36px", "pressed":pressed}} />
+	</VBox>
+```
+
+Use ordinary explicit preload aliases for Element and component types, as in
+[SpreadGallery](../examples/spreads/SpreadGallery.tscn). Bare Button remains Godot's
+native Button. Dictionaries may come from variables, constants, functions, modules
+or inline expressions. Whitespace, GDScript comments, quoted text and nested
+braces retain native lexical rules. This form is only legal in the opening tag's
+attribute list; it adds no spread syntax to ordinary arrays, calls or expressions.
+
+Each expression executes once, left to right, including named expressions. A
+shallow Dictionary snapshot is taken at each spread's evaluation point, so a later
+expression mutating the same Dictionary cannot rewrite an earlier contribution.
+Values keep native reference semantics. Later assignments win across spreads and
+named attributes; a later spread can override an earlier named value. Duplicate
+explicitly written named attributes still reject. There is one final property or
+handler per normalized name; overridden values are not sent to native setters.
+
+Keys must be nonempty String/StringName names matching writable destination
+native/script metadata. Native properties such as name/visible, Estragon lengths
+and local paint fields, and native Callable signal values all use the existing
+contracts. Text color remains native Color; background_color accepts its existing
+Color/hex forms. Unknown/read-only/reserved names, bad types/lengths/colors/policies,
+invalid handlers and Rect fill+background_color conflicts reject before any live
+Node edit. Keys named `key` or `bind:value` (or other bind: names) cannot come from
+spreads. Author those explicitly; keyed lists and controlled bindings still work
+beside spreads, and binding conflicts are validated after expansion. Explicit event
+attributes still require named handlers/Callables, without inline anonymous events.
+
+Runtime Dictionary keys/types cannot be proven by compilation alone. The compiler
+checks syntax and explicit attributes; actual-path native semantic validation
+checks expressions; complete-description preflight checks expanded values before
+commit. Diagnostics retain each final attribute's authored source and spread key.
+Native named-method signal arity metadata is checked on both approved engines;
+custom bound/unbound/lambda Callables retain native invocation semantics where
+portable method metadata is unavailable. Callable validity/lifetime and owned
+connect/disconnect checks always apply.
+
+Bindable getter reads inside spread computations use the same existing observation
+scope. Reassign a Dictionary reference to signal a change:
+
+```gogo
+var next := self.props.duplicate()
+next["padding"] = "24px"
+self.props = next
+```
+
+Raw in-place Dictionary mutation does not notify automatically. No proxy, observer,
+style state container or polling loop is added. Recomposition preserves compatible
+native identities/owners and changes only final values/handlers. Equal writes and
+idle frames stay quiet; layout values invalidate affected layout, colors redraw.
+
+When an effective spread-owned property disappears, the reconciler restores its
+recorded legitimate class/native default (including _init defaults), unless the
+native property has independently changed since that spread was committed. Records
+stay external to user Nodes. Existing border-side `auto` and minimum numeric-zero
+omission rules remain authoritative. Button local `padding="auto"`, Rect white
+background, ordinary script defaults and native state such as disabled/visible
+restore without probe/helper Nodes. A surviving named attribute remains effective;
+ordinary named-only omission semantics are not broadened. A spread-only name on an
+initially unnamed Node resets to its native class label because Godot rejects
+empty names after attachment; sibling-name conflicts still fail preflight.
+
+There is no style property or framework style structure, factory, utility, token,
+palette, theme Resource, cascade or inherited style. This is a general-purpose GGX
+language feature. Any future framework-level style support requires a separate
+owner design decision. S04 visuals and wrapping/Grid remain separately scoped.

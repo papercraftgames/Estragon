@@ -8,6 +8,7 @@ const Resolver = preload("native/resolver.gd")
 const StackContract = preload("../runtime/node/internal/stack_contract.gd")
 const VisualStyle = preload("../runtime/node/internal/visual_style_2d.gd")
 const Length = preload("../runtime/node/internal/length.gd")
+const NativeAttributes = preload("../runtime/composition/native_attributes.gd")
 const Lexer = preload("lexer.gd")
 var file: Source
 var resolver
@@ -52,7 +53,12 @@ func _component(node: Model.Component) -> void:
 		_error("Rect fill and background_color conflict; author only the canonical background_color or legacy fill",node.name_span)
 		return
 	var seen: Dictionary = {}
+	var expanded := node.attributes.any(func(item): return item.kind=="spread")
 	for attribute in node.attributes:
+		if attribute.kind=="spread":
+			attribute.type_name = "Variant"
+			_node(attribute.value)
+			continue
 		var name := attribute.name
 		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
 			_error("Shared visual styling is unsupported on this participant",attribute.name_span)
@@ -87,7 +93,7 @@ func _component(node: Model.Component) -> void:
 					_error("Inline anonymous GGX handlers are not supported; use a named handler/Callable", token.span)
 					return
 				index = token.span.end.index
-		elif properties.has(name) and name not in ["owner", "script"] and not name.contains("/") and not (int(properties[name].usage) & PROPERTY_USAGE_READ_ONLY):
+		elif properties.has(name) and NativeAttributes.writable(resolved.native,resolved.script,name,properties[name]):
 			attribute.type_name = "Variant" if Length.registered(resolved.script,name) or VisualStyle.registered(resolved.script,name) else _native_type(properties[name])
 			if attribute.type_name.is_empty():
 				_error("Unsupported Node property metadata: " + name, attribute.name_span)
@@ -95,7 +101,7 @@ func _component(node: Model.Component) -> void:
 		else:
 			_error("Removed layout API "+name+": use unit dimensions, grow and stretch" if name in ["flex","fill_width","fill_height","viewport_width_scale","viewport_height_scale"] else "Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
 			return
-		if StackContract.registered(resolved.script) and attribute.value is Model.Literal:
+		if not expanded and StackContract.registered(resolved.script) and attribute.value is Model.Literal:
 			var message := StackContract.error(name,attribute.value.value,stack_direction,StackContract.preset(resolved.script))
 			if not message.is_empty():
 				_error(message,attribute.value.span)
@@ -129,7 +135,7 @@ func _component(node: Model.Component) -> void:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
-		if child is Model.Component:
+		if child is Model.Component and not child.attributes.any(func(item): return item.kind=="spread"):
 			for attribute in child.attributes:
 				if attribute.name=="name" and attribute.value is Model.Literal:
 					var name: String = str(attribute.value.value)

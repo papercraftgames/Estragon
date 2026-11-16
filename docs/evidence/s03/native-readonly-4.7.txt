@@ -1,0 +1,3 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+READONLY {"AnimationPlayer":["current_animation_length","current_animation_position"],"LimitAngularVelocityModifier3D":["joint_count"],"Node":["multiplayer"],"ShapeCast2D":["collision_result"],"ShapeCast3D":["collision_result"],"Timer":["time_left"]}

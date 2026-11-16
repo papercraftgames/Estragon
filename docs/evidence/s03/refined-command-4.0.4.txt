@@ -1,0 +1,10 @@
+set -eu
+mkdir -p /tmp/s03-project/tests/spreads /tmp/s03-project/app
+cp -r /repo/addons /tmp/s03-project/
+cp /repo/tests/spreads/*.gd /tmp/s03-project/tests/spreads/
+cp /repo/examples/spreads/*.gogo /repo/tests/spreads/RejectionHost.gogo /tmp/s03-project/app/
+sed -i 's@../../../addons/estragon@../../addons/estragon@g' /tmp/s03-project/app/*.gogo
+printf '{"version":1,"source_roots":["app"]}\n' > /tmp/s03-project/gogo.config.json
+engine=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64
+$engine --headless --path /tmp/s03-project --script res://tests/spreads/build.gd
+exec timeout 90s $engine --audio-driver Dummy --path /tmp/s03-project --rendering-method gl_compatibility --rendering-driver opengl3 --script res://tests/spreads/runtime.gd

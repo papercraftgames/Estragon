@@ -1,0 +1,161 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry key 1: true
+S03_REJECTION_CHECK spread expression/key diagnostic key 1: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry nonempty: true
+S03_REJECTION_CHECK spread expression/key diagnostic nonempty: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry String/StringName: true
+S03_REJECTION_CHECK spread expression/key diagnostic String/StringName: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'key': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'key': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'bind:value': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'bind:value': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'style': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'style': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min-width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min-width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'owner': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'owner': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'script': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'script': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'multiplayer': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'multiplayer': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'position': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'position': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'disabled': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'disabled': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'background_color': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'background_color': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'background_color': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'background_color': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min_width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min_width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min_height': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min_height': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'padding': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'padding': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'border_width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'border_width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'pressed': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'pressed': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'pressed': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'pressed': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry arity: true
+S03_REJECTION_CHECK spread expression/key diagnostic arity: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry fill and background_color: true
+S03_REJECTION_CHECK spread expression/key diagnostic fill and background_color: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry finite native Color: true
+S03_REJECTION_CHECK spread expression/key diagnostic finite native Color: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:18:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Object class: true
+S03_REJECTION_CHECK spread expression/key diagnostic Object class: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'direction'): direction requires row or column; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry direction: true
+S03_REJECTION_CHECK spread expression/key diagnostic direction: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'horizontal_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry horizontal_align: true
+S03_REJECTION_CHECK spread expression/key diagnostic horizontal_align: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value'): attribute 'value': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry value: true
+S03_REJECTION_CHECK spread expression/key diagnostic value: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value_changed'): attribute 'value_changed': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry value_changed: true
+S03_REJECTION_CHECK spread expression/key diagnostic value_changed: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 93 failed=false expected_errors=31
+S03_REJECTIONS_OK
