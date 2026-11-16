@@ -4,6 +4,8 @@ const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Settings = preload("UXSettings.gd")
+const Rose = preload("UXRose.gd")
 func build_view() -> Element:
 	var style := {"background_color":"#0000aa"}
 	return <Entry2D name="UI" width="100%" height="100%">

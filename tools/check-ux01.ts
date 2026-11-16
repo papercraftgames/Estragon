@@ -48,7 +48,7 @@ for(const selection of options.engines){
   const fixtures=path.join(box.project,'tests/ux01');copyTree(path.join(ROOT,'tests/ux01'),fixtures);
   for(const name of fs.readdirSync(fixtures).filter(n=>n.endsWith('.gd'))){const file=path.join(fixtures,name);fs.writeFileSync(file,fs.readFileSync(file,'utf8').replaceAll('res://addons/estragon','res://'+addon));}
   fs.mkdirSync(path.join(box.project,'app'),{recursive:true});
-  for(const name of ['UXGallery','Ergonomics','WrapReproduction','Rose','Settings','ScrollProof']){
+  for(const name of ['UXGallery','Ergonomics','WrapReproduction','UXRose','UXSettings','ScrollProof']){
    let source=fs.readFileSync(path.join(ROOT,'examples/ux01',name+'.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon));
    if(name==='UXGallery')source+='\nfunc _ready() -> void:\n\tif OS.get_environment("UX01_EDITOR")=="1": _ux01_probe.call_deferred()\nfunc _ux01_probe() -> void:\n\tvar probe = preload("res://tests/ux01/game.gd").new()\n\tawait probe.run(self)\n';
    fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),source);

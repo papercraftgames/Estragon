@@ -13,5 +13,5 @@ class _GogoFactories_0:
 
 
 	static func _gogo_build_0() -> _GogoElement_0:
-		var _gogo_element_0 := _GogoElement_0.new(Text, {"text": "Settings"}, {}, [], "examples/ux01/Settings.gogo:4:38", null, false)
+		var _gogo_element_0 := _GogoElement_0.new(Text, {"text": "Rose"}, {}, [], "examples/ux01/UXRose.gogo:4:38", null, false)
 		return _gogo_element_0

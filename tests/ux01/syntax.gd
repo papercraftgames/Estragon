@@ -11,6 +11,8 @@ func run():
 	for body in ['<HBox width />','<HBox imaginary />','<Button pressed />','<Button key />','<Button bind:value />','<Button disabled disabled={false} />','<Text text="x">body</Text>','<HBox>bad text</HBox>','<Text>Mixed<Button>Child</Button></Text>','<Text>{42}</Text>','<Text>{true}</Text>','<Text>unclosed','<Text></Button>']:
 		var result = Compiler.compile(head+body,"negative.gogo")
 		check(not result.ok,"strict negative "+body)
+	var imported = Compiler.compile('extends Node2D\nconst Imported=preload("res://app/generated/Ergonomics.gd")\nfunc view(): return <Imported bad_text label="String property" />',"res://app/Owned.gogo","res://app/generated/Owned.gd")
+	check(imported.ok,"source-owned typed Gogo Bool/String fields remain writable on native subtype")
 	var host = load("res://app/generated/Ergonomics.gd").new()
 	root.add_child(host)
 	for frame in range(8): await process_frame

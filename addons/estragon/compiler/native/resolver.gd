@@ -245,7 +245,7 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 			if type==declared_name: qualified = name
 			elif ClassDB.class_exists(type.get_slice(".",0)) or imported.globals.has(type.get_slice(".",0)): qualified = type
 			else: qualified = name+"."+type
-		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT}
+		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT,"source_writable":true}
 		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name}
 	if check_constructor and required: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
 	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals,"required_initializer":required,"gogo_path":path}
