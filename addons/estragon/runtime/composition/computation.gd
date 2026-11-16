@@ -2,6 +2,7 @@ extends RefCounted
 const StackContract = preload("../node/internal/stack_contract.gd")
 const VisualStyle = preload("../node/internal/visual_style_2d.gd")
 const Length = preload("../node/internal/length.gd")
+const NativeAttributes = preload("native_attributes.gd")
 const Profile = preload("profile.tres")
 ## F01 computation and retained static-shape records external to native objects.
 const Binding = preload("binding.gd")
@@ -16,6 +17,9 @@ class Mounted extends RefCounted:
 	var keyed := false
 	var slot: Array = []
 	var properties: Dictionary = {}
+	var defaults: Dictionary = {}
+	var spread_owned: Dictionary = {}
+	var spread_applied: Dictionary = {}
 	var handlers: Dictionary = {}
 	var bindings: Dictionary = {}
 	var children: Array = []
@@ -153,11 +157,16 @@ func _flush() -> void:
 # descriptor: callers may reuse either, and cycles must fail before native edits.
 func _normalize(value, ancestors: Array = [], level: int = 0):
 	if not value is Element or level>128 or ancestors.has(value): return null
+	if not value.attribute_error.is_empty():
+		validation_error = value.attribute_error
+		return null
 	if value.keyed and not _key_valid(value.key): return null
 	var next := ancestors.duplicate()
 	next.append(value)
 	if Profile.is_enabled(): Profile.add("normalized_elements")
 	var result := Element.new(value.type,value.properties,value.handlers,[],value.source,value.key,value.keyed)
+	result.origins = value.origins.duplicate()
+	result.spread_properties = value.spread_properties.duplicate()
 	result.bindings = value.bindings.duplicate()
 	if not _flatten(value.children,[],result.children,next,level+1): return null
 	return result
@@ -220,8 +229,9 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	else: return false
 	for binding in desired.bindings.values():
 		if not binding is Binding or not binding.valid: return false
-	for handler in desired.handlers.values():
-		if not handler is Callable or not handler.is_valid(): return false
+	for event in desired.handlers:
+		var handler = desired.handlers[event]
+		if not handler is Callable or not handler.is_valid(): return _invalid_attribute(desired,event,"signal requires a valid native Callable")
 	var names := {}
 	var keys := {}
 	if desired.keyed and not _key_valid(desired.key): return false
@@ -310,6 +320,16 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	return record
 func _apply(desired: Element, record: Mounted) -> void:
 	var node: Node = record.node.get_ref()
+	# Capture the real class/_init defaults before its first authored write, with
+	# no probe instances. Later first ownership preserves preexisting native state.
+	for key in desired.properties:
+		if not record.defaults.has(key):
+			record.defaults[key] = node.get(key)
+			# An unattached native Node starts unnamed, but set_name rejects empty
+			# names after attachment. Restore its native class label instead;
+			# Godot retains authority over sibling-name uniqueness.
+			if key=="name" and str(record.defaults[key]).is_empty(): record.defaults[key] = node.get_class()
+	var resets := _spread_resets(desired,record)
 	for key in record.bindings.keys():
 		if not desired.bindings.has(key) or not record.bindings[key].same(desired.bindings[key]):
 			record.bindings[key].disconnect_edit()
@@ -323,7 +343,14 @@ func _apply(desired: Element, record: Mounted) -> void:
 			if Profile.is_enabled(): Profile.add("property_writes")
 		binding.attach(node,self)
 	var stack := StackContract.registered(desired.type)
-	if stack: node._apply_stack_policy(desired.properties)
+	if stack:
+		var policy := resets.duplicate()
+		policy.merge(desired.properties,true)
+		node._apply_stack_policy(policy)
+	for key in resets:
+		if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,resets[key])
+		writes += 1
+		if Profile.is_enabled(): Profile.add("property_writes")
 	# An omitted previously declared border side removes that local override;
 	# do not turn omission into permanent native state or change other props.
 	if VisualStyle.supported(desired.type):
@@ -354,6 +381,45 @@ func _apply(desired: Element, record: Mounted) -> void:
 			if node.connect(event,desired.handlers[event],Object.CONNECT_PERSIST)!=OK: push_error("F01 native handler connection failed: "+desired.source)
 	record.properties = desired.properties.duplicate()
 	record.handlers = desired.handlers.duplicate()
+	record.spread_owned = desired.spread_properties.duplicate()
+	record.spread_applied.clear()
+	for key in desired.properties:
+		if record.spread_owned.has(key): record.spread_applied[key] = node.get(key)
+
+func _spread_resets(desired: Element, record) -> Dictionary:
+	var result := {}
+	if record==null or not _compatible(desired,record): return result
+	var node = record.node.get_ref()
+	for key in record.spread_applied:
+		if desired.properties.has(key) or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
+		# Do not overwrite imperative native changes made since our last commit.
+		if is_same(node.get(key),record.spread_applied[key]) and not is_same(node.get(key),record.defaults[key]): result[key] = record.defaults[key]
+	return result
+
+func _effective_name(desired: Element, record) -> String:
+	if desired.properties.has("name"): return str(desired.properties.name)
+	var resets := _spread_resets(desired,record)
+	if resets.has("name"): return str(resets.name)
+	return str(record.node.get_ref().name) if _compatible(desired,record) else ""
+
+func _invalid_attribute(desired: Element, key: String, message: String) -> bool:
+	validation_error = desired.location(key)+": attribute '"+key+"': "+message+"; previous tree retained"
+	return false
+
+func _handler_error(handler: Callable, emitted: int) -> String:
+	# Named methods expose public metadata on both supported engines. Custom
+	# Callables without method metadata retain native invocation semantics.
+	if handler.is_custom(): return ""
+	var target = handler.get_object()
+	if target==null: return ""
+	for method in target.get_method_list():
+		if method.name!=handler.get_method(): continue
+		if int(method.flags)&METHOD_FLAG_VARARG: return ""
+		var supplied := emitted
+		var maximum: int = method.args.size()
+		if supplied<maximum-method.default_args.size() or supplied>maximum: return "Callable arity does not match native signal"
+		return ""
+	return ""
 func _compatible(desired: Element, record: Mounted) -> bool:
 	if record == null: return false
 	if desired.borrowed != null or record.borrowed != null:
@@ -397,17 +463,20 @@ func _prepare_names(desired: Array, matches: Array, parent: Node) -> void:
 	for index in range(desired.size()):
 		var next = desired[index]
 		var old = matches[index]
-		if next==null or old==null or not next.properties.has("name"): continue
-		if old.properties.has("name") and is_same(old.properties.name,next.properties.name): continue
+		if next==null or old==null: continue
+		if not next.properties.has("name") and not _spread_resets(next,old).has("name"): continue
+		var final_name := _effective_name(next,old)
 		var node: Node = old.node.get_ref()
-		if node==null or node.get_parent()!=parent or str(node.name)==str(next.properties.name): continue
-		pending.append(node)
-		targets[str(next.properties.name)] = true
-	for node in pending:
+		if node==null or node.get_parent()!=parent or str(node.name)==final_name: continue
+		pending.append([node,old])
+		targets[final_name] = true
+	for pair in pending:
+		var node: Node = pair[0]
 		if not targets.has(str(node.name)): continue
 		var temporary := "_EstragonRename_"+str(node.get_instance_id())
 		while parent.has_node(NodePath(temporary)): temporary += "_"
 		node.name = temporary
+		if pair[1].spread_applied.has("name"): pair[1].spread_applied.name = node.name
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
 # Keep a longest increasing subsequence of actual native indices. Everything
@@ -479,6 +548,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	var signals: Dictionary = contracts[desired.type].signals
 	if StackContract.registered(desired.type):
 		var policy: Dictionary = previous.properties.duplicate() if previous!=null and _compatible(desired,previous) else {}
+		policy.merge(_spread_resets(desired,previous),true)
 		policy.merge(desired.properties,true)
 		var fixed := StackContract.preset(desired.type)
 		var direction = policy.get("direction",fixed if not fixed.is_empty() else "row")
@@ -486,41 +556,42 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			var value = policy.get(key,direction if key=="direction" else "start")
 			var message := StackContract.error(key,value,str(direction),fixed)
 			if not message.is_empty():
-				validation_error = desired.source+": "+message+"; previous tree retained"
+				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
 	if VisualStyle.rect_conflict(desired.type,desired.properties.keys()):
-		validation_error = desired.source+": Rect fill and background_color conflict; previous tree retained"
+		validation_error = desired.location("fill")+": Rect fill and background_color conflict; previous tree retained"
 		return false
 	for key in desired.properties:
-		if not properties.has(key) or key in ["script","owner"] or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
+		var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
+		if not properties.has(key) or not NativeAttributes.writable(native,desired.type,str(key),properties[key]): return _invalid_attribute(desired,str(key),"unknown, read-only or reserved native property")
 		var value = desired.properties[key]
 		if VisualStyle.property(str(key)) and VisualStyle.has_api(desired.type) and not VisualStyle.supported(desired.type):
-			validation_error = desired.source+": shared visual styling is unsupported on this participant; previous tree retained"
+			validation_error = desired.location(str(key))+": shared visual styling is unsupported on this participant; previous tree retained"
 			return false
 		if key=="grow" and Length.registered(desired.type,"width") and (not typeof(value) in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or value<0):
-			validation_error = desired.source+": grow requires a finite nonnegative weight; previous tree retained"
+			validation_error = desired.location(str(key))+": grow requires a finite nonnegative weight; previous tree retained"
 			return false
 		if key=="fill" and VisualStyle.marked(desired.type,"ESTRAGON_RECT_STYLE"):
 			if not value is Color or VisualStyle.parse_color(value).has("error"):
-				validation_error = desired.source+": Rect fill requires a finite native Color; previous tree retained"
+				validation_error = desired.location(str(key))+": Rect fill requires a finite native Color; previous tree retained"
 				return false
 		if VisualStyle.registered(desired.type,key):
 			var parsed := VisualStyle.parse_color(value)
 			if parsed.has("error"):
-				validation_error = desired.source+": invalid style '"+str(key)+"': "+parsed.error+"; previous tree retained"
+				validation_error = desired.location(str(key))+": invalid style '"+str(key)+"': "+parsed.error+"; previous tree retained"
 				return false
 		if Length.registered(desired.type,key):
 			var parsed := Length.parse(value,Length.domain(key,desired.type))
 			if parsed.has("error"):
-				validation_error = desired.source+": invalid length '"+str(key)+"': "+parsed.error+"; previous tree retained"
+				validation_error = desired.location(str(key))+": invalid length '"+str(key)+"': "+parsed.error+"; previous tree retained"
 				return false
 		var kind: int = properties[key].type
-		if kind!=TYPE_NIL and typeof(value)!=kind and not (kind==TYPE_FLOAT and typeof(value)==TYPE_INT) and not (kind==TYPE_OBJECT and value==null) and not (kind in [TYPE_STRING,TYPE_STRING_NAME] and typeof(value) in [TYPE_STRING,TYPE_STRING_NAME]): return false
+		if kind!=TYPE_NIL and typeof(value)!=kind and not (kind==TYPE_FLOAT and typeof(value)==TYPE_INT) and not (kind==TYPE_OBJECT and value==null) and not (kind in [TYPE_STRING,TYPE_STRING_NAME] and typeof(value) in [TYPE_STRING,TYPE_STRING_NAME]): return _invalid_attribute(desired,str(key),"incompatible native value type")
 		if kind==TYPE_OBJECT and value!=null:
 			var expected: String = str(properties[key].get("class_name",""))
-			if ClassDB.class_exists(expected) and not value.is_class(expected): return false
+			if ClassDB.class_exists(expected) and not value.is_class(expected): return _invalid_attribute(desired,str(key),"incompatible native Object class "+expected)
 	for key in desired.bindings:
-		if key!="value" or desired.properties.has(key) or desired.handlers.has("value_changed") or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return false
+		if key!="value" or desired.properties.has(key) or desired.handlers.has("value_changed") or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return _invalid_attribute(desired,"value_changed" if desired.handlers.has("value_changed") else str(key),"invalid or conflicting controlled binding")
 		var args: Array = signals.get("value_changed",{}).get("args",[])
 
 		# 4.0 lacks signal argument type metadata. Compiler source proof and
@@ -528,10 +599,12 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		# reject a valid input on that engine.
 		if args.size()!=1 or args[0].type not in [TYPE_NIL,TYPE_BOOL]: return false
 	for key in desired.handlers:
-		if not signals.has(key): return false
+		if not signals.has(key): return _invalid_attribute(desired,str(key),"unknown native signal")
+		var message := _handler_error(desired.handlers[key],signals[key].get("args",[]).size())
+		if not message.is_empty(): return _invalid_attribute(desired,str(key),message)
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null
 	if parent != null:
-		var name: String = str(desired.properties.get("name",str(node.name) if node != null else ""))
+		var name := _effective_name(desired,previous)
 		for existing in parent.get_children():
 			if str(existing.name)==name and (previous==null or existing!=previous.node.get_ref()): return false
 	var known: Array = []
@@ -545,7 +618,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		if child == null or child.borrowed != null: continue
 		var old = matches[index]
 		if not _preflight(child,old,null,contracts): return false
-		var name: String = str(child.properties.get("name",str(old.node.get_ref().name) if old!=null and _compatible(child,old) else ""))
+		var name := _effective_name(child,old)
 		if not name.is_empty():
 			if names.has(name): return false
 			names[name] = true

@@ -1,0 +1,37 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+@bindable var panel: Dictionary = {"padding":"12px", "background_color":"#171b24", "border_width":"2px", "border_color":"#8295bc", "gap":"12px", "min_width":"280px"}
+@bindable var action: Dictionary = {"text":"Continue", "min_width":"96px", "min_height":"36px", "background_color":"#70599b"}
+@bindable var enabled: bool = false
+@bindable var alternate: bool = false
+@bindable var show_extra: bool = true
+var clicks: int = 0
+var alternate_clicks: int = 0
+var native_clicks: int = 0
+func pressed() -> void: clicks += 1
+func alternate_pressed() -> void: alternate_clicks += 1
+func native_pressed() -> void: native_clicks += 1
+func requires_argument(value: int) -> void: clicks += value
+func emphasis() -> Dictionary: return {"background_color":"#252b38", "min_height":"200px"}
+func button_values() -> Dictionary:
+	var values := self.action.duplicate()
+	values["pressed"] = alternate_pressed if self.alternate else pressed
+	return values
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%" padding="12px" background_color="#171b24">
+		<VBox name="Panel" width="100%" {...self.panel} padding="16px" {...emphasis()}>
+			<Text name="Caption" {...{"text":"Ordinary dictionaries, native properties", "color":Color("#ffc65c")}} min_width="120px" />
+			<UiButton name="Continue" width="50%" height="20px" background_color="#477dbb" {...button_values()} />
+			<Toggle name="Enabled" {...{"text":"Enabled", "min_width":"120px", "min_height":"36px"}} bind:value={self.enabled} />
+			<Button name="Native" {...{"text":"Native Button", "pressed":native_pressed}} />
+			<Rect name="Swatch" {...{"width":"100%", "height":"12px", "background_color":"#355e92"}} />
+			<NestedSpread name="Nested" {...{"caption":"Nested spread, retained native nodes"}} />
+			{<Text key="extra" name="Extra" {...{"text":"Explicit key + spread"}} /> if self.show_extra else null}
+		</VBox>
+	</Entry2D>

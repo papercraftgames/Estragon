@@ -91,6 +91,15 @@ func _component(depth: int) -> Model.Component:
 		if not separated:
 			file.fail("Expected whitespace before a property, or a tag terminator", _cursor)
 			return null
+		if _at("{"):
+			var spread := Model.Attribute.new()
+			spread.kind = "spread"
+			spread.name_span = file.span(_cursor,_cursor+1)
+			spread.value = _expression(true)
+			if spread.value==null: return null
+			spread.span = spread.value.span
+			node.attributes.append(spread)
+			continue
 		var attribute_name := _name()
 		if attribute_name == null: return null
 		_whitespace()
@@ -124,6 +133,7 @@ func _component(depth: int) -> Model.Component:
 			_cursor += 1
 			lexer.token("markup-string", quote_start, _cursor)
 		if attribute.value == null: return null
+		attribute.span = file.span(attribute.name_span.start.index,_cursor)
 		node.attributes.append(attribute)
 	_trivia()
 	while not _at("</") and file.diagnostics.is_empty():
@@ -150,10 +160,23 @@ func _component(depth: int) -> Model.Component:
 	node.span = file.span(start, _cursor)
 	return node
 
-func _expression() -> Model.GdExpression:
+func _expression(spread: bool = false) -> Model.GdExpression:
 	var start := _cursor
-	lexer.token("expression-open", start, start + 1)
-	var scanned := _scan(start + 1, true)
+	var opening := 1
+	if spread:
+		var probe := Lexer.new(file)
+		var marker := start+1
+		while marker<file.text.length():
+			var token := probe.next_token(marker)
+			if token==null: return null
+			if token.kind not in ["whitespace","newline","comment","continuation"]: break
+			marker = token.span.end.index
+		if file.text.substr(marker,3)!="...":
+			file.fail("Expected ... in GGX spread attribute",marker)
+			return null
+		opening = marker+3-start
+	lexer.token("attribute-spread" if spread else "expression-open", start, start + opening)
+	var scanned := _scan(start + opening, true)
 	if not file.diagnostics.is_empty(): return null
 	if not scanned.has_token:
 		file.fail("Expected a GDScript expression inside braces", start, scanned.end)
@@ -180,6 +203,9 @@ func _scan(start: int, braced: bool) -> Dictionary:
 	var has_token := false
 	while offset < file.text.length() and file.diagnostics.is_empty():
 		var character := lexer.char_at(offset)
+		if file.text.substr(offset,3)=="...":
+			file.fail("Spread is only supported as {...expression} in a GGX opening attribute list",offset,offset+3)
+			break
 		if braced and stack.is_empty() and character == "}":
 			_copy(parts, copied, offset)
 			return {"parts": parts, "end": offset, "has_token": has_token}

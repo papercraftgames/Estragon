@@ -8,6 +8,7 @@ const Resolver = preload("native/resolver.gd")
 const StackContract = preload("../runtime/node/internal/stack_contract.gd")
 const VisualStyle = preload("../runtime/node/internal/visual_style_2d.gd")
 const Length = preload("../runtime/node/internal/length.gd")
+const NativeAttributes = preload("../runtime/composition/native_attributes.gd")
 const Lexer = preload("lexer.gd")
 var file: Source
 var resolver
@@ -53,6 +54,10 @@ func _component(node: Model.Component) -> void:
 		return
 	var seen: Dictionary = {}
 	for attribute in node.attributes:
+		if attribute.kind=="spread":
+			attribute.type_name = "Variant"
+			_node(attribute.value)
+			continue
 		var name := attribute.name
 		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
 			_error("Shared visual styling is unsupported on this participant",attribute.name_span)
@@ -87,7 +92,7 @@ func _component(node: Model.Component) -> void:
 					_error("Inline anonymous GGX handlers are not supported; use a named handler/Callable", token.span)
 					return
 				index = token.span.end.index
-		elif properties.has(name) and name not in ["owner", "script"] and not name.contains("/") and not (int(properties[name].usage) & PROPERTY_USAGE_READ_ONLY):
+		elif properties.has(name) and NativeAttributes.writable(resolved.native,resolved.script,name,properties[name]):
 			attribute.type_name = "Variant" if Length.registered(resolved.script,name) or VisualStyle.registered(resolved.script,name) else _native_type(properties[name])
 			if attribute.type_name.is_empty():
 				_error("Unsupported Node property metadata: " + name, attribute.name_span)
