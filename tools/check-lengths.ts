@@ -74,7 +74,7 @@ for (const selection of options.engines) {
         for (const name of ['MinimumGallery','MinimumPanel']) {
             fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),fs.readFileSync(path.join(ROOT,'examples/lengths',name+'.gogo'),'utf8')
                 .replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon))
-                +(name==='MinimumGallery'?'\nfunc _ready() -> void:\n\tif OS.get_environment("L06_EDITOR")=="1": _l11_probe.call_deferred()\nfunc _l11_probe() -> void:\n\tvar probe = preload("res://tests/lengths/minimum_game.gd").new()\n\tawait probe.run(self)\n':''));
+                +(name==='MinimumGallery'?'\nfunc _ready() -> void:\n    if OS.get_environment("L06_EDITOR")=="1": _l11_probe.call_deferred()\nfunc _l11_probe() -> void:\n    var probe = preload("res://tests/lengths/minimum_game.gd").new()\n    await probe.run(self)\n':''));
         }
         writeJSON(path.join(box.project, 'gogo.config.json'), {version: 1, source_roots: ['app']});
         fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="L06 unit lengths"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
