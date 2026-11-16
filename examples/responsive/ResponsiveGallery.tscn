@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://examples/responsive/generated/ResponsiveGallery.gd" id="1_t2nlk"]
 
-[node name="ResponsiveGallery" type="Node2D" unique_id=476472528]
+[node name="ResponsiveGallery" type="Node2D" unique_id=2109193863]
 script = ExtResource("1_t2nlk")

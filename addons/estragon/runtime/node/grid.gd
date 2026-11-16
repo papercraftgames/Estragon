@@ -8,13 +8,13 @@ const CONFIG := ["columns","rows","areas","template","horizontal_align","vertica
 var _committing := false
 var columns: Variant = null:
 	set(value):
-		if is_same(columns,value): return
+		if typeof(columns)==typeof(value) and columns==value: return
 		if not _committing and not _accept("columns",value): return
 		columns = value.duplicate(true) if value is Array else value
 		if not _committing: _changed()
 var rows: Variant = null:
 	set(value):
-		if is_same(rows,value): return
+		if typeof(rows)==typeof(value) and rows==value: return
 		if not _committing and not _accept("rows",value): return
 		rows = value.duplicate(true) if value is Array else value
 		if not _committing: _changed()

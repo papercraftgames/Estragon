@@ -589,8 +589,11 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 						child.properties.erase(key)
 						child.spread_properties.erase(key)
 				var native: String = child.type if child.type is String else child.type.get_instance_base_type()
-				if not ClassDB.is_parent_class(native,"Control") and not Length.registered(child.type,"width") and not (ClassDB.is_parent_class(native,"Node2D") and GridDefinition.component(child.type)):
+				if not ClassDB.is_parent_class(native,"Control") and not (ClassDB.is_parent_class(native,"Node2D") and (Length.registered(child.type,"width") or GridDefinition.component(child.type))):
 					return _invalid_attribute(child,"area","Grid child requires a native 2D layout participant, Control or Gogo component")
+			if child.borrowed!=null:
+				var borrowed: Node = child.borrowed.get_ref()
+				if not borrowed is Control and not (borrowed is Node2D and (Length.registered(borrowed.get_script(),"width") or GridDefinition.component(borrowed.get_script()))): return _invalid_attribute(child,"area","Grid borrowed child has no bounded 2D layout participant")
 			var native: String = child.type if child.type is String else (child.borrowed.get_ref().get_class() if child.borrowed!=null else child.type.get_instance_base_type())
 			if ClassDB.is_parent_class(native,"Control"):
 				var values := {}

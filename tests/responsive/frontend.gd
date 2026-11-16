@@ -15,6 +15,12 @@ func _initialize() -> void:
 	for body in ['<Box align_content="bad" />','<Box row_gap="-1px" />','<Box column_gap="1fr" />','<Grid horizontal_align="space-between" />','<Grid vertical_align="bad" />','<Grid template="bad" />','<Box><Button area="header" /></Box>','<Spatial wrap={true} />','<Spatial columns={3} />','<Spatial row_gap="2px" />','<Rect width="1fr" />']:
 		var result := Compiler.compile(HEAD+body+'\n',"negative.gogo")
 		check(not result.ok and result.diagnostics[0].source_name=="negative.gogo" and result.diagnostics[0].span.start.line==6,"source located contract rejection "+body)
+	var completion := preload("res://addons/estragon/editor/completion.gd").new()
+	var lexical := preload("res://addons/estragon/editor/lexical_context.gd").new()
+	for pair in [["<Grid><Button ar","area"],["<Grid col","columns"],["<Box wr","wrap"],["<Box align_c","align_content"]]:
+		var source: String = HEAD+pair[0]
+		var lines := source.split("\n")
+		check(completion.candidates(source,"res://app/Complete.gogo",lexical,lines.size()-1,lines[-1].length()).any(func(option): return option.insert==pair[1]),"native lexical completion "+pair[1])
 	var path := "res://app/ResponsiveGallery.gogo"
 	var source := FileAccess.get_file_as_string(path)
 	var output := "res://app/generated/ResponsiveGallery.gd"

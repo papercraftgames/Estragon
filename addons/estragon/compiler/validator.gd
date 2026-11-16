@@ -96,8 +96,7 @@ func _component(node: Model.Component) -> void:
 				index = token.span.end.index
 		elif name in GridDefinition.PLACEMENT and not properties.has(name):
 			attribute.kind = "placement"
-			attribute.kind = "placement"
-			attribute.type_name = "String" if name=="area" else "int"
+			attribute.type_name = "String" if attribute.value is Model.Literal and name=="area" else "Variant"
 		elif properties.has(name) and NativeAttributes.writable(resolved.native,resolved.script,name,properties[name]):
 			attribute.type_name = "Variant" if Length.registered(resolved.script,name) or VisualStyle.registered(resolved.script,name) else _native_type(properties[name])
 			if attribute.type_name.is_empty():

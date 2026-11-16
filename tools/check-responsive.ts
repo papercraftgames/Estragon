@@ -26,7 +26,7 @@ for(const selection of options.engines){
       else unexpected.push(line);
      }
     }
-    if(bracket||unexpected.length||(negative?(starts!==2||count!==18):(starts>2||count!==starts))) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+    if(bracket||unexpected.length||(negative?(starts!==3||count!==21):(starts>2||count!==starts))) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
    }
    results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(log);
    if(result.status!=='PASS')throw Error('L0910 '+name+' failed');

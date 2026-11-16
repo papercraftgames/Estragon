@@ -92,13 +92,16 @@ scale; no new grid plane is inferred. No polling or repeated per-frame parsing.
 Wrap groups slots into lines; Grid computes slots from tracks. Both use this same
 core, native coordinator and event-driven measure/arrange pipeline (L09-10 #176).
 
-## Grid groundwork and native delivery
+## Grid normalization and native delivery
 
-L07A introduced pure track/area normalization as groundwork. L09-10 #176 now
-extends it with compact template parsing, explicit-first/automatic placement,
-implicit auto rows and a real native Grid using the same core and slot pipeline.
-The public contract and runnable examples are documented below. `fr` remains
-track-only; placement records remain external to foreign native Nodes.
+L07A introduced pure serializable track/rectangular-area/placement groundwork.
+L09-10 #176 extends it with implicit rows, explicit-first collision-free auto
+placement, compact template normalization and a real native Grid slot policy.
+The [current public contract](RESPONSIVE_LAYOUT.md) covers authoring, finite row
+limits, cell alignment, spanning floors, overflow and description-owned placement.
+Foreign native Nodes never acquire layout properties. Earlier #162/#163 proposals
+are consolidated in this one milestone.
+
 
 ## L08 — complete physical-axis distribution and child overrides
 

@@ -147,7 +147,6 @@ class _GogoFactories_0:
 		var _gogo_element_8 := _GogoElement_0.new("Button", {"name": "Native", "text": "Native Control"}, {"pressed": _gogo_value_6}, [], "examples/responsive/ResponsiveGallery.gogo:36:6", null, false)
 		var _gogo_element_6 := _GogoElement_0.new(VBox, {"name": "Sidebar", "area": "sidebar", "gap": "8px"}, {}, [_gogo_element_7, _gogo_element_8], "examples/responsive/ResponsiveGallery.gogo:34:5", null, false)
 		_gogo_element_6.origins["area"] = "examples/responsive/ResponsiveGallery.gogo:34:26"
-		_gogo_element_6.origins["area"] = "examples/responsive/ResponsiveGallery.gogo:34:26"
 		var _gogo_element_9 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/responsive/ResponsiveGallery.gogo:38:5", null, false)
 		_gogo_element_9.expand([["name", "Main", "examples/responsive/ResponsiveGallery.gogo:38:23"], [null, _gogo_value_7, "examples/responsive/ResponsiveGallery.gogo:38:35"]])
 		var _gogo_element_4 := _GogoElement_0.new(Grid, {}, {}, [_gogo_element_5, _gogo_element_6, _gogo_element_9], "examples/responsive/ResponsiveGallery.gogo:32:4", null, false)

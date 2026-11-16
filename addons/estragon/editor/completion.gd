@@ -450,6 +450,15 @@ func definition(text: String, source: String, symbol: String) -> String:
 	for item in _project_items():
 		if item.path == target: return item.source
 	return target
+func _grid_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
+	var name: String = aliases.get(type,type)
+	if name in visited or visited.size()>=12: return false
+	var grid := Catalog.named("EstragonGrid")
+	if not grid.is_empty() and name==Catalog.path(grid): return true
+	if not name.begins_with("res://") or not FileAccess.file_exists(name): return false
+	var declarations := _script(name)
+	return _grid_type(declarations.base,declarations.aliases,visited+[name])
+
 func candidates(text: String, source: String, lexical: RefCounted, row: int, column: int) -> Array:
 	_index(text,source)
 	lexical.update(text)
@@ -491,6 +500,8 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 		else:
 			if not _node_type(context.tag,_aliases): return []
 			var members := _members(context.tag,_aliases)
+			if not context.tags.is_empty() and _grid_type(context.tags[-1],_aliases):
+				for name in ["area","row","column","row_span","column_span"]: offered[name] = {"kind":CodeEdit.KIND_MEMBER,"origin":"Grid child placement"}
 			for name in members:
 				if members[name].kind in [CodeEdit.KIND_MEMBER,CodeEdit.KIND_SIGNAL] and members[name].get("writable",true) and name not in ["owner","script"]: offered[name] = members[name]
 			if _node_type(context.tag,_aliases): offered.key = {"kind":CodeEdit.KIND_MEMBER}

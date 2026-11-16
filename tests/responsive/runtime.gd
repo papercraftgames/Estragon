@@ -64,9 +64,11 @@ func run() -> void:
 	grid.add_child(native)
 	await frames()
 	check(native.size.x>=native.get_combined_minimum_size().x and native.position.x==420,"native Control allocated sixth cell")
+	var unaffected := wrap.get_layout_stats()
 	native.text = "Native minimum becomes significantly wider"
 	await frames()
 	check(native.size.x>=native.get_combined_minimum_size().x,"native minimum/font event changes tracks without polling")
+	check(unaffected==wrap.get_layout_stats(),"Control minimum change leaves unrelated Wrap branch quiet")
 	var idle := [grid.get_layout_stats(),wrap.get_layout_stats()]
 	await frames()
 	check(idle==[grid.get_layout_stats(),wrap.get_layout_stats()],"native idle quiet")
@@ -90,6 +92,14 @@ func run() -> void:
 		host.order = ["a","b"]
 		await frames()
 		check(cards.get_child_count()==2 and cards.get_node("a").get_instance_id()==card_id,"keyed removal releases lines")
+		var header = named.get_node("Header")
+		check(header is Button and not header.has_meta("area") and header.position==Vector2(12,12),"native Control receives GGX area slot without foreign properties or metadata")
+		var extra_id: int = ui.get_node("Content/Automatic/One").get_instance_id()
+		host.show_extra = false
+		await frames()
+		check(not ui.has_node("Content/Automatic/Extra") and ui.get_node("Content/Automatic/One").get_instance_id()==extra_id,"conditional Grid removal retains other cells")
+		host.show_extra = true
+		await frames()
 		var mounted_id: int = ui.get_instance_id()
 		var old_width = named.width
 		print("L0910_EXPECTED_REJECTION_BEGIN")
@@ -118,6 +128,14 @@ func run() -> void:
 		host.placement = {"area":"main"}
 		await frames()
 		check(named.get_child(2).get_instance_id()!=0 and record.runs>runs,"placement repair replays valid description")
+		print("L0910_EXPECTED_REJECTION_BEGIN")
+		for props in [{"anchor_left":0.5},{"rotation":0.5},{"scale":Vector2(2,1)}]:
+			host.header_props = props
+			await frames()
+			check(header.position==Vector2(12,12) and header.scale==Vector2.ONE and header.anchor_left==0 and header.rotation==0,"incompatible bound Control retains whole description "+str(props))
+		print("L0910_EXPECTED_REJECTION_END")
+		host.header_props = {}
+		await frames()
 	host.free()
 	await frames()
 	check(preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres").placements.is_empty(),"placement records released on unmount")
