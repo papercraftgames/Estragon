@@ -146,3 +146,15 @@ language feature. Any future framework-level style support requires a separate
 owner design decision. S04 visuals and wrapping/Grid remain separately scoped.
 
 L08 [complete Box alignment/distribution](LAYOUT_FOUNDATION.md#l08--complete-physical-axis-distribution-and-child-overrides) uses canonical physical horizontal_align/vertical_align with main space-between/around/evenly, cross stretch and eligible2D align_self. Spreads supply the same ordinary properties; no justify/align aliases or style layer. Explicit key/bind controls and native Control APIs remain unchanged.
+
+
+### Grid placement metadata (L09-10)
+
+Under an imported native Grid, child attributes `area`, `row`, `column`,
+`row_span`, `column_span` are reserved Element/parent layout placement. They work
+with native Control and project Gogo tags, including ordered spreads. They never
+become foreign Node setters or metadata. Complete desired-tree preflight validates
+tracks, template and all cells before native commit; invalid dynamic input retains
+the whole mounted tree and diagnoses the authored attribute/spread key. Root helper
+descriptions defer placement validation until mounted under their actual Grid.
+[Exact syntax/defaults/bounds](RESPONSIVE_LAYOUT.md).

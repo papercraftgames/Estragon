@@ -15,6 +15,7 @@ const EDGES := ["padding","padding_top","padding_right","padding_bottom","paddin
 var specs: Dictionary = {}
 var parse_count := 0
 static func domain(name: String, script = null) -> String:
+	if name in ["row_gap","column_gap"]: return "edge"
 	if name=="padding" and VisualStyle.marked(script,"ESTRAGON_BUTTON_STYLE"): return "edge"
 	if name in DIMENSIONS: return "extent"
 	if name in MINIMUMS: return "edge"
@@ -26,6 +27,7 @@ static func domain(name: String, script = null) -> String:
 static func registered(type, name: String) -> bool:
 	if domain(name).is_empty() or not type is Script: return false
 	if name in MINIMUMS and not VisualStyle.marked(type,"ESTRAGON_MINIMUMS_2D"): return false
+	if name in ["row_gap","column_gap"] and not VisualStyle.marked(type,"ESTRAGON_GAPS_2D"): return false
 	if name=="border_width" or name in BORDER_EDGES:
 		if not VisualStyle.supported(type): return false
 	while type != null:
@@ -82,8 +84,8 @@ static func dependencies(specs: Dictionary, stack_axis: int) -> Array:
 	for name in specs:
 		var unit: String = specs[name].unit
 		if unit=="%":
-			if name in ["width","min_width","x","margin_left","margin_right","padding_left","padding_right","border_left_width","border_right_width"]: parent_axes.x = 1
-			elif name in ["height","min_height","y","margin_top","margin_bottom","padding_top","padding_bottom","border_top_width","border_bottom_width"]: parent_axes.y = 1
+			if name in ["width","min_width","x","column_gap","margin_left","margin_right","padding_left","padding_right","border_left_width","border_right_width"]: parent_axes.x = 1
+			elif name in ["height","min_height","y","row_gap","margin_top","margin_bottom","padding_top","padding_bottom","border_top_width","border_bottom_width"]: parent_axes.y = 1
 			elif name in ["depth","z"]: parent_axes.z = 1
 			elif name=="gap": parent_axes[stack_axis] = 1
 			else: parent_axes = Vector3(1,1,parent_axes.z)

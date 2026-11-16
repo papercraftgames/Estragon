@@ -6,6 +6,7 @@ const Profile = preload("profile.tres")
 var borrowed: WeakRef
 var type: Variant
 var properties: Dictionary
+var placement: Dictionary = {}
 var bindings: Dictionary = {}
 var handlers: Dictionary
 var children: Array

@@ -235,3 +235,9 @@ compiler literal validation, complete-description preflight and Inspector use th
 same grammar; invalid/negative/nonfinite/overlimit/type-invalid values preserve
 previous valid specs and geometry. Authored diagnostics/maps and actual-path
 publication rollback remain mandatory, with repaired editor/Play recovery.
+
+
+L09-10 #176 adds optional `row_gap` / `column_gap` on native2D participants:
+`auto` falls back to the physical-axis `gap`. The shared parser and immediate-parent
+percentage references are unchanged. Grid tracks alone additionally accept positive
+`Nfr`; ordinary dimensions/minima/offsets never do. [Wrap/Grid contract](RESPONSIVE_LAYOUT.md).

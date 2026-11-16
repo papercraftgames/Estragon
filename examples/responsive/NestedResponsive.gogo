@@ -1,0 +1,13 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+var clicks: int = 0
+func pressed() -> void: clicks += 1
+func build_view() -> Element:
+	return <HBox name="Body" wrap={true} width="auto" gap="8px" row_gap="10px" padding="8px" background_color="#30394d">
+		<Text text="Nested" width="130px" height="26px" />
+		<UiButton name="NestedAction" text="Action" width="96px" height="32px" pressed={pressed} />
+		<UiButton name="More" text="More" width="96px" height="32px" pressed={pressed} />
+	</HBox>

@@ -157,3 +157,15 @@ func refresh_positions(root: RefCounted) -> void:
 		var node = item.node.get_ref()
 		var coordinator = _coordinator(node)
 		if coordinator != null and coordinator._mode != coordinator.Mode.ENTRY and coordinator.scope_root() == root: coordinator._place(coordinator.model.offset)
+
+# Authored Grid placements are external weak records, never foreign properties.
+var placements: Dictionary = {}
+func set_placement(node: Node, value: Dictionary) -> void:
+	var id := node.get_instance_id()
+	if value.is_empty(): placements.erase(id)
+	else: placements[id] = [weakref(node),value.duplicate(true)]
+	var coordinator = _coordinator(node)
+	if coordinator!=null: coordinator.model.set_placement(value)
+func get_placement(node: Node) -> Dictionary:
+	var entry: Array = placements.get(node.get_instance_id(),[])
+	return entry[1] if not entry.is_empty() and entry[0].get_ref()==node else {}

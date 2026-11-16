@@ -89,38 +89,16 @@ applies native signals. HBox/VBox contain no arrangement math. Transparent Gogo
 hosts forward allocation authority once, with independent Entry/plain/native
 boundaries intact. 3D uses the same existing stack pipeline and explicit pixel
 scale; no new grid plane is inferred. No polling or repeated per-frame parsing.
-A future Wrap policy groups slots into lines; Grid computes slots from tracks;
-neither must use the sequential cursor algorithm.
+Wrap groups slots into lines; Grid computes slots from tracks. Both use this same
+core, native coordinator and event-driven measure/arrange pipeline (L09-10 #176).
 
-## Pure Grid groundwork; rendered Grid is future work
+## Grid groundwork and native delivery
 
-Internal `grid_definition.gd` normalizes serializable row/column tracks, area
-matrix, rectangular bounds and child placement records. It has no public Grid
-Node, native renderer or GGX `area` attribute yet. The following is **future
-#163 syntax**, not a runnable current example:
-
-```text
-columns=["220px", "1fr"] rows=["64px", "1fr"]
-areas=["header header", "sidebar main"]
-```
-
-Normalization yields header `{row:0,column:0,row_span:1,column_span:2}`,
-sidebar `{row:1,column:0,row_span:1,column_span:1}`, main
-`{row:1,column:1,row_span:1,column_span:1}`. A dot is an unassigned cell.
-Tracks accept a positive integer count (equal 1fr tracks) or an array of length
-specs/positive `fr` weights. `fr` is track-share weight, never a width/height unit.
-Indices are zero based; spans are positive. Unknown fields/areas, uneven rows,
-nonrectangular names, out-of-bounds spans, and overlapping child placements reject.
-Area placement conflicts with explicit indices. Empty placement defaults to the
-first cell in this pure bounded validator; **automatic placement is not delivered**.
-The future parent/Element placement record owns area/index/span metadata; foreign
-native Nodes do not acquire layout properties.
-
-The future compact template
-`header header, 64px\nsidebar main, 1fr\n\\ 220px 1fr` will parse to these same
-tracks and matrix before normalization. That text parser and track allocation,
-rendered Grid and Wrap remain #163/#162; L08 below completes the bounded Box policies.
-There are no dormant public components pretending to implement them.
+L07A introduced pure track/area normalization as groundwork. L09-10 #176 now
+extends it with compact template parsing, explicit-first/automatic placement,
+implicit auto rows and a real native Grid using the same core and slot pipeline.
+The public contract and runnable examples are documented below. `fr` remains
+track-only; placement records remain external to foreign native Nodes.
 
 ## L08 — complete physical-axis distribution and child overrides
 
@@ -180,5 +158,15 @@ recomposition, length parsing or repainting.
 [AlignmentGallery](../examples/alignment/AlignmentGallery.tscn) demonstrates native
 HBox/VBox/Box, nested Gogo, styled Text/Rect/Estragon Button/Toggle, native Control,
 Dictionary spreads and explicit keyed/conditional children. Use explicit preload
-aliases; bare Button remains Godot's native Control. Wrap/Grid, absolute position,
+aliases; bare Button remains Godot's native Control. Absolute position,
 shrink/basis changes and style/theme APIs remain separately scoped.
+
+
+## L09-10 — responsive Wrap and native Grid
+
+Owner #176 combines former #162/#163 in one milestone. See [the complete public
+contract](RESPONSIVE_LAYOUT.md), [source-authored gallery](../examples/responsive/ResponsiveGallery.gogo)
+and its native scene. `wrap`, physical gaps and `align_content` extend Box;
+`EstragonGrid` is a real Component2D with tracks, implicit rows, spans, named areas
+and a compact template. Grid placement belongs to Element/external framework records.
+No foreign Node properties, wrappers, polling, CSS renderer or 3D plane are added.

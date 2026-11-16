@@ -3,6 +3,20 @@ class_name EstragonBox
 extends "component_2d.gd"
 ## Constructible horizontal Box. VBox selects the vertical axis.
 const ESTRAGON_STACK_POLICY := true
+@export var wrap: bool = false:
+	set(value):
+		if value==wrap: return
+		wrap = value
+		_changed()
+@export_enum("start","center","end","space-between","space-around","space-evenly","stretch") var align_content: String = "start":
+	set(value):
+		if value==align_content: return
+		var message := StackContract.error("align_content",value,"")
+		if not message.is_empty():
+			push_error("Estragon Box: "+message)
+			return
+		align_content = value
+		_changed()
 var _policy_commit := false
 const StackContract = preload("internal/stack_contract.gd")
 @export_enum("row", "column") var direction: String = "row":
@@ -54,4 +68,6 @@ func _layout_axis() -> int:
 func _layout_options() -> Dictionary:
 	var result := super._layout_options()
 	result["alignment"] = [horizontal_align,vertical_align,"start"]
+	result["strategy"] = "wrap" if wrap else "stack"
+	result["align_content"] = align_content
 	return result

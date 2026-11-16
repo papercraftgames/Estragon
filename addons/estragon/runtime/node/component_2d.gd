@@ -7,6 +7,17 @@ signal layout_applied(size: Vector2)
 const Coordinator = preload("internal/coordinator.gd")
 const ESTRAGON_LENGTHS := true
 const ESTRAGON_MINIMUMS_2D := true
+const ESTRAGON_GAPS_2D := true
+var row_gap: Variant = "auto":
+	set(value):
+		if is_same(row_gap,value) or not lengths.assign("row_gap",value): return
+		row_gap = value
+		_changed()
+var column_gap: Variant = "auto":
+	set(value):
+		if is_same(column_gap,value) or not lengths.assign("column_gap",value): return
+		column_gap = value
+		_changed()
 const ESTRAGON_ALIGN_SELF_2D := true
 const AlignmentContract = preload("internal/stack_contract.gd")
 const VisualStyle = preload("internal/visual_style_2d.gd")
@@ -169,6 +180,7 @@ var _layout_size := Vector2.ZERO
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 func _get_property_list() -> Array[Dictionary]:
 	var properties := Length.properties(["width","height","min_width","min_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	properties.append_array(Length.properties(["row_gap","column_gap"]))
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
 	return properties
 static func valid_length(value) -> bool:
