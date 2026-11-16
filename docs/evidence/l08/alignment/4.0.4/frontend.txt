@@ -1,0 +1,29 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+L08_FRONTEND_CHECK valid physical-axis literal/order/spread horizontal_align="space-between" vertical_align="center": true
+L08_FRONTEND_CHECK valid physical-axis literal/order/spread direction="column" vertical_align="space-evenly" horizontal_align="stretch": true
+L08_FRONTEND_CHECK valid physical-axis literal/order/spread horizontal_align="stretch" vertical_align="space-around" direction="column": true
+L08_FRONTEND_CHECK valid physical-axis literal/order/spread {...{"direction":"column","vertical_align":"space-between"}}: true
+L08_FRONTEND_CHECK eligible child override auto: true
+L08_FRONTEND_CHECK eligible child override start: true
+L08_FRONTEND_CHECK eligible child override center: true
+L08_FRONTEND_CHECK eligible child override end: true
+L08_FRONTEND_CHECK eligible child override stretch: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout horizontal_align="stretch" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout vertical_align="space-between" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout direction="column" horizontal_align="space-around" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Column direction="row" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Row direction="column" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Rect align_self="space-evenly" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Rect align_self="bad" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Button align_self="end" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Spatial align_self="end" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout justify="center" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout align="end" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout align-items="center" />: true
+L08_FRONTEND_CHECK source-located literal/alias/native/3D rejection <Layout justify-content="end" />: true
+L08_FRONTEND_CHECK invalid source retains generated code/maps/cache horizontal_align="stretch": true
+L08_FRONTEND_CHECK invalid source retains generated code/maps/cache vertical_align="space-around": true
+L08_FRONTEND_CHECK repair resumes actual-path compilation: true
+L08_FRONTEND_ASSERTIONS 25 failed=false
+L08_FRONTEND_OK

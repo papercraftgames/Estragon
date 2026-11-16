@@ -1,0 +1,90 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L08_EDITOR_CHECK native enum field horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum edit horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum undo horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum redo horizontal_align: true
+L08_EDITOR_CHECK native enum field align_self: true
+L08_EDITOR_CHECK native Inspector enum edit align_self: true
+L08_EDITOR_CHECK native Inspector enum undo align_self: true
+L08_EDITOR_CHECK native Inspector enum redo align_self: true
+L08_EDITOR_CHECK real native authored alignment scene imports: true
+L08_EDITOR_CHECK native Gogo highlighter attached to actual alignment source: true
+L08_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/AlignmentGallery.gogo:29:67: stretch is cross-axis only; use grow for remaining main-axis space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/alignment/editor.gd:82)
+         [5] settle (res://tests/alignment/editor.gd:31)
+         [6] wait (res://tests/alignment/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/alignment/editor.gd:82)
+       [1] settle (res://tests/alignment/editor.gd:31)
+       [2] wait (res://tests/alignment/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/AlignmentGallery.gogo:29:67: stretch is cross-axis only; use grow for remaining main-axis space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+L08_EDITOR_CHECK current invalid unsaved alignment blocks stale Play with authored diagnostic: true
+L08_EDITOR_CHECK current invalid alignment retains code/map/UID/timestamp/cached Script: true
+L08_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L08_EDITOR_GAME {"clicks":4,"edits":[true,false],"native":2,"samples":[{"border":true,"evenly":true,"positions":["(124.0, 33.0)","(288.0, 66.0)","(452.0, 33.0)"],"root":true,"self_end":true,"viewport":"(640, 480)","width":616.0},{"border":true,"evenly":true,"positions":["(214.0, 33.0)","(468.0, 66.0)","(722.0, 33.0)"],"root":true,"self_end":true,"viewport":"(1000, 800)","width":976.0}]}
+L08_EDITOR_CHECK current actual rendered alignment/minimum/native input/controlled Toggle at two sizes: true
+L08_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+L08_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/AlignmentGallery.gogo:29:67: stretch is cross-axis only; use grow for remaining main-axis space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/alignment/editor.gd:81)
+         [5] play (res://tests/alignment/editor.gd:53)
+         [6] until (res://tests/alignment/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/alignment/editor.gd:81)
+       [1] play (res://tests/alignment/editor.gd:53)
+       [2] until (res://tests/alignment/editor.gd:18)
+L08_EDITOR_CHECK main invalid unsaved alignment blocks stale Play with authored diagnostic: true
+L08_EDITOR_CHECK main invalid alignment retains code/map/UID/timestamp/cached Script: true
+L08_EXPECTED_PLAY_REJECTION_END
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/AlignmentGallery.gogo:29:67: stretch is cross-axis only; use grow for remaining main-axis space
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+L08_EDITOR_GAME {"clicks":4,"edits":[true,false],"native":2,"samples":[{"border":true,"evenly":true,"positions":["(124.0, 33.0)","(288.0, 66.0)","(452.0, 33.0)"],"root":true,"self_end":true,"viewport":"(640, 480)","width":616.0},{"border":true,"evenly":true,"positions":["(214.0, 33.0)","(468.0, 66.0)","(722.0, 33.0)"],"root":true,"self_end":true,"viewport":"(1000, 800)","width":976.0}]}
+L08_EDITOR_CHECK main actual rendered alignment/minimum/native input/controlled Toggle at two sizes: true
+L08_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+L08_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+L08_EDITOR_ASSERTIONS 19 failed=false
+L08_EDITOR_OK

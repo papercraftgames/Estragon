@@ -1,0 +1,46 @@
+Selected actual assertions from /tmp/l08-editor-verbose.log; full original log retained locally.
+L08_BUILD {"changed":["app/generated/NestedAlignment.gd","app/generated/NestedAlignment.gd.map.json","app/generated/AlignmentGallery.gd","app/generated/AlignmentGallery.gd.map.json","app/generated/RejectionHost.gd","app/generated/RejectionHost.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/NestedAlignment.gd","app/generated/AlignmentGallery.gd","app/generated/RejectionHost.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+L08_BUILD_OK
+L08_EDITOR_CHECK native enum field horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum edit horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum undo horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum redo horizontal_align: true
+L08_EDITOR_CHECK native enum field align_self: true
+L08_EDITOR_CHECK native Inspector enum edit align_self: true
+L08_EDITOR_CHECK native Inspector enum undo align_self: true
+L08_EDITOR_CHECK native Inspector enum redo align_self: true
+L08_EDITOR_CHECK real native authored alignment scene imports: true
+L08_EDITOR_CHECK native Gogo highlighter attached to actual alignment source: true
+L08_EXPECTED_PLAY_REJECTION_BEGIN
+ERROR: An EditorPlugin build callback failed.
+L08_EDITOR_CHECK current invalid unsaved alignment blocks stale Play with authored diagnostic: true
+L08_EDITOR_CHECK current invalid alignment retains code/map/UID/timestamp/cached Script: true
+L08_EXPECTED_PLAY_REJECTION_END
+L08_EDITOR_GAME {"clicks":4,"edits":[true,false],"native":2,"samples":[{"border":true,"evenly":true,"positions":["(124, 33)","(288, 66)","(452, 33)"],"root":true,"self_end":true,"viewport":"(640, 480)","width":616},{"border":true,"evenly":true,"positions":["(214, 33)","(468, 66)","(722, 33)"],"root":true,"self_end":true,"viewport":"(1000, 800)","width":976}]}
+L08_EDITOR_CHECK current actual rendered alignment/minimum/native input/controlled Toggle at two sizes: true
+L08_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+L08_EXPECTED_PLAY_REJECTION_BEGIN
+ERROR: An EditorPlugin build callback failed.
+L08_EDITOR_CHECK main invalid unsaved alignment blocks stale Play with authored diagnostic: true
+L08_EDITOR_CHECK main invalid alignment retains code/map/UID/timestamp/cached Script: true
+L08_EXPECTED_PLAY_REJECTION_END
+L08_EDITOR_GAME {"clicks":4,"edits":[true,false],"native":2,"samples":[{"border":true,"evenly":true,"positions":["(124, 33)","(288, 66)","(452, 33)"],"root":true,"self_end":true,"viewport":"(640, 480)","width":616},{"border":true,"evenly":true,"positions":["(214, 33)","(468, 66)","(722, 33)"],"root":true,"self_end":true,"viewport":"(1000, 800)","width":976}]}
+L08_EDITOR_CHECK main actual rendered alignment/minimum/native input/controlled Toggle at two sizes: true
+L08_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+L08_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+L08_EDITOR_ASSERTIONS 19 failed=false
+L08_EDITOR_OK
+L08_EDITOR_CHECK native enum field horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum edit horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum undo horizontal_align: true
+L08_EDITOR_CHECK native Inspector enum redo horizontal_align: true
+L08_EDITOR_CHECK native enum field align_self: true
+L08_EDITOR_CHECK native Inspector enum edit align_self: true
+L08_EDITOR_CHECK native Inspector enum undo align_self: true
+L08_EDITOR_CHECK native Inspector enum redo align_self: true
+L08_EDITOR_CHECK real native authored alignment scene imports: true
+L08_EDITOR_GAME {"clicks":4,"edits":[true,false],"native":2,"samples":[{"border":true,"evenly":true,"positions":["(124, 33)","(288, 66)","(452, 33)"],"root":true,"self_end":true,"viewport":"(640, 480)","width":616},{"border":true,"evenly":true,"positions":["(214, 33)","(468, 66)","(722, 33)"],"root":true,"self_end":true,"viewport":"(1000, 800)","width":976}]}
+L08_EDITOR_CHECK main actual rendered alignment/minimum/native input/controlled Toggle at two sizes: true
+L08_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+L08_EDITOR_ASSERTIONS 11 failed=false
+L08_EDITOR_OK

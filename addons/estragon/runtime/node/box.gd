@@ -20,7 +20,7 @@ const StackContract = preload("internal/stack_contract.gd")
 			return
 		direction = value
 		_changed()
-@export_enum("start", "center", "end", "stretch") var horizontal_align: String = "start":
+@export_enum("start", "center", "end", "stretch", "space-between", "space-around", "space-evenly") var horizontal_align: String = "start":
 	set(value):
 		if _policy_commit:
 			horizontal_align = value
@@ -28,7 +28,7 @@ const StackContract = preload("internal/stack_contract.gd")
 		if value==horizontal_align or not _valid_alignment("horizontal_align",value): return
 		horizontal_align = value
 		_changed()
-@export_enum("start", "center", "end", "stretch") var vertical_align: String = "start":
+@export_enum("start", "center", "end", "stretch", "space-between", "space-around", "space-evenly") var vertical_align: String = "start":
 	set(value):
 		if _policy_commit:
 			vertical_align = value

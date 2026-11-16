@@ -1,0 +1,17 @@
+{
+  "sourceHead": "1d7f3e78d043aad7708de2572048a8f095a1d501",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-alignment.ts",
+    "--editor",
+    "--engine",
+    "4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/evidence/l08-final"
+  ]
+}

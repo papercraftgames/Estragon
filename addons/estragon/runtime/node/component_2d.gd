@@ -7,6 +7,8 @@ signal layout_applied(size: Vector2)
 const Coordinator = preload("internal/coordinator.gd")
 const ESTRAGON_LENGTHS := true
 const ESTRAGON_MINIMUMS_2D := true
+const ESTRAGON_ALIGN_SELF_2D := true
+const AlignmentContract = preload("internal/stack_contract.gd")
 const VisualStyle = preload("internal/visual_style_2d.gd")
 var _visual_style = VisualStyle.new()
 const Length = preload("internal/length.gd")
@@ -146,6 +148,15 @@ var margin_left: Variant = "auto":
 	set(value):
 		if value not in [0,1] or value==stretch: return
 		stretch = value
+		_changed()
+@export_enum("auto", "start", "center", "end", "stretch") var align_self: String = "auto":
+	set(value):
+		if value==align_self: return
+		var message := AlignmentContract.error("align_self",value,"")
+		if not message.is_empty():
+			push_error("Estragon alignment: "+message)
+			return
+		align_self = value
 		_changed()
 @export var center: bool = false:
 	set(value):

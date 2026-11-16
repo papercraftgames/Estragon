@@ -1,0 +1,148 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:94)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:94)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:94)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:94)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:94)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:84)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [1] @min_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:89)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: app/MinimumGallery.gogo:19:17: invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+L06_EXPECTED_REJECTION_END
+L06_REJECTIONS_OK

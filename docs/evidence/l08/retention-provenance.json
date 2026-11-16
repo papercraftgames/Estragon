@@ -1,0 +1,13 @@
+{
+  "sourceHead": "1d7f3e78d043aad7708de2572048a8f095a1d501",
+  "sourceDirty": true,
+  "reason": "Final test-only strengthening explicitly asserts keyed tile IDs and no native-self-triggered view run while evidence/docs were pending; production payload unchanged",
+  "test_script_sha256": "9d9a4017f60a4b4995513b1bd8d3a2293647930406154e17489f20e6c8f06d13",
+  "source_content_sha256": "5c009e31485ea351d461b03e2d1723a10899e2bf559b92bb387714a6f70817ac",
+  "status": "PASS",
+  "assertions_per_engine": 35,
+  "engines": [
+    "4.7.stable.official.5b4e0cb0f",
+    "4.0.4.stable.official.fc0b241c9"
+  ]
+}

@@ -14,7 +14,7 @@ func run(t) -> void:
 	for invalid in [Grid.normalize(2,2,["a a","a b"]),Grid.normalize(2,2,[". a","a a"]),Grid.normalize(2,2,["a","b c"]),Grid.normalize(2,2,[],[{"area":"unknown"}]),Grid.normalize(2,2,["a a","b c"],[{"area":"a"},{"area":"a"}]),Grid.normalize(2,2,[],[{"row":0,"column":0,"row_span":3}]),Grid.normalize(["0fr"],1),Grid.normalize(["1em"],1)]:
 		t.check(invalid.has("error"),"L07A invalid grid rejects "+str(invalid))
 	var source := Build.header("res://app/Test.gogo",["Element","Box","VBox","Spacer"])
-	for invalid in ['<Box horizontal_align="stretch" />','<VBox vertical_align="stretch" />','<VBox direction="row" />','<Box horizontal_align="space-between" />','<Spacer flex={1} />']:
+	for invalid in ['<Box horizontal_align="stretch" />','<VBox vertical_align="stretch" />','<VBox direction="row" />','<Box vertical_align="space-between" />','<Spacer flex={1} />']:
 		var result := Compiler.compile(source+"func view() -> Element:\n\treturn "+invalid+"\n","res://app/Test.gogo")
 		t.check(not result.ok and not result.diagnostics.is_empty(),"L07A source-positioned policy/migration rejects "+invalid)
 	var policy = load("res://app/generated/Policy.gd").new()
@@ -29,7 +29,7 @@ func run(t) -> void:
 	await t.frames()
 	t.check(a.position==Vector2(0,119) and b.position==Vector2(0,151) and a.get_instance_id()==aid,"L07A atomic reactive direction/alignment uses same retained slot pipeline")
 	var rec = State.get("records")[policy.get_instance_id()]
-	var invalid = preload("res://addons/estragon/runtime/composition/element.gd").new(Box,{"horizontal_align":"space-between"},{},[],"Policy.gogo:4:2")
+	var invalid = preload("res://addons/estragon/runtime/composition/element.gd").new(Box,{"vertical_align":"space-between"},{},[],"Policy.gogo:4:2")
 	t.check(not rec._preflight(invalid,null,policy) and rec.validation_error.contains("Policy.gogo:4:2"),"L07A computed invalid policy preflight rejects with source position")
 	policy.free()
 	await t.frames()

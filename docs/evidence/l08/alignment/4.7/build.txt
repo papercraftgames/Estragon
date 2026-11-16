@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L08_BUILD {"changed":["app/generated/NestedAlignment.gd","app/generated/NestedAlignment.gd.map.json","app/generated/AlignmentGallery.gd","app/generated/AlignmentGallery.gd.map.json","app/generated/RejectionHost.gd","app/generated/RejectionHost.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/NestedAlignment.gd","app/generated/AlignmentGallery.gd","app/generated/RejectionHost.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+L08_BUILD_OK

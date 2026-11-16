@@ -1,0 +1,36 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S03_CHECK multiple spreads and explicit-before/after last wins: true
+S03_CHECK project Gogo tag property metadata and nested spread composition: true
+S03_CHECK responsive spread/native border-box geometry (640, 480): true
+S03_CHECK native identities/parents/owners retained across viewport resize: true
+S03_CHECK real native border pixel at resized outer allocation: true
+S03_CHECK responsive spread/native border-box geometry (1000, 800): true
+S03_CHECK native identities/parents/owners retained across viewport resize: true
+S03_CHECK real native border pixel at resized outer allocation: true
+S03_CHECK whole outer hit area, native Control and controlled Toggle exactly once: true
+S03_CHECK raw in-place Dictionary mutation has no implicit observer: true
+S03_CHECK bindable Dictionary reference swap recomposes once, retained constrained input: true
+S03_CHECK spread disabled blocks pointer input: true
+S03_CHECK spread color update repaints without length parse/layout or unrelated leaf measurement: true
+S03_CHECK removed spread state/minima reset while remaining explicit background remains effective: true
+S03_CHECK signal Callable retarget disconnects old handler and connects exactly once: true
+S03_CHECK explicit conditional/key and controlled binding coexist with spreads: true
+S03_CHECK equal reference writes and idle frames have zero polling/repaint/reflow/reparse/recomposition: true
+S03_COUNTERS [8,46,{"active":true,"arrange":4,"flush":0,"measure":4},{"active":true,"arrange":5,"flush":0,"measure":5},{"commands":10,"draw":10,"parse":4,"redraw":17},29]
+S03_CHECK spread omission restores actual Button defaults including local padding: true
+S03_CHECK removal does not clobber independent native change since last spread commit: true
+S03_CHECK removal preserves a different independent native color instead of restoring the default: true
+S03_CHECK Rect canonical white _init default restored without alias conflict: true
+S03_CHECK script/native property and signal metadata accept normal spread values: true
+S03_CHECK native script _init defaults and signal removal restore without probe/helper Nodes: true
+S03_CHECK Box defaults and established border-side/minimum omission rules compose atomically: true
+S03_CHECK spread-only name removal uses legitimate native class name instead of invalid empty set_name: true
+S03_CHECK custom bound Callable connects and invokes natively without unsupported introspection: true
+S03_CHECK valid final cross-axis policy commits through the existing atomic policy hook: true
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 28 failed=false
+S03_RUNTIME_OK

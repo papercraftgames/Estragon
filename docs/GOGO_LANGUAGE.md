@@ -144,3 +144,5 @@ There is no style property or framework style structure, factory, utility, token
 palette, theme Resource, cascade or inherited style. This is a general-purpose GGX
 language feature. Any future framework-level style support requires a separate
 owner design decision. S04 visuals and wrapping/Grid remain separately scoped.
+
+L08 [complete Box alignment/distribution](LAYOUT_FOUNDATION.md#l08--complete-physical-axis-distribution-and-child-overrides) uses canonical physical horizontal_align/vertical_align with main space-between/around/evenly, cross stretch and eligible2D align_self. Spreads supply the same ordinary properties; no justify/align aliases or style layer. Explicit key/bind controls and native Control APIs remain unchanged.

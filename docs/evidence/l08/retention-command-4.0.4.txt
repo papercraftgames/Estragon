@@ -1,0 +1,10 @@
+set -eu
+mkdir -p /tmp/l08-project/tests/alignment /tmp/l08-project/app
+cp -r /repo/addons /tmp/l08-project/
+cp /repo/tests/alignment/*.gd /tmp/l08-project/tests/alignment/
+cp /repo/examples/alignment/*.gogo /repo/tests/alignment/RejectionHost.gogo /tmp/l08-project/app/
+sed -i 's@../../../addons/estragon@../../addons/estragon@g' /tmp/l08-project/app/*.gogo
+printf '{"version":1,"source_roots":["app"]}\n' > /tmp/l08-project/gogo.config.json
+engine=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64
+$engine --headless --path /tmp/l08-project --script res://tests/alignment/build.gd
+exec timeout 60s $engine --audio-driver Dummy --path /tmp/l08-project --rendering-method gl_compatibility --rendering-driver opengl3 --script res://tests/alignment/runtime.gd
