@@ -56,6 +56,30 @@ func run():
 	block.height = 100
 	await frames()
 	check(scroll.scroll_range==Vector2.ZERO and scroll.scroll_offset==Vector2.ZERO,"content shrink clamps both axes, hides bars")
+	for axis in range(2):
+		var capped := Scroll.new()
+		var natural := Box.new()
+		if axis==0:
+			capped.horizontal_scroll = true
+			capped.max_width = 300
+			capped.height = 100
+			natural.width = 900
+			natural.height = 100
+		else:
+			capped.vertical_scroll = true
+			capped.max_height = 300
+			capped.width = 300
+			natural.height = 900
+			natural.width = 300
+		capped.add_child(natural)
+		entry.add_child(capped)
+		await frames()
+		check(capped.layout_size[axis]==300 and capped.scroll_range[axis]==600,"auto viewport bounded only by maximum on axis "+str(axis))
+		capped.set("max_width" if axis==0 else "max_height","auto")
+		await frames()
+		check(capped.layout_size[axis]==900 and capped.scroll_range==Vector2.ZERO,"unbounded auto viewport naturally fits content on axis "+str(axis))
+		capped.free()
+		await frames()
 	var native_view := Scroll.new()
 	native_view.width = 100
 	native_view.height = 100

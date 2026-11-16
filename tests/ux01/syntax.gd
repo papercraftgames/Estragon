@@ -8,9 +8,10 @@ func check(ok: bool, label: String):
 func _initialize(): run.call_deferred()
 func run():
 	var head := 'extends Node2D\nconst Text=preload("res://addons/estragon/runtime/node/text.gd")\nconst HBox=preload("res://addons/estragon/runtime/node/hbox.gd")\nfunc view(): return '
-	for body in ['<HBox width />','<HBox imaginary />','<Button pressed />','<Button key />','<Button bind:value />','<Button disabled disabled={false} />','<Text text="x">body</Text>','<HBox>bad text</HBox>','<Text>Mixed<Button>Child</Button></Text>','<Text>{42}</Text>','<Text>{true}</Text>','<Text>unclosed','<Text></Button>']:
+	for body in ['<HBox width />','<HBox imaginary />','<Button pressed />','<Button key />','<Button bind:value />','<Button disabled disabled={false} />','<Text text="x">body</Text>','<HBox>bad text</HBox>','<Text>Mixed<Button>Child</Button></Text>','<Text>{42}</Text>','<Text>{true}</Text>','<Text>unclosed','<Text></Button>','<Text>{"unfinished"</Text>']:
 		var result = Compiler.compile(head+body,"negative.gogo")
-		check(not result.ok,"strict negative "+body)
+		check(not result.ok and not result.diagnostics.is_empty() and result.diagnostics[0].source_name=="negative.gogo" and result.diagnostics[0].span.start.index>=head.length(),"source-located strict negative "+body)
+	check(Compiler.compile(head+'<Text>{"Line\\nTwo"}</Text>',"newline.gogo").ok,"explicit GDScript newline String interpolation compiles")
 	var imported = Compiler.compile('extends Node2D\nconst Imported=preload("res://app/generated/Ergonomics.gd")\nfunc view(): return <Imported bad_text label="String property" />',"res://app/Owned.gogo","res://app/generated/Owned.gd")
 	check(imported.ok,"source-owned typed Gogo Bool/String fields remain writable on native subtype")
 	var host = load("res://app/generated/Ergonomics.gd").new()
@@ -28,6 +29,14 @@ func run():
 	host.username = "Updated"
 	for frame in range(8): await process_frame
 	check(column.get_node("Greeting").text=="Hello Updated!" and column.get_node("Greeting").get_instance_id()==id,"retained observed text update")
+	host.label = "Line\nTwo"
+	for frame in range(8): await process_frame
+	check(column.get_node("Wrapped/Native").text=="Line\nTwo","String expression preserves explicit newlines on native Button")
+	var greeting = column.get_node("Greeting")
+	var before: Vector2 = greeting.layout_size
+	greeting.font_size = 40
+	for frame in range(8): await process_frame
+	check(greeting.layout_size.y>before.y and greeting.get_instance_id()==id,"body text uses existing native font measurement and retained node")
 	print("UX01_EXPECTED_BEGIN")
 	host.extra = {"text":"conflict"}
 	for frame in range(8): await process_frame

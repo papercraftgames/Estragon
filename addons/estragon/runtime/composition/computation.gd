@@ -351,11 +351,13 @@ func _apply(desired: Element, record: Mounted) -> void:
 	if grid:
 		node._apply_grid(_grid_config(desired))
 	var stack := StackContract.registered(desired.type)
+	var scroll := VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_VIEW")
 	if stack:
 		var policy := resets.duplicate()
 		policy.merge(desired.properties,true)
 		node._apply_stack_policy(policy)
 	for key in resets:
+		if scroll and key=="scroll_offset": continue
 		if (not stack or key not in ["direction","horizontal_align","vertical_align"]) and (not grid or key not in GRID_CONFIG): node.set(key,resets[key])
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
@@ -381,8 +383,18 @@ func _apply(desired: Element, record: Mounted) -> void:
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
+		if scroll and key=="scroll_offset": continue
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
+			writes += 1
+			if Profile.is_enabled(): Profile.add("property_writes")
+	# Apply the effective authored offset after geometry/axis flags. A dirty
+	# ScrollView retains it until the same core's next arrangement, so attribute
+	# order cannot clamp restoration against the previous viewport range.
+	if scroll:
+		var offset = desired.properties if desired.properties.has("scroll_offset") else resets
+		if offset.has("scroll_offset") and (not desired.properties.has("scroll_offset") or not record.properties.has("scroll_offset") or not is_same(record.properties.scroll_offset,offset.scroll_offset)):
+			node.set("scroll_offset",offset.scroll_offset)
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 	for event in record.handlers:

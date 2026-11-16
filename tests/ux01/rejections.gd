@@ -4,13 +4,17 @@ class CountHost extends Node2D:
 	const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 	const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
 	const Box = preload("res://addons/estragon/runtime/node/box.gd")
+	const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 	var count := 1
+	var extent := 100
+	var requested := Vector2(0,250)
 	func _notification(what): State.lifecycle(self,what)
 	func build_view():
 		var content := []
-		for i in range(maxi(0,count)): content.append(Element.new(Box))
+		for i in range(maxi(0,count)): content.append(Element.new(Box,{"height":900}))
 		if count<0: content.append(Element.new("Node3D",{},{},[],"tests/ux01/rejections.gd:12:1"))
-		return Element.new(Scroll,{"name":"Scroll","height":100,"width":100,"vertical_scroll":true},{},content,"tests/ux01/rejections.gd:13:1")
+		var view := Element.new(Scroll,{"name":"Scroll","scroll_offset":requested,"height":extent,"width":100,"vertical_scroll":true},{},content,"tests/ux01/rejections.gd:16:1")
+		return Element.new(Entry,{"name":"UI","width":100,"height":400},{},[view])
 var failed := false
 func check(ok: bool, label: String):
 	print("UX01_REJECTION ",label,": ",ok)
@@ -50,14 +54,25 @@ func run():
 	var counts := CountHost.new()
 	root.add_child(counts)
 	await frames()
-	var saved := counts.get_node("Scroll")
+	var saved := counts.get_node("UI/Scroll")
+	check(saved.scroll_offset==Vector2(0,250),"declarative initial offset survives mount before natural measurement")
+	counts.extent = 300
+	counts.requested = Vector2(0,1000)
+	State.records[counts.get_instance_id()].schedule()
+	await frames()
+	check(saved.scroll_offset==Vector2(0,600),"changed viewport clamps authored offset against new range")
+	counts.extent = 100
+	counts.requested = Vector2(0,750)
+	State.records[counts.get_instance_id()].schedule()
+	await frames()
+	check(saved.scroll_offset==Vector2(0,750),"offset-first attributes restore against enlarged new range")
 	for invalid in [0,2,-1]:
 		print("UX01_EXPECTED_BEGIN")
 		counts.count = invalid
 		State.records[counts.get_instance_id()].schedule()
 		await frames()
 		print("UX01_EXPECTED_END")
-		check(counts.get_node("Scroll")==saved and saved.get_content_root()!=null,"zero/multiple/unbounded roots reject before native commit: "+str(invalid))
+		check(counts.get_node("UI/Scroll")==saved and saved.get_content_root()!=null,"zero/multiple/unbounded roots reject before native commit: "+str(invalid))
 	counts.free()
 	await frames()
 	check(State.records.is_empty(),"composition subscriptions and records released")

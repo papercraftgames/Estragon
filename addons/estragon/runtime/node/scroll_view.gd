@@ -22,7 +22,9 @@ const Pointer = preload("internal/pointer_2d.gd")
 			push_error("Estragon ScrollView scroll_offset requires a finite nonnegative Vector2")
 			return
 		scroll_offset = value
-		_update_scroll()
+		# A new viewport/content allocation must resolve before restoring/clamping
+		# an authored offset. The existing arranged callback consumes it once.
+		if not layout.model.is_layout_dirty(): _update_scroll()
 var scroll_range: Vector2:
 	get: return _scroll_range
 	set(_value): push_error("Estragon ScrollView scroll_range is read-only")

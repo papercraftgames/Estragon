@@ -70,6 +70,9 @@ var _parent: WeakRef
 
 var default_padding := Vector4.ZERO
 
+func is_layout_dirty() -> bool:
+	return _measure_dirty or _arrange_dirty
+
 func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, stack_axis: int, padding_fallback: Vector4 = Vector4.ZERO) -> void:
 	if default_padding==padding_fallback and length_specs==specs and grow==growth and stretch==cross and pixels_per_unit==scale and axis==stack_axis: return
 	default_padding = padding_fallback
