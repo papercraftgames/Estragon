@@ -157,6 +157,11 @@ func inspector_proof() -> void:
 	interface.inspect_object(scene)
 	scene.remove_child(entry)
 	entry.free()
+func minimum_code() -> CodeEdit:
+	for item in plugin._services.entries.values():
+		var code = item.code.get_ref()
+		if item.path=="res://app/MinimumGallery.gogo" and code!=null and code.is_visible_in_tree(): return code
+	return null
 func minimum_play(mode: String) -> void:
 	await settle()
 	var path := "res://.godot/l11-game.json"
@@ -177,9 +182,8 @@ func minimum_editor_proof() -> void:
 	ProjectSettings.save()
 	if not FileAccess.file_exists("res://.godot/l11-tested"):
 		await plugin._navigation.open("res://app/MinimumGallery.gogo")
-		var code: CodeEdit
-		for item in plugin._services.entries.values():
-			if item.path=="res://app/MinimumGallery.gogo": code = item.code.get_ref()
+		await until(func(): return minimum_code()!=null,"L11 authored minimum buffer associates")
+		var code := minimum_code()
 		check(code!=null,"L11 native authored minimum editor opens")
 		if code!=null:
 			var original := code.text

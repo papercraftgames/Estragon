@@ -30,11 +30,11 @@ for (const selection of options.engines) {
                     if (line === 'L06_EXPECTED_REJECTION_BEGIN') bracket = true;
                     else if (line === 'L06_EXPECTED_REJECTION_END') bracket = false;
                     else if (ERROR.test(line)) {
-                        if (bracket && /^ERROR: Estragon length '(width|min_width|min_height)': (Invalid length:|Expected a finite nonnegative length|Length requires int, float or a unit string|Length is negative, nonfinite or outside the supported range)/.test(line)) count++;
+                        if (bracket && (/^ERROR: Estragon length '(width|min_width|min_height)': (Invalid length:|Expected a finite nonnegative length|Length requires int, float or a unit string|Length is negative, nonfinite or outside the supported range)/.test(line) || /^ERROR: (?:res:\/\/)?app\/MinimumGallery\.gogo:\d+:\d+: invalid length 'min_width': Invalid length:/.test(line))) count++;
                         else unexpected.push(line);
                     }
                 }
-                if (bracket || count !== 23 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
+                if (bracket || count !== 24 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
             }
             if (editorStage) {
                 let bracket=false,count=0,starts=0;const unexpected:string[]=[];

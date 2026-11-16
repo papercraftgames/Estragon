@@ -26,6 +26,20 @@ func run() -> void:
 		for invalid in ["bad","-1px",-1,NAN,INF,true,[],1e13,"1e13px"]:
 			node.set(name,invalid)
 			if not is_same(node.get(name),value) or node.lengths.specs[name]!=spec: failed = true
+	# Execute a real bindable invalid description through the production manager.
+	var host = load("res://app/generated/MinimumGallery.gd").new()
+	root.add_child(host)
+	for frame in range(6): await process_frame
+	var panel = host.get_node("UI/Panel")
+	var identity: int = panel.get_instance_id()
+	var geometry: Vector2 = panel.layout_size
+	host.floor_width = "broken"
+	for frame in range(6): await process_frame
+	if panel!=host.get_node("UI/Panel") or panel.get_instance_id()!=identity or panel.min_width!="280px" or panel.layout_size!=geometry: failed = true
+	host.floor_width = "320px"
+	for frame in range(6): await process_frame
+	if panel!=host.get_node("UI/Panel") or panel.min_width!="320px": failed = true
+	host.free()
 	await process_frame
 	await process_frame
 	print("L06_EXPECTED_REJECTION_END")
