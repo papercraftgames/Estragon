@@ -92,6 +92,10 @@ func run() -> void:
 		marker.close()
 	else: await play("main")
 	check(interface.get_edited_scene_root().get_child_count()==0,"native editor scene has no transient managed output persisted")
+	# Stop/Inspector notifications and queued native rendering cleanup must finish
+	# before the isolated editor exits; assertion success alone is not shutdown.
+	await settle()
+	await wait(0.3)
 	finish()
 func finish() -> void:
 	print("L08_EDITOR_ASSERTIONS ",checks," failed=",failed)
