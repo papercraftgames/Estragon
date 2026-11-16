@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_BUILD {"changed":["app/generated/NestedSpread.gd","app/generated/NestedSpread.gd.map.json","app/generated/RejectionHost.gd","app/generated/RejectionHost.gd.map.json","app/generated/SpreadGallery.gd","app/generated/SpreadGallery.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/NestedSpread.gd","app/generated/RejectionHost.gd","app/generated/SpreadGallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+S03_BUILD_OK

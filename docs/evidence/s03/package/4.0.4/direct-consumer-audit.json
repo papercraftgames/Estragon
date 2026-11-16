@@ -1,0 +1,21 @@
+{
+  "sourceHead": "dd4cab57ea08f41eb09555748e6314ad7d810903",
+  "overlay": {
+    "mode": "development",
+    "version": "0.0.0-dev",
+    "sourceHead": "dd4cab57ea08f41eb09555748e6314ad7d810903",
+    "tag": null,
+    "release_id": null,
+    "overlayRecipe": "estragon-tag-overlay-v1"
+  },
+  "package_version": "0.0.0-dev",
+  "installed_tarball_sha256": "ebf6616ff6adf5f198b42902f6bc4495b0333116295bd3d237dcce1f64066dae",
+  "source_content_sha256": "8ea8c4caa7f2ac6e3ea2d49b0eab90ef46ddffc0338254bec4f34d48fd06cd28",
+  "addon_payload_unchanged": true,
+  "layout": "direct",
+  "addon_root": "res://node_modules/@papercraftgames/estragon/addons/estragon",
+  "node_modules_ignored": false,
+  "addon_copied": false,
+  "addon_symlinked": false,
+  "external_compiler": false
+}

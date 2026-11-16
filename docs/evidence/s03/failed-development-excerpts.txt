@@ -1,0 +1,1369 @@
+Original development logs remain at the paths below. Relevant exact excerpts, not relabeled passes.
+
+--- /tmp/s03-dev1.log ---
+/evidence/s03-dev.sh: 6: exec: /engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64: not found
+
+
+--- /tmp/s03-dev3.log ---
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "order" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://tests/spreads/frontend.gd:39)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "precedence" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://tests/spreads/frontend.gd:45)
+ERROR: Failed to load script "res://tests/spreads/frontend.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+
+
+--- /tmp/s03-dev4.log ---
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node>{[1,2].map(func(n): return <Node {...{"name":str(n)}} key={n} />)}</Node> [<RefCounted#-9223371660122388508>]: false
+S03_CHECK spread compile <Node2D {...first()} name={named()} {...second()} /> []: true
+S03_CHECK actual native semantics <Node2D {...first()} name={named()} {...second()} />: true
+S03_CHECK snapshot at authored evaluation, exactly once left to right including named expression: false
+S03_CHECK spread compile <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} /> []: true
+S03_CHECK actual native semantics <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} />: true
+S03_CHECK later spread overrides explicit and earlier spread: true
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 47 failed=true
+
+
+--- /tmp/s03-dev5.log ---
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node>{[1,2].map(func(n: int): return <Node {...{"name":str(n)}} key={n} />)}</Node> ["spread.gogo:4:28: GGX children require Element, null, nested Arrays or borrowed scene children; scalars/newly constructed Nodes reject"]: false
+S03_CHECK spread compile <Node2D {...first()} name={named()} {...second()} /> []: true
+S03_CHECK actual native semantics <Node2D {...first()} name={named()} {...second()} />: true
+S03_ORDER { "visible": true, "name": &"final", "position": (2.0, 3.0) } [1, 2, 3]
+S03_CHECK snapshot at authored evaluation, exactly once left to right including named expression: false
+S03_CHECK spread compile <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} /> []: true
+S03_CHECK actual native semantics <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} />: true
+S03_CHECK later spread overrides explicit and earlier spread: true
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 47 failed=true
+
+
+--- /tmp/s03-runtime1.log ---
+
+ERROR: app/SpreadGallery.gogo:29:25 (spread key 'color'): attribute 'color': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:33)
+ERROR: Node not found: "UI/Panel" (relative to "/root/@Node2D@2").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/spreads/runtime.gd:44)
+       [1] frames (res://tests/spreads/runtime.gd:20)
+SCRIPT ERROR: Attempt to call function 'get_node' in base 'null instance' on a null instance.
+          at: run (res://tests/spreads/runtime.gd:45)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/spreads/runtime.gd:45)
+
+--- /tmp/s03-runtime2.log ---
+S03_COUNTERS [8,46,{"active":true,"arrange":4,"flush":0,"measure":4},{"active":true,"arrange":5,"flush":0,"measure":5},{"commands":10,"draw":10,"parse":4,"redraw":17},29]
+S03_CHECK spread omission restores actual Button defaults including local padding: false
+S03_CHECK removal does not clobber independent native change since last spread commit: true
+S03_CHECK Rect canonical white _init default restored without alias conflict: true
+S03_CHECK script/native property and signal metadata accept normal spread values: true
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 23 failed=true
+
+
+--- /tmp/s03-runtime3.log ---
+S03_COUNTERS [8,46,{"active":true,"arrange":4,"flush":0,"measure":4},{"active":true,"arrange":5,"flush":0,"measure":5},{"commands":10,"draw":10,"parse":4,"redraw":17},29]
+S03_CHECK spread omission restores actual Button defaults including local padding: false
+S03_CHECK removal does not clobber independent native change since last spread commit: true
+S03_CHECK unrelated native background edit remains independent: true
+S03_CHECK Rect canonical white _init default restored without alias conflict: true
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 24 failed=true
+
+
+--- /tmp/s03-runtime40.log ---
+
+SCRIPT ERROR: Parse Error: Cannot find property "get_unbound_arguments_count" on base "Callable".
+          at: GDScript::reload (res://addons/estragon/runtime/composition/computation.gd:417)
+SCRIPT ERROR: Parse Error: Function "get_unbound_arguments_count()" not found in base Callable.
+          at: GDScript::reload (res://addons/estragon/runtime/composition/computation.gd:417)
+S03_BUILD {"changed":[],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/NestedSpread.gd","app/generated/RejectionHost.gd","app/generated/SpreadGallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+S03_BUILD_OK
+
+SCRIPT ERROR: Parse Error: Cannot find property "get_unbound_arguments_count" on base "Callable".
+          at: GDScript::reload (res://addons/estragon/runtime/composition/computation.gd:417)
+SCRIPT ERROR: Parse Error: Function "get_unbound_arguments_count()" not found in base Callable.
+          at: GDScript::reload (res://addons/estragon/runtime/composition/computation.gd:417)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: lifecycle (res://addons/estragon/runtime/composition/state.gd:56)
+ERROR: Node not found: "UI/Panel" (relative to "/root/@@2").
+   at: get_node (scene/main/node.cpp:1375)
+SCRIPT ERROR: Attempt to call function 'get_node' in base 'null instance' on a null instance.
+          at: run (res://tests/spreads/runtime.gd:47)
+
+
+--- /tmp/s03-rejections1.log ---
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'multiplayer': false
+S03_REJECTION_CHECK spread expression/key diagnostic 'multiplayer': false
+S03_REJECTION_CHECK repair resumes retained native computation: false
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:13:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:129)
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 81 failed=true expected_errors=27
+
+
+--- /tmp/s03-name-probe.log ---
+NAME_DEFAULT
+ERROR: Condition "p_name.is_empty()" is true.
+   at: set_name (scene/main/node.cpp:1441)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://name.gd:7)
+
+--- /tmp/s03-static-dev.log ---
+✖ addon-only npm artifact is reproducible, private-tooling separated and rooted for Godot (213.747863ms)
+  Error: Addon depends on non-package file: addons/estragon/compiler/validator.gd -> addons/estragon/runtime/composition/native_attributes.gd
+      at packAddon (file:///Users/ryan/Projects/Estragon/tools/pack-addon.ts:51:38)
+      at TestContext.<anonymous> (file:///Users/ryan/Projects/Estragon/tests/compatibility/package.test.ts:14:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+✖ single native architecture, canonical UIDs/references and authored maps stay consistent (27.810354ms)
+  Error: ENOENT: no such file or directory, open '/Users/ryan/Projects/Estragon/addons/estragon/runtime/composition/native_attributes.gd.uid'
+      at Module.readFileSync (node:fs:441:20)
+      at auditNativeSource (file:///Users/ryan/Projects/Estragon/tools/audit-native-source.ts:19:24)
+      at TestContext.<anonymous> (file:///Users/ryan/Projects/Estragon/tests/compatibility/release.test.ts:109:12)
+✖ actual tag-versioned packs reproduce, source stays untouched, verifier rejects overlay/file/tar mutations (191.976994ms)
+  Error: Addon depends on non-package file: addons/estragon/compiler/validator.gd -> addons/estragon/runtime/composition/native_attributes.gd
+      at packAddon (file:///Users/ryan/Projects/Estragon/tools/pack-addon.ts:51:38)
+      at TestContext.<anonymous> (file:///Users/ryan/Projects/Estragon/tests/compatibility/tag-version.test.ts:36:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+
+--- /tmp/s03-static3.log ---
+$ tsc --noEmit
+tools/check-spreads.ts(25,25): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+tools/check-spreads.ts(26,176): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+tools/check-spreads.ts(27,28): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+
+
+--- /tmp/s03-installed1.log ---
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 55 failed=false
+S03_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:13:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 81 failed=false expected_errors=27
+S03_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+S03_CHECK custom bound Callable remains native without unsupported optional introspection: true
+ERROR: Amount of unbind() arguments must be 1 or greater.
+   at: unbind (core/variant/callable.cpp:149)
+   GDScript backtrace (most recent call first):
+       [0] removals (res://tests/spreads/runtime.gd:175)
+
+Error: S03 runtime failed
+    at run (file:///repo/tools/check-spreads.ts:32:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-spreads.ts:55:4
+
+--- /tmp/s03-installed2.log ---
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 55 failed=false
+S03_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing_spread_expression" not declared in the current scope.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+S03_PUBLICATION_CHECK repaired spread semantics recover actual-path publication: true
+S03_PUBLICATION_ASSERTIONS 7 failed=false
+S03_PUBLICATION_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:14:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:12:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:13:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 81 failed=false expected_errors=27
+S03_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 27 failed=false
+S03_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+
+ERROR: Condition "p_name.is_empty()" is true.
+   at: set_name (scene/main/node.cpp:1441)
+S03_EDITOR_CHECK real native authored spread scene imports: true
+S03_EDITOR_CHECK native Gogo highlighter attached to actual spread source: true
+         [6] wait (res://tests/spreads/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/spreads/editor.gd:81)
+         [6] until (res://tests/spreads/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/spreads/editor.gd:80)
+S03_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S03_EDITOR_ASSERTIONS 11 failed=false
+S03_EDITOR_OK
+file:///repo/tools/check-spreads.ts:45
+   if(result.status!=='PASS')throw Error('S03 '+name+' failed');
+
+Error: S03 editor failed
+    at run (file:///repo/tools/check-spreads.ts:45:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-spreads.ts:76:51
+
+--- /tmp/s03-ready.log ---
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 61 failed=false
+S03_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing_spread_expression" not declared in the current scope.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator."
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_PUBLICATION_CHECK repaired spread semantics recover actual-path publication: true
+S03_PUBLICATION_ASSERTIONS 7 failed=false
+S03_PUBLICATION_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Dictionary: true
+S03_REJECTION_CHECK spread expression/key diagnostic Dictionary: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry key 1: true
+S03_REJECTION_CHECK spread expression/key diagnostic key 1: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry nonempty: true
+S03_REJECTION_CHECK spread expression/key diagnostic nonempty: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry String/StringName: true
+S03_REJECTION_CHECK spread expression/key diagnostic String/StringName: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'key': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'key': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'bind:value': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'bind:value': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'style': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'style': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min-width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min-width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'owner': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'owner': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'script': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'script': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'multiplayer': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'multiplayer': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'position': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'position': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'disabled': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'disabled': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'background_color': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'background_color': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'background_color': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'background_color': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min_width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min_width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'min_height': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'min_height': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'padding': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'padding': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'border_width': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'border_width': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'pressed': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'pressed': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry 'pressed': true
+S03_REJECTION_CHECK spread expression/key diagnostic 'pressed': true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry arity: true
+S03_REJECTION_CHECK spread expression/key diagnostic arity: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry fill and background_color: true
+S03_REJECTION_CHECK spread expression/key diagnostic fill and background_color: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry finite native Color: true
+S03_REJECTION_CHECK spread expression/key diagnostic finite native Color: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:18:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry Object class: true
+S03_REJECTION_CHECK spread expression/key diagnostic Object class: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'direction'): direction requires row or column; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry direction: true
+S03_REJECTION_CHECK spread expression/key diagnostic direction: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'horizontal_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry horizontal_align: true
+S03_REJECTION_CHECK spread expression/key diagnostic horizontal_align: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value'): attribute 'value': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry value: true
+S03_REJECTION_CHECK spread expression/key diagnostic value: true
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value_changed'): attribute 'value_changed': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S03_REJECTION_CHECK rejected computation retains complete tree/geometry value_changed: true
+S03_REJECTION_CHECK spread expression/key diagnostic value_changed: true
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 93 failed=false expected_errors=31
+S03_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 28 failed=false
+S03_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+S03_EDITOR_CHECK current invalid unsaved spread blocks stale Play with authored diagnostic: true
+S03_EDITOR_CHECK current invalid spread retains code/map/UID/timestamp/cached Script: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+S03_EDITOR_CHECK main invalid unsaved spread blocks stale Play with authored diagnostic: true
+S03_EDITOR_CHECK main invalid spread retains code/map/UID/timestamp/cached Script: true
+S03_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S03_EDITOR_ASSERTIONS 11 failed=false
+S03_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+S03_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S03_EDITOR_ASSERTIONS 3 failed=false
+S03_EDITOR_OK
+yarn add v1.22.22
+info No lockfile found.
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 61 failed=false
+S03_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing_spread_expression" not declared in the current scope.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+S03_PUBLICATION_CHECK repaired spread semantics recover actual-path publication: true
+S03_PUBLICATION_ASSERTIONS 7 failed=false
+S03_PUBLICATION_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_EXPECTED_REJECTION_BEGIN
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread requires a Dictionary; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 1 requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key  requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key text requires a nonempty String/StringName; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'key' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40: GGX spread key 'bind:value' must be explicitly authored; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'style'): attribute 'style': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min-width'): attribute 'min-width': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'owner'): attribute 'owner': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'script'): attribute 'script': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'multiplayer'): attribute 'multiplayer': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'position'): attribute 'position': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'background_color'): invalid style 'background_color': Color channels must be finite; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_width'): invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'min_height'): invalid length 'min_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'padding'): invalid length 'padding': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'border_width'): invalid length 'border_width': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': signal requires a valid native Callable; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:19:40 (spread key 'pressed'): attribute 'pressed': Callable arity does not match native signal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill and background_color conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:15:52 (spread key 'fill'): Rect fill requires a finite native Color; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:18:60 (spread key 'texture'): attribute 'texture': incompatible native Object class Texture2D; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'direction'): direction requires row or column; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:16:52 (spread key 'horizontal_align'): stretch is cross-axis only; use grow for remaining main-axis space; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value'): attribute 'value': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_REJECTION_CHECK repair resumes retained native computation: true
+ERROR: app/RejectionHost.gogo:17:58 (spread key 'value_changed'): attribute 'value_changed': invalid or conflicting controlled binding; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+S03_EXPECTED_REJECTION_END
+S03_REJECTION_ASSERTIONS 93 failed=false expected_errors=31
+S03_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+S03_CHECK native disposal removes all records and managed indices: true
+S03_ASSERTIONS 28 failed=false
+S03_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+
+ERROR: Condition "p_enabled && addon_name_to_plugin.has(addon_path)" is true.
+   at: set_addon_plugin_enabled (editor/editor_node.cpp:4448)
+ERROR: Condition "p_enabled && addon_name_to_plugin.has(addon_path)" is true.
+   at: set_addon_plugin_enabled (editor/editor_node.cpp:4448)
+S03_EDITOR_CHECK real native authored spread scene imports: true
+S03_EDITOR_CHECK native Gogo highlighter attached to actual spread source: true
+S03_EXPECTED_PLAY_REJECTION_BEGIN
+ERROR: Task 'update_script_paths_documentation' already exists.
+   at: add_task (editor/gui/progress_dialog.cpp:200)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/buffer_guard.gd:49)
+         [6] <anonymous lambda> (res://tests/spreads/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] finish (res://tests/spreads/editor.gd:81)
+       [2] <anonymous lambda> (res://tests/spreads/editor.gd:14)
+ERROR: Condition ' (ip + 7 + _pointer_size) > _code_size ' is true. Breaking..:
+   at: call (modules/gdscript/gdscript_vm.cpp:763)
+   GDScript backtrace (most recent call first):
+       [0] finish (res://tests/spreads/editor.gd:81)
+       [2] <anonymous lambda> (res://tests/spreads/editor.gd:14)
+SCRIPT ERROR: Internal script error! Opcode: 0 (please report).
+          at: finish (res://tests/spreads/editor.gd:81)
+          GDScript backtrace (most recent call first):
+              [0] finish (res://tests/spreads/editor.gd:81)
+              [2] <anonymous lambda> (res://tests/spreads/editor.gd:14)
+ERROR: Condition "!tasks.has(p_task)" is true.
+   at: end_task (editor/gui/progress_dialog.cpp:254)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SpreadGallery.gogo:28:35: Expected a GDScript expression inside braces
+
+Error: S03 editor failed
+    at run (file:///repo/tools/check-spreads.ts:45:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-spreads.ts:76:51
+
+--- /tmp/s03-regress.log ---
+PACKAGE_SPATIAL_EXPLICIT 1 (3, 4, 5) child=(1.5, 2, 2.5)
+PACKAGE_RUNTIME_ASSERTIONS 24 failures=0
+PACKAGE_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+CI_EDITOR_TIMING rejected_project 0.919
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK project reports useful failure: eager Node-returning GGX is unsupported: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK project blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK project reports useful failure: Counter.gogo:: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+CI_EDITOR_TIMING rejected_current 1.467
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: eager Node-returning GGX is unsupported: true
+PACKAGE_EDITOR_CHECK current reports useful failure: eager Node-returning GGX is unsupported: true
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+PACKAGE_EDITOR_CHECK current blocks stale child execution: Counter.gogo:: true
+PACKAGE_EDITOR_CHECK current reports useful failure: Counter.gogo:: true
+CI_EDITOR_TIMING success_current 2.017
+PACKAGE_EDITOR_ASSERTIONS 50
+PACKAGE_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+PACKAGE_SPATIAL_EXPLICIT 1.0 (3.0, 4.0, 5.0) child=(1.5, 2.0, 2.5)
+PACKAGE_RUNTIME_ASSERTIONS 24 failures=0
+PACKAGE_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+         [8] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+CI_EDITOR_TIMING rejected_project 0.743
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+CI_EDITOR_TIMING success_project 2.901
+ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/buffer_guard.gd:49)
+         [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:81)
+         [8] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+CI_EDITOR_TIMING rejected_current 0.786
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+       [4] _wait (res://tests/package-consumer/editor/driver.gd:28)
+SCRIPT ERROR: Parse Error: Identifier "missing_handler" not declared in the current scope.
+          at: GDScript::reload (res://examples/counter/generated/Counter.gd:38)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/counter/Counter.gogo:23:58: Parse Error: Identifier "missing_handler" not declared in the current scope.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+         [8] _wait (res://tests/package-consumer/editor/driver.gd:28)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+CI_EDITOR_TIMING success_current 4.314
+ERROR: Cannot save text file 'res://examples/counter/Counter.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/buffer_guard.gd:49)
+         [7] _until (res://tests/package-consumer/editor/driver.gd:33)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/package-consumer/editor/driver.gd:82)
+CI_EDITOR_TIMING success_current 2.678
+PACKAGE_EDITOR_ASSERTIONS 50
+PACKAGE_EDITOR_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+
+Error: EACCES: permission denied, chmod '/evidence/s03-ggx/4.7/generated/ThreeD.gd.uid'
+    at chmodSync (node:fs:2110:11)
+    at setDestMode (node:internal/fs/cp/cp-sync:123:10)
+    at copyFile (node:internal/fs/cp/cp-sync:103:10)
+
+--- /tmp/s03-regress-tail.log ---
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: app/MinimumGallery.gogo:19:17: invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:130)
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 243 failed=false
+L06_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+
+Error: Release package requires clean source
+    at packAddon (file:///repo/tools/pack-addon.ts:11:43)
+    at file:///repo/tools/check-styling.ts:44:24
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)

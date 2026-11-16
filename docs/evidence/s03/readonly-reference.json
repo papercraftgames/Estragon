@@ -1,0 +1,43 @@
+[
+  {
+    "name": "AnimationPlayer",
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.0.4-stable/doc/classes/AnimationPlayer.xml",
+    "sha256": "45114f36892df7d8241de16d23856b67eb61ab2b198296a79c3f1ebbeb2d526c",
+    "readonly": [
+      "current_animation_length",
+      "current_animation_position"
+    ]
+  },
+  {
+    "name": "Node",
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.0.4-stable/doc/classes/Node.xml",
+    "sha256": "d1eed6a1d1d7435176fec7477eea785ed462e718ed2a0c167179d36b376d4093",
+    "readonly": [
+      "multiplayer"
+    ]
+  },
+  {
+    "name": "ShapeCast2D",
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.0.4-stable/doc/classes/ShapeCast2D.xml",
+    "sha256": "27b4f82a0e6b02b54cdcc294eb4b8e052c97d8b7da0909922da0323f154907e2",
+    "readonly": [
+      "collision_result"
+    ]
+  },
+  {
+    "name": "ShapeCast3D",
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.0.4-stable/doc/classes/ShapeCast3D.xml",
+    "sha256": "640aa010a3ac791d0421355fb59c79534d84356cf1b9c9ff6f066835d20286b6",
+    "readonly": [
+      "collision_result"
+    ]
+  },
+  {
+    "name": "Timer",
+    "url": "https://raw.githubusercontent.com/godotengine/godot/4.0.4-stable/doc/classes/Timer.xml",
+    "sha256": "bf6872103abda53416feb6c6639c3f93a98572c7e58b55ea996dc729c3df7836",
+    "readonly": [
+      "time_left"
+    ]
+  }
+]

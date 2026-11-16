@@ -1,0 +1,69 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S03_CHECK spread compile <Node2D {...{"name":"A", "visible":false}} /> []: true
+S03_CHECK actual native semantics <Node2D {...{"name":"A", "visible":false}} />: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D { ... {"name":"A"}} /> []: true
+S03_CHECK actual native semantics <Node2D { ... {"name":"A"}} />: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D {... # GDScript comment
+ {"name":"A"}} /> []: true
+S03_CHECK actual native semantics <Node2D {... # GDScript comment
+ {"name":"A"}} />: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D {...{&"name":"A"}} /> []: true
+S03_CHECK actual native semantics <Node2D {...{&"name":"A"}} />: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node><Node name="same" {...{"name":"A"}} /><Node name="same" {...{"name":"B"}} /></Node> []: true
+S03_CHECK actual native semantics <Node><Node name="same" {...{"name":"A"}} /><Node name="same" {...{"name":"B"}} /></Node>: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D {...props} name="after" {...values()} /> []: true
+S03_CHECK actual native semantics <Node2D {...props} name="after" {...values()} />: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D {...{"name":"A"}}><Node {...{"name":"child"}} /></Node2D> []: true
+S03_CHECK actual native semantics <Node2D {...{"name":"A"}}><Node {...{"name":"child"}} /></Node2D>: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node>{<Node2D {...props} /> if true else null}</Node> []: true
+S03_CHECK actual native semantics <Node>{<Node2D {...props} /> if true else null}</Node>: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node>{items.map(func(n: int): return <Node {...{"name":str(n)}} key={n} />)}</Node> []: true
+S03_CHECK actual native semantics <Node>{items.map(func(n: int): return <Node {...{"name":str(n)}} key={n} />)}</Node>: true
+S03_CHECK description only, no candidate Nodes: true
+S03_CHECK spread compile <Node2D {...first()} name={named()} {...second()} /> []: true
+S03_CHECK actual native semantics <Node2D {...first()} name={named()} {...second()} />: true
+S03_ORDER { "visible": true, "name": &"final", "position": (2, 3) } [1, 2, 3]
+S03_CHECK snapshot at authored evaluation, exactly once left to right including named expression: true
+S03_CHECK spread compile <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} /> []: true
+S03_CHECK actual native semantics <Node name="before" {...{"name":"spread"}} {...{"name":"last"}} />: true
+S03_CHECK later spread overrides explicit and earlier spread: true
+S03_CHECK spread compile <Node {...{"name":"spread"}} name="explicit" /> []: true
+S03_CHECK actual native semantics <Node {...{"name":"spread"}} name="explicit" />: true
+S03_CHECK later explicit wins and has ordinary omission ownership: true
+S03_CHECK authored parser/duplicate rejection <Node {...} />: true
+S03_CHECK authored parser/duplicate rejection <Node {... # empty
+} />: true
+S03_CHECK authored parser/duplicate rejection <Node {props} />: true
+S03_CHECK authored parser/duplicate rejection <Node {...{"name":"x"} />: true
+S03_CHECK authored parser/duplicate rejection <Node {...[1)} />: true
+S03_CHECK authored parser/duplicate rejection <Node name="a" name="b" {...{}} />: true
+S03_CHECK authored parser/duplicate rejection <Node {...{}} name="a" name="b" />: true
+S03_CHECK authored parser/duplicate rejection <Node>{...props}</Node>: true
+S03_CHECK authored parser/duplicate rejection <Node {...props}/Timer>: true
+S03_CHECK no spread outside attribute list var x = ...props: true
+S03_CHECK no spread outside attribute list var x = [...props]: true
+S03_CHECK no spread outside attribute list func x(): return call(...props): true
+S03_CHECK shared native getter-only metadata bridge <Node multiplayer={null} />: true
+S03_CHECK shared native getter-only metadata bridge <Timer time_left={0.0} />: true
+S03_CHECK shared native getter-only metadata bridge <AnimationPlayer current_animation_length={0.0} />: true
+S03_CHECK shared native getter-only metadata bridge <AnimationPlayer current_animation_position={0.0} />: true
+S03_CHECK shared native getter-only metadata bridge <ShapeCast2D collision_result={[]} />: true
+S03_CHECK shared native getter-only metadata bridge <ShapeCast3D collision_result={[]} />: true
+S03_CHECK spread compile <Layout horizontal_align="stretch" {...{"direction":"column"}} /> []: true
+S03_CHECK actual native semantics <Layout horizontal_align="stretch" {...{"direction":"column"}} />: true
+S03_CHECK spread cross-axis policy defers to final effective values: true
+S03_CHECK distinct ordered AST spread with complete authored span: true
+S03_CHECK spread marker has a lexical token/span: true
+S03_CHECK spread expression maps precisely independent of marker and UTF16: true
+S03_CHECK deterministic spread output/maps: true
+S03_ASSERTIONS 61 failed=false
+S03_FRONTEND_OK

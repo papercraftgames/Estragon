@@ -1,0 +1,19 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S03_PUBLICATION_CHECK pure syntax pipeline defers native expression semantics: true
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing_spread_expression" not declared in the current scope.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_PUBLICATION_CHECK failed semantic publication restores code/maps/timestamp/UID/cache identity: true
+S03_PUBLICATION_CHECK pure syntax pipeline defers native expression semantics: true
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator."
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:78)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_PUBLICATION_CHECK failed semantic publication restores code/maps/timestamp/UID/cache identity: true
+S03_PUBLICATION_CHECK repaired spread semantics recover actual-path publication: true
+S03_PUBLICATION_ASSERTIONS 7 failed=false
+S03_PUBLICATION_OK

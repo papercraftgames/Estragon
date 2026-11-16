@@ -1,0 +1,17 @@
+{
+  "source_head": "21a03a1a6f1ac261a9ac7557940ae68460373dc0",
+  "source_dirty": true,
+  "reason": "Test-only strengthening of independent color removal assertion while documentation/archive were pending; no production change",
+  "test_script_sha256": "e8492154f518132be4c4f8a958be510e48ec0e0ea9656df231f157731ca97641",
+  "addon_package_content_sha256": "8ea8c4caa7f2ac6e3ea2d49b0eab90ef46ddffc0338254bec4f34d48fd06cd28",
+  "engines": [
+    "4.0.4.stable.official.fc0b241c9",
+    "4.7.stable.official.5b4e0cb0f"
+  ],
+  "assertions": 28,
+  "status": "PASS",
+  "runs": [
+    "refined-runtime-4.0.4.txt",
+    "refined-runtime-4.7.txt"
+  ]
+}
