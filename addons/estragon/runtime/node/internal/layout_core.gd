@@ -246,7 +246,8 @@ func independent_axis(index: int) -> bool:
 	if requested[index] >= 0 or _external_axes[index] > 0: return true
 	var parent = _parent.get_ref() if _parent != null else null
 	if parent == null: return false
-	var allocated: bool = grow>0 or fill[index]>0 if index==parent.axis else StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
+	var allocated := grow>0 or fill[index]>0
+	if index!=parent.axis: allocated = StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
 	return parent.independent_axis(index) if requested[index] < 0 and allocated else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:

@@ -395,7 +395,7 @@ func _spread_resets(desired: Element, record) -> Dictionary:
 	if record==null or not _compatible(desired,record): return result
 	var node = record.node.get_ref()
 	for key in record.spread_applied:
-		if desired.properties.has(key) or key=="align_self" or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
+		if desired.properties.has(key) or (key=="align_self" and StackContract.self_registered(desired.type)) or key in Length.BORDER_EDGES or key in Length.MINIMUMS: continue
 		# Do not overwrite imperative native changes made since our last commit.
 		if is_same(node.get(key),record.spread_applied[key]) and not is_same(node.get(key),record.defaults[key]): result[key] = record.defaults[key]
 	return result

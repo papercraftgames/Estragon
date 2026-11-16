@@ -89,6 +89,26 @@ func run() -> void:
 	check(a.layout_size.y==0 and descendant.layout_size.y==0,"explicit self start removes old stretch percentage authority without churn")
 	entry.free()
 	await frames()
+	var minimum_entry := Entry.new()
+	minimum_entry.width = 100
+	minimum_entry.height = 50
+	minimum_entry.gap = 10
+	minimum_entry.horizontal_align = "space-between"
+	var native_first := Button.new()
+	var native_second := Button.new()
+	native_first.custom_minimum_size = Vector2(70,20)
+	native_second.custom_minimum_size = Vector2(20,20)
+	native_first.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	native_second.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	minimum_entry.add_child(native_first)
+	minimum_entry.add_child(native_second)
+	root.add_child(minimum_entry)
+	for extent in [100,120,80]:
+		minimum_entry.width = extent
+		await frames()
+		check(native_first.size.x==70 and native_second.size.x==(40 if extent==120 else 20) and native_second.position.x==80,"native Control floor/growth precedes distribution even under overflow width"+str(extent))
+	minimum_entry.free()
+	await frames()
 	var control := Button.new()
 	check(not "align_self" in control,"ordinary native Control receives no align_self API")
 	control.free()

@@ -66,7 +66,7 @@ Changing direction plus alignment in one desired description commits atomically.
 ```
 
 Physical names are canonical; no align-items/justify-content alias family.
-Space-between/around/evenly and per-child placement overrides remain #161.
+L08 below completes main-axis space-between/around/evenly and eligible2D align_self.
 Legacy `center` remains the older main-axis centering option (and takes precedence
 if explicitly true); new examples use physical-axis policies. No new native
 Control properties, out-of-flow mode, shrink/basis shorthand or CSS engine.
@@ -119,5 +119,66 @@ native Nodes do not acquire layout properties.
 The future compact template
 `header header, 64px\nsidebar main, 1fr\n\\ 220px 1fr` will parse to these same
 tracks and matrix before normalization. That text parser and track allocation,
-rendered Grid, Wrap and complete policies remain #163/#162/#161 respectively.
+rendered Grid and Wrap remain #163/#162; L08 below completes the bounded Box policies.
 There are no dormant public components pretending to implement them.
+
+## L08 — complete physical-axis distribution and child overrides
+
+[L08 #161](https://github.com/papercraftgames/Estragon/issues/161) extends the same
+Box/HBox/VBox properties and pure StackPolicy. Main X for row/HBox, main Y for
+column/VBox: start, center, end, space-between, space-around, space-evenly.
+Cross axis: start, center, end, stretch. Main stretch and cross space-* reject.
+HBox/VBox remain fixed presets; generic Box can change direction and both physical
+policies atomically through GGX. No justify/align/align-items/justify-content alias.
+
+Compute final requested/natural/minimum/grow/native-fill border-box extents first,
+including margins and base gap between adjacent items. Only remaining positive
+free space is distributed. Main grow consumes its allocation before any space-*
+calculation; distribution never allocates that space twice. Native fill keeps its
+existing minimum water-filling. Padding/border consume content once; margins stay
+outside each child. No integer rounding, shrink, clipping or negative placement.
+
+For300px content, three40px children and10px base gap, occupied140px leaves160px:
+
+| Main policy | Child positions relative to content origin |
+| --- | --- |
+| start | 0,50,100 |
+| center | 80,130,180 |
+| end | 160,210,260 |
+| space-between | 0,130,260 |
+| space-around | 26.6667,130,233.3333 |
+| space-evenly | 40,130,220 |
+
+The same table applies to Y for a column. Between adds extra inter-item gap only;
+around has half-sized outer added gaps; evenly has equal outer/inter-item added
+gaps. Base gap is never added at outer edges. Zero children produce no slots.
+One child: between=start, around/evenly=center. Overflow has zero distributable
+space, so all policies fall back to forward start placement and the normal gap.
+Legacy center=true still overrides the main physical policy to center; it cannot
+create leftover space after growth and does not affect cross alignment.
+
+Eligible Component2D descendants have align_self=auto (default), start, center,
+end or stretch. It overrides only the actual parent's cross axis. Explicit
+non-auto wins over old child stretch; auto uses an existing child stretch/fill
+request first, otherwise the parent's cross policy. Ordinary native Godot Controls
+participate in parent cross alignment/minimums without acquiring align_self.
+Public3D properties are unchanged. All cross stretching applies only to auto child
+axes; explicit percentage/fixed dimensions win, and authored/native minima remain
+floors. Outer margins are subtracted before cross placement; x/y remain additive
+post-slot offsets. Self stretch carries the existing definite percentage authority
+to descendants; explicit self start/end/center can remove the old stretch request.
+
+Nested Gogo hosts forward their managed root's align_self through the existing
+transparent layout bridge, without helper Nodes or duplicated positioning. Omitted
+previously authored GGX align_self restores auto on the retained Node, including
+spread removal. Native setters, compiler literals, complete-description preflight
+and the native enum Inspector use the same shared value matrix. Invalid directions,
+main/cross enum values and self values retain prior native/generated state; repaired
+source/Play recovers normally. Equal writes and idle frames do no layout polling,
+recomposition, length parsing or repainting.
+
+[AlignmentGallery](../examples/alignment/AlignmentGallery.tscn) demonstrates native
+HBox/VBox/Box, nested Gogo, styled Text/Rect/Estragon Button/Toggle, native Control,
+Dictionary spreads and explicit keyed/conditional children. Use explicit preload
+aliases; bare Button remains Godot's native Control. Wrap/Grid, absolute position,
+shrink/basis changes and style/theme APIs remain separately scoped.
