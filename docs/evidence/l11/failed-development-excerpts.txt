@@ -1,0 +1,321 @@
+Original development logs remain at the paths below. These are relevant exact excerpts, not relabeled passes.
+
+--- /tmp/l11-dev1.log ---
+L06_CHECK L11 transparent nested Gogo host forwards a live root minimum to parent allocation: true
+SCRIPT ERROR: Invalid access to property or key 'layout' on a base object of type 'Node2D (MinimumPanel.gd)'.
+          at: gallery (res://tests/lengths/minimums.gd:206)
+          GDScript backtrace (most recent call first):
+              [0] gallery (res://tests/lengths/minimums.gd:206)
+L06_CHECK L11 repaired minimum source resumes actual-path compilation: true
+L06_CHECK composition teardown releases all records: false
+L06_ASSERTIONS 235 failed=true
+
+
+--- /tmp/l11-vector-probe.log ---
+
+SCRIPT ERROR: Parse Error: Cannot find property "max" on base "Vector3".
+          at: GDScript::reload (res://vector_probe.gd:3)
+SCRIPT ERROR: Parse Error: Function "max()" not found in base Vector3.
+          at: GDScript::reload (res://vector_probe.gd:3)
+
+
+--- /tmp/l11-editor-dev.log ---
+
+SCRIPT ERROR: Parse Error: Used tab character for indentation instead of space as used before in the file.
+          at: GDScript::reload (res://app/generated/MinimumGallery.gd:62)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+
+Error: L06 build failed
+    at run (file:///repo/tools/check-lengths.ts:54:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:83:9
+
+--- /tmp/l11-editor-dev2.log ---
+L06_EDITOR_CHECK editor scene preserves transient managed view ownership: true
+L06_EDITOR_CHECK L11 native authored minimum editor opens: false
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+L06_EDITOR_CHECK L11 current real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_CHECK L11 repaired minimum source saves authored buffer before Play: false
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 31 failed=true
+file:///repo/tools/check-lengths.ts:54
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+                                                ^
+
+Error: L06 editor failed
+    at run (file:///repo/tools/check-lengths.ts:54:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:100:17
+
+--- /tmp/l11-editor-dev3.log ---
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:21)
+ERROR: Estragon length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:61)
+       [2] run (res://tests/lengths/rejections.gd:27)
+ERROR: app/MinimumGallery.gogo:19:17: invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:126)
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 243 failed=false
+L06_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+
+ERROR: Condition "p_enabled && addon_name_to_plugin.has(addon_path)" is true.
+   at: set_addon_plugin_enabled (editor/editor_node.cpp:4448)
+ERROR: Condition "p_enabled && addon_name_to_plugin.has(addon_path)" is true.
+   at: set_addon_plugin_enabled (editor/editor_node.cpp:4448)
+L06_EDITOR_CHECK native Inspector accepts and retains string unit: true
+L06_EDITOR_CHECK native Inspector length undo: true
+         [4] minimum_editor_proof (res://tests/lengths/editor.gd:197)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] minimum_editor_proof (res://tests/lengths/editor.gd:197)
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 32 failed=false
+L06_EDITOR_OK
+file:///repo/tools/check-lengths.ts:54
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+
+Error: L06 editor failed
+    at run (file:///repo/tools/check-lengths.ts:54:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:100:17
+
+--- /tmp/l11-final.log ---
+L06_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon length 'min_height': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: app/MinimumGallery.gogo:19:17: invalid length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+L06_EXPECTED_REJECTION_END
+L06_REJECTIONS_OK
+L06_CHECK composition teardown releases all records: true
+L06_ASSERTIONS 243 failed=false
+L06_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+L11_EXPECTED_PLAY_REJECTION_BEGIN
+ERROR: Resumed function 'minimum_editor_proof()' after await, but script is gone. At script: res://tests/lengths/editor.gd:194
+   at: resume (modules/gdscript/gdscript_function.cpp:233)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/MinimumGallery.gogo:21:82: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+ERROR: Disconnecting nonexistent signal 'process_frame', callable: GDScriptFunctionState::_signal_callback.
+   at: _disconnect (core/object/object.cpp:1331)
+L06_EDITOR_CHECK L11 invalid unsaved minimum blocks Play and retains generated bytes/maps/Script: false
+L11_EXPECTED_PLAY_REJECTION_END
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/MinimumGallery.gogo:21:82: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 32 failed=true
+file:///repo/tools/check-lengths.ts:54
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+                                                ^
+
+Error: L06 editor failed
+    at run (file:///repo/tools/check-lengths.ts:54:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:100:17
+
+--- /tmp/l11-editor40-repair.log ---
+
+Error: Release package requires clean source
+    at packAddon (file:///repo/tools/pack-addon.ts:11:43)
+    at file:///repo/tools/check-lengths.ts:56:24
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+
+--- /tmp/l11-editor40-repair2.log ---
+L11_EXPECTED_PLAY_REJECTION_BEGIN
+ERROR: Condition "!function" is true. Returning: Variant()
+   at: resume (modules/gdscript/gdscript_function.cpp:227)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/MinimumGallery.gogo:21:82: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+ERROR: Attempt to disconnect a nonexistent connection from '<SceneTree#22548579358>'. Signal: 'process_frame', callable: 'GDScriptFunctionState::_signal_callback'.
+   at: _disconnect (core/object/object.cpp:1327)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/MinimumGallery.gogo:21:82: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L06_EDITOR_CHECK L11 invalid unsaved minimum blocks Play and retains generated bytes/maps/Script: false
+L11_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+L06_EDITOR_CHECK L11 main real minimum layout/style/input/controlled edits at two sizes: true
+L06_EDITOR_ASSERTIONS 32 failed=true
+file:///repo/tools/check-lengths.ts:54
+            if (result.status !== 'PASS') throw Error('L06 ' + name + ' failed');
+                                                ^
+
+Error: L06 editor failed
+    at run (file:///repo/tools/check-lengths.ts:54:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-lengths.ts:100:17

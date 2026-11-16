@@ -19,9 +19,9 @@ for (const selection of options.engines) {
         });
         async function run(name: string, args: string[], marker?: string, env = box.env) {
             const logFile = path.join(out, name + '.log');
-            const negative = name === 'rejections';
+            const negative = name === 'rejections', editorStage = name.startsWith('editor');
             const result = await runCommand(args, name === 'install' ? box.project : box.workspace,
-                env, logFile, marker, {abortOnError: !negative, expectedErrors: negative, timeout: name.startsWith('editor') ? 120000 : 60000});
+                env, logFile, marker, {abortOnError: !negative && !editorStage, expectedErrors: negative || editorStage, timeout: name.startsWith('editor') ? 120000 : 60000});
             const log = fs.readFileSync(logFile, 'utf8');
             if (negative) {
                 let bracket = false, count = 0;
@@ -30,11 +30,23 @@ for (const selection of options.engines) {
                     if (line === 'L06_EXPECTED_REJECTION_BEGIN') bracket = true;
                     else if (line === 'L06_EXPECTED_REJECTION_END') bracket = false;
                     else if (ERROR.test(line)) {
-                        if (bracket && /^ERROR: Estragon length 'width': (Invalid length:|Expected a finite nonnegative length|Length requires int, float or a unit string)/.test(line)) count++;
+                        if (bracket && (/^ERROR: Estragon length '(width|min_width|min_height)': (Invalid length:|Expected a finite nonnegative length|Length requires int, float or a unit string|Length is negative, nonfinite or outside the supported range)/.test(line) || /^ERROR: (?:res:\/\/)?app\/MinimumGallery\.gogo:\d+:\d+: invalid length 'min_width': Invalid length:/.test(line))) count++;
                         else unexpected.push(line);
                     }
                 }
-                if (bracket || count !== 5 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
+                if (bracket || count !== 24 || unexpected.length) {result.status = 'FAIL'; result.reason = 'Unexpected native rejection output: '+JSON.stringify({count, unexpected});}
+            }
+            if (editorStage) {
+                let bracket=false,count=0,starts=0;const unexpected:string[]=[];
+                for (const line of log.split(/\r?\n/)) {
+                    if (line==='L11_EXPECTED_PLAY_REJECTION_BEGIN') {bracket=true;starts++;}
+                    else if (line==='L11_EXPECTED_PLAY_REJECTION_END') bracket=false;
+                    else if (ERROR.test(line)) {
+                        if (bracket && line==='ERROR: An EditorPlugin build callback failed.') count++;
+                        else unexpected.push(line);
+                    }
+                }
+                if (bracket || count!==starts || starts>1 || unexpected.length) {result.status='FAIL';result.reason='Unexpected editor diagnostics '+JSON.stringify({starts,count,unexpected});}
             }
             results[name] = result;
             writeJSON(path.join(out, 'results.json'), results);
@@ -59,6 +71,11 @@ for (const selection of options.engines) {
         fs.writeFileSync(path.join(box.project, 'app/Counter.gogo'),
             fs.readFileSync(path.join(ROOT, 'examples/counter/Counter.gogo'), 'utf8')
                 .replaceAll('../../../addons/estragon', path.posix.relative('app/generated', addon)));
+        for (const name of ['MinimumGallery','MinimumPanel']) {
+            fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),fs.readFileSync(path.join(ROOT,'examples/lengths',name+'.gogo'),'utf8')
+                .replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon))
+                +(name==='MinimumGallery'?'\nfunc _ready() -> void:\n    if OS.get_environment("L06_EDITOR")=="1": _l11_probe.call_deferred()\nfunc _l11_probe() -> void:\n    var probe = preload("res://tests/lengths/minimum_game.gd").new()\n    await probe.run(self)\n':''));
+        }
         writeJSON(path.join(box.project, 'gogo.config.json'), {version: 1, source_roots: ['app']});
         fs.writeFileSync(path.join(box.project, 'project.godot'), 'config_version=5\n[application]\nconfig/name="L06 unit lengths"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=1152\nwindow/size/viewport_height=648\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
         const args = [box.binary, '--audio-driver', 'Dummy', '--path', box.project];
@@ -94,7 +111,7 @@ for (const selection of options.engines) {
             for (const name of fs.readdirSync(box.project).filter(n => n.endsWith('.png') || n.endsWith('.json'))) {
                 fs.copyFileSync(path.join(box.project, name), path.join(out, name));
             }
-            for (const name of ['app/Home.tscn', '.godot/l06-game.json', '.godot/l07-game.json', '.godot/l07-root-game.json']) {
+            for (const name of ['app/Home.tscn', '.godot/l06-game.json', '.godot/l07-game.json', '.godot/l07-root-game.json', '.godot/l11-game.json']) {
                 const file = path.join(box.project, name);
                 if (fs.existsSync(file)) fs.copyFileSync(file, path.join(out, path.basename(name) + '.txt'));
             }

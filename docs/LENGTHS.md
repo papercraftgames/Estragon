@@ -40,7 +40,7 @@ value/type; `layout_size` and `requested_extent()` are derived layout outputs.
 
 `2.5in = 240px`, `12pt = 1pc = 16px`. Inches denote the CSS reference scale,
 not measured physical monitor inches. Font metrics (`em/rem/ex/ch`), `calc`,
-`min/max` and monitor-DPI modes are deferred. There is no general CSS parser.
+functional `min()/max()` and monitor-DPI modes are deferred. There is no general CSS parser.
 
 Grammar is case sensitive with lowercase units and `auto`. Outer whitespace is
 trimmed; no internal whitespace is allowed. Optional `+`/`-`, decimals including
@@ -175,3 +175,63 @@ L01 Box arithmetic and native Control interoperability remain in the same core.
 Eligible 2D participants use the same grammar/context for `border_width` and `border_top_width/right/bottom/left`. Uniform width rejects auto; sides default to auto and restore the local shorthand, independent of assignment order. Left/right percentages use containing width; top/bottom use height. Border plus padding lies inside explicit dimensions and is subtracted once for child content (300 minus borders2/4 and padding10/20 gives264 at X12). Margins stay outside. No new 3D border API. See [styling](STYLING.md).
 
 S02 hoists padding to Component2D. Button/Toggle uniform `padding="auto"` selects local14px horizontal/8px vertical defaults in the same core; numeric/unit shorthand replaces all four defaults, side auto follows shorthand. Other uniform padding domains still reject auto. No intrinsic text padding is added twice. See [widget styling](STYLING.md#s02--text-rect-button-and-toggle).
+
+## L11 — minimum 2D dimensions
+
+`min_width` and `min_height` are local outer border-box floors on Component2D
+and its Box/HBox/VBox, Entry2D, Text, Rect, Button/Toggle, Spacer and Native2D
+families. They accept the same nonnegative numeric pixels, physical/reference,
+percent and viewport unit strings as dimensions. Default `0` means no additional
+authored minimum. Explicit `"auto"` clears to effective zero and retains the
+authored String getter. GGX omission of a previously declared minimum resets
+that same retained Node to numeric zero. No max dimensions or new 3D fields ship.
+
+```gogo
+<VBox width="100%" min_width="280px" min_height="200px"
+      background_color="#252b38" border_width="2px" padding="12px">
+    <Text text="A readable minimum" min_width="120px" />
+    <UiButton text="Continue" width="50%" min_width="96px" min_height="36px" />
+</VBox>
+```
+
+Use ordinary explicit class aliases; bare Button is still Godot's native Control.
+[MinimumGallery](../examples/lengths/MinimumGallery.tscn) is a runnable source-authored
+example with nested Gogo composition, styled constrained Button, controlled Toggle
+and native Button. Native Controls continue using `custom_minimum_size` and native
+combined minimums; they do not acquire Estragon's two new fields.
+
+An explicit width80 with min_width120 allocates at least120. An intrinsic/auto
+preferred size also cannot go below the floor, while a larger intrinsic size is
+retained. Author order is irrelevant. Getters retain their independent authored
+specs: width stays80, min_width stays120; layout_size reflects the constrained
+allocation. Floors include padding/border, not margins. Resolve first, then clamp
+outer size, then subtract border+padding once for content. A120px clamped box with
+left/right border2/2 and padding10/20 gives86px content atX12. A100% child uses that
+content when the containing axis has the existing independent allocation authority.
+
+Minimum percentages use the immediate parent content axis; min_width uses X and
+min_height Y. Independent Entry2D uses its existing visible Viewport containing
+rectangle. Viewport/reference units share the sole resolver and saturation bound.
+A minimum alone does **not** turn an auto axis into an independent percentage
+reference: auto/cyclic descendant references still resolve to zero with the existing
+warning. Explicit dimensions or independently assigned grow/stretch allocation
+provide authority. This avoids iterative percentage/minimum cycles or frame churn.
+
+Parent-owned slots apply the combined floor in the existing StackPolicy. Ordinary
+grow starts from preferred sizes including minima, then shares remaining space;
+stretch also respects the floor. If the parent is too small, children preserve
+minima, margins, gaps and order and overflow forward. Definite parents do not grow
+implicitly, sizes do not become negative, and there is no CSS shrink or clipping.
+Native expand water-filling retains its existing behavior. Authored and native
+adapter floors combine by per-axis maximum, never by summing/overwriting them.
+Transparent Gogo hosts forward the managed root's effective floor without a second
+inset or new user fields. Native2D constrains its allocated slot only: native
+render/physics bounds are neither scaled nor stretched.
+
+Changed minima parse once and invalidate the affected branch through existing
+signals. Resize resolves references without rewriting properties, reparsing or
+recomposing Gogo. Equal writes and settled idle frames are quiet. Native setters,
+compiler literal validation, complete-description preflight and Inspector use the
+same grammar; invalid/negative/nonfinite/overlimit/type-invalid values preserve
+previous valid specs and geometry. Authored diagnostics/maps and actual-path
+publication rollback remain mandatory, with repaired editor/Play recovery.

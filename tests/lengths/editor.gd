@@ -70,6 +70,8 @@ func play(mode: String) -> void:
 func run() -> void:
 	if not await until(ready,"installed addon activates"): finish(); return
 	var prefs := interface.get_editor_settings()
+	prefs.set_setting("run/auto_save/save_before_running",false)
+	prefs.set_setting("text_editor/behavior/files/autosave_interval_secs",0)
 	if prefs.has_setting("run/window_placement/game_embed_mode"): prefs.set_setting("run/window_placement/game_embed_mode",-1)
 	interface.open_scene_from_path("res://app/Home.tscn")
 	await until(func(): return interface.get_edited_scene_root()!=null,"authored scene opens")
@@ -90,13 +92,13 @@ func run() -> void:
 			check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with("width")),"real CodeEdit completes the union length width property")
 			code.cancel_code_completion()
 			check(code.text==original and plugin._build_sources(),"native completion preserves valid source and installed imports/maps")
-			for fragment in ["<VBox horizontal_a","<VBox gro","<Spa"]:
+			for fragment in ["<VBox horizontal_a","<VBox gro","<Spa","<VBox min_w","<VBox min_h"]:
 				code.text = original+"\nfunc completion_probe():\n\treturn "+fragment
 				code.set_caret_line(code.get_line_count()-1)
 				code.set_caret_column(code.get_line(code.get_line_count()-1).length())
 				code.request_code_completion(true)
 				for frame in range(5): await get_tree().process_frame
-				var expected := "horizontal_align" if fragment.contains("horizontal") else ("grow" if fragment.contains("gro") else "Spacer")
+				var expected := "min_width" if fragment.contains("min_w") else ("min_height" if fragment.contains("min_h") else ("horizontal_align" if fragment.contains("horizontal") else ("grow" if fragment.contains("gro") else "Spacer")))
 				check(code.get_code_completion_options().any(func(item): return item.insert_text.begins_with(expected)),"L07A native CodeEdit completes "+expected)
 				code.cancel_code_completion()
 			code.text = original.replace("Hello World!","Unsaved unit view")
@@ -107,12 +109,13 @@ func run() -> void:
 		file.close()
 	await play("main")
 	check(interface.get_edited_scene_root().get_child_count()==1,"editor scene preserves transient managed view ownership")
+	await minimum_editor_proof()
 	RenderingServer.force_draw(false)
 	get_viewport().get_texture().get_image().save_png("res://editor.png")
 	finish()
-func inspector_field() -> EditorProperty:
+func inspector_field(name: String = "width") -> EditorProperty:
 	for node in interface.get_inspector().find_children("*","EditorProperty",true,false):
-		if node.get_edited_property()=="width" and node.get_script()!=null and node.get_script().resource_path=="res://addons/estragon/editor/length_property.gd": return node
+		if node.get_edited_property()==name and node.get_script()!=null and node.get_script().resource_path=="res://addons/estragon/editor/length_property.gd": return node
 	return null
 func inspector_proof() -> void:
 	var scene := interface.get_edited_scene_root()
@@ -136,9 +139,76 @@ func inspector_proof() -> void:
 		check(entry.width=="2.5in" and not field.input.tooltip_text.is_empty(),"invalid Inspector unit explains rejection and keeps valid spec")
 		RenderingServer.force_draw(false)
 		get_viewport().get_texture().get_image().save_png("res://inspector.png")
+	for name in ["min_width","min_height"]:
+		var field := inspector_field(name)
+		check(field!=null,"L11 native Inspector exposes "+name)
+		if field==null: continue
+		field.input.text_submitted.emit("50%")
+		for frame in range(5): await get_tree().process_frame
+		var manager := get_undo_redo()
+		var history := manager.get_history_undo_redo(manager.get_object_history_id(entry))
+		check(entry.get(name)=="50%" and history.undo() and entry.get(name)==0 and history.redo() and entry.get(name)=="50%","L11 minimum Inspector union edit/undo/redo "+name)
+		field = inspector_field(name)
+		field.input.text_submitted.emit("-1px")
+		check(entry.get(name)=="50%" and not field.input.tooltip_text.is_empty(),"L11 invalid minimum Inspector input retains valid value "+name)
+		field.input.text_submitted.emit("auto")
+		for frame in range(5): await get_tree().process_frame
+		check(entry.get(name)=="auto","L11 minimum Inspector auto clears local floor "+name)
+	RenderingServer.force_draw(false)
+	get_viewport().get_texture().get_image().save_png("res://minimum-inspector.png")
 	interface.inspect_object(scene)
 	scene.remove_child(entry)
 	entry.free()
+func minimum_code() -> CodeEdit:
+	for item in plugin._services.entries.values():
+		var code = item.code.get_ref()
+		if item.path=="res://app/MinimumGallery.gogo" and code!=null and code.is_visible_in_tree(): return code
+	return null
+func minimum_play(mode: String) -> void:
+	await settle()
+	var path := "res://.godot/l11-game.json"
+	if FileAccess.file_exists(path): DirAccess.remove_absolute(path)
+	if mode=="main": interface.play_main_scene()
+	else: interface.play_current_scene()
+	if await until(func(): return FileAccess.file_exists(path),"L11 actual minimum game proof"):
+		var result = JSON.parse_string(FileAccess.get_file_as_string(path))
+		check(result.clicks==2 and result.native==2 and result.edits==[true,false] and result.samples.all(func(item): return item.root and item.width==item.content/2 and item.height==36 and item.border),"L11 "+mode+" real minimum layout/style/input/controlled edits at two sizes")
+	interface.stop_playing_scene()
+	await until(func(): return not interface.is_playing_scene(),"L11 minimum game stops")
+func minimum_editor_proof() -> void:
+	var main = ProjectSettings.get_setting("application/run/main_scene")
+	interface.open_scene_from_path("res://app/MinimumGallery.tscn")
+	await until(func(): return interface.get_edited_scene_root()!=null and interface.get_edited_scene_root().scene_file_path=="res://app/MinimumGallery.tscn","L11 authored minimum scene opens")
+	await settle()
+	ProjectSettings.set_setting("application/run/main_scene","res://app/MinimumGallery.tscn")
+	if not FileAccess.file_exists("res://.godot/l11-tested"):
+		await plugin._navigation.open("res://app/MinimumGallery.gogo")
+		await until(func(): return minimum_code()!=null,"L11 authored minimum buffer associates")
+		await settle()
+		var code := minimum_code()
+		check(code!=null,"L11 native authored minimum editor opens")
+		if code!=null:
+			var original := code.text
+			var output := "res://app/generated/MinimumGallery.gd"
+			var bytes := FileAccess.get_file_as_bytes(output)
+			var maps := FileAccess.get_file_as_bytes(output+".map.json")
+			var cached = load(output)
+			print("L11_EXPECTED_PLAY_REJECTION_BEGIN")
+			code.text = original.replace('min_width="96px"','min_width="broken"')
+			interface.play_current_scene()
+			await get_tree().create_timer(0.8).timeout
+			check(not interface.is_playing_scene() and not plugin.last_report.get("ok",true),"L11 invalid unsaved minimum blocks Play")
+			check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps,"L11 failed Play retains generated bytes/maps")
+			check(load(output)==cached,"L11 failed Play retains cached Script identity")
+			print("L11_EXPECTED_PLAY_REJECTION_END")
+			code.text = original.replace("A readable minimum","Unsaved minimum")
+		await minimum_play("current")
+		check(FileAccess.get_file_as_string("res://app/MinimumGallery.gogo").contains("Unsaved minimum"),"L11 repaired minimum source saves authored buffer before Play")
+		var file := FileAccess.open("res://.godot/l11-tested",FileAccess.WRITE)
+		file.store_string("tested")
+		file.close()
+	await minimum_play("main")
+	ProjectSettings.set_setting("application/run/main_scene",main)
 func finish() -> void:
 	print("L06_EDITOR_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_EDITOR_OK")

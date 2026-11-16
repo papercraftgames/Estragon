@@ -1,0 +1,2 @@
+MinimumGallery sourceContent/generatedHash PASS
+MinimumPanel sourceContent/generatedHash PASS

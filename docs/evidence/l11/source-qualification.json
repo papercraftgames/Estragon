@@ -1,0 +1,29 @@
+{
+  "acceptance_source": "bc58f8628e3aaa178254182a7f9b3def7b6c8b75",
+  "regression_source": "0773b0ccfa82995b4262caabacfb2a5b8ff20b89",
+  "source_content_sha256": "d053a76b90230add972f77b79d4d6565d239a75308f971f3d333a5e7a4eff62e",
+  "tarball_sha256": "e6ada49ea32e1800d4d5aab635644bb559ac550b2cdf57c52370dd7806dbf954",
+  "identical_package_files": true,
+  "manifests": [
+    {
+      "path": "lengths/4.0.4/package-manifest.json",
+      "sourceHead": "bc58f8628e3aaa178254182a7f9b3def7b6c8b75",
+      "sourceDirty": false
+    },
+    {
+      "path": "lengths/4.7/package-manifest.json",
+      "sourceHead": "bc58f8628e3aaa178254182a7f9b3def7b6c8b75",
+      "sourceDirty": false
+    },
+    {
+      "path": "package/4.0.4/package-manifest.json",
+      "sourceHead": "0773b0ccfa82995b4262caabacfb2a5b8ff20b89",
+      "sourceDirty": false
+    },
+    {
+      "path": "package/4.7/package-manifest.json",
+      "sourceHead": "0773b0ccfa82995b4262caabacfb2a5b8ff20b89",
+      "sourceDirty": false
+    }
+  ]
+}

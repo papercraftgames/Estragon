@@ -113,6 +113,8 @@ func run() -> void:
 	await foundation.run(self)
 	var roots := preload("root_reference.gd").new()
 	await roots.run(self)
+	var minima := preload("minimums.gd").new()
+	await minima.run(self)
 	check(State.get("records").is_empty(),"composition teardown releases all records")
 	print("L06_ASSERTIONS ",checks," failed=",failed)
 	if not failed: print("L06_RUNTIME_OK")

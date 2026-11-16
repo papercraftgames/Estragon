@@ -332,6 +332,12 @@ func _apply(desired: Element, record: Mounted) -> void:
 				node.set(key,"auto")
 				writes += 1
 				if Profile.is_enabled(): Profile.add("property_writes")
+	if Length.registered(desired.type,"min_width"):
+		for key in Length.MINIMUMS:
+			if record.properties.has(key) and not desired.properties.has(key):
+				node.set(key,0.0)
+				writes += 1
+				if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])

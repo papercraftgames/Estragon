@@ -6,6 +6,7 @@ extends Node2D
 signal layout_applied(size: Vector2)
 const Coordinator = preload("internal/coordinator.gd")
 const ESTRAGON_LENGTHS := true
+const ESTRAGON_MINIMUMS_2D := true
 const VisualStyle = preload("internal/visual_style_2d.gd")
 var _visual_style = VisualStyle.new()
 const Length = preload("internal/length.gd")
@@ -75,6 +76,16 @@ var padding_left: Variant = "auto":
 	set(value):
 		if is_same(padding_left,value) or not lengths.assign("padding_left",value): return
 		padding_left = value
+		_changed()
+var min_width: Variant = 0.0:
+	set(value):
+		if is_same(min_width,value) or not lengths.assign("min_width",value): return
+		min_width = value
+		_changed()
+var min_height: Variant = 0.0:
+	set(value):
+		if is_same(min_height,value) or not lengths.assign("min_height",value): return
+		min_height = value
 		_changed()
 var width: Variant = "auto":
 	set(value):
@@ -146,7 +157,7 @@ var layout_size: Vector2:
 var _layout_size := Vector2.ZERO
 var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry() else Coordinator.Mode.PARTICIPANT)
 func _get_property_list() -> Array[Dictionary]:
-	var properties := Length.properties(["width","height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
+	var properties := Length.properties(["width","height","min_width","min_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
 	return properties
 static func valid_length(value) -> bool:
