@@ -1,0 +1,8 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+func build_view() -> Element:
+    return <VBox name="Body" width="100%" min_width="150px" min_height="40px" padding="6px" background_color="#30394d">
+        <Text text="Nested minimum, retained native nodes" font_size={16} />
+    </VBox>

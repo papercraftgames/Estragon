@@ -29,9 +29,8 @@ func apply_layout_position(offset: Vector3) -> void:
 	position = Vector2(value.x, value.y)
 
 func apply_layout_size(size: Vector3) -> void:
-	_layout_size = Vector2(size.x, size.y)
-	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
-	layout_applied.emit(_layout_size)
+	# Preserve bounds-aware placement through the inherited native size/redraw hook.
+	super.apply_layout_size(size)
 
 func get_native_bounds() -> Rect2:
 	return Rect2(Vector2(bounds.origin.x, bounds.origin.y), Vector2(bounds.extent.x, bounds.extent.y))

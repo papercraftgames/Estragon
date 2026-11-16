@@ -221,5 +221,12 @@ func build_view() -> Element:
 		scene.pack(footer)
 		ResourceSaver.save(scene,"res://app/Footer.tscn")
 		footer.free()
+		var minimum := Node2D.new()
+		minimum.name = "MinimumGallery"
+		minimum.set_script(load("res://app/generated/MinimumGallery.gd"))
+		var minimum_scene := PackedScene.new()
+		minimum_scene.pack(minimum)
+		ResourceSaver.save(minimum_scene,"res://app/MinimumGallery.tscn")
+		minimum.free()
 		print("L06_BUILD_OK")
 	quit(0 if result.ok else 1)

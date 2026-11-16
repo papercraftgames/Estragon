@@ -30,6 +30,8 @@ var fill := Vector3.ZERO
 var intrinsic := Vector3.ZERO
 # Native Control minimums constrain assigned slots, never read back from size.
 var allocation_minimum := Vector3.ZERO
+# Authored border-box floors are independent of native adapter minimums.
+var authored_minimum := Vector3.ZERO
 var padding := Vector4.ZERO # left, top, right, bottom; border-box insets
 var border := Vector4.ZERO # inside the border-box, before padding
 var margin := Vector4.ZERO # outside own geometry; consumed by the parent
@@ -108,23 +110,35 @@ func prepare(reference: Vector3, viewport: Vector2) -> void:
 	if _length_context==context: return
 	_length_context = context
 	resolution_count += 1
-	var before := [requested,gap,padding,border,margin,length_offset]
+	var before := [requested,gap,padding,border,margin,length_offset,authored_minimum]
 	if not length_specs.is_empty():
 		for index in range(3):
 			requested[index] = _length(["width","height","depth"][index],index,requested[index])
 			length_offset[index] = _length(["x","y","z"][index],index,0)
+		authored_minimum = Vector3(maxf(0,_length("min_width",0,0)),maxf(0,_length("min_height",1,0)),0)
 		gap = _length("gap",axis,0)
 		padding = _edges("padding")
 		border = _edges("border")
 		margin = _edges("margin")
-	if before!=[requested,gap,padding,border,margin,length_offset]:
+	if before!=[requested,gap,padding,border,margin,length_offset,authored_minimum]:
 		_measure_dirty = true
 		_arrange_dirty = true
+
+func minimum() -> Vector3:
+	var result := authored_minimum
+	var inherited: Vector3 = children[0].minimum() if transparent and children.size()==1 else Vector3.ZERO
+	for index in range(3): result[index] = maxf(result[index],maxf(allocation_minimum[index],inherited[index]))
+	return result
+
+func constrain(extent: Vector3) -> Vector3:
+	var floor := minimum()
+	for index in range(3): extent[index] = maxf(extent[index],floor[index])
+	return extent
 
 func _content_basis() -> Vector3:
 	var basis := Vector3(-1,-1,-1)
 	for index in range(3):
-		if requested[index]>=0: basis[index] = maxf(0,requested[index]-leading(padding+border)[index]-trailing(padding+border)[index])
+		if requested[index]>=0: basis[index] = maxf(0,maxf(requested[index],minimum()[index])-leading(padding+border)[index]-trailing(padding+border)[index])
 	return basis
 
 static func valid_extent(value: Vector3) -> bool:
@@ -215,6 +229,7 @@ func measure() -> Vector3:
 	measured = natural
 	for axis in range(3):
 		if requested[axis] >= 0: measured[axis] = requested[axis]
+	measured = constrain(measured)
 	_measure_dirty = false
 	return measured
 
@@ -227,6 +242,7 @@ func independent_axis(index: int) -> bool:
 	return parent.independent_axis(index) if requested[index] < 0 and (fill[index] > 0 or (grow>0 if index==parent.axis else stretch>0)) else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
+	available = constrain(available)
 	_external_axes = external_axes
 	_warn_unanchored()
 	var content := available-leading(padding+border)-trailing(padding+border)
@@ -280,7 +296,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				break
 	var items: Array = []
 	for child in children:
-		items.append({"preferred":child.measured,"minimum":child.allocation_minimum,"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
+		items.append({"preferred":child.measured,"minimum":child.minimum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin)})
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"
 	slots = StackPolicy.slots(items,content,axis,gap,policy)
