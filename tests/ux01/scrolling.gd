@@ -21,9 +21,9 @@ func run():
 	root.add_child(host)
 	await frames()
 	var scroll = host.get_node("UI/Scroll")
-	var list = scroll.get_content_root()
-	check(scroll.scroll_range==Vector2(0,600) and list.layout_size.y==900,"900 content /300 viewport =600 range")
-	var native = list.get_node("Middle")
+	var list = scroll
+	check(scroll.scroll_range==Vector2(0,600) and scroll.content_extent.y==900,"900 content /300 viewport =600 range")
+	var native = list.get_layout_child("Middle")
 	click(Vector2(40,350))
 	await frames()
 	check(host.clicks==0,"offviewport native Button cannot activate")

@@ -34,6 +34,8 @@ var grid_config: Dictionary = {}
 var grid_definition: Dictionary = {}
 var policy_result: Dictionary = {}
 var strategy := "stack"
+# Viewport decoration; never replaces Stack/Wrap/Grid.
+var scroll_axes := Vector2.ZERO
 var align_content := "start"
 var physical_gaps := Vector2.ZERO
 var gap: float = 0.0
@@ -97,6 +99,11 @@ func set_strategy(value: String, content_alignment: String = "start", config: Di
 	grid_definition = {}
 	strategy = value
 	align_content = content_alignment
+	invalidate()
+
+func set_scroll_axes(value: Vector2) -> void:
+	if scroll_axes==value: return
+	scroll_axes = value
 	invalidate()
 
 func set_policy(values: Array) -> void:
@@ -165,7 +172,7 @@ func prepare(reference: Vector3, viewport: Vector2) -> void:
 		padding = _edges("padding")
 		border = _edges("border")
 		margin = _edges("margin")
-	if before!=[requested,gap,physical_gaps,padding,border,margin,length_offset,authored_minimum]:
+	if before!=[requested,gap,physical_gaps,padding,border,margin,length_offset,authored_minimum,authored_maximum]:
 		_measure_dirty = true
 		_arrange_dirty = true
 
@@ -196,9 +203,8 @@ func _content_basis() -> Vector3:
 	for index in range(3):
 		var allocated: float = constrain(requested)[index] if requested[index]>=0 else measurement_allocation[index]
 		if allocated>=0: basis[index] = maxf(0,maxf(allocated,minimum()[index])-leading(padding+border)[index]-trailing(padding+border)[index])
-	if strategy=="scroll":
-		for index in range(2):
-			if grid_config.get(["horizontal_scroll","vertical_scroll"][index],false): basis[index] = -1
+	for index in range(2):
+		if scroll_axes[index]>0: basis[index] = -1
 	return basis
 
 static func valid_extent(value: Vector3) -> bool:
@@ -267,7 +273,7 @@ func outer_extent() -> Vector3:
 func track_contribution() -> Vector3:
 	if transparent and children.size()==1: return children[0].track_contribution()
 	var result := measured
-	if strategy=="wrap" and requested[axis]<0:
+	if strategy=="wrap" and scroll_axes[axis]==0 and requested[axis]<0:
 		result[axis] = intrinsic[axis]
 		for child in children: result[axis] = maxf(result[axis],maxf(child.measured[axis],child.minimum()[axis])+child.outer_extent()[axis])
 		result[axis] += leading(padding+border)[axis]+trailing(padding+border)[axis]
@@ -314,10 +320,10 @@ func set_capacity(value: Vector3) -> void:
 
 func _wrap_basis() -> Vector3:
 	var basis := _content_basis()
-	if strategy=="wrap" and requested[axis]<0 and basis[axis]<0 and available_capacity[axis]>=0:
+	if strategy=="wrap" and scroll_axes[axis]==0 and requested[axis]<0 and basis[axis]<0 and available_capacity[axis]>=0:
 		basis[axis] = maxf(0,available_capacity[axis]-leading(padding+border)[axis]-trailing(padding+border)[axis])
 	var cap := maximum()
-	if strategy=="wrap" and cap[axis]>=0:
+	if strategy=="wrap" and scroll_axes[axis]==0 and cap[axis]>=0:
 		var available := maxf(0,maxf(cap[axis],minimum()[axis])-leading(padding+border)[axis]-trailing(padding+border)[axis])
 		basis[axis] = minf(basis[axis],available) if basis[axis]>=0 else available
 	return basis
@@ -326,7 +332,7 @@ func measure_allocated(extent: Vector3, authority: Vector3) -> void:
 	if transparent and children.size()==1:
 		children[0].measure_allocated(extent,authority)
 		_measure_dirty = true
-	elif strategy in ["wrap","grid","scroll"]:
+	elif strategy in ["wrap","grid"] or scroll_axes!=Vector2.ZERO:
 		var next := measurement_allocation
 		for index in range(2):
 			if requested[index]<0 and authority[index]>0: next[index] = extent[index]
@@ -336,17 +342,9 @@ func measure_allocated(extent: Vector3, authority: Vector3) -> void:
 	else: return
 	measure()
 
-func _scroll_slots(items: Array, content: Vector3) -> Array:
-	var result: Array = []
-	for item in items:
-		var extent: Vector3 = item.preferred
-		for index in range(2):
-			if not grid_config.get(["horizontal_scroll","vertical_scroll"][index],false) and content[index]>=0 and item.requested[index]<0: extent[index] = maxf(item.minimum[index],content[index]-item.outer[index])
-		extent = StackPolicy.limit_extent(extent,item)
-		result.append({"position":item.leading-leading(padding+border),"extent":extent})
-	return result
-
 func overflow_extent() -> Vector3:
+	# Ancestors see the clipped participant's viewport, not its hidden content.
+	if scroll_axes!=Vector2.ZERO: return size
 	var result := size
 	for index in range(3): result[index] = maxf(result[index],natural_extent[index])
 	for child in children:
@@ -355,7 +353,6 @@ func overflow_extent() -> Vector3:
 	return result
 
 func _slots(items: Array, content: Vector3, definite: Vector3) -> Array:
-	if strategy=="scroll": return _scroll_slots(items,content)
 	if strategy=="grid": return _grid(items,content).slots
 	if strategy=="wrap": return WrapPolicy.layout(items,content,axis,physical_gaps,alignment,align_content,Vector2(definite.x,definite.y)).slots
 	return StackPolicy.slots(items,content,axis,physical_gaps[axis] if axis<2 and not length_specs.is_empty() else gap,alignment)
@@ -363,10 +360,8 @@ func _slots(items: Array, content: Vector3, definite: Vector3) -> Array:
 func _authority(child, item: Dictionary, basis: Vector3) -> Vector3:
 	var authority := Vector3.ZERO
 	for index in range(3):
-		if basis[index]<0 or child.requested[index]>=0: continue
-		if strategy=="scroll":
-			if index<2 and not grid_config.get(["horizontal_scroll","vertical_scroll"][index],false): authority[index] = 1
-		elif strategy=="grid":
+		if basis[index]<0 or child.requested[index]>=0 or index<2 and scroll_axes[index]>0: continue
+		if strategy=="grid":
 			if index<2 and alignment[index]=="stretch": authority[index] = 1
 		elif index==axis:
 			if child.grow>0 or child.fill[index]>0: authority[index] = 1
@@ -435,12 +430,12 @@ func measure() -> Vector3:
 # ignore this model's intrinsic extent and can inherit an independent basis.
 func independent_axis(index: int) -> bool:
 	if requested[index] >= 0 or _external_axes[index] > 0: return true
-	if strategy=="scroll" and maximum()[index]>=0: return true
+	if index<2 and scroll_axes[index]>0 and maximum()[index]>=0: return true
 	var parent = _parent.get_ref() if _parent != null else null
 	if parent == null: return false
 	var allocated := grow>0 or fill[index]>0
 	if index!=parent.axis: allocated = StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
-	if parent.strategy=="scroll" and index<2: allocated = not parent.grid_config.get(["horizontal_scroll","vertical_scroll"][index],false)
+	if index<2 and parent.scroll_axes[index]>0: return false
 	if parent.strategy=="grid" and index<2: allocated = parent.alignment[index]=="stretch"
 	return parent.independent_axis(index) if requested[index] < 0 and allocated else false
 
@@ -453,6 +448,8 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	for index in range(3):
 		content[index] = maxf(0,content[index])
 		if independent_axis(index): reference[index] = content[index]
+	for index in range(2):
+		if scroll_axes[index]>0: reference[index] = -1
 	var changed: bool = reference != content_reference
 	if not _arrange_dirty and size == available and not changed: return
 	content_reference = reference
@@ -488,9 +485,6 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	# immediate children against this box before measuring their slots.
 	for child in children:
 		var child_reference := reference
-		if strategy=="scroll":
-			for index in range(2):
-				if grid_config.get(["horizontal_scroll","vertical_scroll"][index],false): child_reference[index] = -1
 		child.prepare(child_reference,viewport_size)
 		child.measure()
 	if not _reported_full_percent and children.size()>1:
@@ -501,16 +495,17 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				_reported_full_percent = true
 				push_warning("Estragon "+main_name+"=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space")
 				break
+	var layout_content := content
+	for index in range(2):
+		if scroll_axes[index]>0: layout_content[index] = maxf(content[index],natural_extent[index]-leading(padding+border)[index]-trailing(padding+border)[index])
 	var items := _items()
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"
-	if strategy=="scroll":
-		slots = _scroll_slots(items,content)
-	elif strategy=="wrap":
+	if strategy=="wrap":
 		var wrap_basis := _wrap_basis()
-		slots = WrapPolicy.layout(items,content,axis,physical_gaps,policy,align_content,Vector2(1 if reference.x>=0 or axis==0 and wrap_basis.x>=0 else 0,1 if reference.y>=0 or axis==1 and wrap_basis.y>=0 else 0)).slots
+		slots = WrapPolicy.layout(items,layout_content,axis,physical_gaps,policy,align_content,Vector2(1 if reference.x>=0 or axis==0 and wrap_basis.x>=0 else 0,1 if reference.y>=0 or axis==1 and wrap_basis.y>=0 else 0)).slots
 	else:
-		slots = StackPolicy.slots(items,content,axis,physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap,policy)
+		slots = StackPolicy.slots(items,layout_content,axis,physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap,policy)
 	if strategy=="grid":
 		policy_result = _grid(items,reference)
 		if policy_result.has("error"): return
@@ -526,6 +521,14 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 		for cross in range(3):
 			if strategy=="grid" and cross<2 and policy[cross]=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
 			elif strategy!="grid" and cross!=axis and StackPolicy.cross_alignment(items[index],policy[cross],cross)=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
-		if strategy=="scroll": authority = _authority(child,items[index],reference)
+		for scrolling_axis in range(2):
+			if scroll_axes[scrolling_axis]>0: authority[scrolling_axis] = 0
 		child.arrange(slot.extent,authority)
 	arranged.emit(size)
+
+func content_extent() -> Vector2:
+	var extent := Vector3.ZERO
+	for child in children:
+		var end: Vector3 = child.offset+child.overflow_extent()+trailing(child.margin)-leading(padding+border)
+		for index in range(2): extent[index] = maxf(extent[index],end[index])
+	return Vector2(extent.x,extent.y)

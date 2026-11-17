@@ -2,7 +2,7 @@ extends SceneTree
 const State = preload("res://addons/estragon/runtime/composition/state.tres")
 class CountHost extends Node2D:
 	const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-	const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
+	const Scroll = preload("res://addons/estragon/runtime/node/vbox.gd")
 	const Box = preload("res://addons/estragon/runtime/node/box.gd")
 	const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 	var count := 1
@@ -41,14 +41,14 @@ func run():
 	host.extra = {}
 	await frames()
 	check(scroll.max_width=="auto" and scroll.layout_size==before,"omitted max resets auto and repairs")
-	var list = scroll.get_content_root()
-	var native_id: int = list.get_node("NativeRow").get_instance_id()
+	var list = scroll
+	var native_id: int = list.get_layout_child("NativeRow").get_instance_id()
 	host.show_overflow = false
 	await frames()
-	check(not host.has_node("UI/Content/Overflow") and list.get_node("NativeRow").get_instance_id()==native_id,"conditional removal retains sibling content")
+	check(not host.has_node("UI/Content/Overflow") and list.get_layout_child("NativeRow").get_instance_id()==native_id,"conditional removal retains sibling content")
 	host.show_overflow = true
 	await frames()
-	check(host.has_node("UI/Content/Overflow") and list.get_node("NativeRow").get_instance_id()==native_id,"conditional restoration retains sibling content")
+	check(host.has_node("UI/Content/Overflow") and list.get_layout_child("NativeRow").get_instance_id()==native_id,"conditional restoration retains sibling content")
 	host.free()
 	await frames()
 	var counts := CountHost.new()
@@ -66,13 +66,11 @@ func run():
 	State.records[counts.get_instance_id()].schedule()
 	await frames()
 	check(saved.scroll_offset==Vector2(0,750),"offset-first attributes restore against enlarged new range")
-	for invalid in [0,2,-1]:
-		print("UX01_EXPECTED_BEGIN")
-		counts.count = invalid
+	for count in [0,2]:
+		counts.count = count
 		State.records[counts.get_instance_id()].schedule()
 		await frames()
-		print("UX01_EXPECTED_END")
-		check(counts.get_node("UI/Scroll")==saved and saved.get_content_root()!=null,"zero/multiple/unbounded roots reject before native commit: "+str(invalid))
+		check(counts.get_node("UI/Scroll")==saved and saved.get_layout_children().size()==count,"zero/multiple direct children keep container and normal policy: "+str(count))
 	counts.free()
 	await frames()
 	check(State.records.is_empty(),"composition subscriptions and records released")

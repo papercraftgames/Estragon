@@ -134,7 +134,7 @@ restart. Use the approved engines and genuine direct-Yarn node_modules consumer;
 [Exact commands, source qualification and retained failures](evidence/L0910_RESPONSIVE_GRID.md).
 This is a focused local acceptance tool, not an added routine CI job or full73 gate.
 
-## UX01 combined native acceptance
+## UX01/U02 combined native acceptance
 
 From a clean committed branch, run under Linux Xvfb/software graphics with the
 same two approved binaries (absolute output directory must be new):
@@ -143,7 +143,9 @@ same two approved binaries (absolute output directory must be new):
 COREPACK_ENABLE_PROJECT_SPEC=0 corepack yarn@1.22.22 node --experimental-strip-types tools/check-ux01.ts --engine 4.0.4=/absolute/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/Godot_v4.7-stable_linux.x86_64 --editor --output /absolute/new-ux01-evidence
 ```
 
-The collector packs identical immutable addon bytes, installs by actual direct
+U02 extends this same harness with inherited direct-child VBox/HBox/Grid/Entry,
+flag toggles, scaled native bar/capture input, logical child lookup and removal
+of obsolete public wrapper identifiers. The collector packs identical immutable addon bytes, installs by actual direct
 Yarn node_modules, runs focused syntax/layout/native/rendered input and gallery
 checks, and optionally real isolated editor Inspector/undo/both Play paths/source
 repair/restart. It audits installed package hashes/UIDs after editor shutdown.

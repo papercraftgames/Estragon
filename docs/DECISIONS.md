@@ -457,6 +457,9 @@ GridDefinition is the sole count/Length/fr/area/template/placement normalization
 
 ## ADR-0026 — native GGX ergonomics, capacity ceilings and opt-in scrolling
 
+**Historical scroll-wrapper decision superseded by ADR-0027/U02 #185.** Other
+GGX/Bool/max/capacity decisions remain operative.
+
 Owner-approved UX01 [#183](https://github.com/papercraftgames/Estragon/issues/183)
 combines #178/#180/#127/#179/#181 after merged Wrap/Grid PR #177 (`efea57d`).
 [Normative contract](UX01.md). Bare Bool and String body syntax are AST-based
@@ -480,3 +483,19 @@ and [official4.0.4 BaseButton source](https://github.com/godotengine/godot/blob/
 explain the tested bridge. Private helper ancestry persists only as necessary for
 owned native scene content; generated descriptions remain transient. No second
 reactive/layout system, universal overflow property or user-object metadata.
+
+## ADR-0027 — inherited 2D scrolling as an orthogonal native capability
+
+Owner-approved [U02 #185](https://github.com/papercraftgames/Estragon/issues/185),
+after merged UX01 PR #184 (`6b1de97`), removes the public ScrollView component
+and its one-root/scroll-only strategy. [Normative contract](SCROLLING.md).
+Component2D centralizes typed scroll properties and lazy private native mechanics;
+ordinary direct children retain Stack/Wrap/Grid slots, style, native ownership
+and actual input. Independent core scroll axes separate viewport allocation from
+natural content extent without another solver. Private physical ancestry has
+logical child/name accessors; no fake Node parent APIs or Control/3D retrofit.
+Native bars append after clip content in SceneTree GUI order; Entry explicitly
+chains scrolling and pointer routing. Existing native capture guard persists.
+Disabled helpers stay attached/inert for stable focus and reuse; never-enabled
+components allocate none. Historical UX01 proof stays truthful and superseded.
+This is an intentional beta API break, not release/version/publication work.

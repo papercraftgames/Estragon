@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://examples/ux01/generated/InheritedScrolling.gd" id="1_b232r"]
+
+[node name="InheritedScrolling" type="Node2D" unique_id=1311885435]
+script = ExtResource("1_b232r")

@@ -1,6 +1,6 @@
 extends SceneTree
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
+const Scroll = preload("res://addons/estragon/runtime/node/vbox.gd")
 const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Button2D = preload("res://addons/estragon/runtime/node/button.gd")
 var failed := false

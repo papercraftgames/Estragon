@@ -13,7 +13,7 @@ func run():
 	host = load("res://ux01-packed.tscn").instantiate()
 	root.add_child(host)
 	for i in range(8): await process_frame
-	ok = ok and host.has_node("UI/Content/Scroll") and host.get_node("UI/Content/Scroll").get_content_root()!=null
+	ok = ok and host.has_node("UI/Content/Scroll") and host.get_node("UI/Content/Scroll").get_layout_children().size()>0
 	host.free()
 	for i in range(8): await process_frame
 	ok = ok and preload("res://addons/estragon/runtime/composition/state.tres").records.is_empty()

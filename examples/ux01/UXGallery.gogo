@@ -4,7 +4,6 @@ const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
-const ScrollView = preload("../../../addons/estragon/runtime/node/scroll_view.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
@@ -34,8 +33,8 @@ func build_view() -> Element:
 				<UiButton name="Custom" pressed={pressed}>Estragon</UiButton>
 			</HBox>
 			{<HBox key="overflow" name="Overflow" width="500px" max_width="180px" height="26px" align_self="start"><Text width="240px" height="26px" background_color="#477dbb">Visible overflow</Text></HBox> if self.show_overflow else null}
-			<ScrollView name="Scroll" width="100%" height="30vh" max_height="380px" vertical_scroll {...panel} {...self.extra}>
-				<VBox name="List" width="100%" horizontal_align="stretch">{self.order.map(row)}</VBox>
-			</ScrollView>
+			<VBox name="Scroll" horizontal_align="stretch" width="100%" height="30vh" max_height="380px" vertical_scroll {...panel} {...self.extra}>
+				{self.order.map(row)}
+			</VBox>
 		</VBox>
 	</Entry2D>

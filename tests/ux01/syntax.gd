@@ -8,7 +8,7 @@ func check(ok: bool, label: String):
 func _initialize(): run.call_deferred()
 func run():
 	var head := 'extends Node2D\nconst Text=preload("res://addons/estragon/runtime/node/text.gd")\nconst HBox=preload("res://addons/estragon/runtime/node/hbox.gd")\nfunc view(): return '
-	for body in ['<HBox width />','<HBox imaginary />','<Button pressed />','<Button key />','<Button bind:value />','<Button disabled disabled={false} />','<Text text="x">body</Text>','<HBox>bad text</HBox>','<Text>Mixed<Button>Child</Button></Text>','<Text>{42}</Text>','<Text>{true}</Text>','<Text>unclosed','<Text></Button>','<Text>{"unfinished"</Text>']:
+	for body in ['<Node3D vertical_scroll />','<Control horizontal_scroll />','<Button vertical_scroll />','<HBox width />','<HBox imaginary />','<Button pressed />','<Button key />','<Button bind:value />','<Button disabled disabled={false} />','<Text text="x">body</Text>','<HBox>bad text</HBox>','<Text>Mixed<Button>Child</Button></Text>','<Text>{42}</Text>','<Text>{true}</Text>','<Text>unclosed','<Text></Button>','<Text>{"unfinished"</Text>']:
 		var result = Compiler.compile(head+body,"negative.gogo")
 		check(not result.ok and not result.diagnostics.is_empty() and result.diagnostics[0].source_name=="negative.gogo" and result.diagnostics[0].span.start.index>=head.length(),"source-located strict negative "+body)
 	check(Compiler.compile(head+'<Text>{"Line\\nTwo"}</Text>',"newline.gogo").ok,"explicit GDScript newline String interpolation compiles")

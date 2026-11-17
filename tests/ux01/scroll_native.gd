@@ -1,6 +1,6 @@
 extends SceneTree
 const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
-const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
+const Scroll = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Box = preload("res://addons/estragon/runtime/node/box.gd")
 const Rect = preload("res://addons/estragon/runtime/node/rect.gd")
 var native_hits := 0
@@ -123,7 +123,7 @@ func run():
 	standalone = load("res://ux01-scroll-pack.tscn").instantiate()
 	root.add_child(standalone)
 	await frames()
-	check(standalone.get_content_root()!=null,"native persistent root survives pack/reload")
+	check(standalone.get_layout_child("PersistentContent")!=null,"native persistent root survives pack/reload")
 	standalone.free()
 	await frames()
 	if not failed: print("UX01_NATIVE_SCROLL_OK")

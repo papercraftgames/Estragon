@@ -168,3 +168,10 @@ Interpolation requires String, with explicit `str(value)` for other types.
 spreads retain precedence; text-body versus explicit/spread text conflicts and
 invalid complete descriptions reject before commit. [Whitespace, validation and
 examples](UX01.md#ggx-text-and-boolean-syntax).
+
+### U02 inherited scrolling
+
+`<VBox vertical_scroll>` and `<Grid vertical_scroll>` use the same writable native
+Bool metadata as other attributes, with normal direct Element children.
+The obsolete UX01 ScrollView public class/script and one-root rule are removed.
+[Current properties and intentional source migration](SCROLLING.md).

@@ -2,7 +2,6 @@ extends Node2D
 const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
 const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
-const ScrollView = preload("../../../addons/estragon/runtime/node/scroll_view.gd")
 const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 @bindable var enabled: bool = false
@@ -10,11 +9,9 @@ var clicks: int = 0
 func pressed(): clicks += 1
 func build_view() -> Element:
 	return <Entry2D name="UI" width="100%" height="100%" padding="20px" background_color="#171b24">
-		<ScrollView name="Scroll" width="300px" height="300px" vertical_scroll background_color="#252b38">
-			<VBox name="List" width="100%">
+		<VBox horizontal_align="stretch" name="Scroll" width="300px" height="300px" vertical_scroll background_color="#252b38">
 				<UiButton name="First" height="300px" pressed={pressed}>First</UiButton>
 				<Button name="Middle" custom_minimum_size={Vector2(0,300)} pressed={pressed}>Native middle</Button>
 				<Toggle name="Last" height="300px" bind:value={self.enabled}>Last</Toggle>
-			</VBox>
-		</ScrollView>
+		</VBox>
 	</Entry2D>

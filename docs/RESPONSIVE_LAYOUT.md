@@ -167,4 +167,5 @@ focused mathematical, native, actual-path, direct-Yarn graphics/editor verificat
 An auto main-axis Wrap can use definite immediate-parent capacity to break lines
 without an authored width/height. Short groups retain natural size; this ceiling
 does not confer percentage authority. Ordinary overflow remains visible. Maxima
-and ScrollView use the same core and parent slot policies. [Contract](UX01.md).
+and inherited Component2D scrolling use the same core and parent slot policies.
+Scrolling decorates Stack/Wrap/Grid rather than replacing their strategy. [Contract](SCROLLING.md).
