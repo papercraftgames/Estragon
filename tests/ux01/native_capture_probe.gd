@@ -25,7 +25,7 @@ func run():
 	for i in range(5): await process_frame
 	print("NATIVE_CAPTURE pressed=",pressed)
 	clip.free()
-	# This is the unguarded native-engine limitation, not the ScrollView gate.
+	# This is the unguarded native-engine limitation, not the scrolling component gate.
 	# scroll_native.gd proves the product's scoped guard prevents activation.
 	if pressed==1: print("UX01_NATIVE_CAPTURE_LIMITATION_CONFIRMED")
 	quit(0 if pressed==1 else 1)

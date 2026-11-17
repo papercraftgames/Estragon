@@ -176,9 +176,8 @@ Grid allocates tracks, spans and named areas with the same native participants,
 Control adapter, visual style, Length/core and input pipeline.
 [Public Wrap/Grid contract](RESPONSIVE_LAYOUT.md) and [gallery](../examples/responsive/ResponsiveGallery.tscn).
 
-### UX01 ScrollView and maximum dimensions
+### U02 inherited scrolling and maximum dimensions
 
-Native `runtime/node/scroll_view.gd` adds opt-in viewport clipping, natural content
-ranges and transform-only scrolling around exactly one authored root. Component2D
-max_width/max_height bound only the owner; normal overflow stays visible.
-[Public APIs, native helper/ownership and input contract](UX01.md).
+Component2D descendants inherit opt-in horizontal/vertical scrolling over their
+normal child layout policy. Maxima cap only the owner; default overflow remains
+visible. [API, native helper/ownership/input and obsolete wrapper migration](SCROLLING.md).

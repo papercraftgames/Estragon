@@ -108,26 +108,41 @@ func inspector_field(property: String) -> EditorProperty:
 	return null
 func inspector_proof() -> void:
 	var scene := interface.get_edited_scene_root()
-	var node = preload("res://addons/estragon/runtime/node/scroll_view.gd").new()
+	var entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd").new()
+	entry.width = 400
+	entry.height = 400
+	scene.add_child(entry)
+	entry.owner = scene
+	var node = preload("res://addons/estragon/runtime/node/vbox.gd").new()
+	node.width = 300
+	node.height = 300
 	node.name = "InspectorScroll"
-	scene.add_child(node)
+	entry.add_child(node)
 	node.owner = scene
 	interface.inspect_object(node)
-	await until(func(): return inspector_field("vertical_scroll")!=null,"native ScrollView Inspector")
+	await until(func(): return inspector_field("vertical_scroll")!=null,"native scrolling component Inspector")
 	for name in ["horizontal_scroll","vertical_scroll","scroll_offset","max_width","max_height"]:
-		check(inspector_field(name)!=null,"ScrollView native Inspector "+name)
+		check(inspector_field(name)!=null,"scrolling component native Inspector "+name)
 	var field := inspector_field("vertical_scroll")
 	field.property_changed.emit("vertical_scroll",true,"",false)
 	await wait()
 	var manager := get_undo_redo()
 	var history := manager.get_history_undo_redo(manager.get_object_history_id(node))
-	check(node.vertical_scroll and history.undo() and not node.vertical_scroll and history.redo() and node.vertical_scroll,"ScrollView Inspector edit/undo/redo")
+	check(node.vertical_scroll and history.undo() and not node.vertical_scroll and history.redo() and node.vertical_scroll,"scrolling component Inspector edit/undo/redo")
 	inspector_field("max_height").property_changed.emit("max_height","380px","",false)
 	await wait()
 	check(node.max_height=="380px" and history.undo() and node.max_height=="auto" and history.redo() and node.max_height=="380px","max Length Inspector edit/undo/redo")
+	var content = preload("res://addons/estragon/runtime/node/rect.gd").new()
+	content.height = 900
+	node.add_child(content)
+	content.owner = scene
+	await wait()
+	inspector_field("scroll_offset").property_changed.emit("scroll_offset",Vector2(0,160),"",false)
+	await wait()
+	check(node.scroll_offset==Vector2(0,160) and history.undo() and node.scroll_offset==Vector2.ZERO and history.redo() and node.scroll_offset==Vector2(0,160),"inherited offset Inspector edit/undo/redo")
 	interface.inspect_object(scene)
-	scene.remove_child(node)
-	node.free()
+	scene.remove_child(entry)
+	entry.free()
 	await wait()
 	var box = preload("res://addons/estragon/runtime/node/hbox.gd").new()
 	scene.add_child(box)

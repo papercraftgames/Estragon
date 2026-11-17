@@ -1,4 +1,4 @@
-/** UX01 combined syntax, maxima, wrapping and ScrollView and direct-Yarn editor proof. */
+/** UX01 combined syntax, maxima, wrapping and inherited Component2D scrolling and direct-Yarn editor proof. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT, parseCLI, newSandbox, copyTree, runCommand, ERROR, writeJSON, gitHead, gitDirty, sha256, indexProject} from './compat-kit.ts';
@@ -29,11 +29,11 @@ for(const selection of options.engines){
      if(line===(negative?'UX01_EXPECTED_BEGIN':'UX01_EXPECTED_PLAY_REJECTION_BEGIN')){bracket=true;starts++;}
      else if(line===(negative?'UX01_EXPECTED_END':'UX01_EXPECTED_PLAY_REJECTION_END'))bracket=false;
      else if(ERROR.test(line)){
-      if(bracket&&(negative?/^ERROR: (?:app\/(?:UXGallery|Ergonomics)\.gogo|tests\/ux01\/rejections\.gd):\d+:\d+(?: \(spread key '.*'\))?: .*previous tree retained$/.test(line):line==='ERROR: An EditorPlugin build callback failed.'))count++;
+      if(bracket&&(negative?/^ERROR: (?:app\/(?:UXGallery|Ergonomics)\.gogo|tests\/ux01\/rejections\.gd):\d+:\d+(?: \(spread key '.*'\))?: .*previous tree retained$/.test(line)||name==='rejections'&&/^ERROR: Estragon scrolling (?:scroll_offset requires a finite nonnegative Vector2|(?:scroll_range|content_extent) is read-only)$/.test(line):line==='ERROR: An EditorPlugin build callback failed.'))count++;
       else unexpected.push(line);
      }
     }
-    const expected=name==='syntax'?2:name==='rejections'?10:starts;
+    const expected=name==='syntax'?2:name==='rejections'?13:starts;
     if(bracket||unexpected.length||count!==expected||(negative&&starts!==expected)||(!negative&&starts>2)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
    }
    results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(log);
@@ -48,7 +48,7 @@ for(const selection of options.engines){
   const fixtures=path.join(box.project,'tests/ux01');copyTree(path.join(ROOT,'tests/ux01'),fixtures);
   for(const name of fs.readdirSync(fixtures).filter(n=>n.endsWith('.gd'))){const file=path.join(fixtures,name);fs.writeFileSync(file,fs.readFileSync(file,'utf8').replaceAll('res://addons/estragon','res://'+addon));}
   fs.mkdirSync(path.join(box.project,'app'),{recursive:true});
-  for(const name of ['UXGallery','Ergonomics','WrapReproduction','UXRose','UXSettings','ScrollProof']){
+  for(const name of ['UXGallery','Ergonomics','WrapReproduction','UXRose','UXSettings','ScrollProof','InheritedScrolling']){
    let source=fs.readFileSync(path.join(ROOT,'examples/ux01',name+'.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon));
    if(name==='UXGallery')source+='\nfunc _ready() -> void:\n\tif OS.get_environment("UX01_EDITOR")=="1": _ux01_probe.call_deferred()\nfunc _ux01_probe() -> void:\n\tvar probe = preload("res://tests/ux01/game.gd").new()\n\tawait probe.run(self)\n';
    fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),source);
@@ -58,7 +58,7 @@ for(const selection of options.engines){
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('build',[...args,'--headless','--script','res://tests/ux01/build.gd'],'UX01_BUILD_OK');
   if(!editorOnly){
-   for(const [name,marker] of [['wrap_capacity','UX01_A_MATH_OK'],['syntax','UX01_B_OK'],['maxima','UX01_C_OK'],['clipping_probe','UX01_CLIP_OK'],['scroll_native','UX01_NATIVE_SCROLL_OK'],['scroll_nested','UX01_NESTED_OK'],['scrolling','UX01_SCROLL_OK'],['rejections','UX01_REJECTIONS_OK'],['reproduction','UX01_REPRO_OK'],['gallery','UX01_GALLERY_OK']])
+   for(const [name,marker] of [['wrap_capacity','UX01_A_MATH_OK'],['syntax','UX01_B_OK'],['maxima','UX01_C_OK'],['clipping_probe','UX01_CLIP_OK'],['scroll_native','UX01_NATIVE_SCROLL_OK'],['scroll_nested','UX01_NESTED_OK'],['scrolling','UX01_SCROLL_OK'],['rejections','UX01_REJECTIONS_OK'],['reproduction','UX01_REPRO_OK'],['gallery','UX01_GALLERY_OK'],['inherited','U02_INHERITED_OK']])
     await run(name!,[...args,...graphics,'--script','res://tests/ux01/'+name+'.gd'],marker);
   }
   if(editor){
@@ -73,6 +73,14 @@ for(const selection of options.engines){
    delete box.env.UX01_EDITOR;
   }
   for(const [file,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Installed bytes/UID changed: '+file);
+  // U02 intentionally removes this beta API, including its UID and catalog entry.
+  for(const file of Object.keys(packed.manifest.files)){
+   if(/scroll_view\.gd(?:\.uid)?$/.test(file))throw Error('Obsolete public scroll component packaged: '+file);
+   if(/\.(?:gd|json)$/.test(file)&&/EstragonScrollView|scroll_view\.gd/.test(fs.readFileSync(path.join(installed,file),'utf8')))throw Error('Obsolete scroll import/catalog entry: '+file);
+  }
+  const classes=path.join(box.project,'.godot/global_script_class_cache.cfg');
+  if(fs.existsSync(classes)&&/EstragonScrollView|scroll_view\.gd/.test(fs.readFileSync(classes,'utf8')))throw Error('Obsolete scroll class registered');
+  results.removal={status:'PASS',obsolete_component_absent:true,installed_bytes_unchanged:true};
   writeJSON(path.join(out,'consumer.json'),{source:gitHead(),direct_yarn:true,package_unchanged:true,canonical_uids:packed.manifest.canonical_uids,tarball_sha256:packed.manifest.tarball_sha256});
  }finally{
   if(fs.existsSync(box.project)){

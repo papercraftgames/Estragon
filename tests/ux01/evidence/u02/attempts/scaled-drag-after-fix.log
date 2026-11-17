@@ -1,0 +1,21 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U02_CHECK never-enabled normal overflow paints/hits without private helpers: true
+U02_CHECK scaled Entry excludes captured native release outside content clip: true
+U02_CHECK scaled Entry native click/focus exactly once: true
+U02_CHECK scaled logical wheel/Shift deltas and insets once: true
+U02_CHECK scaled native pan both axes: true
+BAR_GEOMETRY (12.0, 144.0) page=156.0 max=900.0 global=(431.2, 95.0)
+BAR_EVENT InputEventMouseButton (6.0, 12.0)
+BAR_EVENT InputEventMouseMotion (6.0, 124.0)
+BAR_EVENT InputEventMouseButton (6.0, 124.0)
+BAR_RESULT (0.0, 741.1765) hits=2 before=1
+U02_CHECK actual scaled scrollbar drag never activates underlying Control: true
+U02_CHECK Entry re-entry retains direct child/owner/offset: true
+U02_CHECK both flags off preserves native focus and removes guard subscriptions: true
+U02_CHECK flags on restores one guard without reparent/focus loss: true
+U02_CHECK persistent direct content packs private ancestry: true
+U02_CHECK native pack/reload restores inherited axes/offset and direct children: true

@@ -2,7 +2,7 @@ extends SceneTree
 const State = preload("res://addons/estragon/runtime/composition/state.tres")
 class CountHost extends Node2D:
 	const Element = preload("res://addons/estragon/runtime/composition/element.gd")
-	const Scroll = preload("res://addons/estragon/runtime/node/scroll_view.gd")
+	const Scroll = preload("res://addons/estragon/runtime/node/vbox.gd")
 	const Box = preload("res://addons/estragon/runtime/node/box.gd")
 	const Entry = preload("res://addons/estragon/runtime/node/estragon_2d.gd")
 	var count := 1
@@ -29,26 +29,40 @@ func run():
 	var scroll = host.get_node("UI/Content/Scroll")
 	var identity: int = scroll.get_instance_id()
 	var before: Vector2 = scroll.layout_size
-	for invalid in [{"max_height":"-1px"},{"max_width":"2em"},{"scroll_offset":Vector2(-1,0)},{"scroll_offset":Vector2(INF,0)},{"vertical_scroll":1},{"scroll_range":Vector2.ZERO},{"content_extent":Vector2.ZERO}]:
+	for invalid in [{"max_height":"-1px"},{"max_width":"2em"},{"scroll_offset":Vector2(-1,0)},{"scroll_offset":Vector2(INF,0)},{"scroll_offset":"bad"},{"horizontal_scroll":"yes"},{"vertical_scroll":1},{"scroll_range":Vector2.ZERO},{"content_extent":Vector2.ZERO}]:
 		print("UX01_EXPECTED_BEGIN")
 		host.extra = invalid
 		await frames()
 		print("UX01_EXPECTED_END")
 		check(scroll.get_instance_id()==identity and scroll.layout_size==before and scroll.vertical_scroll,"invalid whole view retains tree/geometry: "+str(invalid))
+	for invalid in [Vector2(-1,0),Vector2(NAN,0)]:
+		var offset: Vector2 = scroll.scroll_offset
+		print("UX01_EXPECTED_BEGIN")
+		scroll.scroll_offset = invalid
+		await frames()
+		print("UX01_EXPECTED_END")
+		check(scroll.scroll_offset==offset,"native invalid offset preserves prior value")
+	for property in ["scroll_range","content_extent"]:
+		var value: Vector2 = scroll.get(property)
+		print("UX01_EXPECTED_BEGIN")
+		scroll.set(property,Vector2.ONE)
+		await frames()
+		print("UX01_EXPECTED_END")
+		check(scroll.get(property)==value,"native measurement is read-only: "+property)
 	host.extra = {"max_width":"100px"}
 	await frames()
 	check(scroll.layout_size.x==100,"valid dynamic cap")
 	host.extra = {}
 	await frames()
 	check(scroll.max_width=="auto" and scroll.layout_size==before,"omitted max resets auto and repairs")
-	var list = scroll.get_content_root()
-	var native_id: int = list.get_node("NativeRow").get_instance_id()
+	var list = scroll
+	var native_id: int = list.get_layout_child("NativeRow").get_instance_id()
 	host.show_overflow = false
 	await frames()
-	check(not host.has_node("UI/Content/Overflow") and list.get_node("NativeRow").get_instance_id()==native_id,"conditional removal retains sibling content")
+	check(not host.has_node("UI/Content/Overflow") and list.get_layout_child("NativeRow").get_instance_id()==native_id,"conditional removal retains sibling content")
 	host.show_overflow = true
 	await frames()
-	check(host.has_node("UI/Content/Overflow") and list.get_node("NativeRow").get_instance_id()==native_id,"conditional restoration retains sibling content")
+	check(host.has_node("UI/Content/Overflow") and list.get_layout_child("NativeRow").get_instance_id()==native_id,"conditional restoration retains sibling content")
 	host.free()
 	await frames()
 	var counts := CountHost.new()
@@ -66,13 +80,11 @@ func run():
 	State.records[counts.get_instance_id()].schedule()
 	await frames()
 	check(saved.scroll_offset==Vector2(0,750),"offset-first attributes restore against enlarged new range")
-	for invalid in [0,2,-1]:
-		print("UX01_EXPECTED_BEGIN")
-		counts.count = invalid
+	for count in [0,2]:
+		counts.count = count
 		State.records[counts.get_instance_id()].schedule()
 		await frames()
-		print("UX01_EXPECTED_END")
-		check(counts.get_node("UI/Scroll")==saved and saved.get_content_root()!=null,"zero/multiple/unbounded roots reject before native commit: "+str(invalid))
+		check(counts.get_node("UI/Scroll")==saved and saved.get_layout_children().size()==count,"zero/multiple direct children keep container and normal policy: "+str(count))
 	counts.free()
 	await frames()
 	check(State.records.is_empty(),"composition subscriptions and records released")

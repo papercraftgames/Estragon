@@ -1,0 +1,14 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_SCROLL 900 content /300 viewport =600 range: true
+UX01_SCROLL offviewport native Button cannot activate: true
+UX01_SCROLL inside Estragon Button activates once: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL offset is transform only, no layout/recomposition: true
+UX01_SCROLL visible native Button activates once and owns native focus: true
+UX01_SCROLL visible Toggle controlled edit: true
+UX01_SCROLL all offviewport pointer paths remain excluded: true
+UX01_SCROLL_OK

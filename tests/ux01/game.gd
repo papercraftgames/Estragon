@@ -22,10 +22,10 @@ func run(host: Node) -> Dictionary:
 	var tree := host.get_tree()
 	await frames(tree)
 	var scroll = host.get_node("UI/Content/Scroll")
-	var list = scroll.get_content_root()
-	var native = list.get_node("NativeRow")
-	var custom = list.get_node("CustomRow")
-	var toggle = list.get_node("ToggleRow")
+	var list = scroll
+	var native = list.get_layout_child("NativeRow")
+	var custom = list.get_layout_child("CustomRow")
+	var toggle = list.get_layout_child("ToggleRow")
 	var ids := [scroll.get_instance_id(),native.get_instance_id(),custom.get_instance_id(),toggle.get_instance_id()]
 	var runs: int = State.records[host.get_instance_id()].runs
 	var edits: Array = []
@@ -36,7 +36,7 @@ func run(host: Node) -> Dictionary:
 		var content = host.get_node("UI/Content")
 		var wrap = content.get_node("Wrap")
 		check(wrap.layout_size.x<=size.x-24 and scroll.layout_size.x==size.x-24,"responsive auto wrap and scroll width")
-		check(scroll.layout_size.y<=380 and list.layout_size.y==900 and is_equal_approx(scroll.scroll_range.y,900-scroll.get_content_rect().size.y),"natural900 content / responsive bounded viewport")
+		check(scroll.layout_size.y<=380 and scroll.content_extent.y==900 and is_equal_approx(scroll.scroll_range.y,900-scroll.get_content_rect().size.y),"natural900 content / responsive bounded viewport")
 		check(scroll.get_instance_id()==ids[0] and native.get_instance_id()==ids[1] and toggle.get_instance_id()==ids[3] and State.records[host.get_instance_id()].runs==runs,"resize keeps identity/owner and no recomposition")
 		check(native.owner==null and scroll.owner==null,"generated helpers/views remain transient")
 		for offset in [0,420,int(scroll.scroll_range.y)]:
@@ -45,7 +45,7 @@ func run(host: Node) -> Dictionary:
 			await RenderingServer.frame_post_draw
 			var image := tree.root.get_texture().get_image()
 			image.save_png("res://ux01-gallery-"+str(size.x)+"-"+str(offset)+".png")
-			samples.append({"viewport":str(size),"offset":str(scroll.scroll_offset),"range":str(scroll.scroll_range),"content":str(list.layout_size)})
+			samples.append({"viewport":str(size),"offset":str(scroll.scroll_offset),"range":str(scroll.scroll_range),"content":str(scroll.content_extent)})
 		var stats = [scroll.get_layout_stats(),list.get_layout_stats()]
 		await frames(tree)
 		check(stats==[scroll.get_layout_stats(),list.get_layout_stats()],"settled idle quiet")
@@ -71,10 +71,10 @@ func run(host: Node) -> Dictionary:
 	check(host.get_node("UI/Content/Greeting").text=="Hello é 🌱!" and scroll.get_instance_id()==ids[0] and scroll.scroll_offset==offset,"body text update preserves scroll identity/offset")
 	host.order = [0,2,3,4]
 	await frames(tree)
-	check(scroll.scroll_offset.y<=scroll.scroll_range.y and list.get_node("NativeRow").get_instance_id()==ids[1],"keyed shrink clamps offset and retains native child")
+	check(scroll.scroll_offset.y<=scroll.scroll_range.y and list.get_layout_child("NativeRow").get_instance_id()==ids[1],"keyed shrink clamps offset and retains native child")
 	host.order = [3,2,0,4]
 	await frames(tree)
-	check(list.get_child(2).get_instance_id()==ids[1],"keyed Grid/Toggle/native reorder")
+	check(list.get_layout_children()[2].get_instance_id()==ids[1],"keyed Grid/Toggle/native reorder")
 	check(host.get_node("UI/Content/Overflow").layout_size.x<=180 if host.has_node("UI/Content/Overflow") else true,"owner max only")
 	var result := {"ok":not failed,"assertions":assertions,"clicks":host.clicks,"edits":edits,"samples":samples}
 	print("UX01_EDITOR_GAME ",JSON.stringify(result))

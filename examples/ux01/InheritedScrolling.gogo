@@ -1,0 +1,48 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var enabled: bool = true
+@bindable var font_size: int = 24
+@bindable var order: Array = [0,1,2,3,4,5,6,7,8]
+@bindable var props: Dictionary = {}
+var clicks: int = 0
+func pressed(): clicks += 1
+func card(index: int) -> Element:
+	return <UiButton key={index} name={"Card"+str(index)} column_span={2 if index==0 else 1} height="400px" pressed={pressed}>Card {str(index)}</UiButton>
+func build_view() -> Element:
+	return <Entry2D name="UI" direction="column" width="100%" height="100%" vertical_scroll padding="8px" gap="12px" background_color="#171b24">
+		<Button name="EntryNative" custom_minimum_size={Vector2(120,80)} pressed={pressed}>Entry native input</Button>
+		<UiButton name="EntryCustom" height="80px" pressed={pressed}>Entry custom input</UiButton>
+		<VBox name="Direct" width="100%" height="300px" vertical_scroll={self.enabled} {...self.props} background_color="#252b38">
+			<Text name="T0" height={112.5} font_size={self.font_size}>First item</Text>
+			<Text name="T1" height={112.5}>Second item</Text>
+			<Text name="T2" height={112.5}>Third item</Text>
+			<Text name="T3" height={112.5}>Fourth item</Text>
+			<Text name="T4" height={112.5}>Fifth item</Text>
+			<Text name="T5" height={112.5}>Sixth item</Text>
+			<Text name="T6" height={112.5}>Seventh item</Text>
+			<Text name="T7" height={112.5}>Eighth item</Text>
+		</VBox>
+		<HBox name="Horizontal" width="100%" max_width="320px" height="100px" horizontal_scroll gap="12px">
+			<Rect width="200px" height="100px" background_color="#477dbb" />
+			<Rect width="200px" height="100px" background_color="#75599b" />
+			<Rect width="200px" height="100px" background_color="#477dbb" />
+		</HBox>
+		<Grid name="Cards" width="100%" height="260px" columns={3} vertical_scroll row_gap="10px">{self.order.map(card)}</Grid>
+		<Grid name="Areas" width="100%" height="160px" vertical_scroll columns={["80px","1fr"]} rows={["120px","240px"]} areas={["head head","left right"]} row_gap="10px">
+			<Rect name="Head" area="head" height="120px" background_color="#477dbb" />
+			<Rect name="Left" area="left" height="240px" background_color="#75599b" />
+			<Rect name="Right" area="right" height="240px" background_color="#477dbb" />
+		</Grid>
+		<VBox name="Wrapped" width="100%" max_height="380px" vertical_scroll padding="16px" border_width="4px" gap="12px" background_color="#252b38">
+			<HBox name="Tags" wrap gap="10px"><Text width="90px">One</Text><Text width="90px">Two</Text><Text width="90px">Three</Text><Text width="90px">Four</Text></HBox>
+			<Rect width="100%" height="400px" background_color="#477dbb" />
+			<Rect width="100%" height="400px" background_color="#75599b" />
+		</VBox>
+	</Entry2D>

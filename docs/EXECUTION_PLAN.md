@@ -540,7 +540,10 @@ Owner [#176](https://github.com/papercraftgames/Estragon/issues/176) consolidate
 
 Acceptance includes exact transposed160/230 Wrap and320/620/fractional Grid geometry; minimums/margins/physical distribution/implicit rows/spans/negative configs and placement; combined keyed/conditional/nested/native input/Toggle gallery at tiny/640x480/1000x800; signal-driven affected-branch/idle counters, source diagnostics/maps/repair, Inspector undo, both actual Play paths/restart/pack-reload. Focused development then proportional official Linux4.0.4/pinned4.7.0 direct-Yarn actual-node_modules review acceptance, immutable package/UID/maps and preserved layout/style/spread/Controls/Counter/shared3D regressions/static checks. One locally ready PR, routine CI<=60s unchanged, durable GitHub evidence/handoffs, owner merges. No S04/text glyph wrapping/3D wrapping/extra engines/platforms/full73/Python/workflow/Assets/GogoDemo/release changes.
 
-## UX01 — combined native authoring and scrolling
+## UX01 — combined native authoring and scrolling (merged; wrapper superseded)
+
+UX01 merged as PR #184 (`6b1de97`). Its historical dedicated ScrollView form is
+obsolete under U02 below; preserve the original evidence.
 
 Owner #183 consolidates binding #178/#180/#127/#179/#181 after owner-merged
 L09-10 PR #177 (`efea57d`). [Contract/ADR](UX01.md). Checkpoints: A exact owner
@@ -555,3 +558,18 @@ Inspector undo/current+main Play/repair/restart and inspected captures are requi
 No full release suite, extra engines/platforms, workflow/release/version changes,
 Assets/GogoDemo edits, style prop, 3D scrolling or generic TSX expansion. Live
 #183/sole PR contains exact checkpoints, provenance, limitations and handoffs.
+
+## U02 — inherited Component2D scrolling
+
+Owner #185 corrects merged UX01: remove public wrapper/script/UID/catalog and
+one-root restriction; centralize inherited properties/lazy native mechanics on
+Component2D, decorate normal Stack/Wrap/Grid with independent scroll axes and
+multiple authored children. [Contract/ADR](SCROLLING.md). Preserve default visible
+overflow, max/floor/reference semantics, retained IDs/owners/focus on flag toggles,
+native capture/bar/pan/nested/scaled input and explicit Entry dispatch. Update
+the existing UX01 native/editor/direct-Yarn harness, generated code/maps/UIDs and
+source migration docs. One locally review-ready PR after relevant paired official
+Linux4.0.4/pinned4.7.0 immutable installed proof, bounded pertinent regressions,
+static checks and inspected captures; routine CI<=60s, durable GitHub handoff,
+owner merges. No extra platform/version/full release suite/workflow/Assets/
+GogoDemo/version/tag/publication or unrelated framework feature work.

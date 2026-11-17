@@ -1,0 +1,71 @@
+{
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ULtx2E/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ULtx2E/project",
+      "--script",
+      "res://tests/native_ui/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.97,
+    "godot_pid": 29190,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ULtx2E/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-ULtx2E/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.33,
+    "godot_pid": 29245,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "57e767b7e1d081ecf8caeb82f41bbaa02eb09889c2cc2aaf2418909eb8c060e5",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ULtx2E/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ULtx2E/project",
+      "--script",
+      "res://tests/native_ui/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.92,
+    "godot_pid": 29543,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'gap': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ],
+    "unexpected_errors": []
+  }
+}

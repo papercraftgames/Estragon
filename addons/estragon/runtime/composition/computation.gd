@@ -264,7 +264,7 @@ func _collect_foreign(record, result: Array) -> void:
 		var nested = manager.records[node.get_instance_id()].mounted
 		_collect_foreign(nested,result)
 		if nested!=null and nested.node.get_ref()!=null: known.append(nested.node.get_ref())
-	for child in node.get_children():
+	for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
 		if not known.has(child) and not result.has(child): result.append(child)
 func _planned_foreign(desired, previous, result: Array) -> void:
 	if previous==null: return
@@ -282,7 +282,7 @@ func _rescue_clear(desired, previous, owner: Node) -> bool:
 	var rescued: Array = []
 	_planned_foreign(desired,previous,rescued)
 	var names := {}
-	for existing in owner.get_children():
+	for existing in (owner._layout_children() if owner.has_method("_layout_children") else owner.get_children()):
 		if previous!=null and existing==previous.node.get_ref(): continue
 		names[str(existing.name)] = true
 	var desired_name: String = str(desired.properties.get("name",str(previous.node.get_ref().name) if previous!=null and _compatible(desired,previous) else ""))
@@ -295,7 +295,7 @@ func _rescue_clear(desired, previous, owner: Node) -> bool:
 func _boundary_clear(desired: Element, parent: Node) -> bool:
 	var name: String = str(desired.properties.get("name",""))
 	if name.is_empty(): return true
-	for child in parent.get_children():
+	for child in (parent._layout_children() if parent.has_method("_layout_children") else parent.get_children()):
 		if str(child.name)==name: return false
 	return true
 func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
@@ -351,7 +351,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 	if grid:
 		node._apply_grid(_grid_config(desired))
 	var stack := StackContract.registered(desired.type)
-	var scroll := VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_VIEW")
+	var scroll := VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_2D")
 	if stack:
 		var policy := resets.duplicate()
 		policy.merge(desired.properties,true)
@@ -389,7 +389,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 	# Apply the effective authored offset after geometry/axis flags. A dirty
-	# ScrollView retains it until the same core's next arrangement, so attribute
+	# component retains it until the same core's next arrangement, so attribute
 	# order cannot clamp restoration against the previous viewport range.
 	if scroll:
 		var offset = desired.properties if desired.properties.has("scroll_offset") else resets
@@ -594,16 +594,10 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			if not message.is_empty():
 				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
-	if VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_VIEW"):
-		var content: Array = desired.children.filter(func(child): return child!=null)
-		if content.size()!=1: return _invalid_attribute(desired,"children","ScrollView requires exactly one content root; use an explicit VBox or Grid")
-		if desired.properties.has("scroll_offset") and not preload("../node/scroll_view.gd").valid_offset(desired.properties.scroll_offset): return _invalid_attribute(desired,"scroll_offset","requires a finite nonnegative Vector2")
+	if VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_2D"):
+		if desired.properties.has("scroll_offset") and not preload("../node/internal/scroll_2d.gd").valid_offset(desired.properties.scroll_offset): return _invalid_attribute(desired,"scroll_offset","requires a finite nonnegative Vector2")
 		for key in ["scroll_range","content_extent"]:
-			if desired.properties.has(key): return _invalid_attribute(desired,key,"read-only ScrollView measurement")
-		var child = content[0]
-		var type = child.type if child.borrowed==null else child.borrowed.get_ref().get_script()
-		var native: String = (child.type if child.type is String else child.type.get_instance_base_type()) if child.borrowed==null else child.borrowed.get_ref().get_class()
-		if not ClassDB.is_parent_class(native,"Control") and not (ClassDB.is_parent_class(native,"Node2D") and (Length.registered(type,"width") or GridDefinition.component(type))): return _invalid_attribute(child,"children","ScrollView content needs a bounded native 2D participant, Control or Gogo component")
+			if desired.properties.has(key): return _invalid_attribute(desired,key,"read-only scrolling measurement")
 	if GridDefinition.marked(desired.type):
 		var config := _grid_config(desired)
 		var grid_matches := _matches(desired.children,previous.children if previous!=null and _compatible(desired,previous) else [])
@@ -694,7 +688,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	var node: Node = previous.node.get_ref() if _compatible(desired,previous) else null
 	if parent != null:
 		var name := _effective_name(desired,previous)
-		for existing in parent.get_children():
+		for existing in (parent._layout_children() if parent.has_method("_layout_children") else parent.get_children()):
 			if str(existing.name)==name and (previous==null or existing!=previous.node.get_ref()): return _invalid_attribute(desired,"name","native sibling name conflict "+name)
 	var known: Array = []
 	if node != null:
@@ -712,7 +706,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			if names.has(name): return _invalid_attribute(child,"name","duplicate effective sibling name "+name)
 			names[name] = true
 			if node != null:
-				for existing in node.get_children():
+				for existing in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
 					if str(existing.name)==name and not known.has(existing): return false
 	return true
 func _free_managed(record: Mounted, rescue: Node = null) -> void:
@@ -731,10 +725,10 @@ func _free_managed(record: Mounted, rescue: Node = null) -> void:
 	var owner: Node = rescue if rescue != null else host.get_ref()
 	var manager = state.get_ref()
 	if manager != null and manager.records.has(node.get_instance_id()): manager.unmount(node,owner)
-	for child in node.get_children():
+	for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
 		if node.has_method("_composition_is_private") and node._composition_is_private(child): continue
 		var persisted_owner: Node = child.owner
-		node.remove_child(child)
+		child.get_parent().remove_child(child)
 		if owner != null:
 			owner.add_child(child)
 			if persisted_owner != null and persisted_owner.is_ancestor_of(child): child.owner = persisted_owner

@@ -1,0 +1,159 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "7590cb06ce529b93713093f66aba3bb32c5755fe534ec70fffc9f826b61a1fc7"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-sUrqWm/yarn-cache",
+      "file:/evidence/u02-regressions-815f106/lengths/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.79,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-sUrqWm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-sUrqWm/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.85,
+    "godot_pid": 26563,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-sUrqWm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-sUrqWm/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.75,
+    "godot_pid": 26582,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: Estragon length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Length requires int, float or a unit string",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_width': Length is negative, nonfinite or outside the supported range",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon length 'min_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-sUrqWm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-sUrqWm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 29.13,
+    "godot_pid": 26599,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: built_in_strtod (core/string/ustring.cpp:2553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ]
+  },
+  "root-exit": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-sUrqWm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-sUrqWm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/root_exit.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.87,
+    "godot_pid": 27056,
+    "log": "root-exit.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

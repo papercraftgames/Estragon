@@ -1,0 +1,124 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'max_height'): invalid length 'max_height': Length is negative, nonfinite or outside the supported range; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_height": "-1px" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'max_width'): invalid length 'max_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "max_width": "2em" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (-1.0, 0.0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": (inf, 0.0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_offset": "bad" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'horizontal_scroll'): attribute 'horizontal_scroll': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "horizontal_scroll": "yes" }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'vertical_scroll'): attribute 'vertical_scroll': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "vertical_scroll": 1 }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_range'): attribute 'scroll_range': read-only scrolling measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "scroll_range": (0.0, 0.0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: app/UXGallery.gogo:36:124 (spread key 'content_extent'): attribute 'content_extent': read-only scrolling measurement; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+UX01_EXPECTED_END
+UX01_REJECTION invalid whole view retains tree/geometry: { "content_extent": (0.0, 0.0) }: true
+UX01_EXPECTED_BEGIN
+ERROR: Estragon scrolling scroll_offset requires a finite nonnegative Vector2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @scroll_offset_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:28)
+       [1] run (res://tests/ux01/rejections.gd:41)
+       [2] frames (res://tests/ux01/rejections.gd:23)
+UX01_EXPECTED_END
+UX01_REJECTION native invalid offset preserves prior value: true
+UX01_EXPECTED_BEGIN
+ERROR: Estragon scrolling scroll_offset requires a finite nonnegative Vector2
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @scroll_offset_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:28)
+       [1] run (res://tests/ux01/rejections.gd:41)
+       [2] frames (res://tests/ux01/rejections.gd:23)
+UX01_EXPECTED_END
+UX01_REJECTION native invalid offset preserves prior value: true
+UX01_EXPECTED_BEGIN
+ERROR: Estragon scrolling scroll_range is read-only
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @scroll_range_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:35)
+       [1] run (res://tests/ux01/rejections.gd:48)
+       [2] frames (res://tests/ux01/rejections.gd:23)
+UX01_EXPECTED_END
+UX01_REJECTION native measurement is read-only: scroll_range: true
+UX01_EXPECTED_BEGIN
+ERROR: Estragon scrolling content_extent is read-only
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @content_extent_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:38)
+       [1] run (res://tests/ux01/rejections.gd:48)
+       [2] frames (res://tests/ux01/rejections.gd:23)
+UX01_EXPECTED_END
+UX01_REJECTION native measurement is read-only: content_extent: true
+UX01_REJECTION valid dynamic cap: true
+UX01_REJECTION omitted max resets auto and repairs: true
+UX01_REJECTION conditional removal retains sibling content: true
+UX01_REJECTION conditional restoration retains sibling content: true
+UX01_REJECTION declarative initial offset survives mount before natural measurement: true
+UX01_REJECTION changed viewport clamps authored offset against new range: true
+UX01_REJECTION offset-first attributes restore against enlarged new range: true
+UX01_REJECTION zero/multiple direct children keep container and normal policy: 0: true
+UX01_REJECTION zero/multiple direct children keep container and normal policy: 2: true
+UX01_REJECTION composition subscriptions and records released: true
+UX01_REJECTIONS_OK

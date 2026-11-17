@@ -1,0 +1,227 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:25808) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.25
+info All dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.25
+Done in 0.53s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+UX01_BUILD {"changed":["app/generated/Ergonomics.gd","app/generated/Ergonomics.gd.map.json","app/generated/InheritedScrolling.gd","app/generated/InheritedScrolling.gd.map.json","app/generated/ScrollProof.gd","app/generated/ScrollProof.gd.map.json","app/generated/UXGallery.gd","app/generated/UXGallery.gd.map.json","app/generated/UXRose.gd","app/generated/UXRose.gd.map.json","app/generated/UXSettings.gd","app/generated/UXSettings.gd.map.json","app/generated/WrapReproduction.gd","app/generated/WrapReproduction.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/Ergonomics.gd","app/generated/InheritedScrolling.gd","app/generated/ScrollProof.gd","app/generated/UXGallery.gd","app/generated/UXRose.gd","app/generated/UXSettings.gd","app/generated/WrapReproduction.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+UX01_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A truly indefinite remains natural: true
+UX01_A_MATH_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_B source-located strict negative <Node3D vertical_scroll />: true
+UX01_B source-located strict negative <Control horizontal_scroll />: true
+UX01_B source-located strict negative <Button vertical_scroll />: true
+UX01_B source-located strict negative <HBox width />: true
+UX01_B source-located strict negative <HBox imaginary />: true
+UX01_B source-located strict negative <Button pressed />: true
+UX01_B source-located strict negative <Button key />: true
+UX01_B source-located strict negative <Button bind:value />: true
+UX01_B source-located strict negative <Button disabled disabled={false} />: true
+UX01_B source-located strict negative <Text text="x">body</Text>: true
+UX01_B source-located strict negative <HBox>bad text</HBox>: true
+UX01_B source-located strict negative <Text>Mixed<Button>Child</Button></Text>: true
+UX01_B source-located strict negative <Text>{42}</Text>: true
+UX01_B source-located strict negative <Text>{true}</Text>: true
+UX01_B source-located strict negative <Text>unclosed: true
+UX01_B source-located strict negative <Text></Button>: true
+UX01_B source-located strict negative <Text>{"unfinished"</Text>: true
+UX01_B explicit GDScript newline String interpolation compiles: true
+UX01_B source-owned typed Gogo Bool/String fields remain writable on native subtype: true
+UX01_B String interpolation Unicode: true
+UX01_B literal quotes are markup, never GDScript: true
+UX01_B multiline whitespace: true
+UX01_B newline/interpolation boundaries fold once: true
+UX01_B empty body: true
+UX01_B bare true and ordered spread: true
+UX01_B later spread overrides bare true: true
+UX01_B retained observed text update: true
+UX01_B String expression preserves explicit newlines on native Button: true
+UX01_B body text uses existing native font measurement and retained node: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:42:24 (spread key 'text'): text property conflicts with text body; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B spread/body complete-description conflict rollback: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:35:24: text body expression requires String; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UX01_EXPECTED_END
+UX01_B dynamic non-String rejects atomically without coercion: true
+UX01_B each String interpolation evaluates once per description: true
+UX01_B_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_C explicit500 max300: true
+UX01_C minimum wins width100: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+UX01_C minimum wins conflicting maximum: true
+UX01_C zero max: true
+UX01_C parent percent max: true
+UX01_C viewport max: true
+UX01_C growth water-fills after maximum, no double allocation: true
+UX01_C shared stack two-axis cap before alignment/stretch: true
+UX01_C shared wrap two-axis cap before alignment/stretch: true
+UX01_C shared grid two-axis cap before alignment/stretch: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+UX01_C native allocation floor wins maximum: true
+UX01_C max caps owner only, no descendant clip or shrink: true
+UX01_C actual child paints beyond max-limited parent: true
+UX01_C ordinary visible overflow keeps actual outside-parent hit target: true
+UX01_C_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_CLIP_PROBE 4.0.4-stable (official) clicks=1 focus=true
+UX01_CLIP_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_NATIVE_SCROLL both-axis range600: true
+UX01_NATIVE_SCROLL programmatic clamp: true
+UX01_NATIVE_SCROLL wheel updates translation only: true
+UX01_NATIVE_SCROLL trackpad pan both axes: true
+UX01_NATIVE_SCROLL content shrink clamps both axes, hides bars: true
+UX01_NATIVE_SCROLL auto viewport bounded only by maximum on axis 0: true
+UX01_NATIVE_SCROLL unbounded auto viewport naturally fits content on axis 0: true
+UX01_NATIVE_SCROLL auto viewport bounded only by maximum on axis 1: true
+UX01_NATIVE_SCROLL unbounded auto viewport naturally fits content on axis 1: true
+UX01_NATIVE_SCROLL captured native Button release outside viewport never activates: true
+UX01_NATIVE_SCROLL native persistent viewport pack: true
+UX01_NATIVE_SCROLL native persistent root survives pack/reload: true
+UX01_NATIVE_SCROLL_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_NESTED nested wheel chooses inner: true
+UX01_NESTED exhausted inner bubbles outer: true
+UX01_NESTED real native scrollbar click over Estragon content without activating content: false
+UX01_NESTED remove/re-entry keeps viewport identity, range and position: true
+UX01_NESTED dynamic content shrink clamps and hides scrollbar: true
+file:///repo/tools/check-ux01.ts:40
+   if(result.status!=='PASS')throw Error('UX01 '+name+' failed');
+                                   ^
+
+Error: UX01 scroll_nested failed
+    at run (file:///repo/tools/check-ux01.ts:40:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-ux01.ts:62:5
+
+Node.js v24.22.2
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types tools/check-ux01.ts --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --editor --candidate-tag v0.1.0-beta.25 --output /evidence/u02-review-815f106
+Directory: /repo
+Output:
+
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.

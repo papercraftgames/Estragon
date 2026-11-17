@@ -61,8 +61,8 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			continue
 		var name := attribute.name
-		if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_VIEW") and name in ["scroll_range","content_extent"]:
-			_error("Read-only ScrollView measurement: "+name,attribute.name_span)
+		if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_2D") and name in ["scroll_range","content_extent"]:
+			_error("Read-only scrolling measurement: "+name,attribute.name_span)
 			return
 		if VisualStyle.property(name) and VisualStyle.has_api(resolved.script) and not VisualStyle.supported(resolved.script):
 			_error("Shared visual styling is unsupported on this participant",attribute.name_span)
@@ -192,10 +192,6 @@ func _component(node: Model.Component) -> void:
 	else:
 		for index in range(node.children.size()-1,-1,-1):
 			if node.children[index] is Model.Literal: node.children.remove_at(index)
-	if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_VIEW"):
-		if node.children.is_empty() or node.children.size()>1 and node.children.all(func(child): return child is Model.Component):
-			_error("ScrollView requires exactly one content root; use an explicit VBox or Grid",node.name_span)
-			return
 	var sibling_names := {}
 	for child in node.children:
 		if child is Model.GdExpression:

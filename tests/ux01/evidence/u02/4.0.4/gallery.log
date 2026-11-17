@@ -1,0 +1,35 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK responsive auto wrap and scroll width: true
+UX01_GAME_CHECK natural900 content / responsive bounded viewport: true
+UX01_GAME_CHECK resize keeps identity/owner and no recomposition: true
+UX01_GAME_CHECK generated helpers/views remain transient: true
+UX01_GAME_CHECK settled idle quiet: true
+UX01_GAME_CHECK native scroll button owns focus: true
+UX01_GAME_CHECK single native/custom clicks and controlled Toggle edits: true
+UX01_GAME_CHECK body text update preserves scroll identity/offset: true
+UX01_GAME_CHECK keyed shrink clamps offset and retains native child: true
+UX01_GAME_CHECK keyed Grid/Toggle/native reorder: true
+UX01_GAME_CHECK owner max only: true
+UX01_EDITOR_GAME {"assertions":29,"clicks":8,"edits":[true,false,true,false],"ok":true,"samples":[{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(600, 900)","offset":"(0, 0)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 420)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(600, 900)","offset":"(0, 772)","range":"(0, 772)","viewport":"(640, 480)"},{"content":"(960, 900)","offset":"(0, 0)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 420)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(960, 900)","offset":"(0, 676)","range":"(0, 676)","viewport":"(1000, 800)"},{"content":"(280, 900)","offset":"(0, 0)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 420)","range":"(0, 844)","viewport":"(320, 240)"},{"content":"(280, 900)","offset":"(0, 844)","range":"(0, 844)","viewport":"(320, 240)"}]}
+UX01_PACK_RELOAD true
+UX01_GALLERY_OK

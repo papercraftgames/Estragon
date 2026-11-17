@@ -1,0 +1,86 @@
+{
+  "implementation": "815f1067f0bb029cb4956bd4817f1f82a78f630d",
+  "paired_source": "1c211440c51913c4b1794595eab62c2d881dec51",
+  "base": "6b1de9752a41939228ff646ad487ca3f84b3f0f1",
+  "unchanged_addon_since_implementation": true,
+  "matched_package_files": 153,
+  "paired_identical_tarball_sha256": "37101d09502105d251c3ec5fe31dadb7596296dee94e1be24dd1c639b599787f",
+  "counts": {
+    "4.0.4": {
+      "stages": 18,
+      "seconds": 141.93,
+      "checks": {
+        "wrap_capacity": 89,
+        "syntax": 32,
+        "maxima": 14,
+        "scroll_native": 12,
+        "scroll_nested": 5,
+        "scrolling": 10,
+        "rejections": 23,
+        "reproduction": 40,
+        "inherited": 50,
+        "editor": 20,
+        "editor-restart": 12
+      }
+    },
+    "4.7": {
+      "stages": 18,
+      "seconds": 91.1,
+      "checks": {
+        "wrap_capacity": 89,
+        "syntax": 32,
+        "maxima": 14,
+        "scroll_native": 12,
+        "scroll_nested": 5,
+        "scrolling": 10,
+        "rejections": 23,
+        "reproduction": 40,
+        "inherited": 50,
+        "editor": 20,
+        "editor-restart": 12
+      }
+    }
+  },
+  "maps": {
+    "examples/ux01/Ergonomics.gogo": {
+      "source_sha256": "cc3560eda02db2d1a9df56dc41c0137057d232c67efcd2963d7fde68576e15fe",
+      "generated_sha256": "3d731782bedcfebf009d0c69dbedc9aebfb5ca7339c523e8174c2b753a61237e",
+      "map_sha256": "69d721d7590da55de93529b5fb162408d5a4ee9f804830e98c3203c5385ef3ef"
+    },
+    "examples/ux01/InheritedScrolling.gogo": {
+      "source_sha256": "c92b45a72270779799af6b32d447a681b95a08f7cb81867d63ecfc2427c7e059",
+      "generated_sha256": "9d3ab1a742cebd25848abc3ac18ce9c9271f854c09269907f743afbbbcb76f43",
+      "map_sha256": "26fb65d6daff70140af9a30fa3f7287bd74905900e8cbdb2e11f41ec0698766b"
+    },
+    "examples/ux01/ScrollProof.gogo": {
+      "source_sha256": "b9354b8ecf43843107a3e6aff124d8e43ca035761bbd9beef8e70dff7efd3d2c",
+      "generated_sha256": "472ae6f979844249402fcf77db30410fc1ff57dc587397abfb460e00d0f547bc",
+      "map_sha256": "7bec9e3659afe1ed1fd3ac554bfc497b9c99e331a8d1c3605e46fd74ffb9bbf1"
+    },
+    "examples/ux01/UXGallery.gogo": {
+      "source_sha256": "d62d2d0c17d592231e24bfa4ffae98f5c5d225961c7eb335edb561bb4879a727",
+      "generated_sha256": "e0524db4c6443fa4f1077be5fff3125d378a9a3d809a391f184e359d54714b4f",
+      "map_sha256": "53770966990754d35bc5da8236f45649c90b4644e030a66448e0700ef69a4e86"
+    },
+    "examples/ux01/UXRose.gogo": {
+      "source_sha256": "65006b1341c11633da8a7cebb511947c9268ee8243d4a0186340126404febd53",
+      "generated_sha256": "6f3f0d5f37b842e282d5fe97103cf175fbd1d97e2419f5c3f8bf9507c1b4a459",
+      "map_sha256": "92722914157c335c76f59c642438596478ae757106927b095f9bf84f3f127d8e"
+    },
+    "examples/ux01/UXSettings.gogo": {
+      "source_sha256": "842de29686fb9fd9cbe57f32da59693b41a84b37fb879ef82ba5f0cf63419242",
+      "generated_sha256": "78cbe4339f76cce98b6fe551f78de3b69fcb830a089c5f0bd252f1ebe22633be",
+      "map_sha256": "99fa3ba1f0dc2bc753ef4a857048bdec878e98a056fcfb9afb601cbe72b66459"
+    },
+    "examples/ux01/WrapReproduction.gogo": {
+      "source_sha256": "be2371de2efb0bdbec4f24f02b7708f3d183e3719ba53350a1eb470fe3505ae9",
+      "generated_sha256": "1579a4991ab883a5cc8ea30bc0d8b15d1091ca5dd98d50546de995b8d3211fe3",
+      "map_sha256": "db6ba257fa42c2fb952a8c8280c202bc8ec9bdb7e1b76a7608c494fb3d68541a"
+    }
+  },
+  "log_normalization": "Trailing horizontal whitespace removed only; JSON/PNG/package manifests copied byte-for-byte.",
+  "limitations": [
+    "Manual interactive smoke UNTESTED; automated native graphics/editor/game proof ran.",
+    "Two approved Linux engines only; no release certification/publication."
+  ]
+}

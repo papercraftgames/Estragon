@@ -1,0 +1,34 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_C explicit500 max300: true
+UX01_C minimum wins width100: true
+UX01_C minimum wins conflicting maximum: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] constrain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:196)
+         [1] _content_basis (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:204)
+         [2] measure (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:390)
+         [3] run (res://tests/ux01/maxima.gd:22)
+UX01_C zero max: true
+UX01_C parent percent max: true
+UX01_C viewport max: true
+UX01_C growth water-fills after maximum, no double allocation: true
+UX01_C shared stack two-axis cap before alignment/stretch: true
+UX01_C shared wrap two-axis cap before alignment/stretch: true
+UX01_C shared grid two-axis cap before alignment/stretch: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] constrain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:196)
+         [1] _content_basis (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:204)
+         [2] measure (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:390)
+         [3] run (res://tests/ux01/maxima.gd:48)
+UX01_C native allocation floor wins maximum: true
+UX01_C max caps owner only, no descendant clip or shrink: true
+UX01_C actual child paints beyond max-limited parent: true
+UX01_C ordinary visible overflow keeps actual outside-parent hit target: true
+UX01_C_OK

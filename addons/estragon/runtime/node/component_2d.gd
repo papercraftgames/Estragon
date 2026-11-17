@@ -4,10 +4,41 @@ class_name EstragonComponent2D
 extends Node2D
 ## Native C1 participant. Needs a contiguous same-dimensional chain to an entry.
 signal layout_applied(size: Vector2)
+signal _layout_children_changed
 const Coordinator = preload("internal/coordinator.gd")
 const ESTRAGON_LENGTHS := true
 const ESTRAGON_MINIMUMS_2D := true
 const ESTRAGON_GAPS_2D := true
+const ESTRAGON_SCROLL_2D := true
+const Scroll = preload("internal/scroll_2d.gd")
+var _scroll
+@export var horizontal_scroll: bool = false:
+	set(value):
+		if horizontal_scroll==value: return
+		horizontal_scroll = value
+		_scroll_changed()
+@export var vertical_scroll: bool = false:
+	set(value):
+		if vertical_scroll==value: return
+		vertical_scroll = value
+		_scroll_changed()
+@export var scroll_offset := Vector2.ZERO:
+	set(value):
+		if not Scroll.valid_offset(value):
+			push_error("Estragon scrolling scroll_offset requires a finite nonnegative Vector2")
+			return
+		scroll_offset = value
+		if _scroll!=null: _scroll.offset_changed()
+		elif not horizontal_scroll and not vertical_scroll: scroll_offset = Vector2.ZERO
+var scroll_range: Vector2:
+	get: return _scroll_range
+	set(_value): push_error("Estragon scrolling scroll_range is read-only")
+var content_extent: Vector2:
+	get: return _content_extent
+	set(_value): push_error("Estragon scrolling content_extent is read-only")
+var _scroll_range := Vector2.ZERO
+var _content_extent := Vector2.ZERO
+
 var row_gap: Variant = "auto":
 	set(value):
 		if is_same(row_gap,value) or not lengths.assign("row_gap",value): return
@@ -225,10 +256,31 @@ func get_content_rect() -> Rect2:
 
 func _layout_options() -> Dictionary:
 	var natural := _measure_native()
-	return {"axis":_layout_axis(),"fill":Vector3.ZERO,"intrinsic":Vector3(natural.x,natural.y,0)}
+	return {"axis":_layout_axis(),"fill":Vector3.ZERO,"intrinsic":Vector3(natural.x,natural.y,0),"scroll_axes":Vector2(1 if horizontal_scroll else 0,1 if vertical_scroll else 0)}
 
 func _is_layout_entry() -> bool:
 	return false
+
+func _scroll_changed() -> void:
+	if _scroll==null and (horizontal_scroll or vertical_scroll): _scroll = Scroll.new(self)
+	_changed()
+	if _scroll!=null and is_inside_tree(): _scroll.start()
+func _composition_child_parent() -> Node:
+	return _scroll.child_parent() if _scroll!=null and is_instance_valid(_scroll.child_parent()) else self
+func _composition_is_private(child: Node) -> bool:
+	return _scroll!=null and _scroll.is_private(child)
+func _layout_children() -> Array:
+	return _scroll.children() if _scroll!=null else get_children()
+func get_layout_children() -> Array:
+	return _layout_children()
+func get_layout_child(child_name: StringName) -> Node:
+	for child in _layout_children():
+		if child.name==child_name: return child
+	return null
+func _content_pointer_allowed(point: Vector2) -> bool:
+	return _scroll==null or _scroll.pointer_allowed(point)
+func _input(event: InputEvent) -> void:
+	if _scroll!=null: _scroll.input(event)
 
 func _changed() -> void:
 	if layout != null: layout.changed()
@@ -242,10 +294,13 @@ func _enter_tree() -> void:
 	# cannot accidentally bypass the shared style. Legacy widget painters
 	# explicitly opt out of S01 styles and remain untouched until S02.
 	if VisualStyle.supported(get_script()) and not draw.is_connected(_paint_visual_style): draw.connect(_paint_visual_style)
+	if _scroll==null and (horizontal_scroll or vertical_scroll or get_node_or_null("_EstragonViewport")!=null): _scroll = Scroll.new(self)
+	if _scroll!=null: _scroll.start()
 	layout.changed()
 	layout.start()
 
 func _exit_tree() -> void:
+	if _scroll!=null: _scroll.stop()
 	if draw.is_connected(_paint_visual_style): draw.disconnect(_paint_visual_style)
 	layout.stop()
 
@@ -268,8 +323,10 @@ func apply_layout_size(size: Vector3) -> void:
 	var next := Vector2(size.x,size.y)
 	if next!=_layout_size: _queue_style_redraw()
 	_layout_size = next
+	_content_extent = layout.model.content_extent()
 	# Explicit invalidation also restores a native position edited externally.
 	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
+	if _scroll!=null: _scroll.refresh()
 	layout_applied.emit(_layout_size)
 
 func _margin_insets() -> Vector4:

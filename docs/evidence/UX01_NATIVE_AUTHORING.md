@@ -1,5 +1,9 @@
 # UX01 native authoring and scrolling evidence
 
+**Historical evidence. U02 #185 supersedes the ScrollView wrapper architecture.**
+These immutable results describe UX01, not current inherited scrolling acceptance.
+See [current contract/migration](../SCROLLING.md).
+
 [#183](https://github.com/papercraftgames/Estragon/issues/183) consolidates
 #178/#180/#127/#179/#181. [Contract](../UX01.md), ADR-0026. Implementation source
 `d002aa6ae34eb0fc7c046163269b89f9058a7944`, base owner-merged Wrap/Grid PR #177

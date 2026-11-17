@@ -20,4 +20,6 @@ func _exit_tree() -> void:
 	super._exit_tree()
 
 func _input(event: InputEvent) -> void:
+	super._input(event)
+	if get_viewport().is_input_handled(): return
 	if _pointer.input(event): get_viewport().set_input_as_handled()

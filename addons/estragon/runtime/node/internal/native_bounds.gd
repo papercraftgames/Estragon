@@ -22,6 +22,7 @@ func start() -> void:
 	var host: Node = _host.get_ref()
 	host.child_entered_tree.connect(_child_changed)
 	host.child_exiting_tree.connect(_child_changed)
+	if host.has_signal("_layout_children_changed"): host.connect("_layout_children_changed",invalidate)
 	invalidate()
 
 func stop() -> void:
@@ -30,6 +31,7 @@ func stop() -> void:
 	var host: Node = _host.get_ref()
 	if host.child_entered_tree.is_connected(_child_changed): host.child_entered_tree.disconnect(_child_changed)
 	if host.child_exiting_tree.is_connected(_child_changed): host.child_exiting_tree.disconnect(_child_changed)
+	if host.has_signal("_layout_children_changed") and host.is_connected("_layout_children_changed",invalidate): host.disconnect("_layout_children_changed",invalidate)
 
 func _child_changed(_child: Node) -> void:
 	invalidate()
@@ -57,10 +59,11 @@ func _refresh() -> void:
 	extent = Vector3.ZERO
 	var host = _host.get_ref()
 	status = ERR_INVALID_PARAMETER
-	if host == null or host.get_child_count() != 1:
+	var native_children: Array = host.get_layout_children() if host!=null and host.has_method("get_layout_children") else (host.get_children() if host!=null else [])
+	if host == null or native_children.size() != 1:
 		_publish(host)
 		return
-	var child: Node = host.get_child(0)
+	var child: Node = native_children[0]
 	var points: Array[Vector3] = []
 	if _dimension == 2 and child is Polygon2D:
 		var basis: Transform2D = host.transform

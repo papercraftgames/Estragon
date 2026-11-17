@@ -140,6 +140,7 @@ func changed() -> void:
 	if host == null: return
 	if host.has_method("_layout_options"):
 		var options: Dictionary = host._layout_options()
+		model.set_scroll_axes(options.get("scroll_axes",Vector2.ZERO) if _dimension==2 else Vector2.ZERO)
 		model.set_strategy(options.get("strategy","stack") if _dimension==2 else "stack",options.get("align_content","start"),options.get("grid",{}))
 		model.set_policy(options.get("alignment",["start","start","start"]))
 		model.set_align_self(host.align_self if _dimension==2 and "align_self" in host else "auto")
