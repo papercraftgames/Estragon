@@ -1,0 +1,4 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+D07_BUILD {"changed":["app/generated/NativeOnly.gd","app/generated/NativeOnly.gd.map.json","app/generated/TypedButton.gd","app/generated/TypedButton.gd.map.json","app/generated/Buttons.gd","app/generated/Buttons.gd.map.json","app/generated/LegacyAlias.gd","app/generated/LegacyAlias.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/NativeOnly.gd","app/generated/TypedButton.gd","app/generated/Buttons.gd","app/generated/LegacyAlias.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+D07_BUILD_OK

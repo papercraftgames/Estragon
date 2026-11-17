@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "development_only": true,
+  "identical_payload_files": 155,
+  "uids": 72,
+  "paired_tarball_sha256": "b6bc59e6844e0533a6ef5f0219f0b50564f25bc45281a2d25782c755e03ced47",
+  "editor_only_tarball_sha256": "0050a1a82591667bd5577ee5976c508f88b0478db82825396801935ab11d58fb",
+  "engines": {
+    "4.0.4": {
+      "results": "4.0.4/results.json",
+      "status": "PASS",
+      "frontend": 26,
+      "runtime": 29,
+      "editor": 41,
+      "restart": 13
+    },
+    "4.7": {
+      "runtime_results": "4.7/results.json",
+      "editor_results": "editor-final/4.7/results.json",
+      "status": "PASS",
+      "frontend": 26,
+      "runtime": 29,
+      "editor": 41,
+      "restart": 13,
+      "original_collector_failure": "Exact expected authored diagnostic matcher fixed; original report retained."
+    }
+  }
+}

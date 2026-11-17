@@ -1,0 +1,29 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_EDITOR_CHECK initial Inspector charcoal background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal hover_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo hover_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal pressed_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo pressed_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal disabled_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo disabled_background_color: true
+D07_EDITOR_CHECK native inspected Button saves: true
+D07_EDITOR_CHECK Inspector undo defaults survive native scene reload and initial cache: true
+D07_EDITOR_CHECK real native authored D07 scene imports: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320.0, 240.0)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640.0, 480.0)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000.0, 800.0)
+D07_GAME {"clicks":3,"identity":47043315342,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+D07_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+D07_EDITOR_ASSERTIONS 13 failed=false
+D07_EDITOR_OK

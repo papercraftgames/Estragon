@@ -1,0 +1,34 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_FRONTEND native-name preload with constructors/types/body expressions compiles: true
+D07_FRONTEND lexical declarations/types/ordinary Script alias share one private identity: true
+D07_FRONTEND strings/comments/unrelated members remain intact; body references lower: true
+D07_FRONTEND generated private alias maps to exact authored identifier span: true
+D07_FRONTEND private symbol/range maps deterministic: true
+D07_FRONTEND generated identifier avoids authored symbol collisions: true
+D07_FRONTEND source-located duplicate/invalid imported contract const Button=preload("res://no: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button ima: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button bac: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button pre: true
+D07_FRONTEND source-located duplicate/invalid imported contract var Button=1
+func view():retur: true
+D07_FRONTEND source-located duplicate/invalid imported contract func method(Button: int): pass: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://missing_button.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://tests/button_imports/non_node.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://tests/button_imports/required.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://app/panel_gradient.tres: true
+D07_FRONTEND native-name lowering is explicit import precedence, not Button magic: true
+D07_FRONTEND unimported Button remains ClassDB with no implicit framework fallback: true
+D07_FRONTEND native Button never gains fake Estragon properties: true
+D07_FRONTEND popup separates native Godot from deliberate Estragon import: true
+D07_FRONTEND catalog never recommends prefixed Button aliases: true
+D07_FRONTEND Add Missing Imports leaves an unimported native Button alone: true
+D07_FRONTEND explicit completion selection inserts the legal authored Button import: true
+D07_FRONTEND source-aware imported Button fields available: true
+D07_FRONTEND removing import immediately restores native field completion without stale cache: true
+D07_FRONTEND definition lookup returns actual lexical import resource: true
+D07_FRONTEND_ASSERTIONS 26 failed=false
+D07_FRONTEND_OK

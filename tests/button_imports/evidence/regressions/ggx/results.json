@@ -1,0 +1,117 @@
+{
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xzFnnZ/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xzFnnZ/project",
+      "--script",
+      "res://tests/ggx/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.41,
+    "godot_pid": 2726,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xzFnnZ/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-xzFnnZ/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.64,
+    "godot_pid": 2743,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "57e767b7e1d081ecf8caeb82f41bbaa02eb09889c2cc2aaf2418909eb8c060e5",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xzFnnZ/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xzFnnZ/project",
+      "--script",
+      "res://tests/ggx/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 12.62,
+    "godot_pid": 3048,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-xzFnnZ/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-xzFnnZ/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 104.31,
+    "godot_pid": 3227,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)",
+      "examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)",
+      "examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: Cannot save text file 'res://examples/ggx/TwoD.gogo'.",
+      "   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Identifier \"missing_handler\" not declared in the current scope.",
+      "          at: GDScript::reload (res://examples/ggx/generated/TwoD.gd:18)",
+      "examples/ggx/TwoD.gogo:15:47: Parse Error: Identifier \"missing_handler\" not declared in the current scope."
+    ],
+    "unexpected_errors": []
+  }
+}

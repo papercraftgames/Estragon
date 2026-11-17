@@ -1,0 +1,228 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:7870) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 1.92s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+D07_BUILD {"changed":["app/generated/NativeOnly.gd","app/generated/NativeOnly.gd.map.json","app/generated/TypedButton.gd","app/generated/TypedButton.gd.map.json","app/generated/Buttons.gd","app/generated/Buttons.gd.map.json","app/generated/LegacyAlias.gd","app/generated/LegacyAlias.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/NativeOnly.gd","app/generated/TypedButton.gd","app/generated/Buttons.gd","app/generated/LegacyAlias.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+D07_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+D07_FRONTEND native-name preload with constructors/types/body expressions compiles: true
+D07_FRONTEND lexical declarations/types/ordinary Script alias share one private identity: true
+D07_FRONTEND strings/comments/unrelated members remain intact; body references lower: true
+D07_FRONTEND generated private alias maps to exact authored identifier span: true
+D07_FRONTEND private symbol/range maps deterministic: true
+D07_FRONTEND generated identifier avoids authored symbol collisions: true
+D07_FRONTEND source-located duplicate/invalid imported contract const Button=preload("res://no: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button ima: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button bac: true
+D07_FRONTEND source-located duplicate/invalid imported contract func view():return <Button pre: true
+D07_FRONTEND source-located duplicate/invalid imported contract var Button=1
+func view():retur: true
+D07_FRONTEND source-located duplicate/invalid imported contract func method(Button: int): pass: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://missing_button.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://tests/button_imports/non_node.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://tests/button_imports/required.gd: true
+D07_FRONTEND nonconstructible/missing/resource import rejects res://app/panel_gradient.tres: true
+D07_FRONTEND native-name lowering is explicit import precedence, not Button magic: true
+D07_FRONTEND unimported Button remains ClassDB with no implicit framework fallback: true
+D07_FRONTEND native Button never gains fake Estragon properties: true
+D07_FRONTEND popup separates native Godot from deliberate Estragon import: true
+D07_FRONTEND catalog never recommends prefixed Button aliases: true
+D07_FRONTEND Add Missing Imports leaves an unimported native Button alone: true
+D07_FRONTEND explicit completion selection inserts the legal authored Button import: true
+D07_FRONTEND source-aware imported Button fields available: true
+D07_FRONTEND removing import immediately restores native field completion without stale cache: true
+D07_FRONTEND definition lookup returns actual lexical import resource: true
+D07_FRONTEND_ASSERTIONS 26 failed=false
+D07_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+D07_CHECK explicit imported Button is the real Estragon Node2D: true
+D07_CHECK same-file explicit native Script and unimported Godot Button stay native: true
+D07_CHECK lexical constructors/alias and explicit ClassDB qualification: true
+D07_CHECK native type/constructor and lowered imported type preserve expressions and member data: true
+D07_CHECK bindable imported types and imported Gogo property metadata preserve Script identity: true
+D07_CHECK four exact neutral property defaults before user writes: true
+D07_CHECK initial cached palette matches native property defaults: true
+D07_CHECK actual neutral state pixel #383838: true
+D07_CHECK actual neutral state pixel #505050: true
+D07_CHECK actual neutral state pixel #252525: true
+D07_CHECK actual neutral state pixel #303030: true
+D07_CHECK actual neutral state pixel #383838: true
+D07_CHECK pointer palette changes are draw-only, no geometry/layout/recomposition: true
+D07_CHECK square corners, white native text alignment and14/8 local padding preserved: true
+D07_CHECK initial disabled Button and unchecked Toggle are charcoal: true
+D07_CHECK each real native/custom pressed/value_changed fires once: true
+D07_CHECK no duplicated handlers on imported/native/controlled Toggle: true
+D07_CHECK checked Toggle remains teal: true
+D07_CHECK disabled charcoal precedence over checked teal: true
+D07_CHECK explicit spread color/S04 radius remains authoritative and visual-only: true
+D07_CHECK spread omission restores charcoal/native defaults on retained node: true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (320, 240): true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (640, 480): true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (1000, 800): true
+D07_CHECK settled imported palette/scene idle quiet: true
+D07_CHECK source host packs without transient Button output: true
+D07_CHECK PackedScene reload remounts imported Button with neutral defaults: true
+D07_CHECK old explicitly imported UiButton user source still runs unchanged: true
+D07_CHECK all imported/native composition subscriptions released: true
+D07_ASSERTIONS 29 failed=false
+D07_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+D07_EDITOR_CHECK initial Inspector charcoal background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal hover_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo hover_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal pressed_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo pressed_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal disabled_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo disabled_background_color: true
+D07_EDITOR_CHECK native inspected Button saves: true
+D07_EDITOR_CHECK Inspector undo defaults survive native scene reload and initial cache: false
+D07_EDITOR_CHECK real native authored D07 scene imports: true
+D07_EDITOR_CHECK popup distinguishes Godot: true
+D07_EDITOR_CHECK real completion native/import selection Godot: true
+D07_EDITOR_CHECK completion and import are one undo Godot: true
+D07_EDITOR_CHECK completion redo Godot: true
+D07_EDITOR_CHECK popup distinguishes Estragon native: true
+D07_EDITOR_CHECK real completion native/import selection Estragon native: true
+D07_EDITOR_CHECK completion and import are one undo Estragon native: true
+D07_EDITOR_CHECK completion redo Estragon native: true
+D07_EDITOR_CHECK native Gogo highlighter attached to actual D07 source: true
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX script import not found: res://missing_button.gd
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320, 240)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640, 480)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000, 800)
+D07_GAME {"clicks":3,"identity":38033949961,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+Running: /tmp/estragon-native-S7alV1/godot --path /tmp/estragon-native-S7alV1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8833 --position 320,272 res://app/Buttons.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+D07_EDITOR_CHECK current actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX script import not found: res://missing_button.gd
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320, 240)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640, 480)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000, 800)
+D07_GAME {"clicks":3,"identity":38033949961,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+Running: /tmp/estragon-native-S7alV1/godot --path /tmp/estragon-native-S7alV1/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8833 --position 320,272 res://app/Buttons.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+D07_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+D07_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+D07_EDITOR_ASSERTIONS 41 failed=true
+file:///repo/tools/check-button-imports.ts:35
+   if(result.status!=='PASS')throw Error('D07 '+name+' failed');
+                                   ^
+
+Error: D07 editor failed
+    at run (file:///repo/tools/check-button-imports.ts:35:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-button-imports.ts:74:51
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types tools/check-button-imports.ts --editor --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --output /tmp/d07-final-pair4
+Directory: /repo
+Output:
+

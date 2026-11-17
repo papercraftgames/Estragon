@@ -1,0 +1,31 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S03_PUBLICATION_CHECK pure syntax pipeline defers native expression semantics: true
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing_spread_expression" not declared in the current scope.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:79)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _initialize (res://tests/spreads/publication.gd:27)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_PUBLICATION_CHECK failed semantic publication restores code/maps/timestamp/UID/cache identity: true
+S03_PUBLICATION_CHECK pure syntax pipeline defers native expression semantics: true
+S03_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Expected expression after "+" operator.
+          at: GDScript::reload (res://app/generated/SpreadGallery.gd:79)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _initialize (res://tests/spreads/publication.gd:27)
+S03_EXPECTED_SEMANTIC_END
+S03_PUBLICATION_CHECK actual-path spread expression semantic failure is authored-source located: true
+S03_PUBLICATION_CHECK failed semantic publication restores code/maps/timestamp/UID/cache identity: true
+S03_PUBLICATION_CHECK repaired spread semantics recover actual-path publication: true
+S03_PUBLICATION_ASSERTIONS 7 failed=false
+S03_PUBLICATION_OK

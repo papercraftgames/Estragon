@@ -1,0 +1,6 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+D07_COMPILE true []
+D07_RELOAD 0
+D07_BOTH Node2D/Node2D/Button/Button
+D07_ELEMENT res://addons/estragon/runtime/node/button.gd

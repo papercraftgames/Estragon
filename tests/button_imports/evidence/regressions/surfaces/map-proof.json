@@ -1,0 +1,9 @@
+{
+  "source_sha256": "747a3f95fd7c71c74d00e95f95e893eb5b86356824c21e31b065ca794cc1d2b7",
+  "generated_sha256": "cf9d74c6efc8481b000d745ad00e680cdc17c22eaa6f088fa8c41565d2a15a46",
+  "map_sha256": "47a904bfd3ce973f60796ae0ce552776e36e85f5b62567c26670b140f24ca198",
+  "uid_sha256": "a87eb4486ef61114d73a261b7d4f8afc8ae6ab0232db214949c650f0af194358",
+  "canonical_uid_source": "examples/surfaces/generated/SurfaceGallery.gd.uid",
+  "source_content_matches": true,
+  "generated_hash_matches": true
+}
