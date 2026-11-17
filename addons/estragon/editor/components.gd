@@ -7,7 +7,7 @@ const ITEMS := [
 	{"alias":"Box","canonical":"EstragonBox","script":preload("../runtime/node/box.gd"),"dimension":2,"origin":"native layout"},
 	{"alias":"Text","canonical":"EstragonText","script":preload("../runtime/node/text.gd"),"dimension":2,"origin":"native widget"},
 	{"alias":"Rect","canonical":"EstragonRect","script":preload("../runtime/node/rect.gd"),"dimension":2,"origin":"native widget"},
-	{"alias":"UiButton","canonical":"EstragonButton","script":preload("../runtime/node/button.gd"),"dimension":2,"origin":"native widget"},
+	{"alias":"Button","canonical":"EstragonButton","script":preload("../runtime/node/button.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"VBox","canonical":"EstragonVBox","script":preload("../runtime/node/vbox.gd"),"dimension":2,"origin":"native layout"},
 	{"alias":"HBox","canonical":"EstragonHBox","script":preload("../runtime/node/hbox.gd"),"dimension":2,"origin":"native layout"},
 	{"alias":"Entry2D","canonical":"Estragon2D","script":preload("../runtime/node/estragon_2d.gd"),"dimension":2,"origin":"layout entry"},

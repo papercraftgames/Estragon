@@ -12,7 +12,7 @@ static func write(path: String, text: String) -> void:
 	file.close()
 static func header(path: String, base: String, names: Array) -> String:
 	var result := "extends "+base+"\n"
-	for name in names: result += Imports.declaration(name,Catalog.path(Catalog.named(name)),path)
+	for name in names: result += Imports.declaration(name,Catalog.path(Catalog.named("Button" if name=="UiButton" else name)),path)
 	return result
 static func settings(path: String = SETTINGS) -> String:
 	return header(path,"Node2D",["Element","Entry2D","Text"])+'''@bindable var title: String = "Settings child"

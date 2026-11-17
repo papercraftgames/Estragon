@@ -1,0 +1,7 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var supplied: Button = null
+func build_view() -> Element:
+	return <Text text={"Typed import: "+("none" if self.supplied==null else self.supplied.text)} />

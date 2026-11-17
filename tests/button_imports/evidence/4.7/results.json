@@ -1,0 +1,174 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "b6bc59e6844e0533a6ef5f0219f0b50564f25bc45281a2d25782c755e03ced47"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-ZiAOPX/yarn-cache",
+      "file:/tmp/d07-final-pair5/packed/button-imports-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.79,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZiAOPX/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZiAOPX/project",
+      "--headless",
+      "--script",
+      "res://tests/button_imports/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.45,
+    "godot_pid": 13456,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZiAOPX/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZiAOPX/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/button_imports/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.98,
+    "godot_pid": 13473,
+    "log": "frontend.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZiAOPX/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZiAOPX/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/button_imports/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.85,
+    "godot_pid": 13572,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZiAOPX/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-ZiAOPX/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.19,
+    "godot_pid": 13671,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-ZiAOPX/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZiAOPX/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 40.06,
+    "godot_pid": 13915,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"EstragonButton\".",
+      "          at: GDScript::reload (res://app/generated/Buttons.gd:74)",
+      "app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \"int\" because the function return type is \"EstragonButton\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"EstragonButton\".",
+      "          at: GDScript::reload (res://app/generated/Buttons.gd:74)",
+      "app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \"int\" because the function return type is \"EstragonButton\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)"
+    ],
+    "reason": "Unexpected diagnostics {\"bracket\":false,\"starts\":8,\"count\":8,\"typed\":4,\"unexpected\":[\"app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \\\"int\\\" because the function return type is \\\"EstragonButton\\\".\",\"app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \\\"int\\\" because the function return type is \\\"EstragonButton\\\".\",\"app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \\\"int\\\" because the function return type is \\\"EstragonButton\\\".\",\"app/Buttons.gogo:49:1: Parse Error: Cannot return value of type \\\"int\\\" because the function return type is \\\"EstragonButton\\\".\"]}"
+  }
+}

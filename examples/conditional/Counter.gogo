@@ -5,7 +5,7 @@ const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
 const Child = preload("res://examples/conditional/generated/Child.gd")
 const Model = preload("res://examples/composition/generated/Model.gd")
 var count: int = 0
@@ -16,15 +16,15 @@ func build_view() -> Element:
     return <Entry name="UI" position={Vector2(24,24)} width="90vw">
         <VBox name="Panel" width="100%" gap={12.0}>
             <Text name="Always" text={"Count: %d" % count} />
-            {<UiButton name="Action" text="Ready" pressed={increment} /> if count > 2 else <Text name="Prompt" text={model.title} />}
+            {<Button name="Action" text="Ready" pressed={increment} /> if count > 2 else <Text name="Prompt" text={model.title} />}
             {<VBox name="Bonus" gap={4.0}>
                 {(<Rect name="Deep" width={model.width} height={8.0} /> if model.width < 160.0 else <Rect name="Wide" width={model.width} height={8.0} />) if count > 4 else <Text name="Wait" text="Keep counting" />}
             </VBox> if show_bonus else null}
             <Text name="After" text="Stable sibling after optional slot" />
             {<Child name="Nested" model={model} /> if show_child else null}
-            <UiButton name="Increment" text="+" pressed={increment} />
-            <UiButton name="Toggle" text="Toggle bonus" pressed={toggle_bonus} />
-            <UiButton name="ToggleChild" text="Toggle nested component" pressed={toggle_child} />
+            <Button name="Increment" text="+" pressed={increment} />
+            <Button name="Toggle" text="Toggle bonus" pressed={toggle_bonus} />
+            <Button name="ToggleChild" text="Toggle nested component" pressed={toggle_child} />
         </VBox>
     </Entry>
 func increment() -> void:

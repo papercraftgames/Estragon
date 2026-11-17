@@ -3,7 +3,8 @@ const Element = preload("../../../addons/estragon/runtime/composition/element.gd
 const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 const Nested = preload("MinimumPanel.gd")
 @bindable var constrained: bool = true
@@ -18,9 +19,9 @@ func native_pressed() -> void:
 func build_view() -> Element:
     var panel = <VBox name="Panel" width="100%" padding="12px" border_width="2px" border_color="#8295bc" background_color="#252b38" gap="12px">
         <Text name="Caption" text="A readable minimum" min_width="120px" color={Color("#ffcc66")} />
-        <UiButton name="Continue" text="Continue" width="50%" height="20px" min_width="96px" min_height="36px" padding="6px" font_size={18} background_color="#355e92" border_color="#cbd8ed" border_width="1px" pressed={self.pressed} />
+        <Button name="Continue" text="Continue" width="50%" height="20px" min_width="96px" min_height="36px" padding="6px" font_size={18} background_color="#355e92" border_color="#cbd8ed" border_width="1px" pressed={self.pressed} />
         <Toggle name="Enabled" text="Enabled" min_width="120px" min_height="36px" bind:value={self.enabled} />
-        <Button name="Native" text="Native Button" pressed={self.native_pressed} />
+        <NativeButton name="Native" text="Native Button" pressed={self.native_pressed} />
         <Nested name="Nested" />
     </VBox>
     if self.constrained:

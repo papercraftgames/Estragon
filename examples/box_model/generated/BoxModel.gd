@@ -5,7 +5,7 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
 signal inset_changed(previous: float, value: float)
 var inset: float = 12.0:
     set(_gogo_incoming_inset):
@@ -80,7 +80,7 @@ class _GogoFactories_0:
         var _gogo_element_4 := _GogoElement_0.new(Rect, {"width": _gogo_value_10, "height": _gogo_value_11, "fill": _gogo_value_12, "margin_right": _gogo_value_13}, {}, [], "examples/box_model/BoxModel.gogo:17:17", null, false)
         var _gogo_element_5 := _GogoElement_0.new(Rect, {"width": _gogo_value_14, "height": _gogo_value_15, "fill": _gogo_value_16, "margin_top": _gogo_value_17}, {}, [], "examples/box_model/BoxModel.gogo:18:17", null, false)
         var _gogo_element_3 := _GogoElement_0.new(HBox, {"padding": _gogo_value_7, "gap": _gogo_value_8, "margin_left": _gogo_value_9}, {}, [_gogo_element_4, _gogo_element_5], "examples/box_model/BoxModel.gogo:16:13", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(UiButton, {"name": "Action", "text": "Change padding", "height": _gogo_value_18, "width": "100%", "margin": _gogo_value_19}, {"pressed": _gogo_value_20}, [], "examples/box_model/BoxModel.gogo:20:13", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(_GogoImport_0, {"name": "Action", "text": "Change padding", "height": _gogo_value_18, "width": "100%", "margin": _gogo_value_19}, {"pressed": _gogo_value_20}, [], "examples/box_model/BoxModel.gogo:20:13", null, false)
         var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "padding": _gogo_value_3, "padding_left": _gogo_value_4, "gap": _gogo_value_5, "width": "100%"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_6], "examples/box_model/BoxModel.gogo:14:9", null, false)
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": _gogo_value_1, "padding": _gogo_value_2}, {}, [_gogo_element_1], "examples/box_model/BoxModel.gogo:13:12", null, false)
         return _gogo_element_0

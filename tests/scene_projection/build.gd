@@ -9,7 +9,7 @@ static func write(path: String, text: String) -> void:
 	file.close()
 static func header(path: String, names: Array, spatial := false) -> String:
 	var text := "extends Node3D\n" if spatial else "extends Node2D\n"
-	for name in names: text += Imports.declaration(name,Catalog.path(Catalog.named(name)),path)
+	for name in names: text += Imports.declaration(name,Catalog.path(Catalog.named("Button" if name=="UiButton" else name)),path)
 	return text
 static func install() -> void:
 	var path := "res://app/Home.gogo"

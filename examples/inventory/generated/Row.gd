@@ -2,7 +2,7 @@
 extends "../../../addons/estragon/runtime/node/hbox.gd"
 const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
 const Item = preload("res://examples/inventory/generated/Item.gd")
 signal item_changed(previous: Item, value: Item)
 var item: Item = null:

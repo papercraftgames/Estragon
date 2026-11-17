@@ -84,7 +84,7 @@ func run(p) -> void:
 	restored = copy.instantiate()
 	p.check(restored.padding=="auto" and restored.padding_right=="3px","S02 native UiButton padding fallback and explicit sides survive pack/reload")
 	restored.free()
-	for spec in [[false,false,false,"#514174"],[true,false,false,"#705a9e"],[true,true,false,"#302440"],[false,true,false,"#514174"],[true,true,true,"#38343f"]]:
+	for spec in [[false,false,false,"#383838"],[true,false,false,"#505050"],[true,true,false,"#252525"],[false,true,false,"#383838"],[true,true,true,"#303030"]]:
 		button.disabled = spec[2]
 		button._set_pointer_state(spec[0],spec[1])
 		p.check(button.get_background_color()==Color(spec[3]),"S02 original unstyled pointer palette/precedence "+str(spec))
@@ -166,7 +166,7 @@ func gallery(p) -> void:
 	p.check(toggle.get_background_color()==Color("#207050") and toggle_before==[toggle.get_layout_stats(),toggle.lengths.parse_count,record.runs],"S02 checked color wins over hover/pressed with redraw-only scheduling")
 	toggle.disabled = true
 	await p.frames()
-	p.check(toggle.get_background_color()==Color("#38343f"),"S02 disabled color wins over checked")
+	p.check(toggle.get_background_color()==Color("#303030"),"S02 disabled color wins over checked")
 	toggle.disabled = false
 	toggle._set_pointer_state(false,false)
 	p.click(normal,normal.layout_size)

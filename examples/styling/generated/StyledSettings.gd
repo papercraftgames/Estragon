@@ -1,7 +1,8 @@
 extends Node2D
 const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 var native_clicks: int = 0
 var ui_clicks: int = 0
 func native_pressed() -> void:
@@ -21,7 +22,7 @@ class _GogoFactories_0:
 
 
 	static func _gogo_build_0(_gogo_value_0: Callable, _gogo_value_1: Callable) -> _GogoElement_0:
-		var _gogo_element_1 := _GogoElement_0.new("Button", {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_0}, [], "examples/styling/StyledSettings.gogo:14:3", null, false)
-		var _gogo_element_2 := _GogoElement_0.new(UiButton, {"name": "Ui", "text": "Estragon Button"}, {"pressed": _gogo_value_1}, [], "examples/styling/StyledSettings.gogo:15:3", null, false)
-		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Controls", "width": "100%", "padding": "8px", "gap": "12px", "background_color": "#30394d", "border_color": "#8295bc", "border_width": "1px"}, {}, [_gogo_element_1, _gogo_element_2], "examples/styling/StyledSettings.gogo:12:9", null, false)
+		var _gogo_element_1 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_0}, [], "examples/styling/StyledSettings.gogo:15:3", null, false)
+		var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "Ui", "text": "Estragon Button"}, {"pressed": _gogo_value_1}, [], "examples/styling/StyledSettings.gogo:16:3", null, false)
+		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Controls", "width": "100%", "padding": "8px", "gap": "12px", "background_color": "#30394d", "border_color": "#8295bc", "border_width": "1px"}, {}, [_gogo_element_1, _gogo_element_2], "examples/styling/StyledSettings.gogo:13:9", null, false)
 		return _gogo_element_0

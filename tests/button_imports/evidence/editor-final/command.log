@@ -1,0 +1,348 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:14600) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.56s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+D07_BUILD {"changed":["app/generated/NativeOnly.gd","app/generated/NativeOnly.gd.map.json","app/generated/TypedButton.gd","app/generated/TypedButton.gd.map.json","app/generated/Buttons.gd","app/generated/Buttons.gd.map.json","app/generated/LegacyAlias.gd","app/generated/LegacyAlias.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/NativeOnly.gd","app/generated/TypedButton.gd","app/generated/Buttons.gd","app/generated/LegacyAlias.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+D07_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_EDITOR_CHECK initial Inspector charcoal background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal hover_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo hover_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal pressed_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo pressed_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal disabled_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo disabled_background_color: true
+D07_EDITOR_CHECK native inspected Button saves: true
+D07_EDITOR_CHECK Inspector undo defaults survive native scene reload and initial cache: true
+D07_EDITOR_CHECK real native authored D07 scene imports: true
+D07_EDITOR_CHECK popup distinguishes Godot: true
+D07_EDITOR_CHECK real completion native/import selection Godot: true
+D07_EDITOR_CHECK completion and import are one undo Godot: true
+D07_EDITOR_CHECK completion redo Godot: true
+D07_EDITOR_CHECK popup distinguishes Estragon native: true
+D07_EDITOR_CHECK real completion native/import selection Estragon native: true
+D07_EDITOR_CHECK completion and import are one undo Estragon native: true
+D07_EDITOR_CHECK completion redo Estragon native: true
+D07_EDITOR_CHECK native Gogo highlighter attached to actual D07 source: true
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX script import not found: res://missing_button.gd
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:88)
+         [5] completion_proof (res://tests/button_imports/editor.gd:165)
+         [6] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:88)
+       [1] completion_proof (res://tests/button_imports/editor.gd:165)
+       [2] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX script import not found: res://missing_button.gd
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:88)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:88)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:88)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:88)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/button_imports/editor.gd:88)
+              [8] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:1: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:88)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:88)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:1: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK current invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK current invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320.0, 240.0)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640.0, 480.0)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000.0, 800.0)
+D07_GAME {"clicks":3,"identity":47110424206,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+D07_EDITOR_CHECK current actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX script import not found: res://missing_button.gd
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:87)
+         [5] play (res://tests/button_imports/editor.gd:53)
+         [6] until (res://tests/button_imports/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:87)
+       [1] play (res://tests/button_imports/editor.gd:53)
+       [2] until (res://tests/button_imports/editor.gd:18)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:87)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:87)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:7: Ambiguous duplicate preload alias Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:87)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:87)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:33:6: GGX hierarchy script must be a constructible Node: Button
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+D07_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/button_imports/editor.gd:87)
+              [8] wait (res://tests/button_imports/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:1: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/button_imports/editor.gd:87)
+         [5] wait (res://tests/button_imports/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/button_imports/editor.gd:87)
+       [1] wait (res://tests/button_imports/editor.gd:14)
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+          at: GDScript::reload (res://app/generated/Buttons.gd:74)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Buttons.gogo:49:1: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+D07_EDITOR_CHECK main invalid unsaved D07 blocks stale Play with authored diagnostic: true
+D07_EDITOR_CHECK main invalid D07 retains code/map/UID/timestamp/cached Script: true
+D07_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320.0, 240.0)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640.0, 480.0)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000.0, 800.0)
+D07_GAME {"clicks":3,"identity":47043315342,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+D07_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+D07_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+D07_EDITOR_ASSERTIONS 41 failed=false
+D07_EDITOR_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_EDITOR_CHECK initial Inspector charcoal background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal hover_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo hover_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal pressed_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo pressed_background_color: true
+D07_EDITOR_CHECK initial Inspector charcoal disabled_background_color: true
+D07_EDITOR_CHECK native Inspector color edit/undo/redo disabled_background_color: true
+D07_EDITOR_CHECK native inspected Button saves: true
+D07_EDITOR_CHECK Inspector undo defaults survive native scene reload and initial cache: true
+D07_EDITOR_CHECK real native authored D07 scene imports: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+D07_GAME_SIZE requested=(320, 240) actual=(320, 240) layout=(320.0, 240.0)
+D07_GAME_SIZE requested=(640, 480) actual=(640, 480) layout=(640.0, 480.0)
+D07_GAME_SIZE requested=(1000, 800) actual=(1000, 800) layout=(1000.0, 800.0)
+D07_GAME {"clicks":3,"identity":47043315342,"native_clicks":3,"ok":true,"resource":true,"unimported_clicks":3}
+D07_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+D07_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+D07_EDITOR_ASSERTIONS 13 failed=false
+D07_EDITOR_OK
+Done in 73.18s.

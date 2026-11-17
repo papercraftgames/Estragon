@@ -1,0 +1,34 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+D07_CHECK explicit imported Button is the real Estragon Node2D: true
+D07_CHECK same-file explicit native Script and unimported Godot Button stay native: true
+D07_CHECK lexical constructors/alias and explicit ClassDB qualification: true
+D07_CHECK native type/constructor and lowered imported type preserve expressions and member data: true
+D07_CHECK bindable imported types and imported Gogo property metadata preserve Script identity: true
+D07_CHECK four exact neutral property defaults before user writes: true
+D07_CHECK initial cached palette matches native property defaults: true
+D07_CHECK actual neutral state pixel #383838: true
+D07_CHECK actual neutral state pixel #505050: true
+D07_CHECK actual neutral state pixel #252525: true
+D07_CHECK actual neutral state pixel #303030: true
+D07_CHECK actual neutral state pixel #383838: true
+D07_CHECK pointer palette changes are draw-only, no geometry/layout/recomposition: true
+D07_CHECK square corners, white native text alignment and14/8 local padding preserved: true
+D07_CHECK initial disabled Button and unchecked Toggle are charcoal: true
+D07_CHECK each real native/custom pressed/value_changed fires once: true
+D07_CHECK no duplicated handlers on imported/native/controlled Toggle: true
+D07_CHECK checked Toggle remains teal: true
+D07_CHECK disabled charcoal precedence over checked teal: true
+D07_CHECK explicit spread color/S04 radius remains authoritative and visual-only: true
+D07_CHECK spread omission restores charcoal/native defaults on retained node: true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (320, 240): true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (640, 480): true
+D07_CHECK responsive Wrap/scroll/S04 native surface retained at (1000, 800): true
+D07_CHECK settled imported palette/scene idle quiet: true
+D07_CHECK source host packs without transient Button output: true
+D07_CHECK PackedScene reload remounts imported Button with neutral defaults: true
+D07_CHECK old explicitly imported UiButton user source still runs unchanged: true
+D07_CHECK all imported/native composition subscriptions released: true
+D07_ASSERTIONS 29 failed=false
+D07_RUNTIME_OK

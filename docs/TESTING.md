@@ -162,3 +162,9 @@ radius/texture/Gradient/input/resource/idle/pack behavior and strict negative
 rollback, then real Inspector/undo/current+main Play/repair/cold restart. Use
 `--candidate-tag "$S04_CANDIDATE_TAG"` only as a read-only preview overlay. Heavy
 native graphics/editor acceptance stays local; routine CI policy is unchanged.
+
+D07 import-selected Button acceptance is opt-in: `tools/check-button-imports.ts`
+accepts the approved `--engine` selections and a new absolute `--output`, plus
+`--editor` or focused `--editor-only`. It uses a clean committed source and a
+local Yarn development package, not release certification. See [exact D07
+phases, failures, native graphics and regression commands](evidence/D07_BUTTON_IMPORTS.md).

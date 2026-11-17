@@ -7,6 +7,7 @@ const Parser = preload("parser.gd")
 const Bindable = preload("bindable.gd")
 const Validator = preload("validator.gd")
 const Composition = preload("composition.gd")
+const ImportAliases = preload("import_aliases.gd")
 
 static func analyze(text: String, source_name: String = "<source>", output_path: String = "", project_sources = null) -> Model.Result:
 	var file := Source.new(text, source_name, output_path, project_sources)
@@ -16,6 +17,7 @@ static func analyze(text: String, source_name: String = "<source>", output_path:
 	if module != null: Bindable.new(file).apply(module)
 	if module != null and file.diagnostics.is_empty(): Composition.new(file).apply(module)
 	if module != null and file.diagnostics.is_empty(): Validator.new(file).validate(module)
+	if module != null and file.diagnostics.is_empty(): ImportAliases.new(file).apply(module)
 	result.tokens = parser.lexer.tokens
 	result.diagnostics = file.diagnostics
 	result.module = module if result.diagnostics.is_empty() else null

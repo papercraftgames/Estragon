@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import {execFileSync} from 'node:child_process';
+const root='/repo',out='/tmp/d07-regressions1',binary='/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64';
+fs.mkdirSync(out);
+for(const name of ['native-controls','styling','surfaces','ux01','responsive','spreads']){
+ let source=fs.readFileSync(root+'/tools/check-'+name+'.ts','utf8');
+ source=source.replace("import {packAddon} from './pack-addon.ts';",`import {buttonImportsPackage} from '/repo/tools/button-imports-package.ts';\nconst packAddon=(output:string,..._args:unknown[])=>buttonImportsPackage(output);`);
+ source=source.replaceAll(/from '([.][/]([^']+))'/g,(_all,_rel,file)=>"from '/repo/tools/"+file+"'");
+ const tool=out+'/check-'+name+'.ts';fs.writeFileSync(tool,source);
+ try{execFileSync('corepack',['yarn@1.22.22','node','--experimental-strip-types',tool,'--engine','4.7='+binary,'--output',out+'/'+name],{cwd:root,env:{...process.env,COREPACK_ENABLE_PROJECT_SPEC:'0'},stdio:['ignore',fs.openSync(out+'/'+name+'.log','w'),fs.openSync(out+'/'+name+'.stderr.log','w')],timeout:300000});console.log(name+' PASS');}
+ catch(error){console.log(name+' FAIL '+String(error));}
+}

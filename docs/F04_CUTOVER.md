@@ -13,13 +13,13 @@ extends Node2D
 const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const VBox = preload("res://addons/estragon/runtime/node/vbox.gd")
 const Text = preload("res://addons/estragon/runtime/node/text.gd")
-const UiButton = preload("res://addons/estragon/runtime/node/button.gd")
+const Button = preload("res://addons/estragon/runtime/node/button.gd")
 @bindable var count: int = 0
 
 func build_view() -> Element:
     return <VBox>
         {caption()}
-        <UiButton text="+" pressed={increment} />
+        <Button text="+" pressed={increment} />
     </VBox>
 
 func caption() -> Element:

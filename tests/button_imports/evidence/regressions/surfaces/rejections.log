@@ -1,0 +1,151 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_REJECTION literal authored diagnostic <Rect corner_radius="-1px" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius={INF} />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius="auto" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius_top_left="bad" />: true
+S04_REJECTION literal authored diagnostic <Rect background_texture_mode="cover" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius="2px" corner_radius="3px" />: true
+S04_REJECTION literal authored diagnostic <Rect clip_content="true" />: true
+S04_REJECTION literal authored diagnostic <Node3D corner_radius="2px" />: true
+S04_REJECTION literal authored diagnostic <Control clip_content />: true
+S04_REJECTION literal authored diagnostic <Rect fill={Color.RED} background_color="#fff" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius={true} />: true
+S04_REJECTION independent shorthand/override metadata <Rect corner_radius="12px" corner_radius_top_left="0px" />: true
+S04_REJECTION independent shorthand/override metadata <Rect corner_radius_top_left="0px" corner_radius="12px" />: true
+S04_REJECTION independent shorthand/override metadata <Rect background_texture_mode="tile" clip_content />: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": -1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": nan, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'corner_radius'): invalid length 'corner_radius': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": "2em", "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'corner_radius_top_right'): invalid length 'corner_radius_top_right': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius_top_right": false, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'background_texture'): attribute 'background_texture': background_texture requires Texture2D or null; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture": ():<Resource#-9223371698508659014>, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture_mode": "cover", "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture_mode": 1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'clip_content'): attribute 'clip_content': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "clip_content": 1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_color": "broken" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "scroll_offset": (inf, 0.0), "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:25:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:132)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:33)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": 10000000000000.0, "background_color": "#ff0000" }: true
+S04_REJECTION repair commits radius shorthand/override independently: true
+S04_REJECTION omission restores default override and explicit authored shorthand: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _assign_radius (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:109)
+       [1] @corner_radius_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:82)
+       [2] run (res://tests/surfaces/rejections.gd:46)
+       [3] frames (res://tests/surfaces/rejections.gd:12)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value corner_radius: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface 'corner_radius_top_left': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _assign_radius (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:109)
+       [1] @corner_radius_top_left_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:87)
+       [2] run (res://tests/surfaces/rejections.gd:46)
+       [3] frames (res://tests/surfaces/rejections.gd:12)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value corner_radius_top_left: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface: background_texture_mode requires stretch or tile
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @background_texture_mode_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:75)
+       [1] run (res://tests/surfaces/rejections.gd:46)
+       [2] frames (res://tests/surfaces/rejections.gd:12)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value background_texture_mode: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/surfaces/rejections.gd:46)
+       [3] frames (res://tests/surfaces/rejections.gd:12)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value background_color: true
+S04_REJECTION negative fixture releases resources and records: true
+S04_REJECTION_ASSERTIONS 32 failed=false
+S04_REJECTIONS_OK

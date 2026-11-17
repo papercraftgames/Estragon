@@ -1,0 +1,8 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+SCRIPT ERROR: Parse Error: The member "Button" shadows a native class.
+          at: GDScript::reload (gdscript://-9223372012796246856.gd:2)
+D07_NATIVE_PROBE direct status=43
+SCRIPT ERROR: Parse Error: The member "Button" shadows a native class.
+          at: GDScript::reload (gdscript://-9223372012393593670.gd:3)
+D07_NATIVE_PROBE mixed status=43

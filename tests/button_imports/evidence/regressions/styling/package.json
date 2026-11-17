@@ -1,0 +1,8 @@
+{
+  "name": "s01-native-consumer",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "dependencies": {
+    "@papercraftgames/estragon": "file:/tmp/d07-regressions1/styling/4.7/packed/button-imports-dev.tgz"
+  }
+}

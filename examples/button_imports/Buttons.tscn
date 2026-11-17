@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://examples/button_imports/generated/Buttons.gd" id="1_1cior"]
+
+[node name="Buttons" type="Node2D" unique_id=687662687]
+script = ExtResource("1_1cior")

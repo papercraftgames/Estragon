@@ -3,7 +3,7 @@ const Element = preload("../../../addons/estragon/runtime/composition/element.gd
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
 signal width_percent_changed(previous: float, value: float)
 var width_percent: float = 50.0:
     set(_gogo_incoming_width_percent):
@@ -54,6 +54,6 @@ class _GogoFactories_0:
     ) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_3, "font_size": _gogo_value_4}, {}, [], "examples/lengths/ResponsivePanel.gogo:12:9", null, false)
         var _gogo_element_2 := _GogoElement_0.new(Rect, {"name": "Color", "grow": _gogo_value_5, "stretch": _gogo_value_6, "fill": _gogo_value_7}, {}, [], "examples/lengths/ResponsivePanel.gogo:13:9", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(UiButton, {"name": "Action", "text": "Toggle 25% / 50%", "height": _gogo_value_8, "width": "100%"}, {"pressed": _gogo_value_9}, [], "examples/lengths/ResponsivePanel.gogo:14:9", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "Action", "text": "Toggle 25% / 50%", "height": _gogo_value_8, "width": "100%"}, {"pressed": _gogo_value_9}, [], "examples/lengths/ResponsivePanel.gogo:14:9", null, false)
         var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Panel", "width": _gogo_value_0, "height": "75%", "padding": _gogo_value_1, "gap": _gogo_value_2}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3], "examples/lengths/ResponsivePanel.gogo:11:12", null, false)
         return _gogo_element_0

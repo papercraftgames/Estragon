@@ -1,0 +1,132 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+S01_EXPECTED_REJECTION_BEGIN
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon style 'background_color': Color channels must be finite
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] run (res://tests/styling/rejections.gd:11)
+ERROR: Estragon length 'border_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': auto is only valid for dimensions and unset inset edges
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Length is negative, nonfinite or outside the supported range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon length 'border_width': Length requires int, float or a unit string
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @border_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:126)
+       [2] run (res://tests/styling/rejections.gd:14)
+ERROR: Estragon style 'hover_background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @hover_background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/button.gd:9)
+       [2] run (res://tests/styling/rejections.gd:19)
+ERROR: Estragon style 'pressed_background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @pressed_background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/button.gd:14)
+       [2] run (res://tests/styling/rejections.gd:19)
+ERROR: Estragon style 'disabled_background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @disabled_background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/button.gd:19)
+       [2] run (res://tests/styling/rejections.gd:19)
+ERROR: Estragon length 'padding': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:66)
+       [1] @padding_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:156)
+       [2] run (res://tests/styling/rejections.gd:21)
+ERROR: Estragon style 'checked_background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @checked_background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/toggle.gd:9)
+       [2] run (res://tests/styling/rejections.gd:26)
+ERROR: Estragon style 'background_color': Color channels must be finite
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/visual_style_2d.gd:228)
+       [1] @background_color_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:116)
+       [2] @fill_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/rect.gd:8)
+       [3] run (res://tests/styling/rejections.gd:30)
+S01_EXPECTED_REJECTION_END
+S01_REJECTIONS_OK

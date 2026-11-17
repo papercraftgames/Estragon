@@ -61,6 +61,7 @@ for(const selection of options.engines){
   fs.copyFileSync(path.join(ROOT,'examples/surfaces/panel_gradient.tres'),path.join(box.project,'app/panel_gradient.tres'));
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="S04 combined gallery"\nrun/main_scene="res://app/SurfaceGallery.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=480\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+  for(const name of ['godot_button.gd','godot_button.gd.uid'])fs.copyFileSync(path.join(ROOT,'examples',name),path.join(box.project,name));
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('build',[...args,'--headless','--script','res://tests/surfaces/build.gd'],'S04_BUILD_OK');
   if(!editorOnly){

@@ -76,11 +76,19 @@ func scan(module: Model.Module) -> void:
 				path = output.get_base_dir().path_join(path).simplify_path()
 			if not path.is_absolute_path(): path = "res://" + path
 			aliases[name] = path.simplify_path()
+			if ClassDB.class_exists(name) and not module.import_aliases.has(name):
+				var private_name := "_GogoImport_"+str(module.import_aliases.size())
+				while module.identifiers.has(private_name): private_name += "_"
+				module.identifiers.append(private_name)
+				module.import_aliases[name] = private_name
 		for index in range(tokens.size()-3):
 			if tokens[index].text!="const" or tokens[index].span.start.column!=1 or tokens[index+2].text!="=": continue
 			var target: String = tokens[index+3].text
 			if index+4<tokens.size() and tokens[index+4].span.start.line==tokens[index+3].span.start.line: continue
-			if ClassDB.class_exists(target): native_aliases[tokens[index+1].text] = target
+			# Script aliases retain lexical meaning even when their name shadows a
+			# native class. Never classify Other=Button as native behind an import.
+			if aliases.has(target): aliases[tokens[index+1].text] = aliases[target]
+			elif ClassDB.class_exists(target): native_aliases[tokens[index+1].text] = target
 
 func scope():
 	if project == null: project = ProjectSources.new()
@@ -92,9 +100,9 @@ func resolve(name: String, span: Model.Span, project_tags: bool = true) -> Dicti
 		if not ClassDB.is_parent_class(native,"Node") or not ClassDB.can_instantiate(native): return _fail("Non-constructible native alias "+name,span)
 		return {"native":native,"script":null,"native_alias":native}
 	if aliases.has(name):
-		if ClassDB.class_exists(name):
-			return _fail("Ambiguous GGX preload alias " + name, span)
 		var explicit := _script(name,aliases[name],span,project_tags)
+		if explicit.is_empty(): return explicit
+		if _module.import_aliases.has(name): explicit.runtime_alias = _module.import_aliases[name]
 		return _import(name,explicit,explicit.get("gogo_path",""),span) if project_tags else explicit
 	if project_tags:
 		var candidates: Array = scope().named(name)
@@ -139,7 +147,7 @@ func _script(name: String, path: String, span: Model.Span, check_constructor: bo
 	# it must not load authored scripts (including their static initializers).
 	if source_only and FileAccess.file_exists(path): return _gogo(name,path,path,span,check_constructor)
 	if not ResourceLoader.exists(path, "GDScript"): return _fail("GGX script import not found: " + path, span)
-	var script: Script = load(path)
+	var script = load(path)
 	# CACHE_MODE_IGNORE still changes GDScript's internal cache on tested Godot.
 	# Never mutate an application's live Script during metadata analysis.
 	if script is GDScript and script.source_code.replace("\r\n","\n") != FileAccess.get_file_as_string(path).replace("\r\n","\n"):
@@ -243,6 +251,9 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 		var qualified := ""
 		if kind==TYPE_OBJECT:
 			if type==declared_name: qualified = name
+			elif imported.aliases.has(type.get_slice(".",0)):
+				var root_name := type.get_slice(".",0)
+				qualified = name+"."+module.import_aliases.get(root_name,root_name)+type.trim_prefix(root_name)
 			elif ClassDB.class_exists(type.get_slice(".",0)) or imported.globals.has(type.get_slice(".",0)): qualified = type
 			else: qualified = name+"."+type
 		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT,"source_writable":true}

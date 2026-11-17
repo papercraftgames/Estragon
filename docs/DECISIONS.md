@@ -522,3 +522,21 @@ only relevant drawing caches; no per-frame work or function recomposition.
 rounded descendant masks. Keep scene owners, retained children, native input and
 focus; defaults allocate no helpers. Exact two-engine evidence and live PR decide
 implementation status; this ADR is no release/publication or platform claim.
+
+## ADR-0029 — D07 import-selected Button and neutral defaults
+
+Accepted owner decision, 2026-11-17, issue #146. Explicit Gogo Script imports
+win over native class spelling in that source; without an import native ClassDB
+resolution is unchanged. Both supported proof engines reject raw GDScript native
+class shadowing, so lexical source-span lowering emits private symbols while
+preserving authored maps, types and constructors. No global Button registration
+or magic namespace is introduced. Same-file native use follows an explicit
+ordinary native Script import or ClassDB constructor. The editor offers distinct
+origins and imports Estragon Button only on deliberate selection. Existing
+explicit user aliases remain normal imports; prior UiButton/EButton naming
+recommendations are historical and superseded. Other widget aliases are unchanged.
+
+Unstyled framework Buttons and unchecked Toggles use neutral charcoal; checked
+Toggle and explicit styles remain unchanged. See [D07](BUTTON_IMPORTS.md) for
+exact colors and examples. This revises naming/defaults, not layout ownership,
+the reconciler, S04 surfaces or Godot's native Button theme.
