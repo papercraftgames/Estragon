@@ -111,11 +111,8 @@ func _initialize():
 		model_script.resource_path = "res://app/generated/Value.gd"
 		model_script.source_code = model_result.code
 		check(model_script.reload()==OK,"native code-only model defaults load")
-		var model = model_script.new()
-		var reference = weakref(model)
-		var exported = model.App
-		model = null
-		check(reference.get_ref()==null and not exported.defaults.is_valid(),"default evaluator never forms a RefCounted owner/preset closure cycle")
+		var proof: Array = released_model(model_script)
+		check(proof[0].get_ref()==null and not proof[1].defaults.is_valid(),"default evaluator never forms a RefCounted owner/preset closure cycle")
 	var library_source := 'extends Node2D\nexport layout const <Side gap="7px"><Top /> <Top /></Side>\n'
 	var library = Compiler.compile(library_source,"res://fixture_library/Library.gogo","res://fixture_library/generated/Library.gd")
 	check(library.ok,"export library compiles")
@@ -150,3 +147,9 @@ func _initialize():
 	print("EL02_FRONTEND_ASSERTIONS ",assertions," failures=",failures)
 	if failures==0: print("EL02_FRONTEND_OK")
 	quit(0 if failures==0 else 1)
+
+func released_model(script: Script) -> Array:
+	# 4.0 retains a native getter receiver temporary until its caller returns.
+	# Test the actual ownership graph after that native evaluation stack unwinds.
+	var model = script.new()
+	return [weakref(model),model.App]
