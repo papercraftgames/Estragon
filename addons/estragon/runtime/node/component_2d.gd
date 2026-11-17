@@ -12,6 +12,11 @@ const ESTRAGON_GAPS_2D := true
 const ESTRAGON_SCROLL_2D := true
 const Scroll = preload("internal/scroll_2d.gd")
 var _scroll
+@export var clip_content: bool = false:
+	set(value):
+		if clip_content==value: return
+		clip_content = value
+		_clip_changed()
 @export var horizontal_scroll: bool = false:
 	set(value):
 		if horizontal_scroll==value: return
@@ -56,6 +61,56 @@ var _visual_style = VisualStyle.new()
 const Length = preload("internal/length.gd")
 var lengths = Length.new()
 const ESTRAGON_VISUAL_STYLE := true
+@export var background_texture: Texture2D:
+	set(value):
+		if value==background_texture: return
+		background_texture = value
+		_visual_style.set_texture(value)
+		_queue_style_redraw()
+@export_enum("stretch", "tile") var background_texture_mode: String = "stretch":
+	set(value):
+		if value==background_texture_mode: return
+		var message := VisualStyle.surface_error("background_texture_mode",value)
+		if not message.is_empty():
+			push_error("Estragon surface: "+message)
+			return
+		background_texture_mode = value
+		_visual_style.set_texture_mode(value)
+		_queue_style_redraw()
+var corner_radius: Variant = 0.0:
+	set(value):
+		if is_same(corner_radius,value) or not _assign_radius("corner_radius",value): return
+		corner_radius = value
+		_queue_style_redraw()
+var corner_radius_top_left: Variant = "auto":
+	set(value):
+		if is_same(corner_radius_top_left,value) or not _assign_radius("corner_radius_top_left",value): return
+		corner_radius_top_left = value
+		_queue_style_redraw()
+var corner_radius_top_right: Variant = "auto":
+	set(value):
+		if is_same(corner_radius_top_right,value) or not _assign_radius("corner_radius_top_right",value): return
+		corner_radius_top_right = value
+		_queue_style_redraw()
+var corner_radius_bottom_right: Variant = "auto":
+	set(value):
+		if is_same(corner_radius_bottom_right,value) or not _assign_radius("corner_radius_bottom_right",value): return
+		corner_radius_bottom_right = value
+		_queue_style_redraw()
+var corner_radius_bottom_left: Variant = "auto":
+	set(value):
+		if is_same(corner_radius_bottom_left,value) or not _assign_radius("corner_radius_bottom_left",value): return
+		corner_radius_bottom_left = value
+		_queue_style_redraw()
+func _assign_radius(name: String, value) -> bool:
+	var parsed := Length.parse(value,Length.domain(name))
+	_visual_style.parse_count += 1
+	if parsed.has("error"):
+		push_error("Estragon surface '"+name+"': "+parsed.error)
+		return false
+	_visual_style.radii[name] = parsed
+	_visual_style.sync_viewport()
+	return true
 var background_color: Variant = "transparent":
 	set(value):
 		if is_same(background_color,value) or not _style_supported() or not _visual_style.assign("background_color",value): return
@@ -223,6 +278,7 @@ func _get_property_list() -> Array[Dictionary]:
 	var properties := Length.properties(["width","height","min_width","min_height","max_width","max_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
 	properties.append_array(Length.properties(["row_gap","column_gap"]))
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
+	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(VisualStyle.RADII))
 	return properties
 static func valid_length(value) -> bool:
 	return Length.valid(value,"extent")
@@ -265,6 +321,17 @@ func _scroll_changed() -> void:
 	if _scroll==null and (horizontal_scroll or vertical_scroll): _scroll = Scroll.new(self)
 	_changed()
 	if _scroll!=null and is_inside_tree(): _scroll.start()
+func _clip_changed() -> void:
+	if _scroll==null and clip_content: _scroll = Scroll.new(self)
+	if layout==null: return
+	layout.model.clips_content = clip_content
+	if _scroll!=null and is_inside_tree(): _scroll.start()
+	# Only overflow observers need a refresh, not the existing layout slots.
+	var coordinator = layout.parent_coordinator()
+	while coordinator!=null:
+		var node = coordinator._host.get_ref()
+		if node!=null and "_scroll" in node and node._scroll!=null: node._scroll.refresh()
+		coordinator = coordinator.parent_coordinator()
 func _composition_child_parent() -> Node:
 	return _scroll.child_parent() if _scroll!=null and is_instance_valid(_scroll.child_parent()) else self
 func _composition_is_private(child: Node) -> bool:
@@ -294,12 +361,15 @@ func _enter_tree() -> void:
 	# cannot accidentally bypass the shared style. Legacy widget painters
 	# explicitly opt out of S01 styles and remain untouched until S02.
 	if VisualStyle.supported(get_script()) and not draw.is_connected(_paint_visual_style): draw.connect(_paint_visual_style)
-	if _scroll==null and (horizontal_scroll or vertical_scroll or get_node_or_null("_EstragonViewport")!=null): _scroll = Scroll.new(self)
+	_visual_style.start(self)
+	layout.model.clips_content = clip_content
+	if _scroll==null and (clip_content or horizontal_scroll or vertical_scroll or get_node_or_null("_EstragonViewport")!=null): _scroll = Scroll.new(self)
 	if _scroll!=null: _scroll.start()
 	layout.changed()
 	layout.start()
 
 func _exit_tree() -> void:
+	_visual_style.stop()
 	if _scroll!=null: _scroll.stop()
 	if draw.is_connected(_paint_visual_style): draw.disconnect(_paint_visual_style)
 	layout.stop()
@@ -321,8 +391,10 @@ func apply_layout_position(offset: Vector3) -> void:
 
 func apply_layout_size(size: Vector3) -> void:
 	var next := Vector2(size.x,size.y)
-	if next!=_layout_size: _queue_style_redraw()
+	var size_changed := next!=_layout_size
 	_layout_size = next
+	var surface_changed := _prepare_surface()
+	if size_changed or surface_changed: _queue_style_redraw()
 	_content_extent = layout.model.content_extent()
 	# Explicit invalidation also restores a native position edited externally.
 	if layout.parent_coordinator() != null: layout._place(layout.model.offset)
@@ -334,8 +406,17 @@ func _margin_insets() -> Vector4:
 	return layout.model.margin
 
 func _queue_style_redraw() -> void:
+	if layout!=null: _prepare_surface()
 	_visual_style.redraw_count += 1
 	queue_redraw()
+func _prepare_surface() -> bool:
+	var resolved := Vector4.ZERO
+	var viewport: Vector2 = get_viewport_rect().size if is_inside_tree() else layout.model.viewport_size
+	for index in range(4):
+		var spec: Dictionary = _visual_style.radii.get(VisualStyle.RADII[index+1],{"unit":"auto","value":0.0})
+		if spec.unit=="auto": spec = _visual_style.radii.get("corner_radius",{"unit":"native","value":0.0})
+		resolved[index] = Length.resolve(spec,minf(layout_size.x,layout_size.y),viewport)
+	return _visual_style.prepare(layout_size,layout.model.border,resolved)
 func _paint_visual_style() -> void:
 	_visual_style.paint(self,layout_size,layout.model.border,get_background_color())
 func get_background_color() -> Color:

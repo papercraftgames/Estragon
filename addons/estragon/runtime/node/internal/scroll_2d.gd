@@ -19,7 +19,7 @@ static func valid_offset(value) -> bool:
 func _ensure_viewport() -> void:
 	if is_instance_valid(_clip):
 		Hosts.add(_content,host.layout)
-		if enabled(): _input_guard.start(_content)
+		if clipping(): _input_guard.start(_content)
 		return
 	_clip = host.get_node_or_null("_EstragonViewport")
 	if _clip==null:
@@ -78,13 +78,13 @@ func _adopt_content(child: Node) -> void:
 	if is_instance_valid(focus) and focus.is_inside_tree(): focus.grab_focus()
 	host.layout._sync()
 func start() -> void:
-	if not enabled() and not is_instance_valid(_clip) and host.get_node_or_null("_EstragonViewport")==null: return
+	if not clipping() and not is_instance_valid(_clip) and host.get_node_or_null("_EstragonViewport")==null: return
 	_ensure_viewport()
 	for child in host.get_children():
 		if not is_private(child): _adopt_content(child)
 	if not host.child_entered_tree.is_connected(_external_child): host.child_entered_tree.connect(_external_child)
-	_clip.clip_contents = enabled()
-	if enabled(): _input_guard.start(_content)
+	_clip.clip_contents = clipping()
+	if clipping(): _input_guard.start(_content)
 	else: _input_guard.stop()
 	# Re-entry/scene reload must retain offsets until children and the existing
 	# coordinator are active again. Their arranged signal refreshes the viewport.
@@ -98,6 +98,8 @@ func child_parent() -> Node:
 	return _content
 func enabled() -> bool:
 	return host.horizontal_scroll or host.vertical_scroll
+func clipping() -> bool:
+	return host.clip_content or enabled()
 func _external_child(child: Node) -> void:
 	if not is_private(child): _adopt_later.call_deferred(weakref(child))
 func _adopt_later(reference: WeakRef) -> void:

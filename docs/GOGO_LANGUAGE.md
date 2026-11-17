@@ -175,3 +175,11 @@ examples](UX01.md#ggx-text-and-boolean-syntax).
 Bool metadata as other attributes, with normal direct Element children.
 The obsolete UX01 ScrollView public class/script and one-root rule are removed.
 [Current properties and intentional source migration](SCROLLING.md).
+
+S04 adds inherited native `corner_radius` and individual corner Length overrides,
+nullable `background_texture: Texture2D`, `background_texture_mode` stretch/tile,
+and bare Bool `clip_content`. Native GradientTexture2D Resources are ordinary
+property values/preloads, never Element children. [Styling contract](STYLING.md#s04--opt-in-native-surfaces)
+defines local border-box percentage radii, defaults, source validation and
+rectangular child clipping. Normal aliases, Dictionary spreads and retained
+description preflight apply without special style syntax.

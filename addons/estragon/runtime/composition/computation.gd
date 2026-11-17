@@ -365,7 +365,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 	# do not turn omission into permanent native state or change other props.
 	if VisualStyle.supported(desired.type):
 		for key in record.properties:
-			if key in Length.BORDER_EDGES and not desired.properties.has(key):
+			if (key in Length.BORDER_EDGES or key in VisualStyle.RADII.slice(1)) and not desired.properties.has(key):
 				node.set(key,"auto")
 				writes += 1
 				if Profile.is_enabled(): Profile.add("property_writes")
@@ -645,6 +645,9 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		var native: String = desired.type if desired.type is String else desired.type.get_instance_base_type()
 		if not properties.has(key) or not NativeAttributes.writable(native,desired.type,str(key),properties[key]): return _invalid_attribute(desired,str(key),"unknown, read-only or reserved native property")
 		var value = desired.properties[key]
+		if VisualStyle.supported(desired.type) and key in VisualStyle.SURFACE:
+			var message := VisualStyle.surface_error(key,value)
+			if not message.is_empty(): return _invalid_attribute(desired,str(key),message)
 		if key=="align_self" and StackContract.self_registered(desired.type):
 			var message := StackContract.error(key,value,"")
 			if not message.is_empty(): return _invalid_attribute(desired,str(key),message)

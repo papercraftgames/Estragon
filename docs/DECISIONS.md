@@ -499,3 +499,26 @@ chains scrolling and pointer routing. Existing native capture guard persists.
 Disabled helpers stay attached/inert for stable focus and reuse; never-enabled
 components allocate none. Historical UX01 proof stays truthful and superseded.
 This is an intentional beta API break, not release/version/publication work.
+
+## ADR-0028 — opt-in native 2D surfaces and shared explicit clipping
+
+Owner-revised [S04 #187](https://github.com/papercraftgames/Estragon/issues/187)
+after merged U02 PR #186 (`6a72c59`) excludes shadows and transitions. Earlier
+S04 roadmap intent is historical. [Normative contract](STYLING.md#s04--opt-in-native-surfaces).
+Direct inherited native properties preserve square/default fractional paint.
+Opt-in rounded background/texture/border compose once before native foreground.
+Cached bounded polygon/UV/ArrayMesh geometry preserves fractional insets and
+masks native Texture2D/GradientTexture2D to the outer contour; native polygon
+intersection handles extreme asymmetric borders. Persistent CanvasTexture repeat
+state supports tile without changing authored Resources or CanvasItem settings.
+No StyleBoxFlat integer width conversion, shader/material subsystem or second
+surface renderer. The public Godot4.0 APIs are [CanvasItem](https://docs.godotengine.org/en/4.0/classes/class_canvasitem.html),
+[CanvasTexture](https://docs.godotengine.org/en/4.0/classes/class_canvastexture.html)
+and [Geometry2D](https://docs.godotengine.org/en/4.0/classes/class_geometry2d.html).
+Local min(border-box) percentage radii are a documented visual-only exception
+to layout percentage authority. Native Resource and viewport signals invalidate
+only relevant drawing caches; no per-frame work or function recomposition.
+`clip_content` reuses U02 ancestry/input and remains rectangular: no promise of
+rounded descendant masks. Keep scene owners, retained children, native input and
+focus; defaults allocate no helpers. Exact two-engine evidence and live PR decide
+implementation status; this ADR is no release/publication or platform claim.

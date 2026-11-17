@@ -137,6 +137,11 @@ func _component(node: Model.Component) -> void:
 			_error("Grid "+name+" requires start, center, end or stretch",attribute.value.span)
 			return
 		var is_color := VisualStyle.registered(resolved.script,name)
+		if VisualStyle.supported(resolved.script) and name=="background_texture_mode" and attribute.value is Model.Literal:
+			var message := VisualStyle.surface_error(name,attribute.value.value)
+			if not message.is_empty():
+				_error(message,attribute.value.span)
+				return
 		if is_color:
 			_color(attribute)
 			if not file.diagnostics.is_empty(): return

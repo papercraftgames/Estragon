@@ -1,0 +1,36 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const PANEL_TEXTURE = preload("../panel_gradient.tres")
+@bindable var props: Dictionary = {}
+@bindable var radius: Variant = "24px"
+@bindable var clipped: bool = true
+@bindable var enabled: bool = true
+@bindable var checked: bool = false
+var clicks: int = 0
+func pressed(): clicks += 1
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%" background_color="#142536" padding="8px" direction="column" gap="8px" vertical_scroll>
+		<Text name="Title" color={Color.WHITE}>Native visual surfaces</Text>
+		<HBox name="Panels" wrap width="100%" gap="8px">
+			<Rect name="Square" width="140px" height="100px" background_color="#328abe" border_color="#eaffff" border_width={1.5} />
+			<Rect name="Round" width="140px" height="100px" background_color="#347f68" border_color="#eaffff" border_width={2.5} corner_radius={self.radius} {...self.props} />
+			<Rect name="Asymmetric" width="140px" height="100px" background_texture={PANEL_TEXTURE} corner_radius="30px" corner_radius_top_left="0px" corner_radius_bottom_right="70px" border_color="#ffcc88" border_left_width={8.5} border_width={2.5} />
+			<Rect name="Huge" width="140px" height="100px" background_color="#514174" corner_radius="1000000px" border_color="#c5b0ec" border_width="3px" />
+			<VBox name="Gradient" width="140px" height="100px" background_color="#30304080" background_texture={PANEL_TEXTURE} corner_radius="20%" padding="10px"><Text>Gradient</Text></VBox>
+			<Rect name="Tiled" width="140px" height="100px" background_color="#50305080" background_texture={PANEL_TEXTURE} background_texture_mode="tile" corner_radius="18px" />
+		</HBox>
+		<Grid name="Clipped" columns={2} width="100%" height="120px" clip_content={self.clipped} padding="8px" border_width="2px" border_color="#8295bc" corner_radius="20px" background_color="#252b38">
+			<UiButton name="Custom" width="500px" height="100px" corner_radius="14px" disabled={not self.enabled} pressed={pressed}>Native rounded button</UiButton>
+			<Button name="Native" custom_minimum_size={Vector2(200,100)} pressed={pressed}>Godot Button</Button>
+		</Grid>
+		<Toggle name="Toggle" width="200px" corner_radius="12px" bind:value={self.checked}>Native Toggle</Toggle>
+		<Text name="Footer" height="80px" background_texture={PANEL_TEXTURE} corner_radius="8px" padding="8px">Text foreground stays native</Text>
+	</Entry2D>

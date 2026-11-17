@@ -1,4 +1,4 @@
-# Local native 2D styling — S01 / S02
+# Local native 2D styling — S01 / S02 / S04
 
 S01 #167 adds native backgrounds and square borders to eligible Estragon 2D
 participants: Component2D, Box/HBox/VBox, Entry2D, Spacer and bounded Native2D
@@ -102,8 +102,9 @@ All ordinary native Godot Controls retain their own theme/drawing internals.
 S02 owns their unified content/background/state contract and Rect fill migration.
 Historical S01 scope anticipated S03 resources/themes; owner revision #173 supersedes
 that plan with general-purpose [GGX attribute spreading](GOGO_LANGUAGE.md#ordered-attribute-spreads-s03).
-No style prop, resources, tokens or framework style utilities are authorized. S04 owns radius,
-shadows, gradients, textures, clipping and transitions.3D styling/materials and
+No style prop, resources, tokens or framework style utilities are authorized. Historical S04 intent included shadows/transitions; revised #187 excludes both.
+S04 below owns radii, native texture/gradient values and rectangular child clipping.
+3D styling/materials and
 alignment/wrap/Grid are outside S01. The known inherited-relative-class4.7 icon
 limitation remains unchanged; editor field proof uses the actual shared direct
 Node2D participant API, not a class-cache patch or an error exemption.
@@ -181,3 +182,98 @@ Toggles, native Control and nested Gogo child. Revised S03 #173 adds only ordina
 GGX Dictionary attribute spreads, not shared resources/themes/tokens or a style prop.
 Future framework style support requires a separate owner design decision.
 Focus/navigation and S04 advanced visuals remain separate.3D acquires no style API.
+
+## S04 — opt-in native surfaces
+
+[Owner #187](https://github.com/papercraftgames/Estragon/issues/187), ADR-0028,
+adds direct inherited Component2D properties. Box/HBox/VBox/Grid/Entry2D and
+Text/Rect/Button/Toggle use the same surface hook; native Godot Controls keep
+their own theme skins. [SurfaceGallery](../examples/surfaces/SurfaceGallery.tscn)
+is source-authored Gogo with a checked-in native GradientTexture2D resource.
+
+```gogo
+const PANEL_TEXTURE = preload("../panel_gradient.tres")
+func build_view() -> Element:
+    return <VBox width="320px" height="160px" padding="16px"
+                 background_color="#202b38" background_texture={PANEL_TEXTURE}
+                 background_texture_mode="stretch" border_color="#88aac4"
+                 border_width="2px" corner_radius="12px" clip_content>
+        <Text>Native surface</Text>
+    </VBox>
+```
+
+Use ordinary explicit aliases, as in the gallery. Native textures/gradients are
+Resource values, not authored children. Reuse Dictionaries with ordinary GGX
+spreads; no style prop, framework style Resource, cascade or inheritance appears.
+
+| Property | Default / contract |
+| --- | --- |
+| corner_radius | 0; finite nonnegative numeric pixels or shared Length string |
+| corner_radius_top_left / top_right / bottom_right / bottom_left | auto; local override of shorthand, auto/omission restores fallback |
+| background_texture | nullable native Texture2D, including GradientTexture2D |
+| background_texture_mode | stretch or tile; default stretch |
+| clip_content | false; rectangular child viewport after border/padding |
+
+Corner percentages deliberately use **min(owner border-box width, height)**,
+unlike ordinary parent-referenced layout lengths. Viewport/physical units retain
+the shared [Length](LENGTHS.md) conversions and finite numeric bounds. Resolve
+four corners, then uniformly reduce them until every adjacent pair fits its
+actual edge. Zero extents are safe. Radius does not enlarge layout or pointer
+bounds, consume padding or change the exact border width/side precedence. Corner
+overrides win independent of attribute/spread order; omission resets an owned
+override on the same retained Node.
+
+The square/no-texture path remains the original floating-point rectangle/strip
+painter, with identical blending and corner ownership. Effects use cached native
+polygon/UV/ArrayMesh commands in that same hook: base effective widget color,
+optional texture inside the border contour, border, then native widget foreground.
+Textures do not overwrite border strips or square off rounded corners. Stretch
+maps the inner border rectangle to the full texture; tile repeats at native
+texture-pixel dimensions, with a private CanvasTexture repeat override that does
+not change the user's CanvasItem settings or Resource. Native CanvasTexture
+normal/specular settings are retained when supplied.
+
+Rounded arcs use **16 chords per quarter circle**, floating-point coordinates,
+and Godot's native polygon/triangle rasterization, without added edge smoothing.
+The maximum circle-to-chord deviation is `radius * (1 - cos(PI/64))` before
+native pixel rasterization. This is bounded contour approximation, not an
+integer StyleBoxFlat conversion or a claim of vector-perfect antialiasing.
+The inner contour intersects the outer contour for extreme asymmetric insets;
+cached nonoverlapping border bands avoid texture escape and double-blended seams.
+Subpixel geometry is subject to native float/polygon raster precision; dimensions
+and fractional square borders remain exact authored layout values.
+
+Geometry/UV/mesh state rebuilds only for relevant size/radius/border/texture
+changes, outside draw. Color/state writes redraw without rebuilding geometry;
+equal writes and idle remain quiet. Native texture and nested Gradient `changed`
+signals redraw referencing surfaces only. Replacement, tree exit/reentry and free
+disconnect/reconnect those subscriptions. Viewport-relative radii subscribe only
+while needed; a viewport resize can update a fixed-size surface without layout
+or function recomposition. Border/padding/font changes retain normal affected
+layout invalidation. No per-frame processing, scene scan, texture regeneration,
+shader/material system or extra surface Node is introduced.
+
+`clip_content` shares the [U02 private viewport/input service](SCROLLING.md).
+It clips children to the content rectangle, **not the rounded surface contour**.
+The owner's own surface and native foreground remain on their normal draw path.
+Scrolling already clips: enabling both reuses one helper ancestry/GUI guard.
+Turning off both restores ordinary overflowing paint/input and zero offset/range;
+helpers already created remain attached/inert for retained focus/parentage.
+Never-enabled components create none. First enabling may adopt native children
+behind private ancestry; subsequent clipping toggles update clip/input state
+without remeasuring unchanged geometry. Native logical child accessors, owners,
+pack/reload, nested scrolling and native Control capture/focus retain U02 rules.
+
+Wrong resource classes/enums, malformed colors, negative/nonfinite radii and
+unsupported Node targets reject through native property metadata and shared
+compiler/runtime preflight before a description commits. Existing S03 precedence
+still applies: shorthand plus an individual corner is valid; duplicate explicit
+attributes reject, later spreads override earlier entries. Invalid native setter
+writes retain the prior value; omitted spread props restore their owned defaults.
+Inspector uses the existing Length editor for radii, native Texture2D selector,
+enum and Bool fields, with native undo/redo and scene persistence.
+
+Shadows, transitions, descendant rounded masks, new focus/text features and 3D
+effects are excluded. Exact tested engines, native captures, failures and limits
+are recorded in #187/its sole PR and the committed S04 evidence report; target
+support does not imply fresh certification of other engines/platforms.

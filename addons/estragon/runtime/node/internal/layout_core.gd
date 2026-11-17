@@ -36,6 +36,7 @@ var policy_result: Dictionary = {}
 var strategy := "stack"
 # Viewport decoration; never replaces Stack/Wrap/Grid.
 var scroll_axes := Vector2.ZERO
+var clips_content := false
 var align_content := "start"
 var physical_gaps := Vector2.ZERO
 var gap: float = 0.0
@@ -344,7 +345,7 @@ func measure_allocated(extent: Vector3, authority: Vector3) -> void:
 
 func overflow_extent() -> Vector3:
 	# Ancestors see the clipped participant's viewport, not its hidden content.
-	if scroll_axes!=Vector2.ZERO: return size
+	if clips_content or scroll_axes!=Vector2.ZERO: return size
 	var result := size
 	for index in range(3): result[index] = maxf(result[index],natural_extent[index])
 	for child in children:

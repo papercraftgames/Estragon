@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://examples/surfaces/generated/SurfaceGallery.gd" id="1_klpei"]
+
+[node name="SurfaceGallery" type="Node2D" unique_id=2097202866]
+script = ExtResource("1_klpei")

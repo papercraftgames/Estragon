@@ -154,3 +154,11 @@ certification or alter routine CI. [Public contracts and boundaries](UX01.md).
 Optional `--candidate-tag VALIDATED_PRERELEASE_TAG` applies the deterministic read-only
 preview overlay to staged package metadata; it creates no tag or release and
 does not authorize publication. Omit it for a development package.
+
+S04 surfaces: `tools/check-surfaces.ts --editor` uses the same approved engine
+selection/output conventions as UX01. It installs an immutable actual Yarn package,
+compares square default pixels to the per-engine merged baseline, checks native
+radius/texture/Gradient/input/resource/idle/pack behavior and strict negative
+rollback, then real Inspector/undo/current+main Play/repair/cold restart. Use
+`--candidate-tag "$S04_CANDIDATE_TAG"` only as a read-only preview overlay. Heavy
+native graphics/editor acceptance stays local; routine CI policy is unchanged.

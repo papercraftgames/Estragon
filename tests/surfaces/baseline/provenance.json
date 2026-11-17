@@ -1,0 +1,17 @@
+{
+  "source": "6a72c59154daf80d3dccef9adb9ed2f119a15b8c",
+  "fixture_sha256": "77f5f861607ec92a0355cfa7616f7a7fdc1a9d9b1681c9632b5aa767e3a5cc82",
+  "original_painter_sha256": "c3e4db704fdf302d340d43b89e348075418c7aab7e744d1c87f6ef840b78803f",
+  "method": "Native Xvfb/Mesa compatibility captures made before production edits; root640x480, isolated copied baseline project, no installed-package claim for baseline. Actual edited-package defaults compare pixel data byte-for-byte on the same two engines.",
+  "captures": {
+    "4.0.4": "b967c3f3aab65859d4c333b31a5f18efc3c9dc33db7374451d0d6112ab4b9485",
+    "4.7": "8679ee2a10a30ef1e033e6a0dde9e814be30bd4ff56f2d8692e7b6f12d2ce656"
+  },
+  "commands": [
+    "Godot --audio-driver Dummy --path /evidence/s04-baseline --rendering-method gl_compatibility --rendering-driver opengl3 --script res://tests/surfaces/defaults.gd"
+  ],
+  "engines": [
+    "/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64",
+    "/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64"
+  ]
+}

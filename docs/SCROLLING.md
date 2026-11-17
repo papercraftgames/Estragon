@@ -131,3 +131,8 @@ bool undo, current/main Play rejection/repair and cold restart. Exact commands,
 source/artifact hashes, outcomes, failed attempts and inspected captures are in
 #185/its sole PR and committed evidence. Manual interactive smoke is reported
 separately, not a physical-key gate. Routine CI remains bounded at 60 seconds.
+
+S04 `clip_content` independently opts into this same rectangular viewport with
+zero scroll range when both axes are off. Both scroll flags **and clip_content**
+false preserve visible overflow; no second clip/input tree is created. Surface
+corner radii affect owner paint only, not the descendant clipping rectangle.
