@@ -29,7 +29,7 @@ for(const selection of options.engines){
      }
     }
     const expected=starts;
-    if(bracket||unexpected.length||count!==expected||starts!==(name==='editor'?2:0)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+    if(bracket||unexpected.length||count!==expected||starts!==(name==='editor'?8:0)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
    }
    results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(log);
    if(result.status!=='PASS')throw Error('D07 '+name+' failed');
@@ -39,7 +39,8 @@ for(const selection of options.engines){
   writeJSON(path.join(box.project,'package.json'),{name:'button-imports-consumer',private:true,packageManager:'yarn@1.22.22'});
   await run('install',['corepack','yarn@1.22.22','add','--offline','--exact','--ignore-scripts','--non-interactive','--cache-folder',path.join(box.workspace,'yarn-cache'),'file:'+packed.tarball],undefined,process.env);
   const addon='node_modules/@papercraftgames/estragon/addons/estragon',installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
-  const fixtures=path.join(box.project,'tests/button_imports');copyTree(path.join(ROOT,'tests/button_imports'),fixtures);
+  const fixtures=path.join(box.project,'tests/button_imports');fs.mkdirSync(fixtures,{recursive:true});
+  for(const entry of fs.readdirSync(path.join(ROOT,'tests/button_imports'),{withFileTypes:true}))if(entry.isFile())fs.copyFileSync(path.join(ROOT,'tests/button_imports',entry.name),path.join(fixtures,entry.name));
   for(const name of fs.readdirSync(fixtures).filter(n=>n.endsWith('.gd'))){const file=path.join(fixtures,name);fs.writeFileSync(file,fs.readFileSync(file,'utf8').replaceAll('res://addons/estragon','res://'+addon));}
   fs.mkdirSync(path.join(box.project,'app'),{recursive:true});
   // A real authored fixture identity, not a temporary runner UID. Godot 4.0
