@@ -1,0 +1,253 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "7579064bf3d5dae168c293e5a72ac7110fb4cf745e4670fb9f3297c66ff02903"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-iobqeM/yarn-cache",
+      "file:/tmp/s04-review-final/4.0.4/packed/papercraftgames-estragon-0.1.0-beta.26.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.76,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--headless",
+      "--script",
+      "res://tests/surfaces/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.6,
+    "godot_pid": 42498,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "defaults": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/surfaces/defaults.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.65,
+    "godot_pid": 42517,
+    "log": "defaults.log",
+    "diagnostics": [
+      "     at: load_from_file (core/io/image.cpp:2491)"
+    ]
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/surfaces/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.07,
+    "godot_pid": 42616,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius_top_right'): invalid length 'corner_radius_top_right': Length requires int, float or a unit string; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture'): attribute 'background_texture': background_texture requires Texture2D or null; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'clip_content'): attribute 'clip_content': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon surface 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon surface 'corner_radius_top_left': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon surface: background_texture_mode requires stretch or tile",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/surfaces/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.16,
+    "godot_pid": 42715,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "play": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/surfaces/play.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.85,
+    "godot_pid": 42814,
+    "log": "play.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 7.69,
+    "godot_pid": 42913,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 35.05,
+    "godot_pid": 43300,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-iobqeM/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-iobqeM/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 21.47,
+    "godot_pid": 43963,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  }
+}

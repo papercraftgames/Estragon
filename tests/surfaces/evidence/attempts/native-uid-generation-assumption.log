@@ -1,0 +1,283 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:42487) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.26
+info All dependencies
+└─ @papercraftgames/estragon@0.1.0-beta.26
+Done in 0.58s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+
+S04_BUILD {"changed":["app/generated/SurfaceGallery.gd","app/generated/SurfaceGallery.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/SurfaceGallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+S04_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Loaded resource as image file, this will not work on export: 'res://tests/surfaces/baseline/4.0.4.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+     at: load_from_file (core/io/image.cpp:2491)
+S04_DEFAULT_PIXEL_IDENTICAL true
+S04_DEFAULTS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_REJECTION literal authored diagnostic <Rect corner_radius="-1px" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius={INF} />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius="auto" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius_top_left="bad" />: true
+S04_REJECTION literal authored diagnostic <Rect background_texture_mode="cover" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius="2px" corner_radius="3px" />: true
+S04_REJECTION literal authored diagnostic <Rect clip_content="true" />: true
+S04_REJECTION literal authored diagnostic <Node3D corner_radius="2px" />: true
+S04_REJECTION literal authored diagnostic <Control clip_content />: true
+S04_REJECTION literal authored diagnostic <Rect fill={Color.RED} background_color="#fff" />: true
+S04_REJECTION literal authored diagnostic <Rect corner_radius={true} />: true
+S04_REJECTION independent shorthand/override metadata <Rect corner_radius="12px" corner_radius_top_left="0px" />: true
+S04_REJECTION independent shorthand/override metadata <Rect corner_radius_top_left="0px" corner_radius="12px" />: true
+S04_REJECTION independent shorthand/override metadata <Rect background_texture_mode="tile" clip_content />: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": -1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": nan, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": "2em", "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius_top_right'): invalid length 'corner_radius_top_right': Length requires int, float or a unit string; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius_top_right": false, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture'): attribute 'background_texture': background_texture requires Texture2D or null; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture": <Resource#-9223371518707235086>, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture_mode": "cover", "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_texture_mode'): attribute 'background_texture_mode': background_texture_mode requires stretch or tile; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_texture_mode": 1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'clip_content'): attribute 'clip_content': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "clip_content": 1, "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "background_color": "broken" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "scroll_offset": (inf, 0), "background_color": "#ff0000" }: true
+S04_EXPECTED_BEGIN
+ERROR: app/SurfaceGallery.gogo:24:149 (spread key 'corner_radius'): invalid length 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION complete-description rejection retains every prior field { "corner_radius": 10000000000000, "background_color": "#ff0000" }: true
+S04_REJECTION repair commits radius shorthand/override independently: true
+S04_REJECTION omission restores default override and explicit authored shorthand: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface 'corner_radius': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value corner_radius: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface 'corner_radius_top_left': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value corner_radius_top_left: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon surface: background_texture_mode requires stretch or tile
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value background_texture_mode: true
+S04_EXPECTED_BEGIN
+ERROR: Estragon style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent
+   at: push_error (core/variant/variant_utility.cpp:903)
+S04_EXPECTED_END
+S04_REJECTION native setter preserves good value background_color: true
+S04_REJECTION negative fixture releases resources and records: true
+S04_REJECTION_ASSERTIONS 32 failed=false
+S04_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_CHECK rounded outer corners transparent, interior colored: true
+S04_CHECK asymmetric fractional border remains inside box: true
+S04_CHECK native texture masked to rounded contour and excluded from border: true
+S04_CHECK stretch UVs span native gradient across interior: true
+S04_CHECK native CanvasTexture tile repeat has texture-pixel period: true
+S04_CHECK nested Gradient mutation redraws referenced surface without layout: true
+S04_CHECK resource mutation leaves nonreferencing surfaces quiet: true
+S04_CHECK texture replacement disconnects both native resource signals: true
+S04_CHECK radius percentage uses minimum local border-box axis: true
+S04_CHECK radius viewport units resolve without layout specifications: true
+S04_CHECK fixed-size surface viewport radius refreshes without layout: true
+S04_CHECK ImageTexture alpha composes once over base fill without square bleed: true
+S04_CHECK extreme asymmetric inset cannot push textured inner corners outside outer contour: true
+S04_CHECK local radius percentage/override is visual-only: true
+S04_CHECK huge radius safely normalizes to min border-box half: true
+S04_CHECK zero/near-zero and oversized border safe: (0, 0): true
+S04_CHECK zero/near-zero and oversized border safe: (0.01, 0.02): true
+S04_CHECK zero/near-zero and oversized border safe: (30, 10): true
+S04_CHECK native rounded texture Resource scene saves: true
+S04_CHECK free disconnects surface texture and nested gradient subscriptions: true
+S04_CHECK native texture/radius PackedScene reload retains values and native drawing: true
+S04_CHECK rounded shared effective pointer state #705a9e: true
+S04_CHECK rounded shared effective pointer state #302440: true
+S04_CHECK rounded shared effective pointer state #514174: true
+S04_CHECK rounded disabled/checked colors preserve native widget precedence: true
+S04_CHECK pointer/state redraws reuse contour and normal label/padding geometry: true
+S04_CHECK default 500px native/custom overflow clicks outside 300px box: true
+S04_CHECK clip_content clips paint and captured native/custom input to content rectangle: true
+S04_CHECK clipped native Control retains native focus and once-only click: true
+S04_CHECK disable clip restores overflow on retained nodes without remeasure: true
+S04_CHECK scroll and explicit clip share one helper ancestry: true
+S04_CHECK disabling scroll retains explicit rectangular clip: true
+S04_CHECK transformed clipping cancels outside native release: true
+S04_CHECK native clip persistence packs owners and private ancestry: true
+S04_CHECK native clip PackedScene reload preserves direct children: true
+S04_CHECK responsive native surface gallery identity at (320, 240): true
+S04_CHECK responsive native surface gallery identity at (640, 480): true
+S04_CHECK responsive native surface gallery identity at (1000, 800): true
+S04_CHECK imperative visual writes never recompose or relayout: true
+S04_CHECK spread omission restores local surface defaults: true
+S04_CHECK reactive Gogo radius changes retain geometry and identity: true
+S04_CHECK settled surface geometry and redraw counters idle quiet: true
+S04_CHECK all surface description records released: true
+S04_ASSERTIONS 43 failed=false
+S04_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":38721815814,"ok":true,"resource":true}
+S04_PLAY_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+S04_EDITOR_CHECK native Inspector corner_radius: true
+S04_EDITOR_CHECK native Inspector corner_radius_top_left: true
+S04_EDITOR_CHECK native Inspector background_texture: true
+S04_EDITOR_CHECK native Inspector background_texture_mode: true
+S04_EDITOR_CHECK native Inspector clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius_top_left: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture_mode: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture: true
+S04_EDITOR_CHECK real native authored S04 scene imports: true
+S04_EDITOR_CHECK native Gogo highlighter attached to actual S04 source: true
+S04_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:24:136: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+S04_EDITOR_CHECK current invalid unsaved S04 blocks stale Play with authored diagnostic: true
+S04_EDITOR_CHECK current invalid S04 retains code/map/UID/timestamp/cached Script: true
+S04_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":38537266444,"ok":true,"resource":true}
+Running: /tmp/estragon-native-iobqeM/godot --path /tmp/estragon-native-iobqeM/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 43300 --position 320,272 res://app/SurfaceGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+S04_EDITOR_CHECK current actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+S04_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:28:141: background_texture_mode requires stretch or tile
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:28:141: background_texture_mode requires stretch or tile
+     at: push_warning (core/variant/variant_utility.cpp:923)
+S04_EDITOR_CHECK main invalid unsaved S04 blocks stale Play with authored diagnostic: true
+S04_EDITOR_CHECK main invalid S04 retains code/map/UID/timestamp/cached Script: true
+S04_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":38537266444,"ok":true,"resource":true}
+Running: /tmp/estragon-native-iobqeM/godot --path /tmp/estragon-native-iobqeM/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 43300 --position 320,272 res://app/SurfaceGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+S04_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+S04_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S04_EDITOR_ASSERTIONS 21 failed=false
+S04_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+S04_EDITOR_CHECK native Inspector corner_radius: true
+S04_EDITOR_CHECK native Inspector corner_radius_top_left: true
+S04_EDITOR_CHECK native Inspector background_texture: true
+S04_EDITOR_CHECK native Inspector background_texture_mode: true
+S04_EDITOR_CHECK native Inspector clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius_top_left: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture_mode: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture: true
+S04_EDITOR_CHECK real native authored S04 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":38537266444,"ok":true,"resource":true}
+Running: /tmp/estragon-native-iobqeM/godot --path /tmp/estragon-native-iobqeM/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 43963 --position 320,272 res://app/SurfaceGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+S04_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S04_EDITOR_ASSERTIONS 13 failed=false
+S04_EDITOR_OK
+node:fs:621
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open '/tmp/estragon-native-iobqeM/project/app/generated/SurfaceGallery.gd.uid'
+    at Object.openSync (node:fs:621:18)
+    at Module.readFileSync (node:fs:487:35)
+    at sha256 (file:///repo/tools/compat-kit.ts:65:41)
+    at file:///repo/tools/check-surfaces.ts:80:162
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/tmp/estragon-native-iobqeM/project/app/generated/SurfaceGallery.gd.uid'
+}
+
+Node.js v24.22.2
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types tools/check-surfaces.ts --engine 4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --editor --candidate-tag v0.1.0-beta.26 --output /tmp/s04-review-final
+Directory: /repo
+Output:
+
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.

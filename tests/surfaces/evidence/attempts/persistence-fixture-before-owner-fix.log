@@ -1,0 +1,35 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_CHECK rounded outer corners transparent, interior colored: true
+S04_CHECK asymmetric fractional border remains inside box: true
+S04_CHECK native texture masked to rounded contour and excluded from border: true
+S04_CHECK stretch UVs span native gradient across interior: true
+S04_CHECK native CanvasTexture tile repeat has texture-pixel period: true
+S04_CHECK nested Gradient mutation redraws referenced surface without layout: true
+S04_CHECK texture replacement disconnects both native resource signals: true
+S04_CHECK local radius percentage/override is visual-only: true
+S04_CHECK huge radius safely normalizes to min border-box half: true
+S04_CHECK zero/near-zero and oversized border safe: (0.0, 0.0): true
+S04_CHECK zero/near-zero and oversized border safe: (0.01, 0.02): true
+S04_CHECK zero/near-zero and oversized border safe: (30.0, 10.0): true
+S04_CHECK default 500px native/custom overflow clicks outside 300px box: true
+S04_CHECK clip_content clips paint and captured native/custom input to content rectangle: true
+S04_CHECK clipped native Control retains native focus and once-only click: true
+S04_CHECK disable clip restores overflow on retained nodes without remeasure: true
+S04_CHECK scroll and explicit clip share one helper ancestry: true
+S04_CHECK disabling scroll retains explicit rectangular clip: true
+S04_CHECK transformed clipping cancels outside native release: true
+S04_CHECK native clip persistence packs owners and private ancestry: true
+S04_CHECK native clip PackedScene reload preserves direct children: false
+S04_CHECK responsive native surface gallery identity at (320, 240): true
+S04_CHECK responsive native surface gallery identity at (640, 480): true
+S04_CHECK responsive native surface gallery identity at (1000, 800): true
+S04_CHECK imperative visual writes never recompose or relayout: true
+S04_CHECK spread omission restores local surface defaults: true
+S04_CHECK reactive Gogo radius changes retain geometry and identity: true
+S04_CHECK settled surface geometry and redraw counters idle quiet: true
+S04_CHECK all surface description records released: true
+S04_ASSERTIONS 29 failed=true

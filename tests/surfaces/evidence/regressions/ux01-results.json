@@ -1,0 +1,359 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "d5e1c4a362c0f57c6ee9515b0aca2160cd45fd1c5ab6328dc952dbb6a482d361"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-yJYu9Y/yarn-cache",
+      "file:/tmp/s04-regressions-27a40e5/ux01/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.71,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--headless",
+      "--script",
+      "res://tests/ux01/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.09,
+    "godot_pid": 41146,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "wrap_capacity": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/wrap_capacity.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.92,
+    "godot_pid": 41181,
+    "log": "wrap_capacity.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "syntax": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/syntax.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.94,
+    "godot_pid": 41282,
+    "log": "syntax.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: app/Ergonomics.gogo:42:24 (spread key 'text'): text property conflicts with text body; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/Ergonomics.gogo:35:24: text body expression requires String; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "maxima": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/maxima.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.84,
+    "godot_pid": 41383,
+    "log": "maxima.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ]
+  },
+  "clipping_probe": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/clipping_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.7,
+    "godot_pid": 41484,
+    "log": "clipping_probe.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scroll_native": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scroll_native.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.5,
+    "godot_pid": 41585,
+    "log": "scroll_native.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scroll_nested": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scroll_nested.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.01,
+    "godot_pid": 41686,
+    "log": "scroll_nested.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scrolling": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scrolling.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.55,
+    "godot_pid": 41787,
+    "log": "scrolling.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.6,
+    "godot_pid": 41888,
+    "log": "rejections.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'max_height'): invalid length 'max_height': Length is negative, nonfinite or outside the supported range; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'max_width'): invalid length 'max_width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_offset'): attribute 'scroll_offset': requires a finite nonnegative Vector2; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'horizontal_scroll'): attribute 'horizontal_scroll': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'vertical_scroll'): attribute 'vertical_scroll': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'scroll_range'): attribute 'scroll_range': read-only scrolling measurement; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/UXGallery.gogo:36:124 (spread key 'content_extent'): attribute 'content_extent': read-only scrolling measurement; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon scrolling scroll_offset requires a finite nonnegative Vector2",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon scrolling scroll_offset requires a finite nonnegative Vector2",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon scrolling scroll_range is read-only",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon scrolling content_extent is read-only",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "reproduction": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/reproduction.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.29,
+    "godot_pid": 41989,
+    "log": "reproduction.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "gallery": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/gallery.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.16,
+    "godot_pid": 42090,
+    "log": "gallery.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "inherited": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-yJYu9Y/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-yJYu9Y/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/inherited.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.77,
+    "godot_pid": 42203,
+    "log": "inherited.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "removal": {
+    "status": "PASS",
+    "obsolete_component_absent": true,
+    "installed_bytes_unchanged": true
+  }
+}

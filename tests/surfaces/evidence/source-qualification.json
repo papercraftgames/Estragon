@@ -1,0 +1,44 @@
+{
+  "implementation": "27a40e50b5492975fbfec6c910eac95dca7abeac",
+  "paired_source": "508a0c800ca9ce3fb83e9d21d6481f7434495203",
+  "base": "6a72c59154daf80d3dccef9adb9ed2f119a15b8c",
+  "unchanged_addon_since_implementation": true,
+  "matched_package_files": 153,
+  "paired_identical_tarball_sha256": "7579064bf3d5dae168c293e5a72ac7110fb4cf745e4670fb9f3297c66ff02903",
+  "counts": {
+    "4.0.4": {
+      "stages": 11,
+      "seconds": 82.43,
+      "checks": {
+        "runtime": 43,
+        "rejections": 32,
+        "editor": 21,
+        "editor-restart": 13
+      }
+    },
+    "4.7": {
+      "stages": 11,
+      "seconds": 63.489999999999995,
+      "checks": {
+        "runtime": 43,
+        "rejections": 32,
+        "editor": 21,
+        "editor-restart": 13
+      }
+    }
+  },
+  "canonical_gallery": {
+    "source_sha256": "1d6cc839848533d1ca41dec40115d3900f2b506b9767b90c9614672947f9ee98",
+    "generated_sha256": "77c98328446b4ff08a25d03451b52a359f282de2193f034021cda2ff995ad93a",
+    "map_sha256": "166614db0133a82cce3397c927a80257d0bb0f967cd6651babc5d4e64d4a2847",
+    "uid_sha256": "a87eb4486ef61114d73a261b7d4f8afc8ae6ab0232db214949c650f0af194358"
+  },
+  "log_normalization": "Trailing horizontal whitespace and blank EOF lines removed; copied JSON/PNG/manifests unchanged.",
+  "manual_interactive_smoke": "UNTESTED",
+  "limits": [
+    "Only official Linux4.0.4 and pinned Linux4.7.0; no release certification/publication.",
+    "Owner surface uses16 chords per quarter arc with native polygon rasterization; descendants clip rectangularly.",
+    "4.0 optional isolated-preflight/symlink introspection unavailable; actual-path validation remains mandatory.",
+    "The generated consumer starts with the committed gallery UID to verify preservation; 4.0 does not generate new .gd.uid sidecars."
+  ]
+}

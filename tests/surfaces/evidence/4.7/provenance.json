@@ -1,0 +1,19 @@
+{
+  "sourceHead": "508a0c800ca9ce3fb83e9d21d6481f7434495203",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-surfaces.ts",
+    "--engine",
+    "4.0.4=/evidence/s03-engines/godot-verified-4.0.4/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+    "--editor",
+    "--candidate-tag",
+    "v0.1.0-beta.26",
+    "--output",
+    "/tmp/s04-acceptance-review"
+  ]
+}

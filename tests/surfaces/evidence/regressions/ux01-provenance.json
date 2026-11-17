@@ -1,0 +1,14 @@
+{
+  "sourceHead": "27a40e50b5492975fbfec6c910eac95dca7abeac",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-ux01.ts",
+    "--engine",
+    "4.7=/evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/tmp/s04-regressions-27a40e5/ux01"
+  ]
+}

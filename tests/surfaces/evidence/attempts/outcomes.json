@@ -1,0 +1,21 @@
+{
+  "temporary_game_probe": {
+    "status": "FAIL",
+    "reason": "4.0 standalone fixture timeout60.01s; RefCounted probe not retained across await",
+    "results": "temporary-game-probe-results.json"
+  },
+  "uid_assumption": {
+    "status": "FAIL",
+    "reason": "All4.0 native stages pass; collector hash audit throws ENOENT for absent newly generated script .gd.uid",
+    "results": "native-uid-attempt-results.json"
+  },
+  "final": {
+    "status": "PASS",
+    "paired_source": "508a0c800ca9ce3fb83e9d21d6481f7434495203",
+    "engines": [
+      "4.0.4",
+      "4.7"
+    ],
+    "stages_each": 11
+  }
+}

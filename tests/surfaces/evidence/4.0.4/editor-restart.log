@@ -1,0 +1,25 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+S04_EDITOR_CHECK native Inspector corner_radius: true
+S04_EDITOR_CHECK native Inspector corner_radius_top_left: true
+S04_EDITOR_CHECK native Inspector background_texture: true
+S04_EDITOR_CHECK native Inspector background_texture_mode: true
+S04_EDITOR_CHECK native Inspector clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius_top_left: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture_mode: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture: true
+S04_EDITOR_CHECK real native authored S04 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":38537266444,"ok":true,"resource":true}
+Running: /tmp/estragon-native-jhQ0K3/godot --path /tmp/estragon-native-jhQ0K3/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 46157 --position 320,272 res://app/SurfaceGallery.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+S04_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S04_EDITOR_ASSERTIONS 13 failed=false
+S04_EDITOR_OK

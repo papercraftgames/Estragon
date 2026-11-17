@@ -1,0 +1,92 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_EDITOR_CHECK native Inspector corner_radius: true
+S04_EDITOR_CHECK native Inspector corner_radius_top_left: true
+S04_EDITOR_CHECK native Inspector background_texture: true
+S04_EDITOR_CHECK native Inspector background_texture_mode: true
+S04_EDITOR_CHECK native Inspector clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo corner_radius_top_left: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture_mode: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo clip_content: true
+S04_EDITOR_CHECK surface Inspector edit/undo/redo background_texture: true
+S04_EDITOR_CHECK real native authored S04 scene imports: true
+S04_EDITOR_CHECK native Gogo highlighter attached to actual S04 source: true
+S04_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:24:136: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/surfaces/editor.gd:82)
+         [5] settle (res://tests/surfaces/editor.gd:31)
+         [6] wait (res://tests/surfaces/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/surfaces/editor.gd:82)
+       [1] settle (res://tests/surfaces/editor.gd:31)
+       [2] wait (res://tests/surfaces/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:24:136: Length is negative, nonfinite or outside the supported range
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+S04_EDITOR_CHECK current invalid unsaved S04 blocks stale Play with authored diagnostic: true
+S04_EDITOR_CHECK current invalid S04 retains code/map/UID/timestamp/cached Script: true
+S04_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":47110424209,"ok":true,"resource":true}
+S04_EDITOR_CHECK current actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+S04_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:28:141: background_texture_mode requires stretch or tile
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/surfaces/editor.gd:81)
+         [5] play (res://tests/surfaces/editor.gd:53)
+         [6] until (res://tests/surfaces/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/surfaces/editor.gd:81)
+       [1] play (res://tests/surfaces/editor.gd:53)
+       [2] until (res://tests/surfaces/editor.gd:18)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/SurfaceGallery.gogo:28:141: background_texture_mode requires stretch or tile
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+S04_EDITOR_CHECK main invalid unsaved S04 blocks stale Play with authored diagnostic: true
+S04_EDITOR_CHECK main invalid S04 retains code/map/UID/timestamp/cached Script: true
+S04_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+S04_GAME {"clicks":4,"identity":47110424209,"ok":true,"resource":true}
+S04_EDITOR_CHECK main actual rendered native surface game and input at three sizes: true
+S04_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+S04_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+S04_EDITOR_ASSERTIONS 21 failed=false
+S04_EDITOR_OK
