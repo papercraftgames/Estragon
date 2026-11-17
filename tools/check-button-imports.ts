@@ -18,7 +18,7 @@ for(const selection of options.engines){
    const editing=name.startsWith('editor'),logFile=path.join(out,name+'.log');
    const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!editing,expectedErrors:editing,timeout:editing?120000:60000});
    const log=fs.readFileSync(logFile,'utf8');
-   if(negative||editing){
+   if(editing){
     let bracket=false,starts=0,count=0;const unexpected:string[]=[];
     for(const line of log.split(/\r?\n/)){
      if(line==='D07_EXPECTED_PLAY_REJECTION_BEGIN'){bracket=true;starts++;}
