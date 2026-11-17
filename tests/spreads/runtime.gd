@@ -124,7 +124,7 @@ func removals() -> void:
 	host.desired = region(spread(UiButton,{}, {"name":"Retained"}))
 	record.schedule()
 	await frames()
-	check(node==host.get_child(0).get_child(0) and node.padding=="auto" and not node.disabled and node.text=="" and node.background_color==Color("#514174") and node.get_content_rect().position==Vector2(14,8) and node.layout_size.x==28,"spread omission restores actual Button defaults including local padding")
+	check(node==host.get_child(0).get_child(0) and node.padding=="auto" and not node.disabled and node.text=="" and node.background_color==Color("#383838") and node.get_content_rect().position==Vector2(14,8) and node.layout_size.x==28,"spread omission restores actual Button defaults including local padding")
 	host.desired = region(spread(UiButton,{"disabled":true},{"name":"Retained"}))
 	record.schedule()
 	await frames()

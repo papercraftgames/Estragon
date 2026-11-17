@@ -130,7 +130,9 @@ func inspector_proof() -> void:
 	var packed := PackedScene.new()
 	check(packed.pack(node)==OK and ResourceSaver.save(packed,"res://inspected-button.tscn")==OK,"native inspected Button saves")
 	var reloaded = load("res://inspected-button.tscn").instantiate()
-	check(reloaded.background_color==Color("#383838") and reloaded.hover_background_color==Color("#505050") and reloaded.pressed_background_color==Color("#252525") and reloaded.disabled_background_color==Color("#303030") and reloaded._visual_style.colors.hover_background_color==Color("#505050"),"Inspector undo defaults survive native scene reload and initial cache")
+	# Native 4.0 text scenes round serialized Color floats to six decimals.
+	# Fresh instance properties/pixels are checked exactly in runtime.gd.
+	check(reloaded.background_color.is_equal_approx(Color("#383838")) and reloaded.hover_background_color.is_equal_approx(Color("#505050")) and reloaded.pressed_background_color.is_equal_approx(Color("#252525")) and reloaded.disabled_background_color.is_equal_approx(Color("#303030")) and reloaded._visual_style.colors.hover_background_color.is_equal_approx(reloaded.hover_background_color),"Inspector undo defaults survive native scene reload and initial cache")
 	reloaded.free()
 	interface.inspect_object(scene)
 	scene.remove_child(node)

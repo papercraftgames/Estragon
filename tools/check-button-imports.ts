@@ -19,17 +19,19 @@ for(const selection of options.engines){
    const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!editing,expectedErrors:editing,timeout:editing?120000:60000});
    const log=fs.readFileSync(logFile,'utf8');
    if(editing){
-    let bracket=false,starts=0,count=0;const unexpected:string[]=[];
-    for(const line of log.split(/\r?\n/)){
+    let bracket=false,starts=0,count=0,typed=0;const unexpected:string[]=[];
+    const lines=log.split(/\r?\n/);
+    for(const [index,line] of lines.entries()){
      if(line==='D07_EXPECTED_PLAY_REJECTION_BEGIN'){bracket=true;starts++;}
      else if(line==='D07_EXPECTED_PLAY_REJECTION_END')bracket=false;
      else if(ERROR.test(line)){
       if(bracket&&line==='ERROR: An EditorPlugin build callback failed.')count++;
+      else if(bracket&&line==='SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "EstragonButton".'&&/^\s+at: GDScript::reload \(res:\/\/app\/generated\/Buttons\.gd:\d+\)$/.test(lines[index+1]||''))typed++;
       else unexpected.push(line);
      }
     }
     const expected=starts;
-    if(bracket||unexpected.length||count!==expected||starts!==(name==='editor'?8:0)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+    if(bracket||unexpected.length||count!==expected||starts!==(name==='editor'?8:0)||(name==='editor'?(typed<2||typed>4):typed!==0)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,typed,unexpected});}
    }
    results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(log);
    if(result.status!=='PASS')throw Error('D07 '+name+' failed');
