@@ -1,0 +1,204 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (94 steps)
+[   0% ] update_scripts_classes |
+[   1% ] update_scripts_classes |
+[   2% ] update_scripts_classes |
+[   3% ] update_scripts_classes |
+[   4% ] update_scripts_classes |
+[   5% ] update_scripts_classes |
+[   6% ] update_scripts_classes |
+[   7% ] update_scripts_classes |
+[   8% ] update_scripts_classes |
+[   9% ] update_scripts_classes |
+[  10% ] update_scripts_classes |
+[  11% ] update_scripts_classes |
+[  12% ] update_scripts_classes |
+[  13% ] update_scripts_classes |
+[  14% ] update_scripts_classes |
+[  15% ] update_scripts_classes |
+[  16% ] update_scripts_classes |
+[  17% ] update_scripts_classes |
+[  18% ] update_scripts_classes |
+[  20% ] update_scripts_classes |
+[  21% ] update_scripts_classes |
+[  22% ] update_scripts_classes |
+[  23% ] update_scripts_classes |
+[  24% ] update_scripts_classes |
+[  25% ] update_scripts_classes |
+[  26% ] update_scripts_classes |
+[  27% ] update_scripts_classes |
+[  28% ] update_scripts_classes |
+[  29% ] update_scripts_classes |
+[  30% ] update_scripts_classes |
+[  31% ] update_scripts_classes |
+[  32% ] update_scripts_classes |
+[  33% ] update_scripts_classes |
+[  34% ] update_scripts_classes |
+[  35% ] update_scripts_classes |
+[  36% ] update_scripts_classes |
+[  37% ] update_scripts_classes |
+[  38% ] update_scripts_classes |
+[  40% ] update_scripts_classes |
+[  41% ] update_scripts_classes |
+[  42% ] update_scripts_classes |
+[  43% ] update_scripts_classes |
+[  44% ] update_scripts_classes |
+[  45% ] update_scripts_classes |
+[  46% ] update_scripts_classes |
+[  47% ] update_scripts_classes |
+[  48% ] update_scripts_classes |
+[  49% ] update_scripts_classes |
+[  50% ] update_scripts_classes |
+[  51% ] update_scripts_classes |
+[  52% ] update_scripts_classes |
+[  53% ] update_scripts_classes |
+[  54% ] update_scripts_classes |
+[  55% ] update_scripts_classes |
+[  56% ] update_scripts_classes |
+[  57% ] update_scripts_classes |
+[  58% ] update_scripts_classes |
+[  60% ] update_scripts_classes |
+[  61% ] update_scripts_classes |
+[  62% ] update_scripts_classes |
+[  63% ] update_scripts_classes |
+[  64% ] update_scripts_classes |
+[  65% ] update_scripts_classes |
+[  66% ] update_scripts_classes | EstragonBox
+[  67% ] update_scripts_classes | EstragonButton
+[  68% ] update_scripts_classes | EstragonComponent2D
+[  69% ] update_scripts_classes | EstragonComponent3D
+[  70% ] update_scripts_classes | Estragon2D
+[  71% ] update_scripts_classes | Estragon3D
+[  72% ] update_scripts_classes | EstragonGrid
+[  73% ] update_scripts_classes | EstragonHBox
+[  74% ] update_scripts_classes | EstragonNative2D
+[  75% ] update_scripts_classes | EstragonNative3D
+[  76% ] update_scripts_classes | EstragonRect
+[  77% ] update_scripts_classes | EstragonSpacer
+[  78% ] update_scripts_classes | EstragonText
+[  80% ] update_scripts_classes | EstragonToggle
+[  81% ] update_scripts_classes | EstragonVBox
+[  82% ] update_scripts_classes |
+[  83% ] update_scripts_classes |
+[  84% ] update_scripts_classes |
+[  85% ] update_scripts_classes |
+[  86% ] update_scripts_classes |
+[  87% ] update_scripts_classes |
+[  88% ] update_scripts_classes |
+[  89% ] update_scripts_classes |
+[  90% ] update_scripts_classes |
+[  91% ] update_scripts_classes |
+[  92% ] update_scripts_classes |
+[  93% ] update_scripts_classes |
+[  94% ] update_scripts_classes |
+[  95% ] update_scripts_classes |
+[  96% ] update_scripts_classes |
+[  97% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started Scanning actions... (26 steps)
+[   0% ] _update_scan_actions | u02-Cards-320.png
+[   3% ] _update_scan_actions | u02-Cards-640.png
+[   7% ] _update_scan_actions | u02-Cards-1000.png
+[  11% ] _update_scan_actions | u02-direct-320.png
+[  14% ] _update_scan_actions | u02-direct-640.png
+[  18% ] _update_scan_actions | u02-direct-1000.png
+[  22% ] _update_scan_actions | u02-Wrapped-320.png
+[  25% ] _update_scan_actions | u02-Wrapped-640.png
+[  29% ] _update_scan_actions | u02-Wrapped-1000.png
+[  33% ] _update_scan_actions | ux01-clip-probe.png
+[  37% ] _update_scan_actions | ux01-gallery-320-0.png
+[  40% ] _update_scan_actions | ux01-gallery-320-420.png
+[  44% ] _update_scan_actions | ux01-gallery-320-844.png
+[  48% ] _update_scan_actions | ux01-gallery-640-0.png
+[  51% ] _update_scan_actions | ux01-gallery-640-420.png
+[  55% ] _update_scan_actions | ux01-gallery-640-772.png
+[  59% ] _update_scan_actions | ux01-gallery-1000-0.png
+[  62% ] _update_scan_actions | ux01-gallery-1000-420.png
+[  66% ] _update_scan_actions | ux01-gallery-1000-676.png
+[  70% ] _update_scan_actions | ux01-repro-320.png
+[  74% ] _update_scan_actions | ux01-repro-640.png
+[  77% ] _update_scan_actions | ux01-repro-1000.png
+[  81% ] _update_scan_actions | ux01-scroll-0.png
+[  85% ] _update_scan_actions | ux01-scroll-300.png
+[  88% ] _update_scan_actions | ux01-scroll-600.png
+[  92% ] _update_scan_actions | ux01-visible-overflow.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started (Re)Importing Assets (26 steps)
+[   0% ] reimport | Preparing files to reimport...
+[   3% ] reimport | Preparing files to reimport...
+[   7% ] reimport | Preparing files to reimport...
+[  11% ] reimport | Preparing files to reimport...
+[  14% ] reimport | Preparing files to reimport...
+[  18% ] reimport | Preparing files to reimport...
+[  22% ] reimport | Preparing files to reimport...
+[  25% ] reimport | Preparing files to reimport...
+[  29% ] reimport | Preparing files to reimport...
+[  33% ] reimport | Preparing files to reimport...
+[  37% ] reimport | Preparing files to reimport...
+[  40% ] reimport | Preparing files to reimport...
+[  44% ] reimport | Preparing files to reimport...
+[  48% ] reimport | Preparing files to reimport...
+[  51% ] reimport | Preparing files to reimport...
+[  55% ] reimport | Preparing files to reimport...
+[  59% ] reimport | Preparing files to reimport...
+[  62% ] reimport | Preparing files to reimport...
+[  66% ] reimport | Preparing files to reimport...
+[  70% ] reimport | Preparing files to reimport...
+[  74% ] reimport | Preparing files to reimport...
+[  77% ] reimport | Preparing files to reimport...
+[  81% ] reimport | Preparing files to reimport...
+[  85% ] reimport | Preparing files to reimport...
+[  88% ] reimport | Preparing files to reimport...
+[  92% ] reimport | Preparing files to reimport...
+[   0% ] reimport | Executing pre-reimport operations...
+[   0% ] reimport | ux01-visible-overflow.png
+[   3% ] reimport | ux01-scroll-600.png
+[   7% ] reimport | ux01-scroll-300.png
+[  11% ] reimport | ux01-scroll-0.png
+[  14% ] reimport | ux01-repro-1000.png
+[  18% ] reimport | ux01-repro-640.png
+[  22% ] reimport | ux01-repro-320.png
+[  25% ] reimport | ux01-gallery-1000-676.png
+[  29% ] reimport | ux01-gallery-1000-420.png
+[  33% ] reimport | ux01-gallery-1000-0.png
+[  37% ] reimport | ux01-gallery-640-772.png
+[  40% ] reimport | ux01-gallery-640-420.png
+[  44% ] reimport | ux01-gallery-640-0.png
+[  48% ] reimport | ux01-gallery-320-844.png
+[  51% ] reimport | ux01-gallery-320-420.png
+[  55% ] reimport | ux01-gallery-320-0.png
+[  59% ] reimport | ux01-clip-probe.png
+[  62% ] reimport | u02-Wrapped-1000.png
+[  66% ] reimport | u02-Wrapped-640.png
+[  70% ] reimport | u02-Wrapped-320.png
+[  74% ] reimport | u02-direct-1000.png
+[  77% ] reimport | u02-direct-640.png
+[  81% ] reimport | u02-direct-320.png
+[  85% ] reimport | u02-Cards-1000.png
+[  88% ] reimport | u02-Cards-640.png
+[  92% ] reimport | u02-Cards-320.png
+[  96% ] reimport | Finalizing Asset Import...
+[ DONE ] reimport
+
+[   0% ] reimport | Started (Re)Importing Assets (26 steps)
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+C01_PROJECT_INDEX_READY

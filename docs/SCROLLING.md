@@ -25,7 +25,7 @@ Use ordinary explicit Gogo preload aliases, as in
 Children are direct authored elements; zero, one and many are valid. Existing bare
 Bool attributes, String bodies, spreads, keys, conditions, Grid placements and
 native Control adapters retain their contracts. Unrelated native Control/Container
-and3D classes receive no new properties. Leaf participants inherit the API but
+and 3D classes receive no new properties. Leaf participants inherit the API but
 have zero range without measured layout content. Generic Nodes do not acquire a
 universal size; native geometry retains its existing bounded-provider contract.
 
@@ -78,8 +78,8 @@ reload. Removal/re-entry restores registry connections without duplication.
 
 ## Native interaction
 
-Wheel and horizontal/Shift-wheel use40 logical units per wheel factor;
-InputEventPanGesture uses40 logical units per delta component. Hit geometry uses
+Wheel and horizontal/Shift-wheel use 40 logical units per wheel factor;
+InputEventPanGesture uses 40 logical units per delta component. Hit geometry uses
 native canvas transforms, including translated/scaled parents. The deepest
 eligible viewport consumes movement; a saturated axis can leave the event for an
 ancestor. Events outside its content rectangle are untouched. Scrollbars use
@@ -114,7 +114,7 @@ Touch-drag emulation, new keyboard/focus management and virtualization are absen
 Remove the obsolete preload and class/script references. Transfer viewport
 width/height/min/max, scroll flags/offset and desired viewport border/background/
 padding onto the actual layout component; retain its gap/direction/alignment or
-Grid tracks/placements. Remove redundant inner width100% only when it represented
+Grid tracks/placements. Remove redundant inner width 100% only when it represented
 the viewport content width. Distinct old wrapper/content padding, margins,
 backgrounds, sizes or transforms require an explicit author choice: preserve a
 real nested group if both layers had meaning. There is no silent source migrator.
@@ -124,10 +124,10 @@ UX01 ADR/evidence remains marked superseded rather than rewritten as U02 proof.
 ## Verification boundary
 
 The existing `tools/check-ux01.ts` harness adds direct-child inherited coverage,
-not another test universe. Only official Linux4.0.4 and pinned Linux4.7.0 are used.
+not another test universe. Only official Linux 4.0.4 and pinned Linux 4.7.0 are used.
 It exercises immutable direct-Yarn node_modules, source/maps/UIDs and removed-class
 invariants, native rendered layout/input, toggle/lifecycle/pack, Inspector offset/
 bool undo, current/main Play rejection/repair and cold restart. Exact commands,
 source/artifact hashes, outcomes, failed attempts and inspected captures are in
 #185/its sole PR and committed evidence. Manual interactive smoke is reported
-separately, not a physical-key gate. Routine CI remains bounded at60 seconds.
+separately, not a physical-key gate. Routine CI remains bounded at 60 seconds.

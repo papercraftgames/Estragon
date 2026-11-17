@@ -1,0 +1,95 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 0 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 start 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 center 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 end 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 230: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A bounded auto geometry 1 stretch 160: true
+UX01_A line geometry: true
+UX01_A capacity is not percent authority: true
+UX01_A short natural width preserved: true
+UX01_A short parent physical alignment: true
+UX01_A truly indefinite remains natural: true
+UX01_A_MATH_OK
