@@ -29,12 +29,26 @@ func run():
 	var scroll = host.get_node("UI/Content/Scroll")
 	var identity: int = scroll.get_instance_id()
 	var before: Vector2 = scroll.layout_size
-	for invalid in [{"max_height":"-1px"},{"max_width":"2em"},{"scroll_offset":Vector2(-1,0)},{"scroll_offset":Vector2(INF,0)},{"vertical_scroll":1},{"scroll_range":Vector2.ZERO},{"content_extent":Vector2.ZERO}]:
+	for invalid in [{"max_height":"-1px"},{"max_width":"2em"},{"scroll_offset":Vector2(-1,0)},{"scroll_offset":Vector2(INF,0)},{"scroll_offset":"bad"},{"horizontal_scroll":"yes"},{"vertical_scroll":1},{"scroll_range":Vector2.ZERO},{"content_extent":Vector2.ZERO}]:
 		print("UX01_EXPECTED_BEGIN")
 		host.extra = invalid
 		await frames()
 		print("UX01_EXPECTED_END")
 		check(scroll.get_instance_id()==identity and scroll.layout_size==before and scroll.vertical_scroll,"invalid whole view retains tree/geometry: "+str(invalid))
+	for invalid in [Vector2(-1,0),Vector2(NAN,0)]:
+		var offset: Vector2 = scroll.scroll_offset
+		print("UX01_EXPECTED_BEGIN")
+		scroll.scroll_offset = invalid
+		await frames()
+		print("UX01_EXPECTED_END")
+		check(scroll.scroll_offset==offset,"native invalid offset preserves prior value")
+	for property in ["scroll_range","content_extent"]:
+		var value: Vector2 = scroll.get(property)
+		print("UX01_EXPECTED_BEGIN")
+		scroll.set(property,Vector2.ONE)
+		await frames()
+		print("UX01_EXPECTED_END")
+		check(scroll.get(property)==value,"native measurement is read-only: "+property)
 	host.extra = {"max_width":"100px"}
 	await frames()
 	check(scroll.layout_size.x==100,"valid dynamic cap")

@@ -29,11 +29,11 @@ for(const selection of options.engines){
      if(line===(negative?'UX01_EXPECTED_BEGIN':'UX01_EXPECTED_PLAY_REJECTION_BEGIN')){bracket=true;starts++;}
      else if(line===(negative?'UX01_EXPECTED_END':'UX01_EXPECTED_PLAY_REJECTION_END'))bracket=false;
      else if(ERROR.test(line)){
-      if(bracket&&(negative?/^ERROR: (?:app\/(?:UXGallery|Ergonomics)\.gogo|tests\/ux01\/rejections\.gd):\d+:\d+(?: \(spread key '.*'\))?: .*previous tree retained$/.test(line):line==='ERROR: An EditorPlugin build callback failed.'))count++;
+      if(bracket&&(negative?/^ERROR: (?:app\/(?:UXGallery|Ergonomics)\.gogo|tests\/ux01\/rejections\.gd):\d+:\d+(?: \(spread key '.*'\))?: .*previous tree retained$/.test(line)||name==='rejections'&&/^ERROR: Estragon scrolling (?:scroll_offset requires a finite nonnegative Vector2|(?:scroll_range|content_extent) is read-only)$/.test(line):line==='ERROR: An EditorPlugin build callback failed.'))count++;
       else unexpected.push(line);
      }
     }
-    const expected=name==='syntax'?2:name==='rejections'?7:starts;
+    const expected=name==='syntax'?2:name==='rejections'?13:starts;
     if(bracket||unexpected.length||count!==expected||(negative&&starts!==expected)||(!negative&&starts>2)) {result.status='FAIL';result.reason='Unexpected diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
    }
    results[name]=result;writeJSON(path.join(out,'results.json'),results);process.stdout.write(log);

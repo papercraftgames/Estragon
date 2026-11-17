@@ -27,7 +27,8 @@ func run():
 	entry.width = 640
 	entry.height = 480
 	var outer := Scroll.new()
-	outer.width = 300
+	# Keep the outer bar clear of the inner bar's actual native GUI hit target.
+	outer.width = 320
 	outer.height = 300
 	outer.vertical_scroll = true
 	var column := VBox.new()

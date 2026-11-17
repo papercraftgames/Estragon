@@ -123,6 +123,11 @@ func run():
 		check(stats==[direct.get_layout_stats(),grid.get_layout_stats()],"scroll only transforms; unrelated Grid stays quiet")
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://u02-direct-"+str(size.x)+".png")
+		for target in [grid,wrapped]:
+			ui.scroll_offset = Vector2(0,target.position.y-20)
+			await frames()
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("res://u02-"+str(target.name)+"-"+str(size.x)+".png")
 	check(host.clicks==6,"Entry custom/native clicks exactly once at all three sizes")
 	host.enabled = false
 	await frames()
