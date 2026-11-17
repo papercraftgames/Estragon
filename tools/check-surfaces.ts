@@ -48,6 +48,11 @@ for(const selection of options.engines){
   const fixtures=path.join(box.project,'tests/surfaces');copyTree(path.join(ROOT,'tests/surfaces'),fixtures);
   for(const name of fs.readdirSync(fixtures).filter(n=>n.endsWith('.gd'))){const file=path.join(fixtures,name);fs.writeFileSync(file,fs.readFileSync(file,'utf8').replaceAll('res://addons/estragon','res://'+addon));}
   fs.mkdirSync(path.join(box.project,'app'),{recursive:true});
+  // A real authored fixture identity, not a temporary runner UID. Godot 4.0
+  // does not generate script sidecars; both engines must preserve this one.
+  fs.mkdirSync(path.join(box.project,'app/generated'),{recursive:true});
+  const fixtureUID=path.join(ROOT,'examples/surfaces/generated/SurfaceGallery.gd.uid');
+  fs.copyFileSync(fixtureUID,path.join(box.project,'app/generated/SurfaceGallery.gd.uid'));
   for(const name of ['SurfaceGallery']){
    let source=fs.readFileSync(path.join(ROOT,'examples/surfaces',name+'.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon));
    if(name==='SurfaceGallery')source+='\nfunc _ready() -> void:\n\tif OS.get_environment("S04_EDITOR")=="1": _surfaces_probe.call_deferred()\nfunc _surfaces_probe() -> void:\n\tvar probe = preload("res://tests/surfaces/game.gd").new()\n\tawait probe.run(self)\n';
@@ -77,7 +82,8 @@ for(const selection of options.engines){
   const source=path.join(box.project,'app/SurfaceGallery.gogo'),generated=path.join(box.project,'app/generated/SurfaceGallery.gd');
   const map=JSON.parse(fs.readFileSync(generated+'.map.json','utf8'));
   if(map.sourceContent!==fs.readFileSync(source,'utf8')||map.sourceName!=='app/SurfaceGallery.gogo'||map.generatedHash!==sha256(generated))throw Error('Stale authored/generated map after editor repair');
-  writeJSON(path.join(out,'map-proof.json'),{source_sha256:sha256(source),generated_sha256:sha256(generated),map_sha256:sha256(generated+'.map.json'),uid_sha256:sha256(generated+'.uid'),source_content_matches:true,generated_hash_matches:true});
+  if(sha256(generated+'.uid')!==sha256(fixtureUID))throw Error('Authored gallery UID changed');
+  writeJSON(path.join(out,'map-proof.json'),{source_sha256:sha256(source),generated_sha256:sha256(generated),map_sha256:sha256(generated+'.map.json'),uid_sha256:sha256(generated+'.uid'),canonical_uid_source:'examples/surfaces/generated/SurfaceGallery.gd.uid',source_content_matches:true,generated_hash_matches:true});
   // U02 intentionally removes this beta API, including its UID and catalog entry.
   for(const file of Object.keys(packed.manifest.files)){
    if(/scroll_view\.gd(?:\.uid)?$/.test(file))throw Error('Obsolete public scroll component packaged: '+file);
