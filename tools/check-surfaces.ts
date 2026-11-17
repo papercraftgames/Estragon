@@ -74,6 +74,10 @@ for(const selection of options.engines){
    delete box.env.S04_EDITOR;
   }
   for(const [file,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Installed bytes/UID changed: '+file);
+  const source=path.join(box.project,'app/SurfaceGallery.gogo'),generated=path.join(box.project,'app/generated/SurfaceGallery.gd');
+  const map=JSON.parse(fs.readFileSync(generated+'.map.json','utf8'));
+  if(map.sourceContent!==fs.readFileSync(source,'utf8')||map.sourceName!=='app/SurfaceGallery.gogo'||map.generatedHash!==sha256(generated))throw Error('Stale authored/generated map after editor repair');
+  writeJSON(path.join(out,'map-proof.json'),{source_sha256:sha256(source),generated_sha256:sha256(generated),map_sha256:sha256(generated+'.map.json'),uid_sha256:sha256(generated+'.uid'),source_content_matches:true,generated_hash_matches:true});
   // U02 intentionally removes this beta API, including its UID and catalog entry.
   for(const file of Object.keys(packed.manifest.files)){
    if(/scroll_view\.gd(?:\.uid)?$/.test(file))throw Error('Obsolete public scroll component packaged: '+file);
