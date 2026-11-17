@@ -16,6 +16,7 @@ const EDGES := ["padding","padding_top","padding_right","padding_bottom","paddin
 var specs: Dictionary = {}
 var parse_count := 0
 static func domain(name: String, script = null) -> String:
+	if name in VisualStyle.RADII: return "inset" if name=="corner_radius" else "edge"
 	if name in ["row_gap","column_gap"]: return "edge"
 	if name=="padding" and VisualStyle.marked(script,"ESTRAGON_BUTTON_STYLE"): return "edge"
 	if name in DIMENSIONS: return "extent"
@@ -27,6 +28,7 @@ static func domain(name: String, script = null) -> String:
 	return "inset" if name=="gap" else ""
 static func registered(type, name: String) -> bool:
 	if domain(name).is_empty() or not type is Script: return false
+	if name in VisualStyle.RADII: return VisualStyle.supported(type)
 	if (name in MINIMUMS or name in MAXIMUMS) and not VisualStyle.marked(type,"ESTRAGON_MINIMUMS_2D"): return false
 	if name in ["row_gap","column_gap"] and not VisualStyle.marked(type,"ESTRAGON_GAPS_2D"): return false
 	if name=="border_width" or name in BORDER_EDGES:

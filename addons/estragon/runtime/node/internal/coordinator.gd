@@ -146,7 +146,7 @@ func changed() -> void:
 		model.set_align_self(host.align_self if _dimension==2 and "align_self" in host else "auto")
 		if "lengths" in host:
 			for property in host._get_property_list():
-				if not Core.Length.domain(property.name).is_empty() and not host.lengths.specs.has(property.name): host.lengths.assign(property.name,host.get(property.name),Core.Length.domain(property.name,host.get_script()))
+				if not property.name in Core.Length.VisualStyle.RADII and not Core.Length.domain(property.name).is_empty() and not host.lengths.specs.has(property.name): host.lengths.assign(property.name,host.get(property.name),Core.Length.domain(property.name,host.get_script()))
 			model.set_lengths(host.lengths.specs,host.grow,host.stretch,host.pixels_per_unit if _dimension==3 else 1.0,options.axis,host._default_padding() if host.has_method("_default_padding") else Vector4.ZERO)
 		model.configure(host.requested_extent(),model.gap,host.center,options.axis,options.fill,options.intrinsic,model.padding if "lengths" in host else options.get("padding",Vector4.ZERO),model.margin if "lengths" in host else options.get("margin",Vector4.ZERO))
 	else: model.configure(host.requested_extent(), host.gap, host.center)

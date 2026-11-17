@@ -181,3 +181,14 @@ Control adapter, visual style, Length/core and input pipeline.
 Component2D descendants inherit opt-in horizontal/vertical scrolling over their
 normal child layout policy. Maxima cap only the owner; default overflow remains
 visible. [API, native helper/ownership/input and obsolete wrapper migration](SCROLLING.md).
+
+## S04 inherited surfaces
+
+Component2D and eligible 2D descendants expose `corner_radius`, individual corner
+overrides, nullable native `background_texture: Texture2D`, stretch/tile mode and
+`clip_content: bool`. [Exact styling/raster/resource contract](STYLING.md#s04--opt-in-native-surfaces).
+Square corners, color-only paint and visible child overflow remain defaults.
+Radii/texture/color changes redraw without layout or description recomposition;
+clip content uses the existing U02 private service. Child clipping is rectangular,
+independent of the owner's rounded surface. Native Controls and 3D gain no fake
+surface props. No shadow/transition/style-resource or cascade API is introduced.

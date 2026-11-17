@@ -573,3 +573,19 @@ Linux4.0.4/pinned4.7.0 immutable installed proof, bounded pertinent regressions,
 static checks and inspected captures; routine CI<=60s, durable GitHub handoff,
 owner merges. No extra platform/version/full release suite/workflow/Assets/
 GogoDemo/version/tag/publication or unrelated framework feature work.
+
+## S04 — native surfaces, revised shadow-free scope
+
+Owner #187 follows owner-merged U02 #186 (`6a72c59`). One native inherited
+Component2D implementation supplies opt-in radii (local percentage exception),
+Texture2D/GradientTexture2D stretch/tile and independent rectangular clip_content.
+[Contract](STYLING.md#s04--opt-in-native-surfaces), ADR-0028. Checkpoints: A exact
+merged square-default pixels/geometry; B cached shared native surface paint and
+resource lifecycle; C minimal U02 clip extension and retained native input/owners;
+D source-authored gallery, validation/reset/atomic repair and native editor proof;
+E clean immutable direct-Yarn paired official Linux4.0.4/pinned4.7.0 evidence,
+proportional styling/layout/U02/Controls/Counter/3D regressions, static/UID/maps,
+inspected captures and one review-ready PR. Record exact failure/limit evidence
+and handoffs on #187; owner merges. No shadows, transitions, new style system,
+wrapper/render/layout tree, rounded child mask, workflow/version/release changes,
+extra engines/platforms, full release suite, Python, Assets or GogoDemo edits.

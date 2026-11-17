@@ -13,6 +13,7 @@
     "examples/lengths",
     "examples/box_model",
     "examples/styling",
-    "examples/ux01"
+    "examples/ux01",
+    "examples/surfaces"
   ]
 }
