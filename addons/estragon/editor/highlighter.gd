@@ -69,7 +69,7 @@ func _get_line_syntax_highlighting(index: int) -> Dictionary:
 	var native_colors: Dictionary = _native.get_line_syntax_highlighting(index) if _native != null else {}
 	var result: Dictionary = native_colors.duplicate(true) if _native != null else {0:{"color":color("code")}}
 	for token in lexical.line(index).tokens:
-		if _native != null and token.native and not (token.kind == "annotation" and token.text == "bindable"): continue
+		if _native != null and token.native and not (token.kind == "annotation" and token.text == "bindable" or token.kind == "keyword" and token.text in ["layout","export"]): continue
 		result[token.start] = {"color":color(token.kind)}
 		result[token.end] = {"color":_native_color(native_colors,token.end) if _native != null else color("code")}
 	return result

@@ -18,6 +18,11 @@ func _parts(parts: Array) -> void:
 		elif part is Model.Bindable:
 			_code(part.declaration_span)
 		elif part is Model.GdExpression: _parts(part.parts)
+		elif part is Model.Layout:
+			for binding in part.bindings:
+				for group in binding.groups:
+					for attribute in group.attributes:
+						if attribute.value is Model.GdExpression: _parts(attribute.value.parts)
 		elif part is Model.Component:
 			for attribute in part.attributes:
 				if attribute.value is Model.GdExpression: _parts(attribute.value.parts)
@@ -42,6 +47,7 @@ func _code(span) -> void:
 			parameter_depth -= 1
 			if parameter_depth==0: in_function = false
 		if token.kind!="identifier" or not module.import_aliases.has(token.text): continue
+		if module.identifier_imports.any(func(item): return item.span.start.index==token.span.start.index): continue
 		if in_function and parameter_depth==1 and index>0 and tokens[index-1].text in ["(",","] and index+1<tokens.size() and tokens[index+1].text in [":","=",",",")"]:
 			file.fail("Imported native-name alias cannot be a parameter: "+token.text,token.span.start.index,token.span.end.index)
 			return

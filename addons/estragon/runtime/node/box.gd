@@ -19,16 +19,23 @@ const ESTRAGON_STACK_POLICY := true
 		_changed()
 var _policy_commit := false
 const StackContract = preload("internal/stack_contract.gd")
-@export_enum("row", "column") var direction: String = "row":
+@export_enum("row", "column", "grid") var direction: String = "row":
 	set(value):
 		if value==direction: return
 		if _policy_commit:
 			direction = value
 			return
-		var message := StackContract.error("direction",value,value,StackContract.preset(get_script()))
+		# Grid's default stretch becomes a legal main-axis start on mode change.
+		# Track/area/template values remain untouched and can be restored.
+		if direction=="grid" and value in ["row","column"] and StackContract.grid_capable(get_script()):
+			_policy_commit = true
+			if value=="row" and horizontal_align=="stretch": horizontal_align = "start"
+			if value=="column" and vertical_align=="stretch": vertical_align = "start"
+			_policy_commit = false
+		var message := StackContract.error("direction",value,value,StackContract.preset(get_script()),StackContract.grid_capable(get_script()))
 		if message.is_empty():
-			message = StackContract.error("horizontal_align",horizontal_align,value)
-			if message.is_empty(): message = StackContract.error("vertical_align",vertical_align,value)
+			message = StackContract.error("horizontal_align",horizontal_align,value,"",StackContract.grid_capable(get_script()))
+			if message.is_empty(): message = StackContract.error("vertical_align",vertical_align,value,"",StackContract.grid_capable(get_script()))
 		if not message.is_empty():
 			push_error("Estragon Box: "+message)
 			return
@@ -60,7 +67,7 @@ func _apply_stack_policy(values: Dictionary) -> void:
 	_policy_commit = false
 	if before!=[direction,horizontal_align,vertical_align]: _changed()
 func _valid_alignment(property: String, value) -> bool:
-	var message := StackContract.error(property,value,"row" if _layout_axis()==0 else "column")
+	var message := StackContract.error(property,value,direction,"",StackContract.grid_capable(get_script()))
 	if not message.is_empty(): push_error("Estragon Box: "+message)
 	return message.is_empty()
 func _layout_axis() -> int:

@@ -1,6 +1,9 @@
 @tool
 extends RefCounted
 ## Lexical declarations + public ClassDB metadata. No authored Script loads/new().
+const Parser = preload("../compiler/parser.gd")
+const Model = preload("../compiler/model.gd")
+const Layouts = preload("../compiler/layouts.gd")
 const Validator = preload("../compiler/validator.gd")
 const Source = preload("../compiler/source.gd")
 const Context = preload("lexical_context.gd")
@@ -21,6 +24,8 @@ var _text := ""
 var _path := ""
 var _symbols: Dictionary = {}
 var _aliases: Dictionary = {}
+var _plain_aliases: Dictionary = {}
+var _layout_names: Dictionary = {}
 var _owners: Dictionary = {}
 var _scoped: Dictionary = {}
 var _blocks: Dictionary = {}
@@ -151,6 +156,7 @@ func _index(text: String, source: String) -> void:
 	_scoped = declarations.scoped
 	_blocks = declarations.blocks
 	_aliases = declarations.aliases
+	_plain_aliases = _aliases.duplicate()
 	_base = declarations.base
 func _script(path: String) -> Dictionary:
 	var text: String = sources[path] if sources.has(path) else FileAccess.get_file_as_string(path)
@@ -463,6 +469,7 @@ func _grid_type(type: String, aliases: Dictionary, visited: Array = []) -> bool:
 
 func candidates(text: String, source: String, lexical: RefCounted, row: int, column: int) -> Array:
 	_index(text,source)
+	_aliases = _layout_aliases(text,source,row,_plain_aliases)
 	lexical.update(text)
 	var context: Dictionary = lexical.context(row,column)
 	if context.suppressed: return _path_options(lexical.lines[row].left(column),context,source,row,column)
@@ -483,14 +490,14 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			for name in _classes:
 				if ClassDB.is_parent_class(name,"Node") and ClassDB.can_instantiate(name): offered[name] = {"kind":CodeEdit.KIND_CLASS}
 			for name in _aliases:
-				if _node_type(name,_aliases): offered[name] = {"kind":CodeEdit.KIND_CLASS,"origin":"explicit Node preload"}
+				if _node_type(name,_aliases): offered[name] = {"kind":CodeEdit.KIND_CLASS,"origin":"layout preset" if _layout_names.has(name) else "explicit Node preload"}
 			for entry in ProjectSettings.get_global_class_list():
 				var known := Catalog.named(str(entry["class"]))
 				if not known.is_empty() and Catalog.path(known) == str(entry.path): continue
 				if str(entry["class"]).begins_with(prefix) and _node_type(str(entry["class"]),{}): offered[entry["class"]] = {"kind":CodeEdit.KIND_CLASS,"origin":"project Node"}
 			for item in Catalog.ITEMS:
 				for alias in _aliases:
-					if _aliases[alias] == Catalog.path(item): offered.erase(alias)
+					if not _layout_names.has(alias) and _aliases[alias] == Catalog.path(item): offered.erase(alias)
 			offered.merge(_catalog_options(prefix,true))
 			# A bare native/global spelling with a project collision would fail
 			# compilation. Offer a source-qualified explicit choice instead.
@@ -541,4 +548,39 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			if context.mode == "tag" and not item.has("import") and ClassDB.class_exists(insert): display += " — Godot "+ClassDB.get_parent_class(insert)
 			result.append({"text":display,"insert":insert,"kind":item.kind,"row":row,"start":cursor if context.mode == "tag" and context.closing else cursor+1,"column":column,"hint":item.get("hint",""),"imports":[item["import"]] if item.has("import") else []})
 	result.sort_custom(func(a,b): return a.text < b.text)
+	return result
+
+func _layout_aliases(text: String, source: String, row: int, existing: Dictionary) -> Dictionary:
+	# Completion is tolerant and source-only. Use completed declarations before
+	# the edited line; incomplete markup must never execute/load authored code.
+	var file := Source.new(text,source)
+	var parser := Parser.new(file)
+	parser.parse()
+	var module = parser.module
+	var index := Layouts.new(file)
+	index.module = module
+	index._index()
+	var target := file.line_start(row+1)
+	var result := existing.duplicate()
+	_layout_names.clear()
+	var paths := {}
+	for part in module.parts:
+		if not part is Model.Layout or part.span.end.index>target: continue
+		var names: Array = [part.root]
+		for child in part.root.children:
+			if child is Model.Component: names.append(child)
+		for node in names:
+			if not node.name.is_valid_identifier(): continue
+			var binding := Model.Preset.new()
+			binding.name = node.name
+			binding.visible = part.span.end.index
+			binding.scope = index._scope(part.span.start.index)
+			binding.symbol = paths.get(node.name,result.get(node.name,(preload("../runtime/node/grid.gd") as Script).resource_path if node==part.root else (preload("../runtime/node/box.gd") as Script).resource_path))
+			paths[node.name] = binding.symbol
+			module.presets.append(binding)
+	for name in paths:
+		var binding = index._visible(name,target)
+		if binding!=null:
+			result[name] = binding.symbol
+			_layout_names[name] = true
 	return result

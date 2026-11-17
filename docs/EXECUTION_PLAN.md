@@ -595,3 +595,18 @@ extra engines/platforms, full release suite, Python, Assets or GogoDemo edits.
 Owner-revised [#146](https://github.com/papercraftgames/Estragon/issues/146), after merged S04 PR #188 (`382b882`). [ADR-0029](DECISIONS.md#adr-0029--d07-import-selected-button-and-neutral-defaults), [contract](BUTTON_IMPORTS.md). Explicit source Script preload wins over native Button spelling; no import retains ClassDB behavior. Actual native parser evidence requires lexical source-mapped private-symbol lowering, including constructors/types/bindable metadata; preserve strings/members/diagnostics and fail closed on invalid imports. Distinct completion origins, deliberate import with one undo, native Add Missing Imports unchanged; no recommended prefix or global class takeover. Migrate active examples/docs/generated maps and preserve old explicit user aliases by normal import semantics. Exact neutral normal/hover/pressed/disabled properties and caches, unchecked Toggle charcoal, checked teal/underline and S04 styling/input/layout preserved.
 
 Acceptance: actual immutable direct-Yarn installed native compiler/editor/Inspector/undo/current+main Play/repair/cold restart/pixels/input on official Linux4.0.4 and pinned4.7.0, focused compiler/Counter/Controls/S02/S04/U02 regressions, maps/UID/static and routine CI<=60s. Preserve historical palette captures; current rebaseline must prove zero changed pixels outside the two unstyled Button/Toggle rectangles. Yarn-only scoped development packaging, no release certification or npm/npx invocation in the new acceptance collector. Local-first one review-ready PR, GitHub checkpoints/handoff, owner merges. No new theme, other widget names, workflows/engines/platforms/Assets/GogoDemo/release/version/tag/publication changes.
+
+## EL02 — lexical GGX layout declarations and reusable presets
+
+Owner implementation assignment [#192](https://github.com/papercraftgames/Estragon/issues/192),
+after owner-merged D07 PR #191 (`23ce784`). [ADR-0030](DECISIONS.md#adr-0030--lexical-layout-presets-over-native-grid),
+[contract/lowering](LAYOUT_DECLARATIONS.md). Checkpoints: source-spanned grammar/
+lexical symbols and matrix validation; reusable native description defaults and
+exports; bounded retained Grid/Box modes; runnable imported/nested gallery;
+compiler/runtime/editor/save/Play/repair/restart and immutable direct-Yarn paired
+Linux4.0.4/pinned4.7.0 evidence. Preserve actual existing percentage authority,
+tracks/floors/overflow, native child slots/owners/Control input, quiet caches and
+maps/UIDs. No Node wrappers, second solver/reactive runtime, EL01 visual designer,
+extra versions/platforms/full release suite, workflow/Assets/GogoDemo/version/tag/
+release/publishing changes. Local-first sole review-ready PR, routine CI<=60s,
+exact checkpoints/failures and durable GitHub handoff; owner reviews/merges.

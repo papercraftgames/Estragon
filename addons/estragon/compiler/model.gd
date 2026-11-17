@@ -69,13 +69,36 @@ class Component extends SyntaxNode:
 	var name: String
 	var name_span: Span
 	var runtime_class: String
+	var preset: Preset
+	var preset_expression: GdExpression
 	var attributes: Array[Attribute] = []
 	var children: Array[SyntaxNode] = []
 	var text_body: Array[SyntaxNode] = []
 	func _init() -> void:
 		kind = "component-expression"
 
+class Layout extends SyntaxNode:
+	var root: Component
+	var mutable := false
+	var exported := false
+	var bindings: Array = []
+	func _init() -> void: kind = "layout-declaration"
+
+class Preset extends RefCounted:
+	var name: String
+	var symbol: String
+	var base: String
+	var resolved: Dictionary = {}
+	var groups: Array = []
+	var generated: Dictionary = {}
+	var span: Span
+	var visible: int
+	var scope: int
+	var mutable := false
+	var exported := false
+
 class Module extends RefCounted:
+	var presets: Array = []
 	var import_aliases: Dictionary = {}
 	var identifier_imports: Array = []
 	var project_imports: Dictionary = {}

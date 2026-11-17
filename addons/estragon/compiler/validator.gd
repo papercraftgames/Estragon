@@ -26,11 +26,21 @@ func _node(node: Model.SyntaxNode) -> void:
 	if node is Model.GdExpression:
 		for part in node.parts: _node(part)
 	elif node is Model.Component: _component(node)
+	elif node is Model.Layout:
+		for binding in node.bindings:
+			for group in binding.groups:
+				var component := Model.Component.new()
+				component.name = group.name
+				component.name_span = group.name_span
+				component.span = group.span
+				component.preset = binding
+				component.attributes = group.attributes
+				_component(component)
 func _error(message: String, span: Model.Span) -> void:
 	file.fail(message,span.start.index,span.end.index)
 
 func _component(node: Model.Component) -> void:
-	var resolved: Dictionary = resolver.resolve(node.name, node.name_span)
+	var resolved: Dictionary = node.preset.resolved if node.preset!=null else resolver.resolve(node.name, node.name_span)
 	if resolved.is_empty(): return
 	node.runtime_class = resolved.get("project_alias",resolved.get("runtime_alias",resolved.get("native_alias",node.name)))
 	var properties: Dictionary = {}
@@ -46,8 +56,7 @@ func _component(node: Model.Component) -> void:
 		script = script.get_base_script()
 	properties.merge(resolved.get("properties",{}),true)
 	signals.merge(resolved.get("signals",{}),true)
-	var stack_direction := StackContract.preset(resolved.script)
-	if stack_direction.is_empty(): stack_direction = "row"
+	var stack_direction := StackContract.initial(resolved.script)
 	for attribute in node.attributes:
 		if attribute.name=="direction": stack_direction = str(attribute.value.value) if attribute.value is Model.Literal else StackContract.preset(resolved.script)
 	if VisualStyle.rect_conflict(resolved.script,node.attributes.map(func(item): return item.name)):
@@ -115,12 +124,12 @@ func _component(node: Model.Component) -> void:
 			_error("Removed layout API "+name+": use unit dimensions, grow and stretch" if name in ["flex","fill_width","fill_height","viewport_width_scale","viewport_height_scale"] else "Unknown, read-only or reserved Node property/signal " + name, attribute.name_span)
 			return
 		if not expanded and StackContract.registered(resolved.script) and attribute.value is Model.Literal:
-			var message := StackContract.error(name,attribute.value.value,stack_direction,StackContract.preset(resolved.script))
+			var message := StackContract.error(name,attribute.value.value,stack_direction,StackContract.preset(resolved.script),StackContract.grid_capable(resolved.script))
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
 		if not expanded and GridDefinition.marked(resolved.script) and attribute.value is Model.Literal:
-			if name in ["horizontal_align","vertical_align"] and attribute.value.value not in ["start","center","end","stretch"]:
+			if stack_direction=="grid" and name in ["horizontal_align","vertical_align"] and attribute.value.value not in ["start","center","end","stretch"]:
 				_error("Grid per-cell "+name+" requires start/center/end/stretch",attribute.value.span)
 				return
 			if name=="template":
@@ -133,7 +142,7 @@ func _component(node: Model.Component) -> void:
 			if not message.is_empty():
 				_error(message,attribute.value.span)
 				return
-		if GridDefinition.marked(resolved.script) and name in ["horizontal_align","vertical_align"] and attribute.value is Model.Literal and attribute.value.value not in ["start","center","end","stretch"]:
+		if stack_direction=="grid" and GridDefinition.marked(resolved.script) and name in ["horizontal_align","vertical_align"] and attribute.value is Model.Literal and attribute.value.value not in ["start","center","end","stretch"]:
 			_error("Grid "+name+" requires start, center, end or stretch",attribute.value.span)
 			return
 		var is_color := VisualStyle.registered(resolved.script,name)
@@ -207,7 +216,7 @@ func _component(node: Model.Component) -> void:
 			_error("Node GGX children must be newly declared Node elements; expression adoption is unsupported", child.span)
 			return
 		_node(child)
-		if not GridDefinition.marked(resolved.script):
+		if child.preset==null and not GridDefinition.marked(resolved.script):
 			for attribute in child.attributes:
 				if attribute.kind=="placement":
 					_error("GGX placement "+attribute.name+" requires a Grid parent",attribute.name_span)

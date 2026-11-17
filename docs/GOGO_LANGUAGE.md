@@ -183,3 +183,12 @@ property values/preloads, never Element children. [Styling contract](STYLING.md#
 defines local border-box percentage radii, defaults, source validation and
 rectangular child clipping. Normal aliases, Dictionary spreads and retained
 description preflight apply without special style syntax.
+
+## Lexical layout declarations (EL02)
+
+`layout const <Name>...</Name>` and `layout var`, optionally module-scope `export`,
+create reusable exact-case component definitions over native Grid. Matrix rows
+and repeated names describe named areas, never mounted children. Ordinary GGX
+uses instantiate definitions with normal instance overrides. Sequential hygienic
+rebinding composes prior bases without mutating them. See [the complete grammar,
+lexical/export rules, defaults and native lowering](LAYOUT_DECLARATIONS.md).

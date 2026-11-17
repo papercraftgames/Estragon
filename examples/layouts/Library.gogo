@@ -1,0 +1,6 @@
+extends RefCounted
+# Exported bindings belong to this ordinary value instance, never a global registry.
+export layout const <Shared gap="4px" padding="4px" background_color="#24364a">
+    <upper background_color="#385975" /> <upper />
+    <lowerLeft background_color="#49754f" /> <lowerRight background_color="#735f48" />
+</Shared>

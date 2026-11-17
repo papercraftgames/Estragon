@@ -5,7 +5,7 @@ extends RefCounted
 const Lexer = preload("../compiler/lexer.gd")
 const Source = preload("../compiler/source.gd")
 const Parser = preload("../compiler/parser.gd")
-const KEYWORDS := ["extends", "class_name", "class", "func", "static", "var", "const", "return", "if", "elif", "else", "for", "in", "while", "await", "signal", "true", "false", "null", "pass", "and", "or", "not", "as", "is", "self", "match", "break", "continue", "assert", "enum", "preload", "load", "super", "get", "set", "when", "void"]
+const KEYWORDS := ["layout", "export", "extends", "class_name", "class", "func", "static", "var", "const", "return", "if", "elif", "else", "for", "in", "while", "await", "signal", "true", "false", "null", "pass", "and", "or", "not", "as", "is", "self", "match", "break", "continue", "assert", "enum", "preload", "load", "super", "get", "set", "when", "void"]
 var lines: PackedStringArray = []
 var records: Array = []
 var scanned_lines := 0
@@ -149,7 +149,7 @@ func scan(text: String, state: Dictionary, newline: bool = true) -> Dictionary:
 			elif kind == "code" and (ClassDB.class_exists(word) or word in state.declared or word in ["int","float","bool","String","Array","Dictionary","Vector2","Vector3","Color","Callable","StringName","NodePath"] or previous in [":","->","extends","class_name","class"]): kind = "type"
 			if previous in ["class_name","class"] or previous == "const" and text.substr(i).strip_edges().begins_with("= preload("):
 				if word not in state.declared: state.declared.append(word)
-			state.operand = word in Parser.OPERANDS
+			state.operand = word in Parser.OPERANDS or word in ["layout","const","var","export"]
 		elif token.kind == "number": kind = "number"; state.operand = false
 		else:
 			if word in ["(","[","{"]: state.depth += 1

@@ -587,10 +587,10 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		policy.merge(_spread_resets(desired,previous),true)
 		policy.merge(desired.properties,true)
 		var fixed := StackContract.preset(desired.type)
-		var direction = policy.get("direction",fixed if not fixed.is_empty() else "row")
+		var direction = policy.get("direction",StackContract.initial(desired.type))
 		for key in ["direction","horizontal_align","vertical_align","align_content"]:
-			var value = policy.get(key,direction if key=="direction" else "start")
-			var message := StackContract.error(key,value,str(direction),fixed)
+			var value = policy.get(key,direction if key=="direction" else ("stretch" if direction=="grid" and key in ["horizontal_align","vertical_align"] else "start"))
+			var message := StackContract.error(key,value,str(direction),fixed,StackContract.grid_capable(desired.type))
 			if not message.is_empty():
 				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
@@ -600,6 +600,10 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			if desired.properties.has(key): return _invalid_attribute(desired,key,"read-only scrolling measurement")
 	if GridDefinition.marked(desired.type):
 		var config := _grid_config(desired)
+		var grid_active: bool = desired.properties.get("direction","grid")=="grid"
+		if not grid_active:
+			config.horizontal_align = "stretch"
+			config.vertical_align = "stretch"
 		var grid_matches := _matches(desired.children,previous.children if previous!=null and _compatible(desired,previous) else [])
 		var placements: Array = []
 		var grid_children: Array = []
@@ -618,7 +622,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 				var borrowed: Node = child.borrowed.get_ref()
 				if not borrowed is Control and not (borrowed is Node2D and (Length.registered(borrowed.get_script(),"width") or GridDefinition.component(borrowed.get_script()))): return _invalid_attribute(child,"area","Grid borrowed child has no bounded 2D layout participant")
 			var native: String = child.type if child.type is String else (child.borrowed.get_ref().get_class() if child.borrowed!=null else child.type.get_instance_base_type())
-			if ClassDB.is_parent_class(native,"Control"):
+			if grid_active and ClassDB.is_parent_class(native,"Control"):
 				var values := {}
 				var old = grid_matches[desired.children.find(child)]
 				var existing = child.borrowed.get_ref() if child.borrowed!=null else (old.node.get_ref() if old!=null else null)
@@ -633,7 +637,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 					return _invalid_attribute(child,field,message)
 			placements.append(child.placement)
 			grid_children.append(child)
-		var parsed := GridDefinition.configuration(config,placements)
+		var parsed := GridDefinition.configuration(config,placements if grid_active else [])
 		if parsed.has("error"):
 			var origin = grid_children[parsed.item] if parsed.has("item") else desired
 			var key: String = str(origin.placement.keys()[0]) if parsed.has("item") and not origin.placement.is_empty() else parsed.get("field","columns")

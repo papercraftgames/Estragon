@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://examples/layouts/generated/Layouts.gd" id="1_s3rgo"]
+
+[node name="Layouts" type="Node2D" unique_id=1859315279]
+script = ExtResource("1_s3rgo")

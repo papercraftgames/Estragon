@@ -18,16 +18,24 @@ static func preset(script) -> String:
 		if script.get_script_constant_map().has("STACK_DIRECTION"): return script.get_script_constant_map().STACK_DIRECTION
 		script = script.get_base_script()
 	return ""
-static func error(name: String, value, direction: String, fixed: String = "") -> String:
+static func grid_capable(script) -> bool:
+	while script is Script:
+		if script.get_script_constant_map().get("ESTRAGON_GRID",false): return true
+		script = script.get_base_script()
+	return false
+static func initial(script) -> String:
+	return "grid" if grid_capable(script) else (preset(script) if not preset(script).is_empty() else "row")
+static func error(name: String, value, direction: String, fixed: String = "", grid: bool = false) -> String:
 	if name=="align_content":
 		if value not in ["start","center","end","stretch"]+DISTRIBUTION: return "align_content requires start/center/end/space-between/around/evenly/stretch"
 	elif name=="align_self":
 		if value not in SELF: return "align_self requires auto, start, center, end or stretch"
 	elif name=="direction":
-		if value not in ["row","column"]: return "direction requires row or column"
+		if value not in (["row","column","grid"] if grid else ["row","column"]): return "direction requires row or column"+(" or grid" if grid else "")
 		if not fixed.is_empty() and value!=fixed: return "HBox/VBox direction is fixed; use Box to change direction"
 	elif name in ["horizontal_align","vertical_align"]:
 		if value not in ["start","center","end","stretch"]+DISTRIBUTION: return name+" requires start, center, end, main-axis space-between/around/evenly or cross-axis stretch"
+		if direction=="grid" and value in DISTRIBUTION: return "Grid per-cell "+name+" requires start/center/end/stretch"
 		if direction in ["row","column"]:
 			var main := name==("horizontal_align" if direction=="row" else "vertical_align")
 			if main and value=="stretch": return "stretch is cross-axis only; use grow for remaining main-axis space"

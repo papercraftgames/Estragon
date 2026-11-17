@@ -249,6 +249,20 @@ func _scan(start: int, braced: bool) -> Dictionary:
 			operand = false
 			has_token = true
 			continue
+		# Layout declarations are statements, never expression islands.
+		if not braced and stack.is_empty() and character in "le" and _context(offset,false,true).first:
+			var probe := Lexer.new(file)
+			var first_token := probe.next_token(offset)
+			if first_token!=null and first_token.text in ["layout","export"]:
+				_copy(parts,copied,offset)
+				_cursor = offset
+				var declaration := _layout()
+				if declaration==null: break
+				parts.append(declaration)
+				offset = _cursor
+				copied = offset
+				operand = true
+				continue
 		var token := lexer.next_token(offset)
 		if token == null: break
 		var from := offset
@@ -293,3 +307,35 @@ func _context(offset: int, braced: bool, top: bool) -> Dictionary:
 			module.indentation = prefix
 			_indentation_seen = true
 	return {"line": line, "prefix": prefix, "first": first}
+
+func _layout() -> Model.Layout:
+	var start := _cursor
+	if not _classes.is_empty():
+		file.fail("layout declarations inside named inner classes are unsupported; use an outer lexical scope",start)
+		return null
+	var result := Model.Layout.new()
+	var token := lexer.next_token(_cursor)
+	if token.text=="export":
+		result.exported = true
+		_cursor = token.span.end.index
+		_whitespace()
+		token = lexer.next_token(_cursor)
+	if token==null or token.text!="layout":
+		file.fail("export requires a layout const/var declaration",start,_cursor)
+		return null
+	_cursor = token.span.end.index
+	_whitespace()
+	token = lexer.next_token(_cursor)
+	if token==null or token.text not in ["const","var"]:
+		file.fail("layout requires const or var (not let)",_cursor)
+		return null
+	result.mutable = token.text=="var"
+	_cursor = token.span.end.index
+	_whitespace()
+	if not _at("<"):
+		file.fail("Expected layout root tag",_cursor)
+		return null
+	result.root = _component(0)
+	if result.root==null: return null
+	result.span = file.span(start,_cursor)
+	return result

@@ -4,6 +4,7 @@ extends RefCounted
 ## Regexes classify Unicode characters only; no source rewriting/evaluation.
 const Model = preload("model.gd")
 const Source = preload("source.gd")
+const KEYWORDS := ["layout","export","extends","class_name","class","func","static","var","const","return","if","elif","else","for","in","while","await","signal","true","false","null","pass","and","or","not","as","is","self","match","break","continue","assert","enum","preload","load","super","get","set","when","void","breakpoint"]
 const OPERATORS := ["**=", "<<=", ">>=", ":=", "==", "!=", "<=", ">=", "<<", ">>", "**", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "&&", "||", "->"]
 var file: Source
 var tokens: Array[Model.Token] = []
