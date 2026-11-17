@@ -62,6 +62,20 @@ func run():
 		var stats: Dictionary = sample[0].get_visual_style_stats()
 		failed = failed or sample[0]._scroll!=null or stats.commands!=stats.draw*sample[1]
 	var label := "4.0.4" if Engine.get_version_info().minor==0 else "4.7"
+	# D07 deliberately changes only the two unstyled Button/Toggle fills.
+	# Historical S04 captures remain immutable; current baseline is charcoal.
+	var historical := "res://tests/surfaces/evidence/"+label+"/surface-defaults.png"
+	if FileAccess.file_exists(historical):
+		var old := Image.load_from_file(historical)
+		var changed := 0
+		var outside := 0
+		for y in range(480):
+			for x in range(640):
+				if old.get_pixel(x,y)!=image.get_pixel(x,y):
+					changed += 1
+					if not (x>=16 and x<196 and ((y>=276 and y<341) or (y>=364 and y<429))): outside += 1
+		failed = failed or changed==0 or outside!=0
+		print("D07_PALETTE_ONLY changed=",changed," outside=",outside)
 	var baseline := "res://tests/surfaces/baseline/"+label+".png"
 	if FileAccess.file_exists(baseline):
 		var original := Image.load_from_file(baseline)

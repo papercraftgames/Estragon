@@ -136,7 +136,7 @@ func _run() -> void:
 		_counter.text = _source.replace("var count: int = 0","var count: int = 7")
 		await _success(mode,7)
 		_check(FileAccess.get_file_as_string(SOURCE)==_counter.text,"normal Play saves latest native Counter")
-		_counter.text = _source.replace("<UiButton name=","<Gradient name=")
+		_counter.text = _source.replace("<Button name=","<Gradient name=")
 		await _blocked(mode,"Counter.gogo:")
 		_counter.text = _source.replace("pressed={increment}","pressed={missing_handler}")
 		await _blocked(mode,"Counter.gogo:")

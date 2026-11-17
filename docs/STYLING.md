@@ -277,3 +277,8 @@ Shadows, transitions, descendant rounded masks, new focus/text features and 3D
 effects are excluded. Exact tested engines, native captures, failures and limits
 are recorded in #187/its sole PR and the committed S04 evidence report; target
 support does not imply fresh certification of other engines/platforms.
+
+D07 updates unstyled framework Button and unchecked Toggle defaults to normal
+`#383838`, hover `#505050`, pressed `#252525`, disabled `#303030`, including
+initial cached state. Checked Toggle stays `#227a60` with `#65f4b0` underline.
+Explicit colors remain authoritative. See [Button imports](BUTTON_IMPORTS.md).

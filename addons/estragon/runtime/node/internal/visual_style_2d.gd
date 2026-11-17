@@ -19,7 +19,7 @@ var _border_mesh: ArrayMesh
 var _rounded := false
 var geometry_count := 0
 var resource_notifications := 0
-var colors := {"background_color":Color.TRANSPARENT,"border_color":Color.TRANSPARENT,"hover_background_color":Color("#705a9e"),"pressed_background_color":Color("#302440"),"disabled_background_color":Color("#38343f"),"checked_background_color":Color("#227a60")}
+var colors := {"background_color":Color.TRANSPARENT,"border_color":Color.TRANSPARENT,"hover_background_color":Color("#505050"),"pressed_background_color":Color("#252525"),"disabled_background_color":Color("#303030"),"checked_background_color":Color("#227a60")}
 var parse_count := 0
 var draw_count := 0
 var command_count := 0

@@ -4,7 +4,8 @@ const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 @bindable var username: String = "é 🌱"
 @bindable var label: String = "Click Me"
 @bindable var extra: Dictionary = {}
@@ -34,9 +35,9 @@ func build_view() -> Element:
 			<Text name="Empty"></Text>
 			<Text name="Strict">{body_value()}</Text>
 			<HBox name="Wrapped" {...{"wrap":false}} wrap>
-				<Button name="Native" pressed={pressed}>{self.label}</Button>
-				<UiButton name="Custom" pressed={pressed}>Also click me</UiButton>
-				<UiButton name="Disabled" disabled>Disabled</UiButton>
+				<NativeButton name="Native" pressed={pressed}>{self.label}</NativeButton>
+				<Button name="Custom" pressed={pressed}>Also click me</Button>
+				<Button name="Disabled" disabled>Disabled</Button>
 			</HBox>
 			<HBox name="Override" wrap {...{"wrap":false}} />
 			<Text name="Spread" {...self.extra}>Body</Text>

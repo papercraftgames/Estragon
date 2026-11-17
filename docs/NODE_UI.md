@@ -42,7 +42,7 @@ Primary pointer press captures one live enabled button, then release over that s
 
 ## C4 removal inventory
 
-C4 [#83](https://github.com/resistdesign/Estragon/issues/83) follows merged C3 PR #82. The branch replaces the transitional native widget names with canonical EstragonRect/Text/Button/HBox/VBox under runtime/node/{rect,text,button,hbox,vbox}.gd. The shipped Counter is now examples/counter/Counter.tscn and the project main scene. Its explicit preload aliases target these canonical classes; Button alone retains its ordinary Godot meaning. There is no hidden short-tag mapping or compatibility alias.
+C4 [#83](https://github.com/resistdesign/Estragon/issues/83) follows merged C3 PR #82. The branch replaces the transitional native widget names with canonical EstragonRect/Text/Button/HBox/VBox under runtime/node/{rect,text,button,hbox,vbox}.gd. The shipped Counter is now examples/counter/Counter.tscn and the project main scene. Its explicit preload aliases target these canonical classes; Button without an explicit import retains its ordinary Godot meaning. There is no hidden short-tag mapping or compatibility alias.
 
 | Retired path/requirement | Replacement / disposition |
 | --- | --- |
@@ -66,7 +66,7 @@ Current [dynamic observed composition](REACTIVE_GGX.md) use these native setters
 
 ## L03 — nested Gogo views in parent layout
 
-A normal Gogo component may keep `extends Node2D` and return an HBox, VBox, Text or native Estragon Button. When that host sits in a contiguous same-dimensional layout tree, its **managed view root supplies the host's slot**: natural/fixed dimensions and fill constraints pass through to the parent, which places the real host in sibling order. The returned root is arranged at zero local offset inside that slot. Children do not need a new Entry at every level. See the runnable [Home](../examples/nested_layout/Home.gogo), [Settings](../examples/nested_layout/Settings.gogo) and [Rose](../examples/nested_layout/Rose.gogo), or run `examples/nested_layout/Home.tscn`. The example uses the explicit `UiButton` alias for `EstragonButton`; bare `Button` retains Godot's native Control meaning and is never remapped. L03 did not adapt Controls; L04 below now supplies their automatic compatible 2D slots.
+A normal Gogo component may keep `extends Node2D` and return an HBox, VBox, Text or native Estragon Button. When that host sits in a contiguous same-dimensional layout tree, its **managed view root supplies the host's slot**: natural/fixed dimensions and fill constraints pass through to the parent, which places the real host in sibling order. The returned root is arranged at zero local offset inside that slot. Children do not need a new Entry at every level. See the runnable [Home](../examples/nested_layout/Home.gogo), [Settings](../examples/nested_layout/Settings.gogo) and [Rose](../examples/nested_layout/Rose.gogo), or run `examples/nested_layout/Home.tscn`. The example explicitly imports `Button` as `EstragonButton`; another source without that import retains Godot's native Control meaning. L03 did not adapt Controls; L04 below now supplies their automatic compatible 2D slots.
 
 The same stack rules apply through a host: fixed root dimensions override fill; natural dimensions come from the returned participant subtree; root fill flags request the parent's remaining main-axis share/cross-axis allocation. Multiple nested Gogo hosts and a host returning another Gogo host forward through the same mathematical core. Native transforms/lifetime/identity remain real. Layout owns translation of the participating host and returned root; scale/rotation remain native and are not included in intrinsic local size, just as for other participants. Do not author a second translation on a root intended to be parent-arranged.
 
@@ -82,7 +82,7 @@ Exact L03 acceptance: [rendered before/after, measured slots, native input/edito
 
 ## L04 — native Control auto-layout
 
-Ordinary Godot Controls now occupy automatic slots as direct or [borrowed](SCENE_CHILDREN.md#native-controls-l04) children of a compatible 2D Estragon Box. Previously HBox ignored a native Button's footprint, allowing the following Rose component to overlap Exit. L04 measures native minimums through the existing coordinator/core. No wrapper, Script injection, extra Node, tag remapping or second renderer is involved. `Button` remains Godot Button; `UiButton` remains the independent Node2D EstragonButton. Naming changes are separate #146.
+Ordinary Godot Controls now occupy automatic slots as direct or [borrowed](SCENE_CHILDREN.md#native-controls-l04) children of a compatible 2D Estragon Box. Previously HBox ignored a native Button's footprint, allowing the following Rose component to overlap Exit. L04 measures native minimums through the existing coordinator/core. No wrapper, Script injection, extra Node, tag remapping or second renderer is involved. Unimported `Button` remains Godot Button; explicitly importing Estragon’s `button.gd` selects its independent Node2D Button. [D07](BUTTON_IMPORTS.md) documents the naming contract.
 
 | Child | Size and placement authority |
 | --- | --- |
@@ -112,7 +112,7 @@ Borrowing never changes native clipping, CanvasLayer, Z, visibility or draw/inpu
 
 ### Runnable examples
 
-Run [NativeHome.tscn](../examples/nested_layout/NativeHome.tscn) for the owner's flexible-spacer Home/Settings/Rose arrangement using a native Exit button. [Home.tscn](../examples/nested_layout/Home.tscn) retains the UiButton version. [NativeGallery.tscn](../examples/nested_layout/NativeGallery.tscn) demonstrates all snippets below, a native Container, a generated Settings component and an owned Scene-dock Button. Keep the normal explicit Element/Box imports shown in its Gogo source; native class tags need no alias.
+Run [NativeHome.tscn](../examples/nested_layout/NativeHome.tscn) for the owner's flexible-spacer Home/Settings/Rose arrangement using a native Exit button. [Home.tscn](../examples/nested_layout/Home.tscn) retains the Button version. [NativeGallery.tscn](../examples/nested_layout/NativeGallery.tscn) demonstrates all snippets below, a native Container, a generated Settings component and an owned Scene-dock Button. Keep the normal explicit Element/Box imports shown in its Gogo source; native class tags need no alias.
 
 ```gogo
 func exit() -> void:
@@ -155,9 +155,9 @@ Auto measurement sums child outer extents along the stack axis, takes the larges
 
 Children start at the content origin plus their leading margin. Cross-axis alignment remains leading; `center` centers the complete outer row (including margins/gaps) inside the content rectangle and retains its existing symmetric overflow behavior. Margins affect parent measurement/allocation only, never the child's painted/hit bounds. A scope root's own margin has no parent to consume it. Nested Gogo hosts forward a managed root's margin once to the parent; their returned root stays at local zero. Layout retains native ownership/transforms and translates the real participating Nodes; pointer routing uses those native transforms.
 
-Padding belongs to Box/Entry containers. Text and UiButton retain their existing font measurement and UiButton's intrinsic text inset; they do not acquire container padding or text wrapping. Margin applies to Rect/Text/UiButton/Box and other EstragonComponent2D subclasses. Native Controls use their L04 minimum/size-flags API and do not gain custom properties. Bounded 3D native geometry remains in world units; authored lengths use the explicit scale in the [shared contract](LENGTHS.md). Changes invalidate affected branches through existing signals/deferred flushes, without idle polling or a second layout/reconciliation path.
+Padding belongs to Box/Entry containers. Text and Button retain their existing font measurement and Button's intrinsic text inset; they do not acquire container padding or text wrapping. Margin applies to Rect/Text/Button/Box and other EstragonComponent2D subclasses. Native Controls use their L04 minimum/size-flags API and do not gain custom properties. Bounded 3D native geometry remains in world units; authored lengths use the explicit scale in the [shared contract](LENGTHS.md). Changes invalidate affected branches through existing signals/deferred flushes, without idle polling or a second layout/reconciliation path.
 
-Run [BoxModel.tscn](../examples/box_model/BoxModel.tscn) to change padding with a retained UiButton while keeping the explicit left edge fixed. The colored row demonstrates outer margins separately from inner padding. [Focused L01 runner](../tools/check-box-model.ts) uses fresh direct-Yarn consumers and isolated editor/game settings; exact review evidence is maintained on #55/its sole PR.
+Run [BoxModel.tscn](../examples/box_model/BoxModel.tscn) to change padding with a retained Button while keeping the explicit left edge fixed. The colored row demonstrates outer margins separately from inner padding. [Focused L01 runner](../tools/check-box-model.ts) uses fresh direct-Yarn consumers and isolated editor/game settings; exact review evidence is maintained on #55/its sole PR.
 
 [Exact L01 native acceptance, rendered geometry and editor/compile evidence](evidence/L01_BOX_MODEL.md). Both approved Linux engines pass the scoped proof; live issue/sole PR controls review and merge state.
 

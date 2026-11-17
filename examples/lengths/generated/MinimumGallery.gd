@@ -3,7 +3,8 @@ const Element = preload("../../../addons/estragon/runtime/composition/element.gd
 const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 const Nested = preload("MinimumPanel.gd")
 signal constrained_changed(previous: bool, value: bool)
@@ -76,16 +77,16 @@ class _GogoFactories_0:
         _gogo_value_3: Variant,
         _gogo_value_4: Callable
     ) -> _GogoElement_0:
-        var _gogo_element_1 := _GogoElement_0.new(Text, {"name": "Caption", "text": "A readable minimum", "min_width": "120px", "color": _gogo_value_0}, {}, [], "examples/lengths/MinimumGallery.gogo:20:9", null, false)
-        var _gogo_element_2 := _GogoElement_0.new(UiButton, {"name": "Continue", "text": "Continue", "width": "50%", "height": "20px", "min_width": "96px", "min_height": "36px", "padding": "6px", "font_size": _gogo_value_1, "background_color": "#355e92", "border_color": "#cbd8ed", "border_width": "1px"}, {"pressed": _gogo_value_2}, [], "examples/lengths/MinimumGallery.gogo:21:9", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(Toggle, {"name": "Enabled", "text": "Enabled", "min_width": "120px", "min_height": "36px"}, {}, [], "examples/lengths/MinimumGallery.gogo:22:9", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(Text, {"name": "Caption", "text": "A readable minimum", "min_width": "120px", "color": _gogo_value_0}, {}, [], "examples/lengths/MinimumGallery.gogo:21:9", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "Continue", "text": "Continue", "width": "50%", "height": "20px", "min_width": "96px", "min_height": "36px", "padding": "6px", "font_size": _gogo_value_1, "background_color": "#355e92", "border_color": "#cbd8ed", "border_width": "1px"}, {"pressed": _gogo_value_2}, [], "examples/lengths/MinimumGallery.gogo:22:9", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(Toggle, {"name": "Enabled", "text": "Enabled", "min_width": "120px", "min_height": "36px"}, {}, [], "examples/lengths/MinimumGallery.gogo:23:9", null, false)
         _gogo_element_3.bindings = {"value": _gogo_value_3}
-        var _gogo_element_4 := _GogoElement_0.new("Button", {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_4}, [], "examples/lengths/MinimumGallery.gogo:23:9", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(_GogoProject_0, {"name": "Nested"}, {}, [], "examples/lengths/MinimumGallery.gogo:24:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "padding": "12px", "border_width": "2px", "border_color": "#8295bc", "background_color": "#252b38", "gap": "12px"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5], "examples/lengths/MinimumGallery.gogo:19:17", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_4}, [], "examples/lengths/MinimumGallery.gogo:24:9", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(_GogoProject_0, {"name": "Nested"}, {}, [], "examples/lengths/MinimumGallery.gogo:25:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "padding": "12px", "border_width": "2px", "border_color": "#8295bc", "background_color": "#252b38", "gap": "12px"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5], "examples/lengths/MinimumGallery.gogo:20:17", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Variant) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_value_0], "examples/lengths/MinimumGallery.gogo:29:12", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_value_0], "examples/lengths/MinimumGallery.gogo:30:12", null, false)
         return _gogo_element_0

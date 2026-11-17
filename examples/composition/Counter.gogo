@@ -4,7 +4,7 @@ const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
 const Model = preload("res://examples/composition/generated/Model.gd")
 @bindable var count: int = 0
 @bindable var unused: int = 0
@@ -18,8 +18,8 @@ func build_view() -> Element:
             <Text name="Title" text={heading()} color={Color(0.74,0.64,0.94)} />
             <Text name="Count" text={caption} />
             <Rect name="Bar" width={model.width + count * 10.0} height={10.0} fill={Color(0.2,0.8,0.6)} />
-            <UiButton name="Increment" text="+" pressed={increment} />
-            <UiButton name="Reset" text="Reset" disabled={count == 0} pressed={reset_count} />
+            <Button name="Increment" text="+" pressed={increment} />
+            <Button name="Reset" text="Reset" disabled={count == 0} pressed={reset_count} />
         </VBox>
     </Entry>
 func increment() -> void:

@@ -9,7 +9,7 @@ static func write(path: String, text: String) -> void:
 	file.close()
 static func header(path: String, names: Array) -> String:
 	var text := "extends Node2D\n"
-	for name in names: text += Imports.declaration(name,Catalog.path(Catalog.named(name)),path)
+	for name in names: text += Imports.declaration(name,Catalog.path(Catalog.named("Button" if name=="UiButton" else name)),path)
 	return text
 static func install() -> void:
 	var path := "res://app/Home.gogo"
@@ -91,7 +91,7 @@ func build_view() -> Element:
 ''')
 	path = "res://app/Spatial.gogo"
 	var spatial := "extends Node3D\n"
-	for name in ["Element","Entry3D"]: spatial += Imports.declaration(name,Catalog.path(Catalog.named(name)),path)
+	for name in ["Element","Entry3D"]: spatial += Imports.declaration(name,Catalog.path(Catalog.named("Button" if name=="UiButton" else name)),path)
 	spatial += Imports.declaration("Part3D",(preload("res://addons/estragon/runtime/node/component_3d.gd") as Script).resource_path,path)
 	write(path,spatial+'''@bindable var room: float = -1
 func build_view() -> Element:

@@ -5,7 +5,8 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 const Rose = preload("StyledRose.gd")
 signal enabled_changed(previous: bool, value: bool)
@@ -87,32 +88,32 @@ class _GogoFactories_0:
         _gogo_value_9: Variant,
         _gogo_value_10: Variant
     ) -> _GogoElement_0:
-        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Caption", "text": "Gold on blue", "color": _gogo_value_2, "padding": "6px", "padding_left": "11px", "background_color": "#142a3a", "border_color": "#85aacc", "border_width": "1px", "border_left_width": "3px"}, {}, [], "examples/styling/WidgetGallery.gogo:24:13", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Legacy", "width": "60px", "height": "42px", "fill": _gogo_value_3}, {}, [], "examples/styling/WidgetGallery.gogo:26:17", null, false)
-        var _gogo_element_5 := _GogoElement_0.new(Rect, {"name": "Styled", "width": "130px", "height": "42px", "background_color": "#2288aa", "border_color": "#e9efff", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:27:17", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Rects", "gap": "12px"}, {}, [_gogo_element_4, _gogo_element_5], "examples/styling/WidgetGallery.gogo:25:13", null, false)
-        var _gogo_element_7 := _GogoElement_0.new(UiButton, {"name": "Normal", "text": "Continue", "width": "120px", "height": "54px", "padding": "10px", "padding_left": "16px", "padding_top": "5px", "background_color": "#355e92", "hover_background_color": "#477dbb", "pressed_background_color": "#23446e", "disabled_background_color": "#313947", "border_color": "#cbd8ed", "border_width": "2px", "border_right_width": "4px"}, {"pressed": _gogo_value_4}, [], "examples/styling/WidgetGallery.gogo:30:17", null, false)
-        var _gogo_element_8 := _GogoElement_0.new(UiButton, {"name": "Hover", "text": "Hover", "width": "120px", "height": "54px", "background_color": "#355e92", "hover_background_color": "#477dbb", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:31:17", null, false)
-        var _gogo_element_9 := _GogoElement_0.new(UiButton, {"name": "Held", "text": "Pressed", "width": "120px", "height": "54px", "background_color": "#355e92", "pressed_background_color": "#23446e", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:32:17", null, false)
-        var _gogo_element_10 := _GogoElement_0.new(UiButton, {"name": "Disabled", "text": "Disabled", "width": "120px", "height": "54px", "disabled": _gogo_value_5, "disabled_background_color": "#313947", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:33:17", null, false)
-        var _gogo_element_6 := _GogoElement_0.new(HBox, {"name": "Buttons", "gap": "8px"}, {}, [_gogo_element_7, _gogo_element_8, _gogo_element_9, _gogo_element_10], "examples/styling/WidgetGallery.gogo:29:13", null, false)
-        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Controlled", "text": "Enabled", "checked_background_color": "#227a60", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:36:17", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Caption", "text": "Gold on blue", "color": _gogo_value_2, "padding": "6px", "padding_left": "11px", "background_color": "#142a3a", "border_color": "#85aacc", "border_width": "1px", "border_left_width": "3px"}, {}, [], "examples/styling/WidgetGallery.gogo:25:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(Rect, {"name": "Legacy", "width": "60px", "height": "42px", "fill": _gogo_value_3}, {}, [], "examples/styling/WidgetGallery.gogo:27:17", null, false)
+        var _gogo_element_5 := _GogoElement_0.new(Rect, {"name": "Styled", "width": "130px", "height": "42px", "background_color": "#2288aa", "border_color": "#e9efff", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:28:17", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Rects", "gap": "12px"}, {}, [_gogo_element_4, _gogo_element_5], "examples/styling/WidgetGallery.gogo:26:13", null, false)
+        var _gogo_element_7 := _GogoElement_0.new(_GogoImport_0, {"name": "Normal", "text": "Continue", "width": "120px", "height": "54px", "padding": "10px", "padding_left": "16px", "padding_top": "5px", "background_color": "#355e92", "hover_background_color": "#477dbb", "pressed_background_color": "#23446e", "disabled_background_color": "#313947", "border_color": "#cbd8ed", "border_width": "2px", "border_right_width": "4px"}, {"pressed": _gogo_value_4}, [], "examples/styling/WidgetGallery.gogo:31:17", null, false)
+        var _gogo_element_8 := _GogoElement_0.new(_GogoImport_0, {"name": "Hover", "text": "Hover", "width": "120px", "height": "54px", "background_color": "#355e92", "hover_background_color": "#477dbb", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:32:17", null, false)
+        var _gogo_element_9 := _GogoElement_0.new(_GogoImport_0, {"name": "Held", "text": "Pressed", "width": "120px", "height": "54px", "background_color": "#355e92", "pressed_background_color": "#23446e", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:33:17", null, false)
+        var _gogo_element_10 := _GogoElement_0.new(_GogoImport_0, {"name": "Disabled", "text": "Disabled", "width": "120px", "height": "54px", "disabled": _gogo_value_5, "disabled_background_color": "#313947", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:34:17", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(HBox, {"name": "Buttons", "gap": "8px"}, {}, [_gogo_element_7, _gogo_element_8, _gogo_element_9, _gogo_element_10], "examples/styling/WidgetGallery.gogo:30:13", null, false)
+        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Controlled", "text": "Enabled", "checked_background_color": "#227a60", "border_color": "#cbd8ed", "border_width": "2px"}, {}, [], "examples/styling/WidgetGallery.gogo:37:17", null, false)
         _gogo_element_12.bindings = {"value": _gogo_value_6}
-        var _gogo_element_13 := _GogoElement_0.new(Toggle, {"name": "Unchecked", "text": "Unchecked", "value": _gogo_value_7}, {}, [], "examples/styling/WidgetGallery.gogo:37:17", null, false)
-        var _gogo_element_14 := _GogoElement_0.new("Button", {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_8}, [], "examples/styling/WidgetGallery.gogo:38:17", null, false)
-        var _gogo_element_11 := _GogoElement_0.new(HBox, {"name": "Edits", "gap": "8px"}, {}, [_gogo_element_12, _gogo_element_13, _gogo_element_14], "examples/styling/WidgetGallery.gogo:35:13", null, false)
-        var _gogo_element_15 := _GogoElement_0.new(_GogoProject_0, {"name": "Rose"}, {}, [], "examples/styling/WidgetGallery.gogo:40:13", null, false)
-        var _gogo_element_16 := _GogoElement_0.new(HBox, {"name": "Keys", "gap": "4px"}, {}, [_gogo_value_9], "examples/styling/WidgetGallery.gogo:41:13", null, false)
-        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "grow": _gogo_value_0, "stretch": _gogo_value_1, "padding": "12px", "gap": "8px", "background_color": "#252b38", "border_color": "#8295bc", "border_width": "2px"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_6, _gogo_element_11, _gogo_element_15, _gogo_element_16, _gogo_value_10], "examples/styling/WidgetGallery.gogo:23:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "8px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/styling/WidgetGallery.gogo:22:12", null, false)
+        var _gogo_element_13 := _GogoElement_0.new(Toggle, {"name": "Unchecked", "text": "Unchecked", "value": _gogo_value_7}, {}, [], "examples/styling/WidgetGallery.gogo:38:17", null, false)
+        var _gogo_element_14 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_8}, [], "examples/styling/WidgetGallery.gogo:39:17", null, false)
+        var _gogo_element_11 := _GogoElement_0.new(HBox, {"name": "Edits", "gap": "8px"}, {}, [_gogo_element_12, _gogo_element_13, _gogo_element_14], "examples/styling/WidgetGallery.gogo:36:13", null, false)
+        var _gogo_element_15 := _GogoElement_0.new(_GogoProject_0, {"name": "Rose"}, {}, [], "examples/styling/WidgetGallery.gogo:41:13", null, false)
+        var _gogo_element_16 := _GogoElement_0.new(HBox, {"name": "Keys", "gap": "4px"}, {}, [_gogo_value_9], "examples/styling/WidgetGallery.gogo:42:13", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "grow": _gogo_value_0, "stretch": _gogo_value_1, "padding": "12px", "gap": "8px", "background_color": "#252b38", "border_color": "#8295bc", "border_width": "2px"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_6, _gogo_element_11, _gogo_element_15, _gogo_element_16, _gogo_value_10], "examples/styling/WidgetGallery.gogo:24:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "8px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/styling/WidgetGallery.gogo:23:12", null, false)
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: StringName) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": _gogo_value_1, "width": "20px", "height": "12px", "background_color": "#8295bc"}, {}, [], "examples/styling/WidgetGallery.gogo:41:68", _gogo_value_0, true)
+        var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": _gogo_value_1, "width": "20px", "height": "12px", "background_color": "#8295bc"}, {}, [], "examples/styling/WidgetGallery.gogo:42:68", _gogo_value_0, true)
         return _gogo_element_0
 
 
     static func _gogo_build_2() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Extra", "text": "Conditional child", "background_color": "#142a3a", "padding": "3px"}, {}, [], "examples/styling/WidgetGallery.gogo:42:14", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Extra", "text": "Conditional child", "background_color": "#142a3a", "padding": "3px"}, {}, [], "examples/styling/WidgetGallery.gogo:43:14", null, false)
         return _gogo_element_0

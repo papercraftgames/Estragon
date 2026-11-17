@@ -6,7 +6,8 @@ const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 const PANEL_TEXTURE = preload("../panel_gradient.tres")
 @bindable var props: Dictionary = {}
@@ -28,8 +29,8 @@ func build_view() -> Element:
 			<Rect name="Tiled" width="140px" height="100px" background_color="#50305080" background_texture={PANEL_TEXTURE} background_texture_mode="tile" corner_radius="18px" />
 		</HBox>
 		<Grid name="Clipped" columns={2} width="100%" height="120px" clip_content={self.clipped} padding="8px" border_width="2px" border_color="#8295bc" corner_radius="20px" background_color="#252b38">
-			<UiButton name="Custom" width="500px" height="100px" corner_radius="14px" disabled={not self.enabled} pressed={pressed}>Native rounded button</UiButton>
-			<Button name="Native" custom_minimum_size={Vector2(200,100)} pressed={pressed}>Godot Button</Button>
+			<Button name="Custom" width="500px" height="100px" corner_radius="14px" disabled={not self.enabled} pressed={pressed}>Native rounded button</Button>
+			<NativeButton name="Native" custom_minimum_size={Vector2(200,100)} pressed={pressed}>Godot Button</NativeButton>
 		</Grid>
 		<Toggle name="Toggle" width="200px" corner_radius="12px" bind:value={self.checked}>Native Toggle</Toggle>
 		<Text name="Footer" height="80px" background_texture={PANEL_TEXTURE} corner_radius="8px" padding="8px">Text foreground stays native</Text>

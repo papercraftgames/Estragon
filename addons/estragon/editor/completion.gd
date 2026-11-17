@@ -441,7 +441,9 @@ func import_plan(text: String, source: String, requests: Array = []) -> Dictiona
 			for token in lexical.line(row).tokens:
 				if token.kind != "tag" or not token.text.is_valid_identifier(): continue
 				var item := Catalog.named(token.text)
-				if not item.is_empty() and item.dimension != 0 and not _symbols.has(token.text): requests.append({"alias":token.text,"path":Catalog.path(item)})
+				# A bare native spelling already has meaning. Only explicit popup
+				# selection requests its colliding Estragon import.
+				if not item.is_empty() and item.dimension != 0 and not _symbols.has(token.text) and not ClassDB.class_exists(token.text): requests.append({"alias":token.text,"path":Catalog.path(item)})
 				if item.is_empty() and not _project_path(token.text).is_empty(): requests.append({"alias":token.text,"path":_project_path(token.text)})
 	return Imports.plan(text,source,requests,_symbols,_aliases,_tokens(text))
 func definition(text: String, source: String, symbol: String) -> String:

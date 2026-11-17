@@ -5,7 +5,7 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
 @bindable var count: int = 0
 var ui: Node:
     get: return get_node_or_null("UI")
@@ -20,8 +20,8 @@ func build_view() -> Element:
             <Text name="Title" text="Estragon native Gogo Counter" font_size={28} color={Color(0.74,0.64,0.94)} />
             <Text name="Count" text={"Count: %d" % self.count} font_size={26} />
             <HBox name="Actions" width="100%" gap={12.0}>
-                <UiButton name="Increment" text="+" grow={1} pressed={increment} />
-                <UiButton name="Reset" text="Reset" grow={1} disabled={self.count == 0} pressed={reset_count} />
+                <Button name="Increment" text="+" grow={1} pressed={increment} />
+                <Button name="Reset" text="Reset" grow={1} disabled={self.count == 0} pressed={reset_count} />
             </HBox>
             <VBox name="Details" width="100%" gap={6.0}>
                 <Text name="Hint" text="Click + to update retained Nodes." font_size={18} />

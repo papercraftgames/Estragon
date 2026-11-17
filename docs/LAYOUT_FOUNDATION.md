@@ -20,7 +20,7 @@ func build_view() -> Element:
 Use normal explicit preload imports (or Add Missing Imports) for Entry2D, VBox,
 Spacer, Text and Element. Spacer resolves to `EstragonSpacer`, a non-drawing,
 zero-natural-size standard Node2D participant. Settings/Rose are project Gogo
-components. `<Button>` remains Godot's native Button. No wrapper or helper Node
+components. Unimported `<Button>` remains Godot's native Button. No wrapper or helper Node
 is needed for placement. See the runnable responsive lengths example.
 
 `grow` replaces `flex` with no compatibility alias in this beta. Zero keeps
@@ -161,7 +161,7 @@ recomposition, length parsing or repainting.
 [AlignmentGallery](../examples/alignment/AlignmentGallery.tscn) demonstrates native
 HBox/VBox/Box, nested Gogo, styled Text/Rect/Estragon Button/Toggle, native Control,
 Dictionary spreads and explicit keyed/conditional children. Use explicit preload
-aliases; bare Button remains Godot's native Control. Absolute position,
+aliases; unimported Button remains Godot's native Control. Absolute position,
 shrink/basis changes and style/theme APIs remain separately scoped.
 
 

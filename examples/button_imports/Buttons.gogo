@@ -1,0 +1,41 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const NativeButton = preload("../../godot_button.gd")
+const NativeOnly = preload("NativeOnly.gd")
+const TypedButton = preload("TypedButton.gd")
+const PANEL_TEXTURE = preload("../../surfaces/panel_gradient.tres")
+const AnotherButton = Button
+@bindable var checked: bool = false
+@bindable var props: Dictionary = {}
+@bindable var selected: Button = null
+var clicks: int = 0
+var native_clicks: int = 0
+func pressed(): clicks += 1
+func native_pressed(): native_clicks += 1
+func typed(value: Button) -> Button: return value
+func constructors() -> Array:
+	return [Button.new(),AnotherButton.new(),NativeButton.new(),ClassDB.instantiate("Button")]
+func member_and_string() -> String:
+	var object := {"Button":"Button member"}
+	return object.Button # Button is data here, not the imported identifier.
+func build_view() -> Element:
+	return <Entry2D name="UI" width="100%" height="100%" padding="12px" background_color="#171b24" vertical_scroll>
+		<VBox name="Column" width="100%" gap="8px">
+			<Text>Import-selected Button</Text>
+			<HBox name="Kinds" wrap gap="8px">
+				<Button name="Action" text="Estragon Button" width="180px" height="56px" pressed={pressed} {...self.props} />
+				<NativeButton name="Native" text="Native script alias" pressed={native_pressed} />
+				<NativeOnly name="Unimported" />
+			</HBox>
+			<Button name="Disabled" disabled width="180px" height="56px">Disabled charcoal</Button>
+			<Toggle name="Toggle" width="180px" height="56px" bind:value={self.checked}>Teal when checked</Toggle>
+			<Button name="Surface" width="240px" height="72px" corner_radius="18px" background_color="#283842" background_texture={PANEL_TEXTURE} pressed={pressed}>Explicit native surface</Button>
+			<TypedButton name="Typed" supplied={self.selected} />
+		</VBox>
+	</Entry2D>

@@ -6,7 +6,8 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 @bindable var order: Array = ["a","b","c","d","e","f"]
 @bindable var show_extra: bool = true
@@ -21,7 +22,7 @@ func pressed() -> void: clicks += 1
 func native_pressed() -> void: native_clicks += 1
 func edited(value: bool) -> void: edits.append(value)
 func card(value: String) -> Element:
-	return <UiButton key={value} name={value} text={"Card "+value} width="120px" height="36px" pressed={pressed} />
+	return <Button key={value} name={value} text={"Card "+value} width="120px" height="36px" pressed={pressed} />
 func build_view() -> Element:
 	return <Entry2D name="UI" width="100%" height="100%" padding="12px" background_color="#171b24">
 		<VBox name="Content" width="100%" gap="12px" horizontal_align="stretch">
@@ -30,10 +31,10 @@ func build_view() -> Element:
 				{self.order.map(card)}
 			</HBox>
 			<Grid name="Named" width="100%" gap="10px" padding="10px" border_width="2px" border_color="#8295bc" background_color="#252b38" {...self.grid_props}>
-				<Button name="Header" area="header" text="Native tracks" {...self.header_props} />
+				<NativeButton name="Header" area="header" text="Native tracks" {...self.header_props} />
 				<VBox name="Sidebar" area="sidebar" gap="8px">
 					<Toggle name="Enabled" text="Enabled" bind:value={self.enabled} />
-					<Button name="Native" text="Native Control" pressed={native_pressed} />
+					<NativeButton name="Native" text="Native Control" pressed={native_pressed} />
 				</VBox>
 				<NestedResponsive name="Main" {...self.placement} />
 			</Grid>
@@ -41,7 +42,7 @@ func build_view() -> Element:
 				<Rect name="One" height="20px" background_color="#477dbb" />
 				<Rect name="Two" height="28px" background_color="#ffc65c" />
 				<Rect name="Three" height="20px" background_color="#477dbb" />
-				<Button name="Fourth" text="Native cell" pressed={native_pressed} />
+				<NativeButton name="Fourth" text="Native cell" pressed={native_pressed} />
 				{<Text key="extra" name="Extra" text="Row 2" /> if self.show_extra else null}
 				{get_children()}
 			</Grid>

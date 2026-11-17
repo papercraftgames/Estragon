@@ -6,7 +6,8 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 signal order_changed(previous: Array, value: Array)
 var order: Array = ["a","b","c","d","e","f"]:
@@ -120,7 +121,7 @@ class _GogoFactories_0:
 		_gogo_value_2: String,
 		_gogo_value_3: Callable
 	) -> _GogoElement_0:
-		var _gogo_element_0 := _GogoElement_0.new(UiButton, {"name": _gogo_value_1, "text": _gogo_value_2, "width": "120px", "height": "36px"}, {"pressed": _gogo_value_3}, [], "examples/responsive/ResponsiveGallery.gogo:24:9", _gogo_value_0, true)
+		var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": _gogo_value_1, "text": _gogo_value_2, "width": "120px", "height": "36px"}, {"pressed": _gogo_value_3}, [], "examples/responsive/ResponsiveGallery.gogo:25:9", _gogo_value_0, true)
 		return _gogo_element_0
 
 
@@ -138,29 +139,29 @@ class _GogoFactories_0:
 		_gogo_value_10: Variant,
 		_gogo_value_11: Variant
 	) -> _GogoElement_0:
-		var _gogo_element_2 := _GogoElement_0.new(Text, {"text": "Responsive Wrap + Grid", "color": _gogo_value_0}, {}, [], "examples/responsive/ResponsiveGallery.gogo:28:4", null, false)
-		var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Cards", "width": "100%", "wrap": _gogo_value_1, "gap": "10px", "row_gap": "12px", "horizontal_align": "space-between", "vertical_align": "center"}, {}, [_gogo_value_2], "examples/responsive/ResponsiveGallery.gogo:29:4", null, false)
-		var _gogo_element_5 := _GogoElement_0.new("Button", {}, {}, [], "examples/responsive/ResponsiveGallery.gogo:33:5", null, false)
-		_gogo_element_5.expand([["name", "Header", "examples/responsive/ResponsiveGallery.gogo:33:13"], ["area", "header", "examples/responsive/ResponsiveGallery.gogo:33:27"], ["text", "Native tracks", "examples/responsive/ResponsiveGallery.gogo:33:41"], [null, _gogo_value_4, "examples/responsive/ResponsiveGallery.gogo:33:62"]])
-		var _gogo_element_7 := _GogoElement_0.new(Toggle, {"name": "Enabled", "text": "Enabled"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:35:6", null, false)
+		var _gogo_element_2 := _GogoElement_0.new(Text, {"text": "Responsive Wrap + Grid", "color": _gogo_value_0}, {}, [], "examples/responsive/ResponsiveGallery.gogo:29:4", null, false)
+		var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Cards", "width": "100%", "wrap": _gogo_value_1, "gap": "10px", "row_gap": "12px", "horizontal_align": "space-between", "vertical_align": "center"}, {}, [_gogo_value_2], "examples/responsive/ResponsiveGallery.gogo:30:4", null, false)
+		var _gogo_element_5 := _GogoElement_0.new(NativeButton, {}, {}, [], "examples/responsive/ResponsiveGallery.gogo:34:5", null, false)
+		_gogo_element_5.expand([["name", "Header", "examples/responsive/ResponsiveGallery.gogo:34:19"], ["area", "header", "examples/responsive/ResponsiveGallery.gogo:34:33"], ["text", "Native tracks", "examples/responsive/ResponsiveGallery.gogo:34:47"], [null, _gogo_value_4, "examples/responsive/ResponsiveGallery.gogo:34:68"]])
+		var _gogo_element_7 := _GogoElement_0.new(Toggle, {"name": "Enabled", "text": "Enabled"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:36:6", null, false)
 		_gogo_element_7.bindings = {"value": _gogo_value_5}
-		var _gogo_element_8 := _GogoElement_0.new("Button", {"name": "Native", "text": "Native Control"}, {"pressed": _gogo_value_6}, [], "examples/responsive/ResponsiveGallery.gogo:36:6", null, false)
-		var _gogo_element_6 := _GogoElement_0.new(VBox, {"name": "Sidebar", "area": "sidebar", "gap": "8px"}, {}, [_gogo_element_7, _gogo_element_8], "examples/responsive/ResponsiveGallery.gogo:34:5", null, false)
-		_gogo_element_6.origins["area"] = "examples/responsive/ResponsiveGallery.gogo:34:26"
-		var _gogo_element_9 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/responsive/ResponsiveGallery.gogo:38:5", null, false)
-		_gogo_element_9.expand([["name", "Main", "examples/responsive/ResponsiveGallery.gogo:38:23"], [null, _gogo_value_7, "examples/responsive/ResponsiveGallery.gogo:38:35"]])
-		var _gogo_element_4 := _GogoElement_0.new(Grid, {}, {}, [_gogo_element_5, _gogo_element_6, _gogo_element_9], "examples/responsive/ResponsiveGallery.gogo:32:4", null, false)
-		_gogo_element_4.expand([["name", "Named", "examples/responsive/ResponsiveGallery.gogo:32:10"], ["width", "100%", "examples/responsive/ResponsiveGallery.gogo:32:23"], ["gap", "10px", "examples/responsive/ResponsiveGallery.gogo:32:36"], ["padding", "10px", "examples/responsive/ResponsiveGallery.gogo:32:47"], ["border_width", "2px", "examples/responsive/ResponsiveGallery.gogo:32:62"], ["border_color", "#8295bc", "examples/responsive/ResponsiveGallery.gogo:32:81"], ["background_color", "#252b38", "examples/responsive/ResponsiveGallery.gogo:32:104"], [null, _gogo_value_3, "examples/responsive/ResponsiveGallery.gogo:32:131"]])
-		var _gogo_element_11 := _GogoElement_0.new(Rect, {"name": "One", "height": "20px", "background_color": "#477dbb"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:41:5", null, false)
-		var _gogo_element_12 := _GogoElement_0.new(Rect, {"name": "Two", "height": "28px", "background_color": "#ffc65c"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:42:5", null, false)
-		var _gogo_element_13 := _GogoElement_0.new(Rect, {"name": "Three", "height": "20px", "background_color": "#477dbb"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:43:5", null, false)
-		var _gogo_element_14 := _GogoElement_0.new("Button", {"name": "Fourth", "text": "Native cell"}, {"pressed": _gogo_value_9}, [], "examples/responsive/ResponsiveGallery.gogo:44:5", null, false)
-		var _gogo_element_10 := _GogoElement_0.new(Grid, {"name": "Automatic", "columns": _gogo_value_8, "width": "100%", "gap": "10px", "background_color": "#30394d"}, {}, [_gogo_element_11, _gogo_element_12, _gogo_element_13, _gogo_element_14, _gogo_value_10, _gogo_value_11], "examples/responsive/ResponsiveGallery.gogo:40:4", null, false)
-		var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Content", "width": "100%", "gap": "12px", "horizontal_align": "stretch"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_10], "examples/responsive/ResponsiveGallery.gogo:27:3", null, false)
-		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/responsive/ResponsiveGallery.gogo:26:9", null, false)
+		var _gogo_element_8 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native Control"}, {"pressed": _gogo_value_6}, [], "examples/responsive/ResponsiveGallery.gogo:37:6", null, false)
+		var _gogo_element_6 := _GogoElement_0.new(VBox, {"name": "Sidebar", "area": "sidebar", "gap": "8px"}, {}, [_gogo_element_7, _gogo_element_8], "examples/responsive/ResponsiveGallery.gogo:35:5", null, false)
+		_gogo_element_6.origins["area"] = "examples/responsive/ResponsiveGallery.gogo:35:26"
+		var _gogo_element_9 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/responsive/ResponsiveGallery.gogo:39:5", null, false)
+		_gogo_element_9.expand([["name", "Main", "examples/responsive/ResponsiveGallery.gogo:39:23"], [null, _gogo_value_7, "examples/responsive/ResponsiveGallery.gogo:39:35"]])
+		var _gogo_element_4 := _GogoElement_0.new(Grid, {}, {}, [_gogo_element_5, _gogo_element_6, _gogo_element_9], "examples/responsive/ResponsiveGallery.gogo:33:4", null, false)
+		_gogo_element_4.expand([["name", "Named", "examples/responsive/ResponsiveGallery.gogo:33:10"], ["width", "100%", "examples/responsive/ResponsiveGallery.gogo:33:23"], ["gap", "10px", "examples/responsive/ResponsiveGallery.gogo:33:36"], ["padding", "10px", "examples/responsive/ResponsiveGallery.gogo:33:47"], ["border_width", "2px", "examples/responsive/ResponsiveGallery.gogo:33:62"], ["border_color", "#8295bc", "examples/responsive/ResponsiveGallery.gogo:33:81"], ["background_color", "#252b38", "examples/responsive/ResponsiveGallery.gogo:33:104"], [null, _gogo_value_3, "examples/responsive/ResponsiveGallery.gogo:33:131"]])
+		var _gogo_element_11 := _GogoElement_0.new(Rect, {"name": "One", "height": "20px", "background_color": "#477dbb"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:42:5", null, false)
+		var _gogo_element_12 := _GogoElement_0.new(Rect, {"name": "Two", "height": "28px", "background_color": "#ffc65c"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:43:5", null, false)
+		var _gogo_element_13 := _GogoElement_0.new(Rect, {"name": "Three", "height": "20px", "background_color": "#477dbb"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:44:5", null, false)
+		var _gogo_element_14 := _GogoElement_0.new(NativeButton, {"name": "Fourth", "text": "Native cell"}, {"pressed": _gogo_value_9}, [], "examples/responsive/ResponsiveGallery.gogo:45:5", null, false)
+		var _gogo_element_10 := _GogoElement_0.new(Grid, {"name": "Automatic", "columns": _gogo_value_8, "width": "100%", "gap": "10px", "background_color": "#30394d"}, {}, [_gogo_element_11, _gogo_element_12, _gogo_element_13, _gogo_element_14, _gogo_value_10, _gogo_value_11], "examples/responsive/ResponsiveGallery.gogo:41:4", null, false)
+		var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Content", "width": "100%", "gap": "12px", "horizontal_align": "stretch"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_10], "examples/responsive/ResponsiveGallery.gogo:28:3", null, false)
+		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/responsive/ResponsiveGallery.gogo:27:9", null, false)
 		return _gogo_element_0
 
 
 	static func _gogo_build_2() -> _GogoElement_0:
-		var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Extra", "text": "Row 2"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:45:6", "extra", true)
+		var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Extra", "text": "Row 2"}, {}, [], "examples/responsive/ResponsiveGallery.gogo:46:6", "extra", true)
 		return _gogo_element_0

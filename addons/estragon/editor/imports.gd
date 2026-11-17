@@ -5,7 +5,11 @@ const Build = preload("build_service.gd")
 const Source = preload("../compiler/source.gd")
 const Catalog = preload("components.gd")
 static func occupied(name: String, resource: String, symbols: Dictionary) -> bool:
-	if symbols.has(name) or ClassDB.class_exists(name): return true
+	if symbols.has(name): return true
+	var known := Catalog.named(name)
+	# Deliberate catalog selection may shadow a native class in Gogo. The
+	# compiler lowers that lexical import to a legal private GDScript symbol.
+	if ClassDB.class_exists(name) and (known.is_empty() or known.alias!=name or Catalog.path(known)!=resource): return true
 	for entry in ProjectSettings.get_global_class_list():
 		if str(entry["class"]) == name and str(entry.path) != resource and FileAccess.file_exists(str(entry.path)): return true
 	return false

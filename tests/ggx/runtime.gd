@@ -63,7 +63,7 @@ func run() -> void:
 	for source in ['extends Node\nfunc make(): return <Marker2D />\n','extends Node\nfunc make(): return <Estragon2D />\n']:
 		check(Compiler.compile(source,"test.gogo").ok,"general native/registered type resolution")
 	var negative := {
-		"native-name-conflict":"extends Node\nconst Button = preload(\"res://examples/ggx/probe_2d.gd\")\nfunc make(): return <Button />\n",
+		"duplicate-native-import":"extends Node\nconst Button = preload(\"res://examples/ggx/probe_2d.gd\")\nconst Button = preload(\"res://examples/ggx/probe_2d.gd\")\nfunc make(): return <Button />\n",
 		"non-node":"extends Node\nfunc make(): return <Gradient />\n",
 		"unknown":"extends Node\nfunc make(): return <NoSuchC2Node />\n",
 		"duplicate":"extends Node\nfunc make(): return <Node name=\"a\" name=\"b\" />\n",
@@ -75,7 +75,7 @@ func run() -> void:
 		"typed-literal":"extends Node\nfunc make(): return <Node2D position=\"wrong\" />\n",
 		"resource-alias":"extends Node\nconst Data = preload(\"res://tests/ggx/data.gd\")\nfunc make(): return <Data />\n",
 		"required-constructor":"extends Node\nconst Required = preload(\"res://tests/ggx/required.gd\")\nfunc make(): return <Required />\n",
-		"ambiguous":"extends Node\nconst Node2D = preload(\"res://examples/ggx/probe_2d.gd\")\nfunc make(): return <Node2D />\n"
+		"invalid-native-import":"extends Node\nconst Node2D = preload(\"res://tests/ggx/data.gd\")\nfunc make(): return <Node2D />\n"
 	}
 	for label in negative:
 		var result := Compiler.compile(negative[label],"negative.gogo")

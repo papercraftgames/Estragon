@@ -190,7 +190,7 @@ that same retained Node to numeric zero. No max dimensions or new 3D fields ship
 <VBox width="100%" min_width="280px" min_height="200px"
       background_color="#252b38" border_width="2px" padding="12px">
     <Text text="A readable minimum" min_width="120px" />
-    <UiButton text="Continue" width="50%" min_width="96px" min_height="36px" />
+    <Button text="Continue" width="50%" min_width="96px" min_height="36px" />
 </VBox>
 ```
 

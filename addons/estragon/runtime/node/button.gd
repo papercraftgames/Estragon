@@ -4,23 +4,23 @@ extends "text.gd"
 ## Native primary-pointer button. No Control widget or polling wrapper.
 signal pressed
 const ESTRAGON_BUTTON_STYLE := true
-var hover_background_color: Variant = Color("#705a9e"):
+var hover_background_color: Variant = Color("#505050"):
 	set(value):
 		if is_same(hover_background_color,value) or not _visual_style.assign("hover_background_color",value): return
 		hover_background_color = value
 		_queue_style_redraw()
-var pressed_background_color: Variant = Color("#302440"):
+var pressed_background_color: Variant = Color("#252525"):
 	set(value):
 		if is_same(pressed_background_color,value) or not _visual_style.assign("pressed_background_color",value): return
 		pressed_background_color = value
 		_queue_style_redraw()
-var disabled_background_color: Variant = Color("#38343f"):
+var disabled_background_color: Variant = Color("#303030"):
 	set(value):
 		if is_same(disabled_background_color,value) or not _visual_style.assign("disabled_background_color",value): return
 		disabled_background_color = value
 		_queue_style_redraw()
 func _init() -> void:
-	background_color = Color("#514174")
+	background_color = Color("#383838")
 	padding = "auto"
 func _default_padding() -> Vector4:
 	return Vector4(14,8,14,8)

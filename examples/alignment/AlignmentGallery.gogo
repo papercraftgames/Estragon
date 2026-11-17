@@ -6,7 +6,8 @@ const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 @bindable var policy: Dictionary = {"direction":"row", "horizontal_align":"space-between", "vertical_align":"center"}
 @bindable var child_props: Dictionary = {"align_self":"end"}
@@ -24,15 +25,15 @@ func build_view() -> Element:
 		<VBox name="Content" width="100%" height="100%" horizontal_align="stretch" gap="12px">
 			<HBox name="Header" width="100%" height="64px" horizontal_align="space-between" vertical_align="center" padding="12px" background_color="#252b38" border_width="2px" border_color="#8295bc">
 				<Text text="Inventory" color={Color("#ffc65c")} />
-				<UiButton name="Close" text="Close" height="32px" min_width="96px" pressed={pressed} />
+				<Button name="Close" text="Close" height="32px" min_width="96px" pressed={pressed} />
 			</HBox>
 			<HBox name="Even" width="100%" height="96px" horizontal_align="space-evenly" vertical_align="center" background_color="#252b38">
 				{self.order.map(tile)}
 			</HBox>
 			<Box name="Configurable" width="100%" height="110px" gap="10px" padding="8px" {...self.policy} background_color="#30394d">
-				<UiButton name="Action" text="Aligned action" min_height="36px" pressed={pressed} />
+				<Button name="Action" text="Aligned action" min_height="36px" pressed={pressed} />
 				<Toggle name="Enabled" text="Enabled" min_height="36px" bind:value={self.enabled} />
-				<Button name="Native" text="Native Control" pressed={native_pressed} />
+				<NativeButton name="Native" text="Native Control" pressed={native_pressed} />
 			</Box>
 			<NestedAlignment name="Nested" />
 			{<Text key="extra" name="Extra" text="Physical axes, retained native nodes" /> if self.show_extra else null}

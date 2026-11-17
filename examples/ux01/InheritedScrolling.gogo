@@ -6,7 +6,8 @@ const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 @bindable var enabled: bool = true
 @bindable var font_size: int = 24
 @bindable var order: Array = [0,1,2,3,4,5,6,7,8]
@@ -14,11 +15,11 @@ const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
 var clicks: int = 0
 func pressed(): clicks += 1
 func card(index: int) -> Element:
-	return <UiButton key={index} name={"Card"+str(index)} column_span={2 if index==0 else 1} height="400px" pressed={pressed}>Card {str(index)}</UiButton>
+	return <Button key={index} name={"Card"+str(index)} column_span={2 if index==0 else 1} height="400px" pressed={pressed}>Card {str(index)}</Button>
 func build_view() -> Element:
 	return <Entry2D name="UI" direction="column" width="100%" height="100%" vertical_scroll padding="8px" gap="12px" background_color="#171b24">
-		<Button name="EntryNative" custom_minimum_size={Vector2(120,80)} pressed={pressed}>Entry native input</Button>
-		<UiButton name="EntryCustom" height="80px" pressed={pressed}>Entry custom input</UiButton>
+		<NativeButton name="EntryNative" custom_minimum_size={Vector2(120,80)} pressed={pressed}>Entry native input</NativeButton>
+		<Button name="EntryCustom" height="80px" pressed={pressed}>Entry custom input</Button>
 		<VBox name="Direct" width="100%" height="300px" vertical_scroll={self.enabled} {...self.props} background_color="#252b38">
 			<Text name="T0" height={112.5} font_size={self.font_size}>First item</Text>
 			<Text name="T1" height={112.5}>Second item</Text>

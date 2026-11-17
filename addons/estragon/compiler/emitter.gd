@@ -117,12 +117,17 @@ func _parts(parts: Array[Model.SyntaxNode]) -> void:
 
 func _code(span: Model.Span) -> void:
 	var cursor: int = span.start.index
+	var edits: Array = []
 	for imported in _module.resource_imports:
-		var literal_span: Model.Span = imported.span
+		edits.append({"span":imported.span,"value":_string(Source.relative_path(_output_directory,imported.path))})
+	for imported in _module.identifier_imports: edits.append({"span":imported.span,"value":imported.alias})
+	edits.sort_custom(func(a,b): return a.span.start.index<b.span.start.index)
+	for edit in edits:
+		var literal_span: Model.Span = edit.span
 		if literal_span.start.index < cursor or literal_span.end.index > span.end.index: continue
 		var before := _file.span(cursor,literal_span.start.index)
 		_writer.append(_file.slice(before),before,true)
-		_writer.append(_string(Source.relative_path(_output_directory,imported.path)),literal_span)
+		_writer.append(edit.value,literal_span)
 		cursor = literal_span.end.index
 	var rest := _file.span(cursor,span.end.index)
 	_writer.append(_file.slice(rest),rest,true)
@@ -219,13 +224,13 @@ func _bindable(property: Model.Bindable) -> void:
 	while _module.identifiers.has(previous): previous += "_"
 	var indent := _module.indentation
 	_writer.append("signal "+property.signal_name+"(previous: ",property.name_span)
-	_writer.append(_file.slice(property.type_span),property.type_span,true)
+	_code(property.type_span)
 	_writer.append(", value: ",property.name_span)
-	_writer.append(_file.slice(property.type_span),property.type_span,true)
+	_code(property.type_span)
 	_writer.append(")\n",property.name_span)
 	if property.annotations_span != null:
 		_writer.append(_file.slice(property.annotations_span),property.annotations_span,true)
-	_writer.append(_file.slice(property.declaration_span),property.declaration_span,true)
+	_code(property.declaration_span)
 	_writer.append(":",property.name_span)
 	if property.comment_span != null:
 		_writer.append(" ")
@@ -234,7 +239,9 @@ func _bindable(property: Model.Bindable) -> void:
 	# Use the native property backing slot: accesses inside its own setter are
 	# direct, and declaration initialization does not call the setter.
 	_writer.append(indent.repeat(2)+"if is_same("+property.name+", "+incoming+"): return\n",property.name_span)
-	_writer.append(indent.repeat(2)+"var "+previous+": "+property.type_name+" = "+property.name+"\n",property.name_span)
+	_writer.append(indent.repeat(2)+"var "+previous+": ",property.name_span)
+	_code(property.type_span)
+	_writer.append(" = "+property.name+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
 	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload("+_resource(State)+").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)

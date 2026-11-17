@@ -14,6 +14,7 @@
     "examples/box_model",
     "examples/styling",
     "examples/ux01",
-    "examples/surfaces"
+    "examples/surfaces",
+    "examples/button_imports"
   ]
 }

@@ -4,7 +4,8 @@ const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
 const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
-const UiButton = preload("../../../addons/estragon/runtime/node/button.gd")
+const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
+const NativeButton = preload("../../godot_button.gd")
 const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
 signal panel_changed(previous: Dictionary, value: Dictionary)
 var panel: Dictionary = {"padding":"12px", "background_color":"#171b24", "border_width":"2px", "border_color":"#8295bc", "gap":"12px", "min_width":"280px"}:
@@ -110,26 +111,26 @@ class _GogoFactories_0:
 		_gogo_value_8: Variant,
 		_gogo_value_9: Variant
 	) -> _GogoElement_0:
-		var _gogo_element_2 := _GogoElement_0.new(Text, {}, {}, [], "examples/spreads/SpreadGallery.gogo:29:4", null, false)
-		_gogo_element_2.expand([["name", "Caption", "examples/spreads/SpreadGallery.gogo:29:10"], [null, _gogo_value_2, "examples/spreads/SpreadGallery.gogo:29:25"], ["min_width", "120px", "examples/spreads/SpreadGallery.gogo:29:108"]])
-		var _gogo_element_3 := _GogoElement_0.new(UiButton, {}, {}, [], "examples/spreads/SpreadGallery.gogo:30:4", null, false)
-		_gogo_element_3.expand([["name", "Continue", "examples/spreads/SpreadGallery.gogo:30:14"], ["width", "50%", "examples/spreads/SpreadGallery.gogo:30:30"], ["height", "20px", "examples/spreads/SpreadGallery.gogo:30:42"], ["background_color", "#477dbb", "examples/spreads/SpreadGallery.gogo:30:56"], [null, _gogo_value_3, "examples/spreads/SpreadGallery.gogo:30:83"]])
-		var _gogo_element_4 := _GogoElement_0.new(Toggle, {}, {}, [], "examples/spreads/SpreadGallery.gogo:31:4", null, false)
-		_gogo_element_4.expand([["name", "Enabled", "examples/spreads/SpreadGallery.gogo:31:12"], [null, _gogo_value_4, "examples/spreads/SpreadGallery.gogo:31:27"]])
+		var _gogo_element_2 := _GogoElement_0.new(Text, {}, {}, [], "examples/spreads/SpreadGallery.gogo:30:4", null, false)
+		_gogo_element_2.expand([["name", "Caption", "examples/spreads/SpreadGallery.gogo:30:10"], [null, _gogo_value_2, "examples/spreads/SpreadGallery.gogo:30:25"], ["min_width", "120px", "examples/spreads/SpreadGallery.gogo:30:108"]])
+		var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {}, {}, [], "examples/spreads/SpreadGallery.gogo:31:4", null, false)
+		_gogo_element_3.expand([["name", "Continue", "examples/spreads/SpreadGallery.gogo:31:12"], ["width", "50%", "examples/spreads/SpreadGallery.gogo:31:28"], ["height", "20px", "examples/spreads/SpreadGallery.gogo:31:40"], ["background_color", "#477dbb", "examples/spreads/SpreadGallery.gogo:31:54"], [null, _gogo_value_3, "examples/spreads/SpreadGallery.gogo:31:81"]])
+		var _gogo_element_4 := _GogoElement_0.new(Toggle, {}, {}, [], "examples/spreads/SpreadGallery.gogo:32:4", null, false)
+		_gogo_element_4.expand([["name", "Enabled", "examples/spreads/SpreadGallery.gogo:32:12"], [null, _gogo_value_4, "examples/spreads/SpreadGallery.gogo:32:27"]])
 		_gogo_element_4.bindings = {"value": _gogo_value_5}
-		var _gogo_element_5 := _GogoElement_0.new("Button", {}, {}, [], "examples/spreads/SpreadGallery.gogo:32:4", null, false)
-		_gogo_element_5.expand([["name", "Native", "examples/spreads/SpreadGallery.gogo:32:12"], [null, _gogo_value_6, "examples/spreads/SpreadGallery.gogo:32:26"]])
-		var _gogo_element_6 := _GogoElement_0.new(Rect, {}, {}, [], "examples/spreads/SpreadGallery.gogo:33:4", null, false)
-		_gogo_element_6.expand([["name", "Swatch", "examples/spreads/SpreadGallery.gogo:33:10"], [null, _gogo_value_7, "examples/spreads/SpreadGallery.gogo:33:24"]])
-		var _gogo_element_7 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/spreads/SpreadGallery.gogo:34:4", null, false)
-		_gogo_element_7.expand([["name", "Nested", "examples/spreads/SpreadGallery.gogo:34:18"], [null, _gogo_value_8, "examples/spreads/SpreadGallery.gogo:34:32"]])
-		var _gogo_element_1 := _GogoElement_0.new(VBox, {}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_value_9], "examples/spreads/SpreadGallery.gogo:28:3", null, false)
-		_gogo_element_1.expand([["name", "Panel", "examples/spreads/SpreadGallery.gogo:28:9"], ["width", "100%", "examples/spreads/SpreadGallery.gogo:28:22"], [null, _gogo_value_0, "examples/spreads/SpreadGallery.gogo:28:35"], ["padding", "16px", "examples/spreads/SpreadGallery.gogo:28:51"], [null, _gogo_value_1, "examples/spreads/SpreadGallery.gogo:28:66"]])
-		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/spreads/SpreadGallery.gogo:27:9", null, false)
+		var _gogo_element_5 := _GogoElement_0.new(NativeButton, {}, {}, [], "examples/spreads/SpreadGallery.gogo:33:4", null, false)
+		_gogo_element_5.expand([["name", "Native", "examples/spreads/SpreadGallery.gogo:33:18"], [null, _gogo_value_6, "examples/spreads/SpreadGallery.gogo:33:32"]])
+		var _gogo_element_6 := _GogoElement_0.new(Rect, {}, {}, [], "examples/spreads/SpreadGallery.gogo:34:4", null, false)
+		_gogo_element_6.expand([["name", "Swatch", "examples/spreads/SpreadGallery.gogo:34:10"], [null, _gogo_value_7, "examples/spreads/SpreadGallery.gogo:34:24"]])
+		var _gogo_element_7 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/spreads/SpreadGallery.gogo:35:4", null, false)
+		_gogo_element_7.expand([["name", "Nested", "examples/spreads/SpreadGallery.gogo:35:18"], [null, _gogo_value_8, "examples/spreads/SpreadGallery.gogo:35:32"]])
+		var _gogo_element_1 := _GogoElement_0.new(VBox, {}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_value_9], "examples/spreads/SpreadGallery.gogo:29:3", null, false)
+		_gogo_element_1.expand([["name", "Panel", "examples/spreads/SpreadGallery.gogo:29:9"], ["width", "100%", "examples/spreads/SpreadGallery.gogo:29:22"], [null, _gogo_value_0, "examples/spreads/SpreadGallery.gogo:29:35"], ["padding", "16px", "examples/spreads/SpreadGallery.gogo:29:51"], [null, _gogo_value_1, "examples/spreads/SpreadGallery.gogo:29:66"]])
+		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/spreads/SpreadGallery.gogo:28:9", null, false)
 		return _gogo_element_0
 
 
 	static func _gogo_build_1(_gogo_value_0: Variant) -> _GogoElement_0:
-		var _gogo_element_0 := _GogoElement_0.new(Text, {}, {}, [], "examples/spreads/SpreadGallery.gogo:35:5", "extra", true)
-		_gogo_element_0.expand([["name", "Extra", "examples/spreads/SpreadGallery.gogo:35:23"], [null, _gogo_value_0, "examples/spreads/SpreadGallery.gogo:35:36"]])
+		var _gogo_element_0 := _GogoElement_0.new(Text, {}, {}, [], "examples/spreads/SpreadGallery.gogo:36:5", "extra", true)
+		_gogo_element_0.expand([["name", "Extra", "examples/spreads/SpreadGallery.gogo:36:23"], [null, _gogo_value_0, "examples/spreads/SpreadGallery.gogo:36:36"]])
 		return _gogo_element_0

@@ -173,7 +173,7 @@ func states():
 	await frames()
 	var geometry: int = button._visual_style.geometry_count
 	var stats: Dictionary = button.get_layout_stats()
-	for pair in [[true,false,"#705a9e"],[true,true,"#302440"],[false,false,"#514174"]]:
+	for pair in [[true,false,"#505050"],[true,true,"#252525"],[false,false,"#383838"]]:
 		button._set_pointer_state(pair[0],pair[1])
 		await frames()
 		var pixels: Image = await image()
@@ -182,7 +182,7 @@ func states():
 	toggle.value = true
 	await frames()
 	var pixels: Image = await image()
-	check(close(pixels.get_pixel(80,6),Color("#38343f")) and close(pixels.get_pixel(80,86),Color("#227a60")),"rounded disabled/checked colors preserve native widget precedence")
+	check(close(pixels.get_pixel(80,6),Color("#303030")) and close(pixels.get_pixel(80,86),Color("#227a60")),"rounded disabled/checked colors preserve native widget precedence")
 	check(button._visual_style.geometry_count==geometry and button.get_layout_stats()==stats and button.get_label_origin().x>=14,"pointer/state redraws reuse contour and normal label/padding geometry")
 	ui.free()
 	await frames()
