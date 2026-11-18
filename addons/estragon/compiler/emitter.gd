@@ -1,6 +1,7 @@
 @tool
 extends RefCounted
 ## Typed frontend -> ordinary GDScript. All output is range-mapped, never rewritten.
+const Preset = preload("../runtime/composition/preset.gd")
 const Element = preload("../runtime/composition/element.gd")
 const State = preload("../runtime/composition/state.tres")
 const Binding = preload("../runtime/composition/binding.gd")
@@ -25,6 +26,7 @@ var _module: Model.Module
 var _file: Source
 var _writer: MappedWriter
 var _factories: Array[Factory] = []
+var _preset_methods: Array = []
 var _arguments: Dictionary = {}
 var _sequence: int = 0
 var _variable: int = 0
@@ -55,9 +57,20 @@ func _resource(resource: Resource) -> String:
 func emit() -> MappedWriter:
 	_parts(_module.parts)
 	_writer.append("\n")
+	var exports := {}
+	for binding in _module.presets:
+		if binding.exported: exports[binding.name] = binding
+	for name in exports:
+		var binding = exports[name]
+		_writer.append("\nvar "+name+":\n"+_module.indentation+"get: return "+binding.symbol+"\n",binding.span)
+		if binding.mutable: _writer.append(_module.indentation+"set(value): "+binding.symbol+" = value\n",binding.span)
 	for path in _module.project_imports:
 		var imported: Dictionary = _module.project_imports[path]
 		_writer.append("\nconst "+imported.alias+" = preload("+_string(Source.relative_path(_output_directory,path))+")\n",imported.span)
+	for method in _preset_methods:
+		_writer.append("\nfunc "+method.name+"(): return ",method.binding.span)
+		_default_groups(method.binding)
+		_writer.append("\n",method.binding.span)
 	if _module.composition:
 		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n"+_module.indentation+"preload("+_resource(State)+").lifecycle(self, _gogo_what)\n")
 	if not _factories.is_empty():
@@ -98,6 +111,16 @@ func _argument(expression: Model.GdExpression, type_name: String, factory: Facto
 	_arguments[expression] = argument
 
 func _collect(node: Model.Component, factory: Factory) -> void:
+	if node.preset!=null:
+		var expression := Model.GdExpression.new()
+		expression.span = node.name_span
+		var reference := Model.Literal.new()
+		reference.kind = "preset-reference"
+		reference.value = node.preset.symbol
+		reference.span = node.name_span
+		expression.parts.append(reference)
+		node.preset_expression = expression
+		_argument(expression,"Variant",factory)
 	for attribute in node.attributes:
 		if attribute.value is Model.GdExpression:
 			_argument(attribute.value, attribute.type_name, factory)
@@ -113,6 +136,8 @@ func _parts(parts: Array[Model.SyntaxNode]) -> void:
 	for part in parts:
 		if part is Model.Code: _code(part.span)
 		elif part is Model.Bindable: _bindable(part)
+		elif part is Model.Layout: _layout(part)
+		elif part is Model.Literal and part.kind=="preset-reference": _writer.append(str(part.value),part.span)
 		else: _call(part)
 
 func _code(span: Model.Span) -> void:
@@ -203,6 +228,7 @@ func _description(node: Model.Component, indentation: String) -> String:
 	for child in node.children:
 		children.append(_arguments[child].name if child is Model.GdExpression else _description(child,indentation))
 	var native_type := _string(node.runtime_class) if ClassDB.class_exists(node.runtime_class) else node.runtime_class
+	if node.preset!=null: native_type = "preload("+_resource(Preset)+").type_of("+_arguments[node.preset_expression].name+")"
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s, %s, %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column]),key,keyed],node.span,indentation)
 	for attribute in node.attributes:
 		if attribute.kind=="placement" and not expanded: _line(variable+".origins["+_string(attribute.name)+"] = "+_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column]),attribute.name_span,indentation)
@@ -215,7 +241,46 @@ func _description(node: Model.Component, indentation: String) -> String:
 			parts.append("[%s, %s]" % [value,_string("%s:%d:%d" % [_file.name,part.span.start.line,part.span.start.column])])
 		_line(variable+".set_text_body(["+", ".join(parts)+"])",node.span,indentation)
 	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
+	if node.preset!=null: _line(variable+" = preload("+_resource(Preset)+").apply("+_arguments[node.preset_expression].name+", "+variable+")",node.span,indentation)
 	return variable
+
+func _layout(layout: Model.Layout) -> void:
+	var indent := " ".repeat(layout.span.start.column-1)
+	# Preserve the file's indentation convention for native statements/closures.
+	if _module.indentation.begins_with("\t"): indent = "\t".repeat((layout.span.start.column-1)/_module.indentation.length())
+	for index in range(layout.bindings.size()):
+		var binding = layout.bindings[index]
+		if index>0: _writer.append("\n"+indent,binding.span)
+		_writer.append("var "+binding.symbol+" = preload("+_resource(Preset)+").new("+binding.base+", ",binding.span)
+		if binding.scope==0:
+			var method: String = binding.symbol+"_defaults"
+			while _module.identifiers.has(method): method += "_"
+			_module.identifiers.append(method)
+			_preset_methods.append({"name":method,"binding":binding})
+			_writer.append("Callable(self, "+_string(method)+")",binding.span)
+		else:
+			_writer.append("func(): return ",binding.span)
+			_default_groups(binding)
+		_writer.append(", "+var_to_str(binding.generated)+", "+_string("%s:%d:%d" % [_file.name,binding.span.start.line,binding.span.start.column])+")",binding.span)
+
+func _default_groups(binding) -> void:
+	_writer.append("[",binding.span)
+	for group_index in range(binding.groups.size()):
+		if group_index>0: _writer.append(", ",binding.span)
+		_writer.append("[",binding.span)
+		var group = binding.groups[group_index]
+		for attr_index in range(group.attributes.size()):
+			var attr = group.attributes[attr_index]
+			if attr_index>0: _writer.append(", ",attr.span)
+			_writer.append("["+("null" if attr.kind=="spread" else _string(attr.name))+", ",attr.span)
+			if attr.kind=="spread": _writer.append("preload("+_resource(Element)+").snapshot(",attr.span)
+			if attr.value is Model.GdExpression: _parts(attr.value.parts)
+			else: _writer.append(literal(attr.value),attr.value.span)
+			if attr.kind=="spread": _writer.append(")",attr.span)
+			_writer.append(", "+_string("%s:%d:%d" % [_file.name,attr.name_span.start.line,attr.name_span.start.column])+"]",attr.span)
+		_writer.append("]",binding.span)
+	_writer.append("]",binding.span)
+
 
 func _bindable(property: Model.Bindable) -> void:
 	var incoming := "_gogo_incoming_"+property.name

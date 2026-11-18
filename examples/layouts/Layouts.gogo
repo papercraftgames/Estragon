@@ -1,0 +1,73 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry2D = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Action = preload("../../godot_button.gd")
+const Header = preload("Header.gd")
+const Library = preload("Library.gd")
+var library: Library = Library.new()
+var Shared = library.Shared
+@bindable var caption: String = "First-class layout declarations"
+@bindable var tint: String = "#30455c"
+@bindable var mode: String = "grid"
+@bindable var side_mode: String = "grid"
+@bindable var selected: bool = false
+@bindable var borrowed: Node = null
+@bindable var options: Dictionary = {}
+@bindable var show_extra: bool = true
+var clicks: int = 0
+func clicked(): clicks += 1
+
+layout const <Side gap="8px" padding="8px" rows={["1fr","1fr"]} background_color="#25374c">
+    <Top background_color="#3e6483" /> <Top /> <Top />
+    <BottomLeft background_color="#567953" /> <BottomMiddle background_color="#827044" /> <BottomRight background_color="#875d61" />
+</Side>
+
+# This earlier use keeps the original Side with no parent-area placement.
+func original_side(): return <Side />
+
+layout const <App gap="8px" padding="12px" columns={["160px","1fr"]} rows={["64px","1fr","48px"]} background_color="#172332">
+    <Header padding="12px" background_color={self.tint} title={self.caption} /> <Header />
+    <Side width="25%" /> <Body padding="8px" gap="8px" direction="column" background_color="#263544" />
+    <Side /> <Footer padding="8px" background_color="#30445b" {...self.options} />
+</App>
+
+layout const <Imported gap="4px" columns={1} rows={["1fr"]}>
+    <Shared />
+</Imported>
+
+func scoped_side():
+    layout const <Local>
+        <Side gap="2px" />
+    </Local>
+    return <Side />
+
+func build_view() -> Element:
+    return <Entry2D name="UI" width="100%" height="100%">
+        <App name="App" width="100%" height="100%" direction={self.mode}>
+            <Header name="Header" />
+            <Side name="Side" width="auto" direction={self.side_mode}>
+                <Top name="Top"><Text text="Side" /></Top>
+                <BottomLeft name="Left" />
+                <BottomMiddle name="Middle" />
+                <BottomRight name="Right" />
+            </Side>
+            <Body name="Body">
+                <Text text="Native Grid tracks and Nodes" />
+                <Action name="Action" text="Native button" pressed={clicked} />
+                <Toggle name="Toggle" width="300px" bind:value={self.selected}>Controlled native toggle</Toggle>
+                <Imported name="Imported" width="100%" height="120px">
+                    <Shared name="Shared">
+                        <library.upper name="Upper" />
+                        <library.lowerLeft name="LowerLeft" />
+                        <library.lowerRight name="LowerRight" />
+                    </Shared>
+                </Imported>
+                {<Box name="Extra" key="extra" width="100%" height="20px" background_color="#52677c" {...self.options} /> if self.show_extra else null}
+                {self.borrowed}
+            </Body>
+            <Footer name="Footer"><Text text="Reusable native definitions" /></Footer>
+        </App>
+    </Entry2D>

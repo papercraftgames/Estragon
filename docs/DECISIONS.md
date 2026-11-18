@@ -540,3 +540,23 @@ Unstyled framework Buttons and unchecked Toggles use neutral charcoal; checked
 Toggle and explicit styles remain unchanged. See [D07](BUTTON_IMPORTS.md) for
 exact colors and examples. This revises naming/defaults, not layout ownership,
 the reconciler, S04 surfaces or Godot's native Button theme.
+
+## ADR-0030 — lexical layout presets over native Grid
+
+Accepted owner implementation directive, 2026-11-17, #192. `layout const/var`
+introduces hygienic sequential lexical component presets, not mounted children.
+Exact-case GGX-shaped matrices normalize through existing GridDefinition;
+repeated areas merge compatible defaults and source-located conflicts reject.
+Runtime defaults supply ordinary Elements to the sole reactive manager, with
+native Nodes/identity/layout/input and no extra display wrappers or geometry path.
+Module default methods use weak Callables; local declarations use normal closures.
+Native per-instance exports and typed receiver tags provide cross-file reuse
+without pretending GDScript has ES module instance evaluation.
+
+Grid inherits Box policies with explicit grid/row/column direction, retaining
+inactive track/matrix configuration. Existing full-content Grid percentage
+references remain authoritative; the issue's cell-relative illustration does
+not silently change shipped geometry. Track properties remain separate from child
+dimensions. [Exact lowering, scope/export rules and bounds](LAYOUT_DECLARATIONS.md).
+EL01 #190's responsive/editor design remains separate. This decision authorizes
+implementation, not claims of merged acceptance, release certification or publishing.

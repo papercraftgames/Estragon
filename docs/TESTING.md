@@ -168,3 +168,18 @@ accepts the approved `--engine` selections and a new absolute `--output`, plus
 `--editor` or focused `--editor-only`. It uses a clean committed source and a
 local Yarn development package, not release certification. See [exact D07
 phases, failures, native graphics and regression commands](evidence/D07_BUTTON_IMPORTS.md).
+
+### EL02 layout declarations
+
+Opt-in focused native acceptance (clean committed source, new absolute output):
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-layouts.ts --editor --engine 4.0.4=/absolute/official/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/pinned/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-el02-evidence
+```
+
+This uses one reproducible Yarn development package, direct node_modules
+installation, scoped frontend/runtime/graphics, native Inspector undo/save/reload,
+actual current/main Play rejection/repair and cold editor restart. `--editor-only`
+is a scoped gallery/editor follow-up after an unchanged-runtime frontend/runtime
+proof; retain both source qualifications. It is not release certification or a
+routine CI expansion. [Contract](LAYOUT_DECLARATIONS.md), [recorded evidence](evidence/EL02_LAYOUT_DECLARATIONS.md).

@@ -15,6 +15,7 @@
     "examples/styling",
     "examples/ux01",
     "examples/surfaces",
-    "examples/button_imports"
+    "examples/button_imports",
+    "examples/layouts"
   ]
 }

@@ -1,0 +1,6 @@
+extends "../../../addons/estragon/runtime/node/box.gd"
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+@bindable var title: String = "Native layout presets"
+func build_view() -> Element:
+    return <Text color={Color("#ffffff")} text={self.title} />

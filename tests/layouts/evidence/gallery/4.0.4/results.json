@@ -1,0 +1,154 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "f04786a3a7ec7733665ee548375d11f683ba208d87987a30d3c326f624dff79e"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-EThsFg/yarn-cache",
+      "file:/evidence/el02-final-gallery/packed/layouts-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.39,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EThsFg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EThsFg/project",
+      "--headless",
+      "--script",
+      "res://tests/layouts/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 7.25,
+    "godot_pid": 175,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EThsFg/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-EThsFg/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.66,
+    "godot_pid": 456,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EThsFg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EThsFg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 69.11,
+    "godot_pid": 929,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-EThsFg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-EThsFg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 33.13,
+    "godot_pid": 1604,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "obsolete_component_absent": true,
+    "installed_bytes_unchanged": true
+  }
+}

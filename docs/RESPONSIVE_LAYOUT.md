@@ -169,3 +169,11 @@ without an authored width/height. Short groups retain natural size; this ceiling
 does not confer percentage authority. Ordinary overflow remains visible. Maxima
 and inherited Component2D scrolling use the same core and parent slot policies.
 Scrolling decorates Stack/Wrap/Grid rather than replacing their strategy. [Contract](SCROLLING.md).
+
+### EL02 reusable definitions and Grid modes
+
+[Layout declarations](LAYOUT_DECLARATIONS.md) lower visual named-area matrices
+to this existing contract. Grid now derives from Box: `direction="grid"` is its
+default; row/column (and Box wrap properties) use existing policies while retaining
+inactive grid settings. Child dimension percentages keep the content reference
+specified above. No additional track/parser/solver or width-to-track alias exists.

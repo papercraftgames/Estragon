@@ -1,0 +1,108 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+EL02_EDITOR_CHECK Inspector sees real Grid mode: true
+EL02_EDITOR_CHECK native Grid Inspector mode edit/undo/redo retains topology: true
+EL02_EDITOR_CHECK native inspected Grid saves: true
+EL02_EDITOR_CHECK Grid mode and topology survive scene reload: true
+EL02_EDITOR_CHECK real native authored EL02 scene imports: true
+EL02_EDITOR_CHECK popup offers lexical layout Region: true
+EL02_EDITOR_CHECK native completion inserts layout binding: true
+EL02_EDITOR_CHECK layout completion is one undo: true
+EL02_EDITOR_CHECK layout completion redo: true
+EL02_EDITOR_CHECK native Gogo highlighter attached to actual EL02 source: true
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:31:14: layout matrix: area 'Body' must form one rectangle
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK current invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:34:11: Conflicting repeated layout default width
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK current invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:81:13: Cannot assign to layout const App
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK current invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "Node2D".
+          at: GDScript::reload (res://app/generated/Layouts.gd:200)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK current invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-SGWDSN/godot --path /tmp/estragon-native-SGWDSN/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4155 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+EL02_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:31:14: layout matrix: area 'Body' must form one rectangle
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK main invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:34:11: Conflicting repeated layout default width
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK main invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:81:13: Cannot assign to layout const App
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK main invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+EL02_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot return value of type "int" because the function return type is "Node2D".
+          at: GDScript::reload (res://app/generated/Layouts.gd:200)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main invalid unsaved EL02 blocks stale Play with authored diagnostic: true
+EL02_EDITOR_CHECK main invalid EL02 retains code/map/UID/timestamp/cached Script: true
+EL02_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-SGWDSN/godot --path /tmp/estragon-native-SGWDSN/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 4155 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+EL02_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+EL02_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+EL02_EDITOR_ASSERTIONS 31 failed=false
+EL02_EDITOR_OK

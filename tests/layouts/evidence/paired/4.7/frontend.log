@@ -1,0 +1,76 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+EL02_FRONTEND compile source 1: true
+EL02_FRONTEND native reload 1: true
+EL02_FRONTEND exact case and spans matrix: true
+EL02_FRONTEND external logical area placement: true
+EL02_FRONTEND area is Box, root is Grid: true
+EL02_FRONTEND descriptions are fresh values; declaration mounts nothing: true
+EL02_FRONTEND compile source 2: true
+EL02_FRONTEND native reload 2: true
+EL02_FRONTEND prior references retain original binding: true
+EL02_FRONTEND recomposed area retains base internal Grid: true
+EL02_FRONTEND local shadowing does not mutate enclosing binding: true
+EL02_FRONTEND lowercase identifiers preserved: true
+EL02_FRONTEND compile source 3: true
+EL02_FRONTEND native reload 3: true
+EL02_FRONTEND repeated complementary defaults merge; instance wins: true
+EL02_FRONTEND compile source 4: true
+EL02_FRONTEND native reload 4: true
+EL02_FRONTEND dynamic defaults and spreads evaluate inside use: true
+EL02_FRONTEND defaults read current host values: true
+EL02_FRONTEND runtime repeated dynamic conflict rejects transaction: true
+EL02_FRONTEND var assignment selects another preset: true
+EL02_FRONTEND compile source 5: true
+EL02_FRONTEND native reload 5: true
+EL02_FRONTEND exported definitions are public instance bindings: true
+EL02_FRONTEND compile source 6: true
+EL02_FRONTEND native reload 6: true
+EL02_FRONTEND export var exposes assignable native property: true
+EL02_FRONTEND compile source 7: true
+EL02_FRONTEND native reload 7: true
+EL02_FRONTEND mode override retains grid configuration and ordinary width semantics: true
+EL02_FRONTEND reject const or var: true
+EL02_FRONTEND reject rectangle: true
+EL02_FRONTEND reject uneven: true
+EL02_FRONTEND reject Conflicting repeated: true
+EL02_FRONTEND reject Cannot assign: true
+EL02_FRONTEND reject Unknown, read-only: true
+EL02_FRONTEND reject cannot preset key: true
+EL02_FRONTEND reject area matrix: true
+EL02_FRONTEND reject module scope: true
+EL02_FRONTEND reject collides: true
+EL02_FRONTEND reject support native Grid: true
+EL02_FRONTEND reject unqualified: true
+EL02_FRONTEND reject distinct: true
+EL02_FRONTEND reject Conflicting repeated: true
+EL02_FRONTEND reject hidden by a native parameter: true
+EL02_FRONTEND reject hidden by a native parameter: true
+EL02_FRONTEND reject unqualified: true
+EL02_FRONTEND reject Cannot export: true
+EL02_FRONTEND compile source 26: true
+EL02_FRONTEND native reload 26: true
+EL02_FRONTEND export composes and hygienically preserves an existing Script import: true
+EL02_FRONTEND compile source 27: true
+EL02_FRONTEND native reload 27: true
+EL02_FRONTEND explicit self retains module binding inside a shadowing scope: true
+EL02_FRONTEND root binding may share its own source basename without implicit self-inheritance: true
+EL02_FRONTEND code-only model presets compile: true
+EL02_FRONTEND native code-only model defaults load: true
+EL02_FRONTEND default evaluator never forms a RefCounted owner/preset closure cycle: true
+EL02_FRONTEND export library compiles: true
+EL02_FRONTEND compile source 28: true
+EL02_FRONTEND native reload 28: true
+EL02_FRONTEND typed exported reuse preserves original across files: true
+EL02_FRONTEND reject Grid template: true
+EL02_FRONTEND compile source 30: true
+EL02_FRONTEND native reload 30: true
+EL02_FRONTEND caller template replaces generated track defaults using native configuration: true
+EL02_FRONTEND layout area native property completion: true
+EL02_FRONTEND layout binding tag completion: true
+EL02_FRONTEND editor recognizes layout keyword and GGX root: true
+EL02_FRONTEND_ASSERTIONS 69 failures=0
+EL02_FRONTEND_OK

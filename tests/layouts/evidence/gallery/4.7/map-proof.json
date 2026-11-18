@@ -1,0 +1,9 @@
+{
+  "source_sha256": "adcf1bd457fff078663d97b518149a4337adc102ee4811dd39dc41774f6aa9e6",
+  "generated_sha256": "10c40fc9cd42ee935bb97619039e5295af205b9ae4cb519228922d3596af174b",
+  "map_sha256": "8c3aa7218ad69c19df5639265d591118be0a04e625fd0bfdb999e26f91321b2e",
+  "uid_sha256": "a8ef640c9992d73b7101ffed4fd4f33f0cd1a845adff619d9de7c3c83eef4e9d",
+  "canonical_uid_source": "examples/layouts/generated/Layouts.gd.uid",
+  "source_content_matches": true,
+  "generated_hash_matches": true
+}

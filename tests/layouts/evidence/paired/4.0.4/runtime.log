@@ -1,0 +1,40 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GEOMETRY (640, 480) (12, 12) (616, 64) (12, 84) (160, 384) (180, 84) (448, 328) (180, 420) (448, 48)
+EL02_RUNTIME root percent viewport extent: true
+EL02_RUNTIME Header spans two columns: true
+EL02_RUNTIME Side spans two rows: true
+EL02_RUNTIME existing track/gap/padding geometry: true
+EL02_RUNTIME nested original and exported Grid definitions arrange native children: true
+EL02_RUNTIME original and scoped definitions stay independent: true
+EL02_RUNTIME native Control preset retains type and signal: true
+EL02_RUNTIME native Control and controlled Toggle actual click targets: true
+EL02_RUNTIME default getter reads drive native nested component reactivity: true
+EL02_RUNTIME default updates preserve native identities: true
+EL02_EXPECTED_RUNTIME_REJECTION_BEGIN
+ERROR: app/Layouts.gogo:32:28: invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+EL02_RUNTIME invalid default rejects the whole scheduled description without partial writes: true
+EL02_EXPECTED_RUNTIME_REJECTION_END
+EL02_RUNTIME signal-driven default repair retains native instance: true
+EL02_RUNTIME idle has no composition or layout work: true
+EL02_RUNTIME child mode changes its own arrangement, parent placement stays authoritative: true
+EL02_RUNTIME child grid mode restores retained area topology: true
+EL02_RUNTIME root mode disables but retains grid configuration: true
+EL02_RUNTIME root grid geometry and identities restore: true
+EL02_RUNTIME conditional sibling cleanup preserves native Control: true
+EL02_RUNTIME ordinary spread defaults remain reactive: true
+EL02_RUNTIME preset spread updates native default: true
+EL02_RUNTIME removed preset spread resets through existing native removal path: true
+EL02_RUNTIME borrowed scene Control uses existing adapter without a wrapper: true
+EL02_RUNTIME borrowed Control removal preserves native identity and owner: true
+EL02_RUNTIME authored host packs without transient preset instances: true
+EL02_RUNTIME pack reload starts with authored host only: true
+EL02_RUNTIME resize retains track policy and native identities (1000, 800): true
+EL02_RUNTIME rendered capture 1000: true
+EL02_RUNTIME resize retains track policy and native identities (640, 480): true
+EL02_RUNTIME rendered capture 640: true
+EL02_RUNTIME native disposal disconnects composition scopes: true
+EL02_RUNTIME_ASSERTIONS 30 failures=0
+EL02_RUNTIME_OK

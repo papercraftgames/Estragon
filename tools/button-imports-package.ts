@@ -3,8 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {ROOT,gitHead,gitDirty,sha256,writeJSON} from './compat-kit.ts';
-export function buttonImportsPackage(output:string){
- if(gitDirty())throw Error('D07 acceptance requires committed clean source');
+export function buttonImportsPackage(output:string,name="button-imports"){
+ if(!/^[a-z0-9-]+$/.test(name))throw Error('Invalid development package name');
+ if(gitDirty())throw Error('Native acceptance requires committed clean source');
  if(!path.isAbsolute(output)||fs.existsSync(output))throw Error('New absolute package directory required');
  const stage=path.join(output,'stage');fs.mkdirSync(stage,{recursive:true});
  const files=execFileSync('git',['ls-files','-z','addons/estragon'],{cwd:ROOT,encoding:'utf8'}).split('\0').filter(Boolean).sort();
@@ -25,7 +26,7 @@ export function buttonImportsPackage(output:string){
  if(Object.hasOwn(spec,'version')||spec.name!=='@papercraftgames/estragon'||['scripts','dependencies','devDependencies'].some(k=>k in spec))throw Error('Unexpected development package metadata');
  writeJSON(path.join(stage,'package.json'),{...spec,version:'0.0.0-dev'});
  for(const name of [...files,'README.md','CHANGELOG.md','LICENSE','package.json'])hashes[name]=sha256(path.join(stage,name));
- const tarball=path.join(output,'button-imports-dev.tgz');
+ const tarball=path.join(output,name+'-dev.tgz');
  execFileSync('corepack',['yarn@1.22.22','pack','--filename',tarball],{cwd:stage,env:{...process.env,COREPACK_ENABLE_PROJECT_SPEC:'0'},stdio:'pipe'});
  const repeated=path.join(output,'repeat.tgz');
  execFileSync('corepack',['yarn@1.22.22','pack','--filename',repeated],{cwd:stage,env:{...process.env,COREPACK_ENABLE_PROJECT_SPEC:'0'},stdio:'pipe'});

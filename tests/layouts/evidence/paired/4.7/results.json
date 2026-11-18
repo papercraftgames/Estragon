@@ -1,0 +1,205 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "d82f3ff6363ba01e680787cadecb84e287327bccedaf0ee36815a251d7a83188"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-78cyqI/yarn-cache",
+      "file:/evidence/el02-final-pair/packed/layouts-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.98,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--headless",
+      "--script",
+      "res://tests/layouts/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.29,
+    "godot_pid": 8473,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/layouts/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.13,
+    "godot_pid": 8490,
+    "log": "frontend.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/layouts/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.37,
+    "godot_pid": 8692,
+    "log": "runtime.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: app/Layouts.gogo:32:28: invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.34,
+    "godot_pid": 8847,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 47.41,
+    "godot_pid": 9151,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "app/Layouts.gogo:81:1: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "app/Layouts.gogo:81:1: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed."
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-78cyqI/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-78cyqI/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 30.47,
+    "godot_pid": 10802,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "obsolete_component_absent": true,
+    "installed_bytes_unchanged": true
+  }
+}

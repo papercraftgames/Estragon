@@ -1,0 +1,203 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "d82f3ff6363ba01e680787cadecb84e287327bccedaf0ee36815a251d7a83188"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-SGWDSN/yarn-cache",
+      "file:/evidence/el02-final-pair/packed/layouts-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.78,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--headless",
+      "--script",
+      "res://tests/layouts/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.97,
+    "godot_pid": 3428,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/layouts/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.95,
+    "godot_pid": 3447,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/layouts/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.41,
+    "godot_pid": 3548,
+    "log": "runtime.log",
+    "diagnostics": [
+      "ERROR: app/Layouts.gogo:32:28: invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.75,
+    "godot_pid": 3699,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 65.95,
+    "godot_pid": 4155,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "SCRIPT ERROR: Parse Error: Cannot return value of type \"int\" because the function return type is \"Node2D\".",
+      "          at: GDScript::reload (res://app/generated/Layouts.gd:200)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-SGWDSN/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-SGWDSN/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 33.69,
+    "godot_pid": 5788,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "obsolete_component_absent": true,
+    "installed_bytes_unchanged": true
+  }
+}
