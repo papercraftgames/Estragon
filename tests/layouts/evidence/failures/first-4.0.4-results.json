@@ -1,0 +1,70 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "999d26dcb73a3d3ddc62a869b8c3dad014ec05ae923e559c02986cd09fa83c27"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-uDUEGy/yarn-cache",
+      "file:/evidence/el02-paired-ready/packed/layouts-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.77,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-uDUEGy/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-uDUEGy/project",
+      "--headless",
+      "--script",
+      "res://tests/layouts/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.81,
+    "godot_pid": 2682,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-uDUEGy/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-uDUEGy/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/layouts/frontend.gd"
+    ],
+    "exit_code": 1,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.9,
+    "godot_pid": 2701,
+    "log": "frontend.log",
+    "diagnostics": []
+  }
+}

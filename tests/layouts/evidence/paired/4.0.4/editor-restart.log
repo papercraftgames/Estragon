@@ -1,0 +1,19 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+EL02_EDITOR_CHECK Inspector sees real Grid mode: true
+EL02_EDITOR_CHECK native Grid Inspector mode edit/undo/redo retains topology: true
+EL02_EDITOR_CHECK native inspected Grid saves: true
+EL02_EDITOR_CHECK Grid mode and topology survive scene reload: true
+EL02_EDITOR_CHECK real native authored EL02 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-SGWDSN/godot --path /tmp/estragon-native-SGWDSN/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5788 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+EL02_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+EL02_EDITOR_ASSERTIONS 7 failed=false
+EL02_EDITOR_OK

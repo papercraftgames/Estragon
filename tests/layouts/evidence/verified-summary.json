@@ -1,0 +1,41 @@
+{
+  "development_only": true,
+  "paired_source": "7a20dd19c5f3ed63c02e860867687d2bda5bf0b7",
+  "gallery_source": "0a05408a2433a4c0fffad6cbb1d114c21861292a",
+  "paired_tarball_sha256": "d82f3ff6363ba01e680787cadecb84e287327bccedaf0ee36815a251d7a83188",
+  "gallery_tarball_sha256": "f04786a3a7ec7733665ee548375d11f683ba208d87987a30d3c326f624dff79e",
+  "identical_payload_files": 159,
+  "addon_uids": 74,
+  "repository_script_uids": 298,
+  "current_payload_matches": true,
+  "paired": {
+    "4.0.4": {
+      "frontend": 69,
+      "runtime": 30,
+      "editor": 31,
+      "restart": 7,
+      "status": "PASS"
+    },
+    "4.7": {
+      "frontend": 69,
+      "runtime": 30,
+      "editor": 31,
+      "restart": 7,
+      "status": "PASS"
+    }
+  },
+  "gallery": {
+    "4.0.4": {
+      "editor": 31,
+      "restart": 7,
+      "status": "PASS"
+    },
+    "4.7": {
+      "editor": 31,
+      "restart": 7,
+      "status": "PASS"
+    }
+  },
+  "manual_interactive_smoke": "UNTESTED",
+  "legacy_counter_full_editor": "FAIL reproduced on unchanged base; focused runtime PASS"
+}

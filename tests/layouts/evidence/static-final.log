@@ -1,0 +1,43 @@
+$ bun run typecheck && bun run test
+$ tsc --noEmit
+$ node --experimental-strip-types --test tests/compatibility/*.test.ts
+✔ routine PR and main always stay tiny, docs skip native, unknown paths cannot select exhaustive suites (3.978583ms)
+✔ cache hits require exact regular-file checksum and version, corruption never reaches execution (4.104512ms)
+✔ telemetry preserves failures, stage/editor timing and distinguishes actual direct PIDs from banners (127.851774ms)
+✔ routine workflows cannot launch editors/full suites; certification is an explicit hard publication dependency (0.732438ms)
+✔ optimized editor harnesses retain both Play entrypoints, negative observation, rollback/unsavable/recovery scenarios (1.005425ms)
+✔ proof-file existence precedes complete JSON; editor harnesses wait for and cache validated snapshots (2.625872ms)
+✔ routine budget measures end-to-end required checks, separates queue and rejects missing/failed checks (10.173179ms)
+✔ focused editor UX stays opt-in and cannot expand routine or publication certification (0.486677ms)
+NPM_REGISTRY_IDENTITY_CONFIRMED_NATIVE_SMOKE_PENDING
+NPM_REGISTRY_IDENTITY_CONFIRMED_NATIVE_SMOKE_PENDING
+✔ only matching published main-source prerelease authorizes publishing; dispatch is preview (2.109056ms)
+✔ only two completed successful current-run certification jobs authorize preparation (1.660907ms)
+✔ release artifact and registry checks reject altered tar, context, integrity, latest tag or missing provenance (4.747327ms)
+✔ publication is OIDC only, missing package fails and an existing exact version only verifies (11.915823ms)
+✔ release workflow retains owner trigger/OIDC, hard certification and post-publication consumers (2.467984ms)
+✔ registry verification prints the exact native package success marker as one line (0.903977ms)
+✔ registry consumer downloads original tar and rejects changed bytes or unrelated/missing signed provenance (89.337018ms)
+✔ addon-only npm artifact is reproducible, private-tooling separated and rooted for Godot (3363.076808ms)
+✔ pre-publication preparation rejects routine main or stale/mismatched run identities (1.010203ms)
+✔ Git metadata is development-only; release numbers exist only in events or test fixtures (134.479978ms)
+✔ P02 production dependencies and emitted injections have no fixed installation root (20.298065ms)
+✔ native addon requirements replace obsolete legacy and standalone gates (4.699069ms)
+✔ logs fail closed for errors, missing markers and timeouts (0.384247ms)
+✔ engine budget rejects additional or unsupported versions (0.535501ms)
+✔ fast-release policy is deliberately narrower, never an alias for full certification (0.275895ms)
+✔ matching native evidence passes; dirty, missing, mismatched or forged evidence rejects (201.837113ms)
+✔ single native architecture, canonical UIDs/references and authored maps stay consistent (109.89166ms)
+✔ sample native pack format explicitly avoids the 4.0 conversion leak (0.253783ms)
+✔ release evidence rejects incomplete or failed direct-install layout subruns (82.801077ms)
+✔ fast-release evidence accepts one direct consumer only, rejects wrong layouts and failed execution (20.477091ms)
+✔ strict tag version is independent of Git development metadata and preview is not authorization (5.008514ms)
+✔ actual tag-versioned packs reproduce, source stays untouched, verifier rejects overlay/file/tar mutations (6306.860095ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6719.54251

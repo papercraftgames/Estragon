@@ -1,0 +1,4 @@
+git archive 23ce784 addons/estragon tests/native_ui/highlighter.gd | tar -x -C /tmp/e04-local/el02-highlighter-baseline
+# Isolated EditorPlugin calls unchanged tests/native_ui/highlighter.gd.run().
+# No production code changes, no user editor settings.
+docker exec estragon-e04-local bash -lc 'HOME=/tmp/el02-baseline-settings XDG_CONFIG_HOME=/tmp/el02-baseline-settings/config XDG_DATA_HOME=/tmp/el02-baseline-settings/data timeout 40s /evidence/s03-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64 --headless --editor --path /evidence/el02-highlighter-baseline'

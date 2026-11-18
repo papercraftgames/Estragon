@@ -1,0 +1,27 @@
+{
+  "base": "23ce784b61a9b9164aafa009a72c4bc61ce3ff1f",
+  "implementation": "05c9445",
+  "paired_acceptance": "7a20dd19c5f3ed63c02e860867687d2bda5bf0b7",
+  "gallery_acceptance": "0a05408a2433a4c0fffad6cbb1d114c21861292a",
+  "addon_payload_unchanged": true,
+  "examples": {
+    "Header": {
+      "source_sha256": "4308fb7cfe39608d8cb6e0d01e678ba38336f12284c8b6aa0ce8cbb58a904317",
+      "generated_sha256": "d6de63fd5836ebede2a6dca8f0f3b9443d55a515e148bb6a3ee5b949c35d6511",
+      "map_sha256": "5ea7e12c6f785ca2171409c3ecd6a10045b3fd67e8572f00f88a3dc7284e8cfc",
+      "uid_sha256": "e7516bc53b7f97a8336701189bfca1f91b5e9739cc5d7f1d3838380e3b056313"
+    },
+    "Library": {
+      "source_sha256": "1d99882d4e25931595d7e05c8ab797091401d9415e9967ee25493c83c51fdc0d",
+      "generated_sha256": "31e76cf3119779a23ee6c93c136aa5472bc326bb5d86af024a3836720025e439",
+      "map_sha256": "b6de512e73bb293588711387783001341935ea71903cd1a6eeed692c004521e9",
+      "uid_sha256": "8d1ca32d0a9d2523f4abca8960000288dbf6424ae82d0c5ec92700aaf209a966"
+    },
+    "Layouts": {
+      "source_sha256": "a13660fca86c68d3ae335665a13685837650f3c29a9f292d71e6c7a19dca9f1a",
+      "generated_sha256": "fa833bf9ef552603aeedb1f734b0ee732ef9833eda0241652eb75dcf70ba0bee",
+      "map_sha256": "b6cec34290d6a5f81e17d395d9e450f2fb762052fe2b1a4edebdab7c3f2786b7",
+      "uid_sha256": "a8ef640c9992d73b7101ffed4fd4f33f0cd1a845adff619d9de7c3c83eef4e9d"
+    }
+  }
+}

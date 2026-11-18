@@ -1,0 +1,20 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+EL02_GEOMETRY (640.0, 480.0) (12.0, 12.0) (731.0, 64.0) (12.0, 84.0) (616.0, 384.0) (180.0, 84.0) (563.0, 328.0) (180.0, 420.0) (563.0, 48.0)
+EL02_RUNTIME root percent viewport extent: true
+EL02_RUNTIME Header spans two columns: false
+EL02_RUNTIME Side spans two rows: false
+EL02_RUNTIME existing track/gap/padding geometry: false
+EL02_RUNTIME nested original and exported Grid definitions arrange native children: false
+EL02_RUNTIME original and scoped definitions stay independent: true
+EL02_RUNTIME native Control preset retains type and signal: true
+EL02_RUNTIME native Control and controlled Toggle actual click targets: true
+EL02_RUNTIME default getter reads drive native nested component reactivity: true
+SCRIPT ERROR: Invalid operands 'String' and 'Color' in operator '=='.
+          at: run (res://tests/layouts/runtime.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/layouts/runtime.gd:52)
+              [1] frames (res://tests/layouts/runtime.gd:10)
