@@ -279,7 +279,7 @@ class _GogoFactories_0:
         _gogo_element_3 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_3, _gogo_element_3)
         var _gogo_element_10 := _GogoElement_0.new(Text, {"text": "Native Grid tracks and Nodes"}, {}, [], "examples/layouts/Layouts.gogo:58:17", null, false)
         var _gogo_element_11 := _GogoElement_0.new(Action, {"name": "Action", "text": "Native button"}, {"pressed": _gogo_value_10}, [], "examples/layouts/Layouts.gogo:59:17", null, false)
-        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "180px"}, {}, [], "examples/layouts/Layouts.gogo:60:17", null, false)
+        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "300px"}, {}, [], "examples/layouts/Layouts.gogo:60:17", null, false)
         _gogo_element_12.set_text_body([["Controlled native toggle", "examples/layouts/Layouts.gogo:60:80"]])
         _gogo_element_12.bindings = {"value": _gogo_value_11}
         var _gogo_element_15 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_14), {"name": "Upper"}, {}, [], "examples/layouts/Layouts.gogo:63:25", null, false)

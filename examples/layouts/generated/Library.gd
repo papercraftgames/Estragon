@@ -34,7 +34,7 @@ const _GogoLayout_0 = preload("../../../addons/estragon/runtime/node/grid.gd")
 
 const _GogoLayout_0_ = preload("../../../addons/estragon/runtime/node/box.gd")
 
-func _GogoLayout_2_defaults(): return [[["gap", "4px", "examples/layouts/Library.gogo:3:29"], ["padding", "4px", "examples/layouts/Library.gogo:3:39"], ["background_color", "#24364a", "examples/layouts/Library.gogo:3:53"]]]
+func _GogoLayout_2_defaults(): return [[["rows", ["1fr","1fr"], "examples/layouts/Library.gogo:3:29"], ["gap", "4px", "examples/layouts/Library.gogo:3:50"], ["padding", "4px", "examples/layouts/Library.gogo:3:60"], ["background_color", "#24364a", "examples/layouts/Library.gogo:3:74"]]]
 
 func _GogoLayout_4_defaults(): return [[["background_color", "#385975", "examples/layouts/Library.gogo:4:12"]], []]
 

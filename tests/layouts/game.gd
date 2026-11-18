@@ -22,7 +22,7 @@ func run(host: Node) -> Dictionary:
 	for size in [Vector2i(640,480),Vector2i(1000,800)]:
 		tree.root.size = size
 		await frames(tree)
-		ok = ok and app.layout_size==Vector2(tree.root.size) and side.layout_size.x==160 and action.get_instance_id()==identity
+		ok = ok and app.layout_size==Vector2(tree.root.size) and side.layout_size.x==160 and action.get_instance_id()==identity and body.get_node("Imported/Shared/Upper").layout_size.y>0
 		click(action)
 		click(body.get_node("Toggle"))
 		await frames(tree)

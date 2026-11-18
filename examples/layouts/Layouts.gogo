@@ -57,7 +57,7 @@ func build_view() -> Element:
             <Body name="Body">
                 <Text text="Native Grid tracks and Nodes" />
                 <Action name="Action" text="Native button" pressed={clicked} />
-                <Toggle name="Toggle" width="180px" bind:value={self.selected}>Controlled native toggle</Toggle>
+                <Toggle name="Toggle" width="300px" bind:value={self.selected}>Controlled native toggle</Toggle>
                 <Imported name="Imported" width="100%" height="120px">
                     <Shared name="Shared">
                         <library.upper name="Upper" />
