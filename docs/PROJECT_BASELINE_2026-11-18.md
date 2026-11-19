@@ -4,6 +4,8 @@
 **Reconciliation tracker:** [#194](https://github.com/papercraftgames/Estragon/issues/194).  
 **Status:** Project-state and issue-plan baseline. This file states what has been delivered, what remains missing, and the chosen priority order. **New scoped issue series: #195–#209.** It is **not** a claim that future work is implemented.
 
+**Approved design addendum (2026-11-19):** [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) **closes the earlier open architecture choices**. Gogo GGX-containing functions implicitly observe bindable reads and invalidate cached structures; ordinary render-time calls are automatically argument-memoized (including imported `.gd` helpers). Direct writable GGX property paths use implicit `{}` two-way binding (no final `bind:value`); local snapshot/derived expressions remain one-way. An opt-in `ArrayCollection` bubbles nested changes upward, while typed Gogo assignments hydrate plain Dictionary/Array data and generated `to_data()` returns plain data. **Approved future implementation targets, NOT shipped on this snapshot date.** See existing issues [#195](https://github.com/papercraftgames/Estragon/issues/195), [#200](https://github.com/papercraftgames/Estragon/issues/200), [#198/#199/#202/#203](https://github.com/papercraftgames/Estragon/issues/198). No new design issue or priority reset.
+
 ## 1. Product direction and rule of interpretation
 
 Estragon is a pre-1.0 alpha/beta **native Godot addon**. Gogo is its GDScript-like language; GGX is XML-like markup for composing Godot Nodes. Estragon builds layout-first Node2D UI plus bounded Node3D layouts/adapters using the actual Godot SceneTree, signals, editor, renderer, input facilities and ownership. The addon bundles its own compiler/editor integration, with no external authoring compiler.
@@ -44,21 +46,21 @@ This baseline supersedes obsolete execution *status and ordering* in older umbre
 
 Current source: `addons/estragon/runtime/composition/state.gd`, `computation.gd`, `binding.gd` and `docs/REACTIVE_COMPOSITION_ARCHITECTURE.md`. The manager currently uses a deferred queue and sort by computation depth; it guards against unbounded self-invalidation.
 
-### Are there computed regions?
+### Derived values — November 18 implementation snapshot (future design superseded by ADR-0031)
 
 **Not as a separately documented or publicly supported computed-region/memo primitive.** Ordinary **derived values** already work in declarative computations: for example a pure helper reading bindable fields computes its result when its owning view runs, and the getter observations automatically subscribe that view. Nested Gogo components create independent rerun boundaries.
 
-That is **not** the same as a separately cached, graph-aware computed signal, subexpression cache, memoized dependency cell, or source-level reactive region. No such new abstraction is justified merely because another framework names one. Before considering one, prove a real use case requiring derived values reused outside views, selective invalidation across several consumers, or expensive derivation that currently reruns unnecessarily. Prefer a minimal property/derived-value facility sharing the current signal graph over a second effects scheduler.
+That is **not** the same as a separately cached, graph-aware computed signal, subexpression cache, memoized dependency cell, or source-level reactive region. No such new abstraction is justified merely because another framework names one. The preceding evaluation is **historical November 18 reasoning**, superseded by the approved ADR-0031 automatic memoization contract. Profiling validates the implementation; it does not reopen whether memoization should exist. Prefer a minimal property/derived-value facility sharing the current signal graph over a second effects scheduler.
 
 ### Verified gaps/risks, not claims of failure
 
-- **Raw in-place collection operations do not signal:** `Array.append`, index mutation and Dictionary edits do not automatically trigger recomposition. A bindable reference replacement and ordinary keyed maps **are shipped**. Determine whether a lightweight optional observable collection or generated mutation adapter actually improves ordinary authoring and correctly emits structural changes.
-- **`bind:value` is Bool-only:** String text editing requires typed String endpoint support and proper model-to-view/edited-view-to-model ownership, identity, replacement/null/cycle guards. Do not invent a second data-binding engine.
+- **Raw in-place collection operations do not signal:** `Array.append`, index mutation and Dictionary edits do not automatically trigger recomposition. A bindable reference replacement and ordinary keyed maps **are shipped**. The owner subsequently selected a first-class optional `ArrayCollection` with nested upward notifications for CORE-02 #200.
+- **Shipped November 18 `bind:value` is Bool-only:** String text editing requires typed String endpoint support and proper model-to-view/edited-view-to-model ownership, identity, replacement/null/cycle guards. Do not invent a second data-binding engine.
 - **Ordinary native properties are not automatically tracked:** they require generated Gogo bindable getters or an explicit supported signal adapter. Do not claim arbitrary Godot property reads have observability.
-- **Scheduler quality, derived granularity and event order deserve a focused hardening gate:** test burst writes, chained derived reads, nested parent/child invalidation, list reorder, reentrant writes, source replacement, skipped/failed commits, removal, and idle work. Check no lost last write, double connections, redundant descendant reruns or accidental repeated layout. Evaluate measurements before adding memoization.
+- **Scheduler quality, derived granularity and event order deserve a focused hardening gate:** test burst writes, chained derived reads, nested parent/child invalidation, list reorder, reentrant writes, source replacement, skipped/failed commits, removal, and idle work. Check no lost last write, double connections, redundant descendant reruns or accidental repeated layout. Use measurements to validate the approved ADR-0031 memoization behavior.
 - **Error path:** if a new desired tree is invalid, previously committed native output remains. Ensure subsequent valid changes and subscription recovery are predictable.
 
-**Decision:** one targeted reactive-runtime/derived-state contract issue first; observable collections can be a separate small successor. Do **not** reopen F01–F06 as if unimplemented, rewrite the reconciler without evidence, or assume a new `computed` keyword is mandatory.
+**Updated decision (2026-11-19):** implement approved automatic memoization and GGX-function reactivity in #195 and nested typed observable data in #200 as separate scoped work. Do **not** reopen F01–F06, rewrite the reconciler or add a second `computed` system.
 
 ## 4. Layout: what is architecture versus missing features?
 
@@ -94,12 +96,12 @@ These are **15 individually filed, priority-numbered tasks**. Their issue bodies
 
 | Order | Issue | Work package | Rationale/dependency |
 | --- | --- | --- | --- |
-| 1 | [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195) | Reactive execution, derived calculations and selective scheduling | First correctness gate. Confirm no need for separate computed-region runtime. |
+| 1 | [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195) | Reactive execution, GGX-aware memoization and selective scheduling | First correctness gate; implement approved ADR-0031 semantics in existing manager. |
 | 2 | [EDIT-01 #196](https://github.com/papercraftgames/Estragon/issues/196) | Native Gogo formatter and safe GGX indentation | Urgent authoring foundation; independent of forms. |
 | 3 | [UI-01 #197](https://github.com/papercraftgames/Estragon/issues/197) | Focus, keyboard and text-edit delegate infrastructure | Unblocks real form input and Checkbox. |
 | 4 | [UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198) | Estragon Checkbox | Depends UI-01; reuses Bool model binding. |
-| 5 | [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199) | Editable Input + typed String bind:value | Depends CORE-01/UI-01. |
-| 6 | [CORE-02 #200](https://github.com/papercraftgames/Estragon/issues/200) | Observable collection mutation and keyed mapped updates | Reuses one manager; no required Repeater. |
+| 5 | [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199) | Editable Input + implicit String two-way `value={self.model.text}` | Depends CORE-01/UI-01. |
+| 6 | [CORE-02 #200](https://github.com/papercraftgames/Estragon/issues/200) | `ArrayCollection`, nested upward notifications and typed Dictionary/Array hydration/`to_data()` | Reuses one manager; no required Repeater. |
 | 7 | [LAYOUT-01 #201](https://github.com/papercraftgames/Estragon/issues/201) | Constraint-aware text/intrinsic measurement and nested auto sizing | Existing slot core, no rewrite. |
 | 8 | [UI-04 #202](https://github.com/papercraftgames/Estragon/issues/202) | Radio/choice selection controls | After focus/input foundations. |
 | 9 | [UI-05 #203](https://github.com/papercraftgames/Estragon/issues/203) | Select, Slider and numeric controls | After common choice/value semantics; split before implementation if needed. |

@@ -1,3 +1,5 @@
+> **Owner-approved target, NOT yet shipped (2026-11-19):** [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) replaces the speculative final `bind:value` API with implicit two-way direct-path `value={self.model.field}` for writable bindables; locals/derived expressions are one-way. Functions containing authored GGX have reactive cached structural results, while calls to ordinary functions are automatically memoized by explicit arguments. Optional `ArrayCollection` bubbles nested changes and typed Dictionary/Array assignment hydrates declared Gogo models, with generated `to_data()`. Older F01/F02/T09 staging details below are historical. See existing implementation issues [#195](https://github.com/papercraftgames/Estragon/issues/195) and [#200](https://github.com/papercraftgames/Estragon/issues/200).
+
 **F02 implementation checkpoint:** [Conditional child/nested composition contract](F02_CONDITIONALS.md) / [#94](https://github.com/resistdesign/Estragon/issues/94) extends the merged F01 engine with stable nullable slots, branch replacement and parent-first nested ownership. Exact verification/review state is in the live issue/sole PR; F03 lists/keys and F04 cutover remain future work. Earlier F01-only shape restrictions below are historical.
 
 # Gogo data binding and automatic recomposition
@@ -39,7 +41,7 @@ func build_view():
 
 **Lists:** normal GDScript for/`Array.map` can compose arrays of desired element descriptions. A `key` helps preserve actual native child state on reorder. Replacing an `@bindable` array reference rerenders the owning view; in-place `append/remove` requires an observable collection adapter if that notification behavior is wanted. No mandatory Repeater or separate list reconciliation engine.
 
-## Two-way binding: planned T09-D
+## Historical two-way proposal (superseded by ADR-0031)
 
 A future assignable GGX attribute (illustratively `bind:value={self.player.name}`) can express:
 1. **Model → View:** view declarative value follows the bindable model property.

@@ -1,5 +1,7 @@
 # F05-B — native controlled boolean input
 
+> **Current shipped F05-B behavior, NOT the final API:** This document and tests use `bind:value`. Owner-approved [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) replaces the **future user-facing** syntax with implicit `<Toggle value={self.model.enabled} />` when both endpoints are compatible writable/observable bindables. Snapshot locals (`var enabled := self.model.enabled`; `value={enabled}`) and computed expressions stay one-way. Control-side programmatic changes notify; native reconciliation suppresses feedback. The new API belongs to existing [Checkbox #198](https://github.com/papercraftgames/Estragon/issues/198) and [Input #199](https://github.com/papercraftgames/Estragon/issues/199) issues. **Not yet shipped; retain the evidence below as historical/current implementation truth.**
+
 Implementation/review evidence: [#101](https://github.com/resistdesign/Estragon/issues/101) and its sole PR. F05-A is merged in #100 (`3487d86`). F06 remains future. This first input slice uses the existing description/reconciliation manager, generated Gogo getters/setters and native pointer/layout authority.
 
 ```gdscript
