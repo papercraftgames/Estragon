@@ -114,6 +114,8 @@ These are **15 individually filed, priority-numbered tasks**. Their issue bodies
 
 ## 7. Old open issue reconciliation ledger (pre-reset)
 
+**Executed 2026-11-18:** all 20 historical open issues listed below were **closed** with short handoff comments and successor links. Fifteen new implementation issues [#195–#209](https://github.com/papercraftgames/Estragon/issues/195) are open in core-first order; [#194](https://github.com/papercraftgames/Estragon/issues/194) remains the documentation/reconciliation tracker until owner merges the overview PR. Closing a legacy issue means its old scope is no longer the active plan, not that every archival checkbox was tested.
+
 **Twenty pre-reset open issues**, verified November 18; the [#194 tracker](https://github.com/papercraftgames/Estragon/issues/194) is new and excluded. Closure means **completed/superseded/absorbed into the fresh plan**, not that every historical checklist and feature was proved complete. Historic failures remain historic evidence; new reproducible bugs may be reopened as focused new issues.
 
 | Old issue | Decision | Successor/retained context |
