@@ -64,8 +64,10 @@ func build_view() -> Element:
         (_GogoFactories_0._gogo_build_2() if self.extra else null)
     )
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_a636d14d4f74f3c0 = {
+"ordinary": ["clicked", "native_clicked"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("StyledRose.gd")
 

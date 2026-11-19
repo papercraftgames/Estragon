@@ -45,3 +45,7 @@ var note: String = "quiet":
 
 var id: int = 0
 
+const _GOGO_RENDER_FUNCTIONS_661832aa45b6b54d = {
+"ordinary": [],
+"reactive": []
+}

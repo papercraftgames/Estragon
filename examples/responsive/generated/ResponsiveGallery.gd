@@ -104,8 +104,10 @@ func build_view() -> Element:
 		(get_children())
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["card", "build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_c0ecc4494879e4a2 = {
+"ordinary": ["pressed", "native_pressed", "edited"],
+"reactive": ["card", "build_view"]
+}
 
 const _GogoProject_0 = preload("NestedResponsive.gd")
 

@@ -71,6 +71,7 @@ func run():
 	check(host.counts.lambda==2 and host.counts.lambda_body==4 and column.get_node("Lambda").get_child(0).text=="other","anonymous GGX local read invalidates cached enclosing function")
 	check(first.views==first_views+1 and second.views==second_views+1,"two components independently rerun on shared read")
 	check(column.get_node("Ordinary/Static").text==hidden and manual_one.text==hidden,"zero-argument ordinary and manual Element helpers remain static")
+	check(host.counts.callable==1 and column.get_node("Callable").text=="FIXED","ordinary Callable.call uses the same explicit-argument cache across parent updates")
 	var stats: Dictionary = host.get_node("UI").get_layout_stats()
 	var runs: int = record.runs
 	host.model.label="other"
@@ -211,6 +212,24 @@ func run():
 	host.queue_free()
 	await frames()
 	check(State.records.is_empty() and State.dirty.is_empty() and State.scopes.is_empty() and State.invocations.is_empty(),"all native lifetimes and manager stacks clean")
+	var derived = load("res://app/generated/Derived.gd").new()
+	root.add_child(derived)
+	await frames()
+	var inherited = derived.get_node("Inherited")
+	var inherited_ids := ids(inherited)
+	check(derived.ordinary_calls==2 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"inherited and explicit super functions mount independent call caches")
+	derived.tick += 1
+	await frames()
+	check(derived.ordinary_calls==2 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"unchanged super arguments and reactive base body reuse cached results")
+	derived.title="Changed"
+	await frames()
+	check(derived.ordinary_calls==4 and inherited.get_node("Explicit").text=="CHANGED" and inherited.get_node("Normal").text=="CHANGED","changed inherited typed arguments invalidate both explicit call sites")
+	check(derived.base_calls==2 and inherited.get_node("BaseBadge").text=="Changed","super GGX body observes bindable locals in its own base scope")
+	check(derived.override_calls==1 and derived.hidden_calls==1 and inherited.get_node("Override").text=="Base" and inherited.get_node("Hidden").text=="Base","ordinary override and zero-argument super body stay opaque despite inherited GGX metadata")
+	check(ids(inherited)==inherited_ids,"inherited function invalidation retains native node identities")
+	derived.free()
+	await frames()
+	check(State.records.is_empty() and State.dirty.is_empty(),"inherited invocation caches dispose with their native owner")
 	var file := FileAccess.open("res://core01-profile.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"checks":checks,"errors":errors,"measurements":measurements,"idle":idle}))
 	file.close()

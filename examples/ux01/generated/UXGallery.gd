@@ -90,8 +90,10 @@ func build_view() -> Element:
 		(self.order.map(row))
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["row", "build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_8649457af7ae8c14 = {
+"ordinary": ["pressed"],
+"reactive": ["row", "build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

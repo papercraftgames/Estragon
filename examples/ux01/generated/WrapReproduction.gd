@@ -15,8 +15,10 @@ func build_view() -> Element:
 		(true)
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_d37637af2bdd87dc = {
+"ordinary": [],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("UXSettings.gd")
 

@@ -23,8 +23,10 @@ func build_view() -> Element:
 		(get_children())
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_ca45cda7bb30ecd6 = {
+"ordinary": ["_ready", "exit"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("NativeSettings.gd")
 

@@ -88,8 +88,10 @@ func build_view() -> Element:
 		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/spreads/SpreadGallery.gogo:2365", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Explicit key + spread"})))) if self.show_extra else null)
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_41d4e9792a603555 = {
+"ordinary": ["pressed", "alternate_pressed", "native_pressed", "requires_argument", "emphasis", "button_values"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("NestedSpread.gd")
 

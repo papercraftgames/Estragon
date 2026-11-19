@@ -1,0 +1,21 @@
+extends "Base.gd"
+const ViewElement=preload("../../../addons/estragon/runtime/composition/element.gd")
+const ViewText=preload("../../../addons/estragon/runtime/node/text.gd")
+const ViewBox=preload("../../../addons/estragon/runtime/node/box.gd")
+@bindable var tick: int = 0
+var override_calls: int = 0
+func badge() -> ViewElement:
+    override_calls += 1
+    return ViewElement.new(ViewText,{"name":"Override","text":self.title})
+func build_view() -> ViewElement:
+    var value := super.ordinary(self.title)
+    var normal := ordinary(self.title)
+    var secret := super.hidden()
+    return <ViewBox name="Inherited" direction="column">
+        <ViewText name="Tick" text={str(self.tick)} />
+        <ViewText name="Explicit" text={value} />
+        <ViewText name="Normal" text={normal} />
+        <ViewText name="Hidden" text={secret} />
+        {super.badge()}
+        {badge()}
+    </ViewBox>

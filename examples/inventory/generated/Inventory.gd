@@ -100,8 +100,10 @@ func write_proof() -> void:
     var file := FileAccess.open("res://.godot/lists-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":items.size(),"text":get_node("UI/Panel/Row1/Caption").text}))
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_113af4fb15483b9b = {
+"ordinary": ["append_item", "insert_item", "remove_item", "reverse_items", "replace_item", "first_state", "rename_item", "toggle_note", "toggle_map", "_ready", "write_proof"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("Row.gd")
 

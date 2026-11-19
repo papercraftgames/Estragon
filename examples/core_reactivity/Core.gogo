@@ -19,8 +19,11 @@ const CollectionProbe = preload("../../core_reactivity/CollectionProbe.gd")
 @bindable var choose: bool = false
 var ordinary = Ordinary.new()
 var collection = CollectionProbe.new()
-var counts: Dictionary = {"root":0,"badge":0,"zero":0,"wrapper":0,"manual":0,"collection":0,"branch":0,"nested":0,"row":0,"mutate":0,"group":0,"lambda":0,"lambda_body":0,"array":0}
+var counts: Dictionary = {"root":0,"badge":0,"zero":0,"wrapper":0,"manual":0,"collection":0,"branch":0,"nested":0,"row":0,"mutate":0,"group":0,"lambda":0,"lambda_body":0,"array":0,"callable":0}
 var row_counts: Dictionary = {}
+var callable_label: Callable = func(value: String) -> String:
+    counts.callable += 1
+    return value.to_upper()
 var edits: int = 0
 var mutate_once: bool = false
 func pressed() -> void:
@@ -77,7 +80,7 @@ func lambda_container() -> Element:
         counts.lambda_body += 1
         var label: String = "null" if self.model==null else self.model.label
         return <Text text={label} />
-    return <Box name="Lambda">{part()}{part()}</Box>
+    return <Box name="Lambda">{part()}{part.call()}</Box>
 func keyed_group() -> Element:
     counts.group += 1
     return <Box name="KeyedZero" direction="column">{self.items.map(func(item): return <Box key={item.id} name={"Key"+str(item.id)}>{badge()}</Box>)}</Box>
@@ -92,6 +95,7 @@ func build_view() -> Element:
             {branch()}
             {mutating()}
             {disposable_view(self.disposable)}
+            <Text name="Callable" text={callable_label.call("fixed")} />
             <Text name="StaticImport" text={Ordinary.static_label("static import")} />
             <Text name="Plain" text={array_label(self.plain_values)} />
             <Button name="Action" text="Native event" width="180px" pressed={self.pressed} />

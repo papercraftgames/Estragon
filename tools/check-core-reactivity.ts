@@ -16,7 +16,7 @@ for(const selection of options.engines){
   writeJSON(path.join(out,'provenance.json'),{sourceHead:gitHead(),sourceDirty:gitDirty(),version:box.version,original_binary_sha256:box.inputHash,command:process.argv});
   async function run(name:string,args:string[],marker?:string,env=box.env){
    const editing=name.startsWith('editor'),negative=name==='integration'||name==='frontend',logFile=path.join(out,name+'.log');
-   const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!editing&&!negative,expectedErrors:editing||negative,timeout:editing?150000:name==='integration'?180000:60000});
+   const result=await runCommand(args,name==='install'?box.project:box.workspace,env,logFile,marker,{abortOnError:!editing&&!negative,expectedErrors:editing||negative,timeout:editing?150000:name==='integration'?300000:60000});
    const log=fs.readFileSync(logFile,'utf8');
    if(negative){
     const semantic=name==='frontend';let bracket=false,starts=0,count=0;const unexpected:string[]=[];const lines=log.split(/\r?\n/);
@@ -62,8 +62,8 @@ for(const selection of options.engines){
   // does not generate script sidecars; both engines must preserve this one.
   fs.mkdirSync(path.join(box.project,'app/generated'),{recursive:true});
   const fixtureUID=path.join(ROOT,'examples/core_reactivity/generated/Core.gd.uid');
-  for(const name of ['Core','Leaf','Model'])fs.copyFileSync(path.join(ROOT,'examples/core_reactivity/generated',name+'.gd.uid'),path.join(box.project,'app/generated',name+'.gd.uid'));
-  for(const name of ['Core','Leaf','Model']){
+  for(const name of ['Core','Leaf','Model','Base','Derived'])fs.copyFileSync(path.join(ROOT,'examples/core_reactivity/generated',name+'.gd.uid'),path.join(box.project,'app/generated',name+'.gd.uid'));
+  for(const name of ['Core','Leaf','Model','Base','Derived']){
    let source=fs.readFileSync(path.join(ROOT,'examples/core_reactivity',name+'.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon)).replaceAll('../../core_reactivity/ordinary.gd','../ordinary.gd').replaceAll('../../core_reactivity/CollectionProbe.gd','../CollectionProbe.gd');
    if(name==='Core')source+='\nfunc _ready() -> void:\n    if OS.get_environment("CORE01_EDITOR")=="1": _layout_probe.call_deferred()\nfunc _layout_probe() -> void:\n    var probe = preload("res://tests/core_reactivity/game.gd").new()\n    await probe.run(self)\n';
    fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),source);
@@ -94,7 +94,7 @@ for(const selection of options.engines){
   if(map.sourceContent!==fs.readFileSync(source,'utf8')||map.sourceName!=='app/Core.gogo'||map.generatedHash!==sha256(generated))throw Error('Stale authored/generated map after editor repair');
   if(sha256(generated+'.uid')!==sha256(fixtureUID))throw Error('Authored gallery UID changed');
   writeJSON(path.join(out,'map-proof.json'),{source_sha256:sha256(source),generated_sha256:sha256(generated),map_sha256:sha256(generated+'.map.json'),uid_sha256:sha256(generated+'.uid'),canonical_uid_source:'examples/core_reactivity/generated/Core.gd.uid',source_content_matches:true,generated_hash_matches:true});
-  for(const name of ['Leaf','Model']){
+  for(const name of ['Leaf','Model','Base','Derived']){
    const generated=path.join(box.project,'app/generated',name+'.gd'),source=path.join(box.project,'app',name+'.gogo');
    const map=JSON.parse(fs.readFileSync(generated+'.map.json','utf8'));
    if(map.sourceContent!==fs.readFileSync(source,'utf8')||map.sourceName!=='app/'+name+'.gogo'||map.generatedHash!==sha256(generated))throw Error('Stale imported source/map '+name);

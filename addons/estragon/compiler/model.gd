@@ -110,6 +110,7 @@ class RenderCall extends SyntaxNode:
 
 class Module extends RefCounted:
 	var render_functions: Array = []
+	var ordinary_functions: Array = []
 	var presets: Array = []
 	var import_aliases: Dictionary = {}
 	var identifier_imports: Array = []

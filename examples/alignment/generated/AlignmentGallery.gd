@@ -83,8 +83,10 @@ func build_view() -> Element:
 		(get_children())
 	)
 
-const _GOGO_RENDER_FUNCTIONS = ["tile", "build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_b327ab6aa43a72f1 = {
+"ordinary": ["pressed", "native_pressed"],
+"reactive": ["tile", "build_view"]
+}
 
 const _GogoProject_0 = preload("NestedAlignment.gd")
 

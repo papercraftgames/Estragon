@@ -33,3 +33,7 @@ var title: String = "Reactive model":
 		return title
 
 
+const _GOGO_RENDER_FUNCTIONS_bef4142b0144e007 = {
+"ordinary": [],
+"reactive": []
+}

@@ -91,8 +91,10 @@ func _proof() -> void:
     output.store_string(JSON.stringify({"count":revision,"text":"Revision: %d" % revision}))
     output.close()
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_a30126229e4b83ef = {
+"ordinary": ["replace_model", "toggle_rows", "reverse_rows", "_ready", "_proof"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("Row.gd")
 

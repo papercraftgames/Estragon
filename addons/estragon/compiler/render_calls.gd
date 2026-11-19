@@ -31,6 +31,7 @@ func apply(value) -> void:
 	resolver.scan(module)
 	var tokens := _tokens(module.parts)
 	returns = _returns(tokens)
+	returns.merge(_inherited_returns(file,tokens,{}),false)
 	lexical = Layouts.new(file)
 	lexical.module = module
 	lexical._index()
@@ -62,11 +63,15 @@ func apply(value) -> void:
 		var reactive := false
 		for token in tokens:
 			if token.kind=="ggx" and token.span.start.index>=begin and token.span.end.index<=end: reactive = true
+		if not reactive and tokens[index+1].text!="build_view": module.ordinary_functions.append(tokens[index+1].text)
 		if reactive or tokens[index+1].text=="build_view":
 			functions.append({"start":begin,"end":end})
 			module.render_functions.append(tokens[index+1].text)
-	if functions.is_empty() and module.presets.is_empty(): return
-	if module.identifiers.has("_GOGO_RENDER_FUNCTIONS"):
+	for identifier in module.identifiers:
+		if identifier.begins_with("_GOGO_RENDER_FUNCTIONS_"):
+			file.fail("Reserved compiler render metadata prefix _GOGO_RENDER_FUNCTIONS_",0)
+			return
+	if module.identifiers.has("_GOGO_RENDER_FUNCTIONS") or module.identifiers.has("_GOGO_ORDINARY_FUNCTIONS"):
 		file.fail("Reserved compiler render metadata name _GOGO_RENDER_FUNCTIONS",0)
 		return
 	module.parts.assign(_rewrite(module.parts))
@@ -129,7 +134,7 @@ func _rewrite(parts: Array, force: bool = false) -> Array:
 			var receiver: String = tokens[index-3].text
 			scripted = resolver.aliases.has(receiver) or not _receiver_type(receiver,tokens[index].span.start.index).is_empty()
 		if name in TRAVERSAL and not scripted and not methods.has(name): continue
-		if native_methods.has(name) and not scripted and not methods.has(name): continue
+		if native_methods.has(name) and not scripted and not methods.has(name) and not (name in ["call","callv"] and index>1 and tokens[index-2].text=="."): continue
 		var end := _close(tokens,index)
 		if end<0: continue
 		var begin := index-1
@@ -137,13 +142,13 @@ func _rewrite(parts: Array, force: bool = false) -> Array:
 		# receivers, stay actual native method references in emitted code.
 		while begin>1 and tokens[begin-1].text==".":
 			begin -= 2
-			if tokens[begin].text in [")","]"]:
+			if tokens[begin].text in [")","]","}"]:
 				var depth := 1
 				var close: String = tokens[begin].text
 				while begin>0 and depth>0:
 					begin -= 1
 					if tokens[begin].text==close: depth += 1
-					elif tokens[begin].text==("(" if close==")" else "["): depth -= 1
+					elif tokens[begin].text=={")":"(","]":"[","}":"{"}[close]: depth -= 1
 				if begin>0 and tokens[begin-1].kind=="identifier": begin -= 1
 		var args: Array = []
 		var cursor := index+1
@@ -156,7 +161,7 @@ func _rewrite(parts: Array, force: bool = false) -> Array:
 				args.append(file.span(tokens[cursor].span.start.index,tokens[offset].span.start.index))
 				cursor = offset+1
 		if cursor<end: args.append(file.span(tokens[cursor].span.start.index,tokens[end].span.start.index))
-		calls.append({"span":file.span(tokens[begin].span.start.index,tokens[end].span.end.index),"callee":file.span(tokens[begin].span.start.index,tokens[index-1].span.end.index),"arguments":args,"result_type":_type(tokens,begin,index-1),"receiver":file.span(tokens[begin].span.start.index,tokens[index-2].span.start.index) if index>1 and tokens[index-2].text=="." else null,"method":name,"callable_value":begin==index-1 and not methods.has(name) and lexical.symbols.any(func(symbol): return symbol.name==name),"reactive_lambda":_lambda_at(name,tokens[index].span.start.index) if begin==index-1 or begin==index-3 and tokens[begin].text=="self" else false})
+		calls.append({"span":file.span(tokens[begin].span.start.index,tokens[end].span.end.index),"callee":file.span(tokens[begin].span.start.index,tokens[index-1].span.end.index),"arguments":args,"result_type":_type(tokens,begin,index-1),"receiver":file.span(tokens[begin].span.start.index,tokens[index-2].span.start.index) if index>1 and tokens[index-2].text=="." else null,"method":name,"callable_value":begin==index-1 and not methods.has(name) and lexical.symbols.any(func(symbol): return symbol.name==name),"reactive_lambda":_lambda_at(tokens[begin].text,tokens[index].span.start.index) if begin==index-3 and name in ["call","callv"] else _lambda_at(name,tokens[index].span.start.index) if begin==index-1 or begin==index-3 and tokens[begin].text=="self" else false})
 	calls.sort_custom(func(a,b): return a.span.start.index<b.span.start.index or a.span.start.index==b.span.start.index and a.span.end.index>b.span.end.index)
 	if parts.is_empty(): return parts
 	return _range(parts,parts[0].span.start.index,parts[-1].span.end.index,calls)
@@ -210,7 +215,7 @@ func _returns(tokens: Array) -> Dictionary:
 		result[tokens[index+1].text] = type
 	return result
 func _type(tokens: Array, begin: int, end: int) -> String:
-	if begin==end or end-begin==2 and tokens[begin].text=="self": return returns.get(tokens[end].text,"")
+	if begin==end or end-begin==2 and tokens[begin].text in ["self","super"]: return returns.get(tokens[end].text,"")
 	var receiver := begin+2 if tokens[begin].text=="self" else begin
 	if end-receiver!=2: return ""
 	var alias: String = tokens[receiver].text
@@ -303,3 +308,30 @@ func _lambda_at(name: String, offset: int) -> bool:
 		if found!=null: return found.reactive
 		scope = lexical.scopes[scope].parent
 	return false
+
+# Return signatures are source-only and include ordinary inherited helpers.
+func _inherited_returns(source, tokens: Array, seen: Dictionary) -> Dictionary:
+	for index in range(tokens.size()-1):
+		if tokens[index].text!="extends" or tokens[index].span.start.column!=1: continue
+		var target = tokens[index+1]
+		var path: String = ""
+		if target.kind=="string":
+			path = target.text.substr(1,target.text.length()-2)
+			if not path.is_absolute_path(): path = source.generated_path().get_base_dir().path_join(path).simplify_path()
+		else: path = resolver.aliases.get(target.text,resolver.globals.get(target.text,""))
+		if path.is_empty() or seen.has(path): return {}
+		seen[path] = true
+		var authored: String = path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo")
+		if path.get_base_dir().get_file()=="generated" and FileAccess.file_exists(authored): path = authored
+		if not FileAccess.file_exists(path): return {}
+		var project = resolver.scope()
+		var key: String = project.authored(path)
+		var text: String = project.read(key) if project.sources.has(key) else FileAccess.get_file_as_string(path)
+		var imported = Source.new(text,path,path if path.get_extension()=="gd" else "")
+		var parsed = Parser.new(imported).parse()
+		if parsed==null: return {}
+		var inherited := _tokens(parsed.parts,imported)
+		var result := _returns(inherited)
+		result.merge(_inherited_returns(imported,inherited,seen),false)
+		return result
+	return {}

@@ -22,7 +22,7 @@ func _initialize():
 	var result = compile(body)
 	check(result.ok and native(result),"native typed calls, inferred locals and GGX helper lowering")
 	if result.ok:
-		check(result.code.contains('_GOGO_RENDER_FUNCTIONS = ["badge", "build_view"]') and not result.code.contains('["label",'),"actual authored GGX classifies reactive functions; ordinary function stays opaque")
+		check(result.code.contains('"reactive": ["badge", "build_view"]') and result.code.contains('"ordinary": ["label"]'),"actual authored GGX classifies reactive functions; ordinary function stays opaque")
 		check(result.code.count('.call_at(')>=3 and result.code.contains(' as String)'),"distinct sourced invocation sites and preserved return inference")
 		var again = Compiler.compile(HEADER+body,"res://Probe.gogo","res://generated/Probe%d.gd" % sequence)
 		check(again.code==result.code and again.source_map.serialize()==result.source_map.serialize(),"deterministic sourced call lowering")
@@ -41,7 +41,7 @@ func _initialize():
 	result = compile('static func badge(value: String)->Element:return <Text text={value} />\nfunc build_view()->Element:return badge("static")\n')
 	check(result.ok and native(result) and result.code.contains('"badge"'),"static GGX helper classification uses authored body")
 	result = compile('func no_markup()->Element:return Element.new(Text)\nfunc build_view()->Element:return <Box>{no_markup()}</Box>\n')
-	check(result.ok and native(result) and not result.code.contains('["no_markup",'),"manual Element construction is an ordinary function")
+	check(result.ok and native(result) and result.code.contains('"reactive": ["build_view"]'),"manual Element construction is an ordinary function")
 	result = compile('func event()->void:pass\nfunc build_view()->Element:return <Node2D ready={event} />\n')
 	check(result.ok and native(result) and not result.code.contains('.call_at('),"handler references are not invocations")
 	result = compile('func helper()->String:return "literal helper()"\nfunc build_view()->Element:\n\t# helper() is a comment\n\treturn <Text text="helper()" />\n')

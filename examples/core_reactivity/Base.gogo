@@ -1,0 +1,18 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+@bindable var title: String = "Base"
+var ordinary_calls: int = 0
+var hidden_calls: int = 0
+var base_calls: int = 0
+func ordinary(value: String) -> String:
+    ordinary_calls += 1
+    return value.to_upper()
+func hidden() -> String:
+    hidden_calls += 1
+    return self.title
+func badge() -> Element:
+    base_calls += 1
+    var label: String = self.title
+    return <Text name="BaseBadge" text={label} />

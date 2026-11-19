@@ -22,3 +22,7 @@ var width: float = 120.0:
 		return width
 
 
+const _GOGO_RENDER_FUNCTIONS_1d200479dc2601fd = {
+"ordinary": [],
+"reactive": []
+}

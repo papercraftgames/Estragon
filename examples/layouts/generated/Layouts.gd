@@ -191,8 +191,10 @@ func build_view() -> Element:
         (_GogoLayout_55)
     )
 
-const _GOGO_RENDER_FUNCTIONS = ["original_side", "scoped_side", "build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_f2fec2704cfba1c7 = {
+"ordinary": ["clicked"],
+"reactive": ["original_side", "scoped_side", "build_view"]
+}
 
 const _GogoLayout_0 = preload("../../../addons/estragon/runtime/node/grid.gd")
 

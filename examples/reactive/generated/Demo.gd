@@ -62,8 +62,10 @@ func write_proof() -> void:
     var file := FileAccess.open("res://.godot/reactive-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":ui.get_node("Panel/Count").text}))
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_fef0071616b06981 = {
+"ordinary": ["independent", "_ready", "advance", "write_proof"],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

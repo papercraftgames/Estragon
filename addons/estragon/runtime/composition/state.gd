@@ -83,8 +83,8 @@ func unmount(host: Node, rescue: Node = null) -> void:
 
 # A function is the reactive unit. Ordinary bodies run behind an observation
 # boundary, while their arguments were already evaluated by native GDScript.
-func call_at(site: String, callable: Callable, arguments: Array, _native_proof: Callable = Callable(), reactive_lambda: bool = false):
-	if owners.is_empty() or opaque>0: return callable.callv(arguments)
+func call_at(site: String, callable: Callable, arguments: Array, _native_proof: Callable = Callable(), reactive_lambda: bool = false, cache_target: Variant = null, native_adapter: Callable = Callable(), adapter_receiver: Variant = null):
+	if owners.is_empty() or opaque>0: return native_adapter.call(adapter_receiver,arguments) if native_adapter.is_valid() else callable.callv(arguments)
 	# Variant built-ins (Array/Dictionary/String) have no Object receiver.
 	# They remain native operations; application Script methods have stable IDs.
 	if callable.get_object_id()==0: return callable.callv(arguments)
@@ -109,8 +109,8 @@ func call_at(site: String, callable: Callable, arguments: Array, _native_proof: 
 	parent.used[entry] = true
 	var object: Object = instance_from_id(callable.get_object_id())
 	var method: StringName = &"" if callable.is_custom() else callable.get_method()
-	var target := callable
-	var hit: bool = entry.initialized and not entry.dirty and entry.target==target and entry.matches(arguments)
+	var target = callable if cache_target==null else cache_target
+	var hit: bool = entry.initialized and not entry.dirty and typeof(entry.target)==typeof(target) and entry.target==target and entry.matches(arguments)
 	if hit:
 		if Profile.is_enabled(): Profile.add("render_cache_hits")
 		return entry.result
@@ -135,7 +135,7 @@ func call_at(site: String, callable: Callable, arguments: Array, _native_proof: 
 	invocations.append(frame)
 	begin()
 	if not reactive: opaque += 1
-	var result = callable.callv(arguments)
+	var result = native_adapter.call(adapter_receiver,arguments) if native_adapter.is_valid() else callable.callv(arguments)
 	if not reactive: opaque -= 1
 	entry.reads = finish()
 	entry.reads.merge(argument_reads,true)
@@ -149,7 +149,10 @@ func _reactive(object, method: StringName) -> bool:
 	if not is_instance_valid(object): return false
 	var script = object if object is Script else object.get_script()
 	while script is Script:
-		if method in script.get_script_constant_map().get("_GOGO_RENDER_FUNCTIONS",[]): return true
+		var metadata := _metadata(script)
+		if metadata.is_empty(): return false # Ordinary imported .gd body.
+		if method in metadata.ordinary: return false
+		if method in metadata.reactive: return true
 		script = script.get_base_script()
 	return false
 func _prune(frame: Dictionary) -> void:
@@ -192,12 +195,39 @@ func in_slot(site: String, key, body: Callable):
 	return result
 
 func method_at(site: String, receiver, method: StringName, arguments: Array, native_call: Callable, _native_proof: Callable = Callable(), reactive_lambda: bool = false):
+	if receiver is Callable and method in [&"call",&"callv"]:
+		return call_at(site,receiver,arguments[0] if method==&"callv" else arguments,Callable(),reactive_lambda)
 	if typeof(receiver)==TYPE_OBJECT:
 		if not is_instance_valid(receiver): return null
-		if receiver.has_method(method): return call_at(site,Callable(receiver,method),arguments)
+		if method in [&"call",&"callv"] and not arguments.is_empty() and (arguments[0] is String or arguments[0] is StringName):
+			return call_at(site,Callable(receiver,arguments[0]),arguments[1] if method==&"callv" else arguments.slice(1))
+		if receiver is Script or receiver.has_method(method): return call_at(site,Callable(receiver,method),arguments)
 		var value = receiver.get(method)
 		if value is Callable: return call_at(site,value,arguments,Callable(),reactive_lambda)
 		return null
 	# Native Variant methods have no script body/dependency boundary. This also
 	# preserves normal Array callback traversal without a second evaluator.
 	return native_call.call(receiver,arguments)
+
+# super is native syntax, never an Object value. Its adapter executes the real
+# base call while a stable lexical identity owns the cache between invocations.
+func base_at(site: String, receiver: Object, declaring_path: String, method: StringName, arguments: Array, native_call: Callable, _native_proof: Callable = Callable()):
+	var script = receiver.get_script()
+	while script is Script and script.resource_path!=declaring_path: script = script.get_base_script()
+	var reactive := false
+	if script is Script:
+		script = script.get_base_script()
+		while script is Script:
+			var metadata := _metadata(script)
+			if metadata.is_empty() or method in metadata.ordinary: break
+			if method==&"build_view" or method in metadata.reactive: reactive = true; break
+			script = script.get_base_script()
+	return call_at(site,native_call,arguments,Callable(),reactive,[receiver.get_instance_id(),declaring_path,method],native_call,receiver)
+
+func _metadata(script: Script) -> Dictionary:
+	var constants: Dictionary = script.get_script_constant_map()
+	var base = script.get_base_script()
+	var inherited: Dictionary = base.get_script_constant_map() if base!=null else {}
+	for key in constants:
+		if str(key).begins_with("_GOGO_RENDER_FUNCTIONS_") and not inherited.has(key): return constants[key]
+	return {}

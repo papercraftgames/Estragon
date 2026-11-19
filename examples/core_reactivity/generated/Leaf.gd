@@ -20,8 +20,10 @@ func build_view() -> Element:
     var label: String = "null" if self.model == null else self.model.label
     return _GogoFactories_0._gogo_build_0((label))
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_4aa00326bb5946cd = {
+"ordinary": [],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

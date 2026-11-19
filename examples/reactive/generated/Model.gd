@@ -12,3 +12,7 @@ var player: State = State.new():
 		return player
 
 
+const _GOGO_RENDER_FUNCTIONS_4a53a15fe02c3d6e = {
+"ordinary": [],
+"reactive": []
+}

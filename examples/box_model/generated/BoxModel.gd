@@ -44,8 +44,10 @@ func build_view() -> Element:
         (change_padding)
     )
 
-const _GOGO_RENDER_FUNCTIONS = ["build_view"]
-
+const _GOGO_RENDER_FUNCTIONS_4607800c3a8b3df4 = {
+"ordinary": ["change_padding"],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

@@ -56,7 +56,9 @@ func _resource(resource: Resource) -> String:
 
 func emit() -> MappedWriter:
 	_parts(_module.parts)
-	if not _module.render_functions.is_empty(): _writer.append("\nconst _GOGO_RENDER_FUNCTIONS = "+var_to_str(_module.render_functions)+"\n")
+	var metadata := "_GOGO_RENDER_FUNCTIONS_"+_file.name.sha256_text().substr(0,16)
+	while _module.identifiers.has(metadata): metadata += "_"
+	_writer.append("\nconst "+metadata+" = "+var_to_str({"reactive":_module.render_functions,"ordinary":_module.ordinary_functions}))
 	_writer.append("\n")
 	var exports := {}
 	for binding in _module.presets:
@@ -346,8 +348,11 @@ func _render_call(node: Model.RenderCall) -> void:
 	if cast in ["void","Variant"]: cast = ""
 	if not cast.is_empty(): _writer.append("(",node.span)
 	var member := not node.receiver.is_empty()
-	_writer.append("preload("+_resource(State)+")."+("method_at" if member else "call_at")+"("+_string(_file.name+":"+str(node.span.start.offset))+", ",node.span)
-	if member:
+	var base := member and node.receiver.size()==1 and node.receiver[0] is Model.Code and _file.text.substr(node.receiver[0].span.start.index,node.receiver[0].span.end.index-node.receiver[0].span.start.index).strip_edges()=="super"
+	_writer.append("preload("+_resource(State)+")."+("base_at" if base else "method_at" if member else "call_at")+"("+_string(_file.name+":"+str(node.span.start.offset))+", ",node.span)
+	if base:
+		_writer.append("self, "+_string(_output_directory.path_join(_file.generated_path().get_file()))+", "+_string(node.method),node.span)
+	elif member:
 		_parts(node.receiver)
 		_writer.append(", "+_string(node.method),node.span)
 	else: _parts(node.callee)
@@ -360,7 +365,7 @@ func _render_call(node: Model.RenderCall) -> void:
 		var args := "_gogo_arguments"
 		while _module.identifiers.has(receiver): receiver += "_"
 		while _module.identifiers.has(args): args += "_"
-		_writer.append("], func("+receiver+", "+args+"): "+("" if node.result_type=="void" else "return ")+receiver+"."+node.method+"(",node.span)
+		_writer.append("], func("+receiver+", "+args+"): "+("" if node.result_type=="void" else "return ")+("super" if base else receiver)+"."+node.method+"(",node.span)
 		for index in range(node.arguments.size()):
 			if index>0: _writer.append(", ",node.span)
 			_writer.append(args+"["+str(index)+"]",node.span)
