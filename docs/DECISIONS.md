@@ -1,5 +1,8 @@
 # Architecture decisions and open questions
 
+> **Implementation status note (2026-11-18):** Accepted ADR-0015/0016 product architecture is **implemented** through native C4, F01–F06, L07–L10, and merged EL02 [PR #193](https://github.com/papercraftgames/Estragon/pull/193). Individual earlier ADR paragraphs saying a milestone is “queued” preserve historical decision dates, not current implementation state. Read [post-EL02 baseline](PROJECT_BASELINE_2026-11-18.md) and live [#195–#209 issues](https://github.com/papercraftgames/Estragon/issues/195) for gaps and current order. No old-alpha compatibility obligations; accepted design decisions remain authoritative unless replaced explicitly.
+
+
 This file is a lightweight decision log. Decisions marked **provisional** are not settled by the code scaffold.
 
 ## ADR-0001 — Own the UI stack

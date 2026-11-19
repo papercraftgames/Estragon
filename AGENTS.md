@@ -1,5 +1,8 @@
 # AGENTS.md — Working on Estragon
 
+> **Current project/issue source of truth (2026-11-18):** [post-EL02 architecture and core-first roadmap](docs/PROJECT_BASELINE_2026-11-18.md), [reconciliation #194](https://github.com/papercraftgames/Estragon/issues/194), and individually scoped [#195–#209](https://github.com/papercraftgames/Estragon/issues/195). Older task queues/issue checklists are historical; start at the new issue's acceptance and merged source. The owner explicitly prioritizes core reactive correctness, Gogo formatting and real form inputs ahead of adaptive layout/editor novelty. **This is an alpha/beta with no backwards-compatibility requirement:** replace wrong APIs cleanly rather than retaining legacy aliases. The one-open-PR, owner merge, native proof and delivery rules below remain intact.
+
+
 > Repository-wide instructions for AI coding agents and automated contributors. Read this before editing code or opening a PR. These instructions distinguish the **current repository** from owner-approved future architecture; target approval is not implementation evidence.
 
 ## Standing authorization: local repository cleanup
