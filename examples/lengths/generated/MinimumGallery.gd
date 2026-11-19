@@ -59,6 +59,8 @@ func build_view() -> Element:
         panel.properties["min_height"] = "200px"
     return _GogoFactories_0._gogo_build_1((panel))
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 const _GogoProject_0 = preload("MinimumPanel.gd")
 

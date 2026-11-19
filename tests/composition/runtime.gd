@@ -177,8 +177,8 @@ func run() -> void:
 	var resource_weak: WeakRef = resource_lifetime(resource_script,true)
 	check(control_weak.get_ref()==null and resource_weak.get_ref()==null,"native and observed Resource sources release after the creator frame returns")
 	var conditional_script := GDScript.new()
-	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nfunc heading() -> String:\n\treturn model.title if count % 2 == 0 else "Odd"\nfunc build_view() -> Element:\n\tvar view: Element = super.build_view()\n\tif count > 0: view.children[0].children[3].handlers["pressed"] = reset_count\n\treturn view\n'
-	check(conditional_script.reload()==OK,"ordinary helper branching compiles without a dependency-expression parser")
+	conditional_script.source_code = 'extends "res://examples/composition/generated/Counter.gd"\nconst ActionButton=preload("res://addons/estragon/runtime/node/button.gd")\nfunc heading(title: String) -> String: return title\nfunc build_view() -> Element:\n\tvar caption: String = heading(model.title) if count % 2 == 0 else "Odd"\n\treturn Element.new(Entry,{"name":"UI"},{},[Element.new(VBox,{"name":"Panel"},{},[Element.new(Text,{"text":caption}),Element.new(ActionButton,{"name":"Increment"},{"pressed":reset_count if count>0 else increment})])])\n'
+	check(conditional_script.reload()==OK,"explicit ordinary helper arguments retain native conditional getter observation")
 	var conditional = conditional_script.new()
 	root.add_child(conditional)
 	await settle()

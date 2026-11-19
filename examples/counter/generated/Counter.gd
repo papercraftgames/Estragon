@@ -56,6 +56,8 @@ func write_proof() -> void:
     var file := FileAccess.open("res://.godot/c3-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":ui.get_node("Panel/Count").text,"native":ui.get_layout_root()==ui}))
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

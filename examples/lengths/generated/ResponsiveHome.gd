@@ -20,6 +20,8 @@ func build_view() -> Element:
         (16)
     )
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 const _GogoProject_0 = preload("ResponsivePanel.gd")
 

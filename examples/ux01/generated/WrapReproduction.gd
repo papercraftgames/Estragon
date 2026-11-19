@@ -15,6 +15,8 @@ func build_view() -> Element:
 		(true)
 	)
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 const _GogoProject_0 = preload("UXSettings.gd")
 

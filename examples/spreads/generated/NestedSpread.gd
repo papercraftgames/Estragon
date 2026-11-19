@@ -16,6 +16,8 @@ var caption: String = "Nested":
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"width":"100%", "padding":"6px", "background_color":"#30394d"})), (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":self.caption})))
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

@@ -77,16 +77,18 @@ func button_values() -> Dictionary:
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0(
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.panel)),
-		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(emphasis())),
+		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/spreads/SpreadGallery.gogo:1720", emphasis, [], func(): emphasis()) as Dictionary))),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Ordinary dictionaries, native properties", "color":Color("#ffc65c")})),
-		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(button_values())),
+		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/spreads/SpreadGallery.gogo:1945", button_values, [], func(): button_values()) as Dictionary))),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Enabled", "min_width":"120px", "min_height":"36px"})),
 		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Native Button", "pressed":native_pressed})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"width":"100%", "height":"12px", "background_color":"#355e92"})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"caption":"Nested spread, retained native nodes"})),
-		(_GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Explicit key + spread"}))) if self.show_extra else null)
+		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/spreads/SpreadGallery.gogo:2365", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Explicit key + spread"})))) if self.show_extra else null)
 	)
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 const _GogoProject_0 = preload("NestedSpread.gd")

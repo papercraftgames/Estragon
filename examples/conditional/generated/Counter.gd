@@ -89,6 +89,8 @@ var unobserved: int = 0:
         return unobserved
 
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 const _GogoProject_0 = preload("Child.gd")
 

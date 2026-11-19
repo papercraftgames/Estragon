@@ -7,6 +7,8 @@ func exit() -> void:
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((self.exit))
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

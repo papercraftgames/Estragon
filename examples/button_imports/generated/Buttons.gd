@@ -65,6 +65,8 @@ func build_view() -> Element:
 		(self.selected)
 	)
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 const _GogoProject_0 = preload("NativeOnly.gd")
 

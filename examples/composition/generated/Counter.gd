@@ -39,14 +39,14 @@ var model: Model = Model.new():
         preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"model_changed")
         return model
 
-func heading() -> String:
-    return model.title
+func heading(title: String) -> String:
+    return title
 func build_view() -> Element:
     var caption: String = "Count: %d" % count
     return _GogoFactories_0._gogo_build_0(
         (Vector2(24,24)),
         (12.0),
-        (heading()),
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/composition/Counter.gogo:920", heading, [model.title], func(): heading(model.title)) as String)),
         (Color(0.74,0.64,0.94)),
         (caption),
         (model.width + count * 10.0),
@@ -66,6 +66,8 @@ func write_proof() -> void:
     for index in range(5): await get_tree().process_frame
     var file := FileAccess.open("res://.godot/composition-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":get_node("UI/Panel/Count").text}))
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 func _notification(_gogo_what: int) -> void:

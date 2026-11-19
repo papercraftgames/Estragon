@@ -62,7 +62,7 @@ func build_view() -> Element:
 		(self.username),
 		(self.label),
 		(self.username),
-		(body_value()),
+		(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ux01/Ergonomics.gogo:1315", body_value, [], func(): body_value())),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"wrap":false})),
 		(pressed),
 		(self.label),
@@ -70,6 +70,8 @@ func build_view() -> Element:
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"wrap":false})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.extra))
 	)
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 func _notification(_gogo_what: int) -> void:

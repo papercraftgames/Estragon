@@ -60,9 +60,11 @@ func build_view() -> Element:
         (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
         (false),
         (self.native_clicked),
-        (keys.map(func(id): return _GogoFactories_0._gogo_build_1((id), ("Key"+str(id))))),
+        (keys.map(func(id): return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/styling/WidgetGallery.gogo:3227", id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), ("Key"+str(id)))))),
         (_GogoFactories_0._gogo_build_2() if self.extra else null)
     )
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 const _GogoProject_0 = preload("StyledRose.gd")

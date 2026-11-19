@@ -67,28 +67,30 @@ var show_overflow: bool = true:
 var clicks: int = 0
 func pressed(): clicks += 1
 func row(index: int) -> Element:
-	if index==0: return _GogoFactories_0._gogo_build_0((index), (Vector2(0,60)), (pressed))
-	if index==1: return _GogoFactories_0._gogo_build_1((index), (pressed))
-	if index==2: return _GogoFactories_0._gogo_build_2((index), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")))
-	if index==3: return _GogoFactories_0._gogo_build_3((index), (2))
-	if index==4: return _GogoFactories_0._gogo_build_4((index))
-	return _GogoFactories_0._gogo_build_5(
-		(index),
+	if index==0: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1052", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((_gogo_mount_key), (Vector2(0,60)), (pressed)))
+	if index==1: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1206", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), (pressed)))
+	if index==2: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1328", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2((_gogo_mount_key), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled"))))
+	if index==3: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1443", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((_gogo_mount_key), (2)))
+	if index==4: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1627", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_4((_gogo_mount_key)))
+	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1762", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_5(
+		(_gogo_mount_key),
 		("Row"+str(index)),
 		(pressed),
 		(str(index))
-	)
+	))
 func build_view() -> Element:
 	var panel := {"background_color":"#252b38","padding":"8px"}
 	return _GogoFactories_0._gogo_build_6(
 		(self.username),
 		(pressed),
 		(pressed),
-		(_GogoFactories_0._gogo_build_7() if self.show_overflow else null),
+		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:2447", "overflow", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_7()) if self.show_overflow else null),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(panel)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.extra)),
 		(self.order.map(row))
 	)
+
+const _GOGO_RENDER_FUNCTIONS = ["row", "build_view"]
 
 
 func _notification(_gogo_what: int) -> void:

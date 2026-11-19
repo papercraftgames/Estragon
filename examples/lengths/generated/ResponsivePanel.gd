@@ -31,6 +31,8 @@ func build_view() -> Element:
         (self.toggle_width)
     )
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

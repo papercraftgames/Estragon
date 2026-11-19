@@ -49,7 +49,7 @@ func build_view() -> Element:
         (Color(0.55,0.32,0.9)),
         ("Value: %d" % (self.count + self.count)),
         (advance),
-        (independent())
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/reactive/Demo.gogo:1857", independent, [], func(): independent()) as String))
     )
 func advance() -> void:
     count += 1
@@ -61,6 +61,8 @@ func write_proof() -> void:
     await get_tree().process_frame
     var file := FileAccess.open("res://.godot/reactive-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":count,"text":ui.get_node("Panel/Count").text}))
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 func _notification(_gogo_what: int) -> void:

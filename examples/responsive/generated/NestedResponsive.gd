@@ -8,6 +8,8 @@ func pressed() -> void: clicks += 1
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((true), (pressed), (pressed))
 
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
+
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

@@ -7,17 +7,17 @@ const Custom = preload("res://examples/ggx/probe_3d.gd")
 func build_view() -> Element:
     return _GogoFactories_0._gogo_build_0(
         (1),
-        (Vector3(value("root",0),0,0)),
-        (value("gap",0.5)),
+        (Vector3(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:432", value, ["root", 0], func(): value("root",0)),0,0)),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:459", value, ["gap", 0.5], func(): value("gap",0.5))),
         (1),
-        (value("first",2.0)),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:534", value, ["first", 2.0], func(): value("first",2.0))),
         (1.2),
         (1.0),
-        (make_mesh()),
-        (make_mesh(Color(0.55,0.35,0.9))),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:628", make_mesh, [], func(): make_mesh())),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:741", make_mesh, [Color(0.55,0.35,0.9)], func(): make_mesh(Color(0.55,0.35,0.9)))),
         (true),
         (on_timeout),
-        (value("custom",7)),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/ThreeD.gogo:936", value, ["custom", 7], func(): value("custom",7))),
         (palette),
         (Vector3(10,20,30)),
         (Vector3(1,2,3))
@@ -30,6 +30,8 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
     if palette.changed.is_connected(on_palette_changed): palette.changed.disconnect(on_palette_changed)
 
+
+const _GOGO_RENDER_FUNCTIONS = ["build_view"]
 
 
 func _notification(_gogo_what: int) -> void:

@@ -3,6 +3,7 @@ extends RefCounted
 ## Reusable description defaults, not Nodes. Evaluation occurs inside the caller's
 ## existing composition read scope. Native types/identity/commit remain authoritative.
 const ESTRAGON_PRESET := true
+const State = preload("state.tres")
 const Definition = preload("../node/internal/grid_definition.gd")
 const Element = preload("element.gd")
 var base: Variant
@@ -42,7 +43,7 @@ func describe(instance: Element) -> Element:
 		return instance
 	var merged := {}
 	var locations := {}
-	for group in defaults.call():
+	for group in State.in_slot(instance.source+"/defaults",null,func(_key): return defaults.call()):
 		var expanded := Element.new(desired.type)
 		expanded.expand(group)
 		if not expanded.attribute_error.is_empty():

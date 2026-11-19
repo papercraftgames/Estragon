@@ -97,7 +97,19 @@ class Preset extends RefCounted:
 	var mutable := false
 	var exported := false
 
+class RenderCall extends SyntaxNode:
+	var result_type: String = ""
+	var reactive_lambda := false
+	var callable_value := false
+	var callee: Array[SyntaxNode] = []
+	var receiver: Array[SyntaxNode] = []
+	var method: String = ""
+	var arguments: Array = []
+	var original: Array[SyntaxNode] = []
+	func _init() -> void: kind = "render-call"
+
 class Module extends RefCounted:
+	var render_functions: Array = []
 	var presets: Array = []
 	var import_aliases: Dictionary = {}
 	var identifier_imports: Array = []
