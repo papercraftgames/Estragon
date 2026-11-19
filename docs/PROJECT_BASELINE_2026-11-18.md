@@ -2,7 +2,7 @@
 
 **Snapshot:** November 18, 2026, after the owner merged [EL02 PR #193](https://github.com/papercraftgames/Estragon/pull/193) (merge commit `21794a057b626c92bb079cf369faf8953a427c60`).  
 **Reconciliation tracker:** [#194](https://github.com/papercraftgames/Estragon/issues/194).  
-**Status:** Project-state and issue-plan baseline. This file states what has been delivered, what remains missing, and the chosen priority order. It is **not** a claim that future work is implemented.
+**Status:** Project-state and issue-plan baseline. This file states what has been delivered, what remains missing, and the chosen priority order. **New scoped issue series: #195–#209.** It is **not** a claim that future work is implemented.
 
 ## 1. Product direction and rule of interpretation
 
@@ -88,55 +88,56 @@ Actual possible gaps, to tackle narrowly:
 
 After that, fill deliberate missing text/intrinsic-layout, additional common form controls, accessibility and polish. Existing native Godot LineEdit/CheckBox/Controls remain available as a practical integration path; they are not proof Estragon's own API is complete.
 
-## 6. Core-first dependency order
+## 6. Core-first dependency order — new actionable issues
 
-A fresh issue series follows. **Each item is a distinct bounded delivery scope; one PR at a time.** The precise new issue URLs are added after filing.
+These are **15 individually filed, priority-numbered tasks**. Their issue bodies hold implementable acceptance and proof. Only one PR can be open, owner merges, and numbering is not permission to start several simultaneously.
 
-| Order | Work ID | Work package | Depends on / rationale |
+| Order | Issue | Work package | Rationale/dependency |
 | --- | --- | --- | --- |
-| 1 | CORE-01 | Reactive execution, derived/computed-value semantics and selective invalidation hardening | Validate architecture first; fix only proven correctness/performance gaps. |
-| 2 | EDIT-01 | Real Gogo/GGX formatter and indentation | Essential daily authoring; independent of controls. |
-| 3 | UI-01 | Shared Estragon input, focus, keyboard, accessibility and native text-edit delegation contract | Unblocks reliable editable controls; prove both supported engines. |
-| 4 | UI-02 | Estragon-owned Checkbox | Small complete control over existing Toggle/bool binding foundations. |
-| 5 | UI-03 | Estragon-owned editable Input and String `bind:value` | Requires UI-01 and CORE-01; real text behavior, not visual mock. |
-| 6 | CORE-02 | Automatic observable collection change paths, list-map derived reactivity and keyed stability | Preserve ordinary Arrays/maps, add only the needed narrow observation facility. |
-| 7 | LAYOUT-01 | Constraint-aware intrinsic text, nested auto sizing and measurement/invalidation correctness | Required for robust real forms/content; retain one slot solver. |
-| 8 | UI-04 | Common remaining form controls and coherent form behavior | Native/select/radio/slider/number etc; prioritize actual game/app needs. |
-| 9 | LAYOUT-02 | Out-of-flow placement and reactive native transform authority | Tackle after content/layout contract is solid; no parallel solver. |
-| 10 | TEXT-01 | Text shaping, wrapping, DPI/localization and accessibility completion | Full text/focus behavior; no unverified blanket platform promise. |
-| 11 | LAYOUT-03 | Container-responsive named-area template selection | **Only** the actual advanced EasyLayout gap; no new compiler/parser engine. |
-| 12 | EDIT-02 | Godot native Scene dock / 2D viewport integration for Gogo-authored and node-authored views | Deliberate design/prototype, compare node vs GGX source of truth. No assumed generator. |
-| 13 | GOGO-01 | Remaining measured GGX authoring ergonomics | Only specific high-value syntax/editor improvements after core/format. |
-| 14 | RELEASE-01 | Alpha distribution, native export/pack integrity and current-beta publication gate | Current source/engines only; reproduce historical bugs before fixing. |
+| 1 | [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195) | Reactive execution, derived calculations and selective scheduling | First correctness gate. Confirm no need for separate computed-region runtime. |
+| 2 | [EDIT-01 #196](https://github.com/papercraftgames/Estragon/issues/196) | Native Gogo formatter and safe GGX indentation | Urgent authoring foundation; independent of forms. |
+| 3 | [UI-01 #197](https://github.com/papercraftgames/Estragon/issues/197) | Focus, keyboard and text-edit delegate infrastructure | Unblocks real form input and Checkbox. |
+| 4 | [UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198) | Estragon Checkbox | Depends UI-01; reuses Bool model binding. |
+| 5 | [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199) | Editable Input + typed String bind:value | Depends CORE-01/UI-01. |
+| 6 | [CORE-02 #200](https://github.com/papercraftgames/Estragon/issues/200) | Observable collection mutation and keyed mapped updates | Reuses one manager; no required Repeater. |
+| 7 | [LAYOUT-01 #201](https://github.com/papercraftgames/Estragon/issues/201) | Constraint-aware text/intrinsic measurement and nested auto sizing | Existing slot core, no rewrite. |
+| 8 | [UI-04 #202](https://github.com/papercraftgames/Estragon/issues/202) | Radio/choice selection controls | After focus/input foundations. |
+| 9 | [UI-05 #203](https://github.com/papercraftgames/Estragon/issues/203) | Select, Slider and numeric controls | After common choice/value semantics; split before implementation if needed. |
+| 10 | [LAYOUT-02 #204](https://github.com/papercraftgames/Estragon/issues/204) | Out-of-flow placement and native transform authority | After measurement contracts. |
+| 11 | [TEXT-01 #205](https://github.com/papercraftgames/Estragon/issues/205) | Text wrapping/shaping/fallback and accessibility essentials | Crosscuts controls and layout. |
+| 12 | [RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206) | Current-source alpha package/export/publication readiness | After core UI; no retro compatibility or automatic publish. |
+| 13 | [LAYOUT-03 #207](https://github.com/papercraftgames/Estragon/issues/207) | Container-responsive named-area template recipes | The actual optional Advanced EasyLayout gap; later. |
+| 14 | [EDIT-02 #208](https://github.com/papercraftgames/Estragon/issues/208) | Native Godot 2D/Scene authoring integration | Prototype source-of-truth; not presumed GGX generator. |
+| 15 | [GOGO-01 #209](https://github.com/papercraftgames/Estragon/issues/209) | Remaining targeted GGX ergonomics | Late, and only if concrete productivity value. |
 
-The sequence is **priority**, not permission to run fourteen Codex sessions or simultaneous PRs. Owner may choose a smaller next scope after each merge. Basic correctness and forms take priority over breakpoints, designer, syntax candy or broad release marketing.
+**Phases:** 1–7 core execution/editor/forms/data/measurement; 8–11 core control/text/position completion; 12 distribution quality; 13–15 optional adaptive/visual/syntax authoring. The next work is [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195); urgent formatter [#196](https://github.com/papercraftgames/Estragon/issues/196) follows. A later issue may be intentionally skipped or split if evidence shows it adds no value, without reopening the old umbrella issues.
 
 ## 7. Old open issue reconciliation ledger (pre-reset)
 
-**Twenty pre-reset open issues**, verified November 18; the #194 tracking issue is new and excluded. Closure means **completed/superseded/absorbed into the fresh plan**, not that every historical checklist and feature was proved complete. Historic failures remain historic evidence; new reproducible bugs may be reopened as focused new issues.
+**Twenty pre-reset open issues**, verified November 18; the [#194 tracker](https://github.com/papercraftgames/Estragon/issues/194) is new and excluded. Closure means **completed/superseded/absorbed into the fresh plan**, not that every historical checklist and feature was proved complete. Historic failures remain historic evidence; new reproducible bugs may be reopened as focused new issues.
 
 | Old issue | Decision | Successor/retained context |
 | --- | --- | --- |
 | [#1](https://github.com/papercraftgames/Estragon/issues/1) old separate retained display tree | Close: architecture superseded | Native Node2D/Node3D + lightweight desired descriptions, not old self-rendering display list. |
 | [#2](https://github.com/papercraftgames/Estragon/issues/2) self-renderer research | Close: original premise superseded | Godot rendering-native; revisit only measured backend needs, not as general UI roadmap. |
-| [#3](https://github.com/papercraftgames/Estragon/issues/3) huge UI umbrella | Close: replace | UI-01/02/03/04, LAYOUT-01, TEXT-01. |
-| [#5](https://github.com/papercraftgames/Estragon/issues/5) T09 umbrella | Close: foundational F01–F06 already merged | CORE-01/02 and UI-03 typed String binding. |
-| [#6](https://github.com/papercraftgames/Estragon/issues/6) broad Gogo editor | Close: mostly delivered, leftovers scoped | EDIT-01/02, GOGO-01. |
+| [#3](https://github.com/papercraftgames/Estragon/issues/3) huge UI umbrella | Close: replace | [UI-01 #197](https://github.com/papercraftgames/Estragon/issues/197)/02/03/04, [LAYOUT-01 #201](https://github.com/papercraftgames/Estragon/issues/201), [TEXT-01 #205](https://github.com/papercraftgames/Estragon/issues/205). |
+| [#5](https://github.com/papercraftgames/Estragon/issues/5) T09 umbrella | Close: foundational F01–F06 already merged | [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195)/02 and [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199) typed String binding. |
+| [#6](https://github.com/papercraftgames/Estragon/issues/6) broad Gogo editor | Close: mostly delivered, leftovers scoped | [EDIT-01 #196](https://github.com/papercraftgames/Estragon/issues/196)/02, [GOGO-01 #209](https://github.com/papercraftgames/Estragon/issues/209). |
 | [#37](https://github.com/papercraftgames/Estragon/issues/37) E01 highlighting | Close: merged PR #40, accepted exception | No broad rerun; report a new reproducible issue if encountered. |
-| [#41](https://github.com/papercraftgames/Estragon/issues/41) broad historical compatibility | Close: reframe | Current 4.0.4/4.7 native acceptance and RELEASE-01; no beta API compatibility debt. |
+| [#41](https://github.com/papercraftgames/Estragon/issues/41) broad historical compatibility | Close: reframe | Current 4.0.4/4.7 native acceptance and [RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206); no beta API compatibility debt. |
 | [#45](https://github.com/papercraftgames/Estragon/issues/45) old C01-B sizing | Close: merged PR #53 | Old acceptance residuals no longer govern current Node runtime. |
-| [#51](https://github.com/papercraftgames/Estragon/issues/51) C01-H distribution gate | Close: reframe | RELEASE-01 using *current* P04/CI02 and source-bound certification. |
-| [#58](https://github.com/papercraftgames/Estragon/issues/58) layout research | Close: delivered foundation | LAYOUT-01/02/03 only where genuinely missing. |
-| [#65](https://github.com/papercraftgames/Estragon/issues/65) 4.0.4 sample export cleanup | Close: historical targeted follow-up | RELEASE-01 should first reproduce on current source, then fix if real/current. |
+| [#51](https://github.com/papercraftgames/Estragon/issues/51) C01-H distribution gate | Close: reframe | [RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206) using *current* P04/CI02 and source-bound certification. |
+| [#58](https://github.com/papercraftgames/Estragon/issues/58) layout research | Close: delivered foundation | [LAYOUT-01 #201](https://github.com/papercraftgames/Estragon/issues/201)/02/03 only where genuinely missing. |
+| [#65](https://github.com/papercraftgames/Estragon/issues/65) 4.0.4 sample export cleanup | Close: historical targeted follow-up | [RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206) should first reproduce on current source, then fix if real/current. |
 | [#68](https://github.com/papercraftgames/Estragon/issues/68) ADR-0015 migration | Close: accepted and subsequently implemented | Retain ADR and current ARCHITECTURE, no legacy conversion work. |
-| [#88](https://github.com/papercraftgames/Estragon/issues/88) transform authority | Close: replace | LAYOUT-02. |
+| [#88](https://github.com/papercraftgames/Estragon/issues/88) transform authority | Close: replace | [LAYOUT-02 #204](https://github.com/papercraftgames/Estragon/issues/204). |
 | [#109](https://github.com/papercraftgames/Estragon/issues/109) routine CI ≤60s | Close: objective demonstrated | Keep 60s policy and release gate; new bug if concrete regression. |
-| [#117](https://github.com/papercraftgames/Estragon/issues/117) old beta release | Close: superseded by P04 | RELEASE-01, fresh tag/source-based release only. |
-| [#130](https://github.com/papercraftgames/Estragon/issues/130) formatter | Close: replace, **still urgent** | EDIT-01. |
-| [#148](https://github.com/papercraftgames/Estragon/issues/148) isolated editor shutdown leaks | Close: historical investigation, not proved production bug | CORE-01/RELEASE-01 targeted reproduction if leakage persists. |
-| [#182](https://github.com/papercraftgames/Estragon/issues/182) TSX-like Gogo umbrella | Close: already shipped many items | GOGO-01 only for remaining confirmed ergonomic gaps. |
-| [#189](https://github.com/papercraftgames/Estragon/issues/189) forms | Close: split into implementable work | UI-01/02/03/04. |
-| [#190](https://github.com/papercraftgames/Estragon/issues/190) EasyLayout/design | Close: named-area/layout authoring delivered via #192 | LAYOUT-03 responsive policy and EDIT-02 native scene authoring study, if warranted. |
+| [#117](https://github.com/papercraftgames/Estragon/issues/117) old beta release | Close: superseded by P04 | [RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206), fresh tag/source-based release only. |
+| [#130](https://github.com/papercraftgames/Estragon/issues/130) formatter | Close: replace, **still urgent** | [EDIT-01 #196](https://github.com/papercraftgames/Estragon/issues/196). |
+| [#148](https://github.com/papercraftgames/Estragon/issues/148) isolated editor shutdown leaks | Close: historical investigation, not proved production bug | [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195)/[RELEASE-01 #206](https://github.com/papercraftgames/Estragon/issues/206) targeted reproduction if leakage persists. |
+| [#182](https://github.com/papercraftgames/Estragon/issues/182) TSX-like Gogo umbrella | Close: already shipped many items | [GOGO-01 #209](https://github.com/papercraftgames/Estragon/issues/209) only for remaining confirmed ergonomic gaps. |
+| [#189](https://github.com/papercraftgames/Estragon/issues/189) forms | Close: split into implementable work | [UI-01 #197](https://github.com/papercraftgames/Estragon/issues/197)/02/03/04. |
+| [#190](https://github.com/papercraftgames/Estragon/issues/190) EasyLayout/design | Close: named-area/layout authoring delivered via #192 | [LAYOUT-03 #207](https://github.com/papercraftgames/Estragon/issues/207) responsive policy and [EDIT-02 #208](https://github.com/papercraftgames/Estragon/issues/208) native scene authoring study, if warranted. |
 
 ## 8. Implementation and review conventions
 
