@@ -1,5 +1,7 @@
 # Architecture decisions and open questions
 
+> **Latest owner-approved target (2026-11-19):** [ADR-0031](#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data). Its future semantics supersede conflicting design suggestions in older ADRs, but **do not describe currently shipped code**. Implementation belongs to existing issues [#195](https://github.com/papercraftgames/Estragon/issues/195), [#200](https://github.com/papercraftgames/Estragon/issues/200) and the form-control issues.
+
 > **Implementation status note (2026-11-18):** Accepted ADR-0015/0016 product architecture is **implemented** through native C4, F01–F06, L07–L10, and merged EL02 [PR #193](https://github.com/papercraftgames/Estragon/pull/193). Individual earlier ADR paragraphs saying a milestone is “queued” preserve historical decision dates, not current implementation state. Read [post-EL02 baseline](PROJECT_BASELINE_2026-11-18.md) and live [#195–#209 issues](https://github.com/papercraftgames/Estragon/issues/195) for gaps and current order. No old-alpha compatibility obligations; accepted design decisions remain authoritative unless replaced explicitly.
 
 
@@ -563,3 +565,60 @@ not silently change shipped geometry. Track properties remain separate from chil
 dimensions. [Exact lowering, scope/export rules and bounds](LAYOUT_DECLARATIONS.md).
 EL01 #190's responsive/editor design remains separate. This decision authorizes
 implementation, not claims of merged acceptance, release certification or publishing.
+
+
+## ADR-0031 — GGX-implied reactive render functions, automatic memoization/binding, and observable typed data
+
+**Accepted 2026-11-19 by the owner. Target design, NOT a claim of shipped behavior.** Supersedes earlier provisional ADR-0016 suggestions that memoization must first be justified by measurements, that `bind:value` is the intended final authoring syntax, or that zero-argument GGX helpers must be static. Keep the **existing single native Godot composition manager, deferred parent-first scheduler, retained Element reconciliation, layout and typed `@bindable` signals**. No hooks, manual render annotations, separate effects scheduler, manual refresh or per-frame recomposition.
+
+### 1. Function memoization and GGX-aware observation
+
+**Literal GGX authored within a Gogo function is its implicit render annotation.** `build_view()` is the root; any Gogo function containing GGX is also a reactive render function. Cache the function's result by **explicit arguments and its own actually observed bindable getter reads** (including reads in locals/branches before the GGX). A change signal invalidates its result, **even with zero arguments**, and the function reruns to produce a potentially different GGX structure. Drop stale conditional subscriptions after recomputation. When Gogo GGX-render functions call one another, preserve dependencies/invalidation through to affected mounted results.
+
+**Ordinary functions without authored GGX** called from a render function are automatically memoized by **explicit arguments only**, including Gogo methods, ordinary imported `.gd` functions and functions returning manually assembled Elements. A zero-arg ordinary function is static at its call site. No purity analysis or hidden-property inspection: if it needs to react to `self.name`, call it with `self.name` as an argument. Cache hits skip the body and all nested calls; cache misses execute them normally. Event handler references like `pressed={on_press}` are not function invocations during rendering. Direct inline arithmetic may recalculate.
+
+```gogo
+@bindable var name: String = "Flynn"
+
+func format_name(value: String) -> String:
+    return value.to_upper() # Ordinary function: memoized by argument.
+
+func make_badge() -> Element:
+    var current_name := self.name # Observed because this function contains GGX.
+    return <HBox>
+        {<Other /> if current_name == "other thing" else <Text text={format_name(current_name)} />}
+    </HBox>
+
+func build_view() -> Element:
+    return <VBox>
+        {make_badge()}
+        {make_badge()}
+    </VBox>
+```
+
+The two `make_badge()` occurrences have **distinct call-site caches/observation lifetimes and separate mounted Godot Nodes**. When `name` changes, each subscribed GGX render function invalidates; the existing scheduler coalesces work and reconciles the new structural result (including Text-to-Other replacement). In keyed loops identity follows keys, otherwise position. Reusing one Element description in multiple places must **never** share native Node instances or mutable mount subscriptions. Cache entries/subscriptions are scoped to mounted usage, cleaned up on removal, replacement and unmount. A bounded last-arguments/result entry per logical call site is sufficient initially. Compare primitive arguments by value, reference arguments by identity; **observable arguments additionally invalidate on change events**, even when identity stays the same. Do not add revision counters for this purpose.
+
+**Boundary:** A plain Dictionary shaped like `{"type": "Node", "props": {...}}` is not GGX; an explicitly constructed `Element.new(...)` does not automatically become a GGX render function. The current Element is a typed RefCounted description object, not React-style plain object markup. Ordinary functions that merely call other functions are still argument-memoized unless they themselves contain authored GGX; do not invent hidden dependencies through opaque ordinary `.gd` wrappers. Authors should invoke reactive GGX helpers within a render scope or pass changing values explicitly to wrappers. A render function may execute again on observed changes; side effects remain the developer's responsibility.
+
+### 2. Implicit one-way/two-way GGX binding
+
+`{expression}` is reactive by default. An assignable source path like `<Toggle value={self.show_details} />` becomes **automatically two-way** when the target value is also a writable/observable bindable property with an appropriate change notification. **Do not require final user-facing `bind:value` syntax.** Both source and control changes synchronize, using feedback/equality/origin guards. Programmatic value changes originating in the control notify, whereas reconciliation-originated projection must not write back recursively. Model/event writes are synchronous; recomposition and native commit are deferred/coalesced.
+
+A local `var visible := self.show_details` followed by `<Toggle value={visible} />` is **one-way back to the source**: the enclosing GGX function still observes `self.show_details` on the local assignment, but GGX cannot assign the local path back to the original model field. Noninvertible expressions such as `value={not self.show_details}` or `value={self.x + self.y}` are also one-way. Handler references remain normal events.
+
+### 3. Observable nested data
+
+An **optional, first-class Gogo `ArrayCollection`** supports structural add/remove/replace/move and bindable nested items. Changes **propagate upward** through owning observable collections/models all the way to the root. Interested views and memoized functions receiving such objects are invalidated by signals, **without changing object identity or adding revision numbers**. Disconnect subscriptions when children, models or branches change; avoid duplicated change storms and preserve keyed native identity. Native Arrays/Dictionaries remain valid plain data; their in-place mutations are not automatically observable.
+
+### 4. Automatic typed plain-data conversion and serialization
+
+Typed Gogo `@bindable` classes are **shape declarations and observable data**, not a constructor protocol. When compiled Gogo assigns compatible plain Dictionary/Array data to a statically declared model/`ArrayCollection` destination (declarations, setters, nested fields, collection insertions), the compiler automatically and recursively hydrates the typed values **before native GDScript type checking**. No manual cast, `as`, user-written `from_data`, general union type or special constructor needed. Regular imported `.gd` code is not rewritten; an explicit conversion boundary may be needed there.
+
+Field defaults are **exactly the declared defaults**. Missing keys simply use defaults; there is no inferred required-property framework. Incompatible/malformed values produce ordinary, clear type errors. Generated `to_data()` recursively returns plain nested Dictionaries/Arrays suitable for JSON. No hand-written per-class serializers, RemoteObject/AMF stack or mandatory wrapping of unrelated raw data. The compiler/runtime owns the conversion and initial-notification suppression.
+
+### 5. Scoped implementation and evidence
+
+- [CORE-01 #195](https://github.com/papercraftgames/Estragon/issues/195): render call-site memoization, GGX-implied function observation/invalidation, nested structural changes, multiple usages, retained native Nodes, lifecycle and scheduling.
+- [CORE-02 #200](https://github.com/papercraftgames/Estragon/issues/200): `ArrayCollection`, deep upward change propagation and typed plain-data hydration/`to_data()`.
+- [UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198), [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199), [UI-04 #202](https://github.com/papercraftgames/Estragon/issues/202), [UI-05 #203](https://github.com/papercraftgames/Estragon/issues/203): implicit two-way property binding without authored `bind:`.
+- The [November 18 baseline](PROJECT_BASELINE_2026-11-18.md), shipped [reactive GGX](REACTIVE_GGX.md), [F05-B Bool binding](TWO_WAY_BINDINGS.md) and original ADR-0016 remain valid **historical/current code evidence**, not proof ADR-0031 has shipped. Use existing issues rather than creating design tickets; keep source maps, official Godot 4.0.4 and pinned 4.7.0 integrated tests, one PR at a time and owner merge.
