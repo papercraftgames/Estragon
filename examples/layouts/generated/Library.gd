@@ -17,6 +17,10 @@ var _GogoLayout_7 = preload("../../../addons/estragon/runtime/composition/preset
 "area": "lowerRight"
 }, "examples/layouts/Library.gogo:5:47")
 
+const _GOGO_RENDER_FUNCTIONS_0b3222551b69a269 = {
+"ordinary": [],
+"reactive": []
+}
 
 var Shared:
 	get: return _GogoLayout_2

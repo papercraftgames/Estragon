@@ -1,0 +1,7 @@
+extends RefCounted
+@bindable
+var value: int = 0
+@bindable var label: String = "Flynn"
+@bindable var alternate: bool = false
+@bindable var note: String = "quiet"
+var id: int = 0

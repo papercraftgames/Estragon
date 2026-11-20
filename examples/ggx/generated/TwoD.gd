@@ -6,9 +6,9 @@ const Custom = preload("res://examples/ggx/probe_2d.gd")
 
 func build_view() -> Element:
     return _GogoFactories_0._gogo_build_0(
-        (Vector2(value("root",50),100)),
-        (value("gap",30)),
-        (value("first",120)),
+        (Vector2((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/TwoD.gogo:412", value, ["root", 50], func(): value("root",50)) as float),100)),
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/TwoD.gogo:440", value, ["gap", 30], func(): value("gap",30)) as float)),
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/TwoD.gogo:494", value, ["first", 120], func(): value("first",120)) as float)),
         (70.0),
         (PackedVector2Array([Vector2.ZERO,Vector2(100,0),Vector2(100,60),Vector2(0,60)])),
         (Color(0.2,0.8,0.6)),
@@ -16,7 +16,7 @@ func build_view() -> Element:
         (Color(0.55,0.35,0.9)),
         (true),
         (on_timeout),
-        (value("custom",7)),
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/ggx/TwoD.gogo:1016", value, ["custom", 7], func(): value("custom",7)) as float)),
         (palette),
         (Vector2(10,150)),
         (Vector2(3,4))
@@ -30,6 +30,10 @@ func _exit_tree() -> void:
     if palette.changed.is_connected(on_palette_changed): palette.changed.disconnect(on_palette_changed)
 
 
+const _GOGO_RENDER_FUNCTIONS_9882e93059eddbb2 = {
+"ordinary": ["_enter_tree", "_exit_tree"],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

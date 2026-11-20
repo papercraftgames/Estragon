@@ -44,14 +44,14 @@ var next_id: int = 4
 func build_view() -> Element:
     var rows: Array = []
     if use_map:
-        rows = items.map(func(item): return _GogoFactories_0._gogo_build_0((item.id), ("Row%d" % item.id), (item)))
+        rows = items.map(func(item): return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/inventory/Inventory.gogo:893", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((_gogo_mount_key), ("Row%d" % item.id), (item))))
     else:
         for item in items:
-            rows.append(_GogoFactories_0._gogo_build_1((item.id), ("Row%d" % item.id), (item)))
-    return _GogoFactories_0._gogo_build_2(
+            preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/inventory/Inventory.gogo:1002", rows, "append", [preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/inventory/Inventory.gogo:1014", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), ("Row%d" % item.id), (item)))], func(_gogo_receiver, _gogo_arguments): _gogo_receiver.append(_gogo_arguments[0]), func(): rows.append(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/inventory/Inventory.gogo:1014", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2((_gogo_mount_key), ("Row%d" % item.id), (item)))))
+    return _GogoFactories_0._gogo_build_3(
         (Vector2(24,24)),
         (10.0),
-        (_GogoFactories_0._gogo_build_3() if show_note else null),
+        (_GogoFactories_0._gogo_build_4() if show_note else null),
         ([[], rows, null]),
         (8.0),
         (append_item),
@@ -100,6 +100,10 @@ func write_proof() -> void:
     var file := FileAccess.open("res://.godot/lists-play.json",FileAccess.WRITE)
     file.store_string(JSON.stringify({"count":items.size(),"text":get_node("UI/Panel/Row1/Caption").text}))
 
+const _GOGO_RENDER_FUNCTIONS_113af4fb15483b9b = {
+"ordinary": ["append_item", "insert_item", "remove_item", "reverse_items", "replace_item", "first_state", "rename_item", "toggle_note", "toggle_map", "_ready", "write_proof"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("Row.gd")
 
@@ -121,7 +125,12 @@ class _GogoFactories_0:
         return _gogo_element_0
 
 
-    static func _gogo_build_2(
+    static func _gogo_build_2(_gogo_value_0: Variant, _gogo_value_1: StringName, _gogo_value_2: _GogoProject_0.Item) -> _GogoElement_0:
+        var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": _gogo_value_1, "item": _gogo_value_2}, {}, [], "examples/inventory/Inventory.gogo:20:25", _gogo_value_0, true)
+        return _gogo_element_0
+
+
+    static func _gogo_build_3(
         _gogo_value_0: Vector2,
         _gogo_value_1: Variant,
         _gogo_value_2: Variant,
@@ -156,6 +165,6 @@ class _GogoFactories_0:
         return _gogo_element_0
 
 
-    static func _gogo_build_3() -> _GogoElement_0:
+    static func _gogo_build_4() -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Note", "text": "Select First +, then Reverse: row state travels with its key."}, {}, [], "examples/inventory/Inventory.gogo:24:14", null, false)
         return _gogo_element_0

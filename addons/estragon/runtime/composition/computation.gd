@@ -25,6 +25,9 @@ class Mounted extends RefCounted:
 	var handlers: Dictionary = {}
 	var bindings: Dictionary = {}
 	var children: Array = []
+var render_cache = preload("render_cache.gd").new()
+var cache_observers: Dictionary = {}
+var notification_callbacks: Dictionary = {}
 var host: WeakRef
 var projection
 var _borrow_seen: Dictionary = {}
@@ -34,6 +37,7 @@ var state: WeakRef
 var parent_computation: WeakRef
 var mounted: Mounted
 var subscriptions: Dictionary = {}
+var committed_reads: Dictionary = {}
 var queued := false
 var active := true
 var disposed := false
@@ -59,6 +63,7 @@ func _init(owner: Node, manager: Resource) -> void:
 		ancestor = ancestor.get_parent()
 func schedule(_previous: Variant = null, _value: Variant = null) -> void:
 	if not active or disposed: return
+	for entry in render_cache.children.get("$root",[]): entry.invalidate()
 	if Profile.is_enabled():
 		Profile.add("schedule_requests")
 		if queued: Profile.add("coalesced")
@@ -77,6 +82,9 @@ func depth() -> int:
 	return result
 func suspend() -> void:
 	active = false
+	render_cache = preload("render_cache.gd").new()
+	cache_observers.clear()
+	committed_reads.clear()
 	projection.stop()
 	Hosts.replace_projection(self,{}, {})
 	layout_host.stop()
@@ -87,26 +95,26 @@ func resume() -> void:
 	layout_host.start()
 	schedule()
 func _disconnect() -> void:
-	for pair in subscriptions.values():
+	for key in subscriptions:
+		var pair: Array = subscriptions[key]
 		var source = pair[0].get_ref()
-		if source != null and source.is_connected(pair[1],schedule):
-			source.disconnect(pair[1],schedule)
+		if source != null and source.is_connected(pair[1],notification_callbacks.get(key,Callable())):
+			source.disconnect(pair[1],notification_callbacks[key])
 			if Profile.is_enabled(): Profile.add("subscription_disconnects")
 	subscriptions.clear()
+	notification_callbacks.clear()
 func _subscribe(next: Dictionary) -> void:
 	for key in subscriptions.keys():
 		if next.has(key): continue
 		var pair: Array = subscriptions[key]
 		var source = pair[0].get_ref()
-		if source != null and source.is_connected(pair[1],schedule):
-			source.disconnect(pair[1],schedule)
+		if source != null and source.is_connected(pair[1],notification_callbacks.get(key,Callable())):
+			source.disconnect(pair[1],notification_callbacks[key])
 			if Profile.is_enabled(): Profile.add("subscription_disconnects")
+	for key in notification_callbacks.keys():
+		if not next.has(key): notification_callbacks.erase(key)
 	for key in next:
-		if subscriptions.has(key): continue
-		var pair: Array = next[key]
-		var source = pair[0].get_ref()
-		if Profile.is_enabled(): Profile.add("subscription_connects")
-		if source != null and source.connect(pair[1],schedule) != OK: push_error("F01 observation connection failed")
+		if not subscriptions.has(key): _connect_observer(key,next[key])
 	subscriptions = next
 func _flush() -> void:
 	queued = false
@@ -119,9 +127,13 @@ func _flush() -> void:
 	if Profile.is_enabled(): Profile.add("views")
 	_rendering = true
 	_again = false
+	manager.enter_render(self)
 	manager.begin()
-	var desired = owner.call("build_view")
+	var desired = manager.call_at("$root",Callable(owner,"build_view"),[])
 	var reads: Dictionary = manager.finish()
+	reads.merge(manager.leave_render(),true)
+	# New reads are connected eagerly by watch(). Retain previous native-tree
+	# subscriptions on failed preflight; prune them only after successful validation.
 	if Profile.is_enabled(): Profile.elapsed("view",started)
 	_borrow_seen.clear()
 	_observes_children = false
@@ -129,13 +141,17 @@ func _flush() -> void:
 	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
+		var repair_reads := committed_reads.duplicate()
+		repair_reads.merge(reads,true)
+		_subscribe(repair_reads)
 		push_error(validation_error if not validation_error.is_empty() else "Invalid composition output or foreign boundary conflict; previous tree retained")
 		return
+	committed_reads = reads.duplicate()
+	_subscribe(reads)
 	# A nested array may be an empty get_children() result. Observe native
 	# changes without inspecting the expression source or polling the tree.
 	if _observes_children: projection.start()
 	else: projection.stop()
-	_subscribe(reads)
 	# Catch mutation after a read during first composition/commit as a later
 	# pass. Source-side effects are unsupported, but never recurse into SceneTree.
 	_rendering = true
@@ -170,7 +186,9 @@ func _normalize(value, ancestors: Array = [], level: int = 0):
 	result.placement = value.placement.duplicate(true)
 	result.origins = value.origins.duplicate()
 	result.spread_properties = value.spread_properties.duplicate()
-	result.bindings = value.bindings.duplicate()
+	for key in value.bindings:
+		var linkage = value.bindings[key]
+		result.bindings[key] = linkage.snapshot() if linkage is Binding else linkage
 	if not _flatten(value.children,[],result.children,next,level+1): return null
 	return result
 func _key_valid(key) -> bool:
@@ -780,3 +798,28 @@ func _unindex(record) -> void:
 	state.get_ref().managed.erase(record.id)
 	Hosts.clear_placement(record.id)
 	for child in record.children: _unindex(child)
+
+func _notified(key: String) -> void:
+	for entry in cache_observers.get(key,[]): entry.invalidate()
+	schedule()
+
+func watch(source: Object, event: StringName, entry) -> void:
+	var key := str(source.get_instance_id())+":"+str(event)
+	if not cache_observers.has(key): cache_observers[key] = []
+	if not cache_observers[key].has(entry): cache_observers[key].append(entry)
+	if subscriptions.has(key): return
+	var pair := [weakref(source),event]
+	subscriptions[key] = pair
+	_connect_observer(key,pair)
+
+func _connect_observer(key: String, pair: Array) -> void:
+	var source = pair[0].get_ref()
+	if source==null: return
+	var arity := 0
+	for event in source.get_signal_list():
+		if event.name==pair[1]: arity = event.args.size()
+	var callback := Callable(self,"_notified").bind(key)
+	if arity>0: callback = callback.unbind(arity)
+	notification_callbacks[key] = callback
+	if Profile.is_enabled(): Profile.add("subscription_connects")
+	if source.connect(pair[1],callback)!=OK: push_error("Composition observation connection failed")

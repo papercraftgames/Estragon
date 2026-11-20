@@ -5,6 +5,10 @@ const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((Color("#ffcc66")))
 
+const _GOGO_RENDER_FUNCTIONS_fbf19920f1bd6529 = {
+"ordinary": [],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

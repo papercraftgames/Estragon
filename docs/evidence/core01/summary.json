@@ -1,0 +1,221 @@
+{
+  "sourceHead": "e5ecf77130c03b7d8e3b38bdf909274bafb389b1",
+  "sourceDirty": false,
+  "script_uid_pairs": 313,
+  "unique_uids": 313,
+  "authenticated_example_maps": 60,
+  "tarball_sha256": "06b1a3e6b4b940ed6d8327ff4314dcc416ea46a187861bbb454dc8ee67d94b46",
+  "addon_files": 159,
+  "addon_uids": 76,
+  "engines": {
+    "4.0.4": {
+      "stages": {
+        "pack": "PASS",
+        "install": "PASS",
+        "build": "PASS",
+        "frontend": "PASS",
+        "runtime": "PASS",
+        "integration": "PASS",
+        "import": "PASS",
+        "editor": "PASS",
+        "editor-restart": "PASS",
+        "immutable": "PASS"
+      },
+      "frontend": 15,
+      "runtime": 11,
+      "integration": 65,
+      "editor": 18,
+      "restart": 3,
+      "measurements": [
+        {
+          "cache_entries": 664,
+          "elapsed_with_settle_us": 672807,
+          "profile": {
+            "counts": {
+              "drains": 1,
+              "elements": 691,
+              "getter_reads": 10,
+              "jobs": 1,
+              "metadata_builds": 6,
+              "normalized_elements": 674,
+              "order_comparisons": 1345,
+              "preflights": 674,
+              "property_writes": 1,
+              "reconciles": 675,
+              "render_cache_hits": 143,
+              "render_cache_misses": 2,
+              "schedule_requests": 1,
+              "validations": 674,
+              "views": 1
+            },
+            "timings_us": {
+              "computation": [
+                637685
+              ],
+              "drain": [
+                639357
+              ],
+              "view": [
+                11596
+              ]
+            }
+          },
+          "rows": 128
+        },
+        {
+          "cache_entries": 1304,
+          "elapsed_with_settle_us": 1329945,
+          "profile": {
+            "counts": {
+              "drains": 1,
+              "elements": 1331,
+              "getter_reads": 10,
+              "jobs": 1,
+              "metadata_builds": 6,
+              "normalized_elements": 1314,
+              "order_comparisons": 3139,
+              "preflights": 1314,
+              "property_writes": 1,
+              "reconciles": 1315,
+              "render_cache_hits": 271,
+              "render_cache_misses": 2,
+              "schedule_requests": 1,
+              "validations": 1314,
+              "views": 1
+            },
+            "timings_us": {
+              "computation": [
+                1290259
+              ],
+              "drain": [
+                1293235
+              ],
+              "view": [
+                28698
+              ]
+            }
+          },
+          "rows": 256
+        }
+      ]
+    },
+    "4.7": {
+      "stages": {
+        "pack": "PASS",
+        "install": "PASS",
+        "build": "PASS",
+        "frontend": "PASS",
+        "runtime": "PASS",
+        "integration": "PASS",
+        "import": "PASS",
+        "editor": "PASS",
+        "editor-restart": "PASS",
+        "immutable": "PASS"
+      },
+      "frontend": 15,
+      "runtime": 11,
+      "integration": 65,
+      "editor": 18,
+      "restart": 3,
+      "measurements": [
+        {
+          "cache_entries": 664,
+          "elapsed_with_settle_us": 579929,
+          "profile": {
+            "counts": {
+              "drains": 1,
+              "elements": 691,
+              "getter_reads": 10,
+              "jobs": 1,
+              "metadata_builds": 6,
+              "normalized_elements": 674,
+              "order_comparisons": 1345,
+              "preflights": 674,
+              "property_writes": 1,
+              "reconciles": 675,
+              "render_cache_hits": 143,
+              "render_cache_misses": 2,
+              "schedule_requests": 1,
+              "validations": 674,
+              "views": 1
+            },
+            "timings_us": {
+              "computation": [
+                538460
+              ],
+              "drain": [
+                539695
+              ],
+              "view": [
+                10713
+              ]
+            }
+          },
+          "rows": 128
+        },
+        {
+          "cache_entries": 1304,
+          "elapsed_with_settle_us": 1079217,
+          "profile": {
+            "counts": {
+              "drains": 1,
+              "elements": 1331,
+              "getter_reads": 10,
+              "jobs": 1,
+              "metadata_builds": 6,
+              "normalized_elements": 1314,
+              "order_comparisons": 3139,
+              "preflights": 1314,
+              "property_writes": 1,
+              "reconciles": 1315,
+              "render_cache_hits": 271,
+              "render_cache_misses": 2,
+              "schedule_requests": 1,
+              "validations": 1314,
+              "views": 1
+            },
+            "timings_us": {
+              "computation": [
+                1034131
+              ],
+              "drain": [
+                1036684
+              ],
+              "view": [
+                27757
+              ]
+            }
+          },
+          "rows": 256
+        }
+      ]
+    }
+  },
+  "regressions": {
+    "composition": {
+      "assertions": 49,
+      "status": "PASS",
+      "engine": "4.7"
+    },
+    "conditional": {
+      "assertions": 45,
+      "status": "PASS",
+      "engine": "4.7"
+    },
+    "lists": {
+      "assertions": 56,
+      "status": "PASS",
+      "engine": "4.7"
+    },
+    "reactive": {
+      "assertions": 31,
+      "status": "PASS",
+      "engine": "4.7"
+    },
+    "twoway": {
+      "assertions": 50,
+      "status": "PASS",
+      "engine": "4.7"
+    }
+  }
+}

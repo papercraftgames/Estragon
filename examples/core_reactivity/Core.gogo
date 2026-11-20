@@ -1,0 +1,114 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Leaf = preload("Leaf.gd")
+const Model = preload("Model.gd")
+const Ordinary = preload("../../core_reactivity/ordinary.gd")
+const CollectionProbe = preload("../../core_reactivity/CollectionProbe.gd")
+@bindable var model: Model = Model.new()
+@bindable var replacement: Model = Model.new()
+@bindable var items: Array = []
+@bindable var disposable: Node = null
+@bindable var plain_values: Array = [1]
+@bindable var tick: int = 0
+@bindable var show: bool = true
+@bindable var show_pair: bool = true
+@bindable var invalid: bool = false
+@bindable var choose: bool = false
+var ordinary = Ordinary.new()
+var collection = CollectionProbe.new()
+var counts: Dictionary = {"root":0,"badge":0,"zero":0,"wrapper":0,"manual":0,"collection":0,"branch":0,"nested":0,"row":0,"mutate":0,"group":0,"lambda":0,"lambda_body":0,"array":0,"callable":0}
+var row_counts: Dictionary = {}
+var callable_label: Callable = func(value: String) -> String:
+    counts.callable += 1
+    return value.to_upper()
+var edits: int = 0
+var mutate_once: bool = false
+func pressed() -> void:
+    edits += 1
+    if self.model != null: self.model.value += 1
+func zero() -> String:
+    counts.zero += 1
+    return "null" if self.model == null else self.model.label
+func manual() -> Element:
+    counts.manual += 1
+    return Element.new(Text, {"text":zero()}, {}, [], "manual")
+func wrapper() -> Element:
+    counts.wrapper += 1
+    return badge()
+func observed_argument(source) -> String:
+    counts.collection += 1
+    return str(source.value)
+func array_label(values: Array) -> String:
+    counts.array += 1
+    return str(values[0])
+func badge() -> Element:
+    counts.badge += 1
+    var current: String = "null" if self.model == null else self.model.label
+    return <Box direction="column" width="180px" height="32px">
+        {<Button name="Alternate" text="Other" pressed={self.pressed} /> if current=="other" else <Text name="Label" text={ordinary.label(current)} />}
+    </Box>
+func nested() -> Element:
+    counts.nested += 1
+    return <Box>{badge()}</Box>
+func branch() -> Element:
+    counts.branch += 1
+    var current: Model = self.replacement if self.choose else self.model
+    var label: String = "null" if current==null else current.label
+    return <Text name="Branch" text={label} width={"bad-length" if self.invalid and label!="Repair source" else "180px"} />
+func row(item: Model) -> Element:
+    counts.row += 1
+    if item.id not in row_counts: row_counts[item.id] = 0
+    row_counts[item.id] += 1
+    var label: String = item.label+":"+str(item.value)
+    return <Box key={item.id} name={"Row"+str(item.id)} width="180px" height="20px"><Text text={label} /></Box>
+func mutating() -> Element:
+    counts.mutate += 1
+    var current: int = self.model.value if self.model!=null else -1
+    if mutate_once and self.model!=null:
+        mutate_once = false
+        self.model.value = current+1
+    return <Text name="Mutation" text={str(current)} />
+func disposable_view(source) -> Element:
+    var label: String = "gone" if not is_instance_valid(source) else source.name
+    return <Text name="Disposable" text={label} />
+func lambda_container() -> Element:
+    counts.lambda += 1
+    var part = func():
+        counts.lambda_body += 1
+        var label: String = "null" if self.model==null else self.model.label
+        return <Text text={label} />
+    return <Box name="Lambda">{part()}{part.call()}</Box>
+func keyed_group() -> Element:
+    counts.group += 1
+    return <Box name="KeyedZero" direction="column">{self.items.map(func(item): return <Box key={item.id} name={"Key"+str(item.id)}>{badge()}</Box>)}</Box>
+func controlled() -> Element:
+    return <Toggle width="180px" bind:value={self.model.alternate} /> if self.model!=null else <Text text="No controlled model" />
+func build_view() -> Element:
+    counts.root += 1
+    var shared_control: Element = controlled()
+    var shared: Element = manual()
+    return <Entry name="UI" width="640px" height="480px" padding="8px" background_color="#172332">
+        <Box name="Column" direction="column" gap="2px">
+            <Text text={"Core reactive calls "+str(self.tick)} />
+            <Box name="Badges" gap="4px">{badge()}{badge()}{nested()}</Box>
+            <Box name="Ordinary" gap="4px"><Text name="Static" text={zero()} />{wrapper()}{shared}{shared}<Text name="Collection" text={observed_argument(collection)} /></Box>
+            {branch()}
+            {mutating()}
+            {disposable_view(self.disposable)}
+            <Text name="Callable" text={callable_label.call("fixed")} />
+            <Text name="StaticImport" text={Ordinary.static_label("static import")} />
+            <Text name="Plain" text={array_label(self.plain_values)} />
+            <Button name="Action" text="Native event" width="180px" pressed={self.pressed} />
+            <Box name="SharedControls">{shared_control}{shared_control if self.show_pair else null}</Box>
+            <Leaf name="First" model={self.model} />
+            {<Leaf name="Second" model={self.model} /> if self.show else null}
+            <Box name="Rows" direction="column">{self.items.map(func(item): return row(item))}</Box>
+            {keyed_group()}
+            {lambda_container()}
+        </Box>
+    </Entry>

@@ -1,5 +1,7 @@
 # Estragon: current architecture, reality check, and core-first roadmap
 
+> Historical November 18 baseline. [CORE-01 continuation](CORE01_REACTIVITY.md) implements the ADR-0031 function-cache slice; the live #195 PR controls review/merge. Preserve this baseline’s earlier behavior as history.
+
 **Snapshot:** November 18, 2026, after the owner merged [EL02 PR #193](https://github.com/papercraftgames/Estragon/pull/193) (merge commit `21794a057b626c92bb079cf369faf8953a427c60`).  
 **Reconciliation tracker:** [#194](https://github.com/papercraftgames/Estragon/issues/194).  
 **Status:** Project-state and issue-plan baseline. This file states what has been delivered, what remains missing, and the chosen priority order. **New scoped issue series: #195–#209.** It is **not** a claim that future work is implemented.

@@ -183,3 +183,13 @@ actual current/main Play rejection/repair and cold editor restart. `--editor-onl
 is a scoped gallery/editor follow-up after an unchanged-runtime frontend/runtime
 proof; retain both source qualifications. It is not release certification or a
 routine CI expansion. [Contract](LAYOUT_DECLARATIONS.md), [recorded evidence](evidence/EL02_LAYOUT_DECLARATIONS.md).
+
+## CORE-01 focused acceptance
+
+Use a new absolute output directory and the two approved Linux binaries with isolated settings/Xvfb software graphics:
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-core-reactivity.ts --engine 4.0.4=/absolute/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-core01-evidence --editor
+```
+
+The collector requires clean committed source and directly installs identical reproducible development tarballs via Yarn. It checks compiler semantics/maps, independent render-call caches, signals/failure/lifetimes, 128/256-row counters, idle-zero work, real rendered input and isolated current/main editor rollback/repair/restart. This is focused acceptance, not release certification. [Contract and limitations](CORE01_REACTIVITY.md).

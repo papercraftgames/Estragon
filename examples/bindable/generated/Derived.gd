@@ -13,3 +13,7 @@ var enabled: bool = true:
 func rename() -> void:
     title = "Derived"
 
+const _GOGO_RENDER_FUNCTIONS_c956da5b693e401d = {
+"ordinary": ["rename"],
+"reactive": []
+}

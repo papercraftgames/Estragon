@@ -55,13 +55,13 @@ var props: Dictionary = {}:
 var clicks: int = 0
 func pressed(): clicks += 1
 func card(index: int) -> Element:
-	return _GogoFactories_0._gogo_build_0(
-		(index),
+	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/InheritedScrolling.gogo:901", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0(
+		(_gogo_mount_key),
 		("Card"+str(index)),
 		(2 if index==0 else 1),
 		(pressed),
 		(str(index))
-	)
+	))
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_1(
 		(Vector2(120,80)),
@@ -85,6 +85,10 @@ func build_view() -> Element:
 		(["head head","left right"])
 	)
 
+const _GOGO_RENDER_FUNCTIONS_07d309160f1f0f63 = {
+"ordinary": ["pressed"],
+"reactive": ["card", "build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
