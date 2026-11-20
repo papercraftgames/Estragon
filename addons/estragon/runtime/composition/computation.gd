@@ -37,6 +37,7 @@ var state: WeakRef
 var parent_computation: WeakRef
 var mounted: Mounted
 var subscriptions: Dictionary = {}
+var committed_reads: Dictionary = {}
 var queued := false
 var active := true
 var disposed := false
@@ -83,6 +84,7 @@ func suspend() -> void:
 	active = false
 	render_cache = preload("render_cache.gd").new()
 	cache_observers.clear()
+	committed_reads.clear()
 	projection.stop()
 	Hosts.replace_projection(self,{}, {})
 	layout_host.stop()
@@ -139,8 +141,12 @@ func _flush() -> void:
 	desired = _normalize(desired)
 	_rendering = false
 	if not desired is Element or not _valid(desired,mounted) or not _preflight(desired,mounted,owner) or not _rescue_clear(desired,mounted,owner):
+		var repair_reads := committed_reads.duplicate()
+		repair_reads.merge(reads,true)
+		_subscribe(repair_reads)
 		push_error(validation_error if not validation_error.is_empty() else "Invalid composition output or foreign boundary conflict; previous tree retained")
 		return
+	committed_reads = reads.duplicate()
 	_subscribe(reads)
 	# A nested array may be an empty get_children() result. Observe native
 	# changes without inspecting the expression source or polling the tree.

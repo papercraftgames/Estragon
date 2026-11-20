@@ -48,7 +48,7 @@ func play(mode: String) -> void:
 	else: interface.play_current_scene()
 	if await until(game_ready,"actual native CORE01 game"):
 		var result = JSON.parse_string(FileAccess.get_file_as_string(file))
-		check(result.ok and result.edits==2 and result.value==2 and result.identity and result.observed and result.static,mode+" actual rendered layout game and native input at two sizes")
+		check(result.ok and result.edits==2 and result.value==2 and result.identity and result.observed and result["static"],mode+" actual rendered layout game and native input at two sizes")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
 func run() -> void:

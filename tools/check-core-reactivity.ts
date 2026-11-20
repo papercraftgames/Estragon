@@ -28,7 +28,7 @@ for(const selection of options.engines){
       else unexpected.push(line);
      }
     }
-    if(bracket||starts!==1||count!==(semantic?2:1)||unexpected.length){result.status='FAIL';result.reason='Unexpected native diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+    if(bracket||starts!==1||count!==(semantic?2:4)||unexpected.length){result.status='FAIL';result.reason='Unexpected native diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
    }
    if(editing){
     let bracket=false,starts=0,count=0,typed=0,mapped=0;const unexpected:string[]=[];

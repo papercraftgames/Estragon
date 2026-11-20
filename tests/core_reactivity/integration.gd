@@ -99,6 +99,13 @@ func run():
 	host.invalid=true
 	await frames()
 	check(column.get_node("Branch").text==previous_branch,"failed desired preflight retains previous native values")
+	var rejected_source = host.replacement
+	for attempt in range(3):
+		host.replacement=Model.new()
+		host.replacement.label="Rejected "+str(attempt)
+		await frames()
+		check(rejected_source.label_changed.get_connections().is_empty(),"repeated rejected descriptions release obsolete repair subscriptions "+str(attempt))
+		rejected_source=host.replacement
 	host.replacement.label="Repair source"
 	await frames()
 	print("CORE01_EXPECTED_REJECTION_END")
