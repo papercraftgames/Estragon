@@ -1,0 +1,11 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+SCRIPT ERROR: Invalid cast: could not convert value to 'String'.
+          at: build_view (res://app/generated/Core.gd:175)
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Node not found: "UI/Column" (relative to "/root/@@2").
+   at: get_node (scene/main/node.cpp:1375)
+SCRIPT ERROR: Attempt to call function 'get_node' in base 'null instance' on a null instance.
+          at: run (res://tests/core_reactivity/integration.gd:39)

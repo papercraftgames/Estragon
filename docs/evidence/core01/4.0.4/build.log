@@ -1,0 +1,4 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+CORE01_BUILD {"changed":["app/generated/Base.gd","app/generated/Base.gd.map.json","app/generated/Model.gd","app/generated/Model.gd.map.json","app/generated/Leaf.gd","app/generated/Leaf.gd.map.json","app/generated/Core.gd","app/generated/Core.gd.map.json","app/generated/Derived.gd","app/generated/Derived.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["app/generated/Base.gd","app/generated/Model.gd","app/generated/Leaf.gd","app/generated/Core.gd","app/generated/Derived.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+CORE01_BUILD_OK

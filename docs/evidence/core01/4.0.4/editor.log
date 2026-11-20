@@ -1,0 +1,71 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+CORE01_EDITOR_CHECK real native authored CORE01 scene imports: true
+CORE01_EDITOR_CHECK native authored buffer edit: true
+CORE01_EDITOR_CHECK native source edit undo preserves call-site source: true
+CORE01_EDITOR_CHECK native source edit redo: true
+CORE01_EDITOR_CHECK native Gogo highlighter attached to actual CORE01 source: true
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:18: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+CORE01_EDITOR_CHECK current invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK current invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+CORE01_EDITOR_CHECK current invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK current invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+CORE01_GAME {"edits":2,"identity":true,"observed":true,"ok":true,"static":true,"value":2}
+Running: /tmp/estragon-native-x6TjT3/godot --path /tmp/estragon-native-x6TjT3/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 6701 --position 320,272 res://app/Core.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+CORE01_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+CORE01_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:18: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+CORE01_EDITOR_CHECK main invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK main invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+CORE01_EDITOR_CHECK main invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK main invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+CORE01_GAME {"edits":2,"identity":true,"observed":true,"ok":true,"static":true,"value":2}
+Running: /tmp/estragon-native-x6TjT3/godot --path /tmp/estragon-native-x6TjT3/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 6701 --position 320,272 res://app/Core.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+CORE01_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+CORE01_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+CORE01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+CORE01_EDITOR_ASSERTIONS 18 failed=false
+CORE01_EDITOR_OK

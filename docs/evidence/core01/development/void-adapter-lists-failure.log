@@ -1,0 +1,409 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+SCRIPT ERROR: Trying to get a return value of a method that returns "void"
+          at: <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+          GDScript backtrace (most recent call first):
+              [0] <anonymous lambda> (res://examples/inventory/generated/Inventory.gd:50)
+              [1] method_at (res://addons/estragon/runtime/composition/state.gd:210)
+              [2] build_view (res://examples/inventory/generated/Inventory.gd:50)
+              [3] call_at (res://addons/estragon/runtime/composition/state.gd:138)
+              [4] _flush (res://addons/estragon/runtime/composition/computation.gd:132)
+              [5] drain (res://addons/estragon/runtime/composition/state.gd:38)
+LISTS_RUNTIME_ASSERTIONS 56 failures=0
+LISTS_RUNTIME_OK
