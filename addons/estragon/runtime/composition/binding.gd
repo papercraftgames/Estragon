@@ -15,6 +15,7 @@ var computation: WeakRef
 var connected := false
 var writing := false
 func _init(owner: Object, reader: Callable, property: StringName, writer: Callable, identity: String) -> void:
+	if owner==null: return
 	route = identity
 	root = weakref(owner)
 	read = reader
@@ -26,7 +27,7 @@ func _init(owner: Object, reader: Callable, property: StringName, writer: Callab
 	value = endpoint.get(field)
 	valid = typeof(value)==TYPE_BOOL and endpoint.has_signal(str(field)+"_changed")
 func current():
-	var owner = root.get_ref()
+	var owner = root.get_ref() if root!=null else null
 	var endpoint = read.call(owner) if is_instance_valid(owner) else null
 	return endpoint if is_instance_valid(endpoint) else null
 func same(other) -> bool:
@@ -60,3 +61,17 @@ func edit(next: bool) -> void:
 	# Reentrant model callbacks can restore the old value; commit must still
 	# restore a control whose local user value diverged from its snapshot.
 	scope.schedule()
+
+# A desired linkage is reusable data; each native mount owns its mutable edit
+# connection. Copy without evaluating getters outside the render read scope.
+func snapshot():
+	var result = get_script().new(null,Callable(),&"",Callable(),"")
+	result.root = root
+	result.source = source
+	result.field = field
+	result.route = route
+	result.read = read
+	result.write = write
+	result.value = value
+	result.valid = valid
+	return result

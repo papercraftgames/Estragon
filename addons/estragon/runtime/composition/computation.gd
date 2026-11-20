@@ -186,7 +186,9 @@ func _normalize(value, ancestors: Array = [], level: int = 0):
 	result.placement = value.placement.duplicate(true)
 	result.origins = value.origins.duplicate()
 	result.spread_properties = value.spread_properties.duplicate()
-	result.bindings = value.bindings.duplicate()
+	for key in value.bindings:
+		var linkage = value.bindings[key]
+		result.bindings[key] = linkage.snapshot() if linkage is Binding else linkage
 	if not _flatten(value.children,[],result.children,next,level+1): return null
 	return result
 func _key_valid(key) -> bool:

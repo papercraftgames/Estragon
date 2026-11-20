@@ -24,7 +24,7 @@ Each native host has one external Computation under the existing State manager. 
 
 Distinct authored sites are independent. Repeated keyed Element-returning calls match argument identity across reordering; explicit keyed GGX scopes establish the key before nested arguments execute, including zero-argument helpers. Unkeyed occurrences use lexical position. Preset defaults have their own invocation scope. Child invalidation propagates to enclosing render invocations; clean nested calls reuse results when a parent reruns. Owner subscriptions deduplicate each source/event even when several entries observe it.
 
-Descriptions are values. The existing normalizer snapshots them for each mounted tree, preserving independent native Nodes when one cached description is used twice. Native type/position/key reconciliation, declared-property writes, native input and affected-branch layout remain authoritative.
+Descriptions are values. The normalizer snapshots them for each mounted tree, preserving independent native Nodes when one cached description is used twice. Existing controlled-bool linkages copy their desired data without re-reading getters; each mount owns separate mutable edit/exit connection state. Native type/position/key reconciliation, declared-property writes, native input and affected-branch layout remain authoritative.
 
 ## Notifications, failure and lifetime
 
