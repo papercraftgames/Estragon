@@ -8,6 +8,7 @@ func badge() -> ViewElement:
     override_calls += 1
     return ViewElement.new(ViewText,{"name":"Override","text":self.title})
 func build_view() -> ViewElement:
+    super.ordinary("unused")
     var value := super.ordinary(self.title)
     var normal := ordinary(self.title)
     var secret := super.hidden()

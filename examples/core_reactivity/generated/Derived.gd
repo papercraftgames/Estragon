@@ -18,16 +18,17 @@ func badge() -> ViewElement:
     override_calls += 1
     return ViewElement.new(ViewText,{"name":"Override","text":self.title})
 func build_view() -> ViewElement:
-    var value := (preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:480", self, "res://examples/core_reactivity/generated/Derived.gd", "ordinary", [self.title], func(_gogo_receiver, _gogo_arguments): return super.ordinary(_gogo_arguments[0]), func(): super.ordinary(self.title)) as String)
-    var normal := (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Derived.gogo:525", ordinary, [self.title], func(): ordinary(self.title)) as String)
-    var secret := (preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:564", self, "res://examples/core_reactivity/generated/Derived.gd", "hidden", [], func(_gogo_receiver, _gogo_arguments): return super.hidden(), func(): super.hidden()) as String)
+    preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:467", self, "res://examples/core_reactivity/generated/Derived.gd", "ordinary", ["unused"], func(_gogo_receiver, _gogo_arguments): super.ordinary(_gogo_arguments[0]), func(): super.ordinary("unused"))
+    var value := (preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:509", self, "res://examples/core_reactivity/generated/Derived.gd", "ordinary", [self.title], func(_gogo_receiver, _gogo_arguments): return super.ordinary(_gogo_arguments[0]), func(): super.ordinary(self.title)) as String)
+    var normal := (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Derived.gogo:554", ordinary, [self.title], func(): ordinary(self.title)) as String)
+    var secret := (preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:593", self, "res://examples/core_reactivity/generated/Derived.gd", "hidden", [], func(_gogo_receiver, _gogo_arguments): return super.hidden(), func(): super.hidden()) as String)
     return _GogoFactories_0._gogo_build_0(
         (str(self.tick)),
         (value),
         (normal),
         (secret),
-        ((preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:848", self, "res://examples/core_reactivity/generated/Derived.gd", "badge", [], func(_gogo_receiver, _gogo_arguments): return super.badge(), func(): super.badge()) as ViewElement)),
-        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Derived.gogo:872", badge, [], func(): badge()) as ViewElement))
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").base_at("examples/core_reactivity/Derived.gogo:877", self, "res://examples/core_reactivity/generated/Derived.gd", "badge", [], func(_gogo_receiver, _gogo_arguments): return super.badge(), func(): super.badge()) as ViewElement)),
+        ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Derived.gogo:901", badge, [], func(): badge()) as ViewElement))
     )
 
 const _GOGO_RENDER_FUNCTIONS_ef9ffda749d2bdcd = {
@@ -51,9 +52,9 @@ class _GogoFactories_0:
         _gogo_value_4: Variant,
         _gogo_value_5: Variant
     ) -> _GogoElement_0:
-        var _gogo_element_1 := _GogoElement_0.new(ViewText, {"name": "Tick", "text": _gogo_value_0}, {}, [], "examples/core_reactivity/Derived.gogo:15:9", null, false)
-        var _gogo_element_2 := _GogoElement_0.new(ViewText, {"name": "Explicit", "text": _gogo_value_1}, {}, [], "examples/core_reactivity/Derived.gogo:16:9", null, false)
-        var _gogo_element_3 := _GogoElement_0.new(ViewText, {"name": "Normal", "text": _gogo_value_2}, {}, [], "examples/core_reactivity/Derived.gogo:17:9", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(ViewText, {"name": "Hidden", "text": _gogo_value_3}, {}, [], "examples/core_reactivity/Derived.gogo:18:9", null, false)
-        var _gogo_element_0 := _GogoElement_0.new(ViewBox, {"name": "Inherited", "direction": "column"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_value_4, _gogo_value_5], "examples/core_reactivity/Derived.gogo:14:12", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(ViewText, {"name": "Tick", "text": _gogo_value_0}, {}, [], "examples/core_reactivity/Derived.gogo:16:9", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(ViewText, {"name": "Explicit", "text": _gogo_value_1}, {}, [], "examples/core_reactivity/Derived.gogo:17:9", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(ViewText, {"name": "Normal", "text": _gogo_value_2}, {}, [], "examples/core_reactivity/Derived.gogo:18:9", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(ViewText, {"name": "Hidden", "text": _gogo_value_3}, {}, [], "examples/core_reactivity/Derived.gogo:19:9", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(ViewBox, {"name": "Inherited", "direction": "column"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_value_4, _gogo_value_5], "examples/core_reactivity/Derived.gogo:15:12", null, false)
         return _gogo_element_0

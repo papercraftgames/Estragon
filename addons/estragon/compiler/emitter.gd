@@ -345,7 +345,7 @@ func _binding_argument(argument: Argument) -> void:
 
 func _render_call(node: Model.RenderCall) -> void:
 	var cast: String = node.result_type
-	if cast in ["void","Variant"]: cast = ""
+	if node.statement or cast in ["void","Variant"]: cast = ""
 	if not cast.is_empty(): _writer.append("(",node.span)
 	var member := not node.receiver.is_empty()
 	var base := member and node.receiver.size()==1 and node.receiver[0] is Model.Code and _file.text.substr(node.receiver[0].span.start.index,node.receiver[0].span.end.index-node.receiver[0].span.start.index).strip_edges()=="super"
@@ -365,7 +365,7 @@ func _render_call(node: Model.RenderCall) -> void:
 		var args := "_gogo_arguments"
 		while _module.identifiers.has(receiver): receiver += "_"
 		while _module.identifiers.has(args): args += "_"
-		_writer.append("], func("+receiver+", "+args+"): "+("" if node.result_type=="void" else "return ")+("super" if base else receiver)+"."+node.method+"(",node.span)
+		_writer.append("], func("+receiver+", "+args+"): "+("" if node.result_type=="void" or node.statement else "return ")+("super" if base else receiver)+"."+node.method+"(",node.span)
 		for index in range(node.arguments.size()):
 			if index>0: _writer.append(", ",node.span)
 			_writer.append(args+"["+str(index)+"]",node.span)

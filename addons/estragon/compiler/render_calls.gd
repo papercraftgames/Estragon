@@ -103,7 +103,7 @@ func _reactive(offset: int) -> bool:
 	for function in functions:
 		if offset>=function.start and offset<function.end: return true
 	return false
-func _rewrite(parts: Array, force: bool = false) -> Array:
+func _rewrite(parts: Array, force: bool = false, value_context: bool = false) -> Array:
 	# Descend into islands first; enclosing calls treat each entire island as an
 	# operand and never lex attribute text as GDScript.
 	for part in parts:
@@ -111,16 +111,16 @@ func _rewrite(parts: Array, force: bool = false) -> Array:
 			for binding in part.bindings:
 				for group in binding.groups:
 					for attr in group.attributes:
-						if attr.value is Model.GdExpression: attr.value.parts.assign(_rewrite(attr.value.parts,true))
+						if attr.value is Model.GdExpression: attr.value.parts.assign(_rewrite(attr.value.parts,true,true))
 		elif part is Model.Component:
 			for attr in part.attributes:
-				if attr.value is Model.GdExpression: attr.value.parts.assign(_rewrite(attr.value.parts,force))
+				if attr.value is Model.GdExpression: attr.value.parts.assign(_rewrite(attr.value.parts,force,true))
 			for child in part.children:
-				if child is Model.GdExpression: child.parts.assign(_rewrite(child.parts,force))
+				if child is Model.GdExpression: child.parts.assign(_rewrite(child.parts,force,true))
 				elif child is Model.Component: _rewrite([child],force)
 			for child in part.text_body:
-				if child is Model.GdExpression: child.parts.assign(_rewrite(child.parts))
-		elif part is Model.GdExpression: part.parts.assign(_rewrite(part.parts,force))
+				if child is Model.GdExpression: child.parts.assign(_rewrite(child.parts,false,true))
+		elif part is Model.GdExpression: part.parts.assign(_rewrite(part.parts,force,true))
 	var tokens := _tokens(parts)
 	var calls: Array = []
 	for index in range(1,tokens.size()):
@@ -161,7 +161,7 @@ func _rewrite(parts: Array, force: bool = false) -> Array:
 				args.append(file.span(tokens[cursor].span.start.index,tokens[offset].span.start.index))
 				cursor = offset+1
 		if cursor<end: args.append(file.span(tokens[cursor].span.start.index,tokens[end].span.start.index))
-		calls.append({"span":file.span(tokens[begin].span.start.index,tokens[end].span.end.index),"callee":file.span(tokens[begin].span.start.index,tokens[index-1].span.end.index),"arguments":args,"result_type":_type(tokens,begin,index-1),"receiver":file.span(tokens[begin].span.start.index,tokens[index-2].span.start.index) if index>1 and tokens[index-2].text=="." else null,"method":name,"callable_value":begin==index-1 and not methods.has(name) and lexical.symbols.any(func(symbol): return symbol.name==name),"reactive_lambda":_lambda_at(tokens[begin].text,tokens[index].span.start.index) if begin==index-3 and name in ["call","callv"] else _lambda_at(name,tokens[index].span.start.index) if begin==index-1 or begin==index-3 and tokens[begin].text=="self" else false})
+		calls.append({"span":file.span(tokens[begin].span.start.index,tokens[end].span.end.index),"callee":file.span(tokens[begin].span.start.index,tokens[index-1].span.end.index),"arguments":args,"result_type":_type(tokens,begin,index-1),"statement":_statement(tokens,begin,end,value_context),"receiver":file.span(tokens[begin].span.start.index,tokens[index-2].span.start.index) if index>1 and tokens[index-2].text=="." else null,"method":name,"callable_value":begin==index-1 and not methods.has(name) and lexical.symbols.any(func(symbol): return symbol.name==name),"reactive_lambda":_lambda_at(tokens[begin].text,tokens[index].span.start.index) if begin==index-3 and name in ["call","callv"] else _lambda_at(name,tokens[index].span.start.index) if begin==index-1 or begin==index-3 and tokens[begin].text=="self" else false})
 	calls.sort_custom(func(a,b): return a.span.start.index<b.span.start.index or a.span.start.index==b.span.start.index and a.span.end.index>b.span.end.index)
 	if parts.is_empty(): return parts
 	return _range(parts,parts[0].span.start.index,parts[-1].span.end.index,calls)
@@ -174,6 +174,7 @@ func _range(parts: Array, start: int, end: int, calls: Array) -> Array:
 		var call := Model.RenderCall.new()
 		call.span = item.span
 		call.result_type = item.result_type
+		call.statement = item.statement
 		call.reactive_lambda = item.reactive_lambda
 		call.callable_value = item.callable_value
 		if item.receiver!=null:
@@ -335,3 +336,19 @@ func _inherited_returns(source, tokens: Array, seen: Dictionary) -> Dictionary:
 		result.merge(_inherited_returns(imported,inherited,seen),false)
 		return result
 	return {}
+
+# Preserve a native expression statement's ignored result. In particular a
+# Variant Array.append() must not be returned by an adapter (it returns void).
+func _statement(tokens: Array, begin: int, end: int, value_context: bool) -> bool:
+	var stack: Array = []
+	for index in range(begin):
+		var text: String = tokens[index].text
+		if text in ["(","[","{"]: stack.append(text)
+		elif text in [")","]","}"] and not stack.is_empty(): stack.pop_back()
+	var previous: String = tokens[begin-1].text if begin>0 else ""
+	var prefix: String = file.text.substr(file.line_start(tokens[begin].span.start.line),tokens[begin].span.start.index-file.line_start(tokens[begin].span.start.line)).strip_edges()
+	var boundary: bool = previous==";" or previous==":" and not stack.has("{") or prefix.is_empty() and stack.is_empty() and not value_context
+	if not boundary: return false
+	if end+1>=tokens.size(): return true
+	var next = tokens[end+1]
+	return next.text==";" or next.span.start.line>tokens[end].span.end.line

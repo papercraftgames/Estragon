@@ -65,7 +65,7 @@ var revision: int = 0:
 
 func build_view() -> Element:
     var rows: Array = [preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/twoway/Demo.gogo:785", 1, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((_gogo_mount_key), (self.model))), preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/twoway/Demo.gogo:834", 2, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), (self.model)))] if self.model != null and self.show_row else []
-    if self.reverse: preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/twoway/Demo.gogo:953", rows, "reverse", [], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.reverse(), func(): rows.reverse())
+    if self.reverse: preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/twoway/Demo.gogo:953", rows, "reverse", [], func(_gogo_receiver, _gogo_arguments): _gogo_receiver.reverse(), func(): rows.reverse())
     return _GogoFactories_0._gogo_build_2(
         (8.0),
         (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled"))) if self.model != null else null),

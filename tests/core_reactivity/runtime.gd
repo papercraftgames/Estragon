@@ -32,7 +32,11 @@ func badge()->Element:
 	return <Box direction="column"><Text text={format_label(local)} />{<Text name="Structure" text="extra" /> if local=="other" else null}</Box>
 func build_view()->Element:
 	calls.root+=1
-	return <Entry name="UI" width="640px" height="480px"><Box name="Body" direction="column">{badge()}{badge()}<Text name="Static" text={hidden()} /><Text name="Other" text={str(self.other)} /></Box></Entry>
+	var values: Array=[]
+	for index in range(2):
+		values.append(<Text text={str(index)} />)
+	for index in range(2): values.append(<Text text={str(index)} />)
+	return <Entry name="UI" width="640px" height="480px"><Box name="Body" direction="column">{badge()}{badge()}<Text name="Static" text={hidden()} /><Text name="Other" text={str(self.other)} /><Box name="VoidCalls">{values}</Box></Box></Entry>
 '''
 	var compiled = Compiler.compile(text,"res://Host.gogo","res://generated/Host.gd")
 	for diagnostic in compiled.diagnostics: print(diagnostic.format())
@@ -50,6 +54,7 @@ func build_view()->Element:
 	var body=host.get_node("UI/Body")
 	var first=body.get_child(0)
 	var second=body.get_child(1)
+	check(body.get_node("VoidCalls").get_child_count()==4,"native void Array.append statements execute without return adapters")
 	check(first!=second and first.get_child(0).text=="FLYNN","distinct native mounts")
 	host.other=1
 	await frames()

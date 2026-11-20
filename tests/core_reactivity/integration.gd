@@ -224,13 +224,13 @@ func run():
 	await frames()
 	var inherited = derived.get_node("Inherited")
 	var inherited_ids := ids(inherited)
-	check(derived.ordinary_calls==2 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"inherited and explicit super functions mount independent call caches")
+	check(derived.ordinary_calls==3 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"inherited and explicit super functions mount independent call caches")
 	derived.tick += 1
 	await frames()
-	check(derived.ordinary_calls==2 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"unchanged super arguments and reactive base body reuse cached results")
+	check(derived.ordinary_calls==3 and derived.base_calls==1 and derived.hidden_calls==1 and derived.override_calls==1,"unchanged super arguments and reactive base body reuse cached results")
 	derived.title="Changed"
 	await frames()
-	check(derived.ordinary_calls==4 and inherited.get_node("Explicit").text=="CHANGED" and inherited.get_node("Normal").text=="CHANGED","changed inherited typed arguments invalidate both explicit call sites")
+	check(derived.ordinary_calls==5 and inherited.get_node("Explicit").text=="CHANGED" and inherited.get_node("Normal").text=="CHANGED","changed inherited typed arguments invalidate both explicit call sites")
 	check(derived.base_calls==2 and inherited.get_node("BaseBadge").text=="Changed","super GGX body observes bindable locals in its own base scope")
 	check(derived.override_calls==1 and derived.hidden_calls==1 and inherited.get_node("Override").text=="Base" and inherited.get_node("Hidden").text=="Base","ordinary override and zero-argument super body stay opaque despite inherited GGX metadata")
 	check(ids(inherited)==inherited_ids,"inherited function invalidation retains native node identities")

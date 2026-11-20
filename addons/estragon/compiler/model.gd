@@ -99,6 +99,7 @@ class Preset extends RefCounted:
 
 class RenderCall extends SyntaxNode:
 	var result_type: String = ""
+	var statement := false
 	var reactive_lambda := false
 	var callable_value := false
 	var callee: Array[SyntaxNode] = []
