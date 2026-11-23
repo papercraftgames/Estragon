@@ -69,7 +69,7 @@ var native_clicks: int = 0
 func pressed() -> void: clicks += 1
 func native_pressed() -> void: native_clicks += 1
 func tile(value: String) -> Element:
-	return _GogoFactories_0._gogo_build_0((value), (value), (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot((self.child_props if value=="b" else {}))))
+	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/alignment/AlignmentGallery.gogo:1202", value, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((_gogo_mount_key), (value), (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot((self.child_props if value=="b" else {})))))
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_1(
 		(Color("#ffc65c")),
@@ -79,10 +79,14 @@ func build_view() -> Element:
 		(pressed),
 		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
 		(native_pressed),
-		(_GogoFactories_0._gogo_build_2() if self.show_extra else null),
+		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/alignment/AlignmentGallery.gogo:2505", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2()) if self.show_extra else null),
 		(get_children())
 	)
 
+const _GOGO_RENDER_FUNCTIONS_b327ab6aa43a72f1 = {
+"ordinary": ["pressed", "native_pressed"],
+"reactive": ["tile", "build_view"]
+}
 
 const _GogoProject_0 = preload("NestedAlignment.gd")
 

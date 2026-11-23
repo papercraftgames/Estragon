@@ -28,6 +28,10 @@ func build_view() -> Element:
 		(1)
 	)
 
+const _GOGO_RENDER_FUNCTIONS_bc83f472415825bf = {
+"ordinary": ["_ready", "resized"],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("Settings.gd")
 

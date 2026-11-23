@@ -7,6 +7,10 @@ const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((1))
 
+const _GOGO_RENDER_FUNCTIONS_332ee7b5d509dc62 = {
+"ordinary": [],
+"reactive": ["build_view"]
+}
 
 const _GogoProject_0 = preload("NativeSettings.gd")
 

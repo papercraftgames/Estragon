@@ -23,3 +23,7 @@ var note: String = "Model is authoritative":
 		return note
 
 
+const _GOGO_RENDER_FUNCTIONS_fde60e67c05d6881 = {
+"ordinary": [],
+"reactive": []
+}

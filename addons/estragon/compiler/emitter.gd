@@ -56,6 +56,9 @@ func _resource(resource: Resource) -> String:
 
 func emit() -> MappedWriter:
 	_parts(_module.parts)
+	var metadata := "_GOGO_RENDER_FUNCTIONS_"+_file.name.sha256_text().substr(0,16)
+	while _module.identifiers.has(metadata): metadata += "_"
+	_writer.append("\nconst "+metadata+" = "+var_to_str({"reactive":_module.render_functions,"ordinary":_module.ordinary_functions}))
 	_writer.append("\n")
 	var exports := {}
 	for binding in _module.presets:
@@ -137,6 +140,7 @@ func _parts(parts: Array[Model.SyntaxNode]) -> void:
 		if part is Model.Code: _code(part.span)
 		elif part is Model.Bindable: _bindable(part)
 		elif part is Model.Layout: _layout(part)
+		elif part is Model.RenderCall: _render_call(part)
 		elif part is Model.Literal and part.kind=="preset-reference": _writer.append(str(part.value),part.span)
 		else: _call(part)
 
@@ -166,6 +170,16 @@ func _call(node: Model.Component) -> void:
 	factory.root = node
 	_factories.append(factory)
 	_collect(node, factory)
+	var keyed: Model.Attribute
+	for attribute in node.attributes:
+		if attribute.kind=="key": keyed = attribute
+	var key_symbol := "_gogo_mount_key"
+	while _module.identifiers.has(key_symbol): key_symbol += "_"
+	if keyed!=null:
+		_writer.append("preload("+_resource(State)+").in_slot("+_string(_file.name+":"+str(node.span.start.offset))+", ",node.span)
+		if keyed.value is Model.GdExpression: _parts(keyed.value.parts)
+		else: _writer.append(literal(keyed.value),keyed.value.span)
+		_writer.append(", func("+key_symbol+"): return ",node.span)
 	var multiline := factory.arguments.size() > 3
 	var start := _file.line_start(node.span.start.line)
 	var end := start
@@ -178,11 +192,13 @@ func _call(node: Model.Component) -> void:
 		if multiline: _writer.append("\n" + base + _module.indentation, argument.expression.span)
 		_writer.append("(", argument.expression.span)
 		if argument.spread: _writer.append("preload("+_resource(Element)+").snapshot(",argument.expression.span)
-		if argument.binding_path.is_empty(): _parts(argument.expression.parts)
+		if keyed!=null and argument.expression==keyed.value: _writer.append(key_symbol,argument.expression.span)
+		elif argument.binding_path.is_empty(): _parts(argument.expression.parts)
 		else: _binding_argument(argument)
 		if argument.spread: _writer.append(")",argument.expression.span)
 		_writer.append(")", argument.expression.span)
 	_writer.append(("\n" + base if multiline else "") + ")", node.span)
+	if keyed!=null: _writer.append(")",node.span)
 
 func _factory(factory: Factory) -> void:
 	_writer.append("\n\n" + _module.indentation + "static func " + factory.name + "(", factory.root.span)
@@ -326,3 +342,58 @@ func _binding_argument(argument: Argument) -> void:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
 	_writer.append("preload("+_resource(Binding)+").new(self, func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)
+
+func _render_call(node: Model.RenderCall) -> void:
+	var cast: String = node.result_type
+	if node.statement or cast in ["void","Variant"]: cast = ""
+	if not cast.is_empty(): _writer.append("(",node.span)
+	var member := not node.receiver.is_empty()
+	var base := member and node.receiver.size()==1 and node.receiver[0] is Model.Code and _file.text.substr(node.receiver[0].span.start.index,node.receiver[0].span.end.index-node.receiver[0].span.start.index).strip_edges()=="super"
+	_writer.append("preload("+_resource(State)+")."+("base_at" if base else "method_at" if member else "call_at")+"("+_string(_file.name+":"+str(node.span.start.offset))+", ",node.span)
+	if base:
+		_writer.append("self, "+_string(_output_directory.path_join(_file.generated_path().get_file()))+", "+_string(node.method),node.span)
+	elif member:
+		_parts(node.receiver)
+		_writer.append(", "+_string(node.method),node.span)
+	else: _parts(node.callee)
+	_writer.append(", [",node.span)
+	for index in range(node.arguments.size()):
+		if index>0: _writer.append(", ",node.span)
+		_parts(node.arguments[index].parts)
+	if member:
+		var receiver := "_gogo_receiver"
+		var args := "_gogo_arguments"
+		while _module.identifiers.has(receiver): receiver += "_"
+		while _module.identifiers.has(args): args += "_"
+		_writer.append("], func("+receiver+", "+args+"): "+("" if node.result_type=="void" or node.statement else "return ")+("super" if base else receiver)+"."+node.method+"(",node.span)
+		for index in range(node.arguments.size()):
+			if index>0: _writer.append(", ",node.span)
+			_writer.append(args+"["+str(index)+"]",node.span)
+		_writer.append(")",node.span)
+	else: _writer.append("]",node.span)
+	# Never run/retain the proof closure: native static checking still sees the
+	# authored call and its original argument types before source publication.
+	_writer.append(", func(): ",node.span)
+	if node.callable_value:
+		_parts(node.callee)
+		_writer.append(".call(",node.span)
+		for index in range(node.arguments.size()):
+			if index>0: _writer.append(", ",node.span)
+			_parts(node.arguments[index].parts)
+		_writer.append(")",node.span)
+	else: _parts(node.original)
+	if node.reactive_lambda: _writer.append(", true",node.span)
+	_writer.append(")",node.span)
+	if not cast.is_empty(): _writer.append(" as "+_memo_type(cast)+")",node.span)
+
+func _memo_type(type: String) -> String:
+	var source := Source.new(type)
+	var lexer = preload("lexer.gd").new(source)
+	var cursor := 0
+	var result := ""
+	while cursor<type.length():
+		var token = lexer.next_token(cursor)
+		if token==null: return type
+		cursor = token.span.end.index
+		result += _module.import_aliases.get(token.text,token.text) if token.kind=="identifier" else token.text
+	return result

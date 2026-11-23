@@ -60,3 +60,7 @@ var amount: float = 0.0:
 func increment() -> void:
     count += 1
 
+const _GOGO_RENDER_FUNCTIONS_0ae5335a50000a11 = {
+"ordinary": ["increment"],
+"reactive": []
+}

@@ -15,3 +15,7 @@ func _ready() -> void:
 func on_count_changed(previous: int, value: int) -> void:
     events.append([previous,value])
 
+const _GOGO_RENDER_FUNCTIONS_00f865ebdde3c17e = {
+"ordinary": ["_ready", "on_count_changed"],
+"reactive": []
+}

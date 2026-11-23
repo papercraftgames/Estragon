@@ -16,6 +16,7 @@
     "examples/ux01",
     "examples/surfaces",
     "examples/button_imports",
-    "examples/layouts"
+    "examples/layouts",
+    "examples/core_reactivity"
   ]
 }

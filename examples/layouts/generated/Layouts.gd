@@ -186,11 +186,15 @@ func build_view() -> Element:
         (library.upper),
         (library.lowerLeft),
         (library.lowerRight),
-        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.options))) if self.show_extra else null),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/layouts/Layouts.gogo:3108", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.options)))) if self.show_extra else null),
         (self.borrowed),
         (_GogoLayout_55)
     )
 
+const _GOGO_RENDER_FUNCTIONS_f2fec2704cfba1c7 = {
+"ordinary": ["clicked"],
+"reactive": ["original_side", "scoped_side", "build_view"]
+}
 
 const _GogoLayout_0 = preload("../../../addons/estragon/runtime/node/grid.gd")
 

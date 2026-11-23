@@ -26,3 +26,7 @@ func _init(identity: int = 0, caption: String = "Item") -> void:
     id = identity
     title = caption
 
+const _GOGO_RENDER_FUNCTIONS_2c9b42ea687a5496 = {
+"ordinary": ["_init"],
+"reactive": []
+}

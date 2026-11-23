@@ -12,6 +12,10 @@ func ui_pressed() -> void:
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_0((self.native_pressed), (self.ui_pressed))
 
+const _GOGO_RENDER_FUNCTIONS_bcfe5d697a04d8d5 = {
+"ordinary": ["native_pressed", "ui_pressed"],
+"reactive": ["build_view"]
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)

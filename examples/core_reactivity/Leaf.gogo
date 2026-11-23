@@ -1,0 +1,11 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Model = preload("Model.gd")
+@bindable var model: Model = null
+var views: int = 0
+func build_view() -> Element:
+    views += 1
+    var label: String = "null" if self.model == null else self.model.label
+    return <Box width="180px" height="32px"><Text text={label} /></Box>

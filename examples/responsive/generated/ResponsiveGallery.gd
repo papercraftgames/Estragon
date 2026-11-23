@@ -82,12 +82,12 @@ func pressed() -> void: clicks += 1
 func native_pressed() -> void: native_clicks += 1
 func edited(value: bool) -> void: edits.append(value)
 func card(value: String) -> Element:
-	return _GogoFactories_0._gogo_build_0(
-		(value),
+	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/responsive/ResponsiveGallery.gogo:1342", value, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0(
+		(_gogo_mount_key),
 		(value),
 		("Card "+value),
 		(pressed)
-	)
+	))
 func build_view() -> Element:
 	return _GogoFactories_0._gogo_build_1(
 		(Color("#ffc65c")),
@@ -100,10 +100,14 @@ func build_view() -> Element:
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.placement)),
 		(3),
 		(native_pressed),
-		(_GogoFactories_0._gogo_build_2() if self.show_extra else null),
+		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/responsive/ResponsiveGallery.gogo:2785", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2()) if self.show_extra else null),
 		(get_children())
 	)
 
+const _GOGO_RENDER_FUNCTIONS_c0ecc4494879e4a2 = {
+"ordinary": ["pressed", "native_pressed", "edited"],
+"reactive": ["card", "build_view"]
+}
 
 const _GogoProject_0 = preload("NestedResponsive.gd")
 

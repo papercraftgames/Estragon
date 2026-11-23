@@ -121,7 +121,7 @@ func run() -> void:
     nullable.model = null
     root.add_child(nullable)
     await settle()
-    check(nullable.ui.get_node("Panel/Title").text=="" and nullable.ui.get_node("Panel/Row/Bar").width==-1.0 and nullable.model_changed.get_connections().size()==1,"initial null model observes replacement through same view")
+    check(nullable.ui.get_node("Panel/Title").text=="" and nullable.ui.get_node("Panel/Row/Bar").width=="auto" and nullable.model_changed.get_connections().size()==1,"initial null model observes replacement through same view")
     nullable.model = Model.new()
     await settle()
     check(nullable.ui.get_node("Panel/Title").text=="Reactive model","initial null root recovers")

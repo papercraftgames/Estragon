@@ -1,0 +1,229 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE01_EDITOR_CHECK real native authored CORE01 scene imports: true
+CORE01_EDITOR_CHECK native authored buffer edit: true
+CORE01_EDITOR_CHECK native source edit undo preserves call-site source: true
+CORE01_EDITOR_CHECK native source edit redo: true
+CORE01_EDITOR_CHECK native Gogo highlighter attached to actual CORE01 source: true
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:15: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/core_reactivity/editor.gd:86)
+         [5] completion_proof (res://tests/core_reactivity/editor.gd:122)
+         [6] wait (res://tests/core_reactivity/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/core_reactivity/editor.gd:86)
+       [1] completion_proof (res://tests/core_reactivity/editor.gd:122)
+       [2] wait (res://tests/core_reactivity/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:15: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+CORE01_EDITOR_CHECK current invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK current invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/core_reactivity/editor.gd:86)
+              [8] wait (res://tests/core_reactivity/editor.gd:14)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/core_reactivity/editor.gd:86)
+              [8] wait (res://tests/core_reactivity/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:52:1: Parse Error: Cannot pass a value of type "int" as "String".
+
+app/Core.gogo:52:1: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/core_reactivity/editor.gd:86)
+         [5] wait (res://tests/core_reactivity/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/core_reactivity/editor.gd:86)
+       [1] wait (res://tests/core_reactivity/editor.gd:14)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:52:1: Parse Error: Cannot pass a value of type "int" as "String".
+
+app/Core.gogo:52:1: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+CORE01_EDITOR_CHECK current invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK current invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE01_GAME {"edits":2,"identity":true,"observed":true,"ok":true,"static":true,"value":2}
+CORE01_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+CORE01_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:15: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/core_reactivity/editor.gd:85)
+         [5] play (res://tests/core_reactivity/editor.gd:53)
+         [6] until (res://tests/core_reactivity/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/core_reactivity/editor.gd:85)
+       [1] play (res://tests/core_reactivity/editor.gd:53)
+       [2] until (res://tests/core_reactivity/editor.gd:18)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:62:15: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+CORE01_EDITOR_CHECK main invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK main invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+CORE01_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/core_reactivity/editor.gd:85)
+              [8] wait (res://tests/core_reactivity/editor.gd:14)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+              [7] run (res://tests/core_reactivity/editor.gd:85)
+              [8] wait (res://tests/core_reactivity/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:52:1: Parse Error: Cannot pass a value of type "int" as "String".
+
+app/Core.gogo:52:1: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:196)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:175)
+         [4] run (res://tests/core_reactivity/editor.gd:85)
+         [5] wait (res://tests/core_reactivity/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/core_reactivity/editor.gd:85)
+       [1] wait (res://tests/core_reactivity/editor.gd:14)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+SCRIPT ERROR: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://app/generated/Core.gd:152)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:209)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Core.gogo:52:1: Parse Error: Cannot pass a value of type "int" as "String".
+
+app/Core.gogo:52:1: Parse Error: Invalid argument for "label()" function: argument 1 should be "String" but is "int".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:246)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:171)
+CORE01_EDITOR_CHECK main invalid unsaved CORE01 blocks stale Play with authored diagnostic: true
+CORE01_EDITOR_CHECK main invalid CORE01 retains code/map/UID/timestamp/cached Script: true
+CORE01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE01_GAME {"edits":2,"identity":true,"observed":true,"ok":true,"static":true,"value":2}
+CORE01_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+CORE01_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+CORE01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+CORE01_EDITOR_ASSERTIONS 18 failed=false
+CORE01_EDITOR_OK
