@@ -66,6 +66,8 @@ func run() -> void:
 		check(formatted!=messy and plugin._services.last_format.ok and plugin._services.last_format.changed,"native menu formats current unsaved GGX buffer")
 		check(buffer.has_selection() and buffer.get_caret_line()==49,"native menu retains selection and caret row")
 		check(buffer.get_version()!=buffer.get_saved_version(),"native editor retains dirty state")
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("res://format-editor.png")
 		check(FileAccess.get_file_as_bytes("res://app/Layouts.gogo")==disk and FileAccess.get_file_as_bytes(output)==generated and FileAccess.get_file_as_bytes(output+".map.json")==maps and FileAccess.get_file_as_bytes(output+".uid")==uid and FileAccess.get_modified_time(output)==timestamp,"format does not save or mutate generated code/maps/UID/timestamp")
 		buffer.undo()
 		check(buffer.text==messy,"menu formatting is one native undo")
