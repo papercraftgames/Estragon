@@ -1,0 +1,40 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI02_REJECTION rejection fixture compiles: true
+UI02_REJECTION rejection fixture native semantics: true
+UI02_EXPECTED_REJECTION_BEGIN
+ERROR: app/Rejection.gogo:9:76 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI02_EXPECTED_REJECTION_END
+UI02_REJECTION dynamic invalid props retain whole native view with authored diagnostic: true
+UI02_REJECTION repair retains native Checkbox identity: true
+UI02_EXPECTED_REJECTION_BEGIN
+ERROR: app/Rejection.gogo:9:76 (spread key 'value'): attribute 'value': incompatible native value type; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI02_EXPECTED_REJECTION_END
+UI02_REJECTION dynamic invalid props retain whole native view with authored diagnostic: true
+UI02_REJECTION repair retains native Checkbox identity: true
+UI02_EXPECTED_REJECTION_BEGIN
+ERROR: app/Rejection.gogo:9:76 (spread key 'checked_background_color'): invalid style 'checked_background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI02_EXPECTED_REJECTION_END
+UI02_REJECTION dynamic invalid props retain whole native view with authored diagnostic: true
+UI02_REJECTION repair retains native Checkbox identity: true
+UI02_EXPECTED_REJECTION_BEGIN
+ERROR: app/Rejection.gogo:9:76 (spread key 'width'): invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI02_EXPECTED_REJECTION_END
+UI02_REJECTION dynamic invalid props retain whole native view with authored diagnostic: true
+UI02_REJECTION repair retains native Checkbox identity: true
+UI02_EXPECTED_REJECTION_BEGIN
+ERROR: app/Rejection.gogo:9:52: invalid observable Bool binding endpoint; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI02_EXPECTED_REJECTION_END
+UI02_REJECTION present null path rejects atomically at authored value span: true
+UI02_REJECTION stale retained control cannot edit disconnected current model path: true
+UI02_REJECTION new source signal alone repairs invalid null binding: true
+UI02_REJECTION authored Checkbox host packs independently of native managed output: true
+UI02_REJECTION pack/reload reconstructs one implicit binding and no metadata on user Nodes: true
+UI02_REJECTION disposing rejected/repaired hosts releases all records: true
+UI02_REJECTION_ASSERTIONS 16 failed=false
+UI02_REJECTION_OK

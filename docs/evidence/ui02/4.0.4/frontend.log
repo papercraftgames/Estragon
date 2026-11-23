@@ -1,0 +1,33 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI02_FRONTEND native frontend accepts fixture: true
+UI02_FRONTEND actual native GDScript semantic validation: true
+UI02_FRONTEND self and direct object paths bind when both contracts are observable/writable Bool: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: snapshot: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: computed: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: unobserved: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: getter_only: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: dictionary: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: literal: true
+UI02_FRONTEND one-way snapshot/computed/plain/read-only/literal/spread: spread: true
+UI02_FRONTEND direct dictionary parameter stays one-way without an Object binding: true
+UI02_FRONTEND original property getter is evaluated exactly once: true
+UI02_FRONTEND implicit linkage and metadata/maps deterministic: true
+UI02_FRONTEND generated binding linkage retains original authored expression mapping: true
+UI02_FRONTEND mapped static negative property/syntax: bind:value={self.flag}: true
+UI02_FRONTEND mapped static negative property/syntax: value={self.flag} value={true}: true
+UI02_FRONTEND mapped static negative property/syntax: disabled="false": true
+UI02_FRONTEND mapped static negative property/syntax: checked_background_color="bad": true
+UI02_FRONTEND mapped static negative property/syntax: width="bad": true
+UI02_EXPECTED_NATIVE_BEGIN
+SCRIPT ERROR: Parse Error: Identifier "missing" not declared in the current scope.
+          at: GDScript::reload (res://Probe8.gd:26)
+SCRIPT ERROR: Parse Error: Identifier "missing" not declared in the current scope.
+          at: GDScript::reload (res://Probe8.gd:26)
+SCRIPT ERROR: Parse Error: Identifier "missing" not declared in the current scope.
+          at: GDScript::reload (res://Probe8.gd:26)
+UI02_EXPECTED_NATIVE_END
+UI02_FRONTEND implicit lowering preserves actual native unknown-identifier rejection: true
+UI02_FRONTEND unimported native Godot CheckBox remains native, no reserved alias: true
+UI02_FRONTEND_ASSERTIONS 21 failed=false
+UI02_FRONTEND_OK

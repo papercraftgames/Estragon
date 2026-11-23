@@ -26,7 +26,7 @@ var current := self.model.flag
 return <Checkbox value={current}>Snapshot</Checkbox>
 ```
 
-The snapshot's getter read still observes the model when its render function executes. Literals, computed/call/index expressions, plain/unobservable or read-only source fields also stay one-way. A later relevant render projects the authored Bool value even if the control changed independently. Passing a model object to a helper and writing `item.flag` is a direct property path; capturing the Bool into `current` is not.
+The snapshot's getter read still observes the model when its render function executes. Literals, computed/call/index expressions, plain/unobservable or read-only source fields, and Dictionary property paths also stay one-way. The original native property expression supplies the snapshot, so its value getter runs once and native semantic validation still applies. A later relevant render projects the authored Bool value even if the control changed independently. Passing a model object to a helper and writing `item.flag` is a direct property path; capturing the Bool into `current` is not.
 
 Spreads retain ordinary left-to-right value precedence. A spread containing a Bool value is a snapshot, not an invertible property reference. A later spread can replace an earlier direct-path value with a one-way value, and a later explicit direct-path value can replace an earlier spread. `key` and all removed `bind:*` names remain forbidden inside spreads. Named `value_changed`/`pressed` handlers remain ordinary native Callables, never invoked during rendering; a correctly typed native observer may accompany implicit value binding.
 

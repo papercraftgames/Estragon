@@ -1,0 +1,94 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE01_INTEGRATION distinct helper occurrences and opaque ordinary wrapper: true
+CORE01_INTEGRATION anonymous GGX bodies own independent reactive call occurrences: true
+CORE01_INTEGRATION ordinary imported static function uses native Script Callable on both engines: true
+CORE01_INTEGRATION handler references never invoke during render: true
+CORE01_INTEGRATION two independent components observe shared model: true
+CORE01_INTEGRATION one cached controlled description owns independent native edit connections: true
+CORE01_INTEGRATION first cached controlled mount edits and projects both native controls: true
+CORE01_INTEGRATION second cached controlled mount edits independently: true
+CORE01_INTEGRATION removing a peer disconnects only that mount's binding: true
+CORE01_INTEGRATION remaining cached controlled mount still accepts native input: true
+CORE01_INTEGRATION cached description mounted twice has distinct native nodes: true
+CORE01_INTEGRATION unchanged arguments skip reactive and imported ordinary bodies: true
+CORE01_INTEGRATION sibling component isolation under unrelated parent update: true
+CORE01_INTEGRATION rapid chained writes coalesce without losing final value: true
+CORE01_INTEGRATION unread shared property does not rerun sibling leaf views: true
+CORE01_INTEGRATION dirty nested GGX invocation propagates but ordinary wrapper stays static: true
+CORE01_INTEGRATION GGX local branch replaces child type; opaque wrapper retains original structure: true
+CORE01_INTEGRATION retained native state and shared description independence: true
+CORE01_INTEGRATION anonymous GGX local read invalidates cached enclosing function: true
+CORE01_INTEGRATION two components independently rerun on shared read: true
+CORE01_INTEGRATION zero-argument ordinary and manual Element helpers remain static: true
+CORE01_INTEGRATION ordinary Callable.call uses the same explicit-argument cache across parent updates: true
+CORE01_INTEGRATION same values produce no notification/layout storms: true
+CORE01_INTEGRATION same-identity observable argument invalidates on real change signal: true
+CORE01_INTEGRATION same observable argument value is quiet: true
+CORE01_INTEGRATION raw collection identity stays memoized after in-place mutation and unrelated render: true
+CORE01_INTEGRATION new Array reference invalidates explicit argument cache: true
+CORE01_EXPECTED_REJECTION_BEGIN
+ERROR: app/Core.gogo:62:12: invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+CORE01_INTEGRATION failed desired preflight retains previous native values: true
+ERROR: app/Core.gogo:62:12: invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+CORE01_INTEGRATION repeated rejected descriptions release obsolete repair subscriptions 0: true
+ERROR: app/Core.gogo:62:12: invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+CORE01_INTEGRATION repeated rejected descriptions release obsolete repair subscriptions 1: true
+ERROR: app/Core.gogo:62:12: invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+CORE01_INTEGRATION repeated rejected descriptions release obsolete repair subscriptions 2: true
+CORE01_EXPECTED_REJECTION_END
+CORE01_INTEGRATION new conditional subscriptions recover after rejected desired output: true
+CORE01_INTEGRATION changed conditional dependencies detach from old source: true
+CORE01_INTEGRATION null model propagates to independent scopes: true
+CORE01_INTEGRATION model replacement releases old source and weak argument subscriptions: true
+CORE01_INTEGRATION parent-first removal cancels dirty descendant safely: true
+CORE01_INTEGRATION conditional remount creates independent scope: true
+CORE01_INTEGRATION reentrant same-drain write is observed and final value committed: true
+CORE01_INTEGRATION native observable argument source mounts: true
+CORE01_INTEGRATION native source disposal invalidates its weak dependent cache: true
+CORE01_INTEGRATION actual native event executes normally with synchronous model writes: true
+CORE01_INTEGRATION actual native geometry/rendered capture: true
+CORE01_INTEGRATION real keyed helper and keyed zero-argument occurrences 128: true
+CORE01_INTEGRATION one row invalidates one render invocation and leaves other branches quiet 128: true
+CORE01_INTEGRATION row update retains every native node identity 128: true
+CORE01_INTEGRATION keyed reorder preserves call caches and native instances 128: true
+CORE01_INTEGRATION unrelated parent update retains all keyed helper caches 128: true
+CORE01_INTEGRATION keyed nested dependency links propagate through cached enclosing GGX function: true
+CORE01_INTEGRATION removed branches release bounded cache entries 128: true
+CORE01_INTEGRATION real keyed helper and keyed zero-argument occurrences 256: true
+CORE01_INTEGRATION one row invalidates one render invocation and leaves other branches quiet 256: true
+CORE01_INTEGRATION row update retains every native node identity 256: true
+CORE01_INTEGRATION same-order replacement preserves call caches and native instances 256: true
+CORE01_INTEGRATION unrelated parent update retains all keyed helper caches 256: true
+CORE01_INTEGRATION idle zero descriptions/computations/layout counters: true
+CORE01_INTEGRATION host exit disconnects observations and releases caches: true
+CORE01_INTEGRATION host reentry retains native nodes and rebuilds scopes: true
+CORE01_INTEGRATION all native lifetimes and manager stacks clean: true
+CORE01_INTEGRATION inherited and explicit super functions mount independent call caches: true
+CORE01_INTEGRATION unchanged super arguments and reactive base body reuse cached results: true
+CORE01_INTEGRATION changed inherited typed arguments invalidate both explicit call sites: true
+CORE01_INTEGRATION super GGX body observes bindable locals in its own base scope: true
+CORE01_INTEGRATION ordinary override and zero-argument super body stay opaque despite inherited GGX metadata: true
+CORE01_INTEGRATION inherited function invalidation retains native node identities: true
+CORE01_INTEGRATION inherited invocation caches dispose with their native owner: true
+CORE01_INTEGRATION_ASSERTIONS 65 errors=0
+CORE01_INTEGRATION_OK
