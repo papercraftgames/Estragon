@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 	if Focus.key(get_viewport(),event): get_viewport().set_input_as_handled()
 	# Native GUI may consume a release before unhandled delivery. Drop any old
 	# capture after that event without routing a click through a native Control.
-	if event is InputEventMouseButton and not event.pressed and event.button_index==MOUSE_BUTTON_LEFT and _pointer.has_capture(): _pointer.cancel.call_deferred()
+	if event is InputEventMouseButton and not event.pressed and event.button_index==MOUSE_BUTTON_LEFT and _pointer.has_capture(): _pointer.cancel_if_captured.call_deferred()
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint() or get_viewport().is_input_handled(): return
 	if event is InputEventMouse and Focus.pointer_entry(get_viewport(),event.position)!=self:

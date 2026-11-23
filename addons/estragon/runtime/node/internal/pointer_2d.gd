@@ -34,6 +34,8 @@ func cancel_button(button: Node2D) -> void:
 	button._set_pointer_state(false,false)
 func has_capture() -> bool:
 	return _captured!=null and _captured.get_ref()!=null
+func cancel_if_captured() -> void:
+	if has_capture(): cancel()
 func _z(button: CanvasItem) -> int:
 	var result: int = button.z_index
 	var parent: CanvasItem = button.get_parent_item()

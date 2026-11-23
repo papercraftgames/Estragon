@@ -165,6 +165,14 @@ func run():
 	var before := clicks
 	await click(a)
 	check(native_clicks==2 and clicks==before and root.gui_get_focus_owner()==overlay,"native Control GUI click wins overlapping custom picker")
+	overlay.hide()
+	await frames()
+	await mouse(a,true)
+	overlay.show()
+	await frames()
+	await mouse(a,false)
+	await frames()
+	check(clicks==before and not entry._get_pointer_router().has_capture(),"GUI-consumed release cancels custom capture without stale click")
 	overlay.queue_free()
 	await frames()
 	await mouse(a,true)
@@ -212,6 +220,19 @@ func run():
 	scroll.scroll_offset = Vector2(0,44)
 	await frames()
 	check(not top.has_focus(),"scrolling focused rectangle fully out of clip releases focus eventfully")
+	var overlapping = Entry.new()
+	overlapping.position = a.global_position
+	overlapping.width = 180
+	overlapping.height = 60
+	var upper = button("UpperEntry")
+	overlapping.add_child(upper)
+	root.add_child(overlapping)
+	await frames()
+	before = clicks
+	await click(upper)
+	check(clicks==before+1 and upper.has_focus(),"overlapping Estragon Entries share one winning pointer capture")
+	overlapping.queue_free()
+	await frames()
 	b.grab_focus()
 	await tap(KEY_TAB)
 	check(bottom.has_focus(),"one Tab crosses Entry scopes and skips fully clipped sibling")
