@@ -227,3 +227,5 @@ COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn
 ```
 
 Clean committed source; one immutable development package installed directly with Yarn on both approved engines. Native frontend/maps and original expressions, real Unicode editing/deletion/navigation/clipboard/mouse selection/Enter/Escape, shared focus and disabled/read-only handling, parent/keyed caret retention, nested border-box hit/clip geometry, String ownership/replacement/null/one-way paths/reentrancy, pack/reload/private endpoint lifetime and idle-zero. Actual isolated editor current/main invalid-source rollback/repair/Play/restart, installed bytes/maps/UIDs audited unchanged. Inspect captures separately; real OS IME composition and manual interactive smoke are reported explicitly. [Input API](INPUT.md), [shared binding](TWO_WAY_BINDINGS.md). No routine-CI expansion or additional engines/platforms.
+
+[UI-03 exact source-qualified results, captures and limitations](evidence/UI03_INPUT.md).

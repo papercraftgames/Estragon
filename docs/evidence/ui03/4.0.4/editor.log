@@ -1,0 +1,139 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UI03_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:25:33: Authored bind:* syntax was removed; use value={direct.observable.path}
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current invalid unsaved source blocks stale game: true
+EL02_EDITOR_CHECK current rollback retains code/maps/UID/timestamp/cache: true
+UI03_EXPECTED_PLAY_REJECTION_END
+UI03_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "bool" as "String".
+          at: GDScript::reload (res://app/generated/Inputs.gd:77)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_2()" function: argument 2 should be "String" but is "bool".
+          at: GDScript::reload (res://app/generated/Inputs.gd:77)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main invalid unsaved source blocks stale game: true
+EL02_EDITOR_CHECK main rollback retains code/maps/UID/timestamp/cache: true
+UI03_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":47,"ok":true,"submits":1}
+Running: /tmp/estragon-native-CI04FC/godot --path /tmp/estragon-native-CI04FC/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 18053 --position 320,162 res://app/Inputs.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK current real native Input/implicit String/keyboard Play: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":47,"ok":true,"submits":1}
+Running: /tmp/estragon-native-CI04FC/godot --path /tmp/estragon-native-CI04FC/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 18053 --position 320,162 res://app/Inputs.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main real native Input/implicit String/keyboard Play: true
+EL02_EDITOR_CHECK native Play saved latest repaired authored buffer: true
+EL02_EDITOR_CHECK editor host persists no runtime focus/edit delegates: true
+UI03_EDITOR_ASSERTIONS 8 failed=false
+UI03_EDITOR_OK

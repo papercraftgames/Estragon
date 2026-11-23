@@ -1,0 +1,34 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE01_FRONTEND native typed calls, inferred locals and GGX helper lowering: true
+CORE01_FRONTEND actual authored GGX classifies reactive functions; ordinary function stays opaque: true
+CORE01_FRONTEND distinct sourced invocation sites and preserved return inference: true
+CORE01_FRONTEND deterministic sourced call lowering: true
+CORE01_FRONTEND generated call maps to authored call expression: true
+CORE01_FRONTEND imported ordinary .gd call retains native inferred return type: true
+CORE01_FRONTEND ordinary imported map method is memoized; native traversal spelling is not a global exemption: true
+CORE01_FRONTEND ordinary loops, void native calls and keyed descriptions compile: true
+CORE01_FRONTEND native calls can contain GGX expression arguments: true
+CORE01_FRONTEND static GGX helper classification uses authored body: true
+CORE01_FRONTEND manual Element construction is an ordinary function: true
+CORE01_FRONTEND handler references are not invocations: true
+CORE01_FRONTEND strings and comments do not acquire calls: true
+CORE01_EXPECTED_SEMANTIC_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "int" as "String".
+          at: GDScript::reload (res://generated/Probe10.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] native (res://tests/core_reactivity/frontend.gd:19)
+              [1] _initialize (res://tests/core_reactivity/frontend.gd:51)
+SCRIPT ERROR: Parse Error: Invalid argument for "helper()" function: argument 1 should be "String" but is "int".
+          at: GDScript::reload (res://generated/Probe10.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] native (res://tests/core_reactivity/frontend.gd:19)
+              [1] _initialize (res://tests/core_reactivity/frontend.gd:51)
+CORE01_FRONTEND native proof preserves invalid argument rejection: true
+CORE01_EXPECTED_SEMANTIC_END
+CORE01_FRONTEND hygienic render metadata collision rejects: true
+CORE01_FRONTEND_ASSERTIONS 15 failures=0
+CORE01_FRONTEND_OK

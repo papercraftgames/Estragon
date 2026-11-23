@@ -1,0 +1,69 @@
+$ bun run typecheck && bun run test
+$ tsc --noEmit
+$ node --experimental-strip-types --test tests/compatibility/*.test.ts
+✔ routine PR and main always stay tiny, docs skip native, unknown paths cannot select exhaustive suites (3.132149ms)
+✔ cache hits require exact regular-file checksum and version, corruption never reaches execution (3.523326ms)
+✔ telemetry preserves failures, stage/editor timing and distinguishes actual direct PIDs from banners (96.168735ms)
+✔ routine workflows cannot launch editors/full suites; certification is an explicit hard publication dependency (0.792291ms)
+✔ optimized editor harnesses retain both Play entrypoints, negative observation, rollback/unsavable/recovery scenarios (1.031943ms)
+✔ proof-file existence precedes complete JSON; editor harnesses wait for and cache validated snapshots (2.123977ms)
+✔ routine budget measures end-to-end required checks, separates queue and rejects missing/failed checks (8.349641ms)
+✔ focused editor UX stays opt-in and cannot expand routine or publication certification (0.466524ms)
+NPM_REGISTRY_IDENTITY_CONFIRMED_NATIVE_SMOKE_PENDING
+NPM_REGISTRY_IDENTITY_CONFIRMED_NATIVE_SMOKE_PENDING
+✔ only matching published main-source prerelease authorizes publishing; dispatch is preview (2.778818ms)
+✔ only two completed successful current-run certification jobs authorize preparation (0.68371ms)
+✔ release artifact and registry checks reject altered tar, context, integrity, latest tag or missing provenance (5.23986ms)
+✔ publication is OIDC only, missing package fails and an existing exact version only verifies (5.427871ms)
+✔ release workflow retains owner trigger/OIDC, hard certification and post-publication consumers (0.576711ms)
+✔ registry verification prints the exact native package success marker as one line (0.358367ms)
+✔ registry consumer downloads original tar and rejects changed bytes or unrelated/missing signed provenance (44.186037ms)
+✖ addon-only npm artifact is reproducible, private-tooling separated and rooted for Godot (176.668337ms)
+✔ pre-publication preparation rejects routine main or stale/mismatched run identities (1.149152ms)
+✔ Git metadata is development-only; release numbers exist only in events or test fixtures (121.500859ms)
+✔ P02 production dependencies and emitted injections have no fixed installation root (20.172139ms)
+✔ native addon requirements replace obsolete legacy and standalone gates (6.249758ms)
+✔ logs fail closed for errors, missing markers and timeouts (0.804478ms)
+✔ engine budget rejects additional or unsupported versions (0.49583ms)
+✔ fast-release policy is deliberately narrower, never an alias for full certification (0.328854ms)
+✔ matching native evidence passes; dirty, missing, mismatched or forged evidence rejects (87.970469ms)
+✔ single native architecture, canonical UIDs/references and authored maps stay consistent (58.262309ms)
+✔ sample native pack format explicitly avoids the 4.0 conversion leak (0.214617ms)
+✔ release evidence rejects incomplete or failed direct-install layout subruns (77.769326ms)
+✔ fast-release evidence accepts one direct consumer only, rejects wrong layouts and failed execution (16.556489ms)
+✔ strict tag version is independent of Git development metadata and preview is not authorization (2.880089ms)
+✖ actual tag-versioned packs reproduce, source stays untouched, verifier rejects overlay/file/tar mutations (154.821548ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 28
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 581.233156
+
+✖ failing tests:
+
+test at tests/compatibility/package.test.ts:11:1
+✖ addon-only npm artifact is reproducible, private-tooling separated and rooted for Godot (176.668337ms)
+  Error: Addon depends on non-package file: addons/estragon/editor/components.gd -> addons/estragon/runtime/node/input.gd
+      at packAddon (file:///Users/ryan/Projects/Estragon/tools/pack-addon.ts:51:38)
+      at TestContext.<anonymous> (file:///Users/ryan/Projects/Estragon/tests/compatibility/package.test.ts:14:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at tests/compatibility/tag-version.test.ts:32:1
+✖ actual tag-versioned packs reproduce, source stays untouched, verifier rejects overlay/file/tar mutations (154.821548ms)
+  Error: Addon depends on non-package file: addons/estragon/editor/components.gd -> addons/estragon/runtime/node/input.gd
+      at packAddon (file:///Users/ryan/Projects/Estragon/tools/pack-addon.ts:51:38)
+      at TestContext.<anonymous> (file:///Users/ryan/Projects/Estragon/tests/compatibility/tag-version.test.ts:36:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)
+error: script "test" exited with code 1
+error: script "check" exited with code 1
