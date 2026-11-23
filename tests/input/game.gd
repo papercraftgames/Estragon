@@ -42,6 +42,7 @@ func click(tree: SceneTree,node: Control,offset: Vector2=Vector2(12,10)):
 	await pointer(tree,point,false)
 func run(host: Node):
 	var tree := host.get_tree()
+	tree.root.size = Vector2i(640,700)
 	await frames(tree)
 	var bound = host.get_node("UI/Controls/Bound")
 	var peer = host.get_node("UI/Controls/Peer")
@@ -50,7 +51,7 @@ func run(host: Node):
 	var fallback := Fallback.new()
 	tree.root.add_child(fallback)
 	check(editor is LineEdit and editor.owner==null and bound.get_child_count()==0 and bound.get_child_count(true)==1,"one private native LineEdit, not an authored wrapper or layout child")
-	check(editor.position==bound.get_content_rect().position and editor.size==bound.get_content_rect().size,"native editor exactly occupies the arranged content rect")
+	check(editor.position==Vector2.ZERO and editor.size==bound.layout_size,"native editing hit/focus rect exactly occupies the arranged border-box")
 	check(host.submits.is_empty() and host.cancels==0 and editor.text=="Hello","initial projection and named handlers do not execute during render")
 	var changes: Array = []
 	var writes: Array = []
@@ -58,6 +59,8 @@ func run(host: Node):
 	host.model.text_changed.connect(func(a,b): writes.append([a,b]))
 	await click(tree,editor)
 	check(bound.has_focus() and tree.root.gui_get_focus_owner()==editor,"actual pointer focuses the native editing endpoint")
+	await click(tree,editor,Vector2(2,2))
+	check(bound.has_focus(),"Input padding belongs to its native hit target")
 	await key(tree,KEY_A,0,true)
 	check(editor.has_selection() and selection(editor)=="Hello","native keyboard select-all")
 	for pair in [[KEY_A,97],[KEY_E,0x00e9],[KEY_O,0x03a9]]: await key(tree,pair[0],pair[1])
@@ -86,8 +89,8 @@ func run(host: Node):
 	# Real mouse drag, with native font positions and platform mouse-mask state.
 	bound.value = "abcdef"
 	await frames(tree)
-	var start: Vector2 = editor.get_global_transform_with_canvas()*Vector2(1,editor.size.y*0.5)
-	var finish: Vector2 = editor.get_global_transform_with_canvas()*Vector2(bound.font.get_string_size("abc",HORIZONTAL_ALIGNMENT_LEFT,-1,bound.font_size).x,editor.size.y*0.5)
+	var start: Vector2 = editor.get_global_transform_with_canvas()*Vector2(bound.get_content_rect().position.x+1,editor.size.y*0.5)
+	var finish: Vector2 = editor.get_global_transform_with_canvas()*Vector2(bound.get_content_rect().position.x+bound.font.get_string_size("abc",HORIZONTAL_ALIGNMENT_LEFT,-1,bound.font_size).x,editor.size.y*0.5)
 	await pointer(tree,start,true)
 	var motion := InputEventMouseMotion.new()
 	motion.position = finish
@@ -188,7 +191,7 @@ func run(host: Node):
 	check(host.get_node("UI/Grid/Invalid").has_focus(),"shared Tab skips disabled Input")
 	var clipped = host.get_node("UI/Clip").get_layout_child("Clipped")
 	var ce: LineEdit = clipped.get_focus_control()
-	check(bound.layout_size.x>=216 and a.layout_size.y>=a.font.get_height(a.font_size)+16 and ce.size==clipped.get_content_rect().size,"natural sizes and exact native content geometry in nested Box/Grid")
+	check(bound.layout_size.x>=216 and a.layout_size.y>=a.font.get_height(a.font_size)+16 and ce.size==clipped.layout_size,"natural sizes and exact native border-box geometry in nested Box/Grid")
 	var outside: Vector2 = ce.get_global_transform_with_canvas()*Vector2(260,10)
 	await pointer(tree,outside,true)
 	await pointer(tree,outside,false)

@@ -203,3 +203,5 @@ and repeated names describe named areas, never mounted children. Ordinary GGX
 uses instantiate definitions with normal instance overrides. Sequential hygienic
 rebinding composes prior bases without mutating them. See [the complete grammar,
 lexical/export rules, defaults and native lowering](LAYOUT_DECLARATIONS.md).
+
+UI-03 extends the same implicit value path contract to the typed String [Input](INPUT.md): `value={self.model.text}` is two-way only for matching writable/observable String endpoints. String locals and computed values remain one-way. Bool and String do not cross-convert; source metadata, typed writers and the current mounted projection guard apply. [Binding contract](TWO_WAY_BINDINGS.md).

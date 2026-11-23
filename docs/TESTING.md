@@ -219,3 +219,11 @@ COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn
 ```
 
 Clean committed source; one reproducible development tarball installed directly with Yarn on both engines. Native frontend/maps, Checkbox pointer/key/focus/programmatic notifications/one-way and two-way paths, retained Box/Grid/Wrap identity, reentrancy, replacement/null, five exact deliberate preflight rejection/repair cases, pack/lifetime/idle-zero and actual isolated editor current/main invalid-source rollback/repair/Play/restart. Native captures are inspected separately. Existing live Toggle consumers and generated example maps use the implicit contract; archived F05-B explicit-syntax evidence stays archival. No extra engines, physical-key, OS IME or full release gate is introduced. See [Bool binding contract](TWO_WAY_BINDINGS.md), [Checkbox API](CHECKBOX.md) and [exact native evidence](evidence/UI02_CHECKBOX.md).
+
+## UI-03 editable Input and String binding acceptance
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-input.ts --engine 4.0.4=/absolute/official/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/pinned/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-ui03-evidence
+```
+
+Clean committed source; one immutable development package installed directly with Yarn on both approved engines. Native frontend/maps and original expressions, real Unicode editing/deletion/navigation/clipboard/mouse selection/Enter/Escape, shared focus and disabled/read-only handling, parent/keyed caret retention, nested border-box hit/clip geometry, String ownership/replacement/null/one-way paths/reentrancy, pack/reload/private endpoint lifetime and idle-zero. Actual isolated editor current/main invalid-source rollback/repair/Play/restart, installed bytes/maps/UIDs audited unchanged. Inspect captures separately; real OS IME composition and manual interactive smoke are reported explicitly. [Input API](INPUT.md), [shared binding](TWO_WAY_BINDINGS.md). No routine-CI expansion or additional engines/platforms.

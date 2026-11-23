@@ -73,6 +73,7 @@ const _GOGO_BINDABLE_PROPERTIES_NATIVE := {"value":"String"}
 		invalid_color = next
 		queue_redraw()
 var _editor: LineEdit
+var _editor_skin := StyleBoxEmpty.new()
 func _init() -> void:
 	background_color = Color("#252d38")
 	padding = 8.0
@@ -113,7 +114,7 @@ func _sync_theme() -> void:
 	if not is_instance_valid(_editor): return
 	# Native text/caret/selection draw in the real content rect; the host
 	# supplies the local surface, border and focus/invalid outline.
-	for state in ["normal","read_only","focus"]: _editor.add_theme_stylebox_override(state,StyleBoxEmpty.new())
+	for state in ["normal","read_only","focus"]: _editor.add_theme_stylebox_override(state,_editor_skin)
 	_editor.add_theme_constant_override("minimum_character_width",0)
 	_editor.add_theme_font_override("font",font)
 	_editor.add_theme_font_size_override("font_size",font_size)
@@ -124,8 +125,12 @@ func _sync_editor(_size: Vector2 = Vector2.ZERO) -> void:
 	if not is_instance_valid(_editor): return
 	var content := get_content_rect()
 	_editor.visible = content.size.x>0 and content.size.y>=font.get_height(font_size)
-	_editor.position = content.position
-	_editor.size = content.size
+	_editor_skin.content_margin_left = content.position.x
+	_editor_skin.content_margin_top = content.position.y
+	_editor_skin.content_margin_right = maxf(0,layout_size.x-content.end.x)
+	_editor_skin.content_margin_bottom = maxf(0,layout_size.y-content.end.y)
+	_editor.position = Vector2.ZERO
+	_editor.size = layout_size
 	_editor.placeholder_text = placeholder
 	_editor.editable = not disabled and not read_only
 	_editor.selecting_enabled = not disabled

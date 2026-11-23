@@ -195,8 +195,12 @@ surface props. No shadow/transition/style-resource or cascade API is introduced.
 
 ## UI-01 — focus, keyboard and mixed native event ownership
 
-[Focus/keyboard contract](FOCUS_KEYBOARD.md) extends Button/Toggle with native GUI focus endpoints, visible focus, Tab/Shift-Tab and repeat-safe accept/cancel. The previous C3/F05-B pointer-only descriptions above are historical bounds. Native GUI now gets mouse input before Estragon's unhandled pointer picker; native Control ancestry and GUI focus remain authoritative. The shared traversal joins eligible native roots inside Entries without rewriting authored focus paths. [Focus example](../examples/focus/Focus.tscn) includes the limited native text-edit delegate prototype; Checkbox/Input/String binding remain later work.
+[Focus/keyboard contract](FOCUS_KEYBOARD.md) extends Button/Toggle with native GUI focus endpoints, visible focus, Tab/Shift-Tab and repeat-safe accept/cancel. The previous C3/F05-B pointer-only descriptions above are historical bounds. Native GUI now gets mouse input before Estragon's unhandled pointer picker; native Control ancestry and GUI focus remain authoritative. The shared traversal joins eligible native roots inside Entries without rewriting authored focus paths. [Focus example](../examples/focus/Focus.tscn) includes the limited native text-edit delegate prototype; UI-02 [Checkbox](CHECKBOX.md) and UI-03 [Input/String binding](INPUT.md) reuse the shared foundation.
 
 ## UI-02 — Checkbox and observable Bool values
 
 [Checkbox](CHECKBOX.md) adds a square/checkmark/label Node2D control through the existing Button/Toggle input/focus, text and local paint paths. [Implicit `value={self.model.flag}`](TWO_WAY_BINDINGS.md) replaces authored `bind:value` for compatible observable/writable Bool endpoints. Checkbox/Toggle now emit native `value_changed(previous, value)` on independent programmatic transitions as well as completed user edits; mounted projection guards prevent reciprocal writeback. Earlier F05-B one-argument/user-only notes above record the historical slice and are superseded by UI-02.
+
+## UI-03 editable Input
+
+`EstragonInput` is a native Node2D participant with typed observable String value, placeholder, focus/invalid and disabled/read-only states. A private native LineEdit owns editing, caret, selection and clipboard in the actual border-box and clipped scene ancestry; local surface/padding/font and the existing core own geometry/skin. No authored wrapper, additional layout adapter or second binding runtime. [Input API and native platform limits](INPUT.md), [implicit Bool/String ownership](TWO_WAY_BINDINGS.md).

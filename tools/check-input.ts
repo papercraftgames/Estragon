@@ -66,7 +66,7 @@ for(const selection of options.engines){
   source+='\nfunc _ready() -> void:\n    if OS.get_environment("UI03_EDITOR")=="1": _input_probe.call_deferred()\nfunc _input_probe() -> void:\n    var probe = preload("res://tests/input/game.gd").new()\n    await probe.run(self)\n';
   fs.writeFileSync(path.join(box.project,'app/Inputs.gogo'),source);
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
-  fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI03 native input"\nrun/main_scene="res://app/Inputs.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=480\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
+  fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI03 native input"\nrun/main_scene="res://app/Inputs.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=700\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('frontend',[...args,'--headless','--script','res://tests/input/frontend.gd'],'UI03_FRONTEND_OK');
   await run('build',[...args,'--headless','--script','res://tests/input/build.gd'],'UI03_BUILD_OK');

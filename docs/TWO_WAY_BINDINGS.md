@@ -1,6 +1,6 @@
-# Implicit observable Bool binding — UI-02
+# Implicit observable Bool/String binding — UI-02 / UI-03
 
-[UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198) implements the Bool slice of [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) over the existing native description/commit manager. UI-01 focus/keyboard ownership is merged in PR #216. Checkbox and Toggle use the same Bool contract; production Input/String binding remains UI-03.
+[UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198) and [UI-03 #199](https://github.com/papercraftgames/Estragon/issues/199) implement the Bool/String slices of [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) over the existing native description/commit manager. UI-01 focus/keyboard ownership is merged in PR #216. Checkbox and Toggle use the Bool contract; [Input](INPUT.md) uses the matching String contract in the same manager.
 
 ```gogo
 @bindable
@@ -17,7 +17,7 @@ func build_view() -> Element:
 
 ## Direct property paths versus one-way values
 
-A direct dotted property expression such as `value={self.flag}`, `value={self.model.flag}` or `value={item.flag}` creates automatic two-way linkage **only when both endpoints have the typed writable/observable Bool contract**. Gogo owned typed bindable fields publish that contract on their compiled Script. The shared native Checkbox/Toggle value property implements its equivalent. A matching signal name alone does not prove a plain/read-only field writable or observable.
+A direct dotted property expression such as `value={self.flag}`, `value={self.model.flag}` or `value={item.flag}` creates automatic two-way linkage **only when both endpoints have the typed writable/observable Bool or String contract**. Gogo owned typed bindable fields publish that contract on their compiled Script. The shared native Checkbox/Toggle and Input value properties implement their matching equivalents. A matching signal name alone does not prove a plain/read-only field writable or observable.
 
 The compiler lexes the actual expression and emits native read/write linkage only for direct identifier/property paths. It does not invert expressions or chase arbitrary aliases. A local Bool snapshot is one-way:
 
@@ -26,15 +26,15 @@ var current := self.model.flag
 return <Checkbox value={current}>Snapshot</Checkbox>
 ```
 
-The snapshot's getter read still observes the model when its render function executes. Literals, computed/call/index expressions, plain/unobservable or read-only source fields, and Dictionary property paths also stay one-way. The original native property expression supplies the snapshot, so its value getter runs once and native semantic validation still applies. A later relevant render projects the authored Bool value even if the control changed independently. Passing a model object to a helper and writing `item.flag` is a direct property path; capturing the Bool into `current` is not.
+String snapshots follow the same rule. The snapshot's getter read still observes the model when its render function executes. Literals, computed/call/index expressions, plain/unobservable or read-only source fields, and Dictionary property paths also stay one-way. The original native property expression supplies the snapshot, so its value getter runs once and native semantic validation still applies. A later relevant render projects the authored typed value even if the control changed independently. Passing a model object to a helper and writing `item.flag` is a direct property path; capturing the Bool into `current` is not.
 
-Spreads retain ordinary left-to-right value precedence. A spread containing a Bool value is a snapshot, not an invertible property reference. A later spread can replace an earlier direct-path value with a one-way value, and a later explicit direct-path value can replace an earlier spread. `key` and all removed `bind:*` names remain forbidden inside spreads. Named `value_changed`/`pressed` handlers remain ordinary native Callables, never invoked during rendering; a correctly typed native observer may accompany implicit value binding.
+Spreads retain ordinary left-to-right value precedence. A spread containing a Bool/String value is a snapshot, not an invertible property reference. A later spread can replace an earlier direct-path value with a one-way value, and a later explicit direct-path value can replace an earlier spread. `key` and all removed `bind:*` names remain forbidden inside spreads. Named `value_changed`/`pressed` handlers remain ordinary native Callables, never invoked during rendering; a correctly typed native observer may accompany implicit value binding.
 
 **Authored `bind:value` and other `bind:*` syntax are removed**, with an authored-location diagnostic. No compatibility alias, target-owned binder Node, per-property recipe or second binding engine remains. All executable examples/tests use implicit `value`. Older F05-B reports/raw evidence preserve the historical explicit syntax and user-only one-argument signal; those are not supported APIs after this cutover.
 
 ## Native notifications and source authority
 
-Checkbox/Toggle expose `value: bool` and **`value_changed(previous: bool, value: bool)`**. Their setters mirror Gogo typed bindables: a real transition redraws and emits synchronously, including independent programmatic assignments. Same-value assignments are quiet; programmatic writes need not be user input to notify. Getter reads participate in the existing signal observation scope.
+Checkbox/Toggle expose `value: bool` and **`value_changed(previous: bool, value: bool)`**; Input exposes `value: String` and **`value_changed(previous: String, value: String)`**. Their setters mirror Gogo typed bindables: a real transition redraws and emits synchronously, including independent programmatic assignments. Same-value assignments are quiet; programmatic writes need not be user input to notify. Getter reads participate in the existing signal observation scope.
 
 Completed primary-pointer or focused keyboard activation changes value through that same setter, once. The inherited `pressed` signal remains available. The mounted binding synchronously writes the current source endpoint only when its value differs. Model setters preserve native depth-first/reentrant notification semantics; affected view jobs still coalesce through the one deferred manager.
 
@@ -42,9 +42,9 @@ During model-to-view reconciliation, the existing mounted binding marks its own 
 
 ## Ownership, nulls and teardown
 
-Linkage captures weak root/source identity, field/path, typed native read/write closures and the current Bool snapshot. Each native mount owns one connection outside user models/Nodes, including repeated use of a cached description. On a `self.model.flag` path, replacing/nulling the model makes a stale callback inert immediately, before deferred commit; successful reconciliation rewires once. Direct object-parameter paths are relative to that object, with the lifetime of the current mounted occurrence.
+Linkage captures weak root/source identity, field/path, typed native read/write closures and the current typed snapshot. Each native mount owns one connection outside user models/Nodes, including repeated use of a cached description. On a `self.model.flag` path, replacing/nulling the model makes a stale callback inert immediately, before deferred commit; successful reconciliation rewires once. Direct object-parameter paths are relative to that object, with the lifetime of the current mounted occurrence.
 
-A null path that is still present in a desired tree **rejects the complete commit**, reports the authored value span and retains previous native output. Use an ordinary conditional to omit the control when its model is null, as above. A source repair schedules normal reconciliation; null never becomes a silently writable false value. Wrong dynamic Bool/length/style props also fail preflight atomically.
+A null path that is still present in a desired tree **rejects the complete commit**, reports the authored value span and retains previous native output. Use an ordinary conditional to omit the control when its model is null, as above. A source repair schedules normal reconciliation; null never becomes a silently writable false/empty value. Wrong dynamic value/length/style props also fail preflight atomically.
 
 Unmount, source replacement, suspension, direct native removal and disposal disconnect mounted callbacks. A captured native Callable can become invalid when its old binding is released; callers must use normal `is_valid()` checks. Keyed moves retain compatible native controls/focus. Packed scenes persist authored hosts and owners, not transient managed output or binding records; reloading reconstructs one connection through normal composition. No reconciliation metadata is injected onto user objects.
 
@@ -54,4 +54,6 @@ Compiler-owned Script constants describe authored bindable fields, just as Scrip
 
 `tools/check-checkbox.ts` checks native compiler/maps/negative paths; actual pointer/key/focus, programmatic notifications, origin suppression, equality/reentrancy, one-way values, replacement/null/keyed identity, preflight repair, pack/lifetime and idle-zero behavior; direct Yarn and real isolated editor current/main rollback/repair/Play/restart. Existing two-way/core/focus regressions remain live with the new contract. Only official Linux4.0.4/pinned4.7.0 are fresh proof; exact evidence and manual-smoke status are tracked in the issue/PR and committed report.
 
-No String Input, collection mutation observation, OS IME validation, automatic label style inheritance, additional scheduler or scene system is included. [Checkbox drawing/geometry](CHECKBOX.md), [shared native focus and keyboard path](FOCUS_KEYBOARD.md).
+No collection mutation observation or actual OS IME validation, automatic label style inheritance, additional scheduler or scene system is included. [Checkbox drawing/geometry](CHECKBOX.md), [shared native focus and keyboard path](FOCUS_KEYBOARD.md).
+
+UI-03 extends exactly these compiler and mounted Binding records to String, with native typed String writers and source/destination type matching; Bool remains unchanged. `tools/check-input.ts` covers native editing/caret/selection/clipboard and String lifecycle through the same path. See [Input](INPUT.md) for Enter/Escape, read-only/disabled and native delegation limits.
