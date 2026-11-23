@@ -211,3 +211,11 @@ COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn
 ```
 
 Clean committed source, one directly installed immutable Yarn tarball, native mixed focus/keyboard/pointer/clip/pack/teardown runtime, retained Gogo game and actual isolated editor current/main rollback/repair/Play/restart. Real `Input.parse_input_event` covers the platform GUI/unhandled phases on both engines; direct `Viewport.push_input` omits unhandled delivery on4.0 and is insufficient for this acceptance. Logs retain backend/IME capability without claiming real OS composition; rendered captures and manual-smoke status remain explicit. See [contract/prototype limits](FOCUS_KEYBOARD.md). This opt-in collector does not expand routine CI or require physical keypresses.
+
+## UI-02 Checkbox and implicit Bool acceptance
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-checkbox.ts --engine 4.0.4=/absolute/official/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/pinned/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-ui02-evidence
+```
+
+Clean committed source; one reproducible development tarball installed directly with Yarn on both engines. Native frontend/maps, Checkbox pointer/key/focus/programmatic notifications/one-way and two-way paths, retained Box/Grid/Wrap identity, reentrancy, replacement/null, five exact deliberate preflight rejection/repair cases, pack/lifetime/idle-zero and actual isolated editor current/main invalid-source rollback/repair/Play/restart. Native captures are inspected separately. Existing live Toggle consumers and generated example maps use the implicit contract; archived F05-B explicit-syntax evidence stays archival. No extra engines, physical-key, OS IME or full release gate is introduced. See [Bool binding contract](TWO_WAY_BINDINGS.md) and [Checkbox API](CHECKBOX.md).

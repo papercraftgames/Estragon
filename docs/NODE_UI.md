@@ -196,3 +196,7 @@ surface props. No shadow/transition/style-resource or cascade API is introduced.
 ## UI-01 — focus, keyboard and mixed native event ownership
 
 [Focus/keyboard contract](FOCUS_KEYBOARD.md) extends Button/Toggle with native GUI focus endpoints, visible focus, Tab/Shift-Tab and repeat-safe accept/cancel. The previous C3/F05-B pointer-only descriptions above are historical bounds. Native GUI now gets mouse input before Estragon's unhandled pointer picker; native Control ancestry and GUI focus remain authoritative. The shared traversal joins eligible native roots inside Entries without rewriting authored focus paths. [Focus example](../examples/focus/Focus.tscn) includes the limited native text-edit delegate prototype; Checkbox/Input/String binding remain later work.
+
+## UI-02 — Checkbox and observable Bool values
+
+[Checkbox](CHECKBOX.md) adds a square/checkmark/label Node2D control through the existing Button/Toggle input/focus, text and local paint paths. [Implicit `value={self.model.flag}`](TWO_WAY_BINDINGS.md) replaces authored `bind:value` for compatible observable/writable Bool endpoints. Checkbox/Toggle now emit native `value_changed(previous, value)` on independent programmatic transitions as well as completed user edits; mounted projection guards prevent reciprocal writeback. Earlier F05-B one-argument/user-only notes above record the historical slice and are superseded by UI-02.

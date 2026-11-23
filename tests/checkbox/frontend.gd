@@ -23,7 +23,7 @@ func instance(text: String):
 	return script.new() if valid else null
 func _initialize():
 	var header='extends RefCounted\nconst Checkbox = preload("res://addons/estragon/runtime/node/checkbox.gd")\n'
-	var data='class Plain extends RefCounted:\n    var flag: bool = false\nclass ReadOnly extends RefCounted:\n    var flag: bool:\n        get: return true\nvar plain = Plain.new()\nvar read_only = ReadOnly.new()\n@bindable var flag: bool = false\n'
+	var data='class Plain extends RefCounted:\n    signal flag_changed(previous: bool, value: bool)\n    var flag: bool = false\nclass ReadOnly extends RefCounted:\n    var flag: bool:\n        get: return true\nvar plain = Plain.new()\nvar read_only = ReadOnly.new()\n@bindable var flag: bool = false\n'
 	var functions='func direct(): return <Checkbox value={self.flag} />\nfunc parameter(item): return <Checkbox value={item.flag} />\nfunc snapshot():\n    var current := self.flag\n    return <Checkbox value={current} />\nfunc computed(): return <Checkbox value={not self.flag} />\nfunc unobserved(): return <Checkbox value={self.plain.flag} />\nfunc getter_only(): return <Checkbox value={self.read_only.flag} />\nfunc literal(): return <Checkbox value={true} />\nfunc spread(): return <Checkbox value={self.flag} {...{ "value": true }} />\n'
 	var host = instance(header+data+functions)
 	if host!=null:

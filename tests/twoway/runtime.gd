@@ -71,7 +71,7 @@ func run() -> void:
     var nested_before: int = child_scope.runs
     scene.revision += 1
     await settle()
-    check(not toggle.value and child_scope.runs==nested_before+1 and peer_scope.runs==nested_before,"controlled actual value restored without rerendering unaffected nested peers")
+    check(not toggle.value and child_scope.runs==nested_before+1 and peer_scope.runs==nested_before+1,"independent control write updates observing peers once; unrelated revision adds no peer work")
     var child_runs: int = child_scope.runs
     var peer_runs: int = peer_scope.runs
     var writes: int = child_scope.writes

@@ -293,4 +293,8 @@ func signal_contract(script: Script, event: Dictionary) -> Dictionary:
 				if tokens[argument_cursor].text!=",": return event
 				argument_cursor += 1
 		if tokens[argument_cursor].text==")": return result
-	return event
+	# Older native metadata can list inherited signals on the leaf Script.
+	# Recover the declaration from its real base rather than treating NIL as
+	# proof that a valid inherited Bool endpoint is unobservable.
+	var base = script.get_base_script()
+	return signal_contract(base,event) if base!=null else event
