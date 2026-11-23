@@ -10,13 +10,22 @@ func game_ready() -> bool:
 	if not FileAccess.file_exists(file): return false
 	var parser := JSON.new()
 	return parser.parse(FileAccess.get_file_as_string(file))==OK and parser.data is Dictionary and not parser.data.is_empty()
+func wait_game() -> bool:
+	# The full native editing sequence includes hundreds of delivered frames
+	# plus two rendered captures under the editor/debugger on Linux4.0.
+	var deadline := Time.get_ticks_msec()+45000
+	while Time.get_ticks_msec()<deadline:
+		if game_ready(): return true
+		await get_tree().process_frame
+	check(false,"bounded actual native Input game")
+	return false
 func play(mode: String) -> void:
 	await settle()
 	var file := "res://.godot/ui03-game.json"
 	if FileAccess.file_exists(file): DirAccess.remove_absolute(file)
 	if mode=="main": interface.play_main_scene()
 	else: interface.play_current_scene()
-	if await until(game_ready,"actual native Input game"):
+	if await wait_game():
 		var result = JSON.parse_string(FileAccess.get_file_as_string(file))
 		check(result.ok and result.checks==47 and result.submits==1 and result.cancels==1,mode+" real native Input/implicit String/keyboard Play")
 	interface.stop_playing_scene()
