@@ -21,7 +21,9 @@ func _exit_tree() -> void:
 		editor = null
 	super._exit_tree()
 func _arrange_editor(extent: Vector2) -> void:
-	if is_instance_valid(editor): editor.size = extent
+	if is_instance_valid(editor):
+		editor.position = Vector2.ZERO
+		editor.size = extent
 func _measure_native() -> Vector2:
 	return Vector2(260,44)
 func _composition_is_private(child: Node) -> bool:

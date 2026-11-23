@@ -86,6 +86,7 @@ func _composition_is_private(child: Node) -> bool:
 	return child==_focus_control or super._composition_is_private(child)
 func _sync_focus(_size: Vector2 = Vector2.ZERO) -> void:
 	if not is_instance_valid(_focus_control): return
+	_focus_control.position = Vector2.ZERO
 	_focus_control.size = layout_size
 	_focus_control.focus_mode = Control.FOCUS_NONE if disabled else focus_mode
 	if not Focus.eligible(_focus_control):

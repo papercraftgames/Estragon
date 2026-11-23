@@ -102,7 +102,7 @@ func enabled() -> bool:
 func clipping() -> bool:
 	return host.clip_content or enabled()
 func _external_child(child: Node) -> void:
-	if not is_private(child): _adopt_later.call_deferred(weakref(child))
+	if not is_private(child) and not host._composition_is_private(child): _adopt_later.call_deferred(weakref(child))
 func _adopt_later(reference: WeakRef) -> void:
 	var child = reference.get_ref()
 	if child!=null and host!=null and host.is_inside_tree(): _adopt_content(child)

@@ -59,7 +59,7 @@ static func intersect(region: Array, boundary: PackedVector2Array) -> Array:
 	var result: Array = []
 	for polygon in region:
 		for clipped in Geometry2D.intersect_polygons(polygon,boundary):
-			# 4.0 can return a zero-area polygon for touching clip edges.
+			# Touching clip edges have no focusable area.
 			var area := 0.0
 			for index in range(clipped.size()): area += clipped[index].cross(clipped[(index+1)%clipped.size()])
 			if not is_zero_approx(area): result.append(clipped)

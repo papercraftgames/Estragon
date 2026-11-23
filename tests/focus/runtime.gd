@@ -87,6 +87,7 @@ func run():
 	root.add_child(raw)
 	await frames()
 	check(Focus.candidates(root).size()==4,"one mixed eligible traversal across Node2D/native GUI roots, disabled skipped")
+	check(a.get_focus_control().position==Vector2.ZERO and preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres").find(a.get_focus_control())==null,"native focus endpoint is not acquired or positioned by the layout adapter")
 	await click(a)
 	check(a.has_focus() and root.gui_get_focus_owner()==a._focus_control and clicks==1,"actual pointer focuses native endpoint and emits exactly once")
 	await tap(KEY_TAB)

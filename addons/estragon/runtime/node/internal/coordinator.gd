@@ -126,6 +126,9 @@ func _sync() -> void:
 	if _mode == Mode.COMPOSITION and managed_root != null and managed_root.get_ref() != null: children.append(managed_root.get_ref())
 	children = CompositionHosts.children(host,children)
 	for child in children:
+		# Native child-entered signals can precede internal-child bookkeeping.
+		# Runtime GUI endpoints/decorations never become layout participants.
+		if host.has_method("_composition_is_private") and host._composition_is_private(child): continue
 		if _dimension==2 and model.strategy in ["wrap","grid"] and child is CanvasItem and not child.is_visible_in_tree(): continue
 		var found = participant(child,true)
 		if found != null and found._mode != Mode.ENTRY:
