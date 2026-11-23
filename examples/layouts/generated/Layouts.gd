@@ -180,7 +180,7 @@ func build_view() -> Element:
         (_GogoLayout_49),
         (_GogoLayout_54),
         (clicked),
-        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "self.selected")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "self.selected", (self.selected) if self != null else null)),
         (_GogoLayout_56),
         (_GogoLayout_57),
         (library.upper),

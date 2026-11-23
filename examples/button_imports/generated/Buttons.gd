@@ -59,7 +59,7 @@ func build_view() -> Element:
 		(pressed),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.props)),
 		(native_pressed),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "checked", func(_gogo_source, _gogo_edit: bool): _gogo_source.checked = _gogo_edit, "self.checked")),
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "checked", func(_gogo_source, _gogo_edit: bool): _gogo_source.checked = _gogo_edit, "self.checked", (self.checked) if self != null else null)),
 		(PANEL_TEXTURE),
 		(pressed),
 		(self.selected)

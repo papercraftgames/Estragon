@@ -77,7 +77,7 @@ func build_view() -> Element:
 		(self.order.map(tile)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.policy)),
 		(pressed),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null)),
 		(native_pressed),
 		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/alignment/AlignmentGallery.gogo:2500", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2()) if self.show_extra else null),
 		(get_children())

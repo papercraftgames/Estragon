@@ -68,9 +68,9 @@ func build_view() -> Element:
     if self.reverse: preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/twoway/Demo.gogo:953", rows, "reverse", [], func(_gogo_receiver, _gogo_arguments): _gogo_receiver.reverse(), func(): rows.reverse())
     return _GogoFactories_0._gogo_build_2(
         (8.0),
-        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.model.enabled"))) if self.model != null else null),
+        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.model.enabled", (self.model.enabled) if self != null and self.model != null else null))) if self.model != null else null),
         ("Enabled" if self.model != null and self.model.enabled else "Disabled"),
-        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null)),
         ("Revision: %d" % self.revision),
         (rows),
         (replace_model),

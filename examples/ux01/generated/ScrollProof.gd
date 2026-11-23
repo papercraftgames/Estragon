@@ -23,7 +23,7 @@ func build_view() -> Element:
 		(pressed),
 		(Vector2(0,300)),
 		(pressed),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled"))
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null))
 	)
 
 const _GOGO_RENDER_FUNCTIONS_737610e287a175fb = {

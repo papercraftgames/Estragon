@@ -23,14 +23,17 @@ func instance(text: String):
 	return script.new() if valid else null
 func _initialize():
 	var header='extends RefCounted\nconst Checkbox = preload("res://addons/estragon/runtime/node/checkbox.gd")\n'
-	var data='class Plain extends RefCounted:\n    signal flag_changed(previous: bool, value: bool)\n    var flag: bool = false\nclass ReadOnly extends RefCounted:\n    var flag: bool:\n        get: return true\nvar plain = Plain.new()\nvar read_only = ReadOnly.new()\n@bindable var flag: bool = false\n'
-	var functions='func direct(): return <Checkbox value={self.flag} />\nfunc parameter(item): return <Checkbox value={item.flag} />\nfunc snapshot():\n    var current := self.flag\n    return <Checkbox value={current} />\nfunc computed(): return <Checkbox value={not self.flag} />\nfunc unobserved(): return <Checkbox value={self.plain.flag} />\nfunc getter_only(): return <Checkbox value={self.read_only.flag} />\nfunc literal(): return <Checkbox value={true} />\nfunc spread(): return <Checkbox value={self.flag} {...{ "value": true }} />\n'
+	var data='class Plain extends RefCounted:\n    signal flag_changed(previous: bool, value: bool)\n    var flag: bool = false\nclass ReadOnly extends RefCounted:\n    var reads: int = 0\n    var flag: bool:\n        get:\n            reads += 1\n            return true\nvar values: Dictionary = {"flag": true}\nvar plain = Plain.new()\nvar read_only = ReadOnly.new()\n@bindable var flag: bool = false\n'
+	var functions='func direct(): return <Checkbox value={self.flag} />\nfunc parameter(item): return <Checkbox value={item.flag} />\nfunc snapshot():\n    var current := self.flag\n    return <Checkbox value={current} />\nfunc computed(): return <Checkbox value={not self.flag} />\nfunc unobserved(): return <Checkbox value={self.plain.flag} />\nfunc getter_only(): return <Checkbox value={self.read_only.flag} />\nfunc dictionary(): return <Checkbox value={self.values.flag} />\nfunc literal(): return <Checkbox value={true} />\nfunc spread(): return <Checkbox value={self.flag} {...{ "value": true }} />\n'
 	var host = instance(header+data+functions)
 	if host!=null:
 		check(host.direct().bindings.size()==1 and host.parameter(host).bindings.size()==1,"self and direct object paths bind when both contracts are observable/writable Bool")
-		for method in ["snapshot","computed","unobserved","getter_only","literal","spread"]:
+		for method in ["snapshot","computed","unobserved","getter_only","dictionary","literal","spread"]:
 			var element = host.call(method)
 			check(element.bindings.is_empty() and typeof(element.properties.value)==TYPE_BOOL,"one-way snapshot/computed/plain/read-only/literal/spread: "+method)
+	if host!=null:
+		check(host.parameter({"flag":false}).bindings.is_empty(),"direct dictionary parameter stays one-way without an Object binding")
+	if host!=null: check(host.read_only.reads==1,"original property getter is evaluated exactly once")
 	var result=compile(header+data+functions)
 	var again=Compiler.compile(header+data+functions,"res://Probe.gogo","res://Probe%d.gd" % sequence)
 	check(result.code==again.code and result.source_map.serialize()==again.source_map.serialize(),"implicit linkage and metadata/maps deterministic")
@@ -44,6 +47,14 @@ func _initialize():
 	for attribute in ['bind:value={self.flag}','value={self.flag} value={true}','disabled="false"','checked_background_color="bad"','width="bad"']:
 		var bad=compile(header+data+'func view(): return <Checkbox '+attribute+' />\n')
 		check(not bad.ok and not bad.diagnostics.is_empty() and bad.diagnostics[0].span.start.line>1,"mapped static negative property/syntax: "+attribute)
+	var invalid=compile(header+data+'func view(): return <Checkbox value={missing.flag} />\n')
+	var broken:=GDScript.new()
+	broken.resource_path="res://Probe%d.gd" % sequence
+	broken.source_code=invalid.code
+	print("UI02_EXPECTED_NATIVE_BEGIN")
+	var invalid_error:=broken.reload()
+	print("UI02_EXPECTED_NATIVE_END")
+	check(invalid.ok and invalid_error!=OK,"implicit lowering preserves actual native unknown-identifier rejection")
 	var native=compile('extends Node2D\nfunc view(): return <CheckBox button_pressed={true} />\n')
 	check(native.ok and native.code.contains('new('),"unimported native Godot CheckBox remains native, no reserved alias")
 	print("UI02_FRONTEND_ASSERTIONS ",checks," failed=",failed)

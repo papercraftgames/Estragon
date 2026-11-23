@@ -17,7 +17,7 @@ var model: Model = Model.new():
         return model
 
 func build_view() -> Element:
-    return _GogoFactories_0._gogo_build_0((12.0), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.model.enabled")), ("Enabled" if self.model.enabled else "Disabled"))
+    return _GogoFactories_0._gogo_build_0((12.0), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.model.enabled", (self.model.enabled) if self != null and self.model != null else null)), ("Enabled" if self.model.enabled else "Disabled"))
 
 const _GOGO_RENDER_FUNCTIONS_6f60bddb445a41db = {
 "ordinary": [],

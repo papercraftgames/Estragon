@@ -66,16 +66,16 @@ var props: Dictionary = {}:
 var presses: int = 0
 func pressed(): presses += 1
 func row(item: Model) -> Element:
-    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/checkbox/Checkboxes.gogo:915", "parameter", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((preload("../../../addons/estragon/runtime/composition/binding.gd").new(item, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "item.flag"))))
+    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/checkbox/Checkboxes.gogo:915", "parameter", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((preload("../../../addons/estragon/runtime/composition/binding.gd").new(item, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "item.flag", (item.flag) if item != null else null))))
 func build_view() -> Element:
     var current: bool = self.model.flag if self.model != null else false
     return _GogoFactories_0._gogo_build_1(
         ("Checkbox / implicit Bool — revision "+str(self.revision)),
         (24),
         (_GogoFactories_0._gogo_build_2(
-            (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "self.model.flag")),
+            (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "self.model.flag", (self.model.flag) if self != null and self.model != null else null)),
             (self.pressed),
-            (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "self.model.flag")),
+            (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "flag", func(_gogo_source, _gogo_edit: bool): _gogo_source.flag = _gogo_edit, "self.model.flag", (self.model.flag) if self != null and self.model != null else null)),
             (current),
             (not self.model.flag),
             (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.props)),

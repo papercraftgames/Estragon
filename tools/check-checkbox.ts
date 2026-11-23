@@ -11,8 +11,8 @@ for(const selection of options.engines){
  const box=newSandbox(selection),out=path.join(options.output,selection.label),results:Record<string,unknown>={};
  fs.mkdirSync(out,{recursive:true});
  async function run(name:string,args:string[],marker?:string,env=box.env){
-  const editing=name.startsWith('editor'),negative=name==='rejections',logFile=path.join(out,name+'.log');
-  const result=await runCommand(args,box.project,env,logFile,marker,{timeout:120000,abortOnError:!editing&&!negative,expectedErrors:editing||negative});
+  const editing=name.startsWith('editor'),negative=name==='rejections',frontend=name==='frontend',logFile=path.join(out,name+'.log');
+  const result=await runCommand(args,box.project,env,logFile,marker,{timeout:120000,abortOnError:!editing&&!negative&&!frontend,expectedErrors:editing||negative||frontend});
   if(editing){
    let bracket=false,starts=0,count=0;const unexpected:string[]=[];
    for(const line of fs.readFileSync(logFile,'utf8').split(/\r?\n/)){
@@ -24,6 +24,18 @@ for(const selection of options.engines){
     }
    }
    if(bracket||starts!==(name==='editor'?2:0)||count!==starts||unexpected.length){result.status='FAIL';result.reason='Unexpected editor diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+  }
+  if(frontend){
+   let bracket=false,starts=0,count=0;const unexpected:string[]=[];
+   for(const line of fs.readFileSync(logFile,'utf8').split(/\r?\n/)){
+    if(line==='UI02_EXPECTED_NATIVE_BEGIN'){bracket=true;starts++;}
+    else if(line==='UI02_EXPECTED_NATIVE_END')bracket=false;
+    else if(ERROR.test(line)){
+     if(bracket&&line==='SCRIPT ERROR: Parse Error: Identifier "missing" not declared in the current scope.')count++;
+     else unexpected.push(line);
+    }
+   }
+   if(bracket||starts!==1||count!==3||unexpected.length){result.status='FAIL';result.reason='Unexpected native semantic diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
   }
   if(negative){
    let bracket=false,starts=0,count=0;const unexpected:string[]=[];

@@ -57,7 +57,7 @@ func build_view() -> Element:
         (Color.WHITE),
         (self.clicked),
         (true),
-        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null)),
         (false),
         (self.native_clicked),
         (keys.map(func(id): return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/styling/WidgetGallery.gogo:3222", id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), ("Key"+str(id)))))),

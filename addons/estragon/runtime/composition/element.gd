@@ -12,7 +12,7 @@ var bindings: Dictionary = {}
 func resolve_bindings() -> void:
 	var value = properties.get("value")
 	if not value is Binding: return
-	if value.observable or value.source==null:
+	if value.observable or not value.valid and value.value==null:
 		bindings.value = value
 		properties.erase("value")
 	else: properties.value = value.value

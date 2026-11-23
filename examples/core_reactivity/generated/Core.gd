@@ -185,7 +185,7 @@ func keyed_group() -> Element:
     counts.group += 1
     return _GogoFactories_0._gogo_build_10((self.items.map(func(item): return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/core_reactivity/Core.gogo:3990", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_11((_gogo_mount_key), ("Key"+str(item.id)), ((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Core.gogo:4036", badge, [], func(): badge()) as Element)))))))
 func controlled() -> Element:
-    return _GogoFactories_0._gogo_build_12((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "alternate", func(_gogo_source, _gogo_edit: bool): _gogo_source.alternate = _gogo_edit, "self.model.alternate"))) if self.model!=null else _GogoFactories_0._gogo_build_13()
+    return _GogoFactories_0._gogo_build_12((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "alternate", func(_gogo_source, _gogo_edit: bool): _gogo_source.alternate = _gogo_edit, "self.model.alternate", (self.model.alternate) if self != null and self.model != null else null))) if self.model!=null else _GogoFactories_0._gogo_build_13()
 func build_view() -> Element:
     counts.root += 1
     var shared_control: Element = (preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/core_reactivity/Core.gogo:4300", controlled, [], func(): controlled()) as Element)

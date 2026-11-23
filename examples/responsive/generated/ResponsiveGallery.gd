@@ -95,7 +95,7 @@ func build_view() -> Element:
 		(self.order.map(card)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.grid_props)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.header_props)),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null)),
 		(native_pressed),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.placement)),
 		(3),

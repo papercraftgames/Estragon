@@ -346,7 +346,17 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
-	_writer.append("preload("+_resource(Binding)+").new("+root+", func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)
+	_writer.append("preload("+_resource(Binding)+").new("+root+", func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+", (",argument.expression.span)
+	# Keep the original property read in authored scope: native semantic
+	# validation still rejects unknown members, and the getter runs once.
+	_parts(argument.expression.parts)
+	var original_checks: Array[String] = []
+	var original := root
+	original_checks.append(original+" != null")
+	for name in path:
+		original += "."+str(name)
+		original_checks.append(original+" != null")
+	_writer.append(") if "+" and ".join(original_checks)+" else null)",argument.expression.span)
 
 func _render_call(node: Model.RenderCall) -> void:
 	var cast: String = node.result_type

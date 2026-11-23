@@ -81,7 +81,7 @@ func build_view() -> Element:
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Ordinary dictionaries, native properties", "color":Color("#ffc65c")})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot((preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/spreads/SpreadGallery.gogo:1945", button_values, [], func(): button_values()) as Dictionary))),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Enabled", "min_width":"120px", "min_height":"36px"})),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled", (self.enabled) if self != null else null)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"text":"Native Button", "pressed":native_pressed})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"width":"100%", "height":"12px", "background_color":"#355e92"})),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot({"caption":"Nested spread, retained native nodes"})),

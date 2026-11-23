@@ -15,8 +15,10 @@ var node: WeakRef
 var computation: WeakRef
 var connected := false
 var writing := false
-func _init(owner: Object, reader: Callable, property: StringName, writer: Callable, identity: String) -> void:
-	if owner==null: return
+func _init(owner: Variant, reader: Callable, property: StringName, writer: Callable, identity: String, snapshot_value: Variant) -> void:
+	value = snapshot_value
+	valid = typeof(value)==TYPE_BOOL
+	if not owner is Object or not is_instance_valid(owner): return
 	route = identity
 	root = weakref(owner)
 	read = reader
@@ -25,8 +27,6 @@ func _init(owner: Object, reader: Callable, property: StringName, writer: Callab
 	var endpoint = current()
 	if endpoint == null: return
 	source = weakref(endpoint)
-	value = endpoint.get(field)
-	valid = typeof(value)==TYPE_BOOL
 	if not valid: return
 	observable = declared(endpoint.get_script(),str(field))
 	if observable:
@@ -41,7 +41,7 @@ static func declared(script, property: String) -> bool:
 func current():
 	var owner = root.get_ref() if root!=null else null
 	var endpoint = read.call(owner) if is_instance_valid(owner) else null
-	return endpoint if is_instance_valid(endpoint) else null
+	return endpoint if endpoint is Object and is_instance_valid(endpoint) else null
 func same(other) -> bool:
 	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
 func attach(target: Node, scope) -> void:
@@ -81,7 +81,7 @@ func project(target: Node, next: bool) -> void:
 # A desired linkage is reusable data; each native mount owns its mutable edit
 # connection. Copy without evaluating getters outside the render read scope.
 func snapshot():
-	var result = get_script().new(null,Callable(),&"",Callable(),"")
+	var result = get_script().new(null,Callable(),&"",Callable(),"",null)
 	result.root = root
 	result.source = source
 	result.field = field

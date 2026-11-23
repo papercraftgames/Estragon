@@ -130,7 +130,7 @@ func run() -> void:
     scene.model = null
     await settle()
     check(not scene.has_node("UI/Panel/Edit"),"null source intentionally omitted by ordinary conditional")
-    var invalid = preload("res://addons/estragon/runtime/composition/binding.gd").new(scene,func(owner): return owner.model,"enabled",func(owner, value: bool): owner.enabled = value,"model.enabled")
+    var invalid = preload("res://addons/estragon/runtime/composition/binding.gd").new(scene,func(owner): return owner.model,"enabled",func(owner, value: bool): owner.enabled = value,"model.enabled",null)
     check(not invalid.valid,"present null binding rejects instead of silently becoming writable")
     scene.replace_model()
     scene.show_row = true
