@@ -69,6 +69,8 @@ func run(host: Node):
 	await frames(tree)
 	check(prototype.editor==editor and editor.text=="Unicode Ω!" and editor.has_selection() and editor.caret_column==caret and editor.has_focus(),"native delegate text/caret/selection/focus survive parent rerender")
 	check(editor.get_parent()==prototype and editor.owner==null,"delegate keeps real native ancestry and transient ownership")
+	await RenderingServer.frame_post_draw
+	tree.root.get_texture().get_image().save_png("res://focus-text-delegate.png")
 	print("UI01_IME ",JSON.stringify({"feature":DisplayServer.has_feature(DisplayServer.FEATURE_IME),"backend":DisplayServer.get_name(),"os_composition":"UNTESTED: no OS IME composition under Xvfb; native LineEdit owns platform IME"}))
 	first.grab_focus()
 	await key(host,KEY_ENTER)
