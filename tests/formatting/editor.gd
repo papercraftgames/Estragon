@@ -91,6 +91,15 @@ func run() -> void:
 		buffer.grab_focus()
 		await shortcut(false)
 		check(buffer.text==broken and buffer.get_version()==broken_version and not plugin._services.last_format.ok and not plugin._services.last_format.diagnostics.is_empty(),"invalid intermediate source safely refused with diagnostic")
+		for mode in ["current","main"]:
+			print("EDIT01_EXPECTED_PLAY_REJECTION_BEGIN")
+			var cached = load(output)
+			if mode=="main": interface.play_main_scene()
+			else: interface.play_current_scene()
+			await wait(0.8)
+			check(not interface.is_playing_scene() and not plugin.last_report.ok,mode+" malformed formatted buffer blocks stale Play")
+			check(FileAccess.get_file_as_bytes(output)==generated and FileAccess.get_file_as_bytes(output+".map.json")==maps and FileAccess.get_file_as_bytes(output+".uid")==uid and FileAccess.get_modified_time(output)==timestamp and load(output)==cached,mode+" rejected Play preserves generated code/maps/UID/timestamp/cache")
+			print("EDIT01_EXPECTED_PLAY_REJECTION_END")
 		buffer.text = valid
 		# A second authored tab must never receive edits intended for this one.
 		await plugin._navigation.open("res://app/Header.gogo")
@@ -121,7 +130,7 @@ func run() -> void:
 		check(FileAccess.get_file_as_string("res://app/Layouts.gogo")==valid,"save/Play publishes latest formatted unsaved authored source")
 		var map = JSON.parse_string(FileAccess.get_file_as_string(output+".map.json"))
 		check(map.sourceContent==valid and FileAccess.get_file_as_bytes(output+".uid")==uid,"formatted source maps and stable authored UID after Play")
-		var addon := plugin.get_script().resource_path.get_base_dir()+"/plugin.cfg"
+		var addon: String = plugin.get_script().resource_path.get_base_dir()+"/plugin.cfg"
 		interface.set_plugin_enabled(addon,false)
 		await wait()
 		check(menu_items().is_empty(),"disable removes native menu action")

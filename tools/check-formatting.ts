@@ -1,7 +1,7 @@
 /** EDIT-01: one immutable direct-Yarn payload, real native editor commands/Play. */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject} from './compat-kit.ts';
+import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject,ERROR} from './compat-kit.ts';
 import {buttonImportsPackage} from './button-imports-package.ts';
 const options=parseCLI(process.argv.slice(2));
 if(process.platform!=='linux')throw Error('Approved Linux engines only');
@@ -11,7 +11,20 @@ for(const selection of options.engines){
  const box=newSandbox(selection),out=path.join(options.output,selection.label),results:Record<string,unknown>={};
  fs.mkdirSync(out,{recursive:true});
  async function run(name:string,args:string[],marker?:string,env=box.env){
-  const result=await runCommand(args,box.project,env,path.join(out,name+'.log'),marker,{timeout:120000,abortOnError:true});
+  const editing=name.startsWith('editor'),logFile=path.join(out,name+'.log');
+  const result=await runCommand(args,box.project,env,logFile,marker,{timeout:120000,abortOnError:!editing,expectedErrors:editing});
+  if(editing){
+   let bracket=false,starts=0,count=0;const unexpected:string[]=[];
+   for(const line of fs.readFileSync(logFile,'utf8').split(/\r?\n/)){
+    if(line==='EDIT01_EXPECTED_PLAY_REJECTION_BEGIN'){bracket=true;starts++;}
+    else if(line==='EDIT01_EXPECTED_PLAY_REJECTION_END')bracket=false;
+    else if(ERROR.test(line)){
+     if(bracket&&line==='ERROR: An EditorPlugin build callback failed.')count++;
+     else unexpected.push(line);
+    }
+   }
+   if(bracket||starts!==(name==='editor'?2:0)||count!==starts||unexpected.length){result.status='FAIL';result.reason='Unexpected editor diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+  }
   results[name]=result;writeJSON(path.join(out,'results.json'),results);
   if(result.status!=='PASS')throw Error('EDIT01 '+name+' failed: '+JSON.stringify(result));
  }
