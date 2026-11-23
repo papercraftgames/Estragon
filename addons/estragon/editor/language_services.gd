@@ -294,6 +294,7 @@ func navigate(record: Dictionary) -> void:
 func _format_entry() -> Dictionary:
 	if not _active or not interface.get_script_editor().is_visible_in_tree(): return {}
 	var current = interface.get_script_editor().get_current_editor()
+	if current==null: return {}
 	for id in entries:
 		var entry: Dictionary = entries[id]
 		var code = entry.code.get_ref()

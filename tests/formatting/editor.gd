@@ -23,6 +23,10 @@ func run() -> void:
 	var prefs := interface.get_editor_settings()
 	prefs.set_setting("run/auto_save/save_before_running",false)
 	prefs.set_setting("text_editor/behavior/files/autosave_interval_secs",0)
+	# The final authored width is two spaces; keep native generated-script
+	# save conversion consistent with that setting, including editor shutdown.
+	prefs.set_setting("text_editor/behavior/indent/type",1)
+	prefs.set_setting("text_editor/behavior/indent/size",2)
 	if prefs.has_setting("run/window_placement/game_embed_mode"): prefs.set_setting("run/window_placement/game_embed_mode",-1)
 	interface.open_scene_from_path("res://app/Layouts.tscn")
 	await until(func(): return interface.get_edited_scene_root()!=null,"native scene opens")

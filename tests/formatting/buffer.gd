@@ -53,6 +53,9 @@ func run():
 	code.redo()
 	code.redo()
 	check(code.text==report.text,"native redo restores formatting")
+	code.tag_saved_version()
+	version=code.get_version()
+	check(Edit.apply(code,Formatter.new().format_source(code.text,"buffer",true,4)) and code.get_version()==version and code.get_version()==code.get_saved_version(),"already formatted clean buffer remains saved")
 	code.text=saved
 	code.clear_undo_history()
 	code.tag_saved_version()
@@ -67,6 +70,13 @@ func run():
 	code.tag_saved_version()
 	version=code.get_version()
 	check(not Edit.apply(code,Formatter.new().format_source(invalid)) and code.text==invalid and code.get_version()==version,"malformed input does not edit or dirty native buffer")
+	code.text="func view():\n        return <Box />\n"
+	code.set_caret_line(1,false)
+	code.set_caret_column(5,false)
+	code.add_caret(1,6)
+	before=code.text
+	version=code.get_version()
+	check(not Edit.apply(code,Formatter.new().format_source(before,"carets",true,4)) and code.text==before and code.get_version()==version and code.get_caret_count()==2,"would-merge carets refuse before any native mutation")
 	code.free()
 	print("EDIT01_BUFFER_ASSERTIONS ",checks," errors=",errors)
 	if errors==0: print("EDIT01_BUFFER_OK")
