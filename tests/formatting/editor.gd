@@ -52,6 +52,10 @@ func run() -> void:
 		buffer.select(48,9,49,9)
 		buffer.grab_focus()
 		await wait()
+		# Native select() caret placement differs between 4.0 and 4.7.
+		# Preserve the actual pre-command state, not a presumed endpoint.
+		var caret_row := buffer.get_caret_line()
+		var selection_rows := Vector2i(buffer.get_selection_from_line(),buffer.get_selection_to_line())
 		var disk := FileAccess.get_file_as_bytes("res://app/Layouts.gogo")
 		var output := "res://app/generated/Layouts.gd"
 		var generated := FileAccess.get_file_as_bytes(output)
@@ -64,7 +68,7 @@ func run() -> void:
 		await wait()
 		var formatted := buffer.text
 		check(formatted!=messy and plugin._services.last_format.ok and plugin._services.last_format.changed,"native menu formats current unsaved GGX buffer")
-		check(buffer.has_selection() and buffer.get_caret_line()==49,"native menu retains selection and caret row")
+		check(buffer.has_selection() and buffer.get_caret_line()==caret_row and buffer.get_selection_from_line()==selection_rows.x and buffer.get_selection_to_line()==selection_rows.y,"native menu retains selection and caret row")
 		check(buffer.get_version()!=buffer.get_saved_version(),"native editor retains dirty state")
 		await RenderingServer.frame_post_draw
 		get_viewport().get_texture().get_image().save_png("res://format-editor.png")
