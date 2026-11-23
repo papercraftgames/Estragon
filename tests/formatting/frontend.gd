@@ -32,17 +32,19 @@ func _initialize():
 	result=formatted(script,"nested suites and comparisons")
 	check(result.text.contains('    if value < 4:\n        var text') and result.text.contains('    else:\n        return'),"native suite relationships normalize without guessing dedents")
 	var literals='func view():\n    var text = """first\n  literal <Tag> { brackets }\n   final"""\n    return <Box>\n<Text text="first\n  property content" />\n<!-- comment\n  literal comment indentation -->\n<Text>first\n  meaningful text\n end</Text>\n</Box>\n'
-	formatted(literals,"multiline literal contents and comments")
+	result=formatted(literals,"multiline literal contents and comments")
+	check(result.text.contains("\n        <!-- comment\n  literal comment indentation -->"),"comment start indents while multiline comment contents stay exact")
 	var expressions='func view():\n    return <Box\n {...{\n "color": "red",\n "value": [1, 2],\n }}\n >\n {\n [<Text\n text={str(value)}\n /> for value in [1, 2]]\n }\n</Box>\n'
 	formatted(expressions,"nested arrays, spreads and GGX islands")
 	var matrix='layout const <Layout\n columns={2}\n>\n <Header /> <Header />\n<Side /> <Body />\n</Layout>\nfunc view():\n    return <Layout />\n'
 	result=formatted(matrix,"layout matrix")
 	check(result.text.contains('    <Header /> <Header />\n    <Side /> <Body />'),"matrix cells stay on their original rows")
+	formatted('func view():\n    # native comment\n    return <Box>\n{<Text text={str({"a": [1, 2]})} /> if 1 < 2 else null}\n</Box>\n',"interpolation, braces and comparison")
 	formatted(owner.replace("\n","\r\n"),"CRLF",false)
 	for sample in ["nested_layout/Home","layouts/Layouts","core_reactivity/Core"]:
 		var path="res://examples/"+sample+".gogo"
 		if FileAccess.file_exists(path): formatted(FileAccess.get_file_as_string(path),sample,false)
-	for invalid in ['func view():\n    return <Box>\n <Text />\n','func view():\n    return <Box><Text /></Wrong>\n','func view():\n    return <Text text={"unfinished} />\n','func view():\nreturn <Box />\n','func view():\n    if true:\n        pass\n      return <Box />\n','func view():\n']:
+	for invalid in ['func view():\n    return <Box>\n <Text />\n','func view():\n    return <Box><Text /></Wrong>\n','func view():\n    return <Text text={"unfinished} />\n','func view():\nreturn <Box />\n','func view():\n    if true:\n        pass\n      return <Box />\n','func view():\n','func view():\n    var items = [1, 2\n','func view():\n    var items = (1]\n']:
 		result=Formatter.new().format_source(invalid,"invalid")
 		check(not result.ok and result.text==invalid and result.edits.is_empty() and not result.diagnostics.is_empty(),"malformed/ambiguous input refuses without mutation")
 	print("EDIT01_FRONTEND_ASSERTIONS ",checks," errors=",errors)

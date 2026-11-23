@@ -75,7 +75,7 @@ for(const selection of options.engines){
   }
   results.immutable={status:'PASS',sourceHead:packed.manifest.sourceHead,direct_yarn:true,installed_bytes_unchanged:true,canonical_uids:packed.manifest.canonical_uids,tarball_sha256:packed.manifest.tarball_sha256};
  }finally{
-  if(fs.existsSync(box.project))for(const name of fs.readdirSync(box.project).filter(n=>n.endsWith('.png')))fs.copyFileSync(path.join(box.project,name),path.join(out,name));
+  if(fs.existsSync(box.project))for(const name of fs.readdirSync(box.project).filter(n=>n.endsWith('.png')||n==='edit01-final-generated.txt'))fs.copyFileSync(path.join(box.project,name),path.join(out,name));
   writeJSON(path.join(out,'results.json'),results);box.dispose();
  }
 }

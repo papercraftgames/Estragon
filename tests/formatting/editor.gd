@@ -56,7 +56,7 @@ func run() -> void:
 		var timestamp := FileAccess.get_modified_time(output)
 		var items := menu_items()
 		check(items.size()==1,"one discoverable native Project Tools menu command")
-		if items.size()==1: items[0].popup.id_pressed.emit(items[0].popup.get_item_id(items[0].index))
+		if items.size()==1: items[0].popup.index_pressed.emit(items[0].index)
 		await wait()
 		var formatted := buffer.text
 		check(formatted!=messy and plugin._services.last_format.ok and plugin._services.last_format.changed,"native menu formats current unsaved GGX buffer")
@@ -108,7 +108,7 @@ func run() -> void:
 		var other_source: String = other.text
 		other.grab_focus()
 		await shortcut(false)
-		check(buffer.text==valid and other.text==other_source,"multiple authored tabs format only active buffer")
+		check(buffer.text==valid and other.text==plugin._services.Formatter.new().format_source(other_source,"Header",other.indent_use_spaces,other.indent_size).text,"multiple authored tabs format only active buffer")
 		interface.edit_script(load("res://godot_button.gd"))
 		await wait()
 		var ordinary = interface.get_script_editor().get_current_editor().get_base_editor()
@@ -130,6 +130,9 @@ func run() -> void:
 		check(FileAccess.get_file_as_string("res://app/Layouts.gogo")==valid,"save/Play publishes latest formatted unsaved authored source")
 		var map = JSON.parse_string(FileAccess.get_file_as_string(output+".map.json"))
 		check(map.sourceContent==valid and FileAccess.get_file_as_bytes(output+".uid")==uid,"formatted source maps and stable authored UID after Play")
+		var debug := FileAccess.open("res://edit01-final-generated.txt",FileAccess.WRITE)
+		debug.store_string(FileAccess.get_file_as_string(output))
+		debug.close()
 		var addon: String = plugin.get_script().resource_path.get_base_dir()+"/plugin.cfg"
 		interface.set_plugin_enabled(addon,false)
 		await wait()
