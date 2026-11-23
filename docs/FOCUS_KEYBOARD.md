@@ -1,6 +1,6 @@
 # UI-01 — native focus and keyboard ownership
 
-[Issue #197](https://github.com/papercraftgames/Estragon/issues/197) supplies the shared foundation for Checkbox/UI-02 and Input/UI-03. It adds keyboard access to current Button/Toggle/Checkbox, not those later controls or String two-way binding.
+[Issue #197](https://github.com/papercraftgames/Estragon/issues/197) supplies the shared foundation for Checkbox/UI-02 and Input/UI-03. UI-02 Checkbox and UI-03 [Input/String binding](INPUT.md) reuse it; the text prototype below records the original UI-01 decision.
 
 ## One native focus owner
 
@@ -8,7 +8,7 @@ Godot's `Viewport.gui_get_focus_owner()` is authoritative. A runtime-only, trans
 
 Button/Toggle/Checkbox expose native-shaped `focus_mode` (`Control.FOCUS_NONE`, `FOCUS_CLICK`, `FOCUS_ALL`, default ALL), `grab_focus()`, `release_focus()`, `has_focus()`, `get_focus_control()` and `focus_entered`/`focus_exited`. `get_focus_control()` returns the current native endpoint, or null outside the running tree/editor. Use it to author explicit native focus paths when needed; never hardcode its internal name. A two-pixel light-blue inset border marks actual focus, including pointer/programmatic focus.
 
-A disabled target loses focus immediately. Hiding/unmounting/reparenting follows native GUI lifetime: pending activation is canceled, old endpoints are removed, reentry creates one new endpoint. Moving keyed retained Nodes in their native parent preserves identity/focus. Programmatic state projections stay quiet. Changing Toggle with completed keyboard activation uses the existing bool binding path, with one user edit.
+A disabled target loses focus immediately. Hiding/unmounting/reparenting follows native GUI lifetime: pending activation is canceled, old endpoints are removed, reentry creates one new endpoint. Moving keyed retained Nodes in their native parent preserves identity/focus. Programmatic value changes notify; reconciliation suppresses automatic writeback through the mounted binding guard. Changing Toggle with completed keyboard activation uses the existing bool binding path, with one user edit.
 
 ## Traversal and event phases
 
@@ -25,6 +25,8 @@ Eligibility requires a live, processable, visible target, permitted focus mode, 
 Tree changes and scroll geometry enqueue a coalesced eligibility check; direct custom disable/layout changes validate immediately. The registry holds weak Entries and disconnects its SceneTree subscription when the last Entry exits. No per-frame processing, second UI tree, additional reconciler/scheduler, authored metadata or helper layout participant is introduced. Native disabled/focus behavior remains native for foreign Controls; shared traversal skips disabled targets and revalidates at the next event. The framework does not poll arbitrary foreign property assignments.
 
 ## Text editing / IME decision and prototype
+
+UI-03 completes the production [Input](INPUT.md) using this selected native editing path, including local skin, String model authority, retained caret/selection, border-box hit testing and pack/reload. The prototype and original comparison below remain UI-01 evidence; actual OS composition remains untested.
 
 [Focus.gogo](../examples/focus/Focus.gogo) mixes Estragon Button/Toggle/Checkbox/disabled Button, Godot Button, and [TextDelegate.gd](../examples/focus/TextDelegate.gd), a deliberately limited Node2D host of a **real visible LineEdit**. Its internal owner-null LineEdit receives the host's allocated rect and inherits scene ancestry; native drawing, caret, selection, clipboard, editing keys, Unicode, submission and platform IME remain Godot-owned. It is **not catalogued as Input**, not a hidden offscreen text buffer, and offers no production String binding or completed Estragon input styling/validation API. Editor mode creates no runtime delegates.
 

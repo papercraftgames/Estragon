@@ -19,6 +19,7 @@
     "examples/layouts",
     "examples/core_reactivity",
     "examples/focus",
-    "examples/checkbox"
+    "examples/checkbox",
+    "examples/input"
   ]
 }

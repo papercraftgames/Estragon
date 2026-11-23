@@ -1,0 +1,109 @@
+{
+  "regression_source": "4c59312a9138ce56f532b7bef3426d6998ec725b",
+  "final_implementation": "4641252c519f56304e704773c4d40ec0c95bcf94",
+  "shared_compiler_binding_focus_layout_bytes_match_final": true,
+  "only_production_difference": [
+    "addons/estragon/runtime/node/input.gd"
+  ],
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "engine_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "commands": [
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui03-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/twoway/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui03-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/bindable/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui03-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/native_ui/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui03-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/focus/runtime.gd"
+    ],
+    [
+      "/evidence/ui02-regression-engine/godot",
+      "--headless",
+      "--editor",
+      "--import",
+      "--path",
+      "/evidence/ui03-regressions"
+    ],
+    [
+      "/evidence/ui02-regression-engine/godot",
+      "--headless",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/native_compiler/frontend.gd"
+    ],
+    [
+      "/evidence/ui02-regression-engine/godot",
+      "--headless",
+      "--path",
+      "/evidence/ui03-regressions",
+      "--script",
+      "res://tests/checkbox/frontend.gd"
+    ]
+  ],
+  "notes": "Input-only border-box/theme change is covered by paired final UI-03 tests. All other addon bytes match the clean regression tar. Native UI two deliberate width/gap errors; Bool frontend three deliberately bracketed unknown-identifier errors."
+}

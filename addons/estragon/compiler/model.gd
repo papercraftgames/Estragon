@@ -59,6 +59,7 @@ class Literal extends SyntaxNode:
 class Attribute extends RefCounted:
 	var span: Span
 	var binding_path: Array = []
+	var binding_type := "bool"
 	var kind: String = "property"
 	var name: String
 	var name_span: Span

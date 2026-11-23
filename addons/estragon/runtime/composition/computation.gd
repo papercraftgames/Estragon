@@ -251,7 +251,7 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	for key in desired.bindings:
 		var binding = desired.bindings[key]
 		if not binding is Binding or not binding.valid:
-			validation_error = desired.location(str(key))+": invalid observable Bool binding endpoint; previous tree retained"
+			validation_error = desired.location(str(key))+": invalid observable "+("String" if binding is Binding and binding.kind==TYPE_STRING else "Bool")+" binding endpoint; previous tree retained"
 			return false
 	for event in desired.handlers:
 		var handler = desired.handlers[event]
@@ -405,7 +405,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 		if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
 		if scroll and key=="scroll_offset": continue
-		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]) or key=="value" and Binding.declared(node.get_script(),"value") and not is_same(node.get(key),desired.properties[key]):
+		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]) or key=="value" and Binding.declared(node.get_script(),"value",typeof(desired.properties[key])) and not is_same(node.get(key),desired.properties[key]):
 			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
@@ -702,13 +702,13 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			var expected: String = str(properties[key].get("class_name",""))
 			if ClassDB.class_exists(expected) and not value.is_class(expected): return _invalid_attribute(desired,str(key),"incompatible native Object class "+expected)
 	for key in desired.bindings:
-		if key!="value" or desired.properties.has(key) or not properties.has(key) or properties[key].type!=TYPE_BOOL or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return _invalid_attribute(desired,str(key),"invalid or conflicting controlled binding")
+		if key!="value" or desired.properties.has(key) or not properties.has(key) or properties[key].type not in [TYPE_BOOL,TYPE_STRING] or desired.bindings[key].kind!=properties[key].type or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return _invalid_attribute(desired,str(key),"invalid or conflicting controlled binding")
 		var args: Array = signals.get("value_changed",{}).get("args",[])
 
 		# 4.0 lacks signal argument type metadata. Compiler source proof and
 		# native typed callback still apply; optional introspection cannot
 		# reject a valid input on that engine.
-		if args.size()!=2 or args.any(func(arg): return arg.type not in [TYPE_NIL,TYPE_BOOL]): return false
+		if args.size()!=2 or args.any(func(arg): return arg.type!=TYPE_NIL and arg.type!=properties[key].type): return false
 	for key in desired.handlers:
 		if not signals.has(key): return _invalid_attribute(desired,str(key),"unknown native signal")
 		var message := _handler_error(desired.handlers[key],signals[key].get("args",[]).size())
