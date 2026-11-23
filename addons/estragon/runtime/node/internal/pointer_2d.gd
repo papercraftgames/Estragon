@@ -32,6 +32,8 @@ func cancel() -> void:
 func cancel_button(button: Node2D) -> void:
 	if _captured != null and _captured.get_ref() == button: cancel()
 	button._set_pointer_state(false,false)
+func has_capture() -> bool:
+	return _captured!=null and _captured.get_ref()!=null
 func _z(button: CanvasItem) -> int:
 	var result: int = button.z_index
 	var parent: CanvasItem = button.get_parent_item()
@@ -69,6 +71,7 @@ func input(event: InputEvent) -> bool:
 	if not event is InputEventMouseButton or event.button_index != MOUSE_BUTTON_LEFT: return false
 	if event.pressed:
 		if held == null and hovered != null and not hovered.disabled:
+			hovered.grab_focus()
 			_captured = weakref(hovered)
 			hovered._set_pointer_state(true,true)
 		return hovered != null

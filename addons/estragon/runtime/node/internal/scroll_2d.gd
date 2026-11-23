@@ -3,6 +3,7 @@ extends RefCounted
 ## Lazy native viewport decoration. One owner coordinator; no child layout policy.
 const Hosts = preload("composition_hosts.tres")
 const Pointer = preload("pointer_2d.gd")
+const Focus = preload("focus.tres")
 var owner_ref: WeakRef
 var host:
 	get: return owner_ref.get_ref()
@@ -144,6 +145,7 @@ func _update_scroll() -> void:
 	_vertical.page = rect.size.y
 	_vertical.value = host.scroll_offset.y
 	_updating = false
+	Focus.refresh()
 func _horizontal_changed(value: float) -> void:
 	if not _updating: host.scroll_offset = Vector2(value,host.scroll_offset.y)
 func _vertical_changed(value: float) -> void:
