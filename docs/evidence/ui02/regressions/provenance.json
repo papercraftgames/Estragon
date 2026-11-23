@@ -1,0 +1,106 @@
+{
+  "tested_source": "1c73a421c084b64728fe3d40eb76306759a34e26",
+  "addon_files_match_manifest": true,
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "engine_copy_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "self_contained_settings": true,
+  "commands": [
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui02-regressions",
+      "--script",
+      "res://tests/twoway/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui02-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui02-regressions",
+      "--script",
+      "res://tests/bindable/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui02-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui02-regressions",
+      "--script",
+      "res://tests/native_ui/runtime.gd"
+    ],
+    [
+      "LIBGL_ALWAYS_SOFTWARE=1",
+      "xvfb-run",
+      "-a",
+      "env",
+      "PATH=/evidence/ui02-regressions/no-tools",
+      "/evidence/ui02-regression-engine/godot",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--path",
+      "/evidence/ui02-regressions",
+      "--script",
+      "res://tests/focus/runtime.gd"
+    ],
+    [
+      "/evidence/ui02-regression-engine/godot",
+      "--headless",
+      "--path",
+      "/evidence/ui02-regressions",
+      "--script",
+      "res://tests/native_compiler/frontend.gd"
+    ]
+  ],
+  "import": [
+    "/evidence/ui02-regression-engine/godot",
+    "--headless",
+    "--editor",
+    "--import",
+    "--path",
+    "/evidence/ui02-regressions"
+  ],
+  "fixtures": {
+    "tests/twoway/runtime.gd": "a2f191fff283779b9ecd367523d2b4f7720514cec7bf1b02ca2876740bf643ae",
+    "tests/bindable/runtime.gd": "777be6b5c127cf0ccd2dbb3109a272d37ed72372fc33c966ea2452d91561d800",
+    "tests/native_ui/runtime.gd": "0b8961295f026fc6ac5e50987ffdb23e75b5839f4bc9a90eca9c28ba3787efce",
+    "tests/focus/runtime.gd": "4b36df96454dce7ffb6801b2aa934322902d8509b861aa6b089e326f3ab88b65",
+    "tests/native_compiler/frontend.gd": "801d6ebe6df685af57256f586815e4cae744200efafab6eedc63855f82cdf274"
+  },
+  "expected_errors": {
+    "native_ui": 2
+  },
+  "notes": "All addon bytes and selected fixture bytes match tested commit. Root project never enabled. Bindable rerun uses its required no-tools PATH; earlier invocation failed the environment assertion."
+}

@@ -32,6 +32,6 @@ func build_view() -> Element:
 			<Button name="Custom" width="500px" height="100px" corner_radius="14px" disabled={not self.enabled} pressed={pressed}>Native rounded button</Button>
 			<NativeButton name="Native" custom_minimum_size={Vector2(200,100)} pressed={pressed}>Godot Button</NativeButton>
 		</Grid>
-		<Toggle name="Toggle" width="200px" corner_radius="12px" bind:value={self.checked}>Native Toggle</Toggle>
+		<Toggle name="Toggle" width="200px" corner_radius="12px" value={self.checked}>Native Toggle</Toggle>
 		<Text name="Footer" height="80px" background_texture={PANEL_TEXTURE} corner_radius="8px" padding="8px">Text foreground stays native</Text>
 	</Entry2D>

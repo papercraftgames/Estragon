@@ -8,6 +8,6 @@ const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 var model: Model = Model.new()
 func build_view() -> Element:
     return <Box name="RowView" gap={12.0}>
-        <Toggle name="Edit" text="Enabled" bind:value={self.model.enabled} />
+        <Toggle name="Edit" text="Enabled" value={self.model.enabled} />
         <Text name="Status" text={"Enabled" if self.model.enabled else "Disabled"} />
     </Box>

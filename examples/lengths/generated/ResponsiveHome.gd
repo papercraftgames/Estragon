@@ -50,12 +50,21 @@ class _GogoFactories_0:
         _gogo_value_11: int
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new(Text, {"text": "Retained unit lengths", "font_size": _gogo_value_4}, {}, [], "examples/lengths/ResponsiveHome.gogo:10:13", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new(_GogoProject_0, {"name": "Panel"}, {}, [], "examples/lengths/ResponsiveHome.gogo:12:17", null, false)
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_6 := _GogoElement_0.new(Text, {"text": "Resize the window."}, {}, [], "examples/lengths/ResponsiveHome.gogo:14:21", null, false)
+        _gogo_element_6.resolve_bindings()
         var _gogo_element_7 := _GogoElement_0.new(Text, {"text": "The blue panel follows its parent content box.", "font_size": _gogo_value_10}, {}, [], "examples/lengths/ResponsiveHome.gogo:15:21", null, false)
+        _gogo_element_7.resolve_bindings()
         var _gogo_element_8 := _GogoElement_0.new(Text, {"text": "Percent sizes and weighted grow are distinct.", "font_size": _gogo_value_11}, {}, [], "examples/lengths/ResponsiveHome.gogo:16:21", null, false)
+        _gogo_element_8.resolve_bindings()
         var _gogo_element_5 := _GogoElement_0.new(VBox, {"width": "100%", "gap": _gogo_value_9}, {}, [_gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/lengths/ResponsiveHome.gogo:13:17", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Content", "grow": _gogo_value_5, "stretch": _gogo_value_6, "padding": _gogo_value_7, "gap": _gogo_value_8}, {}, [_gogo_element_4, _gogo_element_5], "examples/lengths/ResponsiveHome.gogo:11:13", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Page", "grow": _gogo_value_0, "stretch": _gogo_value_1, "padding": _gogo_value_2, "gap": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3], "examples/lengths/ResponsiveHome.gogo:9:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "width": "100vw", "height": "100vh"}, {}, [_gogo_element_1], "examples/lengths/ResponsiveHome.gogo:8:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

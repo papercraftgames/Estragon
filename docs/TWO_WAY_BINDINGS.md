@@ -1,54 +1,57 @@
-# F05-B — native controlled boolean input
+# Implicit observable Bool binding — UI-02
 
-> **Current shipped F05-B behavior, NOT the final API:** This document and tests use `bind:value`. Owner-approved [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) replaces the **future user-facing** syntax with implicit `<Toggle value={self.model.enabled} />` when both endpoints are compatible writable/observable bindables. Snapshot locals (`var enabled := self.model.enabled`; `value={enabled}`) and computed expressions stay one-way. Control-side programmatic changes notify; native reconciliation suppresses feedback. The new API belongs to existing [Checkbox #198](https://github.com/papercraftgames/Estragon/issues/198) and [Input #199](https://github.com/papercraftgames/Estragon/issues/199) issues. **Not yet shipped; retain the evidence below as historical/current implementation truth.**
+[UI-02 #198](https://github.com/papercraftgames/Estragon/issues/198) implements the Bool slice of [ADR-0031](DECISIONS.md#adr-0031--ggx-implied-reactive-render-functions-automatic-memoizationbinding-and-observable-typed-data) over the existing native description/commit manager. UI-01 focus/keyboard ownership is merged in PR #216. Checkbox and Toggle use the same Bool contract; production Input/String binding remains UI-03.
 
-Implementation/review evidence: [#101](https://github.com/resistdesign/Estragon/issues/101) and its sole PR. F05-A is merged in #100 (`3487d86`). F06 remains future. This first input slice uses the existing description/reconciliation manager, generated Gogo getters/setters and native pointer/layout authority.
-
-```gdscript
+```gogo
 @bindable
 extends Node2D
-const Model = preload("res://examples/twoway/generated/Model.gd")
-const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
-const Element = preload("res://addons/estragon/runtime/composition/element.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Checkbox = preload("../../../addons/estragon/runtime/node/checkbox.gd")
+const Model = preload("Model.gd")
 var model: Model = Model.new()
 func build_view() -> Element:
-    return <Toggle text="Enabled" bind:value={self.model.enabled} />
+    return <Checkbox value={self.model.flag}>Enabled</Checkbox> if self.model != null else null
 ```
 
-`Model.gogo` is a class-wide or selectively bindable Gogo model with `var enabled: bool`. Ordinary explicit aliases are used; Toggle is not a reserved tag. Run `examples/twoway/Demo.tscn` for host/model controls, model replacement, nested conditional rows and keyed reorder. No event-to-model handler, refresh call, duplicate state or required model base appears in the sample.
+`Model.gogo` declares typed Gogo `@bindable var flag: bool`. Native aliases are explicit imports; no reserved short tag or remapping of Godot's `CheckBox`. See the [runnable Checkbox example](../examples/checkbox/Checkboxes.tscn) and migrated [two-way demo](../examples/twoway/Demo.gogo).
 
-## Source contract
+## Direct property paths versus one-way values
 
-Only `bind:value={self.field}` or `bind:value={self.model.field}` (including deeper dotted identifiers) is reserved. The lexer/parser retains original spans; native source metadata proves every traversed field is an explicitly typed Gogo bindable, ending in bool. Referenced models use explicit preload aliases to generated paths with corresponding authored `.gogo`; this avoids stale generated metadata during source-only builds. Inferred/untyped, constants, static, native/unobservable fields and custom accessors do not acquire a binding contract by sharing a signal name. Use owned declared fields in this bounded slice.
+A direct dotted property expression such as `value={self.flag}`, `value={self.model.flag}` or `value={item.flag}` creates automatic two-way linkage **only when both endpoints have the typed writable/observable Bool contract**. Gogo owned typed bindable fields publish that contract on their compiled Script. The shared native Checkbox/Toggle value property implements its equivalent. A matching signal name alone does not prove a plain/read-only field writable or observable.
 
-The target must expose a writable bool `value` and exactly `value_changed(value: bool)`. Invalid type/arity/read-only/unknown metadata rejects. Duplicate binding, explicit `value` or `value_changed` beside binding rejects as contradictory; other ordinary properties and named signal handlers retain their existing rules. Quoted values, calls, arithmetic, indexing, omitted self, arbitrary expressions and other `bind:*` names reject at authored spans. No `.gd` custom annotations or runtime markup interpreter.
+The compiler lexes the actual expression and emits native read/write linkage only for direct identifier/property paths. It does not invert expressions or chase arbitrary aliases. A local Bool snapshot is one-way:
 
-A potentially null model must omit its control intentionally:
-
-```gdscript
-return <Toggle bind:value={self.model.enabled} /> if self.model != null else null
+```gogo
+var current := self.model.flag
+return <Checkbox value={current}>Snapshot</Checkbox>
 ```
 
-A present null binding invalidates the complete desired commit and retains the previous tree. Null is never silently made writable. Native semantic validation remains actual-path transactional with original maps, stable UIDs/cache identity, failure rollback and repair. Godot 4.0.4 retains its documented optional authored semantic-location limitation. It also reports TYPE_NIL for typed GDScript signal arguments: the compiler recovers the exact declared single-argument type lexically from that script (native reload remains authoritative); runtime preflight retains arity checks and the typed bool callback while accepting absent optional type metadata. 4.7 uses its native typed signal metadata. Invalid bool/int/arity contracts reject on both.
+The snapshot's getter read still observes the model when its render function executes. Literals, computed/call/index expressions, plain/unobservable or read-only source fields, and Dictionary property paths also stay one-way. The original native property expression supplies the snapshot, so its value getter runs once and native semantic validation still applies. A later relevant render projects the authored Bool value even if the control changed independently. Passing a model object to a helper and writing `item.flag` is a direct property path; capturing the Bool into `current` is not.
 
-## Model authority and timing
+Spreads retain ordinary left-to-right value precedence. A spread containing a Bool value is a snapshot, not an invertible property reference. A later spread can replace an earlier direct-path value with a one-way value, and a later explicit direct-path value can replace an earlier spread. `key` and all removed `bind:*` names remain forbidden inside spreads. Named `value_changed`/`pressed` handlers remain ordinary native Callables, never invoked during rendering; a correctly typed native observer may accompany implicit value binding.
 
-Model→view reads run in the existing dynamic getter scope. A generated setter signal schedules only observing computations; the deferred parent-first manager coalesces and commits the desired value. Drawing frames performs no recomposition. User pointer activation changes the toggle's bool and emits one native user-edit signal. The mounted binding synchronously writes the same generated model setter only when the value differs. The native model transition is immediate; the reconciled label/control projection commits at the next safe scheduler drain.
+**Authored `bind:value` and other `bind:*` syntax are removed**, with an authored-location diagnostic. No compatibility alias, target-owned binder Node, per-property recipe or second binding engine remains. All executable examples/tests use implicit `value`. Older F05-B reports/raw evidence preserve the historical explicit syntax and user-only one-argument signal; those are not supported APIs after this cutover.
 
-Programmatic control value assignment only redraws; it never emits a user edit. A later controlled commit compares the actual control value as well as desired data, restoring model authority even after reentrant model callbacks restore the previous value. While an input boundary is writing, recursively emitted edits on that boundary are ignored; model setters keep their ordinary depth-first notification semantics. No queued model writes, per-frame scans, feedback store or second scheduler exists. Unbounded application-authored model signal cycles remain ordinary user code; this boundary does not add a global signal-cycle interpreter.
+## Native notifications and source authority
 
-## Ownership and cleanup
+Checkbox/Toggle expose `value: bool` and **`value_changed(previous: bool, value: bool)`**. Their setters mirror Gogo typed bindables: a real transition redraws and emits synchronously, including independent programmatic assignments. Same-value assignments are quiet; programmatic writes need not be user input to notify. Getter reads participate in the existing signal observation scope.
 
-Descriptions carry compiler-generated native read/write linkage, value and weak root/source references. Mounted records own callbacks outside application Nodes/models. Path code checks null intermediates and compares the current endpoint with the captured source before writeback; changing a model reference makes a stale callback inert immediately, before its deferred projection commits. Connections are reused for the same root/path/source and rewired once for replacement. Source dependencies remain the existing getter subscriptions.
+Completed primary-pointer or focused keyboard activation changes value through that same setter, once. The inherited `pressed` signal remains available. The mounted binding synchronously writes the current source endpoint only when its value differs. Model setters preserve native depth-first/reentrant notification semantics; affected view jobs still coalesce through the one deferred manager.
 
-Suspend/dispose/unmount disconnect edits; detached/free controls and inactive computations cannot write. Resume commits and reconnects once. Keyed compatible controls retain native identity. Removed branches cancel their computations; foreign children and their native scene owners follow existing rescue rules. Transient managed controls and binding records are not serialized into PackedScene; authored hosts reconstitute the view and subscriptions on mount. There are no `set_meta` calls, target helper Nodes or reconciliation fields on models.
+During model-to-view reconciliation, the existing mounted binding marks its own projection write. Value observers still receive a native transition, but the automatic edit callback does **not** write that projection back to the model. Initial setup, reused connections and source replacement follow the same rule. Reentrant model callbacks can restore an earlier value; the scheduled commit compares the actual control value and restores source authority even if the desired snapshot itself is unchanged. The boundary guards recursive writes; it does not interpret arbitrary application-authored signal cycles.
 
-## EstragonToggle
+## Ownership, nulls and teardown
 
-`EstragonToggle` extends native `EstragonButton`, inherits its composed layout/text/draw path and entry-scoped primary-pointer router. It toggles on a completed primary press/release over the same visible enabled target. Disabled, hidden, released-outside, cancelled capture and other mouse buttons follow Button. Green background/underline indicate true. `value: bool` is typed and programmatically quiet; `value_changed(value: bool)` means a user edit. Inherited `pressed` remains available for ordinary named event handlers.
+Linkage captures weak root/source identity, field/path, typed native read/write closures and the current Bool snapshot. Each native mount owns one connection outside user models/Nodes, including repeated use of a cached description. On a `self.model.flag` path, replacing/nulling the model makes a stale callback inert immediately, before deferred commit; successful reconciliation rewires once. Direct object-parameter paths are relative to that object, with the lifetime of the current mounted occurrence.
 
-Keyboard focus, text editing, IME/caret/selection, accessibility, wider input types, in-place collections, serialization adapters and F06 optimization are outside this boolean slice.
+A null path that is still present in a desired tree **rejects the complete commit**, reports the authored value span and retains previous native output. Use an ordinary conditional to omit the control when its model is null, as above. A source repair schedules normal reconciliation; null never becomes a silently writable false value. Wrong dynamic Bool/length/style props also fail preflight atomically.
 
-## Verification
+Unmount, source replacement, suspension, direct native removal and disposal disconnect mounted callbacks. A captured native Callable can become invalid when its old binding is released; callers must use normal `is_valid()` checks. Keyed moves retain compatible native controls/focus. Packed scenes persist authored hosts and owners, not transient managed output or binding records; reloading reconstructs one connection through normal composition. No reconciliation metadata is injected onto user objects.
 
-`tools/check-twoway.ts` uses isolated native builds/imports, real pointer dispatch, compiler/maps/negative paths, equality/reentrancy, model replacement, nested/keyed identity, detach/reparent/free/foreign ownership and PackedScene reconstitution. A real isolated editor proves saved/unsaved main/current Play, invalid/unsavable rejection, transactional code/map/UID/timestamp/Script identity and repair. Actual initial/changed/resized graphics are captured separately from headless assertions. Strict native-addon and source-only/cold/pack distribution groups include the demo. Focused workflow mode `twoway`; final acceptance only official Linux 4.0.4 and pinned 4.7.0. Exact commands, source/engine/log hashes, outcomes, artifacts and manual interactive smoke status are in #101/its sole PR; no untested platform/minor certification.
+Compiler-owned Script constants describe authored bindable fields, just as Script constants describe render functions. This is static language metadata, not per-instance state or a public marker to add to arbitrary scripts. It prevents an unrelated same-named signal from manufacturing a writable contract. The native4.0 signal metadata bridge reads the real declaration through inherited Scripts when optional typed argument metadata is absent; native loading and typed callbacks remain authoritative. It neither instantiates controls nor raises the engine minimum.
+
+## Verification and boundaries
+
+`tools/check-checkbox.ts` checks native compiler/maps/negative paths; actual pointer/key/focus, programmatic notifications, origin suppression, equality/reentrancy, one-way values, replacement/null/keyed identity, preflight repair, pack/lifetime and idle-zero behavior; direct Yarn and real isolated editor current/main rollback/repair/Play/restart. Existing two-way/core/focus regressions remain live with the new contract. Only official Linux4.0.4/pinned4.7.0 are fresh proof; exact evidence and manual-smoke status are tracked in the issue/PR and committed report.
+
+No String Input, collection mutation observation, OS IME validation, automatic label style inheritance, additional scheduler or scene system is included. [Checkbox drawing/geometry](CHECKBOX.md), [shared native focus and keyboard path](FOCUS_KEYBOARD.md).

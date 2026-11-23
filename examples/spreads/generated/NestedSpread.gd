@@ -20,6 +20,9 @@ const _GOGO_RENDER_FUNCTIONS_d161e5434ba268c7 = {
 "ordinary": [],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_d161e5434ba268c7 = {
+"caption": "String"
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -32,6 +35,8 @@ class _GogoFactories_0:
 	static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Text, {}, {}, [], "examples/spreads/NestedSpread.gogo:8:3", null, false)
 		_gogo_element_1.expand([[null, _gogo_value_1, "examples/spreads/NestedSpread.gogo:8:9"]])
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(VBox, {}, {}, [_gogo_element_1], "examples/spreads/NestedSpread.gogo:7:9", null, false)
 		_gogo_element_0.expand([["name", "Body", "examples/spreads/NestedSpread.gogo:7:15"], [null, _gogo_value_0, "examples/spreads/NestedSpread.gogo:7:27"]])
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

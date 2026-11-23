@@ -34,7 +34,7 @@ func build_view() -> Element:
 				<NativeOnly name="Unimported" />
 			</HBox>
 			<Button name="Disabled" disabled width="180px" height="56px">Disabled charcoal</Button>
-			<Toggle name="Toggle" width="180px" height="56px" bind:value={self.checked}>Teal when checked</Toggle>
+			<Toggle name="Toggle" width="180px" height="56px" value={self.checked}>Teal when checked</Toggle>
 			<Button name="Surface" width="240px" height="72px" corner_radius="18px" background_color="#283842" background_texture={PANEL_TEXTURE} pressed={pressed}>Explicit native surface</Button>
 			<TypedButton name="Typed" supplied={self.selected} />
 		</VBox>

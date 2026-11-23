@@ -1,12 +1,12 @@
 # UI-01 — native focus and keyboard ownership
 
-[Issue #197](https://github.com/papercraftgames/Estragon/issues/197) supplies the shared foundation for Checkbox/UI-02 and Input/UI-03. It adds keyboard access to current Button/Toggle, not those later controls or String two-way binding.
+[Issue #197](https://github.com/papercraftgames/Estragon/issues/197) supplies the shared foundation for Checkbox/UI-02 and Input/UI-03. It adds keyboard access to current Button/Toggle/Checkbox, not those later controls or String two-way binding.
 
 ## One native focus owner
 
-Godot's `Viewport.gui_get_focus_owner()` is authoritative. A runtime-only, transparent internal Control beneath each Estragon Button/Toggle is its native keyboard endpoint; it owns no layout or drawing and ignores mouse picking. The Node2D still owns its measured border-box, appearance, pointer hit testing and `pressed`/`value_changed` signals. The endpoint has exactly that arranged size, inherits native transforms/visibility/clipping/Viewport, and never moves the user control to an overlay tree. This is an actual native focus endpoint, not reconciliation bookkeeping or an alternate focus state.
+Godot's `Viewport.gui_get_focus_owner()` is authoritative. A runtime-only, transparent internal Control beneath each Estragon Button/Toggle/Checkbox is its native keyboard endpoint; it owns no layout or drawing and ignores mouse picking. The Node2D still owns its measured border-box, appearance, pointer hit testing and `pressed`/`value_changed` signals. The endpoint has exactly that arranged size, inherits native transforms/visibility/clipping/Viewport, and never moves the user control to an overlay tree. This is an actual native focus endpoint, not reconciliation bookkeeping or an alternate focus state.
 
-Button/Toggle expose native-shaped `focus_mode` (`Control.FOCUS_NONE`, `FOCUS_CLICK`, `FOCUS_ALL`, default ALL), `grab_focus()`, `release_focus()`, `has_focus()`, `get_focus_control()` and `focus_entered`/`focus_exited`. `get_focus_control()` returns the current native endpoint, or null outside the running tree/editor. Use it to author explicit native focus paths when needed; never hardcode its internal name. A two-pixel light-blue inset border marks actual focus, including pointer/programmatic focus.
+Button/Toggle/Checkbox expose native-shaped `focus_mode` (`Control.FOCUS_NONE`, `FOCUS_CLICK`, `FOCUS_ALL`, default ALL), `grab_focus()`, `release_focus()`, `has_focus()`, `get_focus_control()` and `focus_entered`/`focus_exited`. `get_focus_control()` returns the current native endpoint, or null outside the running tree/editor. Use it to author explicit native focus paths when needed; never hardcode its internal name. A two-pixel light-blue inset border marks actual focus, including pointer/programmatic focus.
 
 A disabled target loses focus immediately. Hiding/unmounting/reparenting follows native GUI lifetime: pending activation is canceled, old endpoints are removed, reentry creates one new endpoint. Moving keyed retained Nodes in their native parent preserves identity/focus. Programmatic state projections stay quiet. Changing Toggle with completed keyboard activation uses the existing bool binding path, with one user edit.
 
@@ -26,7 +26,7 @@ Tree changes and scroll geometry enqueue a coalesced eligibility check; direct c
 
 ## Text editing / IME decision and prototype
 
-[Focus.gogo](../examples/focus/Focus.gogo) mixes Estragon Button/Toggle/disabled Button, Godot Button, and [TextDelegate.gd](../examples/focus/TextDelegate.gd), a deliberately limited Node2D host of a **real visible LineEdit**. Its internal owner-null LineEdit receives the host's allocated rect and inherits scene ancestry; native drawing, caret, selection, clipboard, editing keys, Unicode, submission and platform IME remain Godot-owned. It is **not catalogued as Input**, not a hidden offscreen text buffer, and offers no production String binding or completed Estragon input styling/validation API. Editor mode creates no runtime delegates.
+[Focus.gogo](../examples/focus/Focus.gogo) mixes Estragon Button/Toggle/Checkbox/disabled Button, Godot Button, and [TextDelegate.gd](../examples/focus/TextDelegate.gd), a deliberately limited Node2D host of a **real visible LineEdit**. Its internal owner-null LineEdit receives the host's allocated rect and inherits scene ancestry; native drawing, caret, selection, clipboard, editing keys, Unicode, submission and platform IME remain Godot-owned. It is **not catalogued as Input**, not a hidden offscreen text buffer, and offers no production String binding or completed Estragon input styling/validation API. Editor mode creates no runtime delegates.
 
 | Approach | Native proof / responsibilities | Decision |
 | --- | --- | --- |

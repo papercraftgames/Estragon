@@ -20,5 +20,7 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: int) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Text, {"text": "Nested minimum, retained native nodes", "font_size": _gogo_value_0}, {}, [], "examples/lengths/MinimumPanel.gogo:7:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Body", "width": "100%", "min_width": "150px", "min_height": "40px", "padding": "6px", "background_color": "#30394d"}, {}, [_gogo_element_1], "examples/lengths/MinimumPanel.gogo:6:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

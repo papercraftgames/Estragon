@@ -20,6 +20,9 @@ const _GOGO_RENDER_FUNCTIONS_0f2986b6b5ce412d = {
 "ordinary": [],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_0f2986b6b5ce412d = {
+"own": "String"
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -31,6 +34,9 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Rect, {"width": "20px", "height": "20px", "background_color": "#ffc65c"}, {}, [], "examples/alignment/NestedAlignment.gogo:8:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_2 := _GogoElement_0.new(Rect, {"width": "20px", "height": "20px", "background_color": "#477dbb"}, {}, [], "examples/alignment/NestedAlignment.gogo:9:3", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Body", "align_self": _gogo_value_0, "width": "50%", "height": "40px", "horizontal_align": "space-around", "vertical_align": "center", "background_color": "#252b38"}, {}, [_gogo_element_1, _gogo_element_2], "examples/alignment/NestedAlignment.gogo:7:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

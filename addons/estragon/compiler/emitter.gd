@@ -60,6 +60,13 @@ func emit() -> MappedWriter:
 	while _module.identifiers.has(metadata): metadata += "_"
 	_writer.append("\nconst "+metadata+" = "+var_to_str({"reactive":_module.render_functions,"ordinary":_module.ordinary_functions}))
 	_writer.append("\n")
+	var observable := {}
+	for part in _module.parts:
+		if part is Model.Bindable: observable[part.name] = part.type_name
+	if not observable.is_empty():
+		var contract := "_GOGO_BINDABLE_PROPERTIES_"+_file.name.sha256_text().substr(0,16)
+		while _module.identifiers.has(contract): contract += "_"
+		_writer.append("const "+contract+" = "+var_to_str(observable)+"\n")
 	var exports := {}
 	for binding in _module.presets:
 		if binding.exported: exports[binding.name] = binding
@@ -221,16 +228,12 @@ func _description(node: Model.Component, indentation: String) -> String:
 	_variable += 1
 	var props := PackedStringArray()
 	var events := PackedStringArray()
-	var bindings := PackedStringArray()
 	var key := "null"
 	var keyed := "false"
 	var expanded := node.attributes.any(func(item): return item.kind=="spread")
 	var ordered := PackedStringArray()
 	for attribute in node.attributes:
 		var value: String = _arguments[attribute.value].name if attribute.value is Model.GdExpression else literal(attribute.value)
-		if attribute.kind == "binding":
-			bindings.append(_string("value")+": "+value)
-			continue
 		if attribute.kind == "key":
 			key = value
 			keyed = "true"
@@ -248,15 +251,16 @@ func _description(node: Model.Component, indentation: String) -> String:
 	_line("var %s := %s.new(%s, {%s}, {%s}, [%s], %s, %s, %s)" % [variable,_element_class,native_type,", ".join(props),", ".join(events),", ".join(children),_string("%s:%d:%d" % [_file.name,node.span.start.line,node.span.start.column]),key,keyed],node.span,indentation)
 	for attribute in node.attributes:
 		if attribute.kind=="placement" and not expanded: _line(variable+".origins["+_string(attribute.name)+"] = "+_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column]),attribute.name_span,indentation)
+		if attribute.kind=="binding": _line(variable+".origins[\"value\"] = "+_string("%s:%d:%d" % [_file.name,attribute.name_span.start.line,attribute.name_span.start.column]),attribute.name_span,indentation)
 
 	if expanded: _line(variable+".expand(["+", ".join(ordered)+"])",node.span,indentation)
+	_line(variable+".resolve_bindings()",node.span,indentation)
 	if not node.text_body.is_empty():
 		var parts := PackedStringArray()
 		for part in node.text_body:
 			var value: String = _arguments[part].name if part is Model.GdExpression else literal(part)
 			parts.append("[%s, %s]" % [value,_string("%s:%d:%d" % [_file.name,part.span.start.line,part.span.start.column])])
 		_line(variable+".set_text_body(["+", ".join(parts)+"])",node.span,indentation)
-	if not bindings.is_empty(): _line(variable+".bindings = {"+", ".join(bindings)+"}",node.span,indentation)
 	if node.preset!=null: _line(variable+" = preload("+_resource(Preset)+").apply("+_arguments[node.preset_expression].name+", "+variable+")",node.span,indentation)
 	return variable
 
@@ -329,6 +333,7 @@ func _bindable(property: Model.Bindable) -> void:
 
 func _binding_argument(argument: Argument) -> void:
 	var path := argument.binding_path.duplicate()
+	var root: String = path.pop_front()
 	var field: String = path.pop_back()
 	var owner := "_gogo_root"
 	var source := "_gogo_source"
@@ -341,7 +346,17 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
-	_writer.append("preload("+_resource(Binding)+").new(self, func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+")",argument.expression.span)
+	_writer.append("preload("+_resource(Binding)+").new("+root+", func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+", (",argument.expression.span)
+	# Keep the original property read in authored scope: native semantic
+	# validation still rejects unknown members, and the getter runs once.
+	_parts(argument.expression.parts)
+	var original_checks: Array[String] = []
+	var original := root
+	original_checks.append(original+" != null")
+	for name in path:
+		original += "."+str(name)
+		original_checks.append(original+" != null")
+	_writer.append(") if "+" and ".join(original_checks)+" else null)",argument.expression.span)
 
 func _render_call(node: Model.RenderCall) -> void:
 	var cast: String = node.result_type

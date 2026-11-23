@@ -282,3 +282,5 @@ D07 updates unstyled framework Button and unchecked Toggle defaults to normal
 `#383838`, hover `#505050`, pressed `#252525`, disabled `#303030`, including
 initial cached state. Checked Toggle stays `#227a60` with `#65f4b0` underline.
 Explicit colors remain authoritative. See [Button imports](BUTTON_IMPORTS.md).
+
+UI-02 [Checkbox](CHECKBOX.md) shares Button/Toggle local surface and text properties, with a square/checkmark rather than Toggle's checked whole-surface fill/underline. It reserves square/label natural content through the existing core and inherits the same disabled/hover/held/focus/clip behavior. Label color/font are local; no parent label style inheritance is added. [Bool binding/notifications](TWO_WAY_BINDINGS.md) use the new implicit contract.

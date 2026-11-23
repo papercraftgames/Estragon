@@ -93,6 +93,13 @@ const _GOGO_RENDER_FUNCTIONS_931a37ec9eea88a3 = {
 "ordinary": ["increment", "toggle_bonus", "toggle_child", "_ready", "write_proof"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_931a37ec9eea88a3 = {
+"count": "int",
+"model": "Model",
+"show_bonus": "bool",
+"show_child": "bool",
+"unobserved": "int"
+}
 
 const _GogoProject_0 = preload("Child.gd")
 
@@ -116,45 +123,59 @@ class _GogoFactories_0:
         _gogo_value_8: Callable
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Always", "text": _gogo_value_2}, {}, [], "examples/conditional/Counter.gogo:18:13", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "After", "text": "Stable sibling after optional slot"}, {}, [], "examples/conditional/Counter.gogo:23:13", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new(_GogoImport_0, {"name": "Increment", "text": "+"}, {"pressed": _gogo_value_6}, [], "examples/conditional/Counter.gogo:25:13", null, false)
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_5 := _GogoElement_0.new(_GogoImport_0, {"name": "Toggle", "text": "Toggle bonus"}, {"pressed": _gogo_value_7}, [], "examples/conditional/Counter.gogo:26:13", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_6 := _GogoElement_0.new(_GogoImport_0, {"name": "ToggleChild", "text": "Toggle nested component"}, {"pressed": _gogo_value_8}, [], "examples/conditional/Counter.gogo:27:13", null, false)
+        _gogo_element_6.resolve_bindings()
         var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "gap": _gogo_value_1}, {}, [_gogo_element_2, _gogo_value_3, _gogo_value_4, _gogo_element_3, _gogo_value_5, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/conditional/Counter.gogo:17:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": "90vw"}, {}, [_gogo_element_1], "examples/conditional/Counter.gogo:16:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Callable) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "Action", "text": "Ready"}, {"pressed": _gogo_value_0}, [], "examples/conditional/Counter.gogo:19:14", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_2(_gogo_value_0: String) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Prompt", "text": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:19:90", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_3(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Bonus", "gap": _gogo_value_0}, {}, [_gogo_value_1], "examples/conditional/Counter.gogo:20:14", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_4(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Deep", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:21:19", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_5(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Wide", "width": _gogo_value_0, "height": _gogo_value_1}, {}, [], "examples/conditional/Counter.gogo:21:101", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_6() -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Wait", "text": "Keep counting"}, {}, [], "examples/conditional/Counter.gogo:21:174", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_7(_gogo_value_0: _GogoProject_0.Model) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": "Nested", "model": _gogo_value_0}, {}, [], "examples/conditional/Counter.gogo:24:14", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

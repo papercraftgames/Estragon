@@ -35,6 +35,9 @@ const _GOGO_RENDER_FUNCTIONS_ec997c96cc1ee973 = {
 "ordinary": ["toggle_width"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_ec997c96cc1ee973 = {
+"width_percent": "float"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -57,7 +60,11 @@ class _GogoFactories_0:
         _gogo_value_9: Callable
     ) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_3, "font_size": _gogo_value_4}, {}, [], "examples/lengths/ResponsivePanel.gogo:12:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_2 := _GogoElement_0.new(Rect, {"name": "Color", "grow": _gogo_value_5, "stretch": _gogo_value_6, "fill": _gogo_value_7}, {}, [], "examples/lengths/ResponsivePanel.gogo:13:9", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "Action", "text": "Toggle 25% / 50%", "height": _gogo_value_8, "width": "100%"}, {"pressed": _gogo_value_9}, [], "examples/lengths/ResponsivePanel.gogo:14:9", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(VBox, {"name": "Panel", "width": _gogo_value_0, "height": "75%", "padding": _gogo_value_1, "gap": _gogo_value_2}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3], "examples/lengths/ResponsivePanel.gogo:11:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

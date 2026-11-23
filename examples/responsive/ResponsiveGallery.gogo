@@ -33,7 +33,7 @@ func build_view() -> Element:
 			<Grid name="Named" width="100%" gap="10px" padding="10px" border_width="2px" border_color="#8295bc" background_color="#252b38" {...self.grid_props}>
 				<NativeButton name="Header" area="header" text="Native tracks" {...self.header_props} />
 				<VBox name="Sidebar" area="sidebar" gap="8px">
-					<Toggle name="Enabled" text="Enabled" bind:value={self.enabled} />
+					<Toggle name="Enabled" text="Enabled" value={self.enabled} />
 					<NativeButton name="Native" text="Native Control" pressed={native_pressed} />
 				</VBox>
 				<NestedResponsive name="Main" {...self.placement} />

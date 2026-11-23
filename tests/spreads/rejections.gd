@@ -17,7 +17,7 @@ func run() -> void:
 	var cases: Array = [
 		["button",null,"Dictionary"],["button",false,"Dictionary"],["button",[1],"Dictionary"],
 		["button",{1:true},"key 1"],["button",{"":true},"nonempty"],["button",{NodePath("text"):"bad"},"String/StringName"],
-		["button",{"key":"bad"},"'key'"],["button",{"bind:value":true},"'bind:value'"],
+		["button",{"key":"bad"},"'key'"],["button",{"value":true},"'value'"],
 		["button",{"style":{}},"'style'"],["button",{"min-width":4},"'min-width'"],
 		["button",{"owner":null},"'owner'"],["button",{"script":null},"'script'"],["button",{"multiplayer":null},"'multiplayer'"],
 		["button",{"position":"wrong"},"'position'"],["button",{"disabled":"false"},"'disabled'"],
@@ -27,7 +27,7 @@ func run() -> void:
 		["rect",{"fill":Color.RED,"background_color":"#ff0000"},"fill and background_color"],["rect",{"fill":"#ff0000"},"finite native Color"],
 		["sprite",{"texture":Resource.new()},"Object class"],
 		["box",{"direction":"diagonal"},"direction"],["box",{"direction":"row","horizontal_align":"stretch"},"horizontal_align"],
-		["toggle",{"value":true},"value"],["toggle",{"value_changed":host.pressed},"value_changed"]
+		["toggle",{"not_a_property":true},"not_a_property"],["toggle",{"value_changed":"bad"},"value_changed"]
 	]
 	print("S03_EXPECTED_REJECTION_BEGIN")
 	await process_frame

@@ -18,9 +18,9 @@ func build_view() -> Element:
     if self.reverse: rows.reverse()
     return <Entry name="UI"><Box name="Panel" gap={8.0}>
         <Text name="Heading" text="Native two-way boolean input" />
-        {<Toggle name="Edit" text="Model enabled" bind:value={self.model.enabled} /> if self.model != null else null}
+        {<Toggle name="Edit" text="Model enabled" value={self.model.enabled} /> if self.model != null else null}
         <Text name="Status" text={"Enabled" if self.model != null and self.model.enabled else "Disabled"} />
-        <Toggle name="HostEdit" text="Host flag" bind:value={self.enabled} />
+        <Toggle name="HostEdit" text="Host flag" value={self.enabled} />
         <Text name="Revision" text={"Revision: %d" % self.revision} />
         {rows}
         <Action text="Replace model" pressed={replace_model} />

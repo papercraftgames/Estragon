@@ -64,3 +64,10 @@ const _GOGO_RENDER_FUNCTIONS_0ae5335a50000a11 = {
 "ordinary": ["increment"],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_0ae5335a50000a11 = {
+"amount": "float",
+"count": "int",
+"items": "Array[int]",
+"peer": "RefCounted",
+"title": "String"
+}

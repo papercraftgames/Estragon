@@ -31,7 +31,7 @@ func run(host: Node) -> void:
 	DirAccess.rename_absolute("res://.godot/s01-game.tmp","res://.godot/s01-game.json")
 
 var widget_edits: Array = []
-func edited(value: bool) -> void: widget_edits.append(value)
+func edited(_previous: bool, value: bool) -> void: widget_edits.append(value)
 func widget_proof(tree: SceneTree) -> Dictionary:
 	var host = load("res://app/generated/WidgetGallery.gd").new()
 	tree.root.add_child(host)

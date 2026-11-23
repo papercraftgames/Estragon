@@ -30,3 +30,7 @@ const _GOGO_RENDER_FUNCTIONS_2c9b42ea687a5496 = {
 "ordinary": ["_init"],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_2c9b42ea687a5496 = {
+"id": "int",
+"title": "String"
+}

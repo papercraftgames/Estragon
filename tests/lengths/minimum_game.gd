@@ -1,6 +1,6 @@
 extends RefCounted
 var edits: Array = []
-func edited(value: bool) -> void: edits.append(value)
+func edited(_previous: bool, value: bool) -> void: edits.append(value)
 func run(host: Node) -> void:
 	var tree := host.get_tree()
 	var samples: Array = []

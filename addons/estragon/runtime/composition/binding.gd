@@ -10,12 +10,15 @@ var read: Callable
 var write: Callable
 var value: Variant
 var valid := false
+var observable := false
 var node: WeakRef
 var computation: WeakRef
 var connected := false
 var writing := false
-func _init(owner: Object, reader: Callable, property: StringName, writer: Callable, identity: String) -> void:
-	if owner==null: return
+func _init(owner: Variant, reader: Callable, property: StringName, writer: Callable, identity: String, snapshot_value: Variant) -> void:
+	value = snapshot_value
+	valid = typeof(value)==TYPE_BOOL
+	if not owner is Object or not is_instance_valid(owner): return
 	route = identity
 	root = weakref(owner)
 	read = reader
@@ -24,12 +27,21 @@ func _init(owner: Object, reader: Callable, property: StringName, writer: Callab
 	var endpoint = current()
 	if endpoint == null: return
 	source = weakref(endpoint)
-	value = endpoint.get(field)
-	valid = typeof(value)==TYPE_BOOL and endpoint.has_signal(str(field)+"_changed")
+	if not valid: return
+	observable = declared(endpoint.get_script(),str(field))
+	if observable:
+		valid = endpoint.has_signal(str(field)+"_changed")
+static func declared(script, property: String) -> bool:
+	while script is Script:
+		for name in script.get_script_constant_map():
+			var contract = script.get_script_constant_map()[name]
+			if str(name).begins_with("_GOGO_BINDABLE_PROPERTIES_") and contract is Dictionary and contract.get(property,"")=="bool": return true
+		script = script.get_base_script()
+	return false
 func current():
 	var owner = root.get_ref() if root!=null else null
 	var endpoint = read.call(owner) if is_instance_valid(owner) else null
-	return endpoint if is_instance_valid(endpoint) else null
+	return endpoint if endpoint is Object and is_instance_valid(endpoint) else null
 func same(other) -> bool:
 	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
 func attach(target: Node, scope) -> void:
@@ -49,7 +61,7 @@ func _target_exit() -> void:
 	disconnect_edit()
 	var scope = computation.get_ref() if computation!=null else null
 	if scope!=null and scope.active and not scope.disposed: scope.schedule()
-func edit(next: bool) -> void:
+func edit(_previous: bool, next: bool) -> void:
 	var scope = computation.get_ref() if computation!=null else null
 	var target = node.get_ref() if node!=null else null
 	var endpoint = source.get_ref() if source!=null else null
@@ -61,11 +73,15 @@ func edit(next: bool) -> void:
 	# Reentrant model callbacks can restore the old value; commit must still
 	# restore a control whose local user value diverged from its snapshot.
 	scope.schedule()
+func project(target: Node, next: bool) -> void:
+	writing = true
+	target.set("value",next)
+	writing = false
 
 # A desired linkage is reusable data; each native mount owns its mutable edit
 # connection. Copy without evaluating getters outside the render read scope.
 func snapshot():
-	var result = get_script().new(null,Callable(),&"",Callable(),"")
+	var result = get_script().new(null,Callable(),&"",Callable(),"",null)
 	result.root = root
 	result.source = source
 	result.field = field
@@ -74,4 +90,5 @@ func snapshot():
 	result.write = write
 	result.value = value
 	result.valid = valid
+	result.observable = observable
 	return result

@@ -3,4 +3,4 @@ const Element = preload("res://addons/estragon/runtime/composition/element.gd")
 const Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")
 @bindable var enabled: bool = false
 func build_view() -> Element:
-    return <Toggle name="Toggle" text="Direct binding" bind:value={self.enabled} />
+    return <Toggle name="Toggle" text="Direct binding" value={self.enabled} />

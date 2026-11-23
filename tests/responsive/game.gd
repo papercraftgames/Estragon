@@ -2,7 +2,7 @@ extends RefCounted
 const State = preload("res://addons/estragon/runtime/composition/state.tres")
 const Hosts = preload("res://addons/estragon/runtime/node/internal/composition_hosts.tres")
 var edits: Array = []
-func edited(value: bool) -> void: edits.append(value)
+func edited(_previous: bool, value: bool) -> void: edits.append(value)
 func click(host: Node, button: Node) -> void:
 	var extent: Vector2 = button.size if button is Control else button.layout_size
 	var event := InputEventMouseButton.new()

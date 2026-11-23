@@ -17,7 +17,7 @@ func _initialize() -> void:
     run.call_deferred()
 func settle() -> void:
     for index in range(8): await process_frame
-func edit(value: bool) -> void: edits.append(value)
+func edit(_previous: bool, value: bool) -> void: edits.append(value)
 func changed(previous: bool, value: bool) -> void: changes.append([previous,value])
 func click(node: Node2D) -> void:
     var point = node.get_global_transform_with_canvas() * (node.layout_size*0.5)
@@ -65,13 +65,13 @@ func run() -> void:
     check(changes.is_empty() and edits.is_empty() and scope.runs==runs,"same-value model assignment has no event or composition")
     scene.model.enabled = true
     await settle()
-    check(toggle.value and edits.is_empty() and changes==[[false,true]],"model projection never emits reciprocal user edit")
+    check(toggle.value and edits==[true] and changes==[[false,true]],"model projection notifies native value observers without reciprocal source write")
     toggle.value = false
-    check(scene.model.enabled and edits.is_empty(),"programmatic control assignment is not user input")
+    check(not scene.model.enabled and edits==[true,false],"independent programmatic control assignment notifies and writes source")
     var nested_before: int = child_scope.runs
     scene.revision += 1
     await settle()
-    check(toggle.value and child_scope.runs==nested_before and peer_scope.runs==nested_before,"controlled actual value restored without rerendering unaffected nested peers")
+    check(not toggle.value and child_scope.runs==nested_before+1 and peer_scope.runs==nested_before+1,"independent control write updates observing peers once; unrelated revision adds no peer work")
     var child_runs: int = child_scope.runs
     var peer_runs: int = peer_scope.runs
     var writes: int = child_scope.writes
@@ -82,14 +82,14 @@ func run() -> void:
     var weak: WeakRef = weakref(old)
     var callback = toggle.value_changed.get_connections()[0].callable
     scene.replace_model()
-    if callback.is_valid(): callback.call(false)
-    check(old.enabled and not scene.model.enabled,"stale callback cannot write old or new model before replacement commit")
+    if callback.is_valid(): callback.call(true,false)
+    check(not old.enabled and not scene.model.enabled,"stale callback cannot write old or new model before replacement commit")
     old.enabled_changed.disconnect(changed)
     await settle()
     check(toggle==scene.get_node("UI/Panel/Edit") and not toggle.value and old.enabled_changed.get_connections().is_empty(),"retained input rewires to authoritative replacement and disconnects old dependencies")
     old = null
     check(weak.get_ref()==null,"binding records and generated closures do not retain old model")
-    if callback.is_valid(): callback.call(true)
+    if callback.is_valid(): callback.call(false,true)
     check(not scene.model.enabled,"disconnected captured callback remains inert after replacement")
     # Reentrant native model write wins, with no reciprocal user event or loop.
     var reentrant: Callable = func(_before: bool, next: bool):
@@ -98,10 +98,10 @@ func run() -> void:
     edits.clear()
     await click(toggle)
     await settle()
-    check(not scene.model.enabled and not toggle.value and edits==[true],"reentrant model restore wins at deferred commit even when old desired snapshot is unchanged")
+    check(not scene.model.enabled and not toggle.value and edits==[true,false],"reentrant model restore wins at deferred commit even when old desired snapshot is unchanged")
     scene.model.enabled_changed.disconnect(reentrant)
     var reedit: Callable = func(_before: bool, next: bool):
-        if next: toggle.value_changed.emit(false)
+        if next: toggle.value_changed.emit(true,false)
     scene.model.enabled_changed.connect(reedit)
     await click(toggle)
     await settle()
@@ -125,12 +125,12 @@ func run() -> void:
     var stale = nested_toggle.value_changed.get_connections()[0].callable
     scene.show_row = false
     await settle()
-    if stale.is_valid(): stale.call(true)
+    if stale.is_valid(): stale.call(false,true)
     check(not is_instance_valid(row) and not scene.model.enabled,"unmounted keyed input callback cannot write")
     scene.model = null
     await settle()
     check(not scene.has_node("UI/Panel/Edit"),"null source intentionally omitted by ordinary conditional")
-    var invalid = preload("res://addons/estragon/runtime/composition/binding.gd").new(scene,func(owner): return owner.model,"enabled",func(owner, value: bool): owner.enabled = value,"model.enabled")
+    var invalid = preload("res://addons/estragon/runtime/composition/binding.gd").new(scene,func(owner): return owner.model,"enabled",func(owner, value: bool): owner.enabled = value,"model.enabled",null)
     check(not invalid.valid,"present null binding rejects instead of silently becoming writable")
     scene.replace_model()
     scene.show_row = true
@@ -149,13 +149,13 @@ func run() -> void:
     callback = toggle.value_changed.get_connections()[0].callable
     var parent = toggle.get_parent()
     parent.remove_child(toggle)
-    if callback.is_valid(): callback.call(true)
+    if callback.is_valid(): callback.call(false,true)
     check(not scene.model.enabled and toggle.value_changed.get_connections().is_empty(),"direct input detach disconnects callback before any deferred repair")
     await settle()
     check(toggle.get_parent()==parent and toggle.value_changed.get_connections().size()==1,"safe commit restores retained declared input after native reparent")
     callback = toggle.value_changed.get_connections()[0].callable
     root.remove_child(scene)
-    if callback.is_valid(): callback.call(true)
+    if callback.is_valid(): callback.call(false,true)
     check(not scene.model.enabled and toggle.value_changed.get_connections().is_empty(),"host detach disconnects input and suppresses captured callback")
     root.add_child(scene)
     await settle()
@@ -172,7 +172,7 @@ func run() -> void:
     restored.free()
     var retained = scene.model
     scene.free()
-    if callback.is_valid(): callback.call(false)
+    if callback.is_valid(): callback.call(true,false)
     check(retained.enabled and retained.enabled_changed.get_connections().is_empty() and State.records.is_empty(),"host free releases listeners/records and stale input cannot write")
     compiler_checks()
     print("TWOWAY_RUNTIME_ASSERTIONS ",assertions," failures=",failures)
@@ -180,10 +180,7 @@ func run() -> void:
     quit(1 if failures else 0)
 func compiler_checks() -> void:
     var source := FileAccess.get_file_as_string("res://examples/twoway/Demo.gogo")
-    for fixture in ["BadArity","BadSignal","BadValue"]:
-        var bad_control := Compiler.compile(source.replace("../../../addons/estragon/runtime/node/toggle.gd","res://tests/twoway/"+fixture+".gd"),"examples/twoway/Demo.gogo")
-        check(not bad_control.ok and "writable bool value" in bad_control.diagnostics[0].message,"reject native input contract: "+fixture)
-    var collision := Compiler.compile('@bindable\nextends Node2D\nconst Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar _gogo_root: bool = false\nvar _gogo_source: bool = false\nvar _gogo_edit: bool = false\nfunc build_view() -> Element: return <Toggle bind:value={self._gogo_root} />\n',"collision.gogo")
+    var collision := Compiler.compile('@bindable\nextends Node2D\nconst Toggle = preload("res://addons/estragon/runtime/node/toggle.gd")\nconst Element = preload("res://addons/estragon/runtime/composition/element.gd")\nvar _gogo_root: bool = false\nvar _gogo_source: bool = false\nvar _gogo_edit: bool = false\nfunc build_view() -> Element: return <Toggle value={self._gogo_root} />\n',"collision.gogo")
     var collision_script := GDScript.new()
     collision_script.resource_path = "res://_gogo_memory_%d.gd" % collision_script.get_instance_id()
     collision_script.source_code = collision.code
@@ -198,9 +195,9 @@ func compiler_checks() -> void:
             var point = first.source_map.original_position(index+1,line.find("preload")+1)
             mapped = mapped or point!=null and point.line==21
     check(mapped,"generated binding linkage maps to exact authored binding expression line")
-    for path in ["true","model.enabled","self.model.enabled or true","self.replace_model().enabled","self.model.note","self.position.x","self.missing","self.model.enabled[0]","self.model.enabled + 1"]:
-        var bad := Compiler.compile(source.replace("bind:value={self.model.enabled}","bind:value={"+path+"}"),"examples/twoway/Demo.gogo")
-        check(not bad.ok and bad.diagnostics[0].span.start.line==21,"reject invalid writable/observable/type path: "+path)
-    for replacement in ["bind:value=\"bad\"","bind:other={self.model.enabled}","bind:value={self.model.enabled} value={true}","bind:value={self.model.enabled} value_changed={replace_model}","bind:value={self.model.enabled} bind:value={self.model.enabled}"]:
-        check(not Compiler.compile(source.replace("bind:value={self.model.enabled}",replacement),"examples/twoway/Demo.gogo").ok,"reject unsupported/conflicting binding: "+replacement)
-    check(not Compiler.compile(source.replace("<Toggle name=\"Edit\"","<Text name=\"Edit\""),"examples/twoway/Demo.gogo").ok,"reject input without typed value/signal contract")
+    for path in ["true","self.model.enabled or true","self.replace_model().enabled","self.model.note","self.position.x"]:
+        var one_way := Compiler.compile(source.replace("value={self.model.enabled}","value={"+path+"}"),"examples/twoway/Demo.gogo")
+        check(one_way.ok,"ordinary value expression stays valid one-way: "+path)
+    for replacement in ["bind:value={self.model.enabled}","bind:other={self.model.enabled}","value={self.model.enabled} value={true}"]:
+        check(not Compiler.compile(source.replace("value={self.model.enabled}",replacement),"examples/twoway/Demo.gogo").ok,"reject removed or duplicate binding syntax: "+replacement)
+    check(not Compiler.compile(source.replace("<Toggle name=\"Edit\"","<Text name=\"Edit\""),"examples/twoway/Demo.gogo").ok,"reject value property on a component without it")

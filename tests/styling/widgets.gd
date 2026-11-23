@@ -13,7 +13,7 @@ class SinglePaint:
 	func _draw() -> void:
 		draw_rect(Rect2(0,0,20,20),Color("#2288aa80"))
 var events: Array = []
-func edited(value: bool) -> void: events.append(value)
+func edited(_previous: bool, value: bool) -> void: events.append(value)
 func layout_trace(node) -> Array:
 	return [node.get_layout_stats(),node.lengths.parse_count,node.get_visual_style_stats()]
 func run(p) -> void:

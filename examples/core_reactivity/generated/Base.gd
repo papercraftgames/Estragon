@@ -31,6 +31,9 @@ const _GOGO_RENDER_FUNCTIONS_f391fae5a7e51185 = {
 "ordinary": ["ordinary", "hidden"],
 "reactive": ["badge"]
 }
+const _GOGO_BINDABLE_PROPERTIES_f391fae5a7e51185 = {
+"title": "String"
+}
 
 
 class _GogoFactories_0:
@@ -39,4 +42,5 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "BaseBadge", "text": _gogo_value_0}, {}, [], "examples/core_reactivity/Base.gogo:18:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

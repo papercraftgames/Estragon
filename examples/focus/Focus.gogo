@@ -18,7 +18,7 @@ func native_clicked(): native_clicks += 1
 func first() -> Element:
     return <Button key="first" name="First" text="Estragon Button" width="300px" pressed={self.clicked} />
 func toggle() -> Element:
-    return <Toggle key="toggle" name="Toggle" text="Estragon Toggle" width="300px" bind:value={self.selected} />
+    return <Toggle key="toggle" name="Toggle" text="Estragon Toggle" width="300px" value={self.selected} />
 func build_view() -> Element:
     return <Entry name="UI" width="100%" height="100%" direction="column" gap="12px" padding="20px" background_color="#172332">
         <Text text={self.caption} font_size={22} />

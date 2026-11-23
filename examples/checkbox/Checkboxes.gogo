@@ -1,0 +1,38 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Checkbox = preload("../../../addons/estragon/runtime/node/checkbox.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const Model = preload("Model.gd")
+@bindable var model: Model = Model.new()
+@bindable var show: bool = true
+@bindable var reverse: bool = false
+@bindable var revision: int = 0
+@bindable var props: Dictionary = {}
+var presses: int = 0
+func pressed(): presses += 1
+func row(item: Model) -> Element:
+    return <Checkbox key="parameter" name="Parameter" value={item.flag}>Parameter path</Checkbox>
+func build_view() -> Element:
+    var current: bool = self.model.flag if self.model != null else false
+    return <Entry name="UI" width="100%" height="100%" direction="column" gap="12px" padding="20px" background_color="#172332">
+        <Text text={"Checkbox / implicit Bool — revision "+str(self.revision)} font_size={24} />
+        {<VBox name="Controls" gap="10px">
+            <Checkbox name="Bound" value={self.model.flag} pressed={self.pressed}>Checkbox square and label</Checkbox>
+            <Toggle name="Toggle" value={self.model.flag}>Toggle shares the model</Toggle>
+            <Checkbox name="Snapshot" value={current}>One-way local snapshot</Checkbox>
+            <Checkbox name="Computed" value={not self.model.flag} {...self.props}>One-way computed expression</Checkbox>
+            {self.row(self.model)}
+        </VBox> if self.model != null and self.show else null}
+        <HBox name="Rows" gap="12px" width="360px" wrap>
+            {([<Checkbox key="b" name="B" value={true}>Second</Checkbox>,<Checkbox key="a" name="A">First</Checkbox>] if self.reverse else [<Checkbox key="a" name="A">First</Checkbox>,<Checkbox key="b" name="B" value={true}>Second</Checkbox>])}
+        </HBox>
+        <Grid name="Grid" columns={2} column_gap="12px">
+            <Checkbox name="GridCheck">Grid natural size</Checkbox>
+            <Checkbox name="Disabled" disabled value={true}>Disabled square</Checkbox>
+        </Grid>
+    </Entry>

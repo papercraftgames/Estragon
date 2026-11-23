@@ -1,6 +1,7 @@
 @tool
 extends RefCounted
 const Profile = preload("profile.tres")
+const Binding = preload("binding.gd")
 ## Desired values only. No native Node is allocated during description creation.
 # Internal normalized weak reference, only populated by child normalization.
 var borrowed: WeakRef
@@ -8,6 +9,13 @@ var type: Variant
 var properties: Dictionary
 var placement: Dictionary = {}
 var bindings: Dictionary = {}
+func resolve_bindings() -> void:
+	var value = properties.get("value")
+	if not value is Binding: return
+	if value.observable or not value.valid and value.value==null:
+		bindings.value = value
+		properties.erase("value")
+	else: properties.value = value.value
 var handlers: Dictionary
 var children: Array
 var key: Variant

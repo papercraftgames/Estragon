@@ -2,7 +2,9 @@
 class_name EstragonToggle
 extends "button.gd"
 ## Controlled boolean input. Completed native pointer/keyboard activation edits.
-signal value_changed(value: bool)
+signal value_changed(previous: bool, value: bool)
+const _GOGO_BINDABLE_PROPERTIES_NATIVE := {"value":"bool"}
+const State = preload("../composition/state.tres")
 const ESTRAGON_TOGGLE_STYLE := true
 var checked_background_color: Variant = Color("#227a60"):
 	set(next):
@@ -16,15 +18,19 @@ func _get_property_list() -> Array[Dictionary]:
 @export var value: bool = false:
 	set(next):
 		if value == next: return
+		var previous := value
 		value = next
 		_queue_style_redraw()
+		value_changed.emit(previous,next)
+	get:
+		State.observe(self,&"value_changed")
+		return value
 func _init() -> void:
 	super._init()
 	pressed.connect(_activate)
 func _activate() -> void:
 	if disabled: return
 	value = not value
-	value_changed.emit(value)
 func get_background_color() -> Color:
 	if disabled: return super.get_background_color()
 	return _visual_style.colors.checked_background_color if value else super.get_background_color()

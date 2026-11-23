@@ -75,6 +75,12 @@ const _GOGO_RENDER_FUNCTIONS_218b05e548d670a9 = {
 "ordinary": ["body_value", "pressed"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_218b05e548d670a9 = {
+"bad_text": "bool",
+"extra": "Dictionary",
+"label": "String",
+"username": "String"
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -98,31 +104,46 @@ class _GogoFactories_0:
 		_gogo_value_10: Variant
 	) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Greeting"}, {}, [], "examples/ux01/Ergonomics.gogo:22:4", null, false)
+		_gogo_element_2.resolve_bindings()
 		_gogo_element_2.set_text_body([["Hello ", "examples/ux01/Ergonomics.gogo:22:26"], [_gogo_value_0, "examples/ux01/Ergonomics.gogo:22:32"], ["!", "examples/ux01/Ergonomics.gogo:22:47"]])
 		var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Quote"}, {}, [], "examples/ux01/Ergonomics.gogo:23:4", null, false)
+		_gogo_element_3.resolve_bindings()
 		_gogo_element_3.set_text_body([["I'm \"native\", é 🌱.", "examples/ux01/Ergonomics.gogo:23:23"]])
 		var _gogo_element_4 := _GogoElement_0.new(Text, {"name": "Multiline"}, {}, [], "examples/ux01/Ergonomics.gogo:24:4", null, false)
+		_gogo_element_4.resolve_bindings()
 		_gogo_element_4.set_text_body([["One word another line", "examples/ux01/Ergonomics.gogo:24:27"]])
 		var _gogo_element_5 := _GogoElement_0.new(Text, {"name": "Boundaries"}, {}, [], "examples/ux01/Ergonomics.gogo:28:4", null, false)
+		_gogo_element_5.resolve_bindings()
 		_gogo_element_5.set_text_body([["Hello ", "examples/ux01/Ergonomics.gogo:28:28"], [_gogo_value_1, "examples/ux01/Ergonomics.gogo:30:5"], [" world", "examples/ux01/Ergonomics.gogo:30:20"]])
 		var _gogo_element_6 := _GogoElement_0.new(Text, {"name": "Expressions"}, {}, [], "examples/ux01/Ergonomics.gogo:33:4", null, false)
+		_gogo_element_6.resolve_bindings()
 		_gogo_element_6.set_text_body([[_gogo_value_2, "examples/ux01/Ergonomics.gogo:33:29"], [" ", "examples/ux01/Ergonomics.gogo:33:41"], [_gogo_value_3, "examples/ux01/Ergonomics.gogo:34:5"]])
 		var _gogo_element_7 := _GogoElement_0.new(Text, {"name": "Empty"}, {}, [], "examples/ux01/Ergonomics.gogo:35:4", null, false)
+		_gogo_element_7.resolve_bindings()
 		var _gogo_element_8 := _GogoElement_0.new(Text, {"name": "Strict"}, {}, [], "examples/ux01/Ergonomics.gogo:36:4", null, false)
+		_gogo_element_8.resolve_bindings()
 		_gogo_element_8.set_text_body([[_gogo_value_4, "examples/ux01/Ergonomics.gogo:36:24"]])
 		var _gogo_element_10 := _GogoElement_0.new(NativeButton, {"name": "Native"}, {"pressed": _gogo_value_6}, [], "examples/ux01/Ergonomics.gogo:38:5", null, false)
+		_gogo_element_10.resolve_bindings()
 		_gogo_element_10.set_text_body([[_gogo_value_7, "examples/ux01/Ergonomics.gogo:38:51"]])
 		var _gogo_element_11 := _GogoElement_0.new(_GogoImport_0, {"name": "Custom"}, {"pressed": _gogo_value_8}, [], "examples/ux01/Ergonomics.gogo:39:5", null, false)
+		_gogo_element_11.resolve_bindings()
 		_gogo_element_11.set_text_body([["Also click me", "examples/ux01/Ergonomics.gogo:39:45"]])
 		var _gogo_element_12 := _GogoElement_0.new(_GogoImport_0, {"name": "Disabled", "disabled": true}, {}, [], "examples/ux01/Ergonomics.gogo:40:5", null, false)
+		_gogo_element_12.resolve_bindings()
 		_gogo_element_12.set_text_body([["Disabled", "examples/ux01/Ergonomics.gogo:40:38"]])
 		var _gogo_element_9 := _GogoElement_0.new(HBox, {}, {}, [_gogo_element_10, _gogo_element_11, _gogo_element_12], "examples/ux01/Ergonomics.gogo:37:4", null, false)
 		_gogo_element_9.expand([["name", "Wrapped", "examples/ux01/Ergonomics.gogo:37:10"], [null, _gogo_value_5, "examples/ux01/Ergonomics.gogo:37:25"], ["wrap", true, "examples/ux01/Ergonomics.gogo:37:45"]])
+		_gogo_element_9.resolve_bindings()
 		var _gogo_element_13 := _GogoElement_0.new(HBox, {}, {}, [], "examples/ux01/Ergonomics.gogo:42:4", null, false)
 		_gogo_element_13.expand([["name", "Override", "examples/ux01/Ergonomics.gogo:42:10"], ["wrap", true, "examples/ux01/Ergonomics.gogo:42:26"], [null, _gogo_value_9, "examples/ux01/Ergonomics.gogo:42:31"]])
+		_gogo_element_13.resolve_bindings()
 		var _gogo_element_14 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/Ergonomics.gogo:43:4", null, false)
 		_gogo_element_14.expand([["name", "Spread", "examples/ux01/Ergonomics.gogo:43:10"], [null, _gogo_value_10, "examples/ux01/Ergonomics.gogo:43:24"]])
+		_gogo_element_14.resolve_bindings()
 		_gogo_element_14.set_text_body([["Body", "examples/ux01/Ergonomics.gogo:43:40"]])
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"width": "100%", "gap": "12px"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_element_8, _gogo_element_9, _gogo_element_13, _gogo_element_14], "examples/ux01/Ergonomics.gogo:21:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"width": "100%", "height": "100%"}, {}, [_gogo_element_1], "examples/ux01/Ergonomics.gogo:20:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

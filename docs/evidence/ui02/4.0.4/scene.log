@@ -1,0 +1,32 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI02_GAME_CHECK handler references are not invoked during render; initial Bool projection: true
+UI02_GAME_CHECK pointer edit updates one model synchronously and projects peers once: true
+UI02_GAME_CHECK Checkbox shares native pointer focus and exact hit rectangle: true
+UI02_GAME_CHECK independent native control assignment notifies and writes source synchronously: true
+UI02_GAME_CHECK independent write schedules one coalesced view: true
+UI02_GAME_CHECK reconciliation notifies value observers without reciprocal source writes: true
+UI02_GAME_CHECK same-value control assignment is quiet: true
+UI02_GAME_CHECK snapshot and computed controls are one-way: true
+UI02_GAME_CHECK one-way values project from current snapshot on relevant rerender: true
+UI02_GAME_CHECK direct typed parameter property path is implicitly two-way: true
+UI02_GAME_CHECK keyboard press/repeat do not activate before completed release: true
+UI02_GAME_CHECK completed focused keyboard activation exactly once: true
+UI02_GAME_CHECK cancel consumes held key without activation: true
+UI02_GAME_CHECK disabled Checkbox cannot activate or retain focus: true
+UI02_GAME_CHECK hidden Checkbox cannot activate: true
+UI02_GAME_CHECK reentrant source restore wins without binding feedback loop: true
+UI02_GAME_CHECK stale bound self-path callback inert before replacement commit: true
+UI02_GAME_CHECK replacement retains native Checkbox and one binding plus observer: true
+UI02_GAME_CHECK replacement releases previous model and parameter-path linkage: true
+UI02_GAME_CHECK captured disconnected callback stays inert after replacement: true
+UI02_GAME_CHECK keyed reorder retains Checkbox identity and focus: true
+UI02_GAME_CHECK natural square/label dimensions participate in Box/Grid/Wrap: true
+UI02_GAME_CHECK label styling remains local, with no inherited automatic style: true
+UI02_GAME_CHECK null source condition unmounts bound inputs cleanly: true
+UI02_GAME_CHECK repair creates one clean implicit binding: true
+UI02_GAME_CHECK unmount disconnects old control callbacks: true
+UI02_GAME_CHECK zero idle composition work: true
+UI02_GAME {"checks":27,"ok":true,"presses":2}
+UI02_SCENE_OK

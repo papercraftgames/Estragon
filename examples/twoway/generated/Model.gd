@@ -27,3 +27,7 @@ const _GOGO_RENDER_FUNCTIONS_fde60e67c05d6881 = {
 "ordinary": [],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_fde60e67c05d6881 = {
+"enabled": "bool",
+"note": "String"
+}

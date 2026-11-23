@@ -20,6 +20,9 @@ const _GOGO_RENDER_FUNCTIONS_6fd729170aeab802 = {
 "ordinary": [],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_6fd729170aeab802 = {
+"supplied": "Button"
+}
 
 func _notification(_gogo_what: int) -> void:
 	preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -31,4 +34,5 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new(Text, {"text": _gogo_value_0}, {}, [], "examples/button_imports/TypedButton.gogo:7:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0
