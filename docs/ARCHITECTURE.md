@@ -18,7 +18,7 @@ Desired lightweight descriptions carry type/properties/handlers/children and opt
 
 All reconciliation identity/subscriptions live in external framework records, with no helper Node or bookkeeping metadata on user objects. Foreign children and native scene owners follow explicit rescue/lifetime rules. Managed output is transient; PackedScene persists authored hosts and reconstitutes views on mount. F04 removed replaced eager factories/static path binders rather than supporting a second API.
 
-F05-B [bind:value](TWO_WAY_BINDINGS.md) supports typed Gogo bool lvalue paths and a real native Toggle user-edit signal. Programmatic projections are quiet; replacement/unmount/free disconnect stale callbacks. Text/IME/keyboard focus and broader input types remain future work.
+F05-B [bind:value](TWO_WAY_BINDINGS.md) supports typed Gogo bool lvalue paths and a real native Toggle user-edit signal. Programmatic projections are quiet; replacement/unmount/free disconnect stale callbacks. UI-01 adds the shared native focus/keyboard path documented below; a production editable Input/String binding and actual OS IME proof remain separately scoped.
 
 ## Native layout, drawing and input
 

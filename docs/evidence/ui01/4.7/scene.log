@@ -1,0 +1,22 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI01_GAME_CHECK actual composed Node2D acquires native GUI focus: true
+UI01_GAME_CHECK parent rerender/resize retains native Node, endpoint and focus: true
+UI01_GAME_CHECK actual composed keyboard handler exactly once: true
+UI01_GAME_CHECK parent rerender/resize retains native Node, endpoint and focus: true
+UI01_GAME_CHECK actual composed keyboard handler exactly once: true
+UI01_GAME_CHECK keyed parent reorder preserves focused native instance: true
+UI01_GAME_CHECK new tree order traversal skips disabled target: true
+UI01_GAME_CHECK mixed native GUI activation has one owner: true
+UI01_GAME_CHECK native text delegate participates across Node2D roots: true
+UI01_GAME_CHECK native delegate text/caret/selection/focus survive parent rerender: true
+UI01_GAME_CHECK delegate keeps real native ancestry and transient ownership: true
+UI01_IME {"backend":"X11","feature":true,"os_composition":"UNTESTED: no OS IME composition under Xvfb; native LineEdit owns platform IME"}
+UI01_GAME_CHECK reactive focused removal cancels held key without stale target: true
+UI01_GAME_CHECK keyboard Toggle uses existing controlled bool binding: true
+UI01_GAME_CHECK idle composed frames do not rerender: true
+UI01_GAME {"checks":14,"clicks":2,"ime_os_composition":"UNTESTED","native_clicks":1,"ok":true,"selected":true}
+UI01_SCENE_OK
