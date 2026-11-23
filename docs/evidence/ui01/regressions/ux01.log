@@ -1,0 +1,56 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U02_CHECK never-enabled normal overflow paints/hits without private helpers: true
+U02_CHECK ancestor extent excludes a nested viewport's clipped hidden content: true
+U02_CHECK bounded native geometry survives private clipping ancestry: true
+U02_CHECK bounded native change subscription remains live: true
+U02_CHECK scaled Entry excludes captured native release outside content clip: true
+U02_CHECK scaled Entry native click/focus exactly once: true
+U02_CHECK scaled logical wheel/Shift deltas and insets once: true
+U02_CHECK scaled native pan both axes: true
+U02_CHECK actual scaled scrollbar drag never activates underlying Control: true
+U02_CHECK Entry re-entry retains direct child/owner/offset: true
+U02_CHECK both flags off preserves native focus and removes guard subscriptions: true
+U02_CHECK flags on restores one guard without reparent/focus loss: true
+U02_CHECK persistent direct content packs private ancestry: true
+U02_CHECK native pack/reload restores inherited axes/offset and direct children: true
+U02_CHECK eight direct Text900/300/600 at (320, 240): true
+U02_CHECK HBox transpose retains gaps and policy: true
+U02_CHECK Grid tall direct cells retain span/track placement: true
+U02_CHECK Grid named areas/rows remain independent of scrolling: true
+U02_CHECK max/padding/border viewport retains nested Wrap: true
+U02_CHECK resize retains identity and no recomposition: true
+U02_CHECK scrolling Entry preserves native focus: true
+U02_CHECK deepest opted-in VBox receives wheel within transformed ancestry: true
+U02_CHECK scroll only transforms; unrelated Grid stays quiet: true
+U02_CHECK eight direct Text900/300/600 at (640, 480): true
+U02_CHECK HBox transpose retains gaps and policy: true
+U02_CHECK Grid tall direct cells retain span/track placement: true
+U02_CHECK Grid named areas/rows remain independent of scrolling: true
+U02_CHECK max/padding/border viewport retains nested Wrap: true
+U02_CHECK resize retains identity and no recomposition: true
+U02_CHECK scrolling Entry preserves native focus: true
+U02_CHECK deepest opted-in VBox receives wheel within transformed ancestry: true
+U02_CHECK scroll only transforms; unrelated Grid stays quiet: true
+U02_CHECK eight direct Text900/300/600 at (1000, 800): true
+U02_CHECK HBox transpose retains gaps and policy: true
+U02_CHECK Grid tall direct cells retain span/track placement: true
+U02_CHECK Grid named areas/rows remain independent of scrolling: true
+U02_CHECK max/padding/border viewport retains nested Wrap: true
+U02_CHECK resize retains identity and no recomposition: true
+U02_CHECK scrolling Entry preserves native focus: true
+U02_CHECK deepest opted-in VBox receives wheel within transformed ancestry: true
+U02_CHECK scroll only transforms; unrelated Grid stays quiet: true
+U02_CHECK Entry custom/native clicks exactly once at all three sizes: true
+U02_CHECK flags off restores unclipped overflow and zero offset: true
+U02_CHECK flags on retains all direct nodes/order and range: true
+U02_CHECK spread removal restores inherited axis default: true
+U02_CHECK keyed Grid shrink/reorder retains identity and clamps: true
+U02_CHECK removing a clipped keyed branch rescues foreign native actors and owner: true
+U02_CHECK direct Text font updates through normal retained layout: true
+U02_CHECK settled inherited layout idle quiet: true
+U02_CHECK all inherited view records/subscriptions released: true
+U02_INHERITED_OK

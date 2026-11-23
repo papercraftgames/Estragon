@@ -17,6 +17,7 @@
     "examples/surfaces",
     "examples/button_imports",
     "examples/layouts",
-    "examples/core_reactivity"
+    "examples/core_reactivity",
+    "examples/focus"
   ]
 }

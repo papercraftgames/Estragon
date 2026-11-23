@@ -18,7 +18,7 @@ Desired lightweight descriptions carry type/properties/handlers/children and opt
 
 All reconciliation identity/subscriptions live in external framework records, with no helper Node or bookkeeping metadata on user objects. Foreign children and native scene owners follow explicit rescue/lifetime rules. Managed output is transient; PackedScene persists authored hosts and reconstitutes views on mount. F04 removed replaced eager factories/static path binders rather than supporting a second API.
 
-F05-B [bind:value](TWO_WAY_BINDINGS.md) supports typed Gogo bool lvalue paths and a real native Toggle user-edit signal. Programmatic projections are quiet; replacement/unmount/free disconnect stale callbacks. Text/IME/keyboard focus and broader input types remain future work.
+F05-B [bind:value](TWO_WAY_BINDINGS.md) supports typed Gogo bool lvalue paths and a real native Toggle user-edit signal. Programmatic projections are quiet; replacement/unmount/free disconnect stale callbacks. UI-01 adds the shared native focus/keyboard path documented below; a production editable Input/String binding and actual OS IME proof remain separately scoped.
 
 ## Native layout, drawing and input
 
@@ -43,3 +43,5 @@ L07A [parent-owned layout](LAYOUT_FOUNDATION.md) isolates pure sequential slot a
 L07 #160 supplies only independent2D Entry coordinators with a visible-viewport percentage containing rectangle. The parser/resolver and ordinary immediate-content/cyclic references remain shared and unchanged; every eligible root length uses the same context. Nested Entry scopes stay independent; no3D viewport plane or polling is introduced.
 
 S01 [local native 2D styling](STYLING.md) adds transparent-default backgrounds and square borders on eligible Component2D descendants. The sole core includes border+padding in border-box/content geometry. Colors redraw without layout invalidation; no cascade or extra Nodes. Legacy Text/Rect/Button painters remain explicitly excluded until S02.
+
+UI-01 [focus/keyboard ownership](FOCUS_KEYBOARD.md) makes native GUI focus authoritative for Button/Toggle and mixed native Controls. Runtime-only transparent Control endpoints supply native focus/key delivery beneath the existing Node2D controls; they are not reconciliation records or layout wrappers. One weak viewport Entry registry joins eligible native roots for Tab and uses the existing SceneTree input phases, pointer routers and layout rectangles. A bounded visible native LineEdit prototype proves the text-edit delegation path; the production Input/String-binding API and actual OS IME proof remain separate.

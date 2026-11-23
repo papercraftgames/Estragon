@@ -1,0 +1,32 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const Toggle = preload("../../../addons/estragon/runtime/node/toggle.gd")
+const NativeButton = preload("../../godot_button.gd")
+const TextDelegate = preload("../TextDelegate.gd")
+@bindable var caption: String = "Tab / Shift-Tab, Space / Enter, Escape"
+@bindable var show_first: bool = true
+@bindable var reversed: bool = false
+@bindable var selected: bool = false
+var clicks: int = 0
+var native_clicks: int = 0
+func clicked(): clicks += 1
+func native_clicked(): native_clicks += 1
+func first() -> Element:
+    return <Button key="first" name="First" text="Estragon Button" width="300px" pressed={self.clicked} />
+func toggle() -> Element:
+    return <Toggle key="toggle" name="Toggle" text="Estragon Toggle" width="300px" bind:value={self.selected} />
+func build_view() -> Element:
+    return <Entry name="UI" width="100%" height="100%" direction="column" gap="12px" padding="20px" background_color="#172332">
+        <Text text={self.caption} font_size={22} />
+        <VBox name="Actions" gap="8px">
+            {([toggle(),first()] if self.reversed else [first(),toggle()]) if self.show_first else [toggle()]}
+            <Button name="Disabled" text="Disabled — skipped by Tab" disabled width="300px" />
+            <NativeButton name="Native" text="Godot native Button" custom_minimum_size={Vector2(300,44)} pressed={native_clicked} />
+            <TextDelegate name="Prototype" width="360px" height="44px" />
+        </VBox>
+        <Text text="The text delegate is a bounded prototype, not Input." font_size={18} />
+    </Entry>

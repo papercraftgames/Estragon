@@ -1,7 +1,7 @@
 @tool
 class_name EstragonToggle
 extends "button.gd"
-## Controlled boolean input. Only pointer activation emits a user edit.
+## Controlled boolean input. Completed native pointer/keyboard activation edits.
 signal value_changed(value: bool)
 const ESTRAGON_TOGGLE_STYLE := true
 var checked_background_color: Variant = Color("#227a60"):

@@ -192,3 +192,7 @@ Radii/texture/color changes redraw without layout or description recomposition;
 clip content uses the existing U02 private service. Child clipping is rectangular,
 independent of the owner's rounded surface. Native Controls and 3D gain no fake
 surface props. No shadow/transition/style-resource or cascade API is introduced.
+
+## UI-01 — focus, keyboard and mixed native event ownership
+
+[Focus/keyboard contract](FOCUS_KEYBOARD.md) extends Button/Toggle with native GUI focus endpoints, visible focus, Tab/Shift-Tab and repeat-safe accept/cancel. The previous C3/F05-B pointer-only descriptions above are historical bounds. Native GUI now gets mouse input before Estragon's unhandled pointer picker; native Control ancestry and GUI focus remain authoritative. The shared traversal joins eligible native roots inside Entries without rewriting authored focus paths. [Focus example](../examples/focus/Focus.tscn) includes the limited native text-edit delegate prototype; Checkbox/Input/String binding remain later work.

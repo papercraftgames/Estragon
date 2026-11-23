@@ -1,0 +1,43 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI01_RUNTIME one mixed eligible traversal across Node2D/native GUI roots, disabled skipped: true
+UI01_RUNTIME actual pointer focuses native endpoint and emits exactly once: true
+UI01_RUNTIME Tab from custom Button to Toggle: true
+UI01_RUNTIME accept repeat stays held without duplicate user edits: true
+UI01_RUNTIME accept release activates exactly once: true
+UI01_RUNTIME Escape cancels held activation: true
+UI01_RUNTIME Tab skips disabled and focus loss cancels held key: true
+UI01_RUNTIME native GUI owns native button keyboard activation without duplicates: true
+UI01_RUNTIME Tab reaches real native text endpoint: true
+UI01_RUNTIME native delegate receives Unicode through actual viewport GUI input: true
+UI01_RUNTIME native delegate owns select-all shortcut: true
+UI01_RUNTIME native clipboard paste replaces native selection: true
+UI01_RUNTIME native editing and activation key presses do not also reach raw game key handlers: true
+UI01_RUNTIME mixed traversal wraps: true
+UI01_RUNTIME Shift-Tab reverses across native roots: true
+UI01_RUNTIME authored native focus_next path wins over traversal order: true
+UI01_RUNTIME click-only mode accepts focus but skips Tab: true
+UI01_RUNTIME focus-none mode still accepts pointer activation without taking focus: true
+UI01_RUNTIME disabling focused custom target immediately releases native focus: true
+UI01_RUNTIME hidden target releases and skips traversal: true
+UI01_RUNTIME native reorder is live traversal order, retained focused identity: true
+UI01_RUNTIME unmount drops focus and native endpoint without stale registration: true
+UI01_RUNTIME reentry creates exactly one live focus endpoint: true
+UI01_RUNTIME native Control GUI click wins overlapping custom picker: true
+UI01_RUNTIME Window focus loss cancels pointer capture: true
+UI01_RUNTIME Window focus loss cancels keyboard hold: true
+UI01_RUNTIME raw custom key prototype appends Unicode but provides no native clipboard/selection/IME contract: true
+UI01_RUNTIME partly clipped focus rectangle equals native layout hit rectangle: true
+CLIP_DEBUG (0, 44) range=(0, 64) top=(300, -44) size=(160, 44) bottom=(300, 0) bottomsize=(160, 90) focus=_EstragonFocus:<Control#39711671608>
+CLIP_RECTS [(314, -36), (474, -36), (474, 8), (314, 8)] clip [(300, 0), (480, 0), (480, 70), (300, 70)] parent _EstragonContent:<Node2D#39342572834>
+UI01_RUNTIME scroll hides fully clipped target while retaining visible focus: false
+UI01_RUNTIME fully clipped target refuses explicit focus: false
+UI01_RUNTIME scrolling focused rectangle fully out of clip releases focus eventfully: false
+UI01_RUNTIME one Tab crosses Entry scopes and skips fully clipped sibling: false
+UI01_RUNTIME SubViewport uses native GUI focus and a separate traversal scope: true
+UI01_RUNTIME idle frames perform no focus refresh work: true
+UI01_RUNTIME native authored mixed controls pack: true
+UI01_RUNTIME pack reload reconstructs one runtime-only focus endpoint: true
+UI01_RUNTIME all entries unmount releases shared weak registry and tree subscriptions: true
+UI01_RUNTIME_ASSERTIONS 37 failed=true

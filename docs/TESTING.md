@@ -203,3 +203,11 @@ COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn
 ```
 
 This opt-in collector installs one development Yarn tarball directly, runs native formatter and CodeEdit tests, then the real Tools menu/Ctrl+I/Meta+I and save/current+main Play fixture, including rejection rollback, repair, restart, stable source maps/UIDs and immutable installed bytes. It retains raw logs, source/engine/tar provenance and native game captures. Settings and plugin activation are isolated from the source checkout. It does not expand routine CI, request physical keypresses, or certify other engines/platforms. See [behavior and limitations](GOGO_FORMATTING.md).
+
+## UI-01 focused acceptance
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-focus.ts --engine 4.0.4=/absolute/official/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/pinned/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-ui01-evidence
+```
+
+Clean committed source, one directly installed immutable Yarn tarball, native mixed focus/keyboard/pointer/clip/pack/teardown runtime, retained Gogo game and actual isolated editor current/main rollback/repair/Play/restart. Real `Input.parse_input_event` covers the platform GUI/unhandled phases on both engines; direct `Viewport.push_input` omits unhandled delivery on4.0 and is insufficient for this acceptance. Logs retain backend/IME capability without claiming real OS composition; rendered captures and manual-smoke status remain explicit. See [contract/prototype limits](FOCUS_KEYBOARD.md). This opt-in collector does not expand routine CI or require physical keypresses.
