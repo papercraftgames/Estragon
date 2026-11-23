@@ -55,6 +55,15 @@ static func rectangle(control: Control) -> PackedVector2Array:
 	var transform := control.get_global_transform_with_canvas()
 	var extent := control.size
 	return PackedVector2Array([transform*Vector2.ZERO,transform*Vector2(extent.x,0),transform*extent,transform*Vector2(0,extent.y)])
+static func intersect(region: Array, boundary: PackedVector2Array) -> Array:
+	var result: Array = []
+	for polygon in region:
+		for clipped in Geometry2D.intersect_polygons(polygon,boundary):
+			# 4.0 can return a zero-area polygon for touching clip edges.
+			var area := 0.0
+			for index in range(clipped.size()): area += clipped[index].cross(clipped[(index+1)%clipped.size()])
+			if not is_zero_approx(area): result.append(clipped)
+	return result
 static func eligible(control: Control, tab: bool = false) -> bool:
 	if not is_instance_valid(control) or not control.is_inside_tree() or control.is_queued_for_deletion() or not control.is_visible_in_tree() or not control.can_process(): return false
 	if control.focus_mode==Control.FOCUS_NONE or tab and control.focus_mode!=Control.FOCUS_ALL: return false
@@ -67,15 +76,13 @@ static func eligible(control: Control, tab: bool = false) -> bool:
 	if is_zero_approx(transform.x.cross(transform.y)): return false
 	var visible := control.get_viewport_rect()
 	var boundary := PackedVector2Array([visible.position,Vector2(visible.end.x,visible.position.y),visible.end,Vector2(visible.position.x,visible.end.y)])
-	var region: Array = Geometry2D.intersect_polygons(rectangle(control),boundary)
+	var region := intersect([rectangle(control)],boundary)
 	if region.is_empty(): return false
 	var parent := control.get_parent()
 	while parent!=null:
 		if parent.is_queued_for_deletion(): return false
 		if parent is Control and parent.clip_contents:
-			var next: Array = []
-			for polygon in region: next.append_array(Geometry2D.intersect_polygons(polygon,rectangle(parent)))
-			region = next
+			region = intersect(region,rectangle(parent))
 			if region.is_empty(): return false
 		parent = parent.get_parent()
 	return true
@@ -105,6 +112,13 @@ func key(viewport: Viewport, event: InputEvent) -> bool:
 		var explicit = owner.get_node_or_null(path)
 		if explicit is Control and eligible(explicit,true): explicit.grab_focus(); return true
 	var index := list.find(owner)
+	if index<0 and owner!=null:
+		var ordered := list.duplicate()
+		if event.shift_pressed: ordered.reverse()
+		for candidate in ordered:
+			if owner.is_greater_than(candidate) if event.shift_pressed else candidate.is_greater_than(owner):
+				candidate.grab_focus()
+				return true
 	if index<0: index = 0 if event.shift_pressed else -1
 	list[posmod(index+(-1 if event.shift_pressed else 1),list.size())].grab_focus()
 	return true

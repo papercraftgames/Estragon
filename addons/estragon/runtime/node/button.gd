@@ -120,7 +120,7 @@ func get_label_origin() -> Vector2:
 	var remaining := (content.size-_measure_label())*0.5
 	return content.position+Vector2(maxf(0,remaining.x),maxf(0,remaining.y))
 func _draw() -> void:
-	if get_content_rect().size.x<=0 or get_content_rect().size.y<=0: return
-	_draw_label(get_label_origin(),Color(1,1,1,0.5) if disabled else Color.WHITE)
+	if get_content_rect().size.x>0 and get_content_rect().size.y>0:
+		_draw_label(get_label_origin(),Color(1,1,1,0.5) if disabled else Color.WHITE)
 	if has_focus() and layout_size.x>4 and layout_size.y>4:
 		draw_rect(Rect2(Vector2(2,2),layout_size-Vector2(4,4)),Color("#9cdcff"),false,2)

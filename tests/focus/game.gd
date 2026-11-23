@@ -13,10 +13,12 @@ func key(host: Node,code: int,pressed: bool=true,echo: bool=false):
 	event.keycode = code
 	event.pressed = pressed
 	event.echo = echo
-	host.get_viewport().push_input(event,true)
+	Input.parse_input_event(event)
+	await host.get_tree().process_frame
+	await host.get_tree().process_frame
 func tap(host: Node,code: int):
-	key(host,code)
-	key(host,code,false)
+	await key(host,code)
+	await key(host,code,false)
 func run(host: Node):
 	var tree := host.get_tree()
 	await frames(tree)
@@ -35,9 +37,9 @@ func run(host: Node):
 		host.caption = "Retained focus at "+str(size.x)
 		await frames(tree)
 		check(first.get_instance_id()==identity and first.has_focus() and actions.get_layout_child("First")==first,"parent rerender/resize retains native Node, endpoint and focus")
-		key(host,KEY_SPACE)
-		key(host,KEY_SPACE,true,true)
-		key(host,KEY_SPACE,false)
+		await key(host,KEY_SPACE)
+		await key(host,KEY_SPACE,true,true)
+		await key(host,KEY_SPACE,false)
 		await frames(tree)
 		check(host.clicks==(1 if size.x==640 else 2),"actual composed keyboard handler exactly once")
 		await RenderingServer.frame_post_draw
@@ -45,11 +47,11 @@ func run(host: Node):
 	host.reversed = true
 	await frames(tree)
 	check(actions.get_layout_child("First")==first and first.has_focus(),"keyed parent reorder preserves focused native instance")
-	tap(host,KEY_TAB)
+	await tap(host,KEY_TAB)
 	check(tree.root.gui_get_focus_owner()==native,"new tree order traversal skips disabled target")
-	tap(host,KEY_ENTER)
+	await tap(host,KEY_ENTER)
 	check(host.native_clicks==1,"mixed native GUI activation has one owner")
-	tap(host,KEY_TAB)
+	await tap(host,KEY_TAB)
 	check(tree.root.gui_get_focus_owner()==prototype.editor,"native text delegate participates across Node2D roots")
 	var editor: LineEdit = prototype.editor
 	editor.text = "Unicode Ω"
@@ -58,7 +60,9 @@ func run(host: Node):
 	event.keycode = KEY_EXCLAM
 	event.unicode = 33
 	event.pressed = true
-	tree.root.push_input(event,true)
+	Input.parse_input_event(event)
+	await host.get_tree().process_frame
+	await host.get_tree().process_frame
 	editor.select(0,7)
 	var caret := editor.caret_column
 	host.caption = "Editing delegate retained"
@@ -67,13 +71,13 @@ func run(host: Node):
 	check(editor.get_parent()==prototype and editor.owner==null,"delegate keeps real native ancestry and transient ownership")
 	print("UI01_IME ",JSON.stringify({"feature":DisplayServer.has_feature(DisplayServer.FEATURE_IME),"backend":DisplayServer.get_name(),"os_composition":"UNTESTED: no OS IME composition under Xvfb; native LineEdit owns platform IME"}))
 	first.grab_focus()
-	key(host,KEY_ENTER)
+	await key(host,KEY_ENTER)
 	host.show_first = false
 	await frames(tree)
-	key(host,KEY_ENTER,false)
+	await key(host,KEY_ENTER,false)
 	check(not is_instance_valid(first) and host.clicks==2 and tree.root.gui_get_focus_owner()==null,"reactive focused removal cancels held key without stale target")
 	toggle.grab_focus()
-	tap(host,KEY_SPACE)
+	await tap(host,KEY_SPACE)
 	await frames(tree)
 	check(host.selected and toggle.value,"keyboard Toggle uses existing controlled bool binding")
 	Profile.set_enabled(true)

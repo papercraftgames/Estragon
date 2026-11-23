@@ -31,7 +31,9 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not event.pressed and event.button_index==MOUSE_BUTTON_LEFT and _pointer.has_capture(): _pointer.cancel.call_deferred()
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint() or get_viewport().is_input_handled(): return
-	if event is InputEventMouse and Focus.pointer_entry(get_viewport(),event.position)!=self: return
+	if event is InputEventMouse and Focus.pointer_entry(get_viewport(),event.position)!=self:
+		if event is InputEventMouseMotion: _pointer.cancel()
+		return
 	if _pointer.input(event): get_viewport().set_input_as_handled()
 func _shortcut_input(event: InputEvent) -> void:
 	if not Engine.is_editor_hint() and Focus.native_key(get_viewport(),event): get_viewport().set_input_as_handled()
