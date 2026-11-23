@@ -56,6 +56,7 @@ func _enter_tree() -> void:
 	_services = Services.new(_interface,_navigation)
 	add_child(_services)
 	_services.diagnostics_changed.connect(_typing_report)
+	_services.format_finished.connect(_format_report)
 	_highlighter_association.associated.connect(_services.attach)
 	_highlighter_association.start(_interface)
 	_new_script = NewScript.new(_interface,_navigation)
@@ -76,6 +77,7 @@ func _enter_tree() -> void:
 			_creation_menu.create = _new_script.show_dialog
 			call("add_context_menu_plugin",3,_creation_menu) # CONTEXT_SLOT_FILESYSTEM_CREATE
 	add_tool_menu_item("Add Missing Gogo Imports",_services.add_missing_imports)
+	add_tool_menu_item("Format Gogo / Auto Indent",_services.format_current)
 	_timer = Timer.new()
 	_timer.one_shot = true
 	_timer.wait_time = 0.4
@@ -258,6 +260,7 @@ func _exit_tree() -> void:
 		_creation_menu.create = Callable()
 		_creation_menu = null
 	remove_tool_menu_item("Add Missing Gogo Imports")
+	remove_tool_menu_item("Format Gogo / Auto Indent")
 	if _generated_editors != null:
 		_highlighter_association.associated.disconnect(_generated_editors.attach)
 		_generated_editors.stop()
@@ -296,3 +299,7 @@ func _exit_tree() -> void:
 		_diagnostics.free()
 		_diagnostics = null
 	_interface = null
+
+func _format_report(report: Dictionary) -> void:
+	_typing_report(report.diagnostics,report.message)
+	if not report.ok and _diagnostics!=null: make_bottom_panel_item_visible(_diagnostics)

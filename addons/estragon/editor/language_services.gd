@@ -3,6 +3,10 @@ extends Node
 ## Owns only authenticated Gogo CodeEdit connections and a dedicated gutter.
 signal diagnostics_changed(records, phase)
 signal source_edited(path)
+signal format_finished(report)
+const Formatter = preload("formatter.gd")
+const FormatEdit = preload("format_edit.gd")
+var last_format: Dictionary = {}
 const Context = preload("lexical_context.gd")
 const Acceptance = preload("completion_edit.gd")
 const Catalog = preload("components.gd")
@@ -286,3 +290,42 @@ func navigate(record: Dictionary) -> void:
 			code.grab_focus()
 			return
 		await get_tree().process_frame
+
+func _format_entry() -> Dictionary:
+	if not _active or not interface.get_script_editor().is_visible_in_tree(): return {}
+	var current = interface.get_script_editor().get_current_editor()
+	if current==null: return {}
+	for id in entries:
+		var entry: Dictionary = entries[id]
+		var code = entry.code.get_ref()
+		if current==entry.editor.get_ref() and code!=null and current.get_base_editor()==code and code.is_visible_in_tree() and code.editable: return {"id":id,"entry":entry,"code":code}
+	return {}
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo or event.keycode!=KEY_I: return
+	if event.alt_pressed or event.shift_pressed or not (event.ctrl_pressed or event.meta_pressed): return
+	var current := _format_entry()
+	if current.is_empty() or not current.code.has_focus(): return
+	get_viewport().set_input_as_handled()
+	format_current()
+func format_current() -> void:
+	var current := _format_entry()
+	if current.is_empty():
+		last_format = {"ok":false,"changed":false,"diagnostics":[],"message":"Open an authored Gogo tab to format its indentation."}
+		format_finished.emit(last_format)
+		return
+	var code: CodeEdit = current.code
+	var report := Formatter.new().format_source(code.text,current.entry.path,code.indent_use_spaces,code.indent_size)
+	var changed: bool = report.ok and not report.edits.is_empty()
+	if changed:
+		current.entry.mutating = true
+		var applied := FormatEdit.apply(code,report)
+		current.entry.mutating = false
+		if not applied:
+			report.ok = false
+			report.diagnostics = [{"source":current.entry.path,"line":1,"column":1,"message":"Formatting would merge carets; use a single caret or move carets out of indentation. Source unchanged."}]
+			changed = false
+		else: _changed(current.id,false)
+	report.changed = changed
+	report.message = "Formatted Gogo indentation." if changed else "Gogo indentation is already formatted." if report.ok else "Cannot format Gogo safely; source unchanged."
+	last_format = report
+	format_finished.emit(report)

@@ -193,3 +193,13 @@ COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn
 ```
 
 The collector requires clean committed source and directly installs identical reproducible development tarballs via Yarn. It checks compiler semantics/maps, independent render-call caches, signals/failure/lifetimes, 128/256-row counters, idle-zero work, real rendered input and isolated current/main editor rollback/repair/restart. This is focused acceptance, not release certification. [Contract and limitations](CORE01_REACTIVITY.md).
+
+## EDIT-01 focused acceptance
+
+With a clean committed checkout and the approved official Linux engines, run:
+
+```sh
+COREPACK_ENABLE_PROJECT_SPEC=0 LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-formatting.ts --engine 4.0.4=/absolute/official/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/absolute/pinned/Godot_v4.7-stable_linux.x86_64 --output /absolute/new-edit01-evidence
+```
+
+This opt-in collector installs one development Yarn tarball directly, runs native formatter and CodeEdit tests, then the real Tools menu/Ctrl+I/Meta+I and save/current+main Play fixture, including rejection rollback, repair, restart, stable source maps/UIDs and immutable installed bytes. It retains raw logs, source/engine/tar provenance and native game captures. Settings and plugin activation are isolated from the source checkout. It does not expand routine CI, request physical keypresses, or certify other engines/platforms. See [behavior and limitations](GOGO_FORMATTING.md).
