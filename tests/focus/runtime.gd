@@ -166,13 +166,22 @@ func run():
 	await click(a)
 	check(native_clicks==2 and clicks==before and root.gui_get_focus_owner()==overlay,"native Control GUI click wins overlapping custom picker")
 	overlay.hide()
+	var gate := Control.new()
+	gate.position = a.global_position
+	gate.size = Vector2(160,44)
+	gate.mouse_filter = Control.MOUSE_FILTER_PASS
+	var releases := [0]
+	gate.gui_input.connect(func(event):
+		if event is InputEventMouseButton and not event.pressed:
+			releases[0] += 1
+			gate.accept_event())
+	root.add_child(gate)
 	await frames()
 	await mouse(a,true)
-	overlay.show()
-	await frames()
 	await mouse(a,false)
 	await frames()
-	check(clicks==before and not entry._get_pointer_router().has_capture(),"GUI-consumed release cancels custom capture without stale click")
+	check(releases[0]==1 and clicks==before and not entry._get_pointer_router().has_capture(),"GUI-consumed release cancels custom capture without stale click")
+	gate.queue_free()
 	overlay.queue_free()
 	await frames()
 	await mouse(a,true)
@@ -231,7 +240,19 @@ func run():
 	before = clicks
 	await click(upper)
 	check(clicks==before+1 and upper.has_focus(),"overlapping Estragon Entries share one winning pointer capture")
-	overlapping.queue_free()
+	entry.z_index = 5
+	await click(upper)
+	check(clicks==before+2 and a.has_focus(),"inherited native Z selects one custom target across Entries")
+	var layer := CanvasLayer.new()
+	layer.layer = 2
+	root.add_child(layer)
+	root.remove_child(overlapping)
+	layer.add_child(overlapping)
+	await frames()
+	await click(upper)
+	check(clicks==before+3 and upper.has_focus(),"native CanvasLayer ordering takes priority over custom Z")
+	entry.z_index = 0
+	layer.queue_free()
 	await frames()
 	b.grab_focus()
 	await tap(KEY_TAB)

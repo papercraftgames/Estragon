@@ -132,7 +132,7 @@ func pointer_entry(viewport: Viewport, point: Vector2) -> Node:
 		var pointer = entry._get_pointer_router()
 		if pointer.has_capture(): return entry
 		var button = pointer.pick(point)
-		if button!=null and (found==null or pointer._z(button)>pointer._z(found) or pointer._z(button)==pointer._z(found) and button.is_greater_than(found)):
+		if button!=null and (found==null or pointer.above(button,found)):
 			found = button
 			result = entry
 	return result

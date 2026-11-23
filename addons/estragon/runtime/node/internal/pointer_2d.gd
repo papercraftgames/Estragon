@@ -38,12 +38,22 @@ func cancel_if_captured() -> void:
 	if has_capture(): cancel()
 func _z(button: CanvasItem) -> int:
 	var result: int = button.z_index
-	var parent: CanvasItem = button.get_parent_item()
-	while button.z_as_relative and parent != null:
+	var parent := button.get_parent()
+	while not button.is_set_as_top_level() and button.z_as_relative and parent is CanvasItem:
 		result += parent.z_index
 		button = parent
-		parent = button.get_parent_item()
+		parent = button.get_parent()
 	return result
+func _layer(item: CanvasItem) -> int:
+	var parent := item.get_parent()
+	while parent!=null and not parent is Viewport:
+		if parent is CanvasLayer: return parent.layer
+		parent = parent.get_parent()
+	return 0
+func above(item: CanvasItem, other: CanvasItem) -> bool:
+	if _layer(item)!=_layer(other): return _layer(item)>_layer(other)
+	if _z(item)!=_z(other): return _z(item)>_z(other)
+	return item.is_greater_than(other)
 static func inside_clips(item: CanvasItem, position: Vector2, exclude_bars: bool = true) -> bool:
 	var parent := item.get_parent()
 	while parent!=null:
@@ -59,7 +69,7 @@ func pick(position: Vector2):
 	for ref in _buttons:
 		var button = ref.get_ref()
 		if button == null or button.is_queued_for_deletion() or not button.is_inside_tree() or not button.is_visible_in_tree() or not button._pointer_contains(position) or not inside_clips(button,position): continue
-		if found == null or _z(button) > _z(found) or _z(button) == _z(found) and button.is_greater_than(found): found = button
+		if found == null or above(button,found): found = button
 	return found
 func input(event: InputEvent) -> bool:
 	if not event is InputEventMouse: return false
