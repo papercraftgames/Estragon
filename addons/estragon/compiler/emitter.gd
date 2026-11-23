@@ -15,6 +15,7 @@ class Argument extends RefCounted:
 	var type_name: String
 	var name: String
 	var binding_path: Array = []
+	var binding_type := "bool"
 
 class Factory extends RefCounted:
 	var name: String
@@ -135,7 +136,9 @@ func _collect(node: Model.Component, factory: Factory) -> void:
 		if attribute.value is Model.GdExpression:
 			_argument(attribute.value, attribute.type_name, factory)
 			factory.arguments.back().spread = attribute.kind=="spread"
-			if attribute.kind=="binding": factory.arguments.back().binding_path = attribute.binding_path
+			if attribute.kind=="binding":
+				factory.arguments.back().binding_path = attribute.binding_path
+				factory.arguments.back().binding_type = attribute.binding_type
 	for part in node.text_body:
 		if part is Model.GdExpression: _argument(part,"Variant",factory)
 	for child in node.children:
@@ -346,7 +349,7 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		endpoint += "."+str(name)
 		checks.append(endpoint+" != null")
-	_writer.append("preload("+_resource(Binding)+").new("+root+", func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": bool): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+", (",argument.expression.span)
+	_writer.append("preload("+_resource(Binding)+").new("+root+", func("+owner+"): return "+endpoint+" if "+" and ".join(checks)+" else null, "+_string(field)+", func("+source+", "+edit+": "+argument.binding_type+"): "+source+"."+field+" = "+edit+", "+_string(".".join(argument.binding_path))+", (",argument.expression.span)
 	# Keep the original property read in authored scope: native semantic
 	# validation still rejects unknown members, and the getter runs once.
 	_parts(argument.expression.parts)
@@ -356,7 +359,7 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		original += "."+str(name)
 		original_checks.append(original+" != null")
-	_writer.append(") if "+" and ".join(original_checks)+" else null)",argument.expression.span)
+	_writer.append(") if "+" and ".join(original_checks)+" else null"+(", TYPE_STRING" if argument.binding_type=="String" else "")+")",argument.expression.span)
 
 func _render_call(node: Model.RenderCall) -> void:
 	var cast: String = node.result_type

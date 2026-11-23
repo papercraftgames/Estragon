@@ -11,13 +11,15 @@ var write: Callable
 var value: Variant
 var valid := false
 var observable := false
+var kind := TYPE_BOOL
 var node: WeakRef
 var computation: WeakRef
 var connected := false
 var writing := false
-func _init(owner: Variant, reader: Callable, property: StringName, writer: Callable, identity: String, snapshot_value: Variant) -> void:
+func _init(owner: Variant, reader: Callable, property: StringName, writer: Callable, identity: String, snapshot_value: Variant, value_type: int = TYPE_BOOL) -> void:
+	kind = value_type
 	value = snapshot_value
-	valid = typeof(value)==TYPE_BOOL
+	valid = kind in [TYPE_BOOL,TYPE_STRING] and typeof(value)==kind
 	if not owner is Object or not is_instance_valid(owner): return
 	route = identity
 	root = weakref(owner)
@@ -28,14 +30,16 @@ func _init(owner: Variant, reader: Callable, property: StringName, writer: Calla
 	if endpoint == null: return
 	source = weakref(endpoint)
 	if not valid: return
-	observable = declared(endpoint.get_script(),str(field))
+	observable = declared(endpoint.get_script(),str(field),kind)
 	if observable:
 		valid = endpoint.has_signal(str(field)+"_changed")
-static func declared(script, property: String) -> bool:
+static func declared(script, property: String, value_type: int = TYPE_BOOL) -> bool:
+	var type_name: String = {TYPE_BOOL:"bool",TYPE_STRING:"String"}.get(value_type,"")
+	if type_name.is_empty(): return false
 	while script is Script:
 		for name in script.get_script_constant_map():
 			var contract = script.get_script_constant_map()[name]
-			if str(name).begins_with("_GOGO_BINDABLE_PROPERTIES_") and contract is Dictionary and contract.get(property,"")=="bool": return true
+			if str(name).begins_with("_GOGO_BINDABLE_PROPERTIES_") and contract is Dictionary and contract.get(property,"")==type_name: return true
 		script = script.get_base_script()
 	return false
 func current():
@@ -43,7 +47,7 @@ func current():
 	var endpoint = read.call(owner) if is_instance_valid(owner) else null
 	return endpoint if endpoint is Object and is_instance_valid(endpoint) else null
 func same(other) -> bool:
-	return other!=null and valid and other.valid and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
+	return other!=null and valid and other.valid and kind==other.kind and source.get_ref()==other.source.get_ref() and root.get_ref()==other.root.get_ref() and field==other.field and route==other.route
 func attach(target: Node, scope) -> void:
 	node = weakref(target)
 	computation = weakref(scope)
@@ -61,7 +65,8 @@ func _target_exit() -> void:
 	disconnect_edit()
 	var scope = computation.get_ref() if computation!=null else null
 	if scope!=null and scope.active and not scope.disposed: scope.schedule()
-func edit(_previous: bool, next: bool) -> void:
+func edit(_previous: Variant, next: Variant) -> void:
+	if typeof(next)!=kind: return
 	var scope = computation.get_ref() if computation!=null else null
 	var target = node.get_ref() if node!=null else null
 	var endpoint = source.get_ref() if source!=null else null
@@ -73,7 +78,7 @@ func edit(_previous: bool, next: bool) -> void:
 	# Reentrant model callbacks can restore the old value; commit must still
 	# restore a control whose local user value diverged from its snapshot.
 	scope.schedule()
-func project(target: Node, next: bool) -> void:
+func project(target: Node, next: Variant) -> void:
 	writing = true
 	target.set("value",next)
 	writing = false
@@ -91,4 +96,5 @@ func snapshot():
 	result.value = value
 	result.valid = valid
 	result.observable = observable
+	result.kind = kind
 	return result

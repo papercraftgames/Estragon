@@ -1,0 +1,3 @@
+@bindable
+extends RefCounted
+var text: String = "Hello"

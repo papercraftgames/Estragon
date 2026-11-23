@@ -369,10 +369,11 @@ func _native_type(property: Dictionary) -> String:
 
 func _implicit_binding(attribute, properties: Dictionary, signals: Dictionary, script) -> void:
 	if attribute.name!="value" or not attribute.value is Model.GdExpression: return
-	if not properties.has("value") or properties.value.type!=TYPE_BOOL or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY: return
-	if not properties.value.get("source_bindable",false) and not Binding.declared(script,"value"): return
+	if not properties.has("value") or properties.value.type not in [TYPE_BOOL,TYPE_STRING] or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY: return
+	var kind: int = properties.value.type
+	if not properties.value.get("source_bindable",false) and not Binding.declared(script,"value",kind): return
 	var args: Array = signals.get("value_changed",{}).get("args",[])
-	if args.size()!=2 or args.any(func(arg): return arg.type!=TYPE_BOOL): return
+	if args.size()!=2 or args.any(func(arg): return arg.type!=kind): return
 	var tokens := _expression_tokens(attribute.value)
 	if tokens.size()<3 or tokens.size()%2!=1: return
 	var names: Array = []
@@ -382,6 +383,7 @@ func _implicit_binding(attribute, properties: Dictionary, signals: Dictionary, s
 	attribute.kind = "binding"
 	attribute.type_name = "Variant"
 	attribute.binding_path = names
+	attribute.binding_type = "String" if kind==TYPE_STRING else "bool"
 
 func _length(attribute, domain: String) -> void:
 	var value = attribute.value

@@ -2,6 +2,7 @@
 extends RefCounted
 ## Trusted installed resources, not guessed global classes or installation roots.
 const ITEMS := [
+	{"alias":"Input","canonical":"EstragonInput","script":preload("../runtime/node/input.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"Checkbox","canonical":"EstragonCheckbox","script":preload("../runtime/node/checkbox.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"Grid","canonical":"EstragonGrid","script":preload("../runtime/node/grid.gd"),"dimension":2,"origin":"native layout"},
 	{"alias":"Spacer","canonical":"EstragonSpacer","script":preload("../runtime/node/spacer.gd"),"dimension":2,"origin":"native layout"},

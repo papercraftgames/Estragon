@@ -1,0 +1,40 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Input = preload("../../../addons/estragon/runtime/node/input.gd")
+const Model = preload("Model.gd")
+@bindable var model: Model = Model.new()
+@bindable var revision: int = 0
+@bindable var reverse: bool = false
+@bindable var show: bool = true
+@bindable var props: Dictionary = {}
+var submits: Array = []
+var cancels: int = 0
+func submitted(text: String): submits.append(text)
+func cancelled(): cancels += 1
+func parameter(item: Model) -> Element:
+    return <Input name="Parameter" value={item.text} placeholder="Parameter path" />
+func build_view() -> Element:
+    var current: String = self.model.text if self.model != null else ""
+    return <Entry name="UI" width="100%" height="100%" direction="column" gap="12px" padding="20px" background_color="#172332">
+        <Text text={"Input / String binding — revision "+str(self.revision)} font_size={24} />
+        {<Box name="Controls" direction="column" gap="10px">
+            <Input name="Bound" value={self.model.text} placeholder="Your name" submitted={self.submitted} cancelled={self.cancelled} {...self.props} />
+            <Input name="Peer" value={self.model.text} />
+            <Input name="Snapshot" value={current} />
+            <Input name="Computed" value={self.model.text.to_upper()} />
+            {self.parameter(self.model)}
+        </Box> if self.show and self.model != null else null}
+        <Grid name="Grid" columns={2} column_gap="12px" row_gap="10px" width="560px">
+            {([<Input key="b" name="B" placeholder="Second" />,<Input key="a" name="A" value="Retained caret" />] if self.reverse else [<Input key="a" name="A" value="Retained caret" />,<Input key="b" name="B" placeholder="Second" />]) if self.show else null}
+            <Input name="ReadOnly" read_only value="Read only / copy" />
+            <Input name="Disabled" disabled value="Disabled" />
+            <Input name="Invalid" invalid placeholder="Required" />
+        </Grid>
+        <Box name="Clip" width="220px" height="56px" clip_content padding="4px">
+            <Input name="Clipped" width="320px" value="Native clipped text and caret" />
+        </Box>
+    </Entry>
