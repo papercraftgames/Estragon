@@ -35,6 +35,9 @@ const _GOGO_RENDER_FUNCTIONS_ef9ffda749d2bdcd = {
 "ordinary": ["badge"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_ef9ffda749d2bdcd = {
+"tick": "int"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -53,8 +56,13 @@ class _GogoFactories_0:
         _gogo_value_5: Variant
     ) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(ViewText, {"name": "Tick", "text": _gogo_value_0}, {}, [], "examples/core_reactivity/Derived.gogo:16:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_2 := _GogoElement_0.new(ViewText, {"name": "Explicit", "text": _gogo_value_1}, {}, [], "examples/core_reactivity/Derived.gogo:17:9", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(ViewText, {"name": "Normal", "text": _gogo_value_2}, {}, [], "examples/core_reactivity/Derived.gogo:18:9", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new(ViewText, {"name": "Hidden", "text": _gogo_value_3}, {}, [], "examples/core_reactivity/Derived.gogo:19:9", null, false)
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(ViewBox, {"name": "Inherited", "direction": "column"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_value_4, _gogo_value_5], "examples/core_reactivity/Derived.gogo:15:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

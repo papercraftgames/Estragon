@@ -21,5 +21,7 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: Callable) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new("Button", {"text": "Exit"}, {"pressed": _gogo_value_0}, [], "examples/nested_layout/NativeSettings.gogo:7:15", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {}, {}, [_gogo_element_1], "examples/nested_layout/NativeSettings.gogo:7:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

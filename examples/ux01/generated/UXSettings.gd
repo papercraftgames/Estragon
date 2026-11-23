@@ -18,4 +18,5 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0() -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new(Text, {"text": "Settings"}, {}, [], "examples/ux01/UXSettings.gogo:4:38", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

@@ -139,7 +139,7 @@ func _run() -> void:
 		await _blocked(mode,"Demo.gogo:")
 		_counter.text = _source.replace("<Entry name=","<RefCounted name=")
 		await _blocked(mode,"Demo.gogo:")
-		_counter.text = _source.replace("bind:value={self.model.enabled}","bind:value={self.model.note}")
+		_counter.text = _source.replace("value={self.model.enabled}","value={self.model.note}")
 		await _blocked(mode,"Demo.gogo:")
 		_counter.text = _source
 		await _success(mode,0)

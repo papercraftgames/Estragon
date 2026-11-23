@@ -69,7 +69,7 @@ func run():
 	b.text = "Toggle"
 	b.width = 160
 	b.height = 44
-	b.value_changed.connect(func(_value): edits += 1)
+	b.value_changed.connect(func(_previous,_value): edits += 1)
 	var disabled = button("Disabled")
 	disabled.disabled = true
 	var native := Button.new()

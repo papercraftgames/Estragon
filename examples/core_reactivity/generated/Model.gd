@@ -49,3 +49,9 @@ const _GOGO_RENDER_FUNCTIONS_661832aa45b6b54d = {
 "ordinary": [],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_661832aa45b6b54d = {
+"alternate": "bool",
+"label": "String",
+"note": "String",
+"value": "int"
+}

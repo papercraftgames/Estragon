@@ -68,9 +68,9 @@ func build_view() -> Element:
     if self.reverse: preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/twoway/Demo.gogo:953", rows, "reverse", [], func(_gogo_receiver, _gogo_arguments): _gogo_receiver.reverse(), func(): rows.reverse())
     return _GogoFactories_0._gogo_build_2(
         (8.0),
-        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "model.enabled"))) if self.model != null else null),
+        (_GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.model.enabled"))) if self.model != null else null),
         ("Enabled" if self.model != null and self.model.enabled else "Disabled"),
-        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled")),
         ("Revision: %d" % self.revision),
         (rows),
         (replace_model),
@@ -95,6 +95,13 @@ const _GOGO_RENDER_FUNCTIONS_a30126229e4b83ef = {
 "ordinary": ["replace_model", "toggle_rows", "reverse_rows", "_ready", "_proof"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_a30126229e4b83ef = {
+"enabled": "bool",
+"model": "Model",
+"reverse": "bool",
+"revision": "int",
+"show_row": "bool"
+}
 
 const _GogoProject_0 = preload("Row.gd")
 
@@ -108,11 +115,13 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: _GogoProject_0.Model) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": "First", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:24", _gogo_value_0, true)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: _GogoProject_0.Model) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(_GogoProject_0, {"name": "Second", "model": _gogo_value_1}, {}, [], "examples/twoway/Demo.gogo:17:73", _gogo_value_0, true)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
@@ -128,19 +137,29 @@ class _GogoFactories_0:
         _gogo_value_8: Callable
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Heading", "text": "Native two-way boolean input"}, {}, [], "examples/twoway/Demo.gogo:20:9", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(Text, {"name": "Status", "text": _gogo_value_2}, {}, [], "examples/twoway/Demo.gogo:22:9", null, false)
-        var _gogo_element_4 := _GogoElement_0.new(Toggle, {"name": "HostEdit", "text": "Host flag"}, {}, [], "examples/twoway/Demo.gogo:23:9", null, false)
-        _gogo_element_4.bindings = {"value": _gogo_value_3}
+        _gogo_element_3.resolve_bindings()
+        var _gogo_element_4 := _GogoElement_0.new(Toggle, {"name": "HostEdit", "text": "Host flag", "value": _gogo_value_3}, {}, [], "examples/twoway/Demo.gogo:23:9", null, false)
+        _gogo_element_4.origins["value"] = "examples/twoway/Demo.gogo:23:50"
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_5 := _GogoElement_0.new(Text, {"name": "Revision", "text": _gogo_value_4}, {}, [], "examples/twoway/Demo.gogo:24:9", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_6 := _GogoElement_0.new(Action, {"text": "Replace model"}, {"pressed": _gogo_value_6}, [], "examples/twoway/Demo.gogo:26:9", null, false)
+        _gogo_element_6.resolve_bindings()
         var _gogo_element_7 := _GogoElement_0.new(Action, {"text": "Show / hide rows"}, {"pressed": _gogo_value_7}, [], "examples/twoway/Demo.gogo:27:9", null, false)
+        _gogo_element_7.resolve_bindings()
         var _gogo_element_8 := _GogoElement_0.new(Action, {"name": "Reverse", "text": "Reverse keys"}, {"pressed": _gogo_value_8}, [], "examples/twoway/Demo.gogo:28:9", null, false)
+        _gogo_element_8.resolve_bindings()
         var _gogo_element_1 := _GogoElement_0.new(Box, {"name": "Panel", "gap": _gogo_value_0}, {}, [_gogo_element_2, _gogo_value_1, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_value_5, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/twoway/Demo.gogo:19:29", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI"}, {}, [_gogo_element_1], "examples/twoway/Demo.gogo:19:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_3(_gogo_value_0: Variant) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(Toggle, {"name": "Edit", "text": "Model enabled"}, {}, [], "examples/twoway/Demo.gogo:21:10", null, false)
-        _gogo_element_0.bindings = {"value": _gogo_value_0}
+        var _gogo_element_0 := _GogoElement_0.new(Toggle, {"name": "Edit", "text": "Model enabled", "value": _gogo_value_0}, {}, [], "examples/twoway/Demo.gogo:21:10", null, false)
+        _gogo_element_0.origins["value"] = "examples/twoway/Demo.gogo:21:51"
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

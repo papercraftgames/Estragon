@@ -37,3 +37,8 @@ const _GOGO_RENDER_FUNCTIONS_bef4142b0144e007 = {
 "ordinary": [],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_bef4142b0144e007 = {
+"tint": "Color",
+"title": "String",
+"width": "float"
+}

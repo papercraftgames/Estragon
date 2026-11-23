@@ -66,6 +66,10 @@ const _GOGO_RENDER_FUNCTIONS_fef0071616b06981 = {
 "ordinary": ["independent", "_ready", "advance", "write_proof"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_fef0071616b06981 = {
+"count": "int",
+"model": "Model"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -89,30 +93,41 @@ class _GogoFactories_0:
         _gogo_value_10: String
     ) -> _GogoElement_0:
         var _gogo_element_3 := _GogoElement_0.new(Rect, {"name": "Other", "width": _gogo_value_5, "height": _gogo_value_6, "fill": _gogo_value_7}, {}, [], "examples/reactive/Demo.gogo:26:17", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_2 := _GogoElement_0.new(HBox, {"name": "Row", "width": "100%", "gap": _gogo_value_3}, {}, [_gogo_value_4, _gogo_element_3], "examples/reactive/Demo.gogo:24:13", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new(Text, {"name": "Count", "text": _gogo_value_8}, {}, [], "examples/reactive/Demo.gogo:28:13", null, false)
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_5 := _GogoElement_0.new(_GogoImport_0, {"name": "Advance", "text": "Change model and layout"}, {"pressed": _gogo_value_9}, [], "examples/reactive/Demo.gogo:29:13", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_6 := _GogoElement_0.new(Text, {"name": "Independent", "text": _gogo_value_10}, {}, [], "examples/reactive/Demo.gogo:30:13", null, false)
+        _gogo_element_6.resolve_bindings()
         var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Panel", "width": "100%", "gap": _gogo_value_1}, {}, [_gogo_value_2, _gogo_element_2, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/reactive/Demo.gogo:22:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "position": _gogo_value_0, "width": "90vw"}, {}, [_gogo_element_1], "examples/reactive/Demo.gogo:21:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: String, _gogo_value_1: Color) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Title", "text": _gogo_value_0, "color": _gogo_value_1}, {}, [], "examples/reactive/Demo.gogo:23:14", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_2() -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Title"}, {}, [], "examples/reactive/Demo.gogo:23:99", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_3(_gogo_value_0: Variant, _gogo_value_1: Variant, _gogo_value_2: Color) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Bar", "width": _gogo_value_0, "height": _gogo_value_1, "fill": _gogo_value_2}, {}, [], "examples/reactive/Demo.gogo:25:18", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_4(_gogo_value_0: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Rect, {"name": "Bar", "height": _gogo_value_0}, {}, [], "examples/reactive/Demo.gogo:25:115", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

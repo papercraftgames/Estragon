@@ -19,7 +19,7 @@ func pressed(): clicks += 1
 func row(index: int) -> Element:
 	if index==0: return <NativeButton key={index} name="NativeRow" custom_minimum_size={Vector2(0,60)} pressed={pressed}>Native scroll button</NativeButton>
 	if index==1: return <Button key={index} name="CustomRow" height="60px" pressed={pressed}>Estragon scroll button</Button>
-	if index==2: return <Toggle key={index} name="ToggleRow" height="60px" bind:value={self.enabled}>Enabled</Toggle>
+	if index==2: return <Toggle key={index} name="ToggleRow" height="60px" value={self.enabled}>Enabled</Toggle>
 	if index==3: return <Grid key={index} name="GridRow" columns={2} width="100%" height="60px" gap="8px"><Text>Native Grid</Text><Rect height="60px" background_color="#477dbb" /></Grid>
 	if index==4: return <HBox key={index} name="WrapRow" wrap height="60px" gap="8px"><Text>Wrap</Text><Text>inside</Text><Text>viewport</Text></HBox>
 	return <Button key={index} name={"Row"+str(index)} height="60px" pressed={pressed}>Item {str(index)}</Button>

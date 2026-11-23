@@ -13,6 +13,6 @@ func build_view() -> Element:
 		<VBox horizontal_align="stretch" name="Scroll" width="300px" height="300px" vertical_scroll background_color="#252b38">
 				<Button name="First" height="300px" pressed={pressed}>First</Button>
 				<NativeButton name="Middle" custom_minimum_size={Vector2(0,300)} pressed={pressed}>Native middle</NativeButton>
-				<Toggle name="Last" height="300px" bind:value={self.enabled}>Last</Toggle>
+				<Toggle name="Last" height="300px" value={self.enabled}>Last</Toggle>
 		</VBox>
 	</Entry2D>

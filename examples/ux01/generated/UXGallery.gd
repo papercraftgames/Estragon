@@ -69,10 +69,10 @@ func pressed(): clicks += 1
 func row(index: int) -> Element:
 	if index==0: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1052", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((_gogo_mount_key), (Vector2(0,60)), (pressed)))
 	if index==1: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1206", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((_gogo_mount_key), (pressed)))
-	if index==2: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1328", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2((_gogo_mount_key), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled"))))
-	if index==3: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1443", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((_gogo_mount_key), (2)))
-	if index==4: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1627", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_4((_gogo_mount_key)))
-	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1762", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_5(
+	if index==2: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1328", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_2((_gogo_mount_key), (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled"))))
+	if index==3: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1438", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((_gogo_mount_key), (2)))
+	if index==4: return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1622", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_4((_gogo_mount_key)))
+	return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:1757", index, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_5(
 		(_gogo_mount_key),
 		("Row"+str(index)),
 		(pressed),
@@ -84,7 +84,7 @@ func build_view() -> Element:
 		(self.username),
 		(pressed),
 		(pressed),
-		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:2447", "overflow", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_7()) if self.show_overflow else null),
+		(preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/ux01/UXGallery.gogo:2442", "overflow", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_7()) if self.show_overflow else null),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(panel)),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.extra)),
 		(self.order.map(row))
@@ -93,6 +93,13 @@ func build_view() -> Element:
 const _GOGO_RENDER_FUNCTIONS_8649457af7ae8c14 = {
 "ordinary": ["pressed"],
 "reactive": ["row", "build_view"]
+}
+const _GOGO_BINDABLE_PROPERTIES_8649457af7ae8c14 = {
+"enabled": "bool",
+"extra": "Dictionary",
+"order": "Array",
+"show_overflow": "bool",
+"username": "String"
 }
 
 func _notification(_gogo_what: int) -> void:
@@ -105,39 +112,49 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: Variant, _gogo_value_1: Vector2, _gogo_value_2: Callable) -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new(NativeButton, {"name": "NativeRow", "custom_minimum_size": _gogo_value_1}, {"pressed": _gogo_value_2}, [], "examples/ux01/UXGallery.gogo:20:22", _gogo_value_0, true)
+		_gogo_element_0.resolve_bindings()
 		_gogo_element_0.set_text_body([["Native scroll button", "examples/ux01/UXGallery.gogo:20:119"]])
 		return _gogo_element_0
 
 
 	static func _gogo_build_1(_gogo_value_0: Variant, _gogo_value_1: Callable) -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "CustomRow", "height": "60px"}, {"pressed": _gogo_value_1}, [], "examples/ux01/UXGallery.gogo:21:22", _gogo_value_0, true)
+		_gogo_element_0.resolve_bindings()
 		_gogo_element_0.set_text_body([["Estragon scroll button", "examples/ux01/UXGallery.gogo:21:91"]])
 		return _gogo_element_0
 
 
 	static func _gogo_build_2(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
-		var _gogo_element_0 := _GogoElement_0.new(Toggle, {"name": "ToggleRow", "height": "60px"}, {}, [], "examples/ux01/UXGallery.gogo:22:22", _gogo_value_0, true)
-		_gogo_element_0.set_text_body([["Enabled", "examples/ux01/UXGallery.gogo:22:99"]])
-		_gogo_element_0.bindings = {"value": _gogo_value_1}
+		var _gogo_element_0 := _GogoElement_0.new(Toggle, {"name": "ToggleRow", "height": "60px", "value": _gogo_value_1}, {}, [], "examples/ux01/UXGallery.gogo:22:22", _gogo_value_0, true)
+		_gogo_element_0.origins["value"] = "examples/ux01/UXGallery.gogo:22:73"
+		_gogo_element_0.resolve_bindings()
+		_gogo_element_0.set_text_body([["Enabled", "examples/ux01/UXGallery.gogo:22:94"]])
 		return _gogo_element_0
 
 
 	static func _gogo_build_3(_gogo_value_0: Variant, _gogo_value_1: Variant) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:23:104", null, false)
+		_gogo_element_1.resolve_bindings()
 		_gogo_element_1.set_text_body([["Native Grid", "examples/ux01/UXGallery.gogo:23:110"]])
 		var _gogo_element_2 := _GogoElement_0.new(Rect, {"height": "60px", "background_color": "#477dbb"}, {}, [], "examples/ux01/UXGallery.gogo:23:128", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Grid, {"name": "GridRow", "columns": _gogo_value_1, "width": "100%", "height": "60px", "gap": "8px"}, {}, [_gogo_element_1, _gogo_element_2], "examples/ux01/UXGallery.gogo:23:22", _gogo_value_0, true)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0
 
 
 	static func _gogo_build_4(_gogo_value_0: Variant) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:24:84", null, false)
+		_gogo_element_1.resolve_bindings()
 		_gogo_element_1.set_text_body([["Wrap", "examples/ux01/UXGallery.gogo:24:90"]])
 		var _gogo_element_2 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:24:101", null, false)
+		_gogo_element_2.resolve_bindings()
 		_gogo_element_2.set_text_body([["inside", "examples/ux01/UXGallery.gogo:24:107"]])
 		var _gogo_element_3 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:24:120", null, false)
+		_gogo_element_3.resolve_bindings()
 		_gogo_element_3.set_text_body([["viewport", "examples/ux01/UXGallery.gogo:24:126"]])
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "WrapRow", "wrap": true, "height": "60px", "gap": "8px"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3], "examples/ux01/UXGallery.gogo:24:22", _gogo_value_0, true)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0
 
 
@@ -148,6 +165,7 @@ class _GogoFactories_0:
 		_gogo_value_3: Variant
 	) -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": _gogo_value_1, "height": "60px"}, {"pressed": _gogo_value_2}, [], "examples/ux01/UXGallery.gogo:25:9", _gogo_value_0, true)
+		_gogo_element_0.resolve_bindings()
 		_gogo_element_0.set_text_body([["Item ", "examples/ux01/UXGallery.gogo:25:85"], [_gogo_value_3, "examples/ux01/UXGallery.gogo:25:90"]])
 		return _gogo_element_0
 
@@ -162,27 +180,39 @@ class _GogoFactories_0:
 		_gogo_value_6: Variant
 	) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(Text, {"name": "Greeting"}, {}, [], "examples/ux01/UXGallery.gogo:30:4", null, false)
+		_gogo_element_2.resolve_bindings()
 		_gogo_element_2.set_text_body([["Hello ", "examples/ux01/UXGallery.gogo:30:26"], [_gogo_value_0, "examples/ux01/UXGallery.gogo:30:32"], ["!", "examples/ux01/UXGallery.gogo:30:47"]])
 		var _gogo_element_4 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:32:5", null, false)
+		_gogo_element_4.resolve_bindings()
 		_gogo_element_4.set_text_body([["One", "examples/ux01/UXGallery.gogo:32:11"]])
 		var _gogo_element_5 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:32:21", null, false)
+		_gogo_element_5.resolve_bindings()
 		_gogo_element_5.set_text_body([["Two", "examples/ux01/UXGallery.gogo:32:27"]])
 		var _gogo_element_6 := _GogoElement_0.new(Text, {}, {}, [], "examples/ux01/UXGallery.gogo:32:37", null, false)
+		_gogo_element_6.resolve_bindings()
 		_gogo_element_6.set_text_body([["Three", "examples/ux01/UXGallery.gogo:32:43"]])
 		var _gogo_element_7 := _GogoElement_0.new(NativeButton, {"name": "Native"}, {"pressed": _gogo_value_1}, [], "examples/ux01/UXGallery.gogo:33:5", null, false)
+		_gogo_element_7.resolve_bindings()
 		_gogo_element_7.set_text_body([["Native", "examples/ux01/UXGallery.gogo:33:51"]])
 		var _gogo_element_8 := _GogoElement_0.new(_GogoImport_0, {"name": "Custom"}, {"pressed": _gogo_value_2}, [], "examples/ux01/UXGallery.gogo:34:5", null, false)
+		_gogo_element_8.resolve_bindings()
 		_gogo_element_8.set_text_body([["Estragon", "examples/ux01/UXGallery.gogo:34:45"]])
 		var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Wrap", "wrap": true, "gap": "8px", "row_gap": "6px"}, {}, [_gogo_element_4, _gogo_element_5, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/ux01/UXGallery.gogo:31:4", null, false)
+		_gogo_element_3.resolve_bindings()
 		var _gogo_element_9 := _GogoElement_0.new(VBox, {}, {}, [_gogo_value_6], "examples/ux01/UXGallery.gogo:37:4", null, false)
 		_gogo_element_9.expand([["name", "Scroll", "examples/ux01/UXGallery.gogo:37:10"], ["horizontal_align", "stretch", "examples/ux01/UXGallery.gogo:37:24"], ["width", "100%", "examples/ux01/UXGallery.gogo:37:51"], ["height", "30vh", "examples/ux01/UXGallery.gogo:37:64"], ["max_height", "380px", "examples/ux01/UXGallery.gogo:37:78"], ["vertical_scroll", true, "examples/ux01/UXGallery.gogo:37:97"], [null, _gogo_value_4, "examples/ux01/UXGallery.gogo:37:113"], [null, _gogo_value_5, "examples/ux01/UXGallery.gogo:37:124"]])
+		_gogo_element_9.resolve_bindings()
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Content", "width": "100%", "height": "100%", "gap": "6px", "horizontal_align": "end"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_value_3, _gogo_element_9], "examples/ux01/UXGallery.gogo:29:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/ux01/UXGallery.gogo:28:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0
 
 
 	static func _gogo_build_7() -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Text, {"width": "240px", "height": "26px", "background_color": "#477dbb"}, {}, [], "examples/ux01/UXGallery.gogo:36:107", null, false)
+		_gogo_element_1.resolve_bindings()
 		_gogo_element_1.set_text_body([["Visible overflow", "examples/ux01/UXGallery.gogo:36:168"]])
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Overflow", "width": "500px", "max_width": "180px", "height": "26px", "align_self": "start"}, {}, [_gogo_element_1], "examples/ux01/UXGallery.gogo:36:5", "overflow", true)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

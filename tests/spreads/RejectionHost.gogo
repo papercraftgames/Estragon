@@ -14,7 +14,7 @@ func build_view() -> Element:
 	var child: Element
 	if self.kind=="rect": child = <Rect name="Target" {...self.props} />
 	elif self.kind=="box": child = <Box name="Target" {...self.props} />
-	elif self.kind=="toggle": child = <Toggle name="Target" {...self.props} bind:value={self.checked} />
+	elif self.kind=="toggle": child = <Toggle name="Target" {...self.props} value={self.checked} />
 	elif self.kind=="sprite": child = <Sprite2D name="Target" {...self.props} />
 	else: child = <UiButton name="Target" {...self.props} />
 	return <Entry2D name="UI" width="100%" height="100%">{child}</Entry2D>

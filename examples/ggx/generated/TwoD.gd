@@ -60,11 +60,19 @@ class _GogoFactories_0:
         _gogo_value_13: Vector2
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new("Polygon2D", {"name": "Visual", "polygon": _gogo_value_4, "color": _gogo_value_5}, {}, [], "examples/ggx/TwoD.gogo:10:13", null, false)
+        _gogo_element_2.resolve_bindings()
         var _gogo_element_1 := _GogoElement_0.new(Native, {"name": "First", "width": _gogo_value_2, "height": _gogo_value_3}, {}, [_gogo_element_2], "examples/ggx/TwoD.gogo:9:9", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new("Polygon2D", {"name": "Visual", "polygon": _gogo_value_6, "color": _gogo_value_7}, {}, [], "examples/ggx/TwoD.gogo:13:13", null, false)
+        _gogo_element_4.resolve_bindings()
         var _gogo_element_3 := _GogoElement_0.new(Native, {"name": "Second"}, {}, [_gogo_element_4], "examples/ggx/TwoD.gogo:12:9", null, false)
+        _gogo_element_3.resolve_bindings()
         var _gogo_element_5 := _GogoElement_0.new("Timer", {"name": "Pulse", "one_shot": _gogo_value_8}, {"timeout": _gogo_value_9}, [], "examples/ggx/TwoD.gogo:15:9", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_7 := _GogoElement_0.new("Node2D", {"name": "Nested", "position": _gogo_value_13}, {}, [], "examples/ggx/TwoD.gogo:17:13", null, false)
+        _gogo_element_7.resolve_bindings()
         var _gogo_element_6 := _GogoElement_0.new(Custom, {"name": "Custom", "amount": _gogo_value_10, "palette": _gogo_value_11, "position": _gogo_value_12}, {}, [_gogo_element_7], "examples/ggx/TwoD.gogo:16:9", null, false)
+        _gogo_element_6.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "Entry", "position": _gogo_value_0, "gap": _gogo_value_1}, {}, [_gogo_element_1, _gogo_element_3, _gogo_element_5, _gogo_element_6], "examples/ggx/TwoD.gogo:8:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

@@ -19,6 +19,9 @@ const _GOGO_RENDER_FUNCTIONS_57de39bc188d30d1 = {
 "ordinary": [],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_57de39bc188d30d1 = {
+"title": "String"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -30,4 +33,5 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: Color, _gogo_value_1: String) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"color": _gogo_value_0, "text": _gogo_value_1}, {}, [], "examples/layouts/Header.gogo:6:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

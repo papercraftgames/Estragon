@@ -10,6 +10,7 @@ var read: Callable
 var write: Callable
 var value: Variant
 var valid := false
+var observable := false
 var node: WeakRef
 var computation: WeakRef
 var connected := false
@@ -25,7 +26,18 @@ func _init(owner: Object, reader: Callable, property: StringName, writer: Callab
 	if endpoint == null: return
 	source = weakref(endpoint)
 	value = endpoint.get(field)
-	valid = typeof(value)==TYPE_BOOL and endpoint.has_signal(str(field)+"_changed")
+	valid = typeof(value)==TYPE_BOOL
+	if not valid: return
+	observable = declared(endpoint.get_script(),str(field))
+	if observable:
+		valid = endpoint.has_signal(str(field)+"_changed")
+static func declared(script, property: String) -> bool:
+	while script is Script:
+		for name in script.get_script_constant_map():
+			var contract = script.get_script_constant_map()[name]
+			if str(name).begins_with("_GOGO_BINDABLE_PROPERTIES_") and contract is Dictionary and contract.get(property,"")=="bool": return true
+		script = script.get_base_script()
+	return false
 func current():
 	var owner = root.get_ref() if root!=null else null
 	var endpoint = read.call(owner) if is_instance_valid(owner) else null
@@ -49,7 +61,7 @@ func _target_exit() -> void:
 	disconnect_edit()
 	var scope = computation.get_ref() if computation!=null else null
 	if scope!=null and scope.active and not scope.disposed: scope.schedule()
-func edit(next: bool) -> void:
+func edit(_previous: bool, next: bool) -> void:
 	var scope = computation.get_ref() if computation!=null else null
 	var target = node.get_ref() if node!=null else null
 	var endpoint = source.get_ref() if source!=null else null
@@ -61,6 +73,10 @@ func edit(next: bool) -> void:
 	# Reentrant model callbacks can restore the old value; commit must still
 	# restore a control whose local user value diverged from its snapshot.
 	scope.schedule()
+func project(target: Node, next: bool) -> void:
+	writing = true
+	target.set("value",next)
+	writing = false
 
 # A desired linkage is reusable data; each native mount owns its mutable edit
 # connection. Copy without evaluating getters outside the render read scope.
@@ -74,4 +90,5 @@ func snapshot():
 	result.write = write
 	result.value = value
 	result.valid = valid
+	result.observable = observable
 	return result

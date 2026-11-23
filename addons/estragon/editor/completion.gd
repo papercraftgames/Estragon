@@ -514,7 +514,6 @@ func candidates(text: String, source: String, lexical: RefCounted, row: int, col
 			for name in members:
 				if members[name].kind in [CodeEdit.KIND_MEMBER,CodeEdit.KIND_SIGNAL] and members[name].get("writable",true) and name not in ["owner","script"]: offered[name] = members[name]
 			if _node_type(context.tag,_aliases): offered.key = {"kind":CodeEdit.KIND_MEMBER}
-			if members.has("value") and (members.value.get("value_type") == TYPE_BOOL or members.value.get("type") == "bool") and members.has("value_changed") and members.value_changed.get("args",[]).size() == 1 and members.value_changed.args[0] in ["bool",TYPE_BOOL]: offered["bind:value"] = {"kind":CodeEdit.KIND_MEMBER}
 	elif context.mode == "body": return []
 	elif member_cursor >= 0 and left[member_cursor] == ".":
 		var tokens := _chain_tokens(lexical,row,member_cursor)

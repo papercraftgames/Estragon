@@ -23,12 +23,15 @@ func build_view() -> Element:
 		(pressed),
 		(Vector2(0,300)),
 		(pressed),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "enabled"))
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "enabled", func(_gogo_source, _gogo_edit: bool): _gogo_source.enabled = _gogo_edit, "self.enabled"))
 	)
 
 const _GOGO_RENDER_FUNCTIONS_737610e287a175fb = {
 "ordinary": ["pressed"],
 "reactive": ["build_view"]
+}
+const _GOGO_BINDABLE_PROPERTIES_737610e287a175fb = {
+"enabled": "bool"
 }
 
 func _notification(_gogo_what: int) -> void:
@@ -46,12 +49,17 @@ class _GogoFactories_0:
 		_gogo_value_3: Variant
 	) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "First", "height": "300px"}, {"pressed": _gogo_value_0}, [], "examples/ux01/ScrollProof.gogo:14:5", null, false)
+		_gogo_element_2.resolve_bindings()
 		_gogo_element_2.set_text_body([["First", "examples/ux01/ScrollProof.gogo:14:59"]])
 		var _gogo_element_3 := _GogoElement_0.new(NativeButton, {"name": "Middle", "custom_minimum_size": _gogo_value_1}, {"pressed": _gogo_value_2}, [], "examples/ux01/ScrollProof.gogo:15:5", null, false)
+		_gogo_element_3.resolve_bindings()
 		_gogo_element_3.set_text_body([["Native middle", "examples/ux01/ScrollProof.gogo:15:88"]])
-		var _gogo_element_4 := _GogoElement_0.new(Toggle, {"name": "Last", "height": "300px"}, {}, [], "examples/ux01/ScrollProof.gogo:16:5", null, false)
-		_gogo_element_4.set_text_body([["Last", "examples/ux01/ScrollProof.gogo:16:66"]])
-		_gogo_element_4.bindings = {"value": _gogo_value_3}
+		var _gogo_element_4 := _GogoElement_0.new(Toggle, {"name": "Last", "height": "300px", "value": _gogo_value_3}, {}, [], "examples/ux01/ScrollProof.gogo:16:5", null, false)
+		_gogo_element_4.origins["value"] = "examples/ux01/ScrollProof.gogo:16:40"
+		_gogo_element_4.resolve_bindings()
+		_gogo_element_4.set_text_body([["Last", "examples/ux01/ScrollProof.gogo:16:61"]])
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"horizontal_align": "stretch", "name": "Scroll", "width": "300px", "height": "300px", "vertical_scroll": true, "background_color": "#252b38"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4], "examples/ux01/ScrollProof.gogo:13:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "20px", "background_color": "#171b24"}, {}, [_gogo_element_1], "examples/ux01/ScrollProof.gogo:12:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

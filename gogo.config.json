@@ -18,6 +18,7 @@
     "examples/button_imports",
     "examples/layouts",
     "examples/core_reactivity",
-    "examples/focus"
+    "examples/focus",
+    "examples/checkbox"
   ]
 }

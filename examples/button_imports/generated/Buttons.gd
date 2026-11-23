@@ -59,7 +59,7 @@ func build_view() -> Element:
 		(pressed),
 		(preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.props)),
 		(native_pressed),
-		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "checked", func(_gogo_source, _gogo_edit: bool): _gogo_source.checked = _gogo_edit, "checked")),
+		(preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "checked", func(_gogo_source, _gogo_edit: bool): _gogo_source.checked = _gogo_edit, "self.checked")),
 		(PANEL_TEXTURE),
 		(pressed),
 		(self.selected)
@@ -68,6 +68,11 @@ func build_view() -> Element:
 const _GOGO_RENDER_FUNCTIONS_e0c0f9f327123430 = {
 "ordinary": ["pressed", "native_pressed", "typed", "constructors", "member_and_string"],
 "reactive": ["build_view"]
+}
+const _GOGO_BINDABLE_PROPERTIES_e0c0f9f327123430 = {
+"checked": "bool",
+"props": "Dictionary",
+"selected": "Button"
 }
 
 const _GogoProject_0 = preload("NativeOnly.gd")
@@ -92,20 +97,31 @@ class _GogoFactories_0:
 		_gogo_value_6: _GogoProject_1._GogoImport_0
 	) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(Text, {}, {}, [], "examples/button_imports/Buttons.gogo:30:4", null, false)
+		_gogo_element_2.resolve_bindings()
 		_gogo_element_2.set_text_body([["Import-selected Button", "examples/button_imports/Buttons.gogo:30:10"]])
 		var _gogo_element_4 := _GogoElement_0.new(_GogoImport_0, {}, {}, [], "examples/button_imports/Buttons.gogo:32:5", null, false)
 		_gogo_element_4.expand([["name", "Action", "examples/button_imports/Buttons.gogo:32:13"], ["text", "Estragon Button", "examples/button_imports/Buttons.gogo:32:27"], ["width", "180px", "examples/button_imports/Buttons.gogo:32:50"], ["height", "56px", "examples/button_imports/Buttons.gogo:32:64"], ["pressed", _gogo_value_0, "examples/button_imports/Buttons.gogo:32:78"], [null, _gogo_value_1, "examples/button_imports/Buttons.gogo:32:96"]])
+		_gogo_element_4.resolve_bindings()
 		var _gogo_element_5 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native script alias"}, {"pressed": _gogo_value_2}, [], "examples/button_imports/Buttons.gogo:33:5", null, false)
+		_gogo_element_5.resolve_bindings()
 		var _gogo_element_6 := _GogoElement_0.new(_GogoProject_0, {"name": "Unimported"}, {}, [], "examples/button_imports/Buttons.gogo:34:5", null, false)
+		_gogo_element_6.resolve_bindings()
 		var _gogo_element_3 := _GogoElement_0.new(HBox, {"name": "Kinds", "wrap": true, "gap": "8px"}, {}, [_gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/button_imports/Buttons.gogo:31:4", null, false)
+		_gogo_element_3.resolve_bindings()
 		var _gogo_element_7 := _GogoElement_0.new(_GogoImport_0, {"name": "Disabled", "disabled": true, "width": "180px", "height": "56px"}, {}, [], "examples/button_imports/Buttons.gogo:36:4", null, false)
+		_gogo_element_7.resolve_bindings()
 		_gogo_element_7.set_text_body([["Disabled charcoal", "examples/button_imports/Buttons.gogo:36:65"]])
-		var _gogo_element_8 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "180px", "height": "56px"}, {}, [], "examples/button_imports/Buttons.gogo:37:4", null, false)
-		_gogo_element_8.set_text_body([["Teal when checked", "examples/button_imports/Buttons.gogo:37:80"]])
-		_gogo_element_8.bindings = {"value": _gogo_value_3}
+		var _gogo_element_8 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "180px", "height": "56px", "value": _gogo_value_3}, {}, [], "examples/button_imports/Buttons.gogo:37:4", null, false)
+		_gogo_element_8.origins["value"] = "examples/button_imports/Buttons.gogo:37:54"
+		_gogo_element_8.resolve_bindings()
+		_gogo_element_8.set_text_body([["Teal when checked", "examples/button_imports/Buttons.gogo:37:75"]])
 		var _gogo_element_9 := _GogoElement_0.new(_GogoImport_0, {"name": "Surface", "width": "240px", "height": "72px", "corner_radius": "18px", "background_color": "#283842", "background_texture": _gogo_value_4}, {"pressed": _gogo_value_5}, [], "examples/button_imports/Buttons.gogo:38:4", null, false)
+		_gogo_element_9.resolve_bindings()
 		_gogo_element_9.set_text_body([["Explicit native surface", "examples/button_imports/Buttons.gogo:38:156"]])
 		var _gogo_element_10 := _GogoElement_0.new(_GogoProject_1, {"name": "Typed", "supplied": _gogo_value_6}, {}, [], "examples/button_imports/Buttons.gogo:39:4", null, false)
+		_gogo_element_10.resolve_bindings()
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"name": "Column", "width": "100%", "gap": "8px"}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_7, _gogo_element_8, _gogo_element_9, _gogo_element_10], "examples/button_imports/Buttons.gogo:29:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%", "padding": "12px", "background_color": "#171b24", "vertical_scroll": true}, {}, [_gogo_element_1], "examples/button_imports/Buttons.gogo:28:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

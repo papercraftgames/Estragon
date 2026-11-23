@@ -256,8 +256,8 @@ func _gogo(name: String, path: String, authored: String, span: Model.Span, check
 				qualified = name+"."+module.import_aliases.get(root_name,root_name)+type.trim_prefix(root_name)
 			elif ClassDB.class_exists(type.get_slice(".",0)) or imported.globals.has(type.get_slice(".",0)): qualified = type
 			else: qualified = name+"."+type
-		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT,"source_writable":true}
-		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name}
+		properties[part.name] = {"name":part.name,"type":kind,"class_name":qualified,"usage":PROPERTY_USAGE_DEFAULT,"source_writable":true,"source_bindable":not part.signal_name.is_empty()}
+		if not part.signal_name.is_empty(): signals[part.signal_name] = {"name":part.signal_name,"args":[{"type":kind},{"type":kind}]}
 	if check_constructor and required: return _fail("GGX construction requires a zero-argument initializer: "+name,span)
 	return {"native":base.native,"script":base.script,"properties":properties,"signals":signals,"required_initializer":required,"gogo_path":path}
 
@@ -265,33 +265,12 @@ func _fail(message: String, span: Model.Span) -> Dictionary:
 	file.fail(message, span.start.index, span.end.index)
 	return {}
 
-# Source-only proof for a writable Gogo path. Native fields never gain an
-# observation contract merely because an unrelated signal shares their name.
-func bindable_path(module, names: Array) -> bool:
-	if names.is_empty(): return false
-	for part in module.parts:
-		if not part is Model.Bindable or part.name!=names[0]: continue
-		if names.size()==1: return part.type_name=="bool"
-		var path: String = aliases.get(part.type_name,globals.get(part.type_name,""))
-		if path.is_empty(): return false
-		var authored := path.get_base_dir().get_base_dir().path_join(path.get_file().get_basename()+".gogo")
-		if path.get_base_dir().get_file()!="generated" or not FileAccess.file_exists(authored): return false
-		var source := Source.new(FileAccess.get_file_as_string(authored),authored)
-		var parsed = Parser.new(source).parse()
-		if parsed==null: return false
-		Bindable.new(source).apply(parsed)
-		if not source.diagnostics.is_empty(): return false
-		var imported = get_script().new(source)
-		imported.scan(parsed)
-		return imported.bindable_path(parsed,names.slice(1))
-	return false
-
 # Godot 4.0 reports TYPE_NIL even for typed GDScript signal arguments.
 # Recover only this lexical declaration contract; native reload remains the
 # semantic authority. Never instantiate a control to inspect its signals.
 func signal_contract(script: Script, event: Dictionary) -> Dictionary:
 	var args: Array = event.get("args",[])
-	if args.size()!=1 or args[0].type!=TYPE_NIL or not script is GDScript: return event
+	if args.is_empty() or not args.any(func(arg): return arg.type==TYPE_NIL) or not script is GDScript: return event
 	var source := Source.new(script.source_code,script.resource_path)
 	var lexer := Lexer.new(source)
 	var tokens: Array = []
@@ -301,11 +280,17 @@ func signal_contract(script: Script, event: Dictionary) -> Dictionary:
 		if token==null: return event
 		cursor = token.span.end.index
 		if token.kind not in ["whitespace","newline","comment","continuation"]: tokens.append(token)
-	for index in range(tokens.size()-6):
+	for index in range(tokens.size()-3):
 		if tokens[index].text!="signal" or tokens[index].span.start.column!=1 or tokens[index+1].text!=event.name: continue
-		if tokens[index+2].text!="(" or tokens[index+3].kind!="identifier" or tokens[index+4].text!=":" or tokens[index+6].text!=")": return event
-		var kind: int = {"bool":TYPE_BOOL,"int":TYPE_INT,"float":TYPE_FLOAT,"String":TYPE_STRING}.get(tokens[index+5].text,TYPE_NIL)
+		if tokens[index+2].text!="(": return event
+		var argument_cursor := index+3
 		var result := event.duplicate(true)
-		result.args[0].type = kind
-		return result
+		for arg in range(args.size()):
+			if argument_cursor+3>=tokens.size() or tokens[argument_cursor].kind!="identifier" or tokens[argument_cursor+1].text!=":": return event
+			result.args[arg].type = {"bool":TYPE_BOOL,"int":TYPE_INT,"float":TYPE_FLOAT,"String":TYPE_STRING}.get(tokens[argument_cursor+2].text,TYPE_NIL)
+			argument_cursor += 3
+			if arg<args.size()-1:
+				if tokens[argument_cursor].text!=",": return event
+				argument_cursor += 1
+		if tokens[argument_cursor].text==")": return result
 	return event

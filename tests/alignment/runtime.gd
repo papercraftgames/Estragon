@@ -13,7 +13,7 @@ func check(ok: bool, label: String) -> void:
 	if not ok: failed = true
 func frames() -> void:
 	for frame in range(8): await process_frame
-func edited(value: bool) -> void: edits.append(value)
+func edited(_previous: bool, value: bool) -> void: edits.append(value)
 func click(button: Node) -> void:
 	var extent: Vector2 = button.size if button is Control else button.layout_size
 	var event := InputEventMouseButton.new()

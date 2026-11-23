@@ -180,13 +180,13 @@ func build_view() -> Element:
         (_GogoLayout_49),
         (_GogoLayout_54),
         (clicked),
-        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "selected")),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "self.selected")),
         (_GogoLayout_56),
         (_GogoLayout_57),
         (library.upper),
         (library.lowerLeft),
         (library.lowerRight),
-        (preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/layouts/Layouts.gogo:3108", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.options)))) if self.show_extra else null),
+        (preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/layouts/Layouts.gogo:3103", "extra", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3((preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.options)))) if self.show_extra else null),
         (self.borrowed),
         (_GogoLayout_55)
     )
@@ -194,6 +194,16 @@ func build_view() -> Element:
 const _GOGO_RENDER_FUNCTIONS_f2fec2704cfba1c7 = {
 "ordinary": ["clicked"],
 "reactive": ["original_side", "scoped_side", "build_view"]
+}
+const _GOGO_BINDABLE_PROPERTIES_f2fec2704cfba1c7 = {
+"borrowed": "Node",
+"caption": "String",
+"mode": "String",
+"options": "Dictionary",
+"selected": "bool",
+"show_extra": "bool",
+"side_mode": "String",
+"tint": "String"
 }
 
 const _GogoLayout_0 = preload("../../../addons/estragon/runtime/node/grid.gd")
@@ -236,12 +246,14 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_0), {}, {}, [], "examples/layouts/Layouts.gogo:29:30", null, false)
+        _gogo_element_0.resolve_bindings()
         _gogo_element_0 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_0, _gogo_element_0)
         return _gogo_element_0
 
 
     static func _gogo_build_1(_gogo_value_0: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_0), {}, {}, [], "examples/layouts/Layouts.gogo:45:12", null, false)
+        _gogo_element_0.resolve_bindings()
         _gogo_element_0 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_0, _gogo_element_0)
         return _gogo_element_0
 
@@ -269,45 +281,66 @@ class _GogoFactories_0:
         _gogo_value_19: Variant
     ) -> _GogoElement_0:
         var _gogo_element_2 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_2), {"name": "Header"}, {}, [], "examples/layouts/Layouts.gogo:50:13", null, false)
+        _gogo_element_2.resolve_bindings()
         _gogo_element_2 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_2, _gogo_element_2)
         var _gogo_element_5 := _GogoElement_0.new(Text, {"text": "Side"}, {}, [], "examples/layouts/Layouts.gogo:52:33", null, false)
+        _gogo_element_5.resolve_bindings()
         var _gogo_element_4 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_5), {"name": "Top"}, {}, [_gogo_element_5], "examples/layouts/Layouts.gogo:52:17", null, false)
+        _gogo_element_4.resolve_bindings()
         _gogo_element_4 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_5, _gogo_element_4)
         var _gogo_element_6 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_6), {"name": "Left"}, {}, [], "examples/layouts/Layouts.gogo:53:17", null, false)
+        _gogo_element_6.resolve_bindings()
         _gogo_element_6 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_6, _gogo_element_6)
         var _gogo_element_7 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_7), {"name": "Middle"}, {}, [], "examples/layouts/Layouts.gogo:54:17", null, false)
+        _gogo_element_7.resolve_bindings()
         _gogo_element_7 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_7, _gogo_element_7)
         var _gogo_element_8 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_8), {"name": "Right"}, {}, [], "examples/layouts/Layouts.gogo:55:17", null, false)
+        _gogo_element_8.resolve_bindings()
         _gogo_element_8 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_8, _gogo_element_8)
         var _gogo_element_3 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_3), {"name": "Side", "width": "auto", "direction": _gogo_value_4}, {}, [_gogo_element_4, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/layouts/Layouts.gogo:51:13", null, false)
+        _gogo_element_3.resolve_bindings()
         _gogo_element_3 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_3, _gogo_element_3)
         var _gogo_element_10 := _GogoElement_0.new(Text, {"text": "Native Grid tracks and Nodes"}, {}, [], "examples/layouts/Layouts.gogo:58:17", null, false)
+        _gogo_element_10.resolve_bindings()
         var _gogo_element_11 := _GogoElement_0.new(Action, {"name": "Action", "text": "Native button"}, {"pressed": _gogo_value_10}, [], "examples/layouts/Layouts.gogo:59:17", null, false)
-        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "300px"}, {}, [], "examples/layouts/Layouts.gogo:60:17", null, false)
-        _gogo_element_12.set_text_body([["Controlled native toggle", "examples/layouts/Layouts.gogo:60:80"]])
-        _gogo_element_12.bindings = {"value": _gogo_value_11}
+        _gogo_element_11.resolve_bindings()
+        var _gogo_element_12 := _GogoElement_0.new(Toggle, {"name": "Toggle", "width": "300px", "value": _gogo_value_11}, {}, [], "examples/layouts/Layouts.gogo:60:17", null, false)
+        _gogo_element_12.origins["value"] = "examples/layouts/Layouts.gogo:60:53"
+        _gogo_element_12.resolve_bindings()
+        _gogo_element_12.set_text_body([["Controlled native toggle", "examples/layouts/Layouts.gogo:60:75"]])
         var _gogo_element_15 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_14), {"name": "Upper"}, {}, [], "examples/layouts/Layouts.gogo:63:25", null, false)
+        _gogo_element_15.resolve_bindings()
         _gogo_element_15 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_14, _gogo_element_15)
         var _gogo_element_16 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_15), {"name": "LowerLeft"}, {}, [], "examples/layouts/Layouts.gogo:64:25", null, false)
+        _gogo_element_16.resolve_bindings()
         _gogo_element_16 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_15, _gogo_element_16)
         var _gogo_element_17 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_16), {"name": "LowerRight"}, {}, [], "examples/layouts/Layouts.gogo:65:25", null, false)
+        _gogo_element_17.resolve_bindings()
         _gogo_element_17 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_16, _gogo_element_17)
         var _gogo_element_14 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_13), {"name": "Shared"}, {}, [_gogo_element_15, _gogo_element_16, _gogo_element_17], "examples/layouts/Layouts.gogo:62:21", null, false)
+        _gogo_element_14.resolve_bindings()
         _gogo_element_14 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_13, _gogo_element_14)
         var _gogo_element_13 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_12), {"name": "Imported", "width": "100%", "height": "120px"}, {}, [_gogo_element_14], "examples/layouts/Layouts.gogo:61:17", null, false)
+        _gogo_element_13.resolve_bindings()
         _gogo_element_13 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_12, _gogo_element_13)
         var _gogo_element_9 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_9), {"name": "Body"}, {}, [_gogo_element_10, _gogo_element_11, _gogo_element_12, _gogo_element_13, _gogo_value_17, _gogo_value_18], "examples/layouts/Layouts.gogo:57:13", null, false)
+        _gogo_element_9.resolve_bindings()
         _gogo_element_9 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_9, _gogo_element_9)
         var _gogo_element_19 := _GogoElement_0.new(Text, {"text": "Reusable native definitions"}, {}, [], "examples/layouts/Layouts.gogo:71:35", null, false)
+        _gogo_element_19.resolve_bindings()
         var _gogo_element_18 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_19), {"name": "Footer"}, {}, [_gogo_element_19], "examples/layouts/Layouts.gogo:71:13", null, false)
+        _gogo_element_18.resolve_bindings()
         _gogo_element_18 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_19, _gogo_element_18)
         var _gogo_element_1 := _GogoElement_0.new(preload("../../../addons/estragon/runtime/composition/preset.gd").type_of(_gogo_value_0), {"name": "App", "width": "100%", "height": "100%", "direction": _gogo_value_1}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_9, _gogo_element_18], "examples/layouts/Layouts.gogo:49:9", null, false)
+        _gogo_element_1.resolve_bindings()
         _gogo_element_1 = preload("../../../addons/estragon/runtime/composition/preset.gd").apply(_gogo_value_0, _gogo_element_1)
         var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"name": "UI", "width": "100%", "height": "100%"}, {}, [_gogo_element_1], "examples/layouts/Layouts.gogo:48:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_3(_gogo_value_0: Variant) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Box, {}, {}, [], "examples/layouts/Layouts.gogo:68:18", "extra", true)
         _gogo_element_0.expand([["name", "Extra", "examples/layouts/Layouts.gogo:68:23"], ["width", "100%", "examples/layouts/Layouts.gogo:68:48"], ["height", "20px", "examples/layouts/Layouts.gogo:68:61"], ["background_color", "#52677c", "examples/layouts/Layouts.gogo:68:75"], [null, _gogo_value_0, "examples/layouts/Layouts.gogo:68:102"]])
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

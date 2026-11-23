@@ -27,6 +27,9 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: Callable, _gogo_value_1: Callable) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(NativeButton, {"name": "Native", "text": "Native Button"}, {"pressed": _gogo_value_0}, [], "examples/styling/StyledSettings.gogo:15:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "Ui", "text": "Estragon Button"}, {"pressed": _gogo_value_1}, [], "examples/styling/StyledSettings.gogo:16:3", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Controls", "width": "100%", "padding": "8px", "gap": "12px", "background_color": "#30394d", "border_color": "#8295bc", "border_width": "1px"}, {}, [_gogo_element_1, _gogo_element_2], "examples/styling/StyledSettings.gogo:13:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

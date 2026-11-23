@@ -32,6 +32,9 @@ const _GOGO_RENDER_FUNCTIONS_bc83f472415825bf = {
 "ordinary": ["_ready", "resized"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_bc83f472415825bf = {
+"extent": "Vector2"
+}
 
 const _GogoProject_0 = preload("Settings.gd")
 
@@ -53,10 +56,17 @@ class _GogoFactories_0:
 		_gogo_value_4: float
 	) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(VBox, {"grow": _gogo_value_4}, {}, [], "examples/nested_layout/Home.gogo:15:4", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_3 := _GogoElement_0.new(Text, {"text": "Hello World!"}, {}, [], "examples/nested_layout/Home.gogo:16:4", null, false)
+		_gogo_element_3.resolve_bindings()
 		var _gogo_element_4 := _GogoElement_0.new(Text, {"text": "This is fun!"}, {}, [], "examples/nested_layout/Home.gogo:17:4", null, false)
+		_gogo_element_4.resolve_bindings()
 		var _gogo_element_5 := _GogoElement_0.new(_GogoProject_0, {}, {}, [], "examples/nested_layout/Home.gogo:18:4", null, false)
+		_gogo_element_5.resolve_bindings()
 		var _gogo_element_6 := _GogoElement_0.new(_GogoProject_1, {}, {}, [], "examples/nested_layout/Home.gogo:19:4", null, false)
+		_gogo_element_6.resolve_bindings()
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"grow": _gogo_value_2, "stretch": _gogo_value_3}, {}, [_gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_6], "examples/nested_layout/Home.gogo:14:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"width": _gogo_value_0, "height": _gogo_value_1}, {}, [_gogo_element_1], "examples/nested_layout/Home.gogo:13:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

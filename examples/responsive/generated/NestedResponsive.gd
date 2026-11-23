@@ -23,7 +23,11 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: bool, _gogo_value_1: Callable, _gogo_value_2: Callable) -> _GogoElement_0:
 		var _gogo_element_1 := _GogoElement_0.new(Text, {"text": "Nested", "width": "96px", "height": "26px"}, {}, [], "examples/responsive/NestedResponsive.gogo:10:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "NestedAction", "text": "Action", "width": "96px", "height": "32px"}, {"pressed": _gogo_value_1}, [], "examples/responsive/NestedResponsive.gogo:11:3", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "More", "text": "More", "width": "96px", "height": "32px"}, {"pressed": _gogo_value_2}, [], "examples/responsive/NestedResponsive.gogo:12:3", null, false)
+		_gogo_element_3.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(HBox, {"name": "Body", "wrap": _gogo_value_0, "width": "auto", "gap": "8px", "row_gap": "10px", "padding": "8px", "background_color": "#30394d"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3], "examples/responsive/NestedResponsive.gogo:9:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

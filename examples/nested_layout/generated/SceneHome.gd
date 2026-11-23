@@ -21,7 +21,11 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: Vector2, _gogo_value_1: Variant, _gogo_value_2: Variant) -> _GogoElement_0:
 		var _gogo_element_2 := _GogoElement_0.new(Text, {"text": "Hello World!"}, {}, [], "examples/nested_layout/SceneHome.gogo:9:4", null, false)
+		_gogo_element_2.resolve_bindings()
 		var _gogo_element_3 := _GogoElement_0.new(Text, {"text": "After the scene-authored Settings"}, {}, [], "examples/nested_layout/SceneHome.gogo:11:4", null, false)
+		_gogo_element_3.resolve_bindings()
 		var _gogo_element_1 := _GogoElement_0.new(VBox, {"gap": _gogo_value_1}, {}, [_gogo_element_2, _gogo_value_2, _gogo_element_3], "examples/nested_layout/SceneHome.gogo:8:3", null, false)
+		_gogo_element_1.resolve_bindings()
 		var _gogo_element_0 := _GogoElement_0.new(Entry2D, {"position": _gogo_value_0}, {}, [_gogo_element_1], "examples/nested_layout/SceneHome.gogo:7:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

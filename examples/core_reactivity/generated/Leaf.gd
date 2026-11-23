@@ -24,6 +24,9 @@ const _GOGO_RENDER_FUNCTIONS_4aa00326bb5946cd = {
 "ordinary": [],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_4aa00326bb5946cd = {
+"model": "Model"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -35,5 +38,7 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_0}, {}, [], "examples/core_reactivity/Leaf.gogo:11:45", null, false)
+        _gogo_element_1.resolve_bindings()
         var _gogo_element_0 := _GogoElement_0.new(Box, {"width": "180px", "height": "32px"}, {}, [_gogo_element_1], "examples/core_reactivity/Leaf.gogo:11:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0

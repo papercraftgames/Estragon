@@ -34,7 +34,7 @@ func build_view() -> Element:
                 <Button name="Disabled" text="Disabled" width="120px" height="54px" disabled={true} disabled_background_color="#313947" border_color="#cbd8ed" border_width="2px" />
             </HBox>
             <HBox name="Edits" gap="8px">
-                <Toggle name="Controlled" text="Enabled" bind:value={self.enabled} checked_background_color="#227a60" border_color="#cbd8ed" border_width="2px" />
+                <Toggle name="Controlled" text="Enabled" value={self.enabled} checked_background_color="#227a60" border_color="#cbd8ed" border_width="2px" />
                 <Toggle name="Unchecked" text="Unchecked" value={false} />
                 <NativeButton name="Native" text="Native Button" pressed={self.native_clicked} />
             </HBox>

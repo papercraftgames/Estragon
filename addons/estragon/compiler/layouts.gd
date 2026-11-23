@@ -196,8 +196,8 @@ func _binding(node, groups: Array, layout, scope: int, root: bool):
 	for group in groups:
 		var seen := {}
 		for attribute in group.attributes:
-			if attribute.name in ["key","bind:value"]:
-				_error("layout defaults cannot preset key or bind:value; author instance controls at the use site",attribute.name_span)
+			if attribute.name=="key" or attribute.name.begins_with("bind:"):
+				_error("layout defaults cannot preset key or removed bind:* syntax; author instance properties at the use site",attribute.name_span)
 				return null
 			if attribute.kind=="spread": continue
 			if seen.has(attribute.name):

@@ -87,7 +87,7 @@ func keyed_group() -> Element:
     counts.group += 1
     return <Box name="KeyedZero" direction="column">{self.items.map(func(item): return <Box key={item.id} name={"Key"+str(item.id)}>{badge()}</Box>)}</Box>
 func controlled() -> Element:
-    return <Toggle width="180px" bind:value={self.model.alternate} /> if self.model!=null else <Text text="No controlled model" />
+    return <Toggle width="180px" value={self.model.alternate} /> if self.model!=null else <Text text="No controlled model" />
 func build_view() -> Element:
     counts.root += 1
     var shared_control: Element = controlled()

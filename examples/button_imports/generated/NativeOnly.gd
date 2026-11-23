@@ -21,4 +21,5 @@ class _GogoFactories_0:
 
 	static func _gogo_build_0(_gogo_value_0: Callable) -> _GogoElement_0:
 		var _gogo_element_0 := _GogoElement_0.new("Button", {"name": "Godot", "text": "Unimported native Button"}, {"pressed": _gogo_value_0}, [], "examples/button_imports/NativeOnly.gogo:7:9", null, false)
+		_gogo_element_0.resolve_bindings()
 		return _gogo_element_0

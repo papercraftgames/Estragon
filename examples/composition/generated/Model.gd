@@ -26,3 +26,7 @@ const _GOGO_RENDER_FUNCTIONS_1d200479dc2601fd = {
 "ordinary": [],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_1d200479dc2601fd = {
+"title": "String",
+"width": "float"
+}

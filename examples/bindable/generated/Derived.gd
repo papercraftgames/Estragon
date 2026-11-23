@@ -17,3 +17,6 @@ const _GOGO_RENDER_FUNCTIONS_c956da5b693e401d = {
 "ordinary": ["rename"],
 "reactive": []
 }
+const _GOGO_BINDABLE_PROPERTIES_c956da5b693e401d = {
+"enabled": "bool"
+}

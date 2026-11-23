@@ -1,0 +1,4 @@
+@bindable
+extends RefCounted
+var flag: bool = false
+var label: String = "Observable Bool model"

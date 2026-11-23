@@ -14,7 +14,7 @@ const State = preload("res://addons/estragon/runtime/composition/state.tres")
 const Compiler = preload("res://addons/estragon/compiler/compiler.gd")
 const Build = preload("res://addons/estragon/editor/build_service.gd")
 var edits: Array = []
-func edited(value: bool) -> void: edits.append(value)
+func edited(_previous: bool, value: bool) -> void: edits.append(value)
 func run(p) -> void:
 	var entry = Entry.new()
 	entry.width = 400

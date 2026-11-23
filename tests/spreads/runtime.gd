@@ -30,7 +30,7 @@ func click(button: Node, fraction := Vector2(0.5,0.5)) -> void:
 	event = event.duplicate()
 	event.pressed = false
 	root.push_input(event,true)
-func edited(value: bool) -> void: edits.append(value)
+func edited(_previous: bool, value: bool) -> void: edits.append(value)
 func spread(type, values, explicit: Dictionary = {}) -> Element:
 	var result := Element.new(type)
 	var ordered: Array = [[null,values,"native-spread.gogo:9:12"]]

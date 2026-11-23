@@ -35,6 +35,10 @@ const _GOGO_RENDER_FUNCTIONS_0103e967c87ce820 = {
 "ordinary": ["increment"],
 "reactive": ["build_view"]
 }
+const _GOGO_BINDABLE_PROPERTIES_0103e967c87ce820 = {
+"clicks": "int",
+"item": "Item"
+}
 
 func _notification(_gogo_what: int) -> void:
     preload("../../../addons/estragon/runtime/composition/state.tres").lifecycle(self, _gogo_what)
@@ -46,4 +50,5 @@ class _GogoFactories_0:
 
     static func _gogo_build_0(_gogo_value_0: String) -> _GogoElement_0:
         var _gogo_element_0 := _GogoElement_0.new(Text, {"name": "Caption", "text": _gogo_value_0}, {}, [], "examples/inventory/Row.gogo:10:12", null, false)
+        _gogo_element_0.resolve_bindings()
         return _gogo_element_0
