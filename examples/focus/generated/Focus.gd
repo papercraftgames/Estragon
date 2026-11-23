@@ -56,14 +56,14 @@ var native_clicks: int = 0
 func clicked(): clicks += 1
 func native_clicked(): native_clicks += 1
 func first() -> Element:
-    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/focus/Focus.gogo:907", "first", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((clicked)))
+    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/focus/Focus.gogo:907", "first", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0((self.clicked)))
 func toggle() -> Element:
-    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/focus/Focus.gogo:1035", "toggle", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "selected"))))
+    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/focus/Focus.gogo:1040", "toggle", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "selected", func(_gogo_source, _gogo_edit: bool): _gogo_source.selected = _gogo_edit, "selected"))))
 func build_view() -> Element:
     return _GogoFactories_0._gogo_build_2(
         (self.caption),
         (22),
-        (([(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1402", toggle, [], func(): toggle()) as Element),(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1411", first, [], func(): first()) as Element)] if self.reversed else [(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1443", first, [], func(): first()) as Element),(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1451", toggle, [], func(): toggle()) as Element)]) if self.show_first else [(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1487", toggle, [], func(): toggle()) as Element)]),
+        (([(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1407", toggle, [], func(): toggle()) as Element),(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1416", first, [], func(): first()) as Element)] if self.reversed else [(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1448", first, [], func(): first()) as Element),(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1456", toggle, [], func(): toggle()) as Element)]) if self.show_first else [(preload("../../../addons/estragon/runtime/composition/state.tres").call_at("examples/focus/Focus.gogo:1492", toggle, [], func(): toggle()) as Element)]),
         (Vector2(300,44)),
         (native_clicked),
         (18)
