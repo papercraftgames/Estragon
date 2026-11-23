@@ -10,14 +10,10 @@ func add(entry: Node) -> void:
 	if Engine.is_editor_hint(): return
 	var viewport := entry.get_viewport()
 	var id := viewport.get_instance_id()
-	if not viewports.has(id):
-		var changed := _owner_changed.bind(weakref(viewport))
-		viewports[id] = {"viewport":weakref(viewport),"entries":[],"changed":changed,"owner":null,"gui":Callable()}
-		viewport.gui_focus_changed.connect(changed)
+	if not viewports.has(id): viewports[id] = {"viewport":weakref(viewport),"entries":[]}
 	for reference in viewports[id].entries:
 		if reference.get_ref()==entry: return
 	viewports[id].entries.append(weakref(entry))
-	_owner_changed(viewport.gui_get_focus_owner(),weakref(viewport))
 	var tree := entry.get_tree()
 	if not tree.tree_changed.is_connected(refresh): tree.tree_changed.connect(refresh)
 	refresh()
@@ -27,33 +23,14 @@ func remove(entry: Node) -> void:
 		var refs: Array = viewports[id].entries
 		for index in range(refs.size()-1,-1,-1):
 			if refs[index].get_ref()==null or refs[index].get_ref()==entry: refs.remove_at(index)
-		if refs.is_empty():
-			var record: Dictionary = viewports[id]
-			_disconnect_owner(record)
-			var viewport = record.viewport.get_ref()
-			if viewport!=null and viewport.gui_focus_changed.is_connected(record.changed): viewport.gui_focus_changed.disconnect(record.changed)
-			viewports.erase(id)
+		if refs.is_empty(): viewports.erase(id)
 	if viewports.is_empty() and tree.tree_changed.is_connected(refresh): tree.tree_changed.disconnect(refresh)
-func _disconnect_owner(record: Dictionary) -> void:
-	var owner = record.owner.get_ref() if record.owner!=null else null
-	if owner!=null and record.gui.is_valid() and owner.gui_input.is_connected(record.gui): owner.gui_input.disconnect(record.gui)
-	record.owner = null
-	record.gui = Callable()
-func _owner_changed(owner: Control, reference: WeakRef) -> void:
-	var viewport = reference.get_ref()
-	if viewport==null or not viewports.has(viewport.get_instance_id()): return
-	var record: Dictionary = viewports[viewport.get_instance_id()]
-	_disconnect_owner(record)
-	if owner is BaseButton and contains(owner):
-		record.owner = weakref(owner)
-		record.gui = _native_button_key.bind(weakref(owner))
-		owner.gui_input.connect(record.gui)
-func _native_button_key(event: InputEvent, reference: WeakRef) -> void:
-	var owner = reference.get_ref()
-	# Native BaseButton activates Enter but leaves it unhandled on both engines.
-	# Its gui_input signal precedes native processing: accept without re-emitting
-	# or forwarding the event, keeping one native activation and no game key echo.
-	if owner!=null and event is InputEventKey and event.is_action("ui_accept"): owner.accept_event()
+func native_key(viewport: Viewport, event: InputEvent) -> bool:
+	# Shortcut delivery follows native GUI processing and precedes game
+	# unhandled keys. Consume native BaseButton's unhandled accept without
+	# suppressing its activation or forwarding/re-emitting a second event.
+	var owner := viewport.gui_get_focus_owner()
+	return owner is BaseButton and contains(owner) and event is InputEventKey and event.is_action("ui_accept")
 func refresh() -> void:
 	if queued: return
 	queued = true
