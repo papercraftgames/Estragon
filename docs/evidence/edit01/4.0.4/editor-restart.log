@@ -1,0 +1,14 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+EL02_EDITOR_CHECK restart restores command and idempotent saved buffer: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-XaDgA9/godot --path /tmp/estragon-native-XaDgA9/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 7571 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+EDIT01_EDITOR_ASSERTIONS 2 failed=false
+EDIT01_EDITOR_OK

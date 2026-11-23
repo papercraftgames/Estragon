@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+EL02_BUILD {"changed":["app/generated/Header.gd","app/generated/Header.gd.map.json","app/generated/Library.gd","app/generated/Library.gd.map.json","app/generated/Layouts.gd","app/generated/Layouts.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Header.gd","app/generated/Library.gd","app/generated/Layouts.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+EL02_BUILD_OK

@@ -1,0 +1,19 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+EDIT01_BUFFER native edit applies: true
+EDIT01_BUFFER current unsaved text is formatted: true
+EDIT01_BUFFER primary/secondary carets follow their source text: true
+EDIT01_BUFFER reverse selection boundaries follow indentation edits: true
+EDIT01_BUFFER vertical/fractional and horizontal scroll preserved: true
+EDIT01_BUFFER unsaved buffer stays dirty: true
+EDIT01_BUFFER second format has no native undo/version mutation: true
+EDIT01_BUFFER one native Undo restores unformatted unsaved buffer: true
+EDIT01_BUFFER previous user edit remains a separate undo step: true
+EDIT01_BUFFER native redo restores formatting: true
+EDIT01_BUFFER already formatted clean buffer remains saved: true
+EDIT01_BUFFER formatting a clean unformatted source becomes dirty: true
+EDIT01_BUFFER undo returns to original saved native version: true
+EDIT01_BUFFER malformed input does not edit or dirty native buffer: true
+EDIT01_BUFFER would-merge carets refuse before any native mutation: true
+EDIT01_BUFFER_ASSERTIONS 15 errors=0
+EDIT01_BUFFER_OK

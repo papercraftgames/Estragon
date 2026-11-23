@@ -1,0 +1,71 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+ERROR: Condition "!texture" is true.
+   at: texture_proxy_initialize (drivers/gles3/storage/texture_storage.cpp:765)
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-VQBIph/godot --path /tmp/estragon-native-VQBIph/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5482 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+EL02_EDITOR_CHECK one discoverable native Project Tools menu command: true
+EL02_EDITOR_CHECK native menu formats current unsaved GGX buffer: true
+EL02_EDITOR_CHECK native menu retains selection and caret row: false
+EL02_EDITOR_CHECK native editor retains dirty state: true
+EL02_EDITOR_CHECK format does not save or mutate generated code/maps/UID/timestamp: true
+EL02_EDITOR_CHECK menu formatting is one native undo: true
+EL02_EDITOR_CHECK native redo restores formatting: true
+EL02_EDITOR_CHECK Ctrl+I repeat has no undo mutation: true
+EL02_EDITOR_CHECK Cmd/Meta+I uses actual focused native input path: true
+EL02_EDITOR_CHECK Ctrl+I honors configured tabs: true
+EL02_EDITOR_CHECK native buffer indentation width respected: true
+EL02_EDITOR_CHECK invalid intermediate source safely refused with diagnostic: true
+EDIT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:73:5: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK current malformed formatted buffer blocks stale Play: true
+EL02_EDITOR_CHECK current rejected Play preserves generated code/maps/UID/timestamp/cache: true
+EDIT01_EXPECTED_PLAY_REJECTION_END
+EDIT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:73:5: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+EL02_EDITOR_CHECK main malformed formatted buffer blocks stale Play: true
+EL02_EDITOR_CHECK main rejected Play preserves generated code/maps/UID/timestamp/cache: true
+EDIT01_EXPECTED_PLAY_REJECTION_END
+EL02_EDITOR_CHECK multiple authored tabs format only active buffer: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:73:5: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+EL02_EDITOR_CHECK ordinary GDScript tab untouched: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Layouts.gogo:73:5: Expected </Entry2D>, found </Wrong>
+     at: push_warning (core/variant/variant_utility.cpp:923)
+EL02_EDITOR_CHECK generated GDScript tab untouched: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-VQBIph/godot --path /tmp/estragon-native-VQBIph/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5482 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+EL02_GAME {"clicks":2,"identity":true,"ok":true,"selected":false}
+Running: /tmp/estragon-native-VQBIph/godot --path /tmp/estragon-native-VQBIph/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 5482 --position 320,272 res://app/Layouts.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+EL02_EDITOR_CHECK save/Play publishes latest formatted unsaved authored source: true
+EL02_EDITOR_CHECK formatted source maps and stable authored UID after Play: true
+EL02_EDITOR_CHECK disable removes native menu action: true
+EL02_EDITOR_CHECK reenable installs exactly one menu action: true
+EDIT01_EDITOR_ASSERTIONS 26 failed=true
+
+================================================================

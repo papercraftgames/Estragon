@@ -15,3 +15,5 @@ Malformed tags/expressions, unfinished strings/delimiters, missing suite indenta
 ## Verification
 
 `tools/check-formatting.ts` runs parser/token/row/idempotence cases (including the owner's original Cmd+I reproduction and real Home/Layouts/Core sources), native CodeEdit undo/redo/dirty/caret/selection/scroll cases, and an isolated real Script dock fixture. The fixture activates the native Tools menu and sends Ctrl/Meta key events through Godot's viewport, exercises multiple/ordinary/generated tabs and plugin disable/re-enable/restart, and runs the same native layout/input probe before and after formatting through both Play entrypoints. Rejected Play must retain generated code, maps, UID, timestamps and cached Script; repaired formatted Play must publish current source/maps. The exact directly installed Yarn payload is checked unchanged on both approved Linux engines. This does not claim an interactive macOS Cmd+I session or a manual visual smoke test.
+
+[Paired native acceptance evidence](evidence/EDIT01_FORMATTING.md) records the tested source, actual commands, captures and retained failures.

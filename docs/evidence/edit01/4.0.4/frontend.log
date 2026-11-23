@@ -1,0 +1,60 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+EDIT01_FRONTEND owner Cmd+I reproduction syntax/structure accepted: true
+EDIT01_FRONTEND owner Cmd+I reproduction tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND owner Cmd+I reproduction idempotent: true
+EDIT01_FRONTEND owner paired/self-closing and multiline attributes have exact indentation: true
+EDIT01_FRONTEND nested suites and comparisons syntax/structure accepted: true
+EDIT01_FRONTEND nested suites and comparisons tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND nested suites and comparisons idempotent: true
+EDIT01_FRONTEND native suite relationships normalize without guessing dedents: true
+EDIT01_FRONTEND multiline literal contents and comments syntax/structure accepted: true
+EDIT01_FRONTEND multiline literal contents and comments tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND multiline literal contents and comments idempotent: true
+EDIT01_FRONTEND comment start indents while multiline comment contents stay exact: true
+EDIT01_FRONTEND nested arrays, spreads and GGX islands syntax/structure accepted: true
+EDIT01_FRONTEND nested arrays, spreads and GGX islands tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND nested arrays, spreads and GGX islands idempotent: true
+EDIT01_FRONTEND layout matrix syntax/structure accepted: true
+EDIT01_FRONTEND layout matrix tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND layout matrix idempotent: true
+EDIT01_FRONTEND matrix cells stay on their original rows: true
+EDIT01_FRONTEND interpolation, braces and comparison syntax/structure accepted: true
+EDIT01_FRONTEND interpolation, braces and comparison tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND interpolation, braces and comparison idempotent: true
+EDIT01_FRONTEND CRLF syntax/structure accepted: true
+EDIT01_FRONTEND CRLF tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND CRLF idempotent: true
+EDIT01_FRONTEND nested_layout/Home syntax/structure accepted: true
+EDIT01_FRONTEND nested_layout/Home tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND nested_layout/Home idempotent: true
+EDIT01_FRONTEND layouts/Layouts syntax/structure accepted: true
+EDIT01_FRONTEND layouts/Layouts tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND layouts/Layouts idempotent: true
+EDIT01_FRONTEND core_reactivity/Core syntax/structure accepted: true
+EDIT01_FRONTEND core_reactivity/Core tokens, literals and physical rows preserved: true
+EDIT01_FRONTEND core_reactivity/Core idempotent: true
+EDIT01_FRONTEND semantic fixture formats with selected indentation: true
+EDIT01_FRONTEND original/formatted native compilation: true
+EDIT01_FRONTEND original/formatted actual native GDScript semantics: true
+EDIT01_FRONTEND original/formatted native compilation: true
+EDIT01_FRONTEND original/formatted actual native GDScript semantics: true
+EDIT01_FRONTEND conditional/literal/spread/layout description semantic parity: true
+EDIT01_FRONTEND conditional/literal/spread/layout description semantic parity: true
+EDIT01_FRONTEND semantic fixture formats with selected indentation: true
+EDIT01_FRONTEND original/formatted native compilation: true
+EDIT01_FRONTEND original/formatted actual native GDScript semantics: true
+EDIT01_FRONTEND original/formatted native compilation: true
+EDIT01_FRONTEND original/formatted actual native GDScript semantics: true
+EDIT01_FRONTEND conditional/literal/spread/layout description semantic parity: true
+EDIT01_FRONTEND conditional/literal/spread/layout description semantic parity: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND malformed/ambiguous input refuses without mutation: true
+EDIT01_FRONTEND_ASSERTIONS 56 errors=0
+EDIT01_FRONTEND_OK

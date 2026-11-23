@@ -1,0 +1,173 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-XaDgA9/yarn-cache",
+      "file:/evidence/edit01-acceptance-final/packed/formatting-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.8,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--headless",
+      "--script",
+      "res://tests/formatting/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.18,
+    "godot_pid": 6369,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "buffer": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--headless",
+      "--script",
+      "res://tests/formatting/buffer.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.48,
+    "godot_pid": 6388,
+    "log": "buffer.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--headless",
+      "--script",
+      "res://tests/layouts/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.28,
+    "godot_pid": 6407,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 7.9,
+    "godot_pid": 6426,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "685f4d3dc6304a780b81d3f2193d5240652e84ba522d4ef9878ddbe13cb182c6",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 70.45,
+    "godot_pid": 6794,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-XaDgA9/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-XaDgA9/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 27.03,
+    "godot_pid": 7571,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "sourceHead": "9a1368788e53e2b8c38311c3bf52aa8641a51fed",
+    "direct_yarn": true,
+    "installed_bytes_unchanged": true,
+    "canonical_uids": 78,
+    "tarball_sha256": "20cb3cf1526c5b301a15cb44b059ec0a1789c48202ab641abbcfbb506dfeac3f"
+  }
+}
