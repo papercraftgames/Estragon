@@ -14,16 +14,18 @@ for(const selection of options.engines){
   const editing=name.startsWith('editor'),negative=name==='rejections',logFile=path.join(out,name+'.log');
   const result=await runCommand(args,box.project,env,logFile,marker,{timeout:120000,abortOnError:!editing&&!negative,expectedErrors:editing||negative});
   if(editing){
-   let bracket=false,starts=0,count=0;const unexpected:string[]=[];
+   let bracket=false,starts=0,count=0,typed=0,mapped=0;const unexpected:string[]=[];
    for(const line of fs.readFileSync(logFile,'utf8').split(/\r?\n/)){
     if(line==='UI03_EXPECTED_PLAY_REJECTION_BEGIN'){bracket=true;starts++;}
     else if(line==='UI03_EXPECTED_PLAY_REJECTION_END')bracket=false;
     else if(ERROR.test(line)){
      if(bracket&&line==='ERROR: An EditorPlugin build callback failed.')count++;
+     else if(bracket&&starts===2&&/^SCRIPT ERROR: Parse Error: (?:Cannot pass a value of type "bool" as "String"\.|Invalid argument for "_gogo_build_\d+\(\)" function: argument \d+ should be "String" but is "bool"\.)$/.test(line))typed++;
+     else if(bracket&&starts===2&&/^app\/Inputs\.gogo:\d+:\d+: Parse Error: (?:Cannot pass a value of type "bool" as "String"\.|Invalid argument for "_gogo_build_\d+\(\)" function: argument \d+ should be "String" but is "bool"\.)$/.test(line))mapped++;
      else unexpected.push(line);
     }
    }
-   if(bracket||starts!==(name==='editor'?2:0)||count!==starts||unexpected.length){result.status='FAIL';result.reason='Unexpected editor diagnostics '+JSON.stringify({bracket,starts,count,unexpected});}
+   if(bracket||starts!==(name==='editor'?2:0)||count!==starts||(name==='editor'?(typed<2||typed>8||(mapped!==0&&mapped!==typed)):(typed!==0||mapped!==0))||unexpected.length){result.status='FAIL';result.reason='Unexpected editor diagnostics '+JSON.stringify({bracket,starts,count,typed,mapped,unexpected});}
   }
   if(negative){
    let bracket=false,starts=0,count=0;const unexpected:string[]=[];

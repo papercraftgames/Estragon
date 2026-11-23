@@ -203,6 +203,7 @@ func run(host: Node):
 		tree.root.size = size
 		await frames(tree)
 		a.grab_focus()
+		ae.select(1,4)
 		await RenderingServer.frame_post_draw
 		tree.root.get_texture().get_image().save_png("res://input-"+str(size.x)+".png")
 	print("UI03_NATIVE_TEXT backend=",DisplayServer.get_name()," ime_capability=",DisplayServer.has_feature(DisplayServer.FEATURE_IME)," actual_os_composition=UNTESTED")

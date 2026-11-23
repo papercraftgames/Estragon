@@ -19,7 +19,7 @@ func _initialize():
 	check(script.reload()==OK,"actual native String semantic validation")
 	var host = script.new()
 	var binding = host.direct().bindings.value
-	check(binding.valid and binding.observable and binding.kind==TYPE_STRING and binding.value=="Hello","String candidate has typed source metadata and snapshot")
+	check(binding.valid and binding.observable and binding.kind==TYPE_STRING and binding.route=="self.text" and binding.field=="text" and binding.value=="Hello","String candidate has typed source metadata and snapshot")
 	check(host.parameter(host).bindings.size()==1,"direct parameter path shares implicit String linkage")
 	for method in ["snapshot","computed","unobserved","readonly","dictionary","literal","spread"]:
 		var element = host.call(method)

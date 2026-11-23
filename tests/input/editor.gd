@@ -48,7 +48,7 @@ func run() -> void:
 			if mode=="main": interface.play_main_scene()
 			else: interface.play_current_scene()
 			await wait(0.8)
-			check(not interface.is_playing_scene() and not plugin.last_report.ok,mode+" invalid unsaved source blocks stale game")
+			check(not interface.is_playing_scene() and not plugin.last_report.ok and str(plugin.last_report.diagnostics).contains("app/Inputs.gogo:"),mode+" invalid unsaved source blocks stale game")
 			check(FileAccess.get_file_as_bytes(output)==bytes and FileAccess.get_file_as_bytes(output+".map.json")==maps and FileAccess.get_file_as_bytes(output+".uid")==uid and FileAccess.get_modified_time(output)==timestamp and load(output)==cached,mode+" rollback retains code/maps/UID/timestamp/cache")
 			print("UI03_EXPECTED_PLAY_REJECTION_END")
 		buffer.text = source+"\n# UI03 repaired latest unsaved source\n"
