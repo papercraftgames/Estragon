@@ -47,7 +47,7 @@ for(const selection of options.engines){
   fs.copyFileSync(path.join(ROOT,'examples/godot_button.gd'),path.join(box.project,'godot_button.gd'));
   fs.copyFileSync(path.join(ROOT,'examples/godot_button.gd.uid'),path.join(box.project,'godot_button.gd.uid'));
   let source=fs.readFileSync(path.join(ROOT,'examples/focus/Focus.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon));
-  source+='\nfunc _ready() -> void:\n    if OS.get_environment("UI01_EDITOR")=="1": _focus_probe.call_deferred()\nfunc _focus_probe() -> void:\n    await preload("res://tests/focus/game.gd").new().run(self)\n';
+  source+='\nfunc _ready() -> void:\n    if OS.get_environment("UI01_EDITOR")=="1": _focus_probe.call_deferred()\nfunc _focus_probe() -> void:\n    var probe = preload("res://tests/focus/game.gd").new()\n    await probe.run(self)\n';
   fs.writeFileSync(path.join(box.project,'app/Focus.gogo'),source);
   fs.writeFileSync(path.join(box.project,'app/TextDelegate.gd'),fs.readFileSync(path.join(ROOT,'examples/focus/TextDelegate.gd'),'utf8').replace('../../addons/estragon','res://'+addon));
   fs.copyFileSync(path.join(ROOT,'examples/focus/TextDelegate.gd.uid'),path.join(box.project,'app/TextDelegate.gd.uid'));
