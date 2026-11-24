@@ -38,12 +38,14 @@ func run(context:SceneTree):
 	var input=InputScript.new();input.width="100%";input.value="Retain caret and focus"
 	var tall=box(600,500);tall.background_color="#537666"
 	body.add_child(wrap);body.add_child(input);body.add_child(nested);body.add_child(tall);entry.add_child(body);root.add_child(entry);await frames()
-	var service=body._scroll;var geometry=body.layout.model.scroll_geometry
+	var service=body._scroll
 	check(body.layout_size==Vector2(400,300) and service._clip.size==Vector2(380,270) and wrap.layout_size.x==380,"dual native viewport and full width wrap380")
 	check(wrap.layout_size.y==96 and body.scroll_range.y==body.content_extent.y-270,"post-gutter wrap extent drives range")
 	check(service._vertical.size*service._vertical.scale==Vector2(20,270) and service._horizontal.size*service._horizontal.scale==Vector2(380,30) and service._corner.size==Vector2(20,30),"native track transforms and corner exact")
 	check(service._vertical.page==270 and service._horizontal.page==380 and service._vertical.max_value==body.content_extent.y,"native proportional page/max")
 	check(service._vertical.get_theme_stylebox("scroll").bg_color==Color("#292929") and service._vertical.get_theme_stylebox("grabber").corner_radius_top_left==0,"neutral square default")
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://scrollbars-dual.png")
 	var state_idle=[body.get_layout_stats(),wrap.get_layout_stats(),service.style_updates]
 	var thumb_point=service._vertical.global_position+Vector2(10,15)
 	await hover(Vector2.ZERO);check((await pixel(thumb_point)).is_equal_approx(Color("#727272")),"rendered default thumb neutral")
@@ -75,6 +77,15 @@ func run(context:SceneTree):
 	check(bar.size.x*bar.scale.x<=20.01 and bar.position.x==380,"explicit native minimum stays inside assigned strip")
 	check(service._horizontal.get_theme_stylebox("grabber").bg_color==Color("#aaaaaa") and bar.get_theme_stylebox("grabber_highlight").bg_color==Color("#eeeeee"),"axis and interactive state overrides")
 	custom.bg_color=Color("#ffcf99");custom.content_margin_left=80;await frames();check(bar.get_theme_stylebox("grabber")==custom and bar.size.x*bar.scale.x<=20.01 and before==[body.get_layout_stats(),wrap.get_layout_stats()],"live Resource edits stay native without child layout")
+	# Exact user Resource, including texture and oversized expansion margins.
+	var image=Image.create(2,2,false,Image.FORMAT_RGBA8);image.fill(Color("#edc957"))
+	var texture=ImageTexture.create_from_image(image);var textured=StyleBoxTexture.new();textured.texture=texture
+	textured.expand_margin_left=200
+	body.scrollbar_style={"track_stylebox":textured,"thumb_stylebox":textured,"thumb_hover_stylebox":textured,"thumb_pressed_stylebox":textured}
+	await frames();await hover(Vector2.ZERO)
+	check(bar.get_theme_stylebox("scroll")==textured and bar.get_theme_stylebox("grabber")==textured and textured.texture==texture,"custom textured skins retain exact Resource and texture")
+	check((await pixel(body.global_position+Vector2(375,220)))!=Color("#edc957"),"custom skin expansion clips to track without covering content")
+	body.scrollbar_style={};await frames()
 	var idle=[body.get_layout_stats(),wrap.get_layout_stats(),service.style_updates,body.lengths.parse_count]
 	body.scrollbar_style=body.scrollbar_style;body.vertical_scrollbar_width="5%";await frames();check(idle==[body.get_layout_stats(),wrap.get_layout_stats(),service.style_updates,body.lengths.parse_count],"same targets and idle quiet")
 	for target in [12,"5%",0,12]:
@@ -94,7 +105,12 @@ func run(context:SceneTree):
 	body.width=210;body.border_width=0;body.vertical_scrollbar_width=12;await frames();check(wrap.layout_size.x==158,"Body210 padding20 -> wrap158")
 	body.width=400;body.padding=0;body.vertical_scrollbar_width=12;body.scrollbar_style={};await frames()
 	for size in [Vector2i(640,700),Vector2i(900,800)]:
-		root.size=size;await frames();await RenderingServer.frame_post_draw;root.get_texture().get_image().save_png("res://scrollbars-"+str(size.x)+".png")
+		root.size=size;body.scroll_offset=Vector2.ZERO;body.vertical_scrollbar_width="2vw";await frames()
+		check(near(service._geometry.thickness.x,size.x*0.02) and body.vertical_scrollbar_width=="2vw","native own viewport Length at "+str(size.x))
+		body.vertical_scrollbar_width=12;await frames()
+		var previous_hits=hits;await click(right.global_position+Vector2(180,22));await frames()
+		check(hits==previous_hits+1 and right.global_position.x+right.layout_size.x<=body.global_position.x+service._clip.size.x,"edge button and viewport remain separate at "+str(size.x))
+		await RenderingServer.frame_post_draw;root.get_texture().get_image().save_png("res://scrollbars-"+str(size.x)+".png")
 	# Native persistent scene keeps user targets, resources and owners.
 	var persistent=box(210,100);persistent.name="Persistent";persistent.vertical_scroll=true;persistent.scrollbar_size="5%";persistent.scrollbar_style={"thumb_stylebox":custom};var content=box("100%",300);content.name="Content";persistent.add_child(content);content.owner=persistent;entry.add_child(persistent);await frames();persistent.scroll_offset=Vector2(0,60)
 	var packed=PackedScene.new();check(packed.pack(persistent)==OK and ResourceSaver.save(packed,"res://u03-pack.tscn")==OK,"native scene packs")

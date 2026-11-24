@@ -22,7 +22,7 @@ func game_ready() -> bool:
 	var file := "res://.godot/ui03-game.json"
 	if not FileAccess.file_exists(file): return false
 	var parser := JSON.new()
-	return parser.parse(FileAccess.get_file_as_string(file))==OK and parser.data is Dictionary and not parser.data.is_empty() and (OS.get_environment("U03_EDITOR")!="1" or (parser.data.get("scrollbar_checks",0)==36 and parser.data.get("scrollbar_ggx_checks",0)==7)) and (OS.get_environment("L12_EDITOR")!="1" or parser.data.get("layout_checks",0)==34)
+	return parser.parse(FileAccess.get_file_as_string(file))==OK and parser.data is Dictionary and not parser.data.is_empty() and (OS.get_environment("U03_EDITOR")!="1" or (parser.data.get("scrollbar_checks",0)==42 and parser.data.get("scrollbar_ggx_checks",0)==7)) and (OS.get_environment("L12_EDITOR")!="1" or parser.data.get("layout_checks",0)==34)
 func wait_game() -> bool:
 	# The full native editing sequence includes hundreds of delivered frames
 	# plus two rendered captures under the editor/debugger on Linux4.0.

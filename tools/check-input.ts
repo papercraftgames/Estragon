@@ -15,7 +15,7 @@ for(const selection of options.engines){
  fs.mkdirSync(out,{recursive:true});
  async function run(name:string,args:string[],marker?:string,env=box.env){
   const editing=name.startsWith('editor'),negative=name==='rejections'||name==='scrollbar-retention',logFile=path.join(out,name+'.log');
-  const result=await runCommand(args,box.project,env,logFile,marker,{timeout:editing?180000:120000,abortOnError:!editing&&!negative,expectedErrors:editing||negative});
+  const result=await runCommand(args,box.project,env,logFile,marker,{timeout:editing?(scrollbars?360000:180000):120000,abortOnError:!editing&&!negative,expectedErrors:editing||negative});
   if(editing){
    let bracket=false,starts=0,count=0,typed=0,mapped=0;const unexpected:string[]=[];
    for(const line of fs.readFileSync(logFile,'utf8').split(/\r?\n/)){

@@ -66,6 +66,7 @@ func _ensure_viewport() -> void:
 	# Arrowless native bars: the thumb/track still own all native interaction.
 	var blank := ImageTexture.create_from_image(Image.create(1,1,false,Image.FORMAT_RGBA8))
 	for bar in [_horizontal,_vertical]:
+		bar.clip_contents = true # Explicit StyleBox expansion cannot paint over V.
 		bar.minimum_size_changed.connect(_minimum_changed)
 		for icon in ["increment","increment_highlight","increment_pressed","decrement","decrement_highlight","decrement_pressed"]: bar.add_theme_icon_override(icon,blank)
 func is_private(child: Node) -> bool:
