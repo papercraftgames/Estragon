@@ -16,11 +16,11 @@ func mouse(point: Vector2, button: int = MOUSE_BUTTON_LEFT):
 	event.position = point
 	event.button_index = button
 	event.pressed = true
-	root.push_input(event,true)
+	Input.parse_input_event(event)
 	if button==MOUSE_BUTTON_LEFT:
 		event = event.duplicate()
 		event.pressed = false
-		root.push_input(event,true)
+		Input.parse_input_event(event)
 func _initialize(): run.call_deferred()
 func run():
 	root.size = Vector2i(640,480)
@@ -169,7 +169,7 @@ func press(point: Vector2, down: bool):
 	event.position = point
 	event.button_index = MOUSE_BUTTON_LEFT
 	event.pressed = down
-	root.push_input(event,true)
+	Input.parse_input_event(event)
 func transformed_input():
 	var entry := Entry.new()
 	entry.width = 300
@@ -210,7 +210,7 @@ func transformed_input():
 	var pan := InputEventPanGesture.new()
 	pan.position = inside
 	pan.delta = Vector2(1,1)
-	root.push_input(pan,true)
+	Input.parse_input_event(pan)
 	await frames()
 	check(entry.scroll_offset==Vector2(80,80),"scaled native pan both axes")
 	entry.scroll_offset = Vector2.ZERO
@@ -223,7 +223,7 @@ func transformed_input():
 	motion.position = last
 	motion.relative = last-first
 	motion.button_mask = MOUSE_BUTTON_MASK_LEFT
-	root.push_input(motion,true)
+	Input.parse_input_event(motion)
 	press(last,false)
 	await frames()
 	check(entry.scroll_offset.y>0 and hits==before+1,"actual scaled scrollbar drag never activates underlying Control")

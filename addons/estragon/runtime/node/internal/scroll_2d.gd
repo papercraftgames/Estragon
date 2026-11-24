@@ -175,13 +175,21 @@ func _fit_tracks() -> void:
 	_place_bar(_horizontal,_geometry.horizontal)
 	_place_bar(_vertical,_geometry.vertical)
 func _place_bar(bar: ScrollBar, rect: Rect2) -> void:
-	bar.position = rect.position
+	# There is no native hit surface for an empty strip. In particular, 4.0
+	# coerces zero Control scales to epsilon; never feed that degenerate transform
+	# into native minimum-size adjustment.
+	if rect.size.x<=0 or rect.size.y<=0:
+		bar.hide()
+		return
+	if bar.position!=rect.position: bar.position = rect.position
 	# Custom StyleBox minimums must never enlarge the parent-owned strip.
 	# Native Control hit testing follows this same transform, including drag.
-	bar.scale = Vector2.ONE
-	bar.size = rect.size
+	var floor := bar.get_combined_minimum_size()
+	var logical := Vector2(maxf(rect.size.x,floor.x),maxf(rect.size.y,floor.y))
+	if bar.size!=logical: bar.size = logical
 	var native_size := Vector2(maxf(1,bar.size.x),maxf(1,bar.size.y))
-	bar.scale = rect.size/native_size
+	var physical_scale := rect.size/native_size
+	if bar.scale!=physical_scale: bar.scale = physical_scale
 func _update_scroll() -> void:
 	if _updating or not is_instance_valid(_content): return
 	_updating = true

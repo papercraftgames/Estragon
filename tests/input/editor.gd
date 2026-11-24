@@ -48,7 +48,9 @@ func run() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null,"authored scene opens")
 	await settle()
 	if not FileAccess.file_exists("res://.godot/ui03-restart"):
-		if OS.get_environment("U03_EDITOR")=="1": await load("res://tests/scrollbars/inspector.gd").new().run(self)
+		if OS.get_environment("U03_EDITOR")=="1":
+			var inspector_probe=load("res://tests/scrollbars/inspector.gd").new()
+			await inspector_probe.run(self)
 		await plugin._navigation.open("res://app/Inputs.gogo")
 		if not await until(func(): return code()!=null,"authored Input source editor opens"): finish(); return
 		await settle()

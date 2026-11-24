@@ -89,7 +89,7 @@ for(const selection of options.engines){
   if(scrollbars){
    if(!proportions)source=source.replace('    await probe.run(self)','    var result = await probe.run(self, false)');
    else source=source.slice(0,source.indexOf('    var file = FileAccess.open'));
-   source+='    var scrollbar_result = await preload("res://tests/scrollbars/game.gd").new().run(get_tree())\n    var retained_result = await preload("res://tests/scrollbars/retention_game.gd").new().run(get_tree(), false)\n    result.ok = result.ok and scrollbar_result.ok and retained_result.ok\n    result.scrollbar_checks = scrollbar_result.checks\n    result.scrollbar_ggx_checks = retained_result.checks\n    var file = FileAccess.open("res://.godot/ui03-game.json", FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
+   source+='    var scrollbar_probe = preload("res://tests/scrollbars/game.gd").new()\n    var scrollbar_result = await scrollbar_probe.run(get_tree())\n    var retained_probe = preload("res://tests/scrollbars/retention_game.gd").new()\n    var retained_result = await retained_probe.run(get_tree(), false)\n    result.ok = result.ok and scrollbar_result.ok and retained_result.ok\n    result.scrollbar_checks = scrollbar_result.checks\n    result.scrollbar_ggx_checks = retained_result.checks\n    var file = FileAccess.open("res://.godot/ui03-game.json", FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
   }
   fs.writeFileSync(path.join(box.project,'app/Inputs.gogo'),source);
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});

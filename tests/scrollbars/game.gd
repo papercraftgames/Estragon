@@ -17,13 +17,14 @@ func box(w="auto",h="auto"):
 func near(a,b): return absf(a-b)<0.01
 func hit(): hits+=1
 func hover(point:Vector2):
-	var motion=InputEventMouseMotion.new();motion.position=point;root.push_input(motion,true);await frames()
+	var motion=InputEventMouseMotion.new();motion.position=point;Input.parse_input_event(motion);await frames()
 func pixel(point:Vector2):
 	await RenderingServer.frame_post_draw
 	return root.get_texture().get_image().get_pixelv(Vector2i(point))
 func mouse(point:Vector2,button:int,pressed=true,shift=false):
-	var e=InputEventMouseButton.new();e.position=point;e.button_index=button;e.pressed=pressed;e.shift_pressed=shift;root.push_input(e,true)
+	var e=InputEventMouseButton.new();e.position=point;e.button_index=button;e.pressed=pressed;e.shift_pressed=shift;Input.parse_input_event(e)
 func click(point:Vector2):
+	await hover(point)
 	mouse(point,MOUSE_BUTTON_LEFT);await frames();mouse(point,MOUSE_BUTTON_LEFT,false);await frames()
 func run(context:SceneTree):
 	tree=context;root=tree.root;root.size=Vector2i(640,700)
@@ -54,7 +55,7 @@ func run(context:SceneTree):
 	body.scroll_offset=Vector2.ZERO
 	# Drag the actual native thumb through delivered mouse events.
 	var bar=service._vertical;var point=bar.global_position+Vector2(10,15)
-	mouse(point,MOUSE_BUTTON_LEFT);await frames();body.vertical_scrollbar_width=18;await frames();var motion=InputEventMouseMotion.new();motion.position=point+Vector2(0,35);motion.relative=Vector2(0,35);motion.button_mask=MOUSE_BUTTON_MASK_LEFT;root.push_input(motion,true);await frames();mouse(motion.position,MOUSE_BUTTON_LEFT,false);await frames()
+	await hover(point);mouse(point,MOUSE_BUTTON_LEFT);await frames();body.vertical_scrollbar_width=18;await frames();var motion=InputEventMouseMotion.new();motion.position=point+Vector2(0,35);motion.relative=Vector2(0,35);motion.button_mask=MOUSE_BUTTON_MASK_LEFT;Input.parse_input_event(motion);await frames();mouse(motion.position,MOUSE_BUTTON_LEFT,false);await frames()
 	check(body.scroll_offset.y>0 and hits==1,"native thumb drag survives thickness change without content activation");body.vertical_scrollbar_width="5%";await frames()
 	body.vertical_scrollbar_width=24;await frames();check(wrap.layout_size.y==148 and body.scroll_range.y==body.content_extent.y-270,"narrow gutter triggers bounded rewrap and updated range");body.vertical_scrollbar_width="5%";await frames()
 	body.scroll_offset=Vector2.ZERO
