@@ -68,6 +68,16 @@ func parameter(value: Item) -> void:
         converted.value.notification(999)
         check(converted.value.notices==1,"authored notification method retained with cleanup")
         check(not preload("res://addons/estragon/runtime/data/state.tres").hydrate({"labels":[1]},script).ok,"invalid native typed Array element rejected before setter")
+    result=compile('@bindable\nextends RefCounted\nvar child: RefCounted\n')
+    if result.ok:
+        var script=native(result)
+        var first=script.new()
+        var second=script.new()
+        first.child=second
+        check(not preload("res://addons/estragon/runtime/data/state.tres").can_attach(second,first),"observable ownership cycle detected before attachment")
+        first.child=null
+    result=compile(imports+'func invalid() -> void:\n    var item: Item={}\n    item.missing_field={}\n')
+    check(result.ok and result.code.contains('item.missing_field = item.missing_field'),"hydrated writes retain native member-assignment semantic proof")
     print("CORE02_FRONTEND_CHECKS ",checks," ERRORS ",errors)
     if errors==0: print("CORE02_FRONTEND_OK")
     quit(0 if errors==0 else 1)

@@ -77,6 +77,13 @@ func run():
     cycle.clear()
     check(not Data.hydrate({"items":[{"details":{"note":Vector2.ONE}}]},Inventory).ok,"unsupported native values rejected")
     check(not Data.hydrate({"items":{}},Inventory).ok,"malformed collection rejected")
+    var nested=Data.hydrate([[{"id":8}]],[[Item]])
+    check(nested.ok and nested.value.at(0).at(0).id==8,"deeply nested typed collections hydrate")
+    var deep_events: Array=[]
+    nested.value.changed.connect(func(): deep_events.append(true))
+    nested.value.at(0).at(0).details.note="Nested collections"
+    check(deep_events.size()==1,"nested collections bubble grandchild changes")
+    check(Data.hydrate(inventory.to_data(),Inventory).value.to_data()==inventory.to_data(),"model JSON-like round trip")
     check(not Data.hydrate({"title":null},Inventory).ok,"null scalar rejected")
     check(Data.hydrate({"selected":null,"items":null},Inventory).ok,"nullable model and collection references")
     var retained=inventory.items
@@ -133,7 +140,7 @@ func run():
     check(host.inventory.items.size()==1 and host.inventory.items.at(0).name=="Cable","compiled property Array assignment hydrates")
     host.replace_inventory()
     await frames()
-    check(host.inventory.title=="Refilled" and host.inventory.items.size()==2,"compiled model reassignment hydrates")
+    check(host.inventory.title=="Refilled" and host.inventory.items.size()==2 and host.has_node("DataUI/List/Row2") and host.get_node("DataUI/List/Title").text.begins_with("Refilled"),"compiled model reassignment hydrates and updates native UI")
     host.show_rows=false
     await frames()
     check(not host.has_node("DataUI/List/Row1"),"conditional removes rows")

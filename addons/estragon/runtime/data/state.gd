@@ -199,7 +199,7 @@ func value(incoming, type, previous = null, path: String = "data"):
 	return result.value
 func iterate(value):
 	return value
-func assign(owner: Object, field: String, incoming, path: String = "data") -> void:
+func assign(owner: Object, field: String, incoming, path: String = "data", _native_proof: Callable = Callable()) -> void:
 	var shape := fields(owner)
 	if not shape.has(field) and _declared_type(owner,field)==null:
 		owner.set(field,incoming)

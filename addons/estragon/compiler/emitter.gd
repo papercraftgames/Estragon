@@ -193,7 +193,11 @@ func _data_write(write: Model.DataWrite) -> void:
 		_parts(write.owner)
 		_writer.append(", "+_string(write.field)+", ",write.span)
 		_parts(write.expression)
-		_writer.append(", "+location+")",write.span)
+		_writer.append(", "+location+", func(): ",write.span)
+		_parts(write.owner)
+		_writer.append("."+write.field+" = ",write.span)
+		_parts(write.owner)
+		_writer.append("."+write.field+")",write.span)
 	else:
 		_parts(write.prefix)
 		_writer.append("preload("+_resource(Data)+").value(",write.span)

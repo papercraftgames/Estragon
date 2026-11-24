@@ -7,7 +7,17 @@ const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
 const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/button.gd")
-var inventory: Inventory = preload("../../../addons/estragon/runtime/data/state.tres").value({"items":[{"id":1,"name":"Rope","details":{"note":"Coiled"}},{"id":2,"name":"Lantern","quantity":2}]}, Inventory, null, "examples/data/Gallery.gogo:10:1")
+signal inventory_changed(previous: Inventory, value: Inventory)
+var inventory: Inventory = preload("../../../addons/estragon/runtime/data/state.tres").value({"items":[{"id":1,"name":"Rope","details":{"note":"Coiled"}},{"id":2,"name":"Lantern","quantity":2}]}, Inventory, null, "examples/data/Gallery.gogo:10:15"):
+    set(_gogo_incoming_inventory):
+        if is_same(inventory, _gogo_incoming_inventory): return
+        var _gogo_previous_inventory: Inventory = inventory
+        inventory = _gogo_incoming_inventory
+        inventory_changed.emit(_gogo_previous_inventory, _gogo_incoming_inventory)
+    get:
+        preload("../../../addons/estragon/runtime/composition/state.tres").observe(self, &"inventory_changed")
+        return inventory
+
 var row_calls: Dictionary = {}
 var summary_calls: int = 0
 var summarize: Callable = summary.bind()
@@ -61,29 +71,30 @@ func summary(value: Inventory) -> String:
     return value.title + ": " + str(value.items.size()) + " items; " + (value.items.at(0).details.note if not value.items.is_empty() else "empty")
 func row(item: Item) -> Element:
     row_calls[item.id] = row_calls.get(item.id,0)+1
-    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/data/Gallery.gogo:1239", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0(
+    return preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/data/Gallery.gogo:1249", item.id, func(_gogo_mount_key): return _GogoFactories_0._gogo_build_0(
         (_gogo_mount_key),
         ("Row"+str(item.id)),
         (item.name+" × "+str(item.quantity)+" — "+item.details.note),
-        (preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1428", self.use_item, "bind", [item], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.bind(_gogo_arguments[0]), func(): self.use_item.bind(item)))
+        (preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1438", self.use_item, "bind", [item], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.bind(_gogo_arguments[0]), func(): self.use_item.bind(item)))
     ))
 func use_item(item: Item) -> void:
-    preload("../../../addons/estragon/runtime/data/state.tres").assign(item, "quantity", item.quantity+1, "examples/data/Gallery.gogo:26:5")
+    preload("../../../addons/estragon/runtime/data/state.tres").assign(item, "quantity", item.quantity+1, "examples/data/Gallery.gogo:26:5", func(): item.quantity = item.quantity)
 func build_view() -> Element:
     root_calls += 1
-    return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1741", summarize, "call", [inventory], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.call(_gogo_arguments[0]), func(): summarize.call(inventory))), (inventory.items.map(row) if self.show_rows else []), (str(self.pulse)+" / raw "+str(preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1877", self.raw, "size", [], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.size(), func(): self.raw.size()))+":"+str(self.raw_data.value)))
+    return _GogoFactories_0._gogo_build_1((preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1751", summarize, "call", [inventory], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.call(_gogo_arguments[0]), func(): summarize.call(inventory))), (inventory.items.map(row) if self.show_rows else []), (str(self.pulse)+" / raw "+str(preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/data/Gallery.gogo:1887", self.raw, "size", [], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.size(), func(): self.raw.size()))+":"+str(self.raw_data.value)))
 func replace_inventory() -> void:
     inventory = preload("../../../addons/estragon/runtime/data/state.tres").value({"title":"Refilled","items":[{"id":2,"name":"Lantern","quantity":3},{"id":1,"name":"Rope"}]}, Inventory, inventory, "examples/data/Gallery.gogo:31:5")
 func replace_items() -> void:
-    preload("../../../addons/estragon/runtime/data/state.tres").assign(inventory, "items", [{"id":1,"name":"Cable"}], "examples/data/Gallery.gogo:33:5")
+    preload("../../../addons/estragon/runtime/data/state.tres").assign(inventory, "items", [{"id":1,"name":"Cable"}], "examples/data/Gallery.gogo:33:5", func(): inventory.items = inventory.items)
 
-const _GOGO_DATA_TYPES_1d7df5c96fc828ad = {"show_rows": TYPE_BOOL,"pulse": TYPE_INT,"raw": TYPE_ARRAY,"raw_data": TYPE_DICTIONARY,"inventory": Inventory,}
+const _GOGO_DATA_TYPES_1d7df5c96fc828ad = {"inventory": Inventory,"show_rows": TYPE_BOOL,"pulse": TYPE_INT,"raw": TYPE_ARRAY,"raw_data": TYPE_DICTIONARY,}
 
 const _GOGO_RENDER_FUNCTIONS_1d7df5c96fc828ad = {
 "ordinary": ["summary", "use_item", "replace_inventory", "replace_items"],
 "reactive": ["row", "build_view"]
 }
 const _GOGO_BINDABLE_PROPERTIES_1d7df5c96fc828ad = {
+"inventory": "Inventory",
 "pulse": "int",
 "raw": "Array",
 "raw_data": "Dictionary",
