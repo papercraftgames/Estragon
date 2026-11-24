@@ -1,0 +1,23 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Input = preload("../../../addons/estragon/runtime/node/input.gd")
+const Panel = preload("ScrollPanel.gd")
+@bindable var thickness: Variant = 12
+@bindable var revision: int = 0
+@bindable var draft: String = "Retained native input"
+@bindable var chrome: Dictionary = {"scrollbar_style":{"track_color":"#292929","thumb_color":"#727272","thumb_hover_color":"#919191","thumb_pressed_color":"#aaaaaa"}}
+func build_view() -> Element:
+    return <Entry name="UI" width="100%" height="100%" padding="20px" direction="column" gap="12px" background_color="#202020">
+        <Text text={"U03 / inside-only scrollbars / revision "+str(self.revision)} />
+        <Box name="Body" direction="column" width="400px" height="300px" vertical_scroll horizontal_scroll scrollbar_size={self.thickness} {...self.chrome} background_color="#383838">
+            <Panel name="Wrapped" />
+            <Input name="Editor" width="100%" value={self.draft} />
+            <Box name="Nested" width="100%" height="100px" vertical_scroll background_color="#484848">
+                <Box width="100%" height="300px"><Text text="Nested independent gutter" /></Box>
+            </Box>
+            <Box width="600px" height="500px" background_color="#537666"><Text text="Wheel, Shift-wheel, track click and native thumb drag" /></Box>
+        </Box>
+    </Entry>

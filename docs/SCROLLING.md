@@ -43,15 +43,15 @@ class defaults without overwriting unrelated imperative changes.
 
 Both flags false preserve ordinary overflow painting/input and allocate no private
 scroll nodes on never-enabled components. With at least one flag true, the content
-rectangle after border/padding clips both visual axes. Only enabled axes scroll.
+post-gutter viewport clips both visual axes. Only enabled axes scroll.
 Normal explicit/min/max/percent/viewport lengths, grow/stretch and parent slots
 allocate the outer viewport. Auto/unbounded size can naturally fit content and
 have zero range; flags do not invent an allocation or viewport fallback.
 
 Scroll axes are independent state on the same mathematical core. Stack still
 sums/aligns/grows its children, Wrap still groups lines, and Grid still computes
-tracks/spans/areas. Enabled axes measure natural unbounded content; non-scroll axes
-keep normal reference/capacity authority. Enabled indefinite axes do not become
+tracks/spans/areas. Enabled axes retain natural overflowing content; definite viewport axes
+supply post-gutter child references and non-scroll axes keep normal capacity authority. Enabled indefinite axes do not become
 circular percentage references. Insets are consumed once. Child slots retain
 ordinary logical coordinates; a private native clip/translation pair compensates
 the clip origin. Descendant clipped viewports contribute their visible allocated
@@ -138,3 +138,81 @@ false preserve visible overflow; no second clip/input tree is created. Surface
 corner radii affect owner paint only, not the descendant clipping rectangle.
 
 L12 clarifies [definite fraction viewports versus intrinsic auto rows](PARENT_PERCENTAGES.md#auto-rows-allocation-and-scrolling): hidden content is not a viewport minimum in a definite all-fr span. Actual inset/intrinsic/native/authored floors remain; implicit auto rows can overflow and unbounded scrolling invents no viewport. Positive grow uses at least the actual viewport once.
+
+## U03 — stable inside gutters and native skins
+
+[#222](https://github.com/papercraftgames/Estragon/issues/222) reserves scroll chrome
+inside the allocated border-box, after border and padding. A vertical flag always
+reserves a right gutter; a horizontal flag always reserves a bottom gutter, even
+when content fits and the native bar is hidden. `clip_content` alone reserves none.
+A zero thickness hides the native visual/hit track while wheel/programmatic
+scrolling continues. Flags and thickness never grow the owner's actual allocation
+or rewrite authored targets. Native3D and unrelated Godot Controls are unchanged.
+
+| Target | Default | Meaning |
+| --- | --- | --- |
+| `scrollbar_size` | `12` | Shared nonnegative Length; `auto` forbidden |
+| `vertical_scrollbar_width` | `"auto"` | Vertical override; auto uses shared size |
+| `horizontal_scrollbar_height` | `"auto"` | Horizontal override; auto uses shared size |
+| `scrollbar_style` | `{}` | Validated per-instance native skin |
+
+The shared [Length grammar](LENGTHS.md), Inspector undo/redo, retained getter types
+and GGX preflight apply. For pre-gutter inner rectangle **P**, vertical `%` uses
+P.width, horizontal `%` uses P.height. Each actual strip is capped to its own
+available P axis (including `150%`); targets remain intact. Viewport units use the
+owner's own native viewport. **V = max(0, P − (vertical thickness, horizontal
+thickness))**, accounting only for enabled axes. Children use V through the same
+[L12 policy budgets](PARENT_PERCENTAGES.md), before their ordinary gaps. Definite
+scroll axes can supply child percentage references; unanchored auto cycles remain
+unavailable. Natural scroll content still overflows; no iterative solver is added.
+The core's one snapshot supplies clip, page/range, tracks and corner. Existing
+other Length domains retain their normal containing-context semantics.
+
+For400×300 with both axes, vertical5% and horizontal10%, V is380×270, tracks are
+20×270 and380×30, corner20×30. For400px with border5/padding20 each, P.width350,
+vertical5% is17.5 and V.width332.5; a75% vertical-stack child is249.375.
+Body210/padding20/vertical12 gives a158px `HBox width="100%" wrap`.
+Gutters do not depend on range or visibility, so wrapping cannot oscillate as a bar
+appears. Right/bottom alignment and native/custom input stay inside V. The corner
+is neutral chrome, never authored content.
+
+```gogo
+<Box width="400px" height="300px" vertical_scroll horizontal_scroll
+    scrollbar_size="12px" vertical_scrollbar_width="5%"
+    horizontal_scrollbar_height="10%" scrollbar_style={self.skin}>
+    <HBox width="100%" wrap>{self.actions()}</HBox>
+</Box>
+```
+
+`scrollbar_style` keys share defaults across axes; optional `vertical` and
+`horizontal` dictionaries override a single level. Unknown keys, further nesting,
+invalid types, nonfinite/negative lengths and malformed colors reject atomically.
+Omitted fields inherit defaults; omitted previously GGX-owned properties restore
+class defaults. Unchanged desired props preserve intervening imperative edits.
+
+| Keys | Values / defaults |
+| --- | --- |
+| `track_color`, `thumb_color`, `thumb_hover_color`, `thumb_pressed_color` | finite Color or hex/transparent; `#292929`, `#727272`, `#919191`, `#aaaaaa` |
+| `corner_color` | Color/hex/transparent; `#383838`; the vertical override selects the shared corner |
+| `track_border_color`, `thumb_border_color` | Color/hex/transparent; transparent |
+| `track_corner_radius`, `thumb_corner_radius`, `track_border_width`, `thumb_border_width` | nonnegative Length, no auto;0; `%` uses the smaller track axis and viewport units use the owner viewport; resolved radii/borders cap at half that axis |
+| `track_stylebox`, `thumb_stylebox`, `thumb_hover_stylebox`, `thumb_pressed_stylebox` | optional native StyleBox Resources, exact identity retained; override that particular part/state |
+
+Native `scroll`, `grabber`, `grabber_highlight`, `grabber_pressed` overrides provide
+square neutral defaults, with a visible native keyboard focus outline. Explicit
+StyleBoxes retain their textures/resources and native `changed` redraw behavior.
+Private native Control transforms keep even custom native minimum sizes inside
+the assigned track; effective native hit geometry follows that same transform.
+There is no global Theme mutation. Style-only/state/resource edits do no child
+layout. Skins rebuild only when their style/track-size/viewport context changes;
+settled frames do no parse/layout/skin writes. Native wheel, Shift-wheel, pan,
+thumb drag, track click, clipping/capture guards and nested exhausted bubbling are
+retained. Reparent adoption refreshes the existing Entry pointer/focus scope once
+after the tree transition, including prebuilt native subtrees.
+
+See [Scrollbars.gogo](../examples/scrollbars/Scrollbars.gogo) and its scene for a
+bounded full-width/Wrap/Input/nested-scroll example. Run `tools/check-input.ts
+--scrollbars` for the immutable direct-Yarn consumer, native/graphical/GGX,
+Inspector/current/main Play rollback/repair/restart proof. Add `--proportions` for
+the affected L12 regression. [Source-qualified evidence](evidence/U03_SCROLLBARS.md)
+records actual engines, captures, commands and limitations.

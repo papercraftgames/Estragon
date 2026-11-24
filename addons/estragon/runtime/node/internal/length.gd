@@ -12,10 +12,12 @@ const MINIMUMS := ["min_width","min_height"]
 const DIMENSIONS := ["width","height","depth"]
 const BORDER_EDGES := ["border_top_width","border_right_width","border_bottom_width","border_left_width"]
 const OFFSETS := ["x","y","z"]
+const SCROLLBAR_SIZES := ["scrollbar_size","vertical_scrollbar_width","horizontal_scrollbar_height"]
 const EDGES := ["padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"]
 var specs: Dictionary = {}
 var parse_count := 0
 static func domain(name: String, script = null) -> String:
+	if name in SCROLLBAR_SIZES: return "inset" if name=="scrollbar_size" else "edge"
 	if name in VisualStyle.RADII: return "inset" if name=="corner_radius" else "edge"
 	if name in ["row_gap","column_gap"]: return "edge"
 	if name=="padding" and VisualStyle.marked(script,"ESTRAGON_BUTTON_STYLE"): return "edge"
@@ -28,6 +30,7 @@ static func domain(name: String, script = null) -> String:
 	return "inset" if name=="gap" else ""
 static func registered(type, name: String) -> bool:
 	if domain(name).is_empty() or not type is Script: return false
+	if name in SCROLLBAR_SIZES: return VisualStyle.marked(type,"ESTRAGON_SCROLL_2D")
 	if name in VisualStyle.RADII: return VisualStyle.supported(type)
 	if (name in MINIMUMS or name in MAXIMUMS) and not VisualStyle.marked(type,"ESTRAGON_MINIMUMS_2D"): return false
 	if name in ["row_gap","column_gap"] and not VisualStyle.marked(type,"ESTRAGON_GAPS_2D"): return false
@@ -87,6 +90,7 @@ static func dependencies(specs: Dictionary, stack_axis: int) -> Array:
 	for name in specs:
 		var unit: String = specs[name].unit
 		if unit=="%":
+			if name in SCROLLBAR_SIZES: continue # Own pre-gutter content, not parent.
 			if name in ["width","min_width","max_width","x","column_gap","margin_left","margin_right","padding_left","padding_right","border_left_width","border_right_width"]: parent_axes.x = 1
 			elif name in ["height","min_height","max_height","y","row_gap","margin_top","margin_bottom","padding_top","padding_bottom","border_top_width","border_bottom_width"]: parent_axes.y = 1
 			elif name in ["depth","z"]: parent_axes.z = 1

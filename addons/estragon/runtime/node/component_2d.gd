@@ -11,6 +11,31 @@ const ESTRAGON_MINIMUMS_2D := true
 const ESTRAGON_GAPS_2D := true
 const ESTRAGON_SCROLL_2D := true
 const Scroll = preload("internal/scroll_2d.gd")
+const ScrollbarStyle = preload("internal/scrollbar_style.gd")
+var scrollbar_size = 12:
+	set(value):
+		if is_same(scrollbar_size,value) or not lengths.assign("scrollbar_size",value): return
+		scrollbar_size = value
+		_changed()
+var vertical_scrollbar_width = "auto":
+	set(value):
+		if is_same(vertical_scrollbar_width,value) or not lengths.assign("vertical_scrollbar_width",value): return
+		vertical_scrollbar_width = value
+		_changed()
+var horizontal_scrollbar_height = "auto":
+	set(value):
+		if is_same(horizontal_scrollbar_height,value) or not lengths.assign("horizontal_scrollbar_height",value): return
+		horizontal_scrollbar_height = value
+		_changed()
+@export var scrollbar_style: Dictionary = {}:
+	set(value):
+		var problem := ScrollbarStyle.error(value)
+		if not problem.is_empty():
+			push_error("Estragon "+problem)
+			return
+		if scrollbar_style==value: return
+		scrollbar_style = value.duplicate(true)
+		if _scroll!=null: _scroll.refresh_style()
 var _scroll
 @export var clip_content: bool = false:
 	set(value):
@@ -277,6 +302,7 @@ var layout = Coordinator.new(self, 2, Coordinator.Mode.ENTRY if _is_layout_entry
 func _get_property_list() -> Array[Dictionary]:
 	var properties := Length.properties(["width","height","min_width","min_height","max_width","max_height","x","y","gap","padding","padding_top","padding_right","padding_bottom","padding_left","margin","margin_top","margin_right","margin_bottom","margin_left"])
 	properties.append_array(Length.properties(["row_gap","column_gap"]))
+	properties.append_array(Length.properties(Length.SCROLLBAR_SIZES))
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(["border_width","border_top_width","border_right_width","border_bottom_width","border_left_width","background_color","border_color"]))
 	if VisualStyle.supported(get_script()): properties.append_array(Length.properties(VisualStyle.RADII))
 	return properties

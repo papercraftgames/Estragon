@@ -5,6 +5,7 @@ const WrapPolicy = preload("wrap_policy.gd")
 const GridDefinition = preload("grid_definition.gd")
 const GridPolicy = preload("grid_policy.gd")
 const Length = preload("length.gd")
+const ScrollbarGeometry = preload("scrollbar_geometry.gd")
 const Profile = preload("../../composition/profile.tres")
 ## Shared B2/C1 mathematical row layout. No Nodes, rendering or SceneTree dependencies.
 signal invalidated
@@ -44,6 +45,7 @@ var policy_result: Dictionary = {}
 var strategy := "stack"
 # Viewport decoration; never replaces Stack/Wrap/Grid.
 var scroll_axes := Vector2.ZERO
+var scroll_geometry: Dictionary = {}
 var clips_content := false
 var align_content := "start"
 var physical_gaps := Vector2.ZERO
@@ -214,13 +216,18 @@ func constrain(extent: Vector3) -> Vector3:
 		extent[index] = maxf(extent[index],floor[index])
 	return extent
 
-func _content_basis() -> Vector3:
+func _inner_basis() -> Vector3:
 	var basis := Vector3(-1,-1,-1)
 	for index in range(3):
 		var allocated: float = constrain(requested)[index] if requested[index]>=0 else measurement_allocation[index]
 		if allocated>=0: basis[index] = maxf(0,maxf(allocated,minimum()[index])-leading(padding+border)[index]-trailing(padding+border)[index])
+	return basis
+
+func _content_basis() -> Vector3:
+	var basis := _inner_basis()
+	var strips := ScrollbarGeometry.thickness(Vector2(basis.x,basis.y),scroll_axes,length_specs,viewport_size)
 	for index in range(2):
-		if scroll_axes[index]>0: basis[index] = -1
+		if basis[index]>=0: basis[index] = maxf(0,basis[index]-strips[index])
 	return basis
 
 static func valid_extent(value: Vector3) -> bool:
@@ -369,6 +376,7 @@ func set_capacity(value: Vector3) -> void:
 
 func _wrap_basis() -> Vector3:
 	var basis := _content_basis()
+	if axis<2 and scroll_axes[axis]>0: basis[axis] = -1
 	if strategy=="wrap" and scroll_axes[axis]==0 and requested[axis]<0 and basis[axis]<0 and available_capacity[axis]>=0:
 		basis[axis] = maxf(0,available_capacity[axis]-leading(padding+border)[axis]-trailing(padding+border)[axis])
 	var cap := maximum()
@@ -473,6 +481,10 @@ func measure() -> Vector3:
 		natural = _grid(_items(),_content_basis()).extent
 	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
 	if not transparent: natural += leading(padding+border)+trailing(padding+border)
+	if not transparent:
+		var basis := _inner_basis()
+		var strips := ScrollbarGeometry.thickness(Vector2(basis.x,basis.y),scroll_axes,length_specs,viewport_size)
+		natural += Vector3(strips.x,strips.y,0)
 	natural_extent = natural
 	measured = natural
 	for axis in range(3):
@@ -499,12 +511,15 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 	_external_axes = external_axes
 	_warn_unanchored()
 	var content := available-leading(padding+border)-trailing(padding+border)
+	for index in range(3): content[index] = maxf(0,content[index])
+	var origin := leading(padding+border)
+	scroll_geometry = ScrollbarGeometry.snapshot(Rect2(Vector2(origin.x,origin.y),Vector2(content.x,content.y)),scroll_axes,length_specs,viewport_size)
+	content.x = scroll_geometry.viewport.size.x
+	content.y = scroll_geometry.viewport.size.y
 	var reference := Vector3(-1,-1,-1)
 	for index in range(3):
 		content[index] = maxf(0,content[index])
 		if independent_axis(index): reference[index] = content[index]
-	for index in range(2):
-		if scroll_axes[index]>0: reference[index] = -1
 	var changed: bool = reference != content_reference
 	if not _arrange_dirty and size == available and not changed: return
 	content_reference = reference
@@ -552,7 +567,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				break
 	var layout_content := content
 	for index in range(2):
-		if scroll_axes[index]>0: layout_content[index] = maxf(content[index],natural_extent[index]-leading(padding+border)[index]-trailing(padding+border)[index])
+		if scroll_axes[index]>0: layout_content[index] = maxf(content[index],natural_extent[index]-leading(padding+border)[index]-trailing(padding+border)[index]-scroll_geometry.thickness[index])
 	var items := _items()
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"

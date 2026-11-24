@@ -1,0 +1,6 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U03_BASELINE outer=(400.0, 300.0) content=[P: (0.0, 0.0), S: (400.0, 300.0)] clip=(400.0, 300.0) bar=[P: (388.0, 0.0), S: (12.0, 300.0)] child=(400.0, 44.0) range=(0.0, 520.0)

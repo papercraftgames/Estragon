@@ -246,3 +246,5 @@ non-dimension percentage references are unchanged. L12 refines child width/heigh
 unbounded and omission resetting auto. They cap the owning border-box; minima and
 native floors win, margins remain outside and descendants keep visible overflow.
 See [maxima, capacity and scrolling](UX01.md#available-capacity-and-maximum-dimensions).
+
+U03 scrollbar thickness targets share this grammar. `scrollbar_size` forbids auto; per-axis overrides allow auto to inherit it. Their `%` basis is the owner’s pre-gutter inner width/height, with actual strips capped to that axis; [scrolling contract](SCROLLING.md#u03--stable-inside-gutters-and-native-skins).

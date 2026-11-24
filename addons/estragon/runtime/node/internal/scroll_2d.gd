@@ -4,6 +4,8 @@ extends RefCounted
 const Hosts = preload("composition_hosts.tres")
 const Pointer = preload("pointer_2d.gd")
 const Focus = preload("focus.tres")
+const ScrollbarSkin = preload("scrollbar_style.gd")
+const Geometry = preload("scrollbar_geometry.gd")
 var owner_ref: WeakRef
 var host:
 	get: return owner_ref.get_ref()
@@ -11,6 +13,11 @@ var _clip: Control
 var _content: Node2D
 var _horizontal: HScrollBar
 var _vertical: VScrollBar
+var _corner: ColorRect
+var _geometry: Dictionary = {}
+var _skin_context: Array = []
+var style_updates := 0
+var _fit_pending := false
 var _updating := false
 var _input_guard = preload("scroll_input.gd").new()
 func _init(owner: Node2D) -> void:
@@ -42,6 +49,9 @@ func _ensure_viewport() -> void:
 	_content.child_exiting_tree.connect(_children_changed)
 	_horizontal = HScrollBar.new()
 	_vertical = VScrollBar.new()
+	_corner = ColorRect.new()
+	_corner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	host.add_child(_corner,false,Node.INTERNAL_MODE_BACK)
 	host.add_child(_horizontal,false,Node.INTERNAL_MODE_BACK)
 	# BACK appends internal children after the clip/content branch. FRONT is
 	# the beginning of SceneTree order and would let native Controls win GUI
@@ -53,8 +63,13 @@ func _ensure_viewport() -> void:
 	_vertical.custom_step = 40
 	_horizontal.value_changed.connect(_horizontal_changed)
 	_vertical.value_changed.connect(_vertical_changed)
+	# Arrowless native bars: the thumb/track still own all native interaction.
+	var blank := ImageTexture.create_from_image(Image.create(1,1,false,Image.FORMAT_RGBA8))
+	for bar in [_horizontal,_vertical]:
+		bar.minimum_size_changed.connect(_minimum_changed)
+		for icon in ["increment","increment_highlight","increment_pressed","decrement","decrement_highlight","decrement_pressed"]: bar.add_theme_icon_override(icon,blank)
 func is_private(child: Node) -> bool:
-	return child==_clip or child==_horizontal or child==_vertical
+	return child==_clip or child==_horizontal or child==_vertical or child==_corner
 func _children_changed(_child: Node) -> void:
 	if host!=null: host._layout_children_changed.emit()
 func _remember_owners(node: Node, values: Dictionary) -> void:
@@ -78,6 +93,12 @@ func _adopt_content(child: Node) -> void:
 		if owners[node].is_ancestor_of(node): node.owner = owners[node]
 	if is_instance_valid(focus) and focus.is_inside_tree(): focus.grab_focus()
 	host.layout._sync()
+	# Native reparent notifications can precede the new ancestor's coordinator
+	# activation. Refresh keyboard/pointer scope after that tree transition.
+	_refresh_scope.call_deferred(weakref(child))
+func _refresh_scope(reference: WeakRef) -> void:
+	var child = reference.get_ref()
+	if host!=null and host.is_inside_tree() and child!=null and child.is_inside_tree() and _content.is_ancestor_of(child): Hosts._refresh_scope(child)
 func start() -> void:
 	if not clipping() and not is_instance_valid(_clip) and host.get_node_or_null("_EstragonViewport")==null: return
 	_ensure_viewport()
@@ -116,12 +137,51 @@ func offset_changed() -> void:
 	if not host.layout.model.is_layout_dirty(): _update_scroll()
 func _refresh_viewport() -> void:
 	if not is_instance_valid(_clip): return
-	var rect: Rect2 = host.get_content_rect()
+	_geometry = host.layout.model.scroll_geometry
+	if _geometry.is_empty(): _geometry = Geometry.snapshot(host.get_content_rect(),Vector2(1 if host.horizontal_scroll else 0,1 if host.vertical_scroll else 0),host.lengths.specs,host.layout.model.viewport_size)
+	var rect: Rect2 = _geometry.viewport
 	_clip.position = rect.position
 	_clip.size = rect.size
 	host._content_extent = host.layout.model.content_extent()
 	host._scroll_range = Vector2(maxf(0,host.content_extent.x-rect.size.x) if host.horizontal_scroll else 0,maxf(0,host.content_extent.y-rect.size.y) if host.vertical_scroll else 0)
 	_update_scroll()
+func refresh_style() -> void:
+	if not is_instance_valid(_horizontal) or _geometry.is_empty(): return
+	var context := [host.scrollbar_style,_geometry.vertical.size,_geometry.horizontal.size,host.layout.model.viewport_size]
+	if context==_skin_context: return
+	_skin_context = context.duplicate(true)
+	style_updates += 1
+	for axis in ["horizontal","vertical"]:
+		var bar: ScrollBar = _horizontal if axis=="horizontal" else _vertical
+		var rect: Rect2 = _geometry[axis]
+		var style := ScrollbarSkin.values(host.scrollbar_style,axis)
+		bar.add_theme_stylebox_override("scroll",ScrollbarSkin.box(style,"track","",rect.size,host.layout.model.viewport_size))
+		for pair in [["grabber",""],["grabber_highlight","_hover"],["grabber_pressed","_pressed"]]:
+			bar.add_theme_stylebox_override(pair[0],ScrollbarSkin.box(style,"thumb",pair[1],rect.size,host.layout.model.viewport_size))
+		var focus := StyleBoxFlat.new()
+		focus.bg_color = Color.TRANSPARENT
+		focus.border_color = Color("#eeeeee")
+		focus.set_border_width_all(1)
+		bar.add_theme_stylebox_override("scroll_focus",focus)
+	_corner.color = ScrollbarSkin.color(ScrollbarSkin.values(host.scrollbar_style,"vertical"),"corner_color")
+	_fit_tracks()
+func _minimum_changed() -> void:
+	if _fit_pending: return
+	_fit_pending = true
+	_fit_tracks.call_deferred()
+func _fit_tracks() -> void:
+	_fit_pending = false
+	if host==null or not is_instance_valid(_horizontal) or _geometry.is_empty(): return
+	_place_bar(_horizontal,_geometry.horizontal)
+	_place_bar(_vertical,_geometry.vertical)
+func _place_bar(bar: ScrollBar, rect: Rect2) -> void:
+	bar.position = rect.position
+	# Custom StyleBox minimums must never enlarge the parent-owned strip.
+	# Native Control hit testing follows this same transform, including drag.
+	bar.scale = Vector2.ONE
+	bar.size = rect.size
+	var native_size := Vector2(maxf(1,bar.size.x),maxf(1,bar.size.y))
+	bar.scale = rect.size/native_size
 func _update_scroll() -> void:
 	if _updating or not is_instance_valid(_content): return
 	_updating = true
@@ -131,17 +191,22 @@ func _update_scroll() -> void:
 		var entry = host.get_layout_root()
 		if entry!=null and entry.has_method("_get_pointer_router"): entry._get_pointer_router().cancel()
 	_content.position = -host.get_content_rect().position-host.scroll_offset
-	var rect: Rect2 = host.get_content_rect()
-	_horizontal.visible = host.scroll_range.x>0
-	_vertical.visible = host.scroll_range.y>0
-	_horizontal.position = rect.position+Vector2(0,maxf(0,rect.size.y-12))
-	_horizontal.size = Vector2(maxf(0,rect.size.x-(12 if _vertical.visible else 0)),12)
-	_vertical.position = rect.position+Vector2(maxf(0,rect.size.x-12),0)
-	_vertical.size = Vector2(12,maxf(0,rect.size.y-(12 if _horizontal.visible else 0)))
-	_horizontal.max_value = host.content_extent.x
+	if _geometry.is_empty():
+		_updating = false
+		return
+	var rect: Rect2 = _geometry.viewport
+	refresh_style()
+	_horizontal.visible = host.scroll_range.x>0 and _geometry.horizontal.size.x>0 and _geometry.horizontal.size.y>0
+	_vertical.visible = host.scroll_range.y>0 and _geometry.vertical.size.x>0 and _geometry.vertical.size.y>0
+	_place_bar(_horizontal,_geometry.horizontal)
+	_place_bar(_vertical,_geometry.vertical)
+	_corner.position = _geometry.corner.position
+	_corner.size = _geometry.corner.size
+	_corner.visible = _corner.size.x>0 and _corner.size.y>0
+	_horizontal.max_value = maxf(host.content_extent.x,rect.size.x)
 	_horizontal.page = rect.size.x
 	_horizontal.value = host.scroll_offset.x
-	_vertical.max_value = host.content_extent.y
+	_vertical.max_value = maxf(host.content_extent.y,rect.size.y)
 	_vertical.page = rect.size.y
 	_vertical.value = host.scroll_offset.y
 	_updating = false
@@ -152,11 +217,8 @@ func _vertical_changed(value: float) -> void:
 	if not _updating: host.scroll_offset = Vector2(host.scroll_offset.x,value)
 func pointer_allowed(position: Vector2) -> bool:
 	if not enabled(): return true
-	for bar in [_horizontal,_vertical]:
-		if is_instance_valid(bar) and bar.is_visible_in_tree():
-			var point: Vector2 = bar.get_global_transform_with_canvas().affine_inverse()*position
-			if Rect2(Vector2.ZERO,bar.size).has_point(point): return false
-	return true
+	var point: Vector2 = host.get_global_transform_with_canvas().affine_inverse()*position
+	return _geometry.is_empty() or _geometry.viewport.has_point(point)
 func input(event: InputEvent) -> void:
 	if not enabled() or Engine.is_editor_hint() or not host.is_visible_in_tree() or not (event is InputEventMouse or event is InputEventPanGesture): return
 	var point: Vector2 = host.get_global_transform_with_canvas().affine_inverse()*event.position

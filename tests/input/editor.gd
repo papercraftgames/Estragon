@@ -9,11 +9,11 @@ func game_ready() -> bool:
 	var file := "res://.godot/ui03-game.json"
 	if not FileAccess.file_exists(file): return false
 	var parser := JSON.new()
-	return parser.parse(FileAccess.get_file_as_string(file))==OK and parser.data is Dictionary and not parser.data.is_empty() and (OS.get_environment("L12_EDITOR")!="1" or parser.data.get("layout_checks",0)==34)
+	return parser.parse(FileAccess.get_file_as_string(file))==OK and parser.data is Dictionary and not parser.data.is_empty() and (OS.get_environment("U03_EDITOR")!="1" or (parser.data.get("scrollbar_checks",0)==36 and parser.data.get("scrollbar_ggx_checks",0)==7)) and (OS.get_environment("L12_EDITOR")!="1" or parser.data.get("layout_checks",0)==34)
 func wait_game() -> bool:
 	# The full native editing sequence includes hundreds of delivered frames
 	# plus two rendered captures under the editor/debugger on Linux4.0.
-	var deadline := Time.get_ticks_msec()+45000
+	var deadline := Time.get_ticks_msec()+(90000 if OS.get_environment("U03_EDITOR")=="1" else 45000)
 	while Time.get_ticks_msec()<deadline:
 		if game_ready(): return true
 		await get_tree().process_frame
@@ -48,6 +48,7 @@ func run() -> void:
 	await until(func(): return interface.get_edited_scene_root()!=null,"authored scene opens")
 	await settle()
 	if not FileAccess.file_exists("res://.godot/ui03-restart"):
+		if OS.get_environment("U03_EDITOR")=="1": await load("res://tests/scrollbars/inspector.gd").new().run(self)
 		await plugin._navigation.open("res://app/Inputs.gogo")
 		if not await until(func(): return code()!=null,"authored Input source editor opens"): finish(); return
 		await settle()
@@ -61,6 +62,7 @@ func run() -> void:
 		var cached = load(output)
 		for mode in ["current","main"]:
 			buffer.text = source.replace('value={self.model.text}','bind:value={self.model.text}') if mode=="current" else source.replace('placeholder="Your name"','placeholder={false}')
+			if OS.get_environment("U03_EDITOR")=="1": buffer.text = source.replace('placeholder="Your name"','scrollbar_size="auto"' if mode=="current" else 'scrollbar_style="invalid"')
 			print("UI03_EXPECTED_PLAY_REJECTION_BEGIN")
 			if mode=="main": interface.play_main_scene()
 			else: interface.play_current_scene()
