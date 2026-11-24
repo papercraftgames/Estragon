@@ -3,9 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject,ERROR} from './compat-kit.ts';
 import {buttonImportsPackage} from './button-imports-package.ts';
+const editorOnly=process.argv.includes('--editor-only');
 const scrollbars=process.argv.includes('--scrollbars');
 const proportions=process.argv.includes('--proportions');
-const options=parseCLI(process.argv.slice(2).filter(a=>!['--proportions','--scrollbars'].includes(a)));
+const options=parseCLI(process.argv.slice(2).filter(a=>!['--proportions','--scrollbars','--editor-only'].includes(a)));
 if(process.platform!=='linux')throw Error('Approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 const packed=buttonImportsPackage(path.join(options.output,'packed'),'input');
@@ -95,20 +96,20 @@ for(const selection of options.engines){
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI03 native input"\nrun/main_scene="res://app/Inputs.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=700\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
-  await run('frontend',[...args,'--headless','--script','res://tests/input/frontend.gd'],'UI03_FRONTEND_OK');
+  if(!editorOnly)await run('frontend',[...args,'--headless','--script','res://tests/input/frontend.gd'],'UI03_FRONTEND_OK');
   await run('build',[...args,'--headless','--script','res://tests/input/build.gd'],'UI03_BUILD_OK');
-  if(proportions){
+  if(proportions&&!editorOnly){
    await run('proportions',[...args,'--headless','--script','res://tests/lengths/proportions.gd'],'L12_PERCENT_OK');
    await run('proportion-runtime',[...args,...graphics,'--script','res://tests/lengths/proportion_runtime.gd'],'L12_NATIVE_OK');
   }
-  if(scrollbars){
+  if(scrollbars&&!editorOnly){
    await run('scrollbar-geometry',[...args,'--headless','--script','res://tests/scrollbars/geometry.gd'],'U03_MATH_OK');
    await run('scrollbar-native',[...args,...graphics,'--script','res://tests/scrollbars/runtime.gd'],'U03_NATIVE_OK');
    await run('scrollbar-retention',[...args,...graphics,'--script','res://tests/scrollbars/retention.gd'],'U03_RETAIN_OK');
   }
-  await run('scene',[...args,...graphics,'--script','res://tests/input/scene.gd'],'UI03_SCENE_OK');
-  await run('palette',[...args,...graphics,'--script','res://tests/input/palette.gd'],'UI04_PALETTE_OK');
-  await run('rejections',[...args,'--headless','--script','res://tests/input/rejections.gd'],'UI03_REJECTION_OK');
+  if(!editorOnly)await run('scene',[...args,...graphics,'--script','res://tests/input/scene.gd'],'UI03_SCENE_OK');
+  if(!editorOnly)await run('palette',[...args,...graphics,'--script','res://tests/input/palette.gd'],'UI04_PALETTE_OK');
+  if(!editorOnly)await run('rejections',[...args,'--headless','--script','res://tests/input/rejections.gd'],'UI03_REJECTION_OK');
   results.import=await indexProject(box,box.project,path.join(out,'import.log'),['--audio-driver','Dummy']);
   writeJSON(path.join(out,'results.json'),results);
   if((results.import as {status:string}).status!=='PASS')throw Error('Clean import failed');

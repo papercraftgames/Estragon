@@ -1,5 +1,18 @@
 @tool
 extends "res://tests/layouts/editor.gd"
+func settle() -> void:
+	if OS.get_environment("U03_EDITOR")!="1":
+		await super.settle()
+		return
+	var deadline := Time.get_ticks_msec()+45000
+	while Time.get_ticks_msec()<deadline:
+		if not plugin._filesystem_busy() and not plugin._rescan_pending and plugin._timer.is_stopped():
+			var count: int = plugin.build_count
+			await wait()
+			if count==plugin.build_count and not plugin._filesystem_busy() and not plugin._rescan_pending and plugin._timer.is_stopped(): return
+		await get_tree().process_frame
+	print("U03_SETTLE_STATE busy=",plugin._filesystem_busy()," rescan=",plugin._rescan_pending," timer=",plugin._timer.is_stopped()," report=",plugin.last_report)
+	check(false,"bounded scrollbar consumer filesystem settles")
 func code() -> CodeEdit:
 	for item in plugin._services.entries.values():
 		var value = item.code.get_ref()

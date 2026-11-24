@@ -21,6 +21,8 @@ func _initialize():
 	owner=core();owner.scroll_axes=Vector2(0,1);owner.padding=Vector4(20,20,20,20);owner.border=Vector4(5,5,5,5);spec(owner,"vertical_scrollbar_width","5%")
 	child=core(-1,20);spec(child,"width","75%");owner.set_children([child]);owner.measure();owner.arrange(Vector3(400,300,0))
 	check(owner.scroll_geometry.thickness.x==17.5 and owner.scroll_geometry.viewport.size.x==332.5 and child.size.x==249.375,"insets precede single percentage gutter")
+	owner=core(-1,300);owner.scroll_axes=Vector2(0,1);child=core(100,600);owner.set_children([child]);owner.arrange(owner.measure())
+	check(owner.size.x==100 and owner.scroll_geometry.viewport.size.x==88,"gutter never adds outside growth to an auto border-box")
 	for record in [[Vector2(0,1),{},Vector2(388,300)],[Vector2(1,0),{"horizontal_scrollbar_height":Length.parse(16,"edge")},Vector2(400,284)],[Vector2.ZERO,{},Vector2(400,300)],[Vector2(1,1),{"scrollbar_size":Length.parse(0,"inset")},Vector2(400,300)],[Vector2(1,1),{"scrollbar_size":Length.parse("150%","inset")},Vector2.ZERO]]:
 		g=Geometry.snapshot(Rect2(0,0,400,300),record[0],record[1],Vector2(800,600))
 		check(g.viewport.size==record[2] and g.viewport.size.x>=0 and g.viewport.size.y>=0,"axes/zero/capped stable geometry "+str(record[0])+str(record[1]))

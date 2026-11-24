@@ -481,10 +481,6 @@ func measure() -> Vector3:
 		natural = _grid(_items(),_content_basis()).extent
 	for index in range(3): natural[index] = maxf(natural[index],intrinsic[index])
 	if not transparent: natural += leading(padding+border)+trailing(padding+border)
-	if not transparent:
-		var basis := _inner_basis()
-		var strips := ScrollbarGeometry.thickness(Vector2(basis.x,basis.y),scroll_axes,length_specs,viewport_size)
-		natural += Vector3(strips.x,strips.y,0)
 	natural_extent = natural
 	measured = natural
 	for axis in range(3):
@@ -567,7 +563,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 				break
 	var layout_content := content
 	for index in range(2):
-		if scroll_axes[index]>0: layout_content[index] = maxf(content[index],natural_extent[index]-leading(padding+border)[index]-trailing(padding+border)[index]-scroll_geometry.thickness[index])
+		if scroll_axes[index]>0: layout_content[index] = maxf(content[index],natural_extent[index]-leading(padding+border)[index]-trailing(padding+border)[index])
 	var items := _items()
 	var policy := alignment.duplicate()
 	if center: policy[axis] = "center"
