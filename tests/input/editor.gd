@@ -30,8 +30,16 @@ func play(mode: String) -> void:
 		check(result.ok and result.checks==52 and result.submits==1 and result.cancels==1,mode+" real native Input/implicit String/keyboard Play")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
+func wait_addon() -> bool:
+	var deadline := Time.get_ticks_msec()+45000
+	while Time.get_ticks_msec()<deadline:
+		if ready(): return true
+		await get_tree().process_frame
+	print("UI03_STARTUP_REPORT ", plugin.last_report if plugin!=null else {})
+	check(false,"bounded installed addon ready")
+	return false
 func run() -> void:
-	if not await until(ready,"installed addon ready"): finish(); return
+	if not await wait_addon(): finish(); return
 	var prefs := interface.get_editor_settings()
 	prefs.set_setting("run/auto_save/save_before_running",false)
 	prefs.set_setting("text_editor/behavior/files/autosave_interval_secs",0)

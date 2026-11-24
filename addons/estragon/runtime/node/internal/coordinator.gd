@@ -150,8 +150,12 @@ func _sync() -> void:
 			if _dimension==2 and not found.participates(): continue
 			found.model.set_placement(CompositionHosts.get_placement(child))
 			values.append(found.model)
+	var participation_changed := model.children != values
 	var error := model.set_children(values)
 	if error != OK: push_error("Estragon layout model ownership: " + error_string(error))
+	if participation_changed and _mode==Mode.COMPOSITION:
+		var parent = parent_coordinator()
+		if parent!=null: parent._sync()
 
 func changed() -> void:
 	var host = _host.get_ref()
