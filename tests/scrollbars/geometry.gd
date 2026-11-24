@@ -32,5 +32,6 @@ func _initialize():
 	var explicit=StyleBoxFlat.new();var values=Styles.values({"thumb_stylebox":explicit,"thumb_color":"#ffffff","vertical":{"thumb_color":"#ababab"}},"vertical")
 	check(Styles.error(values).is_empty() and Styles.box(values,"thumb","",Vector2(12,300),Vector2(800,600))==explicit and Styles.color(values,"thumb_color")==Color("#ababab"),"axis override and exact explicit Resource identity")
 	check(Styles.error({"track_color":"transparent","horizontal":{"track_border_width":"1px","thumb_corner_radius":0}}).is_empty(),"valid flat and axis skins")
-	if not failed: print("U03_MATH_OK checks=",checks)
+	print("U03_MATH_ASSERTIONS ",checks," failed=",failed)
+	if not failed: print("U03_MATH_OK")
 	quit(1 if failed else 0)

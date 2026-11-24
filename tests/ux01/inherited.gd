@@ -40,6 +40,7 @@ func run():
 	root.add_child(entry)
 	await frames()
 	mouse(Vector2(450,30))
+	await frames()
 	await RenderingServer.frame_post_draw
 	check(hits==1 and root.get_texture().get_image().get_pixel(450,30).g>0.9 and normal._scroll==null and normal.get_child_count(true)==1,"never-enabled normal overflow paints/hits without private helpers")
 	var outer := VBox.new()
@@ -210,7 +211,7 @@ func transformed_input():
 	var pan := InputEventPanGesture.new()
 	pan.position = inside
 	pan.delta = Vector2(1,1)
-	Input.parse_input_event(pan)
+	root.push_input(pan,true)
 	await frames()
 	check(entry.scroll_offset==Vector2(80,80),"scaled native pan both axes")
 	entry.scroll_offset = Vector2.ZERO
