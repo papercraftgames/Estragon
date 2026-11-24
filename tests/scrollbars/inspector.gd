@@ -28,6 +28,7 @@ func run(probe):
 			await probe.wait()
 			# The edited scene host is not an Entry; use its same native model to
 			# observe Inspector-authored geometry without adding another scheduler.
+			box.layout.model.prepare(Vector3(-1,-1,-1),box.get_viewport_rect().size)
 			box.layout.model.measure();box.layout.model.arrange(Vector3(400,300,0))
 			probe.check(box._scroll._geometry.vertical==Rect2(377.5,5,17.5,290),"Inspector targets place native track beside border")
 			probe.check(box._scroll._clip.position==Vector2(25,25) and box._scroll._clip.size==Vector2(332.5,250),"Inspector keeps percentage basis and padded clip")
