@@ -51,7 +51,7 @@ not native Node types or constructors; use GGX to instantiate them.
 
 Every writable base property and ordinary named-handler/Callable signal can be
 preset. The same native compiler and whole-description preflight validate values.
-`key` and `bind:value` remain explicit use-site controls. Duplicate properties
+`key` remains a use-site identity control; authored `bind:*` syntax is removed ([implicit binding](TWO_WAY_BINDINGS.md)). Duplicate properties
 within one occurrence reject; repeated occurrences merge complementary defaults.
 Conflicting quoted attribute/numeric/Bool/null constant defaults reject at compile time. Other
 expressions and ordered Dictionary spreads are evaluated once per authored
@@ -71,11 +71,7 @@ explicit conflicting structured/template properties still reject normally. A use
 nonempty template replaces the preset structured defaults; explicit conflicting
 use-site tracks still reject through normal native preflight.
 
-`width`/`height` are ordinary dimensions, never track declarations. **Existing
-Grid child percentages use the full immediate Grid content reference, not the
-cell** ([shipped contract](RESPONSIVE_LAYOUT.md)). #192's cell-relative wording
-differs from that implementation; EL02 preserves its separately requested existing
-percentage behavior. Use `width="auto"` for cell stretch. The gallery's composed
+`width`/`height` are ordinary dimensions, never track declarations. Grid child percentages use the immediate Grid's usable total track budget after canonical track gaps, not their own cell ([L12](PARENT_PERCENTAGES.md)). EL02's prior full-content percentage rule is superseded only for dimension percentages. Use `width="auto"` for cell stretch. The gallery's composed
 Side defaults to25%, then overrides it with auto at its use site; its column stays
 160px. Nothing in the preset rewrites percentages or implements another solver.
 

@@ -67,6 +67,7 @@ for (const selection of options.engines) {
             const file = path.join(fixtures, name);
             fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replaceAll('res://addons/estragon', 'res://' + addon));
         }
+        for(const suffix of ['.gd','.gd.uid'])fs.copyFileSync(path.join(ROOT,'examples/godot_button'+suffix),path.join(box.project,'godot_button'+suffix));
         fs.mkdirSync(path.join(box.project, 'app'), {recursive: true});
         fs.writeFileSync(path.join(box.project, 'app/Counter.gogo'),
             fs.readFileSync(path.join(ROOT, 'examples/counter/Counter.gogo'), 'utf8')

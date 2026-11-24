@@ -31,7 +31,7 @@ value/type; `layout_size` and `requested_extent()` are derived layout outputs.
 | Value | Resolution |
 | --- | --- |
 | `200`, `200.0`, `"200"`, `"200px"` | 200 logical layout pixels |
-| `"50%"` | half the immediate layout parent's independently arranged content axis; on an independent2D Entry, half the current visible viewport axis |
+| `"50%"` | dimensions use half the immediate parent's policy budget (L12); other domains keep their containing references; independent2D Entry roots use their visible viewport |
 | `vw`, `vh` | one hundredth of the containing native visible Viewport width/height |
 | `vmin`, `vmax` | one hundredth of the smaller/larger visible Viewport axis |
 | `in`, `cm`, `mm`, `q` | 96px, 96/2.54px, 96/25.4px, 96/101.6px respectively |
@@ -56,14 +56,12 @@ the complete desired tree before any commit. Repair resumes normal compilation.
 
 ## Content axes, layout and native transforms
 
-Width/x use horizontal parent content; height/y use vertical; depth/z use depth.
+Width/height percentages use the parent policy budget below. Other width/height units are unchanged; x/y use ordinary horizontal/vertical containing references and depth/z keep their prior depth contract.
 Left/right edges use horizontal references and top/bottom use vertical. A scalar
 padding/margin percentage resolves separately on each edge's axis. Gap uses the
 parent stack's main axis. Padding is inside the border box; margin is outside;
 neither collapses. Parent allocation subtracts padding, margins and gaps once.
-A child's percentage width is the full parent content width times its fraction,
-without subtracting that child's margins. Values above100% intentionally overflow;
-there is no clipping or implicit shrink.
+Child percentage width/height use [L12 parent-owned dimension budgets](PARENT_PERCENTAGES.md): nonwrap stacks subtract applicable physical gaps, Grid subtracts canonical track gaps, and Wrap uses full content with no gap deduction. Other Length domains keep their normal containing references. Percentages never subtract fixed sibling sizes or their own margins; overflow stays explicit.
 
 Transparent Gogo hosts forward the root constraints/offsets once. Inline elements
 and borrowed scene participants use their actual logical layout parent, without
@@ -127,7 +125,7 @@ auto cross axes; default0 retains natural sizing. It is one enum, not axis boole
 </Entry2D>
 ```
 
-A 100% height consumes the parent's entire content height. It is distinct from a
+A 100% height consumes the parent's applicable dimension budget. It is distinct from a
 remaining-space spacer. [NativeHome](../examples/nested_layout/NativeHome.gogo)
 and [responsive lengths](../examples/lengths/ResponsiveHome.tscn) are runnable.
 
@@ -239,7 +237,7 @@ publication rollback remain mandatory, with repaired editor/Play recovery.
 
 L09-10 #176 adds optional `row_gap` / `column_gap` on native2D participants:
 `auto` falls back to the physical-axis `gap`. The shared parser and immediate-parent
-percentage references are unchanged. Grid tracks alone additionally accept positive
+non-dimension percentage references are unchanged. L12 refines child width/height budgets separately. Grid tracks alone additionally accept positive
 `Nfr`; ordinary dimensions/minima/offsets never do. [Wrap/Grid contract](RESPONSIVE_LAYOUT.md).
 
 ### UX01 maximum 2D dimensions

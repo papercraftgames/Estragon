@@ -102,6 +102,10 @@ func _initialize():
 	check(near(oa.size.x,420) and near(ob.size.x,70),"over100 percent targets stay live unnormalized ratios")
 	var track_grid=model({"width":300,"column_gap":20});track_grid.set_strategy("grid","start",{"columns":["25%","75%"]});track_grid.set_policy(["stretch","stretch","start"]);track_grid.set_children([model(),model()]);layout(track_grid)
 	check(track_grid.policy_result.columns==[75.0,225.0] and near(track_grid.children[1].offset.x+track_grid.children[1].size.x,320),"Grid track percentages retain full content grammar and honest overflow")
+	v.configure(v.requested,v.gap,false,1,Vector3.ZERO,Vector3(1,1,0));layout(v)
+	check(near(v.size.y,40) and near(v.children[1].offset.y,30),"intrinsic refresh preserves physical row_gap override")
+	var budgets=p.dimension_budget_count;p.invalidate();layout(p)
+	check(p.dimension_budget_count==budgets,"same parent context reuses one cached dimension budget")
 	var idle=[grid.measure_count,grid.arrange_count,body.resolution_count,inner.resolution_count]
 	layout(grid)
 	check(idle==[grid.measure_count,grid.arrange_count,body.resolution_count,inner.resolution_count],"settled pure core does no repeat measure/arrange/resolve")

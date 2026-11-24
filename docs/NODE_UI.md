@@ -1,6 +1,6 @@
 # Native 2D UI — canonical C4 API
 
-L07 #160 makes independent2D Entry percentages viewport-relative for all eligible root lengths. `<Entry2D width="100%" height="100%">` fills the current visible Viewport; ordinary child percentages stay relative to immediate padded content. [Length contract](LENGTHS.md).
+L07 #160 makes independent2D Entry percentages viewport-relative for all eligible root lengths. `<Entry2D width="100%" height="100%">` fills the current visible Viewport; child dimensions use the immediate parent policy budget while other domains keep their containing references ([L12](PARENT_PERCENTAGES.md)). [Length contract](LENGTHS.md).
 
 L07A adds [parent-owned slot policies](LAYOUT_FOUNDATION.md), Box direction, physical horizontal/vertical alignment and zero-natural Spacer. `grow` replaces the beta `flex` property without an alias.
 

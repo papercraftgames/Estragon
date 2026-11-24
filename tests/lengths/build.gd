@@ -28,7 +28,7 @@ func proof() -> void:
 		get_tree().root.size = extent
 		for frame in range(15): await get_tree().process_frame
 		var column = $UI/Column
-		samples.append({"width":panel.layout_size.x,"height":panel.layout_size.y,"content_x":column.layout.model.content_reference.x,"content_y":column.layout.model.content_reference.y,"identity":panel.get_instance_id()==identity,"spec":panel.width})
+		samples.append({"width":panel.layout_size.x,"height":panel.layout_size.y,"content_x":column.layout.model.content_reference.x,"content_y":column.layout.model.content_reference.y-4*maxi(0,column.layout.model.children.size()-1),"identity":panel.get_instance_id()==identity,"spec":panel.width})
 	var button = $UI/Column/Settings/Row/Action
 	var event := InputEventMouseButton.new()
 	event.position = button.get_global_transform_with_canvas()*(button.layout_size/2)

@@ -129,7 +129,7 @@ func _initialize() -> void:
 	grid_core.set_children([percentage])
 	grid_core.measure()
 	grid_core.arrange(Vector3(320,100,0))
-	check(percentage.requested.x==160 and percentage.size.x==160,"Grid percent child uses immediate parent320, never cell100")
+	check(percentage.requested.x==150 and percentage.size.x==150,"Grid percent child uses usable total300, never its own cell")
 	var native_floor := item(20,20)
 	native_floor.minimum = Vector3(180,60,0)
 	definition = Definition.resolve(3,null,[],"",[{}])
