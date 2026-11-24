@@ -1,0 +1,145 @@
+{
+  "head": "ce46bb9695f58a35bb2b56e4250abaa3540371b4",
+  "sourceDirty": false,
+  "tarball_sha256": "e8447aeeb4bc669130bc9e65c2a3bffad218aee3d3af407732721d8d5a91b02b",
+  "engines": {
+    "4.0.4": {
+      "install": {
+        "status": "PASS",
+        "seconds": 0.9
+      },
+      "frontend": {
+        "status": "PASS",
+        "seconds": 11.26
+      },
+      "build": {
+        "status": "PASS",
+        "seconds": 25.55
+      },
+      "proportions": {
+        "status": "PASS",
+        "seconds": 0.38
+      },
+      "proportion-runtime": {
+        "status": "PASS",
+        "seconds": 4.93
+      },
+      "scrollbar-geometry": {
+        "status": "PASS",
+        "seconds": 0.37
+      },
+      "scrollbar-native": {
+        "status": "PASS",
+        "seconds": 5.04
+      },
+      "scrollbar-retention": {
+        "status": "PASS",
+        "seconds": 6.55
+      },
+      "border-geometry": {
+        "status": "PASS",
+        "seconds": 0.38
+      },
+      "border-native": {
+        "status": "PASS",
+        "seconds": 4.31
+      },
+      "scene": {
+        "status": "PASS",
+        "seconds": 7.19
+      },
+      "palette": {
+        "status": "PASS",
+        "seconds": 2.29
+      },
+      "rejections": {
+        "status": "PASS",
+        "seconds": 2.73
+      },
+      "import": {
+        "status": "PASS",
+        "seconds": 9.12
+      },
+      "editor": {
+        "status": "PASS",
+        "seconds": 229.85
+      },
+      "editor-restart": {
+        "status": "PASS",
+        "seconds": 106.58
+      },
+      "immutable": {
+        "status": "PASS"
+      }
+    },
+    "4.7": {
+      "install": {
+        "status": "PASS",
+        "seconds": 0.85
+      },
+      "frontend": {
+        "status": "PASS",
+        "seconds": 1.12
+      },
+      "build": {
+        "status": "PASS",
+        "seconds": 6.1
+      },
+      "proportions": {
+        "status": "PASS",
+        "seconds": 0.38
+      },
+      "proportion-runtime": {
+        "status": "PASS",
+        "seconds": 3.94
+      },
+      "scrollbar-geometry": {
+        "status": "PASS",
+        "seconds": 0.28
+      },
+      "scrollbar-native": {
+        "status": "PASS",
+        "seconds": 4.44
+      },
+      "scrollbar-retention": {
+        "status": "PASS",
+        "seconds": 4.33
+      },
+      "border-geometry": {
+        "status": "PASS",
+        "seconds": 0.28
+      },
+      "border-native": {
+        "status": "PASS",
+        "seconds": 4.42
+      },
+      "scene": {
+        "status": "PASS",
+        "seconds": 6.02
+      },
+      "palette": {
+        "status": "PASS",
+        "seconds": 1.27
+      },
+      "rejections": {
+        "status": "PASS",
+        "seconds": 1.59
+      },
+      "import": {
+        "status": "PASS",
+        "seconds": 6.17
+      },
+      "editor": {
+        "status": "PASS",
+        "seconds": 102.91
+      },
+      "editor-restart": {
+        "status": "PASS",
+        "seconds": 57.84
+      },
+      "immutable": {
+        "status": "PASS"
+      }
+    }
+  }
+}

@@ -1,0 +1,407 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-1MCbOg/yarn-cache",
+      "file:/evidence/u04-review-proof/packed/input-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.9,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/input/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.26,
+    "godot_pid": 12675,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/input/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 25.55,
+    "godot_pid": 12694,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "proportions": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/proportions.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 13081,
+    "log": "proportions.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "proportion-runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/proportion_runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.93,
+    "godot_pid": 13100,
+    "log": "proportion-runtime.log",
+    "diagnostics": []
+  },
+  "scrollbar-geometry": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/scrollbars/geometry.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.37,
+    "godot_pid": 13141,
+    "log": "scrollbar-geometry.log",
+    "diagnostics": []
+  },
+  "scrollbar-native": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scrollbars/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.04,
+    "godot_pid": 13160,
+    "log": "scrollbar-native.log",
+    "diagnostics": []
+  },
+  "scrollbar-retention": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scrollbars/retention.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.55,
+    "godot_pid": 13206,
+    "log": "scrollbar-retention.log",
+    "diagnostics": [
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_size'): invalid length 'scrollbar_size': auto is only valid for dimensions and unset inset edges; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'vertical_scrollbar_width'): invalid length 'vertical_scrollbar_width': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'horizontal_scrollbar_height'): invalid length 'horizontal_scrollbar_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': unknown scrollbar_style key unknown; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': vertical: unknown scrollbar_style key horizontal; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': thumb_color requires a finite Color, hex or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': thumb_stylebox requires StyleBox Resource; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'scrollbar_size': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'scrollbar_size': auto is only valid for dimensions and unset inset edges",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'vertical_scrollbar_width': Expected a finite nonnegative length (negative offsets are allowed)",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon length 'horizontal_scrollbar_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Estragon track_color requires a finite Color, hex or transparent",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "border-geometry": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/scrollbars/placement_geometry.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 13247,
+    "log": "border-geometry.log",
+    "diagnostics": []
+  },
+  "border-native": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/scrollbars/placement_runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.31,
+    "godot_pid": 13266,
+    "log": "border-native.log",
+    "diagnostics": []
+  },
+  "scene": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/input/scene.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 7.19,
+    "godot_pid": 13307,
+    "log": "scene.log",
+    "diagnostics": []
+  },
+  "palette": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/input/palette.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.29,
+    "godot_pid": 13348,
+    "log": "palette.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--headless",
+      "--script",
+      "res://tests/input/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.73,
+    "godot_pid": 13389,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'value'): attribute 'value': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'width'): invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:49: invalid observable String binding endpoint; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 9.12,
+    "godot_pid": 13408,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "4d462ff208798559d4debae567f91261c85dda03b882d84676f93c0ace2fc702",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 229.85,
+    "godot_pid": 13788,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-1MCbOg/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1MCbOg/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 106.58,
+    "godot_pid": 14277,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "sourceHead": "ce46bb9695f58a35bb2b56e4250abaa3540371b4",
+    "direct_yarn": true,
+    "installed_bytes_unchanged": true,
+    "canonical_uids": 85,
+    "tarball_sha256": "e8447aeeb4bc669130bc9e65c2a3bffad218aee3d3af407732721d8d5a91b02b"
+  }
+}
