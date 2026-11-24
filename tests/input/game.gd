@@ -63,6 +63,17 @@ func run(host: Node,publish: bool=true):
 	host.props={}
 	await frames(tree)
 	check(bound.background_color==Color("#383838") and bound._visual_style.colors.background_color==Color("#383838"),"owned background removal restores neutral class default")
+	var normal_motion=InputEventMouseMotion.new();normal_motion.position=Vector2.ZERO
+	Input.parse_input_event(normal_motion)
+	await frames(tree)
+	var normal_input=host.get_node("UI/Palette/Input")
+	var normal_button=host.get_node("UI/Palette/Button")
+	check(normal_input.background_color==Color("#383838") and normal_button.background_color==Color("#383838"),"unstyled GGX Input and explicitly imported Button share neutral defaults")
+	await RenderingServer.frame_post_draw
+	var normal_picture=tree.root.get_texture().get_image()
+	var ip: Vector2=normal_input.get_global_transform_with_canvas()*Vector2(normal_input.layout_size.x-5,normal_input.layout_size.y*0.5)
+	var bp: Vector2=normal_button.get_global_transform_with_canvas()*Vector2(normal_button.layout_size.x-5,normal_button.layout_size.y*0.5)
+	check(normal_picture.get_pixelv(Vector2i(ip)).is_equal_approx(Color("#383838")) and normal_picture.get_pixelv(Vector2i(bp)).is_equal_approx(Color("#383838")),"rendered unfocused GGX Input/Button surfaces match383838")
 	var changes: Array = []
 	var writes: Array = []
 	bound.value_changed.connect(func(a,b): changes.append([a,b]))

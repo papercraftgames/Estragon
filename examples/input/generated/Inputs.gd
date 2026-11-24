@@ -5,6 +5,7 @@ const Box = preload("../../../addons/estragon/runtime/node/box.gd")
 const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
 const Text = preload("../../../addons/estragon/runtime/node/text.gd")
 const _GogoImport_0 = preload("../../../addons/estragon/runtime/node/input.gd")
+const _GogoImport_1 = preload("../../../addons/estragon/runtime/node/button.gd")
 const Model = preload("Model.gd")
 signal model_changed(previous: Model, value: Model)
 var model: Model = Model.new():
@@ -79,11 +80,11 @@ func build_view() -> Element:
             (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.props)),
             (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root.model if _gogo_root != null and _gogo_root.model != null else null, "text", func(_gogo_source, _gogo_edit: String): _gogo_source.text = _gogo_edit, "self.model.text", (self.model.text) if self != null and self.model != null else null, TYPE_STRING)),
             (current),
-            (preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/input/Inputs.gogo:1613", self.model.text, "to_upper", [], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.to_upper(), func(): self.model.text.to_upper())),
-            ((preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/input/Inputs.gogo:1657", self, "parameter", [self.model], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.parameter(_gogo_arguments[0]), func(): self.parameter(self.model)) as Element))
+            (preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/input/Inputs.gogo:1860", self.model.text, "to_upper", [], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.to_upper(), func(): self.model.text.to_upper())),
+            ((preload("../../../addons/estragon/runtime/composition/state.tres").method_at("examples/input/Inputs.gogo:1904", self, "parameter", [self.model], func(_gogo_receiver, _gogo_arguments): return _gogo_receiver.parameter(_gogo_arguments[0]), func(): self.parameter(self.model)) as Element))
         ) if self.show and self.model != null else null),
         (2),
-        (([preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:1848", "b", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3()),preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:1896", "a", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_4())] if self.reverse else [preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:1969", "a", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_5()),preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:2019", "b", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_6())]) if self.show else null)
+        (([preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:2095", "b", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_3()),preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:2143", "a", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_4())] if self.reverse else [preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:2216", "a", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_5()),preload("../../../addons/estragon/runtime/composition/state.tres").in_slot("examples/input/Inputs.gogo:2266", "b", func(_gogo_mount_key): return _GogoFactories_0._gogo_build_6())]) if self.show else null)
     )
 
 const _GOGO_RENDER_FUNCTIONS_e9a4beacb98128bb = {
@@ -107,8 +108,8 @@ class _GogoFactories_0:
 
 
     static func _gogo_build_0(_gogo_value_0: Variant) -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "Parameter", "value": _gogo_value_0, "placeholder": "Parameter path"}, {}, [], "examples/input/Inputs.gogo:19:12", null, false)
-        _gogo_element_0.origins["value"] = "examples/input/Inputs.gogo:19:36"
+        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "Parameter", "value": _gogo_value_0, "placeholder": "Parameter path"}, {}, [], "examples/input/Inputs.gogo:20:12", null, false)
+        _gogo_element_0.origins["value"] = "examples/input/Inputs.gogo:20:36"
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
@@ -120,21 +121,27 @@ class _GogoFactories_0:
         _gogo_value_3: Variant,
         _gogo_value_4: Variant
     ) -> _GogoElement_0:
-        var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_0, "font_size": _gogo_value_1}, {}, [], "examples/input/Inputs.gogo:23:9", null, false)
+        var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_0, "font_size": _gogo_value_1}, {}, [], "examples/input/Inputs.gogo:24:9", null, false)
         _gogo_element_1.resolve_bindings()
-        var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "ReadOnly", "read_only": true, "value": "Read only / copy"}, {}, [], "examples/input/Inputs.gogo:33:13", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "Input", "value": "Unstyled Input"}, {}, [], "examples/input/Inputs.gogo:26:13", null, false)
         _gogo_element_3.resolve_bindings()
-        var _gogo_element_4 := _GogoElement_0.new(_GogoImport_0, {"name": "Disabled", "disabled": true, "value": "Disabled"}, {}, [], "examples/input/Inputs.gogo:34:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(_GogoImport_1, {"name": "Button", "text": "Unstyled Button"}, {}, [], "examples/input/Inputs.gogo:27:13", null, false)
         _gogo_element_4.resolve_bindings()
-        var _gogo_element_5 := _GogoElement_0.new(_GogoImport_0, {"name": "Invalid", "invalid": true, "placeholder": "Required"}, {}, [], "examples/input/Inputs.gogo:35:13", null, false)
-        _gogo_element_5.resolve_bindings()
-        var _gogo_element_2 := _GogoElement_0.new(Grid, {"name": "Grid", "columns": _gogo_value_3, "column_gap": "12px", "row_gap": "10px", "width": "560px"}, {}, [_gogo_value_4, _gogo_element_3, _gogo_element_4, _gogo_element_5], "examples/input/Inputs.gogo:31:9", null, false)
+        var _gogo_element_2 := _GogoElement_0.new(Box, {"name": "Palette", "gap": "20px"}, {}, [_gogo_element_3, _gogo_element_4], "examples/input/Inputs.gogo:25:9", null, false)
         _gogo_element_2.resolve_bindings()
-        var _gogo_element_7 := _GogoElement_0.new(_GogoImport_0, {"name": "Clipped", "width": "320px", "value": "Native clipped text and caret"}, {}, [], "examples/input/Inputs.gogo:38:13", null, false)
-        _gogo_element_7.resolve_bindings()
-        var _gogo_element_6 := _GogoElement_0.new(Box, {"name": "Clip", "width": "220px", "height": "56px", "clip_content": true, "padding": "4px"}, {}, [_gogo_element_7], "examples/input/Inputs.gogo:37:9", null, false)
+        var _gogo_element_6 := _GogoElement_0.new(_GogoImport_0, {"name": "ReadOnly", "read_only": true, "value": "Read only / copy"}, {}, [], "examples/input/Inputs.gogo:38:13", null, false)
         _gogo_element_6.resolve_bindings()
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "width": "100%", "height": "100%", "direction": "column", "gap": "12px", "padding": "20px", "background_color": "#172332"}, {}, [_gogo_element_1, _gogo_value_2, _gogo_element_2, _gogo_element_6], "examples/input/Inputs.gogo:22:12", null, false)
+        var _gogo_element_7 := _GogoElement_0.new(_GogoImport_0, {"name": "Disabled", "disabled": true, "value": "Disabled"}, {}, [], "examples/input/Inputs.gogo:39:13", null, false)
+        _gogo_element_7.resolve_bindings()
+        var _gogo_element_8 := _GogoElement_0.new(_GogoImport_0, {"name": "Invalid", "invalid": true, "placeholder": "Required"}, {}, [], "examples/input/Inputs.gogo:40:13", null, false)
+        _gogo_element_8.resolve_bindings()
+        var _gogo_element_5 := _GogoElement_0.new(Grid, {"name": "Grid", "columns": _gogo_value_3, "column_gap": "12px", "row_gap": "10px", "width": "560px"}, {}, [_gogo_value_4, _gogo_element_6, _gogo_element_7, _gogo_element_8], "examples/input/Inputs.gogo:36:9", null, false)
+        _gogo_element_5.resolve_bindings()
+        var _gogo_element_10 := _GogoElement_0.new(_GogoImport_0, {"name": "Clipped", "width": "320px", "value": "Native clipped text and caret"}, {}, [], "examples/input/Inputs.gogo:43:13", null, false)
+        _gogo_element_10.resolve_bindings()
+        var _gogo_element_9 := _GogoElement_0.new(Box, {"name": "Clip", "width": "220px", "height": "56px", "clip_content": true, "padding": "4px"}, {}, [_gogo_element_10], "examples/input/Inputs.gogo:42:9", null, false)
+        _gogo_element_9.resolve_bindings()
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "width": "100%", "height": "100%", "direction": "column", "gap": "12px", "padding": "20px", "background_color": "#172332"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_value_2, _gogo_element_5, _gogo_element_9], "examples/input/Inputs.gogo:23:12", null, false)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
@@ -149,41 +156,41 @@ class _GogoFactories_0:
         _gogo_value_6: String,
         _gogo_value_7: Variant
     ) -> _GogoElement_0:
-        var _gogo_element_1 := _GogoElement_0.new(_GogoImport_0, {}, {}, [], "examples/input/Inputs.gogo:25:13", null, false)
-        _gogo_element_1.origins["value"] = "examples/input/Inputs.gogo:25:33"
-        _gogo_element_1.expand([["name", "Bound", "examples/input/Inputs.gogo:25:20"], ["value", _gogo_value_0, "examples/input/Inputs.gogo:25:33"], ["placeholder", "Your name", "examples/input/Inputs.gogo:25:57"], ["submitted", _gogo_value_1, "examples/input/Inputs.gogo:25:81"], ["cancelled", _gogo_value_2, "examples/input/Inputs.gogo:25:108"], [null, _gogo_value_3, "examples/input/Inputs.gogo:25:135"]])
+        var _gogo_element_1 := _GogoElement_0.new(_GogoImport_0, {}, {}, [], "examples/input/Inputs.gogo:30:13", null, false)
+        _gogo_element_1.origins["value"] = "examples/input/Inputs.gogo:30:33"
+        _gogo_element_1.expand([["name", "Bound", "examples/input/Inputs.gogo:30:20"], ["value", _gogo_value_0, "examples/input/Inputs.gogo:30:33"], ["placeholder", "Your name", "examples/input/Inputs.gogo:30:57"], ["submitted", _gogo_value_1, "examples/input/Inputs.gogo:30:81"], ["cancelled", _gogo_value_2, "examples/input/Inputs.gogo:30:108"], [null, _gogo_value_3, "examples/input/Inputs.gogo:30:135"]])
         _gogo_element_1.resolve_bindings()
-        var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "Peer", "value": _gogo_value_4}, {}, [], "examples/input/Inputs.gogo:26:13", null, false)
-        _gogo_element_2.origins["value"] = "examples/input/Inputs.gogo:26:32"
+        var _gogo_element_2 := _GogoElement_0.new(_GogoImport_0, {"name": "Peer", "value": _gogo_value_4}, {}, [], "examples/input/Inputs.gogo:31:13", null, false)
+        _gogo_element_2.origins["value"] = "examples/input/Inputs.gogo:31:32"
         _gogo_element_2.resolve_bindings()
-        var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "Snapshot", "value": _gogo_value_5}, {}, [], "examples/input/Inputs.gogo:27:13", null, false)
+        var _gogo_element_3 := _GogoElement_0.new(_GogoImport_0, {"name": "Snapshot", "value": _gogo_value_5}, {}, [], "examples/input/Inputs.gogo:32:13", null, false)
         _gogo_element_3.resolve_bindings()
-        var _gogo_element_4 := _GogoElement_0.new(_GogoImport_0, {"name": "Computed", "value": _gogo_value_6}, {}, [], "examples/input/Inputs.gogo:28:13", null, false)
+        var _gogo_element_4 := _GogoElement_0.new(_GogoImport_0, {"name": "Computed", "value": _gogo_value_6}, {}, [], "examples/input/Inputs.gogo:33:13", null, false)
         _gogo_element_4.resolve_bindings()
-        var _gogo_element_0 := _GogoElement_0.new(Box, {"name": "Controls", "direction": "column", "gap": "10px"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_value_7], "examples/input/Inputs.gogo:24:10", null, false)
+        var _gogo_element_0 := _GogoElement_0.new(Box, {"name": "Controls", "direction": "column", "gap": "10px"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_3, _gogo_element_4, _gogo_value_7], "examples/input/Inputs.gogo:29:10", null, false)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_3() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "B", "placeholder": "Second"}, {}, [], "examples/input/Inputs.gogo:32:16", "b", true)
+        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "B", "placeholder": "Second"}, {}, [], "examples/input/Inputs.gogo:37:16", "b", true)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_4() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "A", "value": "Retained caret"}, {}, [], "examples/input/Inputs.gogo:32:64", "a", true)
+        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "A", "value": "Retained caret"}, {}, [], "examples/input/Inputs.gogo:37:64", "a", true)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_5() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "A", "value": "Retained caret"}, {}, [], "examples/input/Inputs.gogo:32:137", "a", true)
+        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "A", "value": "Retained caret"}, {}, [], "examples/input/Inputs.gogo:37:137", "a", true)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
 
 
     static func _gogo_build_6() -> _GogoElement_0:
-        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "B", "placeholder": "Second"}, {}, [], "examples/input/Inputs.gogo:32:187", "b", true)
+        var _gogo_element_0 := _GogoElement_0.new(_GogoImport_0, {"name": "B", "placeholder": "Second"}, {}, [], "examples/input/Inputs.gogo:37:187", "b", true)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0
