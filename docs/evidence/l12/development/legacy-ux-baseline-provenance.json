@@ -1,0 +1,11 @@
+{
+  "source": "fd87f7211d9d2f581c27cf4c6984660a4d8cee7f",
+  "all_tracked_addon_files_match_baseline": true,
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "binary": "/evidence/edit01-engines/godot-verified-4.7/Godot_v4.7-stable_linux.x86_64",
+  "commands": [
+    "--headless --path /evidence/l12-legacy-before --script res://tests/ux01/build.gd",
+    "--headless --path /evidence/l12-legacy-before --script res://tests/ux01/syntax.gd"
+  ],
+  "result": "Same interpolation-count failure reproduced before L12/UI-04, not a task regression."
+}

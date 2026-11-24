@@ -1,0 +1,18 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI04_PALETTE constructor getter and cached color neutral: false
+UI04_PALETTE existing square padding/border retained: true
+UI04_PALETTE actual unfocused Input and imported Button pixels match383838: false
+UI04_PALETTE entering tree retains neutral cache: false
+UI04_PALETTE explicit background remains authored: true
+UI04_PALETTE pointer focus preserves shared semantic outline and normal surface: false
+UI04_PALETTE native editing and one change notification unaffected: true
+UI04_PALETTE native caret/selection retained: true
+UI04_PALETTE read-only and disabled native states retained: true
+UI04_PALETTE invalid outline and neutral semantic-state host surfaces retained: false
+UI04_PALETTE independent explicit override updates cached paint: true
+UI04_PALETTE exit/reenter keeps neutral default and one native endpoint: false
+UI04_PALETTE_ASSERTIONS 12 failed=true

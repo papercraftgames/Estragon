@@ -1,0 +1,9 @@
+{
+  "source_sha256": "83f9b96ade7a48d6db109f04c62363f623e962a46d50a68e6803729deff11557",
+  "generated_sha256": "26039250930d3fe2bff1bc26b0efc2f84c17aaa55cb6f9dadfebf9ca07d97e2e",
+  "map_sha256": "5216370efb786f0009ca9f511222b03971b11a25b091a557a4d01eb2b034a28c",
+  "uid_sha256": "6172eb8f07f931ef710f17fdd510d8a1c007a5f1c538eb9f3b1ae7cea4850810",
+  "canonical_uid_source": "examples/core_reactivity/generated/Core.gd.uid",
+  "source_content_matches": true,
+  "generated_hash_matches": true
+}

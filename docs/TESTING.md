@@ -233,3 +233,5 @@ Clean committed source; one immutable development package installed directly wit
 ## L12 / UI-04 combined percentage and neutral Input acceptance
 
 Run the existing Input collector with `--proportions` through documented Yarn/Node/Xvfb/software graphics and exactly official Linux4.0.4/pinned4.7.0, using a new absolute output directory. It adds pure numerical parent-budget/track/Wrap/domain tests, actual native retained-target/transparent/borrowed/scroll/grow/reentrant/idle tests, and the L12 game inside each editor current/main/restart Play. Input50, palette12 and existing compiler/rejection/map/UID/byte-integrity checks stay active. [Contract](PARENT_PERCENTAGES.md); no external GogoDemo, extra engines or routine-CI expansion.
+
+[L12/UI-04 exact commands, qualified results and retained failures](evidence/L12_PARENT_PERCENTAGES.md). `tools/check-ux01.ts --scroll-only` selects native clipping/scroll/nested/inherited regressions without changing its default full suite.

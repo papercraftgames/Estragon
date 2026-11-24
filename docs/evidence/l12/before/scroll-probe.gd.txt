@@ -1,0 +1,19 @@
+extends SceneTree
+const Entry=preload("res://addons/estragon/runtime/node/estragon_2d.gd")
+const Grid=preload("res://addons/estragon/runtime/node/grid.gd")
+const Box=preload("res://addons/estragon/runtime/node/box.gd")
+func _initialize(): run.call_deferred()
+func frames():
+ for i in range(8): await process_frame
+func run():
+ for rows in [null,["auto","1fr"]]:
+  var e=Entry.new();e.width=300;e.height=200
+  var grid=Grid.new();grid.width=300;grid.height=200;grid.rows=rows
+  var header=Box.new();header.height=30;grid.add_child(header)
+  var body=Box.new();body.direction="column";body.vertical_scroll=true
+  var fixed=Box.new();fixed.height=300;body.add_child(fixed)
+  var extra=Box.new();extra.grow=1;body.add_child(extra)
+  grid.add_child(body);e.add_child(grid);root.add_child(e);await frames()
+  print("L12_SCROLL_PROBE rows=",rows," rows_actual=",grid.layout.model.policy_result.rows," viewport=",body.layout_size," range=",body.scroll_range," grow=",extra.layout_size)
+  e.free();await frames()
+ quit()

@@ -1,0 +1,301 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI03_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:30:24: Authored bind:* syntax was removed; use value={direct.observable.path}
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/input/editor.gd:66)
+         [5] settle (res://tests/layouts/editor.gd:31)
+         [6] wait (res://tests/layouts/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/input/editor.gd:66)
+       [1] settle (res://tests/layouts/editor.gd:31)
+       [2] wait (res://tests/layouts/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:30:24: Authored bind:* syntax was removed; use value={direct.observable.path}
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+EL02_EDITOR_CHECK current invalid unsaved source blocks stale game: true
+EL02_EDITOR_CHECK current rollback retains code/maps/UID/timestamp/cache: true
+UI03_EXPECTED_PLAY_REJECTION_END
+UI03_EXPECTED_PLAY_REJECTION_BEGIN
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "bool" as "String".
+          at: GDScript::reload (res://app/generated/Inputs.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+              [7] run (res://tests/input/editor.gd:65)
+              [8] wait (res://tests/layouts/editor.gd:14)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_2()" function: argument 2 should be "String" but is "bool".
+          at: GDScript::reload (res://app/generated/Inputs.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+              [7] run (res://tests/input/editor.gd:65)
+              [8] wait (res://tests/layouts/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:30:60: Parse Error: Cannot pass a value of type "bool" as "String".
+
+app/Inputs.gogo:30:60: Parse Error: Invalid argument for "_gogo_build_2()" function: argument 2 should be "String" but is "bool".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/input/editor.gd:65)
+         [5] wait (res://tests/layouts/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/input/editor.gd:65)
+       [1] wait (res://tests/layouts/editor.gd:14)
+SCRIPT ERROR: Parse Error: Cannot pass a value of type "bool" as "String".
+          at: GDScript::reload (res://app/generated/Inputs.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+SCRIPT ERROR: Parse Error: Invalid argument for "_gogo_build_2()" function: argument 2 should be "String" but is "bool".
+          at: GDScript::reload (res://app/generated/Inputs.gd:78)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://node_modules/@papercraftgames/estragon/addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+app/Inputs.gogo:30:60: Parse Error: Cannot pass a value of type "bool" as "String".
+
+app/Inputs.gogo:30:60: Parse Error: Invalid argument for "_gogo_build_2()" function: argument 2 should be "String" but is "bool".
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+EL02_EDITOR_CHECK main invalid unsaved source blocks stale game: true
+EL02_EDITOR_CHECK main rollback retains code/maps/UID/timestamp/cache: true
+UI03_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK explicit GGX Input background updates getter/cache: true
+UI03_GAME_CHECK unchanged GGX preserves an independent Input background override: true
+UI03_GAME_CHECK owned background removal restores neutral class default: true
+UI03_GAME_CHECK unstyled GGX Input and explicitly imported Button share neutral defaults: true
+UI03_GAME_CHECK rendered unfocused GGX Input/Button surfaces match383838: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":52,"ok":true,"submits":1}
+L12_NATIVE real row 70/210 at0/90: true
+L12_NATIVE geometry never rewrites percentage targets: true
+L12_NATIVE later participating sibling changes earlier budget: true
+L12_NATIVE hidden child removes its gap from stack budget: true
+L12_NATIVE native reorder updates slots, retains Node: true
+L12_NATIVE runtime px setter applies latest retained target: true
+L12_NATIVE runtime numeric target retains type: true
+L12_NATIVE px numeric percent parse once each: true
+L12_NATIVE auto restores natural target: true
+L12_NATIVE same target and settled idle do no work: true
+L12_NATIVE layout_applied remains arrangement completion, not size-changed: true
+L12_NATIVE reentrant target change gets exactly one genuine follow-up flush: true
+L12_NATIVE native Control floor does not rebase ratio into leftover space: true
+L12_NATIVE hidden native Control is nonparticipating: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row false: true
+L12_NATIVE overflow has no positive growth remainder false: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row true: true
+L12_NATIVE overflow has no positive growth remainder true: true
+L12_NATIVE bounded viewport native bar/clip geometry: true
+L12_NATIVE bounded native scroll translation: true
+L12_NATIVE empty grow consumes actual viewport remainder once: true
+L12_NATIVE grow actual size is its own descendant reference inside scroll: true
+L12_NATIVE borrowed native Control keeps actual parent/owner with logical flow: true
+L12_NATIVE layout const Grid + transparent Body210 -> nested160: true
+L12_NATIVE nested Wrap uses immediate actual content: true
+L12_NATIVE visible transparent participant contributes one stack gap: true
+L12_NATIVE hidden managed root removes transparent participant gap: true
+L12_NATIVE restored managed root reattaches transparent participant: true
+L12_NATIVE unchanged GGX target preserves intervening imperative width during rerender: true
+L12_NATIVE genuinely changed GGX target60% applies once: true
+L12_NATIVE viewport invalidates contexts without GGX rerender or target writeback: true
+L12_NATIVE native identities retained across target and viewport updates: true
+L12_NATIVE settled native layout/composition/cache idle is quiet: true
+L12_NATIVE teardown releases composition and borrowed/native adapters: true
+L12_NATIVE_ASSERTIONS 34 failed=false
+L12_NATIVE_OK
+EL02_EDITOR_CHECK current real native Input/implicit String/keyboard Play: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK explicit GGX Input background updates getter/cache: true
+UI03_GAME_CHECK unchanged GGX preserves an independent Input background override: true
+UI03_GAME_CHECK owned background removal restores neutral class default: true
+UI03_GAME_CHECK unstyled GGX Input and explicitly imported Button share neutral defaults: true
+UI03_GAME_CHECK rendered unfocused GGX Input/Button surfaces match383838: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":52,"ok":true,"submits":1}
+L12_NATIVE real row 70/210 at0/90: true
+L12_NATIVE geometry never rewrites percentage targets: true
+L12_NATIVE later participating sibling changes earlier budget: true
+L12_NATIVE hidden child removes its gap from stack budget: true
+L12_NATIVE native reorder updates slots, retains Node: true
+L12_NATIVE runtime px setter applies latest retained target: true
+L12_NATIVE runtime numeric target retains type: true
+L12_NATIVE px numeric percent parse once each: true
+L12_NATIVE auto restores natural target: true
+L12_NATIVE same target and settled idle do no work: true
+L12_NATIVE layout_applied remains arrangement completion, not size-changed: true
+L12_NATIVE reentrant target change gets exactly one genuine follow-up flush: true
+L12_NATIVE native Control floor does not rebase ratio into leftover space: true
+L12_NATIVE hidden native Control is nonparticipating: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row false: true
+L12_NATIVE overflow has no positive growth remainder false: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row true: true
+L12_NATIVE overflow has no positive growth remainder true: true
+L12_NATIVE bounded viewport native bar/clip geometry: true
+L12_NATIVE bounded native scroll translation: true
+L12_NATIVE empty grow consumes actual viewport remainder once: true
+L12_NATIVE grow actual size is its own descendant reference inside scroll: true
+L12_NATIVE borrowed native Control keeps actual parent/owner with logical flow: true
+L12_NATIVE layout const Grid + transparent Body210 -> nested160: true
+L12_NATIVE nested Wrap uses immediate actual content: true
+L12_NATIVE visible transparent participant contributes one stack gap: true
+L12_NATIVE hidden managed root removes transparent participant gap: true
+L12_NATIVE restored managed root reattaches transparent participant: true
+L12_NATIVE unchanged GGX target preserves intervening imperative width during rerender: true
+L12_NATIVE genuinely changed GGX target60% applies once: true
+L12_NATIVE viewport invalidates contexts without GGX rerender or target writeback: true
+L12_NATIVE native identities retained across target and viewport updates: true
+L12_NATIVE settled native layout/composition/cache idle is quiet: true
+L12_NATIVE teardown releases composition and borrowed/native adapters: true
+L12_NATIVE_ASSERTIONS 34 failed=false
+L12_NATIVE_OK
+EL02_EDITOR_CHECK main real native Input/implicit String/keyboard Play: true
+EL02_EDITOR_CHECK native Play saved latest repaired authored buffer: true
+EL02_EDITOR_CHECK editor host persists no runtime focus/edit delegates: true
+UI03_EDITOR_ASSERTIONS 8 failed=false
+UI03_EDITOR_OK

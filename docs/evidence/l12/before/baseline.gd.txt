@@ -1,0 +1,25 @@
+extends SceneTree
+const C=preload("res://addons/estragon/runtime/node/internal/layout_core.gd")
+const L=preload("res://addons/estragon/runtime/node/internal/length.gd")
+func model(specs,axis=0):
+ var c=C.new()
+ c.set_lengths(specs,0,0,1,axis)
+ c.configure(Vector3(-1,-1,-1),0,false,axis)
+ return c
+func _initialize():
+ for axis in [0,1]:
+  var name="width" if axis==0 else "height"
+  var p=model({"width":L.parse(300,"extent"),"height":L.parse(300,"extent"),"column_gap":L.parse(20,"edge"),"row_gap":L.parse(20,"edge")},axis)
+  var a=model({name:L.parse("25%","extent")})
+  var b=model({name:L.parse("75%","extent")})
+  p.set_children([a,b]);p.prepare(Vector3(300,300,0),Vector2(640,700));p.arrange(p.measure())
+  print("L12_BEFORE stack axis=",axis," first=",a.size," second=",b.size," origin=",b.offset)
+ var grid=model({"width":L.parse(300,"extent"),"height":L.parse(100,"extent"),"column_gap":L.parse(20,"edge")})
+ grid.set_strategy("grid","start",{"columns":2});grid.set_policy(["stretch","stretch","start"])
+ var a=model({"width":L.parse("25%","extent")});var b=model({"width":L.parse("75%","extent")})
+ grid.set_children([a,b]);grid.prepare(Vector3(300,100,0),Vector2(640,700));grid.arrange(grid.measure())
+ print("L12_BEFORE grid first=",a.size," second=",b.size," tracks=",grid.policy_result.columns)
+ var v=model({"width":L.parse(100,"extent"),"row_gap":L.parse(20,"edge")},1)
+ var x=model({"height":L.parse(10,"extent")});var y=model({"height":L.parse(10,"extent")})
+ v.set_children([x,y]);v.prepare(Vector3(100,100,0),Vector2(640,700));v.arrange(v.measure());print("L12_BEFORE row_gap natural=",v.size," second=",y.offset)
+ quit()
