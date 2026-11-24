@@ -73,6 +73,7 @@ for(const selection of options.engines){
   await run('frontend',[...args,'--headless','--script','res://tests/input/frontend.gd'],'UI03_FRONTEND_OK');
   await run('build',[...args,'--headless','--script','res://tests/input/build.gd'],'UI03_BUILD_OK');
   await run('scene',[...args,...graphics,'--script','res://tests/input/scene.gd'],'UI03_SCENE_OK');
+  await run('palette',[...args,...graphics,'--script','res://tests/input/palette.gd'],'UI04_PALETTE_OK');
   await run('rejections',[...args,'--headless','--script','res://tests/input/rejections.gd'],'UI03_REJECTION_OK');
   results.import=await indexProject(box,box.project,path.join(out,'import.log'),['--audio-driver','Dummy']);
   writeJSON(path.join(out,'results.json'),results);

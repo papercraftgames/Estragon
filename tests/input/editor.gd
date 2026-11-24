@@ -27,7 +27,7 @@ func play(mode: String) -> void:
 	else: interface.play_current_scene()
 	if await wait_game():
 		var result = JSON.parse_string(FileAccess.get_file_as_string(file))
-		check(result.ok and result.checks==47 and result.submits==1 and result.cancels==1,mode+" real native Input/implicit String/keyboard Play")
+		check(result.ok and result.checks==50 and result.submits==1 and result.cancels==1,mode+" real native Input/implicit String/keyboard Play")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
 func run() -> void:

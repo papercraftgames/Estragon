@@ -53,6 +53,16 @@ func run(host: Node):
 	check(editor is LineEdit and editor.owner==null and bound.get_child_count()==0 and bound.get_child_count(true)==1,"one private native LineEdit, not an authored wrapper or layout child")
 	check(editor.position==Vector2.ZERO and editor.size==bound.layout_size,"native editing hit/focus rect exactly occupies the arranged border-box")
 	check(host.submits.is_empty() and host.cancels==0 and editor.text=="Hello","initial projection and named handlers do not execute during render")
+	host.props={"background_color":Color("#714626")}
+	await frames(tree)
+	check(bound.background_color==Color("#714626") and bound._visual_style.colors.background_color==Color("#714626"),"explicit GGX Input background updates getter/cache")
+	bound.background_color=Color("#254628")
+	host.revision+=1
+	await frames(tree)
+	check(bound.background_color==Color("#254628") and bound._visual_style.colors.background_color==Color("#254628"),"unchanged GGX preserves an independent Input background override")
+	host.props={}
+	await frames(tree)
+	check(bound.background_color==Color("#383838") and bound._visual_style.colors.background_color==Color("#383838"),"owned background removal restores neutral class default")
 	var changes: Array = []
 	var writes: Array = []
 	bound.value_changed.connect(func(a,b): changes.append([a,b]))
