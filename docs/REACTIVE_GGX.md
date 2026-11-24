@@ -1,5 +1,7 @@
 # Reactive GGX — current single composition engine
 
+> CORE-02 #200 adds optional deep observable collections, typed Gogo hydration and generated data serialization. See [the scoped contract](TYPED_DATA.md); its live PR determines merge status. Existing raw Array/Dictionary observation rules remain unchanged.
+
 > **CORE-01 source contract:** [Render-call caching](CORE01_REACTIVITY.md) implements the ADR-0031 function slice in this change; the live #195 PR controls merge status. Implicit two-way controls and CORE-02 typed collections remain future work.
 
 F04 [#98](https://github.com/resistdesign/Estragon/issues/98) replaces the T09-B static self-path compiler and target-owned binder Nodes after F01–F03 established dynamic getter observation and retained reconciliation. [Cutover inventory and parity](F04_CUTOVER.md). Old T09-B execution outcomes remain historical facts in #86/PR #87 and Git history, not a second supported runtime.

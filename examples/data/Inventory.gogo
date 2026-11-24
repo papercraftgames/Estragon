@@ -1,0 +1,6 @@
+@bindable
+extends RefCounted
+const Item = preload("Item.gd")
+var title: String = "Inventory"
+var items: ArrayCollection[Item] = []
+var selected: Item

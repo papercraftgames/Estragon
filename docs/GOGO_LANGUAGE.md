@@ -205,3 +205,7 @@ rebinding composes prior bases without mutating them. See [the complete grammar,
 lexical/export rules, defaults and native lowering](LAYOUT_DECLARATIONS.md).
 
 UI-03 extends the same implicit value path contract to the typed String [Input](INPUT.md): `value={self.model.text}` is two-way only for matching writable/observable String endpoints. String locals and computed values remain one-way. Bool and String do not cross-convert; source metadata, typed writers and the current mounted projection guard apply. [Binding contract](TWO_WAY_BINDINGS.md).
+
+## Typed data and observable collections (CORE-02)
+
+Class-level `@bindable` plain-data models support typed Dictionary hydration and generated recursive `to_data()`. Optional `ArrayCollection[Item]` fields hydrate plain Arrays, observe typed items/deep children, and expose ordered mutation/traversal. Ordinary Arrays/Dictionaries keep native in-place semantics. See [the complete typed-data contract](TYPED_DATA.md) and `examples/data`; the live #200 PR determines merge status.

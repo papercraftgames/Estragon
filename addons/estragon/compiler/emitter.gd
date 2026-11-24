@@ -5,6 +5,8 @@ const Preset = preload("../runtime/composition/preset.gd")
 const Element = preload("../runtime/composition/element.gd")
 const State = preload("../runtime/composition/state.tres")
 const Binding = preload("../runtime/composition/binding.gd")
+const Data = preload("../runtime/data/state.tres")
+const Collection = preload("../runtime/data/array_collection.gd")
 const Model = preload("model.gd")
 const Source = preload("source.gd")
 const MappedWriter = preload("source_map.gd")
@@ -57,6 +59,15 @@ func _resource(resource: Resource) -> String:
 
 func emit() -> MappedWriter:
 	_parts(_module.parts)
+	if _module.data_type_edits.any(func(edit): return edit.value=="_GogoArrayCollection"): _writer.append("const _GogoArrayCollection = preload("+_resource(Collection)+")\n")
+	if _module.data_shape and not _module.data_inherited: _writer.append("signal _gogo_data_changed\n")
+	if _module.data_shape:
+		_writer.append("\nconst _GOGO_DATA_SHAPE_"+_file.name.sha256_text().substr(0,16)+" = true\n")
+		_writer.append("\nfunc to_data():\n"+_module.indentation+"return preload("+_resource(Data)+").to_data(self)\n")
+	if not _module.data_types.is_empty():
+		_writer.append("\nconst _GOGO_DATA_TYPES_"+_file.name.sha256_text().substr(0,16)+" = {")
+		for name in _module.data_types: _writer.append(_string(name)+": "+_module.data_types[name]+",")
+		_writer.append("}\n")
 	var metadata := "_GOGO_RENDER_FUNCTIONS_"+_file.name.sha256_text().substr(0,16)
 	while _module.identifiers.has(metadata): metadata += "_"
 	_writer.append("\nconst "+metadata+" = "+var_to_str({"reactive":_module.render_functions,"ordinary":_module.ordinary_functions}))
@@ -82,8 +93,10 @@ func emit() -> MappedWriter:
 		_writer.append("\nfunc "+method.name+"(): return ",method.binding.span)
 		_default_groups(method.binding)
 		_writer.append("\n",method.binding.span)
-	if _module.composition:
-		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n"+_module.indentation+"preload("+_resource(State)+").lifecycle(self, _gogo_what)\n")
+	if _module.composition or _module.data_shape and not _module.data_notification:
+		_writer.append("\nfunc _notification(_gogo_what: int) -> void:\n")
+		if _module.composition: _writer.append(_module.indentation+"preload("+_resource(State)+").lifecycle(self, _gogo_what)\n")
+		if _module.data_shape: _writer.append(_module.indentation+"if _gogo_what==NOTIFICATION_PREDELETE: preload("+_resource(Data)+").prune()\n")
 	if not _factories.is_empty():
 		_writer.append("\n\nclass " + _factory_class + ":", _factories[0].root.span)
 		_writer.append("\n"+_module.indentation+"const "+_element_class+" = preload("+_resource(Element)+")\n")
@@ -151,12 +164,14 @@ func _parts(parts: Array[Model.SyntaxNode]) -> void:
 		elif part is Model.Bindable: _bindable(part)
 		elif part is Model.Layout: _layout(part)
 		elif part is Model.RenderCall: _render_call(part)
+		elif part is Model.DataWrite: _data_write(part)
 		elif part is Model.Literal and part.kind=="preset-reference": _writer.append(str(part.value),part.span)
 		else: _call(part)
 
 func _code(span: Model.Span) -> void:
 	var cursor: int = span.start.index
 	var edits: Array = []
+	edits.append_array(_module.data_type_edits)
 	for imported in _module.resource_imports:
 		edits.append({"span":imported.span,"value":_string(Source.relative_path(_output_directory,imported.path))})
 	for imported in _module.identifier_imports: edits.append({"span":imported.span,"value":imported.alias})
@@ -170,6 +185,20 @@ func _code(span: Model.Span) -> void:
 		cursor = literal_span.end.index
 	var rest := _file.span(cursor,span.end.index)
 	_writer.append(_file.slice(rest),rest,true)
+
+func _data_write(write: Model.DataWrite) -> void:
+	var location := _string("%s:%d:%d"%[_file.name,write.span.start.line,write.span.start.column])
+	if not write.field.is_empty():
+		_writer.append("preload("+_resource(Data)+").assign(",write.span)
+		_parts(write.owner)
+		_writer.append(", "+_string(write.field)+", ",write.span)
+		_parts(write.expression)
+		_writer.append(", "+location+")",write.span)
+	else:
+		_parts(write.prefix)
+		_writer.append("preload("+_resource(Data)+").value(",write.span)
+		_parts(write.expression)
+		_writer.append(", "+write.descriptor+", "+write.previous+", "+location+")",write.span)
 
 func _call(node: Model.Component) -> void:
 	var factory := Factory.new()
@@ -319,6 +348,10 @@ func _bindable(property: Model.Bindable) -> void:
 	if property.annotations_span != null:
 		_writer.append(_file.slice(property.annotations_span),property.annotations_span,true)
 	_code(property.declaration_span)
+	if property.initializer!=null:
+		_writer.append("preload("+_resource(Data)+").value(",property.initializer.span)
+		_parts(property.initializer.parts)
+		_writer.append(", "+property.data_type+", null, "+_string("%s:%d:%d"%[_file.name,property.name_span.start.line,property.name_span.start.column])+")",property.initializer.span)
 	_writer.append(":",property.name_span)
 	if property.comment_span != null:
 		_writer.append(" ")
@@ -327,11 +360,19 @@ func _bindable(property: Model.Bindable) -> void:
 	# Use the native property backing slot: accesses inside its own setter are
 	# direct, and declaration initialization does not call the setter.
 	_writer.append(indent.repeat(2)+"if is_same("+property.name+", "+incoming+"): return\n",property.name_span)
+	if _module.data_shape:
+		_writer.append(indent.repeat(2)+"if not preload("+_resource(Data)+").can_attach(self, "+incoming+"): push_error(\"Cyclic Gogo data assignment\"); return\n",property.name_span)
 	_writer.append(indent.repeat(2)+"var "+previous+": ",property.name_span)
 	_code(property.type_span)
 	_writer.append(" = "+property.name+"\n",property.name_span)
 	_writer.append(indent.repeat(2)+property.name+" = "+incoming+"\n",property.name_span)
-	_writer.append(indent.repeat(2)+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
+	var emission_indent := indent.repeat(2)
+	if _module.data_shape:
+		_writer.append(emission_indent+"if not preload("+_resource(Data)+").initializing(self):\n",property.name_span)
+		emission_indent += indent
+		_writer.append(emission_indent+"preload("+_resource(Data)+").refresh(self)\n",property.name_span)
+	_writer.append(emission_indent+property.signal_name+".emit("+previous+", "+incoming+")\n",property.name_span)
+	if _module.data_shape: _writer.append(emission_indent+"preload("+_resource(Data)+").notify(self)\n",property.name_span)
 	_writer.append(indent+"get:\n"+indent.repeat(2)+"preload("+_resource(State)+").observe(self, &"+_string(property.signal_name)+")\n"+indent.repeat(2)+"return "+property.name+"\n",property.name_span)
 
 func _binding_argument(argument: Argument) -> void:

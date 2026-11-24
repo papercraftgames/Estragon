@@ -1,0 +1,33 @@
+extends Node2D
+const Inventory = preload("Inventory.gd")
+const Item = preload("Item.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+var inventory: Inventory = {"items":[{"id":1,"name":"Rope","details":{"note":"Coiled"}},{"id":2,"name":"Lantern","quantity":2}]}
+var row_calls: Dictionary = {}
+var summary_calls: int = 0
+var summarize: Callable = summary.bind()
+var root_calls: int = 0
+@bindable var show_rows: bool = true
+@bindable var pulse: int = 0
+@bindable var raw: Array = []
+@bindable var raw_data: Dictionary = {"value":0}
+func summary(value: Inventory) -> String:
+    summary_calls += 1
+    return value.title + ": " + str(value.items.size()) + " items; " + (value.items.at(0).details.note if not value.items.is_empty() else "empty")
+func row(item: Item) -> Element:
+    row_calls[item.id] = row_calls.get(item.id,0)+1
+    return <HBox key={item.id} name={"Row"+str(item.id)} width="100%" height="48px"><Text text={item.name+" × "+str(item.quantity)+" — "+item.details.note} /><Button name="Action" text="Use" pressed={self.use_item.bind(item)} /></HBox>
+func use_item(item: Item) -> void:
+    item.quantity = item.quantity+1
+func build_view() -> Element:
+    root_calls += 1
+    return <Entry name="DataUI" width="640px" height="360px"><VBox name="List" width="100%" height="100%" gap="8px" padding="16px"><Text name="Title" text={summarize.call(inventory)} />{inventory.items.map(row) if self.show_rows else []}<Text name="Pulse" text={str(self.pulse)+" / raw "+str(self.raw.size())+":"+str(self.raw_data.value)} /></VBox></Entry>
+func replace_inventory() -> void:
+    inventory = {"title":"Refilled","items":[{"id":2,"name":"Lantern","quantity":3},{"id":1,"name":"Rope"}]}
+func replace_items() -> void:
+    inventory.items = [{"id":1,"name":"Cable"}]

@@ -22,6 +22,7 @@
     "examples/checkbox",
     "examples/input",
     "examples/proportions",
-    "examples/scrollbars"
+    "examples/scrollbars",
+    "examples/data"
   ]
 }

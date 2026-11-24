@@ -126,9 +126,15 @@ func call_at(site: String, callable: Callable, arguments: Array, _native_proof: 
 	# boundary. CORE02 can supply real upward change signals without revisions.
 	for value in arguments:
 		if typeof(value)!=TYPE_OBJECT or not is_instance_valid(value): continue
+		var data = preload("../data/state.tres")
+		var data_event: StringName = data.event(value)
+		if data_event!=&"":
+			opaque += 1
+			data.refresh(value)
+			opaque -= 1
 		for signal_info in value.get_signal_list():
 			var event: StringName = signal_info.name
-			if event in [&"changed",&"tree_exiting"] or str(event).ends_with("_changed"):
+			if event==data_event or data_event==&"" and (event in [&"changed",&"tree_exiting"] or str(event).ends_with("_changed")):
 				argument_reads[str(value.get_instance_id())+":"+str(event)] = [weakref(value),event]
 				owner.watch(value,event,entry)
 	var frame := {"entry":entry,"ordinals":{},"used":{}}
@@ -195,6 +201,7 @@ func in_slot(site: String, key, body: Callable):
 	return result
 
 func method_at(site: String, receiver, method: StringName, arguments: Array, native_call: Callable, _native_proof: Callable = Callable(), reactive_lambda: bool = false):
+	if preload("../data/state.tres").is_collection(receiver): return receiver.callv(method,arguments)
 	if receiver is Callable and method in [&"call",&"callv"]:
 		return call_at(site,receiver,arguments[0] if method==&"callv" else arguments,Callable(),reactive_lambda)
 	if typeof(receiver)==TYPE_OBJECT:

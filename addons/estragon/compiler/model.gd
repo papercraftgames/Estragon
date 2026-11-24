@@ -42,6 +42,8 @@ class Bindable extends SyntaxNode:
 	var annotations_span: Span # Native property annotations, never attached to generated signal.
 	var declaration_span: Span
 	var comment_span: Span
+	var data_type: String = ""
+	var initializer: GdExpression
 	func _init() -> void:
 		kind = "bindable-property"
 
@@ -49,6 +51,15 @@ class GdExpression extends SyntaxNode:
 	var parts: Array[SyntaxNode] = []
 	func _init() -> void:
 		kind = "gdscript-expression"
+
+class DataWrite extends SyntaxNode:
+	var prefix: Array[SyntaxNode] = []
+	var expression: Array[SyntaxNode] = []
+	var owner: Array[SyntaxNode] = []
+	var field: String = ""
+	var descriptor: String = ""
+	var previous: String = "null"
+	func _init() -> void: kind = "data-write"
 
 class Literal extends SyntaxNode:
 	var value: Variant
@@ -111,6 +122,11 @@ class RenderCall extends SyntaxNode:
 	func _init() -> void: kind = "render-call"
 
 class Module extends RefCounted:
+	var data_shape := false
+	var data_inherited := false
+	var data_notification := false
+	var data_types: Dictionary = {}
+	var data_type_edits: Array = []
 	var render_functions: Array = []
 	var ordinary_functions: Array = []
 	var presets: Array = []

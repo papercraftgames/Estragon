@@ -1,0 +1,4 @@
+@bindable
+extends RefCounted
+var note: String = "Ready"
+var tags: ArrayCollection[String] = []

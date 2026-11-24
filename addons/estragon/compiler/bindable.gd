@@ -16,6 +16,12 @@ func apply(value: Model.Module) -> void:
 	_class_scope(module.parts)
 	if not file.diagnostics.is_empty(): return
 	_collect(module.parts)
+	module.data_shape = class_marker!=null
+	if module.data_shape:
+		for name in ["to_data","_gogo_data_changed"]:
+			if members.has(name):
+				file.fail("Gogo data shape reserves "+name,members[name].start.index)
+				return
 	module.parts.assign(_parts(module.parts))
 # A class marker is unambiguous only in the script preamble, directly
 # before extends/class_name. Existing preceding-line property markers stay so.
