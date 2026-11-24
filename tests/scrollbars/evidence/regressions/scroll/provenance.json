@@ -1,0 +1,15 @@
+{
+  "sourceHead": "d5a8b9a7bf8db6a8d825f7d8e0900c9d8fba5281",
+  "sourceDirty": false,
+  "version": "4.7.stable.official.5b4e0cb0f",
+  "original_binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-ux01.ts",
+    "--scroll-only",
+    "--engine",
+    "4.7=/evidence/engine47/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/evidence/u03-scroll-final"
+  ]
+}
