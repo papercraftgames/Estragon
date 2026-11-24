@@ -1,0 +1,32 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+U04_MATH A independent border-inner B and pre-gutter P: true
+U04_MATH A track383..395, viewport25..363 unchanged: true
+U04_MATH A inside right padding gap and unchanged child/owner width: true
+U04_MATH B exact child clip V: true
+U04_MATH B exact tracks and corner at border edge: true
+U04_MATH B all physical regions disjoint: true
+U04_MATH horizontal only spans all B width: true
+U04_MATH disabled axes consume no gutters: true
+U04_MATH asymmetric B/P: true
+U04_MATH asymmetric fractional percent geometry: true
+U04_MATH right/bottom padding remains between content and track: true
+U04_MATH 5% still uses P350, never chrome B390: true
+U04_MATH zero/oversized cap still uses P 0: true
+U04_MATH capped tracks stay inside border 0: true
+U04_MATH zero/oversized cap still uses P 150%: true
+U04_MATH capped tracks stay inside border 150%: true
+U04_MATH tiny/zero border box, no physical strip (0.0, 0.0)(8.0, 7.0): true
+U04_MATH tiny/zero border box, no physical strip (0.0, 0.0)(0.0, 0.0): true
+U04_MATH tiny/zero border box, no physical strip (0.0, 0.0)(40.0, 35.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 0.0)(8.0, 7.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 0.0)(0.0, 0.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 0.0)(40.0, 35.0): true
+U04_MATH tiny/zero border box, no physical strip (0.0, 1.0)(8.0, 7.0): true
+U04_MATH tiny/zero border box, no physical strip (0.0, 1.0)(0.0, 0.0): true
+U04_MATH tiny/zero border box, no physical strip (0.0, 1.0)(40.0, 35.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 1.0)(8.0, 7.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 1.0)(0.0, 0.0): true
+U04_MATH tiny/zero border box, no physical strip (1.0, 1.0)(40.0, 35.0): true
+U04_MATH_ASSERTIONS 28 failed=false
+U04_MATH_OK

@@ -142,7 +142,8 @@ L12 clarifies [definite fraction viewports versus intrinsic auto rows](PARENT_PE
 ## U03 — stable inside gutters and native skins
 
 [#222](https://github.com/papercraftgames/Estragon/issues/222) reserves scroll chrome
-inside the allocated border-box, after border and padding. A vertical flag always
+inside the allocated border-box. U04 now positions the tracks after border and
+before padding; P-based gutter sizing remains unchanged. A vertical flag always
 reserves a right gutter; a horizontal flag always reserves a bottom gutter, even
 when content fits and the native bar is hidden. `clip_content` alone reserves none.
 A zero thickness hides the native visual/hit track while wheel/programmatic
@@ -216,3 +217,71 @@ bounded full-width/Wrap/Input/nested-scroll example. Run `tools/check-input.ts
 Inspector/current/main Play rollback/repair/restart proof. Add `--proportions` for
 the affected L12 regression. [Source-qualified evidence](evidence/U03_SCROLLBARS.md)
 records actual engines, captures, commands and limitations.
+
+## U04 — tracks inside border, outside padding
+
+[Issue #224](https://github.com/papercraftgames/Estragon/issues/224) changes only
+chrome coordinates. From outside inward: **outer boundary → inside border →
+scrollbar track → padding → child content**. There is one default placement,
+with no overlay/placement option or author-side padding calculation.
+
+The same geometry snapshot now distinguishes **B**, the border-inner rectangle
+before padding, from **P**, B inset by padding. U03 thickness targets still resolve
+and cap against P: vertical `%` uses P.width and horizontal `%` uses P.height.
+**V** keeps P's origin and subtracts the enabled gutter sizes from P's dimensions.
+Child percentages, Wrap, alignment, clipping and range continue to use that same V;
+neither the owner's actual allocation nor any authored target is enlarged.
+
+Tracks instead use B. Vertical is `(B.right−Tv, B.top, Tv, B.height−Th)`;
+horizontal is `(B.left, B.bottom−Th, B.width−Tv, Th)`; the corner is their
+intersection. Disabled axes contribute zero thickness. A single-axis track spans
+B's full perpendicular axis, including the top/bottom or left/right padding bands.
+All extents clamp nonnegative; zero/hidden bars have no physical hit surface.
+The right/bottom padding remains a background-colored separation between V and
+chrome. Native minimum-size fitting and explicit StyleBox expansion stay clipped
+to the physical track, including inside the owner's border.
+
+For outer400×300, border5 and padding20 on all sides:
+
+| Region | Vertical12 only | Vertical12 + horizontal16 |
+| --- | --- | --- |
+| B | `(5,5,390,290)` | `(5,5,390,290)` |
+| P | `(25,25,350,250)` | `(25,25,350,250)` |
+| V | `(25,25,338,250)` | `(25,25,338,234)` |
+| Vertical track | `(383,5,12,290)` | `(383,5,12,274)` |
+| Horizontal track | none | `(5,279,378,16)` |
+| Corner | none | `(383,279,12,16)` |
+
+The vertical content edge stays363, with20px padding before the new383px track.
+With vertical5%, P350 still yields17.5px, positioned at377.5 beside B.right395;
+it does not become5% of B390. Asymmetric borders/padding and fractional targets
+follow the same calculation. The service consumes this snapshot directly; it adds
+no separate offset or second sizing rule.
+
+### Observed padding and scroll offsets
+
+U04 deliberately preserves the existing clip-to-padding/content-extent model.
+Padding bands remain outside the fixed V at **all** offsets, including along the
+scroll axis. Content translates within V; tracks and corner remain fixed. In the
+repository fixture, content height720 and V.height250 produce range470. Coordinates
+relative to the owner are:
+
+| Vertical offset | First content top | Last content bottom | Fixed clip / vertical track |
+| --- | --- | --- | --- |
+| 0 | 25 | 745 | `(25,25,338,250)` / `(383,5,12,290)` |
+| 235 | −210 | 510 | same |
+| 470 | −445 | 275 | same |
+
+At the beginning/end the corresponding content edge aligns with V, while the
+physical top/bottom padding bands persist. Horizontal scrolling transposes the
+same existing translation contract. This does **not** implement the alternative
+conventional model where leading/trailing scroll-axis insets travel with content
+and appear only near the beginning/end. Selecting that model would be a separate
+owner-reviewed content-inset design decision, not an incidental U04 fix.
+
+The padded teal `InsetBody` in [Scrollbars.gogo](../examples/scrollbars/Scrollbars.gogo)
+shows the new default. `tools/check-input.ts --border-scrollbars --proportions`
+extends the same immutable direct-Yarn U03/Input/L12 consumer with U04 geometry,
+new-coordinate native input, padding observations, GGX/focus/reload and both editor
+Play paths. [U04 evidence](evidence/U04_SCROLLBAR_PLACEMENT.md) records exact source,
+engines, numerical before/after and rendered captures, including manual limits.

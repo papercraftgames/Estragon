@@ -1,0 +1,9 @@
+{
+  "base": "fc8931eb79dd769043a8129121ef183fb4edcea3",
+  "unchanged_addon_files": 178,
+  "fixture": "tests/scrollbars/placement_baseline.gd",
+  "fixture_sha256": "815fbcd915a7a42bed9d04e896e89806ac246226ccdc59c4494783d62ff080c1",
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "after_note": "Focused dirty development capture; final paired proof is separate."
+}

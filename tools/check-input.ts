@@ -4,9 +4,10 @@ import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject,ERROR} from './compat-kit.ts';
 import {buttonImportsPackage} from './button-imports-package.ts';
 const editorOnly=process.argv.includes('--editor-only');
-const scrollbars=process.argv.includes('--scrollbars');
+const borderScrollbars=process.argv.includes('--border-scrollbars');
+const scrollbars=borderScrollbars||process.argv.includes('--scrollbars');
 const proportions=process.argv.includes('--proportions');
-const options=parseCLI(process.argv.slice(2).filter(a=>!['--proportions','--scrollbars','--editor-only'].includes(a)));
+const options=parseCLI(process.argv.slice(2).filter(a=>!['--proportions','--scrollbars','--border-scrollbars','--editor-only'].includes(a)));
 if(process.platform!=='linux')throw Error('Approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 const packed=buttonImportsPackage(path.join(options.output,'packed'),'input');
@@ -92,6 +93,7 @@ for(const selection of options.engines){
    else source=source.slice(0,source.indexOf('    var file = FileAccess.open'));
    source+='    var scrollbar_probe = preload("res://tests/scrollbars/game.gd").new()\n    var scrollbar_result = await scrollbar_probe.run(get_tree())\n    var retained_probe = preload("res://tests/scrollbars/retention_game.gd").new()\n    var retained_result = await retained_probe.run(get_tree(), false)\n    result.ok = result.ok and scrollbar_result.ok and retained_result.ok\n    result.scrollbar_checks = scrollbar_result.checks\n    result.scrollbar_ggx_checks = retained_result.checks\n    var file = FileAccess.open("res://.godot/ui03-game.json", FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
   }
+  if(borderScrollbars)source=source.replace('    var file = FileAccess.open', '    var border_probe = preload("res://tests/scrollbars/placement_game.gd").new()\n    var border_result = await border_probe.run(get_tree())\n    result.ok = result.ok and border_result.ok\n    result.border_scrollbar_checks = border_result.checks\n    var file = FileAccess.open');
   fs.writeFileSync(path.join(box.project,'app/Inputs.gogo'),source);
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['app']});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI03 native input"\nrun/main_scene="res://app/Inputs.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=640\nwindow/size/viewport_height=700\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
@@ -107,6 +109,10 @@ for(const selection of options.engines){
    await run('scrollbar-native',[...args,...graphics,'--script','res://tests/scrollbars/runtime.gd'],'U03_NATIVE_OK');
    await run('scrollbar-retention',[...args,...graphics,'--script','res://tests/scrollbars/retention.gd'],'U03_RETAIN_OK');
   }
+  if(borderScrollbars&&!editorOnly){
+   await run('border-geometry',[...args,'--headless','--script','res://tests/scrollbars/placement_geometry.gd'],'U04_MATH_OK');
+   await run('border-native',[...args,...graphics,'--script','res://tests/scrollbars/placement_runtime.gd'],'U04_NATIVE_OK');
+  }
   if(!editorOnly)await run('scene',[...args,...graphics,'--script','res://tests/input/scene.gd'],'UI03_SCENE_OK');
   if(!editorOnly)await run('palette',[...args,...graphics,'--script','res://tests/input/palette.gd'],'UI04_PALETTE_OK');
   if(!editorOnly)await run('rejections',[...args,'--headless','--script','res://tests/input/rejections.gd'],'UI03_REJECTION_OK');
@@ -119,6 +125,7 @@ for(const selection of options.engines){
   box.env.UI03_EDITOR='1';
   if(proportions)box.env.L12_EDITOR='1';
   if(scrollbars)box.env.U03_EDITOR='1';
+  if(borderScrollbars)box.env.U04_EDITOR='1';
   for(const stage of ['editor','editor-restart'])await run(stage,[...args,...graphics,'--editor'],'UI03_EDITOR_OK');
   for(const [file,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Installed bytes/UID changed: '+file);
   for(const name of ['Inputs','Model',...(proportions?['Layout','Panel']:[]),...(scrollbars?['Scrollbars','ScrollPanel']:[])]){
@@ -127,6 +134,7 @@ for(const selection of options.engines){
   }
   if(scrollbars){
    if(Object.keys(packed.manifest.files).some(file=>/scroll_view\.gd(?:\.uid)?$/.test(file)))throw Error('Removed public scroll wrapper packaged');
+   if(borderScrollbars)fs.copyFileSync(path.join(box.project,'u04-padding-observations.json'),path.join(out,'u04-padding-observations.json'));
    const proof=path.join(box.project,'.godot/ui03-game.json');if(!fs.existsSync(proof))throw Error('Missing native Play game proof');
    fs.copyFileSync(proof,path.join(out,'ui03-game.json'));
   }

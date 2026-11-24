@@ -139,7 +139,7 @@ func offset_changed() -> void:
 func _refresh_viewport() -> void:
 	if not is_instance_valid(_clip): return
 	_geometry = host.layout.model.scroll_geometry
-	if _geometry.is_empty(): _geometry = Geometry.snapshot(host.get_content_rect(),Vector2(1 if host.horizontal_scroll else 0,1 if host.vertical_scroll else 0),host.lengths.specs,host.layout.model.viewport_size)
+	if _geometry.is_empty(): _geometry = Geometry.snapshot(host.get_content_rect(),Geometry.border_inner(host.layout_size,host.layout.model.border),Vector2(1 if host.horizontal_scroll else 0,1 if host.vertical_scroll else 0),host.lengths.specs,host.layout.model.viewport_size)
 	var rect: Rect2 = _geometry.viewport
 	_clip.position = rect.position
 	_clip.size = rect.size

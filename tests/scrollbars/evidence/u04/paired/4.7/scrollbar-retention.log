@@ -1,0 +1,132 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U03_RETAIN transparent Gogo root gets post-gutter reference: true
+U03_RETAIN reactive target retains native input focus caret and offsets: true
+U03_RETAIN unchanged GGX desired thickness preserves imperative override: true
+U03_RETAIN genuinely changed desired thickness applies: true
+U03_RETAIN GGX explicit StyleBox identity and axis override: true
+U03_RETAIN omission restores previously GGX-owned class defaults: true
+U03_RETAIN unowned imperative style survives unrelated recompose: true
+U03_RETAIN explicit props override inherited chrome defaults: true
+U03_RETAIN normal-property omission restores actual inherited class defaults: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_size'): invalid length 'scrollbar_size': auto is only valid for dimensions and unset inset edges; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "scrollbar_size": "auto" }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'vertical_scrollbar_width'): invalid length 'vertical_scrollbar_width': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "vertical_scrollbar_width": -1 }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'horizontal_scrollbar_height'): invalid length 'horizontal_scrollbar_height': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "horizontal_scrollbar_height": nan }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': unknown scrollbar_style key unknown; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "scrollbar_style": { "unknown": 0 } }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': vertical: unknown scrollbar_style key horizontal; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "scrollbar_style": { "vertical": { "horizontal": {  } } } }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': thumb_color requires a finite Color, hex or transparent; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "scrollbar_style": { "thumb_color": false } }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: app/Scrollbars.gogo:15:140 (spread key 'scrollbar_style'): attribute 'scrollbar_style': thumb_stylebox requires StyleBox Resource; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+U03_EXPECTED_END
+U03_RETAIN preflight rejects whole desired tree { "scrollbar_style": { "thumb_stylebox": false } }: true
+U03_RETAIN repair succeeds without replacing nodes: true
+U03_EXPECTED_BEGIN
+ERROR: Estragon length 'scrollbar_size': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:69)
+       [1] @scrollbar_size_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:17)
+       [2] run (res://tests/scrollbars/retention_game.gd:46)
+       [3] frames (res://tests/scrollbars/retention_game.gd:15)
+U03_EXPECTED_END
+U03_RETAIN native invalid setter atomic scrollbar_size: true
+U03_EXPECTED_BEGIN
+ERROR: Estragon length 'scrollbar_size': auto is only valid for dimensions and unset inset edges
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:69)
+       [1] @scrollbar_size_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:17)
+       [2] run (res://tests/scrollbars/retention_game.gd:46)
+       [3] frames (res://tests/scrollbars/retention_game.gd:15)
+U03_EXPECTED_END
+U03_RETAIN native invalid setter atomic scrollbar_size: true
+U03_EXPECTED_BEGIN
+ERROR: Estragon length 'vertical_scrollbar_width': Expected a finite nonnegative length (negative offsets are allowed)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:69)
+       [1] @vertical_scrollbar_width_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:22)
+       [2] run (res://tests/scrollbars/retention_game.gd:46)
+       [3] frames (res://tests/scrollbars/retention_game.gd:15)
+U03_EXPECTED_END
+U03_RETAIN native invalid setter atomic vertical_scrollbar_width: true
+U03_EXPECTED_BEGIN
+ERROR: Estragon length 'horizontal_scrollbar_height': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/length.gd:69)
+       [1] @horizontal_scrollbar_height_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:27)
+       [2] run (res://tests/scrollbars/retention_game.gd:46)
+       [3] frames (res://tests/scrollbars/retention_game.gd:15)
+U03_EXPECTED_END
+U03_RETAIN native invalid setter atomic horizontal_scrollbar_height: true
+U03_EXPECTED_BEGIN
+ERROR: Estragon track_color requires a finite Color, hex or transparent
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @scrollbar_style_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/component_2d.gd:34)
+       [1] run (res://tests/scrollbars/retention_game.gd:46)
+       [2] frames (res://tests/scrollbars/retention_game.gd:15)
+U03_EXPECTED_END
+U03_RETAIN native invalid setter atomic scrollbar_style: true
+U03_RETAIN compiler authored-span invalid scrollbar_size="auto": true
+U03_RETAIN compiler authored-span invalid vertical_scrollbar_width="-1px": true
+U03_RETAIN compiler authored-span invalid horizontal_scrollbar_height="3em": true
+U03_RETAIN compiler authored-span invalid scrollbar_style="invalid": true
+U03_RETAIN_ASSERTIONS 32 ok=true
+U03_RETAIN_OK
