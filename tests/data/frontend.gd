@@ -76,6 +76,8 @@ func parameter(value: Item) -> void:
         first.child=second
         check(not preload("res://addons/estragon/runtime/data/state.tres").can_attach(second,first),"observable ownership cycle detected before attachment")
         first.child=null
+    result=compile(imports+'var values: ArrayCollection[Item]=[{"id":5}]\nfunc run() -> int:\n    var total: int=0\n    for item in self.values: total+=item.id\n    return total\n')
+    if result.ok: check(native(result).new().run()==5,"self-qualified typed collection uses safe native iteration")
     result=compile(imports+'func invalid() -> void:\n    var item: Item={}\n    item.missing_field={}\n')
     check(result.ok and result.code.contains('item.missing_field = item.missing_field'),"hydrated writes retain native member-assignment semantic proof")
     print("CORE02_FRONTEND_CHECKS ",checks," ERRORS ",errors)

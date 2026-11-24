@@ -87,7 +87,9 @@ func apply(value) -> void:
 		if end>=tokens.size(): continue
 		var span = file.span(tokens[index+3].span.start.index,tokens[end].span.start.index)
 		var root: String = tokens[index+3].text
-		if _type(root,span.start.index).is_empty(): continue
+		var type := _type(root,span.start.index)
+		if root=="self" and index+5<end and tokens[index+4].text==".": type = _type(tokens[index+5].text,span.start.index,true)
+		if type.is_empty(): continue
 		module.data_type_edits.append({"span":span,"value":"preload(%s).iterate(%s)"%[var_to_str(preload("source.gd").relative_path(file.generated_path().get_base_dir(),preload("../runtime/data/state.tres").resource_path)),file.slice(span)]})
 	module.parts.assign(_rewrite(module.parts))
 	for part in module.parts:
