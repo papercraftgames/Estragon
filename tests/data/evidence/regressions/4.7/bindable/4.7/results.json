@@ -1,0 +1,116 @@
+{
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-juzRxv/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-juzRxv/project",
+      "--script",
+      "res://tests/bindable/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.22,
+    "godot_pid": 6631,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-juzRxv/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-juzRxv/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.37,
+    "godot_pid": 6648,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "1642de598dde11177450be468dde7e6205d219c6fbeddaa0ba2120f961eb47ad",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-juzRxv/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-juzRxv/project",
+      "--script",
+      "res://tests/bindable/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.49,
+    "godot_pid": 7281,
+    "log": "runtime.log",
+    "diagnostics": []
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-juzRxv/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-juzRxv/project",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 23.59,
+    "godot_pid": 7299,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Invalid operands \"int\" and \"String\" for assignment operator.",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)",
+      "examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands \"int\" and \"String\" for assignment operator.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Invalid operands \"int\" and \"String\" for assignment operator.",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)",
+      "examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands \"int\" and \"String\" for assignment operator.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)",
+      "SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)",
+      "examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+      "examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "SCRIPT ERROR: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)",
+      "SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+      "          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)",
+      "examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type \"String\" as \"int\".",
+      "examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable \"count\" with specified type int.",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+    ],
+    "unexpected_errors": []
+  }
+}

@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+CORE02_BUILD {"changed":["examples/data/generated/Details.gd","examples/data/generated/Details.gd.map.json","examples/data/generated/Item.gd","examples/data/generated/Item.gd.map.json","examples/data/generated/Inventory.gd","examples/data/generated/Inventory.gd.map.json","examples/data/generated/Gallery.gd","examples/data/generated/Gallery.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["examples/data/generated/Details.gd","examples/data/generated/Item.gd","examples/data/generated/Inventory.gd","examples/data/generated/Gallery.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+CORE02_BUILD_OK

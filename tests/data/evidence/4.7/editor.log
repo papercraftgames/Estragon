@@ -1,0 +1,147 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE02_EDITOR_CHECK real native authored CORE02 scene imports: true
+CORE02_EDITOR_CHECK native authored buffer edit: true
+CORE02_EDITOR_CHECK native source edit undo preserves call-site source: true
+CORE02_EDITOR_CHECK native source edit redo: true
+CORE02_EDITOR_CHECK native Gogo highlighter attached to actual CORE02 source: true
+CORE02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:29:135: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/data/editor.gd:86)
+         [5] completion_proof (res://tests/data/editor.gd:122)
+         [6] wait (res://tests/data/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/data/editor.gd:86)
+       [1] completion_proof (res://tests/data/editor.gd:122)
+       [2] wait (res://tests/data/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:29:135: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+CORE02_EDITOR_CHECK current invalid unsaved CORE02 blocks stale Play with authored diagnostic: true
+CORE02_EDITOR_CHECK current invalid CORE02 retains code/map/UID/timestamp/cached Script: true
+CORE02_EXPECTED_PLAY_REJECTION_END
+CORE02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:44:24: ArrayCollection requires one supported typed data element
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/data/editor.gd:86)
+         [5] wait (res://tests/data/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/data/editor.gd:86)
+       [1] wait (res://tests/data/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:44:24: ArrayCollection requires one supported typed data element
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+CORE02_EDITOR_CHECK current invalid unsaved CORE02 blocks stale Play with authored diagnostic: true
+CORE02_EDITOR_CHECK current invalid CORE02 retains code/map/UID/timestamp/cached Script: true
+CORE02_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE02_GAME native keyboard edits typed item once: true
+CORE02_GAME keyed reorder retains real focus and control identity: true
+CORE02_GAME arranged native hit follows reordered row: true
+CORE02_GAME native keyboard edits typed item once: true
+CORE02_GAME keyed reorder retains real focus and control identity: true
+CORE02_GAME arranged native hit follows reordered row: true
+CORE02_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+CORE02_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+CORE02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:29:135: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/data/editor.gd:85)
+         [5] play (res://tests/data/editor.gd:53)
+         [6] until (res://tests/data/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/data/editor.gd:85)
+       [1] play (res://tests/data/editor.gd:53)
+       [2] until (res://tests/data/editor.gd:18)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:29:135: Unknown, read-only or reserved Node property/signal bad_core_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+CORE02_EDITOR_CHECK main invalid unsaved CORE02 blocks stale Play with authored diagnostic: true
+CORE02_EDITOR_CHECK main invalid CORE02 retains code/map/UID/timestamp/cached Script: true
+CORE02_EXPECTED_PLAY_REJECTION_END
+CORE02_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:44:24: ArrayCollection requires one supported typed data element
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/data/editor.gd:85)
+         [5] wait (res://tests/data/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/data/editor.gd:85)
+       [1] wait (res://tests/data/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/data/Gallery.gogo:44:24: ArrayCollection requires one supported typed data element
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+CORE02_EDITOR_CHECK main invalid unsaved CORE02 blocks stale Play with authored diagnostic: true
+CORE02_EDITOR_CHECK main invalid CORE02 retains code/map/UID/timestamp/cached Script: true
+CORE02_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE02_GAME native keyboard edits typed item once: true
+CORE02_GAME keyed reorder retains real focus and control identity: true
+CORE02_GAME arranged native hit follows reordered row: true
+CORE02_GAME native keyboard edits typed item once: true
+CORE02_GAME keyed reorder retains real focus and control identity: true
+CORE02_GAME arranged native hit follows reordered row: true
+CORE02_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+CORE02_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+CORE02_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+CORE02_EDITOR_ASSERTIONS 18 failed=false
+CORE02_EDITOR_OK

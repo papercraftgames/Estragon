@@ -1,0 +1,22 @@
+{
+  "build": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-rcIk8z/godot",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-rcIk8z/project",
+      "--script",
+      "res://tests/composition/build.gd"
+    ],
+    "exit_code": null,
+    "timeout": true,
+    "aborted_on_error": false,
+    "seconds": 60.01,
+    "godot_pid": 3412,
+    "log": "build.log",
+    "diagnostics": []
+  }
+}

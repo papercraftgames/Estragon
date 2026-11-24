@@ -1,0 +1,18 @@
+{
+  "sourceHead": "8a138617fb4a031d934f2a6db6f322156cee6087",
+  "sourceDirty": false,
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-data.ts",
+    "--editor",
+    "--engine",
+    "4.0.4=/evidence/engine404/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/evidence/engine47/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/tmp/core02-review-acceptance"
+  ],
+  "tarball_sha256": "0ab310ea1102bcc46130151f5a4c2489fcf1aeb1f5a468bc9e40710c449128dd"
+}
