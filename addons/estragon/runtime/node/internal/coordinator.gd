@@ -22,6 +22,7 @@ func _init(host: Node, dimension: int, mode: int = Mode.PROOF) -> void:
 	_mode = mode
 	_host = weakref(host)
 	_dimension = dimension
+	model.dimension_budget_enabled = dimension==2
 	if _mode == Mode.PROOF: host.set_meta(META, weakref(self))
 	model.invalidated.connect(_invalidated)
 	model.placed.connect(_place)
@@ -104,7 +105,21 @@ func stop() -> void:
 
 func _visibility_changed() -> void:
 	var parent = parent_coordinator()
-	if parent!=null and parent.model.strategy in ["wrap","grid"]: parent._sync()
+	while parent!=null:
+		parent._sync()
+		if parent._mode!=Mode.COMPOSITION: break
+		parent = parent.parent_coordinator()
+
+func participates() -> bool:
+	var host = _host.get_ref()
+	if host==null or _dimension==2 and host is CanvasItem and not host.is_visible_in_tree(): return false
+	if _mode==Mode.ENTRY: return false
+	if _mode==Mode.CONTROL: return control_adapter.participates()
+	if _mode==Mode.COMPOSITION:
+		var root = managed_root.get_ref() if managed_root!=null else null
+		var target = participant(root)
+		return target!=null and target.participates()
+	return true
 
 func _child_entered(child: Node) -> void:
 	if child is Control: CompositionHosts.enter_control(child)
@@ -129,10 +144,10 @@ func _sync() -> void:
 		# Native child-entered signals can precede internal-child bookkeeping.
 		# Runtime GUI endpoints/decorations never become layout participants.
 		if host.has_method("_composition_is_private") and host._composition_is_private(child): continue
-		if _dimension==2 and model.strategy in ["wrap","grid"] and child is CanvasItem and not child.is_visible_in_tree(): continue
+		if _dimension==2 and child is CanvasItem and not child.is_visible_in_tree(): continue
 		var found = participant(child,true)
 		if found != null and found._mode != Mode.ENTRY:
-			if found._mode == Mode.CONTROL and not found.control_adapter.participates(): continue
+			if _dimension==2 and not found.participates(): continue
 			found.model.set_placement(CompositionHosts.get_placement(child))
 			values.append(found.model)
 	var error := model.set_children(values)

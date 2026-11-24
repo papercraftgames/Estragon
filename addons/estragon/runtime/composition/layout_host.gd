@@ -44,6 +44,11 @@ func update(view: Node) -> void:
 	if target != null: target.model.invalidated.connect(_configure)
 	layout._sync()
 	_configure()
+	# A root may become a participant after an initially empty/plain boundary.
+	# Parent gap counts follow that logical participation, not the host Node.
+	if layout._dimension==2:
+		var parent = layout.parent_coordinator()
+		if parent!=null: parent._sync()
 func _configure() -> void:
 	if layout == null or not layout.active: return
 	var requested := Vector3(-1,-1,0) if layout._dimension==2 else Vector3(-1,-1,-1)

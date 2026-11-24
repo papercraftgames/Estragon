@@ -19,10 +19,17 @@ static func tracks(specs: Array, items: Array, placements: Array, axis: int, ref
 		var span: int = rect.column_span if axis==0 else rect.row_span
 		var occupied := gap*(span-1)
 		var eligible: Array = []
+		var fractions_only := true
 		for index in range(start,start+span):
 			occupied += sizes[index]
 			if specs[index].unit in ["auto","fr"]: eligible.append(index)
-		var deficit: float = maxf(0,maxf(items[i].get("contribution",items[i].preferred)[axis],items[i].minimum[axis])+items[i].outer[axis]-occupied)
+			if specs[index].unit!="fr": fractions_only = false
+		var contribution: float = items[i].get("contribution",items[i].preferred)[axis]
+		var viewport_floor: float = items[i].get("scroll_floor",Vector3(-1,-1,-1))[axis]
+		# A definite fraction cell assigns a scrolling viewport. Its hidden
+		# content is not a minimum viewport size; auto rows remain intrinsic.
+		if reference>=0 and fractions_only and viewport_floor>=0: contribution = viewport_floor
+		var deficit: float = maxf(0,maxf(contribution,items[i].minimum[axis])+items[i].outer[axis]-occupied)
 		for index in eligible: sizes[index] += deficit/eligible.size()
 	if reference>=0:
 		var budget := reference-gap*maxi(0,sizes.size()-1)

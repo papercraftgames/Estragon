@@ -40,7 +40,7 @@ func click(tree: SceneTree,node: Control,offset: Vector2=Vector2(12,10)):
 	var point = node.get_global_transform_with_canvas()*offset
 	await pointer(tree,point,true)
 	await pointer(tree,point,false)
-func run(host: Node):
+func run(host: Node,publish: bool=true):
 	var tree := host.get_tree()
 	tree.root.size = Vector2i(640,700)
 	await frames(tree)
@@ -239,9 +239,10 @@ func run(host: Node):
 	check(stats.counts.get("views",0)==0 and stats.timings_us.is_empty(),"zero idle composition work")
 	fallback.free()
 	var result := {"ok":ok,"checks":checks,"submits":host.submits.size(),"cancels":host.cancels}
-	var file := FileAccess.open("res://.godot/ui03-game.tmp",FileAccess.WRITE)
-	file.store_string(JSON.stringify(result))
-	file.close()
-	DirAccess.rename_absolute("res://.godot/ui03-game.tmp","res://.godot/ui03-game.json")
+	if publish:
+		var file := FileAccess.open("res://.godot/ui03-game.tmp",FileAccess.WRITE)
+		file.store_string(JSON.stringify(result))
+		file.close()
+		DirAccess.rename_absolute("res://.godot/ui03-game.tmp","res://.godot/ui03-game.json")
 	print("UI03_GAME ",JSON.stringify(result))
 	return result
