@@ -62,7 +62,7 @@ func run() -> void:
 		root.size = size
 		await frames()
 		var content: Vector3 = column.layout.model.content_reference
-		check(panel.layout_size==Vector2(content.x*0.5,content.y*0.75) and panel.width=="50%" and panel.get_instance_id()==identity,"inline owner demo50/75% actual content "+str(size))
+		check(panel.layout_size==Vector2(content.x*0.5,(content.y-4*maxi(0,column.layout.model.children.size()-1))*0.75) and panel.width=="50%" and panel.get_instance_id()==identity,"inline owner demo50/75% parent dimension budget "+str(size))
 		check(settings.get_node("Row").layout_size.x==content.x*0.5,"nested Gogo host percentage skips transparent proxy "+str(size))
 		check(borrowed.get_parent()==home and borrowed.owner==home and borrowed.global_position.y>panel.global_position.y,"borrowed native Control keeps parent/owner and receives flow slot")
 		samples.append({"viewport":str(size),"content":str(content),"panel":str(panel.layout_size),"position":str(panel.global_position)})
@@ -173,7 +173,7 @@ func native_lengths() -> void:
 	entry.add_child(row)
 	root.add_child(entry)
 	await frames()
-	check(row.layout.model.padding.x==30 and first.layout_size.x==285 and first.layout_size.y==16,"native string assignment content-box widths and absolute units")
+	check(row.layout.model.padding.x==30 and first.layout_size.x==273 and first.layout_size.y==16,"native string assignment content-box widths and absolute units")
 	check(first.position==Vector2(30+5.7-10,4+100),"axis-aware percent margins and negative additive slot offsets")
 	check(is_equal_approx(second.layout_size.x,third.layout_size.x*2) and second.layout_size.y==400,"weighted flex2:1 and explicit cross stretch")
 	var count := clicks
@@ -194,7 +194,7 @@ func native_lengths() -> void:
 	await frames()
 	first.width = "125%"
 	await frames()
-	check(first.layout_size.x==712.5 and second.layout_size.x==0,"intentional overflow above100% reserves remaining-space zero")
+	check(first.layout_size.x==682.5 and second.layout_size.x==0,"intentional overflow above100% reserves remaining-space zero")
 	var packed := PackedScene.new()
 	packed.pack(first)
 	var restored = packed.instantiate()

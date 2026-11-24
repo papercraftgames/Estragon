@@ -1,0 +1,6 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L12_BEFORE stack axis=0 first=(75.0, 0.0, 0.0) second=(225.0, 0.0, 0.0) origin=(95.0, 0.0, 0.0)
+L12_BEFORE stack axis=1 first=(0.0, 75.0, 0.0) second=(0.0, 225.0, 0.0) origin=(0.0, 95.0, 0.0)
+L12_BEFORE grid first=(75.0, 0.0, 0.0) second=(225.0, 0.0, 0.0) tracks=[75.0, 225.0]
+L12_BEFORE row_gap natural=(100.0, 20.0, 0.0) second=(0.0, 10.0, 0.0)

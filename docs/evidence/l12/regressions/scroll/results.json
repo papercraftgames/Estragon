@@ -1,0 +1,177 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "462540e94652eb8a1fa7e4db9167343fd2060d2b069814deabc8bf78827876fe"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-mwZmCU/yarn-cache",
+      "file:/evidence/l12-scroll-final/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.94,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--headless",
+      "--script",
+      "res://tests/ux01/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.32,
+    "godot_pid": 28576,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "clipping_probe": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/clipping_probe.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.41,
+    "godot_pid": 28761,
+    "log": "clipping_probe.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scroll_native": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scroll_native.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.59,
+    "godot_pid": 28894,
+    "log": "scroll_native.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scroll_nested": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scroll_nested.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.11,
+    "godot_pid": 29096,
+    "log": "scroll_nested.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "scrolling": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/scrolling.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.24,
+    "godot_pid": 29197,
+    "log": "scrolling.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "inherited": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-mwZmCU/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-mwZmCU/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/ux01/inherited.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 5.94,
+    "godot_pid": 29298,
+    "log": "inherited.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "removal": {
+    "status": "PASS",
+    "obsolete_component_absent": true,
+    "installed_bytes_unchanged": true
+  }
+}

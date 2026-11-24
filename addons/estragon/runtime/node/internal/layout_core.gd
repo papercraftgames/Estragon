@@ -18,6 +18,14 @@ var pixels_per_unit: float = 1.0
 var length_offset := Vector3.ZERO
 var viewport_size := Vector2.ZERO
 var parent_reference := Vector3(-1,-1,-1)
+# Width/height percentages alone use this parent-policy budget. Other Length
+# domains retain parent_reference; spatial coordinators keep their old contract.
+var dimension_reference := Vector3(-1,-1,-1)
+var dimension_budget_enabled := true
+var _dimension_axes := Vector3.ZERO
+var _budget_context: Array = []
+var _budget := Vector3(-1,-1,-1)
+var dimension_budget_count := 0
 var resolution_count := 0
 var _length_context: Array = []
 var _parent_axes := Vector3.ZERO
@@ -86,6 +94,9 @@ func set_lengths(specs: Dictionary, growth: float, cross: int, scale: float, sta
 	var dependencies := Length.dependencies(length_specs,stack_axis)
 	_parent_axes = dependencies[0]
 	_viewport_axes = dependencies[1]
+	_dimension_axes = Vector3.ZERO
+	for index in range(2):
+		if length_specs.get(["width","height"][index],{}).get("unit","")=="%": _dimension_axes[index] = 1
 	_length_context = []
 	invalidate()
 
@@ -120,7 +131,8 @@ func set_align_self(value: String) -> void:
 func _length(name: String, axis_index: int, fallback: float) -> float:
 	if not length_specs.has(name): return fallback
 	var spec: Dictionary = length_specs[name]
-	return Length.resolve(spec,parent_reference[axis_index],viewport_size,pixels_per_unit)
+	var reference: float = dimension_reference[axis_index] if name in ["width","height"] and spec.unit=="%" else parent_reference[axis_index]
+	return Length.resolve(spec,reference,viewport_size,pixels_per_unit)
 
 func _warn_unanchored() -> void:
 	if _reported_unanchored: return
@@ -144,20 +156,23 @@ func _edges(prefix: String) -> Vector4:
 
 # Resolve specs only on a changed parent/viewport/spec context. No property
 # writeback, parsing in arrange, subscriptions per length, or frame polling.
-func prepare(reference: Vector3, viewport: Vector2) -> void:
-	if transparent and _forward_context!=[reference,viewport] or viewport_size!=viewport and not children.is_empty():
+func prepare(reference: Vector3, viewport: Vector2, dimensions: Variant = null) -> void:
+	var budget: Vector3 = reference if dimensions==null else dimensions
+	if transparent and _forward_context!=[reference,viewport,budget] or viewport_size!=viewport and not children.is_empty():
 		_measure_dirty = true
 		_arrange_dirty = true
-	_forward_context = [reference,viewport] if transparent else []
+	_forward_context = [reference,viewport,budget] if transparent else []
 	for index in range(3):
 		if parent_reference[index]!=reference[index] and measurement_allocation[index]>=0:
 			measurement_allocation[index] = -1
 			_measure_dirty = true
 	parent_reference = reference
+	dimension_reference = budget
 	viewport_size = viewport
-	var context := [reference*_parent_axes,viewport*_viewport_axes]
+	var context := [reference*_parent_axes,viewport*_viewport_axes,budget*_dimension_axes]
 	if _length_context==context: return
 	_length_context = context
+	if dimension_budget_enabled: measurement_allocation = Vector3(-1,-1,-1)
 	resolution_count += 1
 	var before := [requested,gap,physical_gaps,padding,border,margin,length_offset,authored_minimum,authored_maximum]
 	if not length_specs.is_empty():
@@ -228,7 +243,7 @@ func configure(extent: Vector3, spacing: float, centered: bool, stack_axis: int 
 	intrinsic = content
 	requested = extent
 	gap = spacing
-	physical_gaps = Vector2(spacing,spacing)
+	if length_specs.is_empty(): physical_gaps = Vector2(spacing,spacing)
 	center = centered
 	invalidate()
 	return OK
@@ -255,6 +270,7 @@ func set_children(values: Array) -> Error:
 	return OK
 
 func invalidate() -> void:
+	if dimension_budget_enabled: measurement_allocation = Vector3(-1,-1,-1)
 	_measure_dirty = true
 	_arrange_dirty = true
 	var parent = _parent.get_ref() if _parent != null else null
@@ -283,16 +299,48 @@ func track_contribution() -> Vector3:
 func _items() -> Array:
 	var items: Array = []
 	for child in children:
-		items.append({"preferred":child.measured,"contribution":child.track_contribution(),"minimum":child.minimum(),"maximum":child.maximum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"align_self":child.align_self,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin),"placement":child.placement})
+		items.append({"preferred":child.measured,"contribution":child.track_contribution(),"scroll_floor":child.scroll_track_floor(),"minimum":child.minimum(),"maximum":child.maximum(),"requested":child.requested,"grow":child.grow,"stretch":child.stretch,"align_self":child.align_self,"fill":child.fill,"outer":child.outer_extent(),"leading":leading(child.margin),"placement":child.placement})
 	return items
 
-func _grid(items: Array, content: Vector3) -> Dictionary:
+func scroll_track_floor() -> Vector3:
+	if transparent and children.size()==1: return children[0].scroll_track_floor()
+	var result := Vector3(-1,-1,-1)
+	for index in range(2):
+		if scroll_axes[index]>0 and requested[index]<0:
+			result[index] = maxf(minimum()[index],intrinsic[index]+leading(padding+border)[index]+trailing(padding+border)[index])
+	return result
+
+func _prepare_grid() -> void:
 	var placements: Array = []
-	for item in items: placements.append(item.placement)
+	for child in children: placements.append(child.placement)
 	if grid_definition.get("source_placements",[])!=placements or grid_definition.is_empty():
 		grid_definition = GridDefinition.configuration(grid_config,placements)
 		grid_definition.source_placements = placements.duplicate(true)
 		if grid_definition.has("error"): push_error("Estragon Grid: "+grid_definition.error+"; previous native slots retained")
+
+func dimension_budget(reference: Vector3) -> Vector3:
+	if not dimension_budget_enabled or transparent or strategy=="wrap": return reference
+	var result := reference
+	var counts := Vector2i.ONE
+	if strategy=="grid":
+		_prepare_grid()
+		if grid_definition.has("error"): return reference
+		counts = Vector2i(grid_definition.columns.size(),grid_definition.rows.size())
+	elif axis<2: counts[axis] = children.size()
+	var context := [reference,physical_gaps,counts]
+	if _budget_context==context: return _budget
+	_budget_context = context
+	dimension_budget_count += 1
+	for index in range(2):
+		if reference[index]>=0: result[index] = maxf(0,reference[index]-physical_gaps[index]*maxi(0,counts[index]-1))
+	_budget = result
+	return result
+
+func _main_gap() -> float:
+	return physical_gaps[axis] if axis<2 else gap
+
+func _grid(items: Array, content: Vector3) -> Dictionary:
+	_prepare_grid()
 	if grid_definition.has("error"):
 		# Native children may exceed an explicitly bounded grid after direct edits.
 		# Reject the layout as a whole, preserving the previous allocated slots.
@@ -333,7 +381,7 @@ func measure_allocated(extent: Vector3, authority: Vector3) -> void:
 	if transparent and children.size()==1:
 		children[0].measure_allocated(extent,authority)
 		_measure_dirty = true
-	elif strategy in ["wrap","grid"] or scroll_axes!=Vector2.ZERO:
+	elif strategy in ["wrap","grid"] or scroll_axes!=Vector2.ZERO or dimension_budget_enabled and not children.is_empty():
 		var next := measurement_allocation
 		for index in range(2):
 			if requested[index]<0 and authority[index]>0: next[index] = extent[index]
@@ -341,7 +389,13 @@ func measure_allocated(extent: Vector3, authority: Vector3) -> void:
 		measurement_allocation = next
 		_measure_dirty = true
 	else: return
+	var preferred := measured
 	measure()
+	# Allocated axes are not a new intrinsic growth basis. Only the dependent
+	# unallocated (e.g. wrapped cross) axes feed back into this bounded pass.
+	if dimension_budget_enabled:
+		for index in range(2):
+			if requested[index]<0 and authority[index]>0: measured[index] = preferred[index]
 
 func overflow_extent() -> Vector3:
 	# Ancestors see the clipped participant's viewport, not its hidden content.
@@ -356,7 +410,7 @@ func overflow_extent() -> Vector3:
 func _slots(items: Array, content: Vector3, definite: Vector3) -> Array:
 	if strategy=="grid": return _grid(items,content).slots
 	if strategy=="wrap": return WrapPolicy.layout(items,content,axis,physical_gaps,alignment,align_content,Vector2(definite.x,definite.y)).slots
-	return StackPolicy.slots(items,content,axis,physical_gaps[axis] if axis<2 and not length_specs.is_empty() else gap,alignment)
+	return StackPolicy.slots(items,content,axis,_main_gap(),alignment)
 
 func _authority(child, item: Dictionary, basis: Vector3) -> Vector3:
 	var authority := Vector3.ZERO
@@ -372,7 +426,7 @@ func _authority(child, item: Dictionary, basis: Vector3) -> Vector3:
 func measure() -> Vector3:
 	if transparent and children.size()==1:
 		var child = children[0]
-		child.prepare(parent_reference,viewport_size)
+		child.prepare(parent_reference,viewport_size,dimension_reference)
 		child.set_capacity(available_capacity)
 		child.measure()
 		if child.requested!=requested or child.grow!=grow or child.stretch!=stretch or child.align_self!=align_self or child.margin!=margin or child.fill!=fill or child.length_offset!=length_offset:
@@ -389,8 +443,9 @@ func measure() -> Vector3:
 	if Profile.is_enabled(): Profile.add("layout_measures")
 	if not transparent:
 		var basis := _content_basis()
+		var budget := dimension_budget(basis)
 		for child in children:
-			child.prepare(basis,viewport_size)
+			child.prepare(basis,viewport_size,budget)
 			var capacity := basis
 			for index in range(3):
 				if capacity[index]>=0: capacity[index] = maxf(0,capacity[index]-child.outer_extent()[index])
@@ -404,13 +459,12 @@ func measure() -> Vector3:
 				for index in range(children.size()): children[index].measure_allocated(allocations[index].extent,_authority(children[index],items[index],basis))
 	var natural := Vector3.ZERO
 	for child in children:
-		if not transparent: child.prepare(_content_basis(),viewport_size)
 		var child_size: Vector3 = child.measure()
 		if not transparent: child_size += child.outer_extent()
 		for index in range(3):
 			if index == axis: natural[index] += child_size[index]
 			else: natural[index] = maxf(natural[index],child_size[index])
-	if children.size() > 1: natural[axis] += (physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap) * (children.size() - 1)
+	if children.size() > 1: natural[axis] += _main_gap() * (children.size() - 1)
 	if strategy=="wrap" and not transparent:
 		var basis := _wrap_basis()
 		natural = WrapPolicy.layout(_items(),basis,axis,physical_gaps,alignment,align_content,Vector2(1 if basis.x>=0 else 0,1 if basis.y>=0 else 0)).extent
@@ -484,9 +538,9 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			push_warning("Estragon explicit main-axis dimension overrides grow; use auto height/width on a remaining-space Spacer")
 	# Assigned content is authoritative, including grow allocations. Resolve the
 	# immediate children against this box before measuring their slots.
+	var budget := dimension_budget(reference)
 	for child in children:
-		var child_reference := reference
-		child.prepare(child_reference,viewport_size)
+		child.prepare(reference,viewport_size,budget)
 		child.measure()
 	if not _reported_full_percent and children.size()>1:
 		var main_name: String = ["width","height","depth"][axis]
@@ -494,7 +548,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			var spec: Dictionary = child.length_specs.get(main_name,{})
 			if spec.get("unit","")=="%" and spec.get("value",0)>=100:
 				_reported_full_percent = true
-				push_warning("Estragon "+main_name+"=100% consumes the full definite parent content axis, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space")
+				push_warning("Estragon "+main_name+"=100% consumes the full definite parent "+("dimension budget" if dimension_budget_enabled and strategy!="wrap" and axis<2 else "content axis")+", not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space")
 				break
 	var layout_content := content
 	for index in range(2):
@@ -506,7 +560,7 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 		var wrap_basis := _wrap_basis()
 		slots = WrapPolicy.layout(items,layout_content,axis,physical_gaps,policy,align_content,Vector2(1 if reference.x>=0 or axis==0 and wrap_basis.x>=0 else 0,1 if reference.y>=0 or axis==1 and wrap_basis.y>=0 else 0)).slots
 	else:
-		slots = StackPolicy.slots(items,layout_content,axis,physical_gaps[axis] if axis<2 and length_specs.has("column_gap") else gap,policy)
+		slots = StackPolicy.slots(items,layout_content,axis,_main_gap(),policy)
 	if strategy=="grid":
 		policy_result = _grid(items,reference)
 		if policy_result.has("error"): return
@@ -523,7 +577,8 @@ func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:
 			if strategy=="grid" and cross<2 and policy[cross]=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
 			elif strategy!="grid" and cross!=axis and StackPolicy.cross_alignment(items[index],policy[cross],cross)=="stretch" and child.requested[cross]<0 and independent_axis(cross): authority[cross] = 1
 		for scrolling_axis in range(2):
-			if scroll_axes[scrolling_axis]>0: authority[scrolling_axis] = 0
+			if scroll_axes[scrolling_axis]>0:
+				authority[scrolling_axis] = 1 if independent_axis(scrolling_axis) and child.requested[scrolling_axis]<0 and (child.grow>0 or child.fill[scrolling_axis]>0) else 0
 		child.arrange(slot.extent,authority)
 	arranged.emit(size)
 

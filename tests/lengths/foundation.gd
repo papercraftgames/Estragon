@@ -50,7 +50,7 @@ func run(t) -> void:
 	before.get_node("UI").width = "100vw"
 	before.get_node("UI").height = "100vh"
 	await t.frames()
-	t.check(before.get_node("UI/Column/Space").layout_size.y==t.root.size.y,"L07A inner100% is full content height, never remaining space")
+	t.check(before.get_node("UI/Column/Space").layout_size.y==before.get_node("UI/Column").layout.model.dimension_budget(before.get_node("UI/Column").layout.model.content_reference).y,"L07A inner100% is full parent dimension budget, never remaining space")
 	t.capture("l07a-before-full-percent")
 	before.free()
 	await t.frames()

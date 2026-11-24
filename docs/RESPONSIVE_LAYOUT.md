@@ -123,7 +123,7 @@ reserved without an item. Borrowed compatible children without metadata auto-pla
 Per-cell `horizontal_align` and `vertical_align` both default to `stretch` and accept
 only start/center/end/stretch. Stretch affects auto axes; explicit dimensions win.
 Outer margins consume cell space; additive x/y applies afterward once. Percentage
-child dimensions keep the full immediate Grid content reference, **not the cell**;
+child dimensions use the immediate Grid's total usable track budget after physical track gaps, **not the cell** ([L12](PARENT_PERCENTAGES.md));
 authored100% inside a smaller cell may therefore overflow. There is no extra
 per-child physical alignment API. Grid does not infer geometry for Sprite/plain
 Node/3D children or accept conflicting anchored/transformed Control outer bounds.
@@ -175,5 +175,4 @@ Scrolling decorates Stack/Wrap/Grid rather than replacing their strategy. [Contr
 [Layout declarations](LAYOUT_DECLARATIONS.md) lower visual named-area matrices
 to this existing contract. Grid now derives from Box: `direction="grid"` is its
 default; row/column (and Box wrap properties) use existing policies while retaining
-inactive grid settings. Child dimension percentages keep the content reference
-specified above. No additional track/parser/solver or width-to-track alias exists.
+inactive grid settings. Child dimension percentages use the L12 policy budget specified above; Wrap remains full-content. No additional track/parser/solver or width-to-track alias exists.

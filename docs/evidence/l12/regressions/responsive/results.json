@@ -1,0 +1,163 @@
+{
+  "pack": {
+    "status": "PASS",
+    "tarball_sha256": "488b4daaa7f1a6d13745de5c8a1bc03453d11d257ccbab87dd0a5b62f8576e0a"
+  },
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-TXaS65/yarn-cache",
+      "file:/evidence/l12-responsive-final/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.87,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-TXaS65/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-TXaS65/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.1,
+    "godot_pid": 25771,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-TXaS65/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-TXaS65/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.23,
+    "godot_pid": 25805,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "math": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-TXaS65/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-TXaS65/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/math.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.37,
+    "godot_pid": 25938,
+    "log": "math.log",
+    "diagnostics": []
+  },
+  "runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-TXaS65/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-TXaS65/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.03,
+    "godot_pid": 25955,
+    "log": "runtime.log",
+    "diagnostics": [
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'columns'): attribute 'columns': fr track weight must be finite and positive; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'columns'): attribute 'columns': track count must be 1..256; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'columns'): attribute 'columns': track count must be 1..256; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'columns'): attribute 'columns': fr track weight must be finite and positive; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'columns'): attribute 'columns': invalid track: Length is negative, nonfinite or outside the supported range; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'areas'): attribute 'areas': area row count must match row tracks; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'areas'): attribute 'areas': area 'a' must form one rectangle; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'template'): attribute 'template': template conflicts with explicit columns/rows/areas; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'template'): attribute 'template': template conflicts with explicit columns/rows/areas; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'horizontal_align'): Grid per-cell horizontal_align requires start/center/end/stretch; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'row_gap'): invalid length 'row_gap': Length is negative, nonfinite or outside the supported range; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:33:131 (spread key 'column_gap'): invalid length 'column_gap': Expected a finite nonnegative length (negative offsets are allowed); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:39:35 (spread key 'area'): attribute 'area': Grid cells overlap; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:39:35 (spread key 'area'): attribute 'area': unknown placement area: missing; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: app/ResponsiveGallery.gogo:39:35 (spread key 'row'): attribute 'row': placement indexes must be nonnegative integers and spans positive (maximum 256); previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)"
+    ]
+  },
+  "graphics": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-TXaS65/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-TXaS65/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/responsive/graphics.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.37,
+    "godot_pid": 25991,
+    "log": "graphics.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

@@ -20,6 +20,7 @@
     "examples/core_reactivity",
     "examples/focus",
     "examples/checkbox",
-    "examples/input"
+    "examples/input",
+    "examples/proportions"
   ]
 }

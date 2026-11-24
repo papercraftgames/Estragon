@@ -1,0 +1,15 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Box = preload("../../../addons/estragon/runtime/node/box.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+@bindable var width_target: String = "75%"
+@bindable var revision: int = 0
+func build_view() -> Element:
+    return <Box name="Body" direction="column" width={self.width_target} padding="20px" border_width="5px" border_color="#9ab4cf" background_color="#28323e" gap="10px">
+        <Text text={"Body / revision "+str(self.revision)} />
+        <Box name="Nested" wrap width="100%" gap="20px" background_color="#18232e">
+            <Rect name="Quarter" width="25%" height="30px" fill={Color("#5995b5")} />
+            <Rect name="ThreeQuarters" width="75%" height="30px" fill={Color("#70ab82")} />
+        </Box>
+    </Box>

@@ -136,3 +136,5 @@ S04 `clip_content` independently opts into this same rectangular viewport with
 zero scroll range when both axes are off. Both scroll flags **and clip_content**
 false preserve visible overflow; no second clip/input tree is created. Surface
 corner radii affect owner paint only, not the descendant clipping rectangle.
+
+L12 clarifies [definite fraction viewports versus intrinsic auto rows](PARENT_PERCENTAGES.md#auto-rows-allocation-and-scrolling): hidden content is not a viewport minimum in a definite all-fr span. Actual inset/intrinsic/native/authored floors remain; implicit auto rows can overflow and unbounded scrolling invents no viewport. Positive grow uses at least the actual viewport once.

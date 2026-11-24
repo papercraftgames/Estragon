@@ -1,0 +1,42 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+L12_PERCENT nonwrap 25/75 shared280 budget axis0: true
+L12_PERCENT last edge exactly300 axis0: true
+L12_PERCENT Wrap full300 basis creates second line axis0: true
+L12_PERCENT one child no phantom gap axis0: true
+L12_PERCENT zero children axis0: true
+L12_PERCENT nonwrap 25/75 shared280 budget axis1: true
+L12_PERCENT last edge exactly300 axis1: true
+L12_PERCENT Wrap full300 basis creates second line axis1: true
+L12_PERCENT one child no phantom gap axis1: true
+L12_PERCENT zero children axis1: true
+L12_PERCENT X gaps affect dimensions on X only: true
+L12_PERCENT padding border margin offset min/max keep ordinary300 reference: true
+L12_PERCENT fixed100 plus75% intentionally overflows330: true
+L12_PERCENT viewport gap resolved once before dimension budget: true
+L12_PERCENT percentage gap keeps its own containing600 reference: true
+L12_PERCENT fractional gap exact arithmetic: true
+L12_PERCENT later insertion updates earlier dimension budget: true
+L12_PERCENT reorder retains common budget: true
+L12_PERCENT inside border/padding once, Wrap75% of350: true
+L12_PERCENT existing Grid floors water-fill70/210: true
+L12_PERCENT spanning auto Header fills whole cell with internal gap: true
+L12_PERCENT Grid Body actual210 gives nested content160 and Wrap child120: true
+L12_PERCENT transparent host forwards both contexts exactly once: true
+L12_PERCENT explicit fixed track is not normalized to fit percent child: true
+L12_PERCENT 3D coordinator opt-out preserves prior dimensions: true
+L12_PERCENT row_gap override consistent natural and slots: true
+L12_PERCENT allocated ordinary auto Body remeasures wrapped cross height before Grid rows: true
+L12_PERCENT allocated descendant ratios do not become a second grow basis: true
+L12_PERCENT genuine descendant invalidation preserves growth basis: true
+L12_PERCENT compressed positive budget clamps to zero without shrinking the gap: true
+L12_PERCENT actual constrained parent and child floor preserve forward overflow: true
+WARNING: Estragon width=100% consumes the full definite parent dimension budget, not remaining space; siblings may overflow. Use an auto-sized Spacer with grow=1 for remaining space
+     at: push_warning (core/variant/variant_utility.cpp:923)
+L12_PERCENT over100 percent targets stay live unnormalized ratios: true
+L12_PERCENT Grid track percentages retain full content grammar and honest overflow: true
+L12_PERCENT intrinsic refresh preserves physical row_gap override: true
+L12_PERCENT same parent context reuses one cached dimension budget: true
+L12_PERCENT settled pure core does no repeat measure/arrange/resolve: true
+L12_PERCENT_ASSERTIONS 36 failed=false
+L12_PERCENT_OK

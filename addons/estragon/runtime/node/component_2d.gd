@@ -303,7 +303,7 @@ func _default_padding() -> Vector4:
 	return Vector4.ZERO
 
 func _padding_insets() -> Vector4:
-	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
+	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size,layout.model.dimension_reference)
 	return layout.model.padding
 
 func get_content_rect() -> Rect2:
@@ -387,7 +387,8 @@ func get_layout_stats() -> Dictionary:
 	return {"measure": layout.model.measure_count, "arrange": layout.model.arrange_count, "flush": layout.flush_count, "active": get_layout_root() != null}
 
 func apply_layout_position(offset: Vector3) -> void:
-	position = Vector2(offset.x, offset.y)
+	var next := Vector2(offset.x,offset.y)
+	if position!=next: position = next
 
 func apply_layout_size(size: Vector3) -> void:
 	var next := Vector2(size.x,size.y)
@@ -402,7 +403,7 @@ func apply_layout_size(size: Vector3) -> void:
 	layout_applied.emit(_layout_size)
 
 func _margin_insets() -> Vector4:
-	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size)
+	layout.model.prepare(layout.model.parent_reference,layout.model.viewport_size,layout.model.dimension_reference)
 	return layout.model.margin
 
 func _queue_style_redraw() -> void:

@@ -6,7 +6,8 @@ import {packAddon} from './pack-addon.ts';
 import {developmentContext, type VersionContext} from './release-context.ts';
 import {tagVersion, OVERLAY_RECIPE} from './package-version.ts';
 const editorOnly=process.argv.includes('--editor-only'), editor=editorOnly||process.argv.includes('--editor');
-const argv=process.argv.slice(2).filter(a=>!['--editor','--editor-only'].includes(a));
+const scrollOnly=process.argv.includes('--scroll-only');
+const argv=process.argv.slice(2).filter(a=>!['--editor','--editor-only','--scroll-only'].includes(a));
 const candidateIndex=argv.indexOf('--candidate-tag');
 const candidate=candidateIndex<0?null:argv.splice(candidateIndex,2)[1];
 if(candidateIndex>=0&&!candidate)throw Error('Missing read-only preview candidate tag');
@@ -59,7 +60,7 @@ for(const selection of options.engines){
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('build',[...args,'--headless','--script','res://tests/ux01/build.gd'],'UX01_BUILD_OK');
   if(!editorOnly){
-   for(const [name,marker] of [['wrap_capacity','UX01_A_MATH_OK'],['syntax','UX01_B_OK'],['maxima','UX01_C_OK'],['clipping_probe','UX01_CLIP_OK'],['scroll_native','UX01_NATIVE_SCROLL_OK'],['scroll_nested','UX01_NESTED_OK'],['scrolling','UX01_SCROLL_OK'],['rejections','UX01_REJECTIONS_OK'],['reproduction','UX01_REPRO_OK'],['gallery','UX01_GALLERY_OK'],['inherited','U02_INHERITED_OK']])
+   for(const [name,marker] of [['wrap_capacity','UX01_A_MATH_OK'],['syntax','UX01_B_OK'],['maxima','UX01_C_OK'],['clipping_probe','UX01_CLIP_OK'],['scroll_native','UX01_NATIVE_SCROLL_OK'],['scroll_nested','UX01_NESTED_OK'],['scrolling','UX01_SCROLL_OK'],['rejections','UX01_REJECTIONS_OK'],['reproduction','UX01_REPRO_OK'],['gallery','UX01_GALLERY_OK'],['inherited','U02_INHERITED_OK']].filter(([name])=>!scrollOnly||['clipping_probe','scroll_native','scroll_nested','scrolling','inherited'].includes(name!)))
     await run(name!,[...args,...graphics,'--script','res://tests/ux01/'+name+'.gd'],marker);
   }
   if(editor){

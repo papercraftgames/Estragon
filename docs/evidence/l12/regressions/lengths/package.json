@@ -1,0 +1,8 @@
+{
+  "name": "l06-native-consumer",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "dependencies": {
+    "@papercraftgames/estragon": "file:/evidence/l12-lengths-final-2/4.7/packed/papercraftgames-estragon-0.0.0-dev.tgz"
+  }
+}

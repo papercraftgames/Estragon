@@ -75,7 +75,7 @@ const _GOGO_BINDABLE_PROPERTIES_NATIVE := {"value":"String"}
 var _editor: LineEdit
 var _editor_skin := StyleBoxEmpty.new()
 func _init() -> void:
-	background_color = Color("#252d38")
+	background_color = Color("#383838")
 	padding = 8.0
 func _measure_native() -> Vector2:
 	# A stable single-line viewport, not a text-dependent expanding field.

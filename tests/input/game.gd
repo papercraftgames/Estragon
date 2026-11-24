@@ -40,7 +40,7 @@ func click(tree: SceneTree,node: Control,offset: Vector2=Vector2(12,10)):
 	var point = node.get_global_transform_with_canvas()*offset
 	await pointer(tree,point,true)
 	await pointer(tree,point,false)
-func run(host: Node):
+func run(host: Node,publish: bool=true):
 	var tree := host.get_tree()
 	tree.root.size = Vector2i(640,700)
 	await frames(tree)
@@ -53,6 +53,27 @@ func run(host: Node):
 	check(editor is LineEdit and editor.owner==null and bound.get_child_count()==0 and bound.get_child_count(true)==1,"one private native LineEdit, not an authored wrapper or layout child")
 	check(editor.position==Vector2.ZERO and editor.size==bound.layout_size,"native editing hit/focus rect exactly occupies the arranged border-box")
 	check(host.submits.is_empty() and host.cancels==0 and editor.text=="Hello","initial projection and named handlers do not execute during render")
+	host.props={"background_color":Color("#714626")}
+	await frames(tree)
+	check(bound.background_color==Color("#714626") and bound._visual_style.colors.background_color==Color("#714626"),"explicit GGX Input background updates getter/cache")
+	bound.background_color=Color("#254628")
+	host.revision+=1
+	await frames(tree)
+	check(bound.background_color==Color("#254628") and bound._visual_style.colors.background_color==Color("#254628"),"unchanged GGX preserves an independent Input background override")
+	host.props={}
+	await frames(tree)
+	check(bound.background_color==Color("#383838") and bound._visual_style.colors.background_color==Color("#383838"),"owned background removal restores neutral class default")
+	var normal_motion=InputEventMouseMotion.new();normal_motion.position=Vector2.ZERO
+	Input.parse_input_event(normal_motion)
+	await frames(tree)
+	var normal_input=host.get_node("UI/Palette/Input")
+	var normal_button=host.get_node("UI/Palette/Button")
+	check(normal_input.background_color==Color("#383838") and normal_button.background_color==Color("#383838"),"unstyled GGX Input and explicitly imported Button share neutral defaults")
+	await RenderingServer.frame_post_draw
+	var normal_picture=tree.root.get_texture().get_image()
+	var ip: Vector2=normal_input.get_global_transform_with_canvas()*Vector2(normal_input.layout_size.x-5,normal_input.layout_size.y*0.5)
+	var bp: Vector2=normal_button.get_global_transform_with_canvas()*Vector2(normal_button.layout_size.x-5,normal_button.layout_size.y*0.5)
+	check(normal_picture.get_pixelv(Vector2i(ip)).is_equal_approx(Color("#383838")) and normal_picture.get_pixelv(Vector2i(bp)).is_equal_approx(Color("#383838")),"rendered unfocused GGX Input/Button surfaces match383838")
 	var changes: Array = []
 	var writes: Array = []
 	bound.value_changed.connect(func(a,b): changes.append([a,b]))
@@ -229,9 +250,10 @@ func run(host: Node):
 	check(stats.counts.get("views",0)==0 and stats.timings_us.is_empty(),"zero idle composition work")
 	fallback.free()
 	var result := {"ok":ok,"checks":checks,"submits":host.submits.size(),"cancels":host.cancels}
-	var file := FileAccess.open("res://.godot/ui03-game.tmp",FileAccess.WRITE)
-	file.store_string(JSON.stringify(result))
-	file.close()
-	DirAccess.rename_absolute("res://.godot/ui03-game.tmp","res://.godot/ui03-game.json")
+	if publish:
+		var file := FileAccess.open("res://.godot/ui03-game.tmp",FileAccess.WRITE)
+		file.store_string(JSON.stringify(result))
+		file.close()
+		DirAccess.rename_absolute("res://.godot/ui03-game.tmp","res://.godot/ui03-game.json")
 	print("UI03_GAME ",JSON.stringify(result))
 	return result

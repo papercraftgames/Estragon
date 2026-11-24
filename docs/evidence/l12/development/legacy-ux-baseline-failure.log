@@ -1,0 +1,43 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+UX01_B source-located strict negative <Node3D vertical_scroll />: true
+UX01_B source-located strict negative <Control horizontal_scroll />: true
+UX01_B source-located strict negative <Button vertical_scroll />: true
+UX01_B source-located strict negative <HBox width />: true
+UX01_B source-located strict negative <HBox imaginary />: true
+UX01_B source-located strict negative <Button pressed />: true
+UX01_B source-located strict negative <Button key />: true
+UX01_B source-located strict negative <Button value />: true
+UX01_B source-located strict negative <Button disabled disabled={false} />: true
+UX01_B source-located strict negative <Text text="x">body</Text>: true
+UX01_B source-located strict negative <HBox>bad text</HBox>: true
+UX01_B source-located strict negative <Text>Mixed<Button>Child</Button></Text>: true
+UX01_B source-located strict negative <Text>{42}</Text>: true
+UX01_B source-located strict negative <Text>{true}</Text>: true
+UX01_B source-located strict negative <Text>unclosed: true
+UX01_B source-located strict negative <Text></Button>: true
+UX01_B source-located strict negative <Text>{"unfinished"</Text>: true
+UX01_B explicit GDScript newline String interpolation compiles: true
+UX01_B source-owned typed Gogo Bool/String fields remain writable on native subtype: true
+UX01_B String interpolation Unicode: true
+UX01_B literal quotes are markup, never GDScript: true
+UX01_B multiline whitespace: true
+UX01_B newline/interpolation boundaries fold once: true
+UX01_B empty body: true
+UX01_B bare true and ordered spread: true
+UX01_B later spread overrides bare true: true
+UX01_B retained observed text update: true
+UX01_B String expression preserves explicit newlines on native Button: true
+UX01_B body text uses existing native font measurement and retained node: true
+UX01_EXPECTED_BEGIN
+ERROR: app/Ergonomics.gogo:43:24 (spread key 'text'): text property conflicts with text body; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://addons/estragon/runtime/composition/state.gd:38)
+UX01_EXPECTED_END
+UX01_B spread/body complete-description conflict rollback: true
+UX01_EXPECTED_BEGIN
+UX01_EXPECTED_END
+UX01_B dynamic non-String rejects atomically without coercion: true
+UX01_B each String interpolation evaluates once per description: false

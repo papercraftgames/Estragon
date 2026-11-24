@@ -32,8 +32,7 @@ owns Container interiors. Natural sizes/minimums and explicit dimensions never
 shrink to hide overflow. Zero/negative free space adds zero. Pixels are floating
 point, without per-child rounding or clipping.
 
-Percentages are full definite immediate-parent **content** dimensions, never
-remaining space. Independent2D Entry roots use their visible Viewport as an
+Child width/height percentages use [L12 immediate-parent policy budgets](PARENT_PERCENTAGES.md), never the leftover after fixed siblings. Nonwrap stacks/Grid deduct applicable physical gaps; Wrap keeps the full content reference. Other Length domains remain separate. Independent2D Entry roots use their visible Viewport as an
 implicit containing rectangle:100% is full viewport,50% half,150% overflow;
 100vw/100vh remain equivalent explicit syntax. This applies to root dimensions,
 insets, margins, direction-aware gap and additive offsets. Root margin is not

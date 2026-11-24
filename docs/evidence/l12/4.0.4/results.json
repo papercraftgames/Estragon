@@ -1,0 +1,277 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-pGwAEm/yarn-cache",
+      "file:/evidence/l12-acceptance-final-2/packed/input-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.88,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--headless",
+      "--script",
+      "res://tests/input/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.39,
+    "godot_pid": 29516,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--headless",
+      "--script",
+      "res://tests/input/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 16.09,
+    "godot_pid": 29535,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "proportions": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/proportions.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 29554,
+    "log": "proportions.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "proportion-runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/lengths/proportion_runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.51,
+    "godot_pid": 29573,
+    "log": "proportion-runtime.log",
+    "diagnostics": []
+  },
+  "scene": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/input/scene.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.17,
+    "godot_pid": 29674,
+    "log": "scene.log",
+    "diagnostics": []
+  },
+  "palette": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/input/palette.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.26,
+    "godot_pid": 29775,
+    "log": "palette.log",
+    "diagnostics": []
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--headless",
+      "--script",
+      "res://tests/input/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.63,
+    "godot_pid": 29876,
+    "log": "rejections.log",
+    "diagnostics": [
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'disabled'): attribute 'disabled': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'value'): attribute 'value': incompatible native value type; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'background_color'): invalid style 'background_color': Color requires a native Color, #rgb/#rgba/#rrggbb/#rrggbbaa or transparent; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:73 (spread key 'width'): invalid length 'width': Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: app/Rejection.gogo:9:49: invalid observable String binding endpoint; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.11,
+    "godot_pid": 29895,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "4d462ff208798559d4debae567f91261c85dda03b882d84676f93c0ace2fc702",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 143.09,
+    "godot_pid": 30275,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "SCRIPT ERROR: Parse Error: Cannot pass a value of type \"bool\" as \"String\".",
+      "          at: GDScript::reload (res://app/generated/Inputs.gd:78)",
+      "SCRIPT ERROR: Parse Error: Invalid argument for \"_gogo_build_2()\" function: argument 2 should be \"String\" but is \"bool\".",
+      "          at: GDScript::reload (res://app/generated/Inputs.gd:78)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-pGwAEm/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-pGwAEm/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 57.95,
+    "godot_pid": 30998,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ]
+  },
+  "immutable": {
+    "status": "PASS",
+    "sourceHead": "da03a4bf6470be9830a35585a324aebf0307f1fb",
+    "direct_yarn": true,
+    "installed_bytes_unchanged": true,
+    "canonical_uids": 83,
+    "tarball_sha256": "9fb713ac84685284a00ce1bca6a95699cce56b3873e2fe3cc7296efa1829387b"
+  }
+}
