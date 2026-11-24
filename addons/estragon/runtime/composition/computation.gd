@@ -373,6 +373,12 @@ func _apply(desired: Element, record: Mounted) -> void:
 		node._apply_grid(_grid_config(desired))
 	var stack := StackContract.registered(desired.type)
 	var scroll := VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_2D")
+	if scroll:
+		for key in ["scrollbar_size","vertical_scrollbar_width","horizontal_scrollbar_height","scrollbar_style"]:
+			if record.properties.has(key) and not desired.properties.has(key) and not resets.has(key):
+				node.set(key,record.defaults[key])
+				writes += 1
+				if Profile.is_enabled(): Profile.add("property_writes")
 	if stack:
 		var policy := resets.duplicate()
 		policy.merge(desired.properties,true)
@@ -616,6 +622,9 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 				validation_error = desired.location(key)+": "+message+"; previous tree retained"
 				return false
 	if VisualStyle.marked(desired.type,"ESTRAGON_SCROLL_2D"):
+		if desired.properties.has("scrollbar_style"):
+			var problem := preload("../node/internal/scrollbar_style.gd").error(desired.properties.scrollbar_style)
+			if not problem.is_empty(): return _invalid_attribute(desired,"scrollbar_style",problem)
 		if desired.properties.has("scroll_offset") and not preload("../node/internal/scroll_2d.gd").valid_offset(desired.properties.scroll_offset): return _invalid_attribute(desired,"scroll_offset","requires a finite nonnegative Vector2")
 		for key in ["scroll_range","content_extent"]:
 			if desired.properties.has(key): return _invalid_attribute(desired,key,"read-only scrolling measurement")

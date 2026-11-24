@@ -10,10 +10,10 @@ func click(point: Vector2):
 	event.position = point
 	event.button_index = MOUSE_BUTTON_LEFT
 	event.pressed = true
-	root.push_input(event,true)
+	Input.parse_input_event(event)
 	event = event.duplicate()
 	event.pressed = false
-	root.push_input(event,true)
+	Input.parse_input_event(event)
 func _initialize(): run.call_deferred()
 func run():
 	root.size = Vector2i(640,480)

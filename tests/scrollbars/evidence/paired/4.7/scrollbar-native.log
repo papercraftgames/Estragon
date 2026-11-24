@@ -1,0 +1,49 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U03_NATIVE dual native viewport and full width wrap380: true
+U03_NATIVE post-gutter wrap extent drives range: true
+U03_NATIVE native track transforms and corner exact: true
+U03_NATIVE native proportional page/max: true
+U03_NATIVE neutral square default: true
+U03_NATIVE rendered default thumb neutral: true
+U03_NATIVE rendered native hover state: true
+U03_NATIVE rendered native pressed state: true
+U03_NATIVE native hover/press does no layout or skin rebuild: true
+U03_NATIVE right aligned edge remains clickable beside gutter: true
+U03_NATIVE native vertical track click does not click authored content: true
+U03_NATIVE native thumb drag survives thickness change without content activation: true
+U03_NATIVE narrow gutter triggers bounded rewrap and updated range: true
+U03_NATIVE Shift wheel horizontal: true
+U03_NATIVE pan both axes: true
+U03_NATIVE nested wheel chooses inner viewport: true
+U03_NATIVE nested exhaustion bubbles outer: true
+U03_NATIVE style-only avoids layout and preserves explicit Resource: true
+U03_NATIVE explicit native minimum stays inside assigned strip: true
+U03_NATIVE axis and interactive state overrides: true
+U03_NATIVE live Resource edits stay native without child layout: true
+U03_NATIVE custom textured skins retain exact Resource and texture: true
+U03_NATIVE custom skin expansion clips to track without covering content: true
+U03_NATIVE same targets and idle quiet: true
+U03_NATIVE runtime retained target, width and offset 12: true
+U03_NATIVE runtime retained target, width and offset 5%: true
+U03_NATIVE runtime retained target, width and offset 0: true
+U03_NATIVE zero removes bar only: true
+U03_NATIVE runtime retained target, width and offset 12: true
+U03_NATIVE native identities retained: true
+U03_NATIVE huge target caps actual strip without growing owner: true
+U03_NATIVE clip alone releases both gutters: true
+U03_NATIVE range zero hides bars but keeps stable gutters: true
+U03_NATIVE hidden gutter never routes authored input: true
+U03_NATIVE real inset percentage child249.375: true
+U03_NATIVE Body210 padding20 -> wrap158: true
+U03_NATIVE native own viewport Length at 640: true
+U03_NATIVE edge button and viewport remain separate at 640: true
+U03_NATIVE native own viewport Length at 900: true
+U03_NATIVE edge button and viewport remain separate at 900: true
+U03_NATIVE native scene packs: true
+U03_NATIVE native scene reload retains owner target and offset: true
+U03_NATIVE_ASSERTIONS 42 ok=true
+U03_NATIVE_OK

@@ -286,3 +286,5 @@ Explicit colors remain authoritative. See [Button imports](BUTTON_IMPORTS.md).
 UI-02 [Checkbox](CHECKBOX.md) shares Button/Toggle local surface and text properties, with a square/checkmark rather than Toggle's checked whole-surface fill/underline. It reserves square/label natural content through the existing core and inherits the same disabled/hover/held/focus/clip behavior. Label color/font are local; no parent label style inheritance is added. [Bool binding/notifications](TWO_WAY_BINDINGS.md) use the new implicit contract.
 
 UI-03 [Input](INPUT.md) uses the same local Node2D surface/border/padding contract around a transparent native editing endpoint. Its native text/font, focus/invalid outlines and disabled/read-only/placeholder presentation stay local; no parent style inheritance or additional paint/layout tree is introduced.
+
+Inherited 2D scrollbars use their own small validated `scrollbar_style` Dictionary and per-instance native StyleBox overrides. See the [U03 schema, geometry and defaults](SCROLLING.md#u03--stable-inside-gutters-and-native-skins); these styles do not cascade or change child layout.

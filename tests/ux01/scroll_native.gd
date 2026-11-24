@@ -33,9 +33,9 @@ func run():
 	entry.add_child(scroll)
 	root.add_child(entry)
 	await frames()
-	check(scroll.scroll_range==Vector2(600,600),"both-axis range600")
+	check(scroll.scroll_range==Vector2(612,612),"both-axis post-gutter range612")
 	scroll.scroll_offset = Vector2(900,900)
-	check(scroll.scroll_offset==Vector2(600,600),"programmatic clamp")
+	check(scroll.scroll_offset==Vector2(612,612),"programmatic clamp")
 	var stats := root_box.get_layout_stats()
 	var wheel := InputEventMouseButton.new()
 	wheel.position = Vector2(40,40)
@@ -43,13 +43,13 @@ func run():
 	wheel.pressed = true
 	root.push_input(wheel,true)
 	await frames()
-	check(scroll.scroll_offset.y==560 and stats==root_box.get_layout_stats(),"wheel updates translation only")
+	check(scroll.scroll_offset.y==572 and stats==root_box.get_layout_stats(),"wheel updates translation only")
 	var pan := InputEventPanGesture.new()
 	pan.position = Vector2(40,40)
 	pan.delta = Vector2(-1,-1)
 	root.push_input(pan,true)
 	await frames()
-	check(scroll.scroll_offset==Vector2(560,520),"trackpad pan both axes")
+	check(scroll.scroll_offset==Vector2(572,532),"trackpad pan both axes")
 	root_box.width = 100
 	root_box.height = 100
 	block.width = 100

@@ -76,7 +76,7 @@ func run(context: SceneTree):
 		check(near(body.layout_size.y,170 if explicit else 300) and near(body.scroll_range.y,130 if explicit else 0),"fr bounded viewport vs intrinsic auto row "+str(explicit))
 		check(near(grow.layout_size.y,0),"overflow has no positive growth remainder "+str(explicit))
 		if explicit:
-			check(body._scroll._vertical.visible and body._scroll._clip.size==body.get_content_rect().size,"bounded viewport native bar/clip geometry")
+			check(body._scroll._vertical.visible and body._scroll._clip.size==body.get_content_rect().size-Vector2(12,0),"bounded viewport native bar/clip geometry")
 			body.scroll_offset=Vector2(0,80);await frames()
 			check(near(body.scroll_offset.y,80) and body._scroll._content.position.y==-body.get_content_rect().position.y-80,"bounded native scroll translation")
 			tall.free();await frames()

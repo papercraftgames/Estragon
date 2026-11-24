@@ -1,0 +1,204 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+SCRIPT ERROR: Parse Error: Cannot find property "max" on base "Vector3".
+          at: GDScript::reload (res://addons/estragon/runtime/node/internal/layout_core.gd:514)
+SCRIPT ERROR: Parse Error: Function "max()" not found in base Vector3.
+          at: GDScript::reload (res://addons/estragon/runtime/node/internal/layout_core.gd:514)
+SCRIPT ERROR: Parse Error: Cannot find property "max" on base "Vector2".
+          at: GDScript::reload (res://addons/estragon/runtime/node/internal/scroll_2d.gd:183)
+SCRIPT ERROR: Parse Error: Function "max()" not found in base Vector2.
+          at: GDScript::reload (res://addons/estragon/runtime/node/internal/scroll_2d.gd:183)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "native_size" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://addons/estragon/runtime/node/internal/scroll_2d.gd:183)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EstragonBox._scroll_changed (res://addons/estragon/runtime/node/component_2d.gd:347)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EstragonBox._scroll_changed (res://addons/estragon/runtime/node/component_2d.gd:347)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonBox._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EstragonBox._scroll_changed (res://addons/estragon/runtime/node/component_2d.gd:347)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonBox._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonInput._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: @implicit_new (res://addons/estragon/runtime/node/internal/coordinator.gd:12)
+SCRIPT ERROR: Invalid set index 'dimension_budget_enabled' (on base: 'Nil') with value of type 'bool'.
+          at: _init (res://addons/estragon/runtime/node/internal/coordinator.gd:25)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_scroll_axes' in base 'Nil'.
+          at: changed (res://addons/estragon/runtime/node/internal/coordinator.gd:165)
+SCRIPT ERROR: Invalid get index 'viewport_size' (on base: 'Nil').
+          at: EstragonBox._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:441)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: Estragon2D._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonBox._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonBox._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonButton._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonButton._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonButton._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonInput._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonInput.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonInput.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonBox._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid set index 'clips_content' (on base: 'Nil') with value of type 'bool'.
+          at: EstragonBox._enter_tree (res://addons/estragon/runtime/node/component_2d.gd:391)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: Estragon2D._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonBox._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonBox._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonInput._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonBox._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonBox._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._prepare_surface (res://addons/estragon/runtime/node/component_2d.gd:446)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+SCRIPT ERROR: Invalid get index 'border' (on base: 'Nil').
+          at: EstragonButton._paint_visual_style (res://addons/estragon/runtime/node/component_2d.gd:448)
+SCRIPT ERROR: Invalid get index 'padding' (on base: 'Nil').
+          at: EstragonButton.get_content_rect (res://addons/estragon/runtime/node/component_2d.gd:336)
+Terminated

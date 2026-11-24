@@ -16,11 +16,11 @@ func event(button: int, point: Vector2):
 	input.position = point
 	input.button_index = button
 	input.pressed = true
-	root.push_input(input,true)
+	Input.parse_input_event(input)
 	if button==MOUSE_BUTTON_LEFT:
 		input = input.duplicate()
 		input.pressed = false
-		root.push_input(input,true)
+		Input.parse_input_event(input)
 func _initialize(): run.call_deferred()
 func run():
 	var entry := Entry.new()

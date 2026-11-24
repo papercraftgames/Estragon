@@ -1,0 +1,154 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK explicit GGX Input background updates getter/cache: true
+UI03_GAME_CHECK unchanged GGX preserves an independent Input background override: true
+UI03_GAME_CHECK owned background removal restores neutral class default: true
+UI03_GAME_CHECK unstyled GGX Input and explicitly imported Button share neutral defaults: true
+UI03_GAME_CHECK rendered unfocused GGX Input/Button surfaces match383838: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":52,"ok":true,"submits":1}
+L12_NATIVE real row 70/210 at0/90: true
+L12_NATIVE geometry never rewrites percentage targets: true
+L12_NATIVE later participating sibling changes earlier budget: true
+L12_NATIVE hidden child removes its gap from stack budget: true
+L12_NATIVE native reorder updates slots, retains Node: true
+L12_NATIVE runtime px setter applies latest retained target: true
+L12_NATIVE runtime numeric target retains type: true
+L12_NATIVE px numeric percent parse once each: true
+L12_NATIVE auto restores natural target: true
+L12_NATIVE same target and settled idle do no work: true
+L12_NATIVE layout_applied remains arrangement completion, not size-changed: true
+L12_NATIVE reentrant target change gets exactly one genuine follow-up flush: true
+L12_NATIVE native Control floor does not rebase ratio into leftover space: true
+L12_NATIVE hidden native Control is nonparticipating: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row false: true
+L12_NATIVE overflow has no positive growth remainder false: true
+L12_NATIVE fr bounded viewport vs intrinsic auto row true: true
+L12_NATIVE overflow has no positive growth remainder true: true
+L12_NATIVE bounded viewport native bar/clip geometry: true
+L12_NATIVE bounded native scroll translation: true
+L12_NATIVE empty grow consumes actual viewport remainder once: true
+L12_NATIVE grow actual size is its own descendant reference inside scroll: true
+L12_NATIVE borrowed native Control keeps actual parent/owner with logical flow: true
+L12_NATIVE layout const Grid + transparent Body210 -> nested160: true
+L12_NATIVE nested Wrap uses immediate actual content: true
+L12_NATIVE visible transparent participant contributes one stack gap: true
+L12_NATIVE hidden managed root removes transparent participant gap: true
+L12_NATIVE restored managed root reattaches transparent participant: true
+L12_NATIVE unchanged GGX target preserves intervening imperative width during rerender: true
+L12_NATIVE genuinely changed GGX target60% applies once: true
+L12_NATIVE viewport invalidates contexts without GGX rerender or target writeback: true
+L12_NATIVE native identities retained across target and viewport updates: true
+L12_NATIVE settled native layout/composition/cache idle is quiet: true
+L12_NATIVE teardown releases composition and borrowed/native adapters: true
+L12_NATIVE_ASSERTIONS 34 failed=false
+L12_NATIVE_OK
+U03_NATIVE dual native viewport and full width wrap380: true
+U03_NATIVE post-gutter wrap extent drives range: true
+U03_NATIVE native track transforms and corner exact: true
+U03_NATIVE native proportional page/max: true
+U03_NATIVE neutral square default: true
+U03_NATIVE rendered default thumb neutral: true
+U03_NATIVE rendered native hover state: true
+U03_NATIVE rendered native pressed state: true
+U03_NATIVE native hover/press does no layout or skin rebuild: true
+U03_NATIVE right aligned edge remains clickable beside gutter: true
+U03_NATIVE native vertical track click does not click authored content: true
+U03_NATIVE native thumb drag survives thickness change without content activation: true
+U03_NATIVE narrow gutter triggers bounded rewrap and updated range: true
+U03_NATIVE Shift wheel horizontal: true
+U03_NATIVE pan both axes: true
+U03_NATIVE nested wheel chooses inner viewport: true
+U03_NATIVE nested exhaustion bubbles outer: true
+U03_NATIVE style-only avoids layout and preserves explicit Resource: true
+U03_NATIVE explicit native minimum stays inside assigned strip: true
+U03_NATIVE axis and interactive state overrides: true
+U03_NATIVE live Resource edits stay native without child layout: true
+U03_NATIVE custom textured skins retain exact Resource and texture: true
+U03_NATIVE custom skin expansion clips to track without covering content: true
+U03_NATIVE same targets and idle quiet: true
+U03_NATIVE runtime retained target, width and offset 12: true
+U03_NATIVE runtime retained target, width and offset 5%: true
+U03_NATIVE runtime retained target, width and offset 0: true
+U03_NATIVE zero removes bar only: true
+U03_NATIVE runtime retained target, width and offset 12: true
+U03_NATIVE native identities retained: true
+U03_NATIVE huge target caps actual strip without growing owner: true
+U03_NATIVE clip alone releases both gutters: true
+U03_NATIVE range zero hides bars but keeps stable gutters: true
+U03_NATIVE hidden gutter never routes authored input: true
+U03_NATIVE real inset percentage child249.375: true
+U03_NATIVE Body210 padding20 -> wrap158: true
+U03_NATIVE native own viewport Length at 640: true
+U03_NATIVE edge button and viewport remain separate at 640: true
+U03_NATIVE native own viewport Length at 900: true
+U03_NATIVE edge button and viewport remain separate at 900: true
+U03_NATIVE native scene packs: true
+U03_NATIVE native scene reload retains owner target and offset: true
+U03_RETAIN transparent Gogo root gets post-gutter reference: true
+U03_RETAIN reactive target retains native input focus caret and offsets: true
+U03_RETAIN unchanged GGX desired thickness preserves imperative override: true
+U03_RETAIN genuinely changed desired thickness applies: true
+U03_RETAIN GGX explicit StyleBox identity and axis override: true
+U03_RETAIN omission restores previously GGX-owned class defaults: true
+U03_RETAIN unowned imperative style survives unrelated recompose: true
+U03_RETAIN explicit props override inherited chrome defaults: true
+U03_RETAIN normal-property omission restores actual inherited class defaults: true
+Running: /tmp/estragon-native-D5kCym/godot --path /tmp/estragon-native-D5kCym/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 10380 --position 320,162 res://app/Inputs.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+EL02_EDITOR_CHECK main real native Input/implicit String/keyboard Play: true
+EL02_EDITOR_CHECK editor host persists no runtime focus/edit delegates: true
+UI03_EDITOR_ASSERTIONS 2 failed=false
+UI03_EDITOR_OK

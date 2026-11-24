@@ -21,6 +21,7 @@
     "examples/focus",
     "examples/checkbox",
     "examples/input",
-    "examples/proportions"
+    "examples/proportions",
+    "examples/scrollbars"
   ]
 }

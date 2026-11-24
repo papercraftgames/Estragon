@@ -1,0 +1,11 @@
+{
+  "base": "f4072716c91c4636325457a9c4b401b7c75236d7",
+  "all_addon_files_identical_to_base": 174,
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "binary_sha256": "f85bbc6b15e22416c7d797cd60b63286dd67b9cb13498847056c18520ae55a75",
+  "fixture": "tests/scrollbars/baseline.gd",
+  "fixture_sha256": "2f5f4958f360032c9b1d13a3201317b209b77c0605ad3d74d74e05daf81ec6d4",
+  "before_capture": "tests/scrollbars/evidence/baseline/before.png",
+  "before_fixture_on_base_addon": true,
+  "after_capture_note": "Focused dirty iteration of the same baseline fixture, not clean-source certification."
+}
