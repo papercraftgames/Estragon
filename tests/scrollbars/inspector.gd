@@ -22,5 +22,14 @@ func run(probe):
 		probe.check(box.scrollbar_style=={"thumb_color":"#dedede"},"native Dictionary Inspector applies validated skin")
 		var packed=PackedScene.new();probe.check(packed.pack(box)==OK and ResourceSaver.save(packed,"res://u03-inspector.tscn")==OK,"Inspector targets and Dictionary saved")
 		var restored=load("res://u03-inspector.tscn").instantiate();probe.check(restored.scrollbar_size=="5%" and restored.scrollbar_style==box.scrollbar_style,"Inspector saved scene reload preserves target/style");restored.free()
+		if OS.get_environment("U04_EDITOR")=="1":
+			box.width=400;box.height=300;box.border_width=5;box.padding=20;box.vertical_scroll=true
+			var content=preload("res://addons/estragon/runtime/node/box.gd").new();content.width=600;content.height=600;box.add_child(content)
+			await probe.wait()
+			# The edited scene host is not an Entry; use its same native model to
+			# observe Inspector-authored geometry without adding another scheduler.
+			box.layout.model.measure();box.layout.model.arrange(Vector3(400,300,0))
+			probe.check(box._scroll._geometry.vertical==Rect2(377.5,5,17.5,290),"Inspector targets place native track beside border")
+			probe.check(box._scroll._clip.position==Vector2(25,25) and box._scroll._clip.size==Vector2(332.5,250),"Inspector keeps percentage basis and padded clip")
 		RenderingServer.force_draw(false);probe.get_viewport().get_texture().get_image().save_png("res://scrollbar-inspector.png")
 	probe.interface.inspect_object(scene);scene.remove_child(box);box.free()

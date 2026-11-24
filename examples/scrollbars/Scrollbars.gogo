@@ -20,4 +20,9 @@ func build_view() -> Element:
             </Box>
             <Box width="600px" height="500px" background_color="#537666"><Text text="Wheel, Shift-wheel, track click and native thumb drag" /></Box>
         </Box>
+        <Box name="InsetBody" direction="column" width="400px" height="260px" padding="20px" border_width="5px" border_color="#ababab" vertical_scroll horizontal_scroll scrollbar_size={self.thickness} horizontal_scrollbar_height="16px" scrollbar_style={{"thumb_color":"#38a58c","thumb_hover_color":"#58c5ac","thumb_pressed_color":"#18856c"}} background_color="#383838">
+            <Text text="Border / track / padding" />
+            <Input name="Editor" width="100%" value={self.draft} />
+            <Box width="600px" height="500px" background_color="#537666" />
+        </Box>
     </Entry>

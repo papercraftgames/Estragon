@@ -1,5 +1,7 @@
 # Estragon execution plan — Codex-sized delivery
 
+> **U04 #224 — review candidate, owner merge pending:** move native chrome to the border-inner edge, outside padding; retain U03 P-based sizing, V, styles, ranges and content-padding behavior. U03 is owner-merged in PR #223 (`fc8931e`); its review wording below is historical. [Contract](SCROLLING.md#u04--tracks-inside-border-outside-padding), [evidence](evidence/U04_SCROLLBAR_PLACEMENT.md). One scoped PR; no placement option or automatic merge.
+
 > **U03 #222 — review candidate, not merged:** stable inside-only scrollbar gutters, retained Length targets and per-instance validated native skins after owner-merged L12/UI-04 PR #221 (`f407271`). [Contract](SCROLLING.md#u03--stable-inside-gutters-and-native-skins), [source-qualified evidence](evidence/U03_SCROLLBARS.md). One shared layout core/native scroll service; one review-ready PR, owner merge only. The L12/UI-04 review wording below is archival; PR #221 is merged.
 
 > **L12 #219 + UI-04 #220:** owner-authorized combined delivery after merged UI-03 PR #218 (`fd87f72`). Parent-owned dimension-percentage budgets, physical gap/track/Wrap contexts and bounded scrolling remain in the existing core; neutral Input default is an independent commit. [Contract](PARENT_PERCENTAGES.md), [paired evidence](evidence/L12_PARENT_PERCENTAGES.md). One review-ready PR references both issues; no external GogoDemo edits, extra sizing API/solver or auto-merge.

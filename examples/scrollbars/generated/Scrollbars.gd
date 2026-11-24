@@ -54,6 +54,9 @@ func build_view() -> Element:
         ("U03 / inside-only scrollbars / revision "+str(self.revision)),
         (self.thickness),
         (preload("../../../addons/estragon/runtime/composition/element.gd").snapshot(self.chrome)),
+        (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "draft", func(_gogo_source, _gogo_edit: String): _gogo_source.draft = _gogo_edit, "self.draft", (self.draft) if self != null else null, TYPE_STRING)),
+        (self.thickness),
+        ({"thumb_color":"#38a58c","thumb_hover_color":"#58c5ac","thumb_pressed_color":"#18856c"}),
         (preload("../../../addons/estragon/runtime/composition/binding.gd").new(self, func(_gogo_root): return _gogo_root if _gogo_root != null else null, "draft", func(_gogo_source, _gogo_edit: String): _gogo_source.draft = _gogo_edit, "self.draft", (self.draft) if self != null else null, TYPE_STRING))
     )
 
@@ -82,7 +85,10 @@ class _GogoFactories_0:
         _gogo_value_0: String,
         _gogo_value_1: Variant,
         _gogo_value_2: Variant,
-        _gogo_value_3: Variant
+        _gogo_value_3: Variant,
+        _gogo_value_4: Variant,
+        _gogo_value_5: Dictionary,
+        _gogo_value_6: Variant
     ) -> _GogoElement_0:
         var _gogo_element_1 := _GogoElement_0.new(Text, {"text": _gogo_value_0}, {}, [], "examples/scrollbars/Scrollbars.gogo:14:9", null, false)
         _gogo_element_1.resolve_bindings()
@@ -104,6 +110,15 @@ class _GogoFactories_0:
         var _gogo_element_2 := _GogoElement_0.new(Box, {}, {}, [_gogo_element_3, _gogo_element_4, _gogo_element_5, _gogo_element_8], "examples/scrollbars/Scrollbars.gogo:15:9", null, false)
         _gogo_element_2.expand([["name", "Body", "examples/scrollbars/Scrollbars.gogo:15:14"], ["direction", "column", "examples/scrollbars/Scrollbars.gogo:15:26"], ["width", "400px", "examples/scrollbars/Scrollbars.gogo:15:45"], ["height", "300px", "examples/scrollbars/Scrollbars.gogo:15:59"], ["vertical_scroll", true, "examples/scrollbars/Scrollbars.gogo:15:74"], ["horizontal_scroll", true, "examples/scrollbars/Scrollbars.gogo:15:90"], ["scrollbar_size", _gogo_value_1, "examples/scrollbars/Scrollbars.gogo:15:108"], [null, _gogo_value_2, "examples/scrollbars/Scrollbars.gogo:15:140"], ["background_color", "#383838", "examples/scrollbars/Scrollbars.gogo:15:157"]])
         _gogo_element_2.resolve_bindings()
-        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "width": "100%", "height": "100%", "padding": "20px", "direction": "column", "gap": "12px", "background_color": "#202020"}, {}, [_gogo_element_1, _gogo_element_2], "examples/scrollbars/Scrollbars.gogo:13:12", null, false)
+        var _gogo_element_11 := _GogoElement_0.new(Text, {"text": "Border / track / padding"}, {}, [], "examples/scrollbars/Scrollbars.gogo:24:13", null, false)
+        _gogo_element_11.resolve_bindings()
+        var _gogo_element_12 := _GogoElement_0.new(_GogoImport_0, {"name": "Editor", "width": "100%", "value": _gogo_value_6}, {}, [], "examples/scrollbars/Scrollbars.gogo:25:13", null, false)
+        _gogo_element_12.origins["value"] = "examples/scrollbars/Scrollbars.gogo:25:47"
+        _gogo_element_12.resolve_bindings()
+        var _gogo_element_13 := _GogoElement_0.new(Box, {"width": "600px", "height": "500px", "background_color": "#537666"}, {}, [], "examples/scrollbars/Scrollbars.gogo:26:13", null, false)
+        _gogo_element_13.resolve_bindings()
+        var _gogo_element_10 := _GogoElement_0.new(Box, {"name": "InsetBody", "direction": "column", "width": "400px", "height": "260px", "padding": "20px", "border_width": "5px", "border_color": "#ababab", "vertical_scroll": true, "horizontal_scroll": true, "scrollbar_size": _gogo_value_4, "horizontal_scrollbar_height": "16px", "scrollbar_style": _gogo_value_5, "background_color": "#383838"}, {}, [_gogo_element_11, _gogo_element_12, _gogo_element_13], "examples/scrollbars/Scrollbars.gogo:23:9", null, false)
+        _gogo_element_10.resolve_bindings()
+        var _gogo_element_0 := _GogoElement_0.new(Entry, {"name": "UI", "width": "100%", "height": "100%", "padding": "20px", "direction": "column", "gap": "12px", "background_color": "#202020"}, {}, [_gogo_element_1, _gogo_element_2, _gogo_element_10], "examples/scrollbars/Scrollbars.gogo:13:12", null, false)
         _gogo_element_0.resolve_bindings()
         return _gogo_element_0

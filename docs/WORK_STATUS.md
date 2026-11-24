@@ -1,5 +1,7 @@
 # Estragon work status and session handoff
 
+> **U04 #224 — review candidate, owner merge pending:** move native chrome to the border-inner edge, outside padding; retain U03 P-based sizing, V, styles, ranges and content-padding behavior. U03 is owner-merged in PR #223 (`fc8931e`); its review wording below is historical. [Contract](SCROLLING.md#u04--tracks-inside-border-outside-padding), [evidence](evidence/U04_SCROLLBAR_PLACEMENT.md). One scoped PR; no placement option or automatic merge.
+
 > **U03 #222 — In review upon PR publication; owner merge pending:** stable inside-only scrollbar gutters, retained Length targets and per-instance validated native skins after owner-merged L12/UI-04 PR #221 (`f407271`). [Contract](SCROLLING.md#u03--stable-inside-gutters-and-native-skins), [source-qualified evidence](evidence/U03_SCROLLBARS.md). One shared layout core/native scroll service; one review-ready PR, owner merge only. The L12/UI-04 review wording below is archival; PR #221 is merged.
 
 > **L12 #219 + UI-04 #220 — Done upon owner merge:** owner-authorized combined delivery of parent-owned dimension budgets and independently committed neutral Input defaults. [Contract](PARENT_PERCENTAGES.md), [exact paired evidence](evidence/L12_PARENT_PERCENTAGES.md). Both approved Linux engines pass pure36/native34/Input52/palette12/frontend22/rejections19/editor8/restart2, with one immutable direct-Yarn payload/83 unchanged addon UIDs. UI-03 is owner-merged in PR #218 at `fd87f72`; this branch remains In review until owner review/merge. Older snapshots below are archival.

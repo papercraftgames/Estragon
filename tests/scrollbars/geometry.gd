@@ -24,10 +24,10 @@ func _initialize():
 	owner=core(-1,300);owner.scroll_axes=Vector2(0,1);child=core(100,600);owner.set_children([child]);owner.arrange(owner.measure())
 	check(owner.size.x==100 and owner.scroll_geometry.viewport.size.x==88,"gutter never adds outside growth to an auto border-box")
 	for record in [[Vector2(0,1),{},Vector2(388,300)],[Vector2(1,0),{"horizontal_scrollbar_height":Length.parse(16,"edge")},Vector2(400,284)],[Vector2.ZERO,{},Vector2(400,300)],[Vector2(1,1),{"scrollbar_size":Length.parse(0,"inset")},Vector2(400,300)],[Vector2(1,1),{"scrollbar_size":Length.parse("150%","inset")},Vector2.ZERO]]:
-		g=Geometry.snapshot(Rect2(0,0,400,300),record[0],record[1],Vector2(800,600))
+		g=Geometry.snapshot(Rect2(0,0,400,300),Rect2(0,0,400,300),record[0],record[1],Vector2(800,600))
 		check(g.viewport.size==record[2] and g.viewport.size.x>=0 and g.viewport.size.y>=0,"axes/zero/capped stable geometry "+str(record[0])+str(record[1]))
 	for unit in ["12px",".125in",".3175cm","3.175mm","12.7q","9pt",".75pc","1.5vw","2vh","2vmin","1.5vmax"]:
-		g=Geometry.snapshot(Rect2(0,0,400,300),Vector2(0,1),{"scrollbar_size":Length.parse(unit,"inset")},Vector2(800,600))
+		g=Geometry.snapshot(Rect2(0,0,400,300),Rect2(0,0,400,300),Vector2(0,1),{"scrollbar_size":Length.parse(unit,"inset")},Vector2(800,600))
 		check(absf(g.thickness.x-12)<0.001,"shared unit "+unit)
 	for value in [-1,NAN,INF,"auto","2em","calc(1px)",false,{},[]]: check(Length.parse(value,"inset").has("error"),"shared rejects "+str(value))
 	for value in [{"unknown":0},{"vertical":{"horizontal":{}}},{"track_color":Color(NAN,0,0)},{"thumb_color":false},{"track_border_width":-1},{"thumb_corner_radius":"auto"},{"thumb_stylebox":Texture2D.new()},{"vertical":3},{3:"bad"}]: check(not Styles.error(value).is_empty(),"style rejects "+str(value))
