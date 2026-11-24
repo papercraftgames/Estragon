@@ -376,7 +376,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 	if scroll:
 		for key in ["scrollbar_size","vertical_scrollbar_width","horizontal_scrollbar_height","scrollbar_style"]:
 			if record.properties.has(key) and not desired.properties.has(key) and not resets.has(key):
-				node.set(key,12 if key=="scrollbar_size" else ({} if key=="scrollbar_style" else "auto"))
+				node.set(key,record.defaults[key])
 				writes += 1
 				if Profile.is_enabled(): Profile.add("property_writes")
 	if stack:

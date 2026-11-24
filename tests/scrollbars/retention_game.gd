@@ -1,6 +1,11 @@
 extends RefCounted
 const Compiler=preload("res://addons/estragon/compiler/compiler.gd")
 const State=preload("res://addons/estragon/runtime/composition/state.tres")
+const Box=preload("res://addons/estragon/runtime/node/box.gd")
+class InheritedChrome extends Box:
+	func _init():
+		scrollbar_size=24
+		scrollbar_style={"thumb_color":"#abcdef"}
 var tree: SceneTree
 var root: Window
 var checks:=0
@@ -20,6 +25,17 @@ func run(context: SceneTree, negatives:bool=true):
 	var resource=StyleBoxFlat.new();host.chrome={"scrollbar_style":{"thumb_stylebox":resource},"vertical_scrollbar_width":20};await frames();check(body._scroll._vertical.get_theme_stylebox("grabber")==resource and wrap.layout_size.x==380,"GGX explicit StyleBox identity and axis override")
 	host.chrome={};await frames();check(body.scrollbar_style=={} and body.vertical_scrollbar_width=="auto" and wrap.layout_size.x==388,"omission restores previously GGX-owned class defaults")
 	body.scrollbar_style={"thumb_color":"#ededed"};host.revision+=1;await frames();check(body.scrollbar_style=={"thumb_color":"#ededed"},"unowned imperative style survives unrelated recompose")
+	# The normal-property omission path shares the existing captured class/_init
+	# defaults with spread omission, including user subclasses of Component2D.
+	var custom=InheritedChrome.new()
+	var computation=preload("res://addons/estragon/runtime/composition/computation.gd").new(host,State)
+	var mounted=preload("res://addons/estragon/runtime/composition/computation.gd").Mounted.new();mounted.node=weakref(custom)
+	var Element=preload("res://addons/estragon/runtime/composition/element.gd")
+	computation._apply(Element.new(InheritedChrome,{"scrollbar_size":12,"scrollbar_style":{}}),mounted)
+	check(custom.scrollbar_size==12 and custom.scrollbar_style=={},"explicit props override inherited chrome defaults")
+	computation._apply(Element.new(InheritedChrome,{}),mounted)
+	check(custom.scrollbar_size==24 and custom.scrollbar_style=={"thumb_color":"#abcdef"},"normal-property omission restores actual inherited class defaults")
+	custom.free()
 	if not negatives:
 		host.free();await frames();return {"ok":not failed,"checks":checks}
 	for props in [{"scrollbar_size":"auto"},{"vertical_scrollbar_width":-1},{"horizontal_scrollbar_height":NAN},{"scrollbar_style":{"unknown":0}},{"scrollbar_style":{"vertical":{"horizontal":{}}}},{"scrollbar_style":{"thumb_color":false}},{"scrollbar_style":{"thumb_stylebox":false}}]:
