@@ -74,12 +74,25 @@ test('publication is OIDC only, missing package fails and an existing exact vers
         await assert.rejects(executePublication(f.report,f.file,f.dir,{...io,readRegistry:async()=>({name:PACKAGE,versions:{}}),runNpm:()=>{throw Error('OIDC denied');}}));
     }finally{fs.rmSync(f.dir,{recursive:true,force:true});}
 });
-test('release workflow retains owner trigger/OIDC, hard certification and post-publication consumers',()=>{
+test('release workflow only packages the reviewed tag and publishes through OIDC',()=>{
     const yaml=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
-    assert(yaml.includes('types: [published]'));assert(yaml.includes('candidate_tag:'));assert(yaml.includes('environment: npm-publish'));assert(yaml.includes("node-version: '24'"));
-    assert(!yaml.includes('verification_run:'));assert(!yaml.includes('NPM_PUBLISH_ENABLED'));assert(!yaml.includes('inputs.publish'));assert(!/^  (push|pull_request):/m.test(yaml));
-    assert.equal(yaml.match(/id-token: write/g)?.length,1);assert(yaml.includes("if: github.event_name == 'release'"));
-    assert(yaml.includes("version: ['4.0.4', '4.7']"));assert(yaml.includes('needs: [certify, prepare]'));assert(yaml.includes('ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY:'));assert(yaml.includes('needs: [certify, prepare, publish, consumer]'));
+    assert(yaml.includes('types: [published]'));
+    assert(!yaml.includes('workflow_dispatch'));
+    assert(yaml.includes('environment: npm-publish'));
+    assert(yaml.includes("node-version: '24'"));
+    assert(yaml.includes('registry-url: https://registry.npmjs.org'));
+    assert(!/^  (push|pull_request):/m.test(yaml));
+    assert.equal(yaml.match(/id-token: write/g)?.length,1);
+    assert(yaml.includes("if: github.repository == 'papercraftgames/Estragon'"));
+    assert(yaml.includes('fetch-depth: 0'));
+    assert(yaml.includes('tools/pack-addon.ts'));
+    assert(yaml.includes('--require-clean --release-context'));
+    const jobs=yaml.split('\njobs:\n')[1]!;
+    assert.deepEqual([...jobs.matchAll(/^  ([a-z-]+):$/gm)].map(match=>match[1]),['publish']);
+    for(const obsolete of ['needs:','certify:','prepare:','consumer:','result:','check-native-addon.ts','verify-npm-release.ts','verify-published-package.ts','upload-artifact','download-artifact','ESTRAGON_PUBLISHED_PACKAGE_DIRECTORY','NPM_BOOTSTRAP_TOKEN','NODE_AUTH_TOKEN'])
+        assert(!yaml.includes(obsolete),'Release must not run extra steps: '+obsolete);
+    const publishCommand='npm publish "$RUNNER_TEMP/estragon-release/$TARBALL" --access public --tag beta --provenance --ignore-scripts';
+    assert.equal(yaml.trimEnd().split('\n').at(-1)!.trim(),publishCommand,'Nothing runs after publish');
 });
 
 test('registry verification prints the exact native package success marker as one line',()=>{
