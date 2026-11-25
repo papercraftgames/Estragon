@@ -23,6 +23,7 @@
     "examples/input",
     "examples/proportions",
     "examples/scrollbars",
-    "examples/data"
+    "examples/data",
+    "examples/constraint_layout"
   ]
 }

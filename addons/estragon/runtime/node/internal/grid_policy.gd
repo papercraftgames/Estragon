@@ -20,11 +20,16 @@ static func tracks(specs: Array, items: Array, placements: Array, axis: int, ref
 		var occupied := gap*(span-1)
 		var eligible: Array = []
 		var fractions_only := true
+		var intrinsic_track := false
 		for index in range(start,start+span):
 			occupied += sizes[index]
 			if specs[index].unit in ["auto","fr"]: eligible.append(index)
 			if specs[index].unit!="fr": fractions_only = false
+			if specs[index].unit=="auto": intrinsic_track = true
 		var contribution: float = items[i].get("contribution",items[i].preferred)[axis]
+		# Auto tracks request the natural preferred extent. The smaller
+		# unbreakable Wrap floor belongs to distributable fraction tracks.
+		if intrinsic_track: contribution = items[i].preferred[axis]
 		var viewport_floor: float = items[i].get("scroll_floor",Vector3(-1,-1,-1))[axis]
 		# A definite fraction cell assigns a scrolling viewport. Its hidden
 		# content is not a minimum viewport size; auto rows remain intrinsic.

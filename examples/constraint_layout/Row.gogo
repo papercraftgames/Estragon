@@ -1,0 +1,12 @@
+extends Node2D
+const Item = preload("Item.gd")
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+@bindable var item: Item
+var presses: int = 0
+var calls: int = 0
+func activate() -> void:
+    presses += 1
+func build_view() -> Element:
+    calls += 1
+    return <Button name="Action" width="90px" height="32px" padding="0px" text={item.label} pressed={activate} />

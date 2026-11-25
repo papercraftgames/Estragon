@@ -1,0 +1,9 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+const Flow = preload("Flow.gd")
+var calls: int = 0
+func build_view() -> Element:
+    calls += 1
+    return <VBox name="Header" horizontal_align="stretch" gap="6px"><Flow name="Nested" /><Rect name="Rule" height="10px" background_color="#ccaa88" /></VBox>
