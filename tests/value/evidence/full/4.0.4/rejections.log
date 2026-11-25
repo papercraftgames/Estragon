@@ -1,0 +1,89 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': duplicate Option identifier explore; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'min_value'): attribute 'min_value': requires min_value <= max_value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "min_value": 2, "max_value": 1 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'step'): attribute 'step': requires step >= 0; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "step": -0.05 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": nan }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": inf }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 0.53 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 3 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'orientation'): attribute 'orientation': requires horizontal or vertical; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "orientation": "diagonal" }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'bad_numeric_property'): attribute 'bad_numeric_property': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "bad_numeric_property": true }: true
+UI05_EXPECTED_BEGIN
+UI05_EXPECTED_END
+UI05_REJECTION native negative step rejects without transition: true
+UI05_EXPECTED_BEGIN
+UI05_EXPECTED_END
+UI05_REJECTION native NaN rejects without transition: true
+ERROR: Estragon numeric step: requires step >= 0
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon numeric value: requires finite numeric value
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_REJECTION negative binding fixture has native semantic/type metadata proof: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:147: attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION int model cannot silently bind float endpoint; prior tree retained: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: invalid observable float binding endpoint; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION null numeric source rejects whole transaction: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION noncanonical source retained as authored; no silent control-to-source normalization: true
+UI05_REJECTION invalid source does not schedule an infinite projection repair loop: true
+UI05_REJECTION canonical source repair reuses mounted native endpoint: true
+UI05_REJECTION unmount releases all mounted bindings and computations: true
+UI05_REJECTION_ASSERTIONS 20 ok=true
+UI05_REJECTIONS_OK

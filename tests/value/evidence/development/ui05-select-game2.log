@@ -1,0 +1,19 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT_RESULT {"checks":14,"ok":true}
+UI05_SELECT_OK

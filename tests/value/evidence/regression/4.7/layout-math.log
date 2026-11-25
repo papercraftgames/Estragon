@@ -1,0 +1,99 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L0910_MATH_CHECK 160 transposed exact slots axis0: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK 160 transposed exact slots axis1: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK align_content exact start: true
+L0910_MATH_CHECK single line start: true
+L0910_MATH_CHECK align_content exact center: true
+L0910_MATH_CHECK single line center: true
+L0910_MATH_CHECK align_content exact end: true
+L0910_MATH_CHECK single line end: true
+L0910_MATH_CHECK align_content exact space-between: true
+L0910_MATH_CHECK single line space-between: true
+L0910_MATH_CHECK align_content exact space-around: true
+L0910_MATH_CHECK single line space-around: true
+L0910_MATH_CHECK align_content exact space-evenly: true
+L0910_MATH_CHECK single line space-evenly: true
+L0910_MATH_CHECK align_content exact stretch: true
+L0910_MATH_CHECK single line stretch: true
+L0910_MATH_CHECK grow before per-line space-between: true
+L0910_MATH_CHECK grow before per-line space-around: true
+L0910_MATH_CHECK grow before per-line space-evenly: true
+L0910_MATH_CHECK line alignment start: true
+L0910_MATH_CHECK line alignment center: true
+L0910_MATH_CHECK line alignment end: true
+L0910_MATH_CHECK line alignment space-between: true
+L0910_MATH_CHECK line alignment space-around: true
+L0910_MATH_CHECK line alignment space-evenly: true
+L0910_MATH_CHECK line alignment stretch: true
+L0910_MATH_CHECK implicit row growth: true
+L0910_MATH_CHECK equal tracks and row-major 320: true
+L0910_MATH_CHECK equal tracks and row-major 620: true
+L0910_MATH_CHECK fixed100/1fr/2fr exact fractional tracks: true
+L0910_MATH_CHECK template canonical equivalence: true
+L0910_MATH_CHECK named spans and physical cells: true
+L0910_MATH_CHECK explicit before auto reservation: true
+L0910_MATH_CHECK invalid tracks 0: true
+L0910_MATH_CHECK invalid tracks -1: true
+L0910_MATH_CHECK invalid tracks 257: true
+L0910_MATH_CHECK invalid tracks []: true
+L0910_MATH_CHECK invalid tracks ["0fr"]: true
+L0910_MATH_CHECK invalid tracks ["-1fr"]: true
+L0910_MATH_CHECK invalid tracks ["NaNfr"]: true
+L0910_MATH_CHECK invalid tracks ["1em"]: true
+L0910_MATH_CHECK invalid tracks [-1]: true
+L0910_MATH_CHECK invalid tracks [inf]: true
+L0910_MATH_CHECK placement rejection [{ "row": -1 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0.5 }]: true
+L0910_MATH_CHECK placement rejection [{ "row_span": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "column_span": 4 }]: true
+L0910_MATH_CHECK placement rejection [{ "area": "missing" }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "column": 0 }, { "row": 0, "column": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "area": "x" }]: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK nonrectangle rejection: true
+L0910_MATH_CHECK template explicit ambiguity: true
+L0910_MATH_CHECK duplicate column declaration: true
+L0910_MATH_CHECK malformed named area rectangle ["a a", "a b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a", "b b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a b", "b a"]: true
+L0910_MATH_CHECK ambiguous template and explicit tracks: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK spanning natural floor split and fractional remainder: true
+L0910_MATH_CHECK percentage parent content/fixed auto/fr ordering: true
+L0910_MATH_CHECK physical cell alignment start: true
+L0910_MATH_CHECK physical cell alignment center: true
+L0910_MATH_CHECK physical cell alignment end: true
+L0910_MATH_CHECK physical cell alignment stretch: true
+L0910_MATH_CHECK nested allocated auto width remeasures wrap height in same core: true
+L0910_MATH_CHECK nested arranged third child: true
+L0910_MATH_CHECK idle unchanged core quiet: true
+L0910_MATH_CHECK Grid percent child uses usable total300, never its own cell: true
+L0910_MATH_CHECK fraction water-fill honors authored/native floors without double shares: true
+L0910_MATH_CHECK cell physical align includes asymmetric leading/outer margins once: true
+L0910_MATH_CHECK percentage gap physical fallback X/Y: true
+L0910_MATH_CHECK cross-only containing resize invalidates shorthand gap reference: true
+L0910_MATH_ASSERTIONS 95 failed=false
+L0910_MATH_OK

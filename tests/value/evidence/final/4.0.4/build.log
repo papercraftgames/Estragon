@@ -1,0 +1,4 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI05_BUILD {"changed":["examples/values/generated/Item.gd","examples/values/generated/Item.gd.map.json","examples/values/generated/Model.gd","examples/values/generated/Model.gd.map.json","examples/values/generated/Values.gd","examples/values/generated/Values.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["examples/values/generated/Item.gd","examples/values/generated/Model.gd","examples/values/generated/Values.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+UI05_BUILD_OK

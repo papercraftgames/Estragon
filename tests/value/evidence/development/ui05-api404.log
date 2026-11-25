@@ -1,0 +1,20 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI05_API OptionButton ["disabled", "selected"]
+UI05_METHOD OptionButton get_popup
+UI05_METHOD OptionButton select
+UI05_BASELINE_NATIVE_SELECTION 0
+UI05_API_CLEAR -1
+UI05_API PopupMenu []
+UI05_API HSlider ["min_value", "max_value", "step", "value", "rounded", "allow_greater", "allow_lesser", "editable", "scrollable"]
+UI05_METHOD HSlider set_value_no_signal
+UI05_API_SNAP HSlider 5.75
+UI05_API VSlider ["min_value", "max_value", "step", "value", "rounded", "allow_greater", "allow_lesser", "editable", "scrollable"]
+UI05_METHOD VSlider set_value_no_signal
+UI05_API_SNAP VSlider 5.75
+UI05_API SpinBox ["min_value", "max_value", "step", "value", "rounded", "allow_greater", "allow_lesser", "editable", "update_on_text_changed", "select_all_on_focus"]
+UI05_METHOD SpinBox get_line_edit
+UI05_METHOD SpinBox apply
+UI05_METHOD SpinBox set_value_no_signal
+UI05_API_SNAP SpinBox 5.75
+UI05_BASELINE_FLOAT_BINDING false

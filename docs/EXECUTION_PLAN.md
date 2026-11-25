@@ -1,6 +1,6 @@
 # Estragon execution plan — Codex-sized delivery
 
-> **UI-05 #203 — review candidate, owner merge pending:** native Select/Option, both-axis float Slider, float NumberInput and true int IntegerInput through the existing typed binding manager. Base is owner-merged UI-04 PR #228 (`402e54e`). [Selection](SELECT.md), [numeric controls](NUMERIC_INPUT.md); live issue/sole PR owns exact evidence/state. No merge/publication authorization.
+> **UI-05 #203 — review candidate, owner merge pending:** native Select/Option, both-axis float Slider, float NumberInput and true int IntegerInput through the existing typed binding manager. Base is owner-merged UI-04 PR #228 (`402e54e`). [Selection](SELECT.md), [numeric controls](NUMERIC_INPUT.md), [paired evidence](evidence/UI05_VALUES.md); live issue/sole PR owns exact evidence/state. No merge/publication authorization.
 
 > **UI-04 #202 — Done (owner-merged PR #228, `402e54e`):** native Box-derived RadioGroup with one observable String selection, Button-derived Radio identities, shared native focus/keyboard and atomic desired-group validation. Base is owner-merged LAYOUT-01 PR #227 (`0b581c6`). [Contract/gallery](RADIO.md), [paired native evidence](evidence/UI04_RADIO.md); live issue/sole PR owns exact source, verification and review state. Select/Slider remains #203.
 
