@@ -43,7 +43,7 @@ test('telemetry preserves failures, stage/editor timing and distinguishes actual
         assert.doesNotThrow(()=>assertFocusedGraphics({stages:[]} as any));
     }finally{fs.rmSync(dir,{recursive:true,force:true});}
 });
-test('routine workflows cannot launch editors/full suites; certification is an explicit hard publication dependency',()=>{
+test('routine PR/main checks stay bounded; release publishing has no test dependencies',()=>{
     const routine=fs.readFileSync(path.join(ROOT,'.github/workflows/ci.yml'),'utf8');
     const fast=routine.slice(0,routine.indexOf('  certify:'));
     assert(!/^\s+paths(-ignore)?:/m.test(routine));assert(fast.includes('Native check policy status'));
@@ -55,8 +55,10 @@ test('routine workflows cannot launch editors/full suites; certification is an e
     const smoke=fs.readFileSync(path.join(ROOT,'tools/check-routine-smoke.ts'),'utf8');
     assert(!smoke.includes('indexProject'));assert(smoke.includes('timeout:10000'));assert(!smoke.includes("'--editor'"));
     const release=fs.readFileSync(path.join(ROOT,'.github/workflows/npm-release.yml'),'utf8');
-    assert(release.includes('needs: [certify, prepare]'));assert(release.includes('needs: [certify, prepare, publish, consumer]'));
-    assert(release.includes("if: github.event_name == 'release'"));assert(!release.includes('NPM_BOOTSTRAP_TOKEN'));
+    assert(release.includes('types: [published]'));assert(release.includes('jobs:\n  publish:'));
+    assert(release.includes('tools/pack-addon.ts'));assert(release.includes('npm publish'));
+    assert(!release.includes('needs:'));assert(!release.includes('check-native-addon.ts'));
+    assert(!release.includes('verify-npm-release.ts'));assert(!release.includes('NPM_BOOTSTRAP_TOKEN'));
     const cert=fs.readFileSync(path.join(ROOT,'.github/workflows/certify.yml'),'utf8');
     assert(cert.includes("version: ['4.0.4', '4.7']"));assert(cert.includes('check-native-addon.ts'));assert(!cert.includes('--suites'));
     assert(cert.includes('EXPECTED_SOURCE'));assert(cert.includes('git status --porcelain'));
