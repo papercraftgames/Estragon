@@ -207,6 +207,13 @@ func run(host: Node):
 	c.disabled = false
 	await frames(tree)
 	check(c.is_selected() and before.has_focus(),"restoration does not steal unrelated Input focus")
+	c.grab_focus()
+	c.disabled = true
+	before.grab_focus()
+	await frames(tree)
+	check(before.has_focus() and row.value=="c","deferred fallback never steals a valid native focus chosen by another control")
+	c.disabled = false
+	await frames(tree)
 	await mouse(a,true)
 	row.disabled = true
 	check(not row.get_layout_root()._get_pointer_router().has_capture(),"group disable cancels native pointer capture immediately")
@@ -215,6 +222,12 @@ func run(host: Node):
 	a.focus_mode = Control.FOCUS_NONE
 	await click(a)
 	check(row.value=="a" and a.is_selected() and not a.has_focus(),"focus-none option remains a pointer-selectable native Button")
+	a.focus_mode = Control.FOCUS_CLICK
+	before.grab_focus()
+	await key(tree,KEY_TAB)
+	check(b.has_focus() and row.value=="a","selected click-only option falls back to first Tab-eligible option without changing selection")
+	await key(tree,KEY_TAB)
+	check(y.has_focus(),"click-only selection still leaves the group in one Tab step")
 	a.focus_mode = Control.FOCUS_ALL
 	await click(c)
 	var old_size := tree.root.size

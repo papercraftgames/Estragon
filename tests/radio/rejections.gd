@@ -43,6 +43,19 @@ func run():
 	a.value = ""
 	print("UI04_EXPECTED_END")
 	check(a.value=="a","native empty identity rejects")
+	var staged = preload("res://addons/estragon/runtime/node/radio_group.gd").new()
+	var staged_a = preload("res://addons/estragon/runtime/node/radio.gd").new()
+	staged_a.value = "a"
+	staged.add_child(staged_a)
+	staged.options()
+	var staged_b = preload("res://addons/estragon/runtime/node/radio.gd").new()
+	staged_b.value = "b"
+	staged.add_child(staged_b)
+	print("UI04_EXPECTED_BEGIN")
+	staged_a.value = "b"
+	print("UI04_EXPECTED_END")
+	check(staged_a.value=="a","native duplicate setter rejects after membership changes outside SceneTree")
+	staged.free()
 	host.option_values = {"a":{"value":"b"},"b":{"value":"a"}}
 	await frames()
 	check(a.value=="b" and b.value=="a" and a.is_selected() and not b.is_selected(),"valid simultaneous identity swap commits without transient duplicate setter rejection")

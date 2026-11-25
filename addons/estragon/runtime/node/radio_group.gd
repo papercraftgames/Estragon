@@ -64,7 +64,7 @@ func _collect_options(node: Node, output: Array) -> void:
 func _radio_group() -> Node:
 	return self
 func options() -> Array:
-	if _options_dirty:
+	if _options_dirty or not is_inside_tree():
 		_options_dirty = false
 		var current: Array = []
 		_collect_options(self,current)
@@ -80,7 +80,7 @@ func options() -> Array:
 	return result
 func accepts(option: Node, identity: String) -> bool:
 	if identity.is_empty(): return false
-	options()
+	if _options_dirty or not is_inside_tree(): options()
 	var count: int = _identity_counts.get(identity,0)
 	return count==0 or count==1 and option.value==identity
 func _refresh_options() -> void:
@@ -104,6 +104,8 @@ func _refresh_options() -> void:
 		if previous!=null and list.has(previous) and previous._radio_eligible(): _focused_index = list.find(previous)
 		else:
 			_focused = null
+			var focus_owner := get_viewport().gui_get_focus_owner()
+			if focus_owner!=null and Focus.eligible(focus_owner): return
 			for offset in range(list.size()):
 				var candidate = list[posmod(_focused_index+offset,list.size())]
 				if candidate._radio_eligible():
@@ -115,7 +117,7 @@ func _option_focused(option: Node) -> void:
 func tab_option():
 	var first
 	for option in options():
-		if not option._radio_eligible(): continue
+		if not option._radio_eligible() or option.get_focus_control().focus_mode!=Control.FOCUS_ALL: continue
 		if first==null: first = option
 		if option.value==value: return option
 	return first
