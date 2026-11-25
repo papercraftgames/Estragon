@@ -47,6 +47,7 @@ for(const selection of options.engines){
     for(const entry of fs.readdirSync(path.join(ROOT,folder),{withFileTypes:true}))if(entry.isFile()){
      let text=fs.readFileSync(path.join(ROOT,folder,entry.name),'utf8').replaceAll('res://addons/estragon','res://'+addon);
      if(entry.name.endsWith('.gogo'))text=text.replaceAll('../../../addons/estragon','../../../'+addon);
+     if(folder.startsWith('examples/')&&entry.name.endsWith('.gd'))text=text.replaceAll('../../addons/estragon','../../'+addon);
      if(folder.startsWith('tests/')&&suite!=='radio')text=text.replaceAll('app/','examples/'+suite+'/');
      if(suite==='radio'&&entry.name==='Radios.gogo')text+='\nfunc _ready() -> void:\n    if OS.get_environment("UI04_EDITOR")=="1": _radio_probe.call_deferred()\nfunc _radio_probe() -> void:\n    var probe=preload("res://tests/radio/game.gd").new()\n    var result=await probe.run(self)\n    var file=FileAccess.open("res://.godot/ui04-game.json",FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
      fs.writeFileSync(path.join(box.project,folder,entry.name),text);
