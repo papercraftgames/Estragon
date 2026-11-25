@@ -74,7 +74,6 @@ func _sync_endpoint(_size: Vector2 = Vector2.ZERO) -> void:
 	if _endpoint.editable!=(not disabled and not read_only): _endpoint.editable = not disabled and not read_only
 	_endpoint.set_block_signals(false)
 	_native_projection = false
-	super._sync_endpoint(_size)
 	if _endpoint is SpinBox:
 		var line: LineEdit = _endpoint.get_line_edit()
 		line.editable = not disabled and not read_only
@@ -93,6 +92,7 @@ func _sync_endpoint(_size: Vector2 = Vector2.ZERO) -> void:
 		fill.bg_color = Color("#cccccc")
 		_endpoint.add_theme_stylebox_override("slider",track)
 		for state in ["grabber_area","grabber_area_highlight"]: _endpoint.add_theme_stylebox_override(state,fill)
+	super._sync_endpoint(_size)
 func _project_numeric() -> void:
 	if not is_instance_valid(_endpoint) or _native_projection: return
 	_native_projection = true

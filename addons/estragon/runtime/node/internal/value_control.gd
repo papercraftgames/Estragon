@@ -97,6 +97,8 @@ func _sync_endpoint(_size: Vector2 = Vector2.ZERO) -> void:
 			var feedback := skin.duplicate()
 			feedback.bg_color = Color("#505050") if state=="hover" else Color("#252525")
 			_endpoint.add_theme_stylebox_override(state,feedback)
+	var minimum := _endpoint.get_combined_minimum_size()
+	_endpoint.visible = content.size.x>0 and content.size.y>0 and content.size.x>=minimum.x and content.size.y>=minimum.y
 	if not Focus.eligible(_focus_endpoint):
 		_close_endpoint()
 		_focus_endpoint.release_focus()

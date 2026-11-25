@@ -25,6 +25,7 @@ var _ids: Array[String] = []
 var _projection: Array = []
 func _make_endpoint() -> Control:
 	var button := preload("internal/select_control.gd").new()
+	button.clip_text = true
 	button.item_selected.connect(_selected)
 	button.get_popup().about_to_popup.connect(_opening)
 	button.get_popup().popup_hide.connect(_popup_closed)
