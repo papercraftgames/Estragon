@@ -53,10 +53,15 @@ export async function runConstraints(argv:string[]){
      for(const name of fs.readdirSync(path.join(ROOT,folder,'generated')).filter(name=>name.endsWith('.gd.uid')))fs.copyFileSync(path.join(ROOT,folder,'generated',name),path.join(box.project,folder,'generated',name));
     }
    }
-   for(const file of ['tests/lengths/proportions.gd','tests/lengths/proportions.gd.uid','tests/scrollbars/geometry.gd','tests/scrollbars/geometry.gd.uid','tests/scrollbars/placement_geometry.gd','tests/scrollbars/placement_geometry.gd.uid']){
+   for(const file of ['tests/lengths/proportions.gd','tests/lengths/proportions.gd.uid','tests/scrollbars/geometry.gd','tests/scrollbars/geometry.gd.uid','tests/scrollbars/placement_geometry.gd','tests/scrollbars/placement_geometry.gd.uid','tests/scrollbars/placement_runtime.gd','tests/scrollbars/placement_runtime.gd.uid','tests/scrollbars/placement_game.gd','tests/scrollbars/placement_game.gd.uid','tests/scrollbars/game.gd','tests/scrollbars/game.gd.uid']){
     const target=path.join(box.project,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,fs.readFileSync(path.join(ROOT,file),'utf8').replaceAll('res://addons/estragon','res://'+addon));
    }
-   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['examples/constraint_layout','examples/data']});
+   fs.mkdirSync(path.join(box.project,'app/generated'),{recursive:true});
+   for(const name of ['Scrollbars','ScrollPanel']){
+    fs.writeFileSync(path.join(box.project,'app',name+'.gogo'),fs.readFileSync(path.join(ROOT,'examples/scrollbars',name+'.gogo'),'utf8').replaceAll('../../../addons/estragon',path.posix.relative('app/generated',addon)));
+    fs.copyFileSync(path.join(ROOT,'examples/scrollbars/generated',name+'.gd.uid'),path.join(box.project,'app/generated',name+'.gd.uid'));
+   }
+   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['examples/constraint_layout','examples/data','app']});
    fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="LAYOUT01 native constraints"\nrun/main_scene="res://examples/constraint_layout/Constraints.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=460\nwindow/size/viewport_height=420\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
    const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
    await run('build',[...args,'--headless','--script','res://tests/responsive/constraint_build.gd'],'LAYOUT01_BUILD_OK');
@@ -70,6 +75,7 @@ export async function runConstraints(argv:string[]){
     ['data-runtime','tests/data/runtime.gd','CORE02_RUNTIME_OK'],
    ])await run(name!,[...args,'--headless','--script','res://'+script],marker);
    await run('graphics',[...args,...graphics,'--script','res://tests/responsive/constraint_graphics.gd'],'LAYOUT01_GRAPHICS_OK');
+   await run('chrome-native',[...args,...graphics,'--script','res://tests/scrollbars/placement_runtime.gd'],'U04_NATIVE_OK');
    if(editor){
     results.import=await indexProject(box,box.project,path.join(out,'import.log'),['--audio-driver','Dummy']);
     writeJSON(path.join(out,'results.json'),results);

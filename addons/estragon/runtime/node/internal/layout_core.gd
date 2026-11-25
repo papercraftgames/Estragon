@@ -80,6 +80,7 @@ var arrange_count: int = 0
 var _measure_dirty: bool = true
 var _arrange_dirty: bool = true
 var _parent: WeakRef
+var _parent_index := -1
 
 var default_padding := Vector4.ZERO
 
@@ -269,10 +270,12 @@ func set_children(values: Array) -> Error:
 	for child in children:
 		if not values.has(child):
 			child._parent = null
+			child._parent_index = -1
 	children = values.duplicate()
 	grid_definition = {}
-	for child in children:
-		child._parent = weakref(self)
+	for index in range(children.size()):
+		children[index]._parent = weakref(self)
+		children[index]._parent_index = index
 	invalidate()
 	return OK
 
@@ -472,7 +475,9 @@ func _slots(items: Array, content: Vector3, definite: Vector3) -> Array:
 	return StackPolicy.slots(items,content,axis,_main_gap(),alignment)
 
 func _grid_track_definite(item_index: int, axis_index: int, basis: Vector3) -> bool:
-	_prepare_grid()
+	# measure()/arrange() refresh placements once before walking child slots.
+	# Do not rescan every sibling for each child's two authority checks.
+	if grid_definition.is_empty(): _prepare_grid()
 	if grid_definition.has("error") or item_index<0 or item_index>=grid_definition.placements.size(): return false
 	var rect: Dictionary = grid_definition.placements[item_index]
 	var tracks: Array = grid_definition.columns if axis_index==0 else grid_definition.rows
@@ -569,7 +574,7 @@ func independent_axis(index: int) -> bool:
 	if index!=parent.axis: allocated = StackPolicy.cross_alignment({"align_self":align_self,"stretch":stretch,"fill":fill},parent.alignment[index],index)=="stretch"
 	if index<2 and parent.scroll_axes[index]>0: return false
 	if parent.strategy=="grid" and index<2:
-		return parent.alignment[index]=="stretch" and parent._grid_track_definite(parent.children.find(self),index,parent.content_reference)
+		return parent.alignment[index]=="stretch" and parent._grid_track_definite(_parent_index,index,parent.content_reference)
 	return parent.independent_axis(index) if requested[index] < 0 and allocated else false
 
 func arrange(available: Vector3, external_axes: Vector3 = Vector3.ZERO) -> void:

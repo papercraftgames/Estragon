@@ -141,6 +141,16 @@ func run():
     await mount(scroller)
     check(near(node.layout_size.x,20) and near(node.layout_size.y,290),"scrolling main axis remains unbounded for auto Wrap capacity")
     await release(scroller)
+    grid=Grid.new()
+    grid.width=220
+    grid.height=30
+    grid.columns=["1fr"]
+    grid.rows=["1fr"]
+    node=make_wrap(0)
+    grid.add_child(node)
+    await mount(grid)
+    check(near(node.layout_size.y,48),"fractional free space cannot shrink dependent wrapped cross floor48 into30")
+    await release(grid)
     var body=Box.new()
     body.direction="column"
     body.width=210

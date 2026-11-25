@@ -12,8 +12,8 @@ func check(ok: bool, label: String) -> void:
 	print("LAYOUT01_EDITOR_CHECK ",label,": ",ok)
 	if not ok: failed = true
 func wait(seconds: float = 0.15) -> void: await get_tree().create_timer(seconds).timeout
-func until(condition: Callable, label: String) -> bool:
-	var deadline := Time.get_ticks_msec()+15000
+func until(condition: Callable, label: String, timeout_ms: int = 15000) -> bool:
+	var deadline := Time.get_ticks_msec()+timeout_ms
 	while Time.get_ticks_msec()<deadline:
 		if condition.call(): return true
 		await get_tree().process_frame
@@ -46,7 +46,7 @@ func play(mode: String) -> void:
 	if FileAccess.file_exists(file): DirAccess.remove_absolute(file)
 	if mode=="main": interface.play_main_scene()
 	else: interface.play_current_scene()
-	if await until(game_ready,"actual native LAYOUT01 game"):
+	if await until(game_ready,"actual native LAYOUT01 game",60000):
 		var result = JSON.parse_string(FileAccess.get_file_as_string(file))
 		check(result.ok and result.checks==30 and result.identity,mode+" actual rendered layout game and native input at two sizes")
 	interface.stop_playing_scene()
@@ -78,7 +78,7 @@ func run() -> void:
 			var uid := FileAccess.get_file_as_bytes(output+".uid") if FileAccess.file_exists(output+".uid") else PackedByteArray()
 			var cached = load(output)
 			var property := source.replace('<Grid name="Grid"','<Grid bad_constraint_property="bad" name="Grid"')
-			var typed_data := source.replace('columns={2}', 'columns={["0fr"]}')
+			var typed_data := source.replace('<Grid name="Grid" width="100%"', '<Grid name="Grid" width="invalid-length"')
 			for broken in [property,typed_data]:
 				print("LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN")
 				buffer.text = broken

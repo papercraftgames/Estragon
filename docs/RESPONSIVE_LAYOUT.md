@@ -63,7 +63,7 @@ native instances, handlers and ownership.
 
 ## Grid
 
-`EstragonGrid` extends Component2D directly. Default `columns=null` means one
+`EstragonGrid` derives from Box, with the grid strategy selected by default. Default `columns=null` means one
 column. Set a positive integer count for equal1fr tracks, or a nonempty Array of
 shared numeric/Length/`auto` track specs and positive `Nfr` weights. `fr` belongs
 only to track grammar. Each axis is limited to256 tracks (65536 cells maximum).
@@ -176,3 +176,36 @@ Scrolling decorates Stack/Wrap/Grid rather than replacing their strategy. [Contr
 to this existing contract. Grid now derives from Box: `direction="grid"` is its
 default; row/column (and Box wrap properties) use existing policies while retaining
 inactive grid settings. Child dimension percentages use the L12 policy budget specified above; Wrap remains full-content. No additional track/parser/solver or width-to-track alias exists.
+
+## LAYOUT-01 — allocated constraints and dependent natural dimensions
+
+[Issue #201](https://github.com/papercraftgames/Estragon/issues/201) refines the existing bounded measure/slot/remeasure/arrange path. The live PR determines review/merge state. It does not add Text word wrapping, a shrink engine, another solver, or authored refresh hooks. The repository-owned [constraint gallery](../examples/constraint_layout/Constraints.gogo) composes an ordinary nested Gogo Header/Flow with keyed observable rows, native Input and a scrolling fractional Body.
+
+Natural preference, available capacity and independent allocation are distinct:
+
+- An independently assigned axis can supply a descendant percentage/grow reference. Its actual slot can remeasure a dependent cross axis; its allocated size is never reused as a new intrinsic grow basis.
+- A content-derived auto Grid track remains intrinsic even inside a definite-width/height Grid. Assigning its initial slot must not suppress a dependent cross measurement. A fixed track supplies definite authority even when the Grid's overall axis is auto. Fraction/percentage tracks need a definite containing reference to supply that authority. Spans containing an auto track remain content-derived.
+- A capacity ceiling can travel through an ordinary stack or transparent host to nested Wrap without making the intervening auto dimension a percentage reference. An unbounded fractional track's unbreakable floor can bound wrapping capacity while the axis still lacks independent percentage/grow authority. Scroll content remains unbounded on its scrolling main axis; this does not change definite scroll-viewport child percentage references.
+- Auto tracks use natural preferred contributions. Fractional tracks use the existing unbreakable/minimum floors and distribute only actual remaining definite space. Nested ordinary stacks compose those floors rather than hiding a Wrap behind a wider initial unbounded measurement. Fixed/percentage tracks and spanning deficit distribution retain their existing grammar and overflow rules.
+
+The same transposed rules apply to row width→height and column height→width. The numeric examples use native actual geometry, zero insets/margins unless stated:
+
+| Case | Result |
+| --- | --- |
+| Three90×20 children, Wrap width220, column_gap10/row_gap8 | Two rows, natural height48; second line starts Y28 |
+| Same at width290 | One row, height20 |
+| Three20×90, column Wrap height220, row_gap10/column_gap8 | Two columns, natural width48 |
+| Grid width460, two fr columns, column_gap20, definite height200, auto row | Child cell220; wrapped height48 contributes to auto row48, rather than being frozen at initial20 |
+| Same Grid width600 | Cell290; row returns to20 |
+| Fixed220 column in an auto-width Grid | Width authority220; dependent auto row48 |
+| Fixed100+100 span with internal gap20 | Spanning child receives220, with dependent height48 |
+| Span220, outer margins4+6, inside horizontal20/vertical24 | Actual child210, inner width190, natural border-box height72; no double insets |
+| Immediate Body210, padding20 each, vertical gutter12 | Nested100% width158; its own Wrap lines use158 |
+| Grid200 high with Header30 and tall300 scroll content | Auto Body row300/range0; definite1fr Body170/range130, subject to real floors |
+| Grid460 wide/gap20 with native minimum500 and sibling10 | Actual track floors500/10 and content end530; deliberate forward overflow |
+
+Changing a track, removing/restoring an independent constraint, resizing, hiding/inserting/removing/reordering participants, changing native font/minimum/theme, or changing relevant GGX props invalidates the existing affected branch. Lost allocation authority is cleared **before** natural slots are chosen, preventing an old width/height becoming its own auto floor. Capacity-only changes invalidate only dependent branches; fixed siblings stay cached. This remains a bounded dependent remeasurement inside one core, not convergence across frames. Genuine native minimum notifications can cause the existing coalesced follow-up; settled render/measure/arrange counters are zero.
+
+Native Controls continue to contribute `get_combined_minimum_size()` through their existing event-driven adapter. Native Label wrapping, where supplied by Godot, reports its width-affected minimum via its normal notifications after actual allocation. Arbitrary Controls have **no universal height-for-width API** here: their real native minimum remains the floor, Container internals stay opaque, and anchors/transforms retain native authority. No new general-purpose measurement callback is exposed.
+
+`EstragonText` still measures explicit newline-separated lines with the actual native font. Automatic words/glyph wrapping, shaping/fallback/RTL and the new Text authoring behavior remain **TEXT-01 #205**. That task can integrate constraint-dependent font measurement with this bounded allocation/capacity path; it must supply its own concrete tested adapter behavior rather than promise a native API that does not exist.
