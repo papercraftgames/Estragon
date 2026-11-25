@@ -46,3 +46,5 @@ Runtime endpoints have no scene owner and do not serialize. Persistent authored 
 [Paired native evidence](evidence/UI01_FOCUS_KEYBOARD.md) records exact source/engine/package qualification, captures, regressions and retained development failures.
 
 UI-04 [RadioGroup/Radio](RADIO.md) reuses this same String binding and native focus contract. Only the group selection value binds two ways; option identities remain one-way. Row/column arrows and one logical group Tab stop extend the shared endpoint/registry.
+
+UI-05 [Select/Option](SELECT.md) and [numeric controls](NUMERIC_INPUT.md) extend this same native manager/GUI registry. Exact float and int metadata/writers join Bool/String; numeric source values must be finite, canonical and the matching exact type. Option identities remain one-way. Private HSlider/VSlider/SpinBox endpoints retain Godot event/editing ownership and scoped scene lifetime.

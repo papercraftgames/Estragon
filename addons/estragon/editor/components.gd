@@ -2,6 +2,11 @@
 extends RefCounted
 ## Trusted installed resources, not guessed global classes or installation roots.
 const ITEMS := [
+	{"alias":"Select","canonical":"EstragonSelect","script":preload("../runtime/node/select.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
+	{"alias":"Option","canonical":"EstragonOption","script":preload("../runtime/node/option.gd"),"dimension":0,"origin":"Estragon native; explicit import"},
+	{"alias":"Slider","canonical":"EstragonSlider","script":preload("../runtime/node/slider.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
+	{"alias":"NumberInput","canonical":"EstragonNumberInput","script":preload("../runtime/node/number_input.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
+	{"alias":"IntegerInput","canonical":"EstragonIntegerInput","script":preload("../runtime/node/integer_input.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"RadioGroup","canonical":"EstragonRadioGroup","script":preload("../runtime/node/radio_group.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"Radio","canonical":"EstragonRadio","script":preload("../runtime/node/radio.gd"),"dimension":2,"origin":"Estragon native; explicit import"},
 	{"alias":"Input","canonical":"EstragonInput","script":preload("../runtime/node/input.gd"),"dimension":2,"origin":"Estragon native; explicit import"},

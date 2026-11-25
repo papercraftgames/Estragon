@@ -1,0 +1,59 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Select = preload("../../../addons/estragon/runtime/node/select.gd")
+const Option = preload("../../../addons/estragon/runtime/node/option.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Slider = preload("../../../addons/estragon/runtime/node/slider.gd")
+const NumberInput = preload("../../../addons/estragon/runtime/node/number_input.gd")
+const IntegerInput = preload("../../../addons/estragon/runtime/node/integer_input.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Input = preload("../../../addons/estragon/runtime/node/input.gd")
+const Checkbox = preload("../../../addons/estragon/runtime/node/checkbox.gd")
+const RadioGroup = preload("../../../addons/estragon/runtime/node/radio_group.gd")
+const Radio = preload("../../../addons/estragon/runtime/node/radio.gd")
+const Model = preload("Model.gd")
+const Item = preload("Item.gd")
+@bindable var model: Model = Model.new()
+@bindable var items: ArrayCollection[Item] = [{"id":"build","label":"Build"},{"id":"explore","label":"Explore"},{"id":"repair","label":"Repair","disabled":true}]
+@bindable var caption: String = "Shared native focus"
+@bindable var flag: bool = false
+@bindable var numeric_props: Dictionary = {}
+@bindable var revision: int = 0
+@bindable var props: Dictionary = {}
+@bindable var option_props: Dictionary = {}
+func option(item: Item) -> Element:
+    return <Option name={item.id} key={item.id} value={item.id} text={item.label} disabled={item.disabled} hidden={item.hidden} {...self.option_props.get(item.id,{})} />
+func build_view() -> Element:
+    var snapshot: float = self.model.volume
+    return <Entry name="UI" width="100%" height="100%" direction="column" gap="12px" padding="16px" background_color="#202020">
+        <Text text="Native value controls" font_size={24} />
+        <Select name="Select" width="220px" value={self.model.mode} {...self.props}>
+            {self.items.map(self.option)}
+        </Select>
+        <Grid name="Ranges" columns={["2fr","1fr"]} width="100%" column_gap="16px">
+            <VBox gap="12px">
+                <Slider name="Horizontal" value={self.model.volume} min_value={0.0} max_value={1.0} step={0.05} width="250px" {...self.numeric_props} />
+                <NumberInput name="Number" value={self.model.volume} min_value={0.0} max_value={1.0} step={0.05} />
+                <IntegerInput name="Integer" value={self.model.lives} min_value={0} max_value={99} step={1} />
+            </VBox>
+            <Slider name="Vertical" value={self.model.volume} min_value={0.0} max_value={1.0} step={0.05} orientation="vertical" width="40px" height="160px" />
+        </Grid>
+        <NumberInput name="Snapshot" value={snapshot} min_value={0.0} max_value={1.0} step={0.05} />
+        <HBox name="ClipRow" gap="12px" width="100%" wrap>
+            <VBox name="Clip" width="290px" height="70px" vertical_scroll gap="8px" padding="8px" border_width="2px" border_color="#888888">
+                <Select name="ClippedSelect" value="" width="100%"><Option value="x" text="Nested popup"/><Option value="y" text="Second"/></Select>
+                <Slider name="ClippedSlider" value={0.5} min_value={0.0} max_value={1.0} step={0.05} width="100%" />
+            </VBox>
+        </HBox>
+        <Input name="Input" value={self.caption} />
+        <Checkbox name="Check" value={self.flag}>Other controls</Checkbox>
+        <RadioGroup name="Radio" value={self.model.mode} direction="row" gap="12px">
+            <Radio value="build">Build</Radio><Radio value="explore">Explore</Radio>
+        </RadioGroup>
+        <Button name="NativeButton" text="Foreign native Button" />
+        <LineEdit name="NativeLine" text="Foreign native editor" />
+        <Text text={"Mode: "+self.model.mode+" / Volume: "+str(self.model.volume)+" / Lives: "+str(self.model.lives)+" / revision "+str(self.revision)} />
+    </Entry>

@@ -251,7 +251,7 @@ func _valid(desired: Element, previous: Mounted) -> bool:
 	for key in desired.bindings:
 		var binding = desired.bindings[key]
 		if not binding is Binding or not binding.valid:
-			validation_error = desired.location(str(key))+": invalid observable "+("String" if binding is Binding and binding.kind==TYPE_STRING else "Bool")+" binding endpoint; previous tree retained"
+			validation_error = desired.location(str(key))+": invalid observable "+({TYPE_BOOL:"Bool",TYPE_STRING:"String",TYPE_FLOAT:"float",TYPE_INT:"int"}.get(binding.kind,"typed") if binding is Binding else "typed")+" binding endpoint; previous tree retained"
 			return false
 	for event in desired.handlers:
 		var handler = desired.handlers[event]
@@ -345,6 +345,7 @@ func _mount(desired: Element, parent: Node, owner: Node) -> Mounted:
 	return record
 func _apply(desired: Element, record: Mounted) -> void:
 	var node: Node = record.node.get_ref()
+	var numeric := preload("../node/internal/numeric_contract.gd").marked(desired.type)
 	# Capture the real class/_init defaults before its first authored write, with
 	# no probe instances. Later first ownership preserves preexisting native state.
 	for key in desired.properties:
@@ -358,7 +359,12 @@ func _apply(desired: Element, record: Mounted) -> void:
 	for key in record.bindings.keys():
 		if not desired.bindings.has(key) or not record.bindings[key].same(desired.bindings[key]):
 			record.bindings[key].disconnect_edit()
+			if node.has_method("_binding_replaced"): node._binding_replaced()
 			record.bindings.erase(key)
+	if numeric:
+		for key in record.bindings: record.bindings[key].writing = true
+		node._apply_numeric(_numeric_config(desired,record))
+		for key in record.bindings: record.bindings[key].writing = false
 	for key in desired.bindings:
 		var binding = record.bindings.get(key,desired.bindings[key])
 		record.bindings[key] = binding
@@ -385,6 +391,7 @@ func _apply(desired: Element, record: Mounted) -> void:
 		node._apply_stack_policy(policy)
 	for key in resets:
 		if scroll and key=="scroll_offset": continue
+		if numeric and key in preload("../node/internal/numeric_contract.gd").FIELDS: continue
 		if (not stack or key not in ["direction","horizontal_align","vertical_align"]) and (not grid or key not in GRID_CONFIG): node.set(key,resets[key])
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
@@ -410,9 +417,11 @@ func _apply(desired: Element, record: Mounted) -> void:
 		writes += 1
 		if Profile.is_enabled(): Profile.add("property_writes")
 	for key in desired.properties:
+		if numeric and key in preload("../node/internal/numeric_contract.gd").FIELDS: continue
 		if scroll and key=="scroll_offset": continue
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]) or key=="value" and Binding.declared(node.get_script(),"value",typeof(desired.properties[key])) and not is_same(node.get(key),desired.properties[key]):
 			if key=="value" and VisualStyle.marked(desired.type,"ESTRAGON_RADIO"): node._apply_radio_identity(desired.properties[key])
+			elif key=="value" and VisualStyle.marked(desired.type,"ESTRAGON_OPTION"): node._apply_option_identity(desired.properties[key])
 			elif not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
@@ -590,7 +599,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
 	if desired.borrowed != null: return desired.borrowed.get_ref() != null
-	if parent!=null and not _radio_context(desired,previous,parent): return false
+	if parent!=null and (not _radio_context(desired,previous,parent) or not _option_context(desired,previous,parent)): return false
 	# Cache only within this synchronous desired-tree validation. No Script
 	# contracts survive a commit or hide editor reload/metadata changes.
 	if contracts==null: contracts = {}
@@ -610,7 +619,17 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			script = script.get_base_script()
 		contracts[desired.type] = {"properties":properties,"signals":signals}
 	var properties: Dictionary = contracts[desired.type].properties
+	if preload("../node/internal/numeric_contract.gd").marked(desired.type):
+		var numeric = _numeric_config(desired,previous)
+		if numeric.has("error"): return _invalid_attribute(desired,numeric.field,numeric.error)
+	if desired.properties.has("orientation") and preload("../node/internal/numeric_contract.gd").marked(desired.type) and (not desired.properties.orientation is String or desired.properties.orientation not in ["horizontal","vertical"]): return _invalid_attribute(desired,"orientation","requires horizontal or vertical")
 	var signals: Dictionary = contracts[desired.type].signals
+	if VisualStyle.marked(desired.type,"ESTRAGON_OPTION"):
+		var identity = desired.properties.get("value","")
+		if not identity is String or identity.is_empty(): return _invalid_attribute(desired,"value","Option requires a nonempty String identifier")
+	if VisualStyle.marked(desired.type,"ESTRAGON_SELECT"):
+		if desired.properties.has("value") and not desired.properties.value is String: return _invalid_attribute(desired,"value","Select requires String")
+		if not _option_identities(desired,{},previous): return false
 	if VisualStyle.marked(desired.type,"ESTRAGON_RADIO"):
 		var identity = desired.properties.get("value","")
 		if not identity is String or identity.is_empty(): return _invalid_attribute(desired,"value","Radio requires a nonempty String identifier")
@@ -719,7 +738,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 			var expected: String = str(properties[key].get("class_name",""))
 			if ClassDB.class_exists(expected) and not value.is_class(expected): return _invalid_attribute(desired,str(key),"incompatible native Object class "+expected)
 	for key in desired.bindings:
-		if key!="value" or desired.properties.has(key) or not properties.has(key) or properties[key].type not in [TYPE_BOOL,TYPE_STRING] or desired.bindings[key].kind!=properties[key].type or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return _invalid_attribute(desired,str(key),"invalid or conflicting controlled binding")
+		if key!="value" or desired.properties.has(key) or not properties.has(key) or properties[key].type not in [TYPE_BOOL,TYPE_STRING,TYPE_FLOAT,TYPE_INT] or desired.bindings[key].kind!=properties[key].type or int(properties[key].usage)&PROPERTY_USAGE_READ_ONLY: return _invalid_attribute(desired,str(key),"invalid or conflicting controlled binding")
 		var args: Array = signals.get("value_changed",{}).get("args",[])
 
 		# 4.0 lacks signal argument type metadata. Compiler source proof and
@@ -891,3 +910,61 @@ func _radio_identities(desired, identities: Dictionary, previous = null) -> bool
 			if known.has(child) or node.has_method("_composition_is_private") and node._composition_is_private(child): continue
 			if not _radio_native(child,identities): return _invalid_attribute(desired,"value","duplicate or empty retained native Radio identifier")
 	return true
+
+func _option_native(node: Node, identities: Dictionary) -> bool:
+	if not is_instance_valid(node): return false
+	if node.has_method("_select_options"): return true
+	if node.has_method("_select_owner"):
+		if node.value.is_empty() or identities.has(node.value): return false
+		identities[node.value] = true
+	for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
+		if not _option_native(child,identities): return false
+	return true
+func _option_context(desired, previous, parent: Node) -> bool:
+	var group = parent
+	while group!=null and not group.has_method("_select_options"): group = group.get_parent()
+	if group==null or VisualStyle.marked(desired.type,"ESTRAGON_SELECT"): return true
+	var old: Node = previous.node.get_ref() if previous!=null else null
+	var identities := {}
+	for option in group._select_options():
+		if old!=null and (option==old or old.is_ancestor_of(option)): continue
+		if option.value.is_empty() or identities.has(option.value): return _invalid_attribute(desired,"value","existing group has invalid Option identifiers")
+		identities[option.value] = true
+	return _option_desired(desired,previous,identities)
+func _option_desired(desired, previous, identities: Dictionary) -> bool:
+	if desired==null: return true
+	if desired.borrowed!=null: return _option_native(desired.borrowed.get_ref(),identities)
+	if VisualStyle.marked(desired.type,"ESTRAGON_SELECT"): return true
+	if VisualStyle.marked(desired.type,"ESTRAGON_OPTION"):
+		var identity = desired.properties.get("value","")
+		if not identity is String or identity.is_empty(): return _invalid_attribute(desired,"value","Option requires a nonempty String identifier")
+		if identities.has(identity): return _invalid_attribute(desired,"value","duplicate Option identifier "+identity)
+		identities[identity] = true
+	return _option_identities(desired,identities,previous)
+func _option_identities(desired, identities: Dictionary, previous = null) -> bool:
+	var retained = previous if _compatible(desired,previous) else null
+	var old_children: Array = retained.children if retained!=null else []
+	var matches := _matches(desired.children,old_children)
+	for index in range(desired.children.size()):
+		if not _option_desired(desired.children[index],matches[index],identities): return false
+	if retained!=null:
+		var node: Node = retained.node.get_ref()
+		var known: Array = []
+		for child in old_children:
+			if child!=null: known.append(child.node.get_ref())
+		for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
+			if known.has(child) or node.has_method("_composition_is_private") and node._composition_is_private(child): continue
+			if not _option_native(child,identities): return _invalid_attribute(desired,"value","duplicate or empty retained native Option identifier")
+	return true
+
+func _numeric_config(desired, previous) -> Dictionary:
+	var contract = preload("../node/internal/numeric_contract.gd")
+	var values := contract.defaults(contract.integer(desired.type))
+	if previous!=null and _compatible(desired,previous):
+		for field in contract.FIELDS:
+			if previous.properties.has(field): values[field] = previous.properties[field]
+	values.merge(_spread_resets(desired,previous),true)
+	for field in contract.FIELDS:
+		if desired.properties.has(field): values[field] = desired.properties[field]
+		if desired.bindings.has(field): values[field] = desired.bindings[field].value
+	return contract.configuration(values,contract.integer(desired.type),desired.properties.has("value") or desired.bindings.has("value"))

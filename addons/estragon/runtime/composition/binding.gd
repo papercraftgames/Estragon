@@ -19,7 +19,7 @@ var writing := false
 func _init(owner: Variant, reader: Callable, property: StringName, writer: Callable, identity: String, snapshot_value: Variant, value_type: int = TYPE_BOOL) -> void:
 	kind = value_type
 	value = snapshot_value
-	valid = kind in [TYPE_BOOL,TYPE_STRING] and typeof(value)==kind
+	valid = kind in [TYPE_BOOL,TYPE_STRING,TYPE_FLOAT,TYPE_INT] and typeof(value)==kind
 	if not owner is Object or not is_instance_valid(owner): return
 	route = identity
 	root = weakref(owner)
@@ -34,7 +34,7 @@ func _init(owner: Variant, reader: Callable, property: StringName, writer: Calla
 	if observable:
 		valid = endpoint.has_signal(str(field)+"_changed")
 static func declared(script, property: String, value_type: int = TYPE_BOOL) -> bool:
-	var type_name: String = {TYPE_BOOL:"bool",TYPE_STRING:"String"}.get(value_type,"")
+	var type_name: String = {TYPE_BOOL:"bool",TYPE_STRING:"String",TYPE_FLOAT:"float",TYPE_INT:"int"}.get(value_type,"")
 	if type_name.is_empty(): return false
 	while script is Script:
 		for name in script.get_script_constant_map():

@@ -57,11 +57,20 @@ func _component(node: Model.Component) -> void:
 		script = script.get_base_script()
 	properties.merge(resolved.get("properties",{}),true)
 	signals.merge(resolved.get("signals",{}),true)
+	if VisualStyle.marked(resolved.script,"ESTRAGON_OPTION") and not node.attributes.any(func(attribute): return attribute.name=="value" or attribute.kind=="spread"):
+		_error("Option requires a nonempty String value identifier",node.name_span)
+		return
+	if VisualStyle.marked(resolved.script,"ESTRAGON_SELECT"):
+		_static_option_identities(node,{})
+		if not file.diagnostics.is_empty(): return
 	if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO") and not node.attributes.any(func(attribute): return attribute.name=="value" or attribute.kind=="spread"):
 		_error("Radio requires a nonempty String value identifier",node.name_span)
 		return
 	if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO_GROUP"):
 		_static_radio_identities(node,{})
+		if not file.diagnostics.is_empty(): return
+	if preload("../runtime/node/internal/numeric_contract.gd").marked(resolved.script):
+		_numeric_literals(node,resolved.script)
 		if not file.diagnostics.is_empty(): return
 	var stack_direction := StackContract.initial(resolved.script)
 	for attribute in node.attributes:
@@ -77,7 +86,7 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			continue
 		var name := attribute.name
-		if name=="value" and VisualStyle.marked(resolved.script,"ESTRAGON_RADIO") and attribute.value is Model.Literal and str(attribute.value.value).is_empty():
+		if name=="value" and (VisualStyle.marked(resolved.script,"ESTRAGON_RADIO") or VisualStyle.marked(resolved.script,"ESTRAGON_OPTION")) and attribute.value is Model.Literal and str(attribute.value.value).is_empty():
 			_error("Radio requires a nonempty String value identifier",attribute.value.span)
 			return
 		if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_2D") and name in ["scroll_range","content_extent"]:
@@ -378,7 +387,7 @@ func _native_type(property: Dictionary) -> String:
 
 func _implicit_binding(attribute, properties: Dictionary, signals: Dictionary, script) -> void:
 	if attribute.name!="value" or not attribute.value is Model.GdExpression: return
-	if not properties.has("value") or properties.value.type not in [TYPE_BOOL,TYPE_STRING] or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY: return
+	if not properties.has("value") or properties.value.type not in [TYPE_BOOL,TYPE_STRING,TYPE_FLOAT,TYPE_INT] or int(properties.value.usage)&PROPERTY_USAGE_READ_ONLY: return
 	var kind: int = properties.value.type
 	if not properties.value.get("source_bindable",false) and not Binding.declared(script,"value",kind): return
 	var args: Array = signals.get("value_changed",{}).get("args",[])
@@ -392,7 +401,7 @@ func _implicit_binding(attribute, properties: Dictionary, signals: Dictionary, s
 	attribute.kind = "binding"
 	attribute.type_name = "Variant"
 	attribute.binding_path = names
-	attribute.binding_type = "String" if kind==TYPE_STRING else "bool"
+	attribute.binding_type = {TYPE_BOOL:"bool",TYPE_STRING:"String",TYPE_FLOAT:"float",TYPE_INT:"int"}[kind]
 
 func _length(attribute, domain: String) -> void:
 	var value = attribute.value
@@ -458,3 +467,59 @@ func _static_radio_identities(node: Model.Component, identities: Dictionary) -> 
 					return
 				identities[identity] = true
 		else: _static_radio_identities(child,identities)
+
+func _static_option_identities(node: Model.Component, identities: Dictionary) -> void:
+	# Only unconditional native descendants. Dynamic islands/conditional branches
+	# are checked together by the desired-description transaction at runtime.
+	for child in node.children:
+		if not child is Model.Component: continue
+		var resolved: Dictionary = resolver.resolve(child.name,child.name_span)
+		if resolved.is_empty(): return
+		if VisualStyle.marked(resolved.script,"ESTRAGON_SELECT"): continue
+		if VisualStyle.marked(resolved.script,"ESTRAGON_OPTION"):
+			if child.attributes.any(func(attribute): return attribute.kind=="spread"): continue
+			for attribute in child.attributes:
+				if attribute.name!="value" or not attribute.value is Model.Literal: continue
+				var identity = attribute.value.value
+				if identities.has(identity):
+					_error("Duplicate Option option identifier "+str(identity),attribute.value.span)
+					return
+				identities[identity] = true
+		else: _static_option_identities(child,identities)
+
+func _numeric_literals(node: Model.Component, script) -> void:
+	if node.attributes.any(func(attribute): return attribute.kind=="spread"): return
+	var contract = preload("../runtime/node/internal/numeric_contract.gd")
+	var integral: bool = contract.integer(script)
+	var config: Dictionary = contract.defaults(integral)
+	var unknown := {}
+	var spans := {}
+	for attribute in node.attributes:
+		if attribute.name=="orientation" and attribute.value is Model.Literal and attribute.value.value not in ["horizontal","vertical"]:
+			_error("Slider orientation requires horizontal or vertical",attribute.value.span)
+			return
+		if attribute.name not in contract.FIELDS: continue
+		spans[attribute.name] = attribute.value.span
+		if not attribute.value is Model.GdExpression: continue
+		var tokens := _expression_tokens(attribute.value)
+		var text := ""
+		if tokens.size()==1: text = tokens[0].text
+		elif tokens.size()==2 and tokens[0].text in ["+","-"] and tokens[1].kind=="number": text = tokens[0].text+tokens[1].text
+		if text.is_valid_int(): config[attribute.name] = int(text)
+		elif text.is_valid_float(): config[attribute.name] = float(text)
+		elif text in ["NAN","INF","-INF"]: config[attribute.name] = NAN if text=="NAN" else INF
+		else: unknown[attribute.name] = true
+	# Validate each known field even when other values are dynamic.
+	for field in spans:
+		if unknown.has(field): continue
+		var test: Dictionary = contract.defaults(integral)
+		test[field] = config[field]
+		if field=="min_value": test.max_value = maxi(config[field],100) if integral else maxf(float(config[field]),100.0)
+		if field=="max_value": test.min_value = mini(config[field],0) if integral else minf(float(config[field]),0.0)
+		var parsed: Dictionary = contract.configuration(test,integral,false)
+		if parsed.has("error"):
+			_error("Numeric "+field+": "+parsed.error,spans[field])
+			return
+	if unknown.has("min_value") or unknown.has("max_value") or unknown.has("step"): return
+	var result: Dictionary = contract.configuration(config,integral,spans.has("value") and not unknown.has("value"))
+	if result.has("error"): _error("Numeric "+result.field+": "+result.error,spans.get(result.field,node.name_span))

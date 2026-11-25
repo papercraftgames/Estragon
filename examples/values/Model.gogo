@@ -1,0 +1,5 @@
+@bindable
+extends RefCounted
+var mode: String = "explore"
+var volume: float = 0.5
+var lives: int = 3

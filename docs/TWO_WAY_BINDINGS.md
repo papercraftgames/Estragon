@@ -59,3 +59,5 @@ No collection mutation observation or actual OS IME validation, automatic label 
 UI-03 extends exactly these compiler and mounted Binding records to String, with native typed String writers and source/destination type matching; Bool remains unchanged. `tools/check-input.ts` covers native editing/caret/selection/clipboard and String lifecycle through the same path. See [Input](INPUT.md) for Enter/Escape, read-only/disabled and native delegation limits.
 
 UI-04 [RadioGroup/Radio](RADIO.md) reuses this same String binding and native focus contract. Only the group selection value binds two ways; option identities remain one-way. Row/column arrows and one logical group Tab stop extend the shared endpoint/registry.
+
+UI-05 [Select/Option](SELECT.md) and [numeric controls](NUMERIC_INPUT.md) extend this same native manager/GUI registry. Exact float and int metadata/writers join Bool/String; numeric source values must be finite, canonical and the matching exact type. Option identities remain one-way. Private HSlider/VSlider/SpinBox endpoints retain Godot event/editing ownership and scoped scene lifetime.

@@ -25,6 +25,7 @@
     "examples/scrollbars",
     "examples/data",
     "examples/constraint_layout",
-    "examples/radio"
+    "examples/radio",
+    "examples/values"
   ]
 }
