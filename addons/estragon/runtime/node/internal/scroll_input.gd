@@ -57,3 +57,14 @@ func cancel() -> void:
 	for entry in watched.values():
 		var node = entry[0].get_ref()
 		if node is BaseButton: node.notification(Control.NOTIFICATION_SCROLL_BEGIN)
+
+func native_wheel_owner(point: Vector2) -> bool:
+	# Reuse the existing weak native-control registry. An editable value
+	# endpoint gets its normal GUI phase before an ancestor consumes the wheel.
+	# No event forwarding or synthetic value edits occur here.
+	for entry in watched.values():
+		var node = entry[0].get_ref()
+		if not node is Control or not node.has_method("_estragon_focus_host"): continue
+		var owner = node._estragon_focus_host()
+		if owner!=null and owner.has_method("_owns_native_wheel") and owner._owns_native_wheel(point): return true
+	return false

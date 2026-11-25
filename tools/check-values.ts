@@ -86,6 +86,7 @@ for(const selection of options.engines){
   ])await run(name!,[...args,'--headless','--script','res://'+script],marker);
   for(const [name,script,marker]of [
    ['graphics','tests/value/scene.gd','UI05_GRAPHICS_OK'],
+   ['wheel','tests/value/wheel.gd','UI05_WHEEL_OK'],
    ['rejections','tests/value/rejections.gd','UI05_REJECTIONS_OK'],
    ...(!controlsOnly?[['radio-native','tests/radio/scene.gd','UI04_GRAPHICS_OK'],
    ['input-native','tests/input/scene.gd','UI03_SCENE_OK'],

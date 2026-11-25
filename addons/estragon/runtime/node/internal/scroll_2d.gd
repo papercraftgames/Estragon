@@ -232,6 +232,7 @@ func input(event: InputEvent) -> void:
 	if not enabled() or Engine.is_editor_hint() or not host.is_visible_in_tree() or not (event is InputEventMouse or event is InputEventPanGesture): return
 	var point: Vector2 = host.get_global_transform_with_canvas().affine_inverse()*event.position
 	if not host.get_content_rect().has_point(point) or not Pointer.inside_clips(host,event.position): return
+	if event is InputEventMouseButton and event.pressed and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN] and _input_guard.native_wheel_owner(event.position): return
 	var delta := Vector2.ZERO
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:

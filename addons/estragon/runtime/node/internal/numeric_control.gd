@@ -153,3 +153,10 @@ func _remove_endpoint() -> void:
 	_native_projection = true
 	super._remove_endpoint()
 	_native_projection = false
+
+func _owns_native_wheel(point: Vector2) -> bool:
+	if disabled or read_only or not is_instance_valid(_endpoint) or not Focus.eligible(_focus_endpoint,false,false): return false
+	if not preload("pointer_2d.gd").inside_clips(_endpoint,point): return false
+	var transform := _endpoint.get_global_transform_with_canvas()
+	if is_zero_approx(transform.x.cross(transform.y)): return false
+	return Rect2(Vector2.ZERO,_endpoint.size).has_point(transform.affine_inverse()*point)
