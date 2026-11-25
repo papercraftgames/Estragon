@@ -3,6 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT, parseCLI, newSandbox, copyTree, runCommand, ERROR, writeJSON, gitHead, gitDirty, sha256, indexProject} from './compat-kit.ts';
 import {packAddon} from './pack-addon.ts';
+if(process.argv.includes("--constraints")){
+ await (await import("./check-constraints.ts")).runConstraints(process.argv.slice(2).filter(arg=>arg!=="--constraints"));
+ process.exit(0);
+}
 const editorOnly=process.argv.includes('--editor-only'), editor=editorOnly||process.argv.includes('--editor');
 const options=parseCLI(process.argv.slice(2).filter(a=>!['--editor','--editor-only'].includes(a)));
 if(process.platform!=='linux')throw Error('Approved Linux engines only');

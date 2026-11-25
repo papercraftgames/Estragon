@@ -1,0 +1,44 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+U03_MATH dual tracks and corner exact: true
+U03_MATH core prepares child from V without changing parent: true
+U03_MATH insets precede single percentage gutter: true
+U03_MATH gutter never adds outside growth to an auto border-box: true
+U03_MATH axes/zero/capped stable geometry (0, 1){  }: true
+U03_MATH axes/zero/capped stable geometry (1, 0){ "horizontal_scrollbar_height": { "unit": "native", "value": 16 } }: true
+U03_MATH axes/zero/capped stable geometry (0, 0){  }: true
+U03_MATH axes/zero/capped stable geometry (1, 1){ "scrollbar_size": { "unit": "native", "value": 0 } }: true
+U03_MATH axes/zero/capped stable geometry (1, 1){ "scrollbar_size": { "unit": "%", "value": 150 } }: true
+U03_MATH shared unit 12px: true
+U03_MATH shared unit .125in: true
+U03_MATH shared unit .3175cm: true
+U03_MATH shared unit 3.175mm: true
+U03_MATH shared unit 12.7q: true
+U03_MATH shared unit 9pt: true
+U03_MATH shared unit .75pc: true
+U03_MATH shared unit 1.5vw: true
+U03_MATH shared unit 2vh: true
+U03_MATH shared unit 2vmin: true
+U03_MATH shared unit 1.5vmax: true
+U03_MATH shared rejects -1: true
+U03_MATH shared rejects nan: true
+U03_MATH shared rejects inf: true
+U03_MATH shared rejects auto: true
+U03_MATH shared rejects 2em: true
+U03_MATH shared rejects calc(1px): true
+U03_MATH shared rejects false: true
+U03_MATH shared rejects {  }: true
+U03_MATH shared rejects []: true
+U03_MATH style rejects { "unknown": 0 }: true
+U03_MATH style rejects { "vertical": { "horizontal": {  } } }: true
+U03_MATH style rejects { "track_color": (nan, 0, 0, 1) }: true
+U03_MATH style rejects { "thumb_color": false }: true
+U03_MATH style rejects { "track_border_width": -1 }: true
+U03_MATH style rejects { "thumb_corner_radius": "auto" }: true
+U03_MATH style rejects { "thumb_stylebox": <Texture2D#-9223372008635497276> }: true
+U03_MATH style rejects { "vertical": 3 }: true
+U03_MATH style rejects { 3: "bad" }: true
+U03_MATH axis override and exact explicit Resource identity: true
+U03_MATH valid flat and axis skins: true
+U03_MATH_ASSERTIONS 40 failed=false
+U03_MATH_OK

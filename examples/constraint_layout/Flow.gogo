@@ -1,0 +1,12 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const HBox = preload("../../../addons/estragon/runtime/node/hbox.gd")
+const Rect = preload("../../../addons/estragon/runtime/node/rect.gd")
+var calls: int = 0
+func build_view() -> Element:
+    calls += 1
+    return <HBox name="Flow" wrap column_gap="10px" row_gap="8px">
+        <Rect name="A" width="90px" height="20px" background_color="#66bb99" />
+        <Rect name="B" width="90px" height="20px" background_color="#88ccaa" />
+        <Rect name="C" width="90px" height="20px" background_color="#aaddbb" />
+    </HBox>

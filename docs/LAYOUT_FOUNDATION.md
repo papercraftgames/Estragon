@@ -172,3 +172,9 @@ and its native scene. `wrap`, physical gaps and `align_content` extend Box;
 `EstragonGrid` is a real Component2D with tracks, implicit rows, spans, named areas
 and a compact template. Grid placement belongs to Element/external framework records.
 No foreign Node properties, wrappers, polling, CSS renderer or 3D plane are added.
+
+## LAYOUT-01 measurement refinement
+
+[Constraint-aware intrinsic measurement](RESPONSIVE_LAYOUT.md#layout-01--allocated-constraints-and-dependent-natural-dimensions) keeps natural `measured`/`natural_extent`, available capacity and independently assigned `measurement_allocation` separate. A definite Grid outer dimension does not make an auto track independent; fixed tracks can be independent inside an auto outer dimension. Parent slots remeasure dependent cross dimensions before final track/ancestor geometry, while assigned axes retain their original growth basis. Removing an authority clears its old cached allocation before the next natural pass.
+
+Ordinary stacks compose descendant unbreakable floors, and ordinary/transparent wrappers forward only relevant capacity ceilings. Capacity does not grant percentage authority or finite scroll growth space. Existing mathematical policies, weak core ownership, coordinator/native event handling and retained reconciliation remain the sole production path. No per-frame solver or Gogo view invocation is introduced. See the constraint gallery and focused `tools/check-responsive.ts --constraints --editor` proof; the live #201 PR controls merge status.

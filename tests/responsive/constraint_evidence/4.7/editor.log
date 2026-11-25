@@ -1,0 +1,195 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+LAYOUT01_EDITOR_CHECK real native authored LAYOUT01 scene imports: true
+LAYOUT01_EDITOR_CHECK native authored buffer edit: true
+LAYOUT01_EDITOR_CHECK native source edit undo preserves call-site source: true
+LAYOUT01_EDITOR_CHECK native source edit redo: true
+LAYOUT01_EDITOR_CHECK native Gogo highlighter attached to actual LAYOUT01 source: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:9: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/responsive/constraint_editor.gd:86)
+         [5] completion_proof (res://tests/responsive/constraint_editor.gd:122)
+         [6] wait (res://tests/responsive/constraint_editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/responsive/constraint_editor.gd:86)
+       [1] completion_proof (res://tests/responsive/constraint_editor.gd:122)
+       [2] wait (res://tests/responsive/constraint_editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:9: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+LAYOUT01_EDITOR_CHECK current invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK current invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:28: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/responsive/constraint_editor.gd:86)
+         [5] wait (res://tests/responsive/constraint_editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/responsive/constraint_editor.gd:86)
+       [1] wait (res://tests/responsive/constraint_editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:28: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+LAYOUT01_EDITOR_CHECK current invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK current invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 600: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 600: true
+LAYOUT01_GAME definite fr Body gets real remainder 600: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 600: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 600: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 600: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME unrelated fixed sibling keeps measurement cache: true
+LAYOUT01_GAME actual post-layout clipped native pointer target activates once: true
+LAYOUT01_GAME retained native focus owns exactly one keyboard activation: true
+LAYOUT01_GAME resize preserves valid native scroll offset: true
+LAYOUT01_GAME observable keyed insert/reorder retains native focus and identities: true
+LAYOUT01_GAME deep collection item edit updates only affected row view: true
+LAYOUT01_GAME observable removal reflows current content: true
+LAYOUT01_GAME conditional removes auto track contributor and retains Body/Input: true
+LAYOUT01_GAME conditional remount remeasures from existing 290px cell: true
+LAYOUT01_GAME settled idle has zero render/measure/arrange work: true
+LAYOUT01_GAME native pack/reopen restores constrained source composition: true
+LAYOUT01_GAME original retained composition remains active after independent reopened cleanup: true
+LAYOUT01_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+LAYOUT01_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:9: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/responsive/constraint_editor.gd:85)
+         [5] play (res://tests/responsive/constraint_editor.gd:53)
+         [6] until (res://tests/responsive/constraint_editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/responsive/constraint_editor.gd:85)
+       [1] play (res://tests/responsive/constraint_editor.gd:53)
+       [2] until (res://tests/responsive/constraint_editor.gd:18)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:9: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+LAYOUT01_EDITOR_CHECK main invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK main invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:28: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/responsive/constraint_editor.gd:85)
+         [5] wait (res://tests/responsive/constraint_editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/responsive/constraint_editor.gd:85)
+       [1] wait (res://tests/responsive/constraint_editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:28: Invalid length: use a number, px, %, vw/vh/vmin/vmax, in/cm/mm/q/pt/pc or eligible auto; font units and calc are unsupported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+LAYOUT01_EDITOR_CHECK main invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK main invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 600: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 600: true
+LAYOUT01_GAME definite fr Body gets real remainder 600: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 600: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 600: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 600: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME unrelated fixed sibling keeps measurement cache: true
+LAYOUT01_GAME actual post-layout clipped native pointer target activates once: true
+LAYOUT01_GAME retained native focus owns exactly one keyboard activation: true
+LAYOUT01_GAME resize preserves valid native scroll offset: true
+LAYOUT01_GAME observable keyed insert/reorder retains native focus and identities: true
+LAYOUT01_GAME deep collection item edit updates only affected row view: true
+LAYOUT01_GAME observable removal reflows current content: true
+LAYOUT01_GAME conditional removes auto track contributor and retains Body/Input: true
+LAYOUT01_GAME conditional remount remeasures from existing 290px cell: true
+LAYOUT01_GAME settled idle has zero render/measure/arrange work: true
+LAYOUT01_GAME native pack/reopen restores constrained source composition: true
+LAYOUT01_GAME original retained composition remains active after independent reopened cleanup: true
+LAYOUT01_EDITOR_CHECK main actual rendered layout game and native input at two sizes: true
+LAYOUT01_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+LAYOUT01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+LAYOUT01_EDITOR_ASSERTIONS 18 failed=false
+LAYOUT01_EDITOR_OK

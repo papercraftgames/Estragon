@@ -1,0 +1,4 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LAYOUT01_BUILD {"changed":["app/generated/Panel.gd","app/generated/Panel.gd.map.json","app/generated/Layout.gd","app/generated/Layout.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["app/generated/Panel.gd","app/generated/Layout.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+LAYOUT01_BUILD_OK

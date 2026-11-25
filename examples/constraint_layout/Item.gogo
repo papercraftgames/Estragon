@@ -1,0 +1,4 @@
+@bindable
+extends RefCounted
+var id: int
+var label: String = "Item"

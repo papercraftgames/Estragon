@@ -1,0 +1,126 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+LAYOUT01_EDITOR_CHECK real native authored LAYOUT01 scene imports: true
+LAYOUT01_EDITOR_CHECK native authored buffer edit: true
+LAYOUT01_EDITOR_CHECK native source edit undo preserves call-site source: true
+LAYOUT01_EDITOR_CHECK native source edit redo: true
+LAYOUT01_EDITOR_CHECK native Gogo highlighter attached to actual LAYOUT01 source: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:15: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+LAYOUT01_EDITOR_CHECK current invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK current invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Node not found: "UI/Grid" (relative to "/root/Constraints").
+   at: get_node (scene/main/node.cpp:1375)
+Running: /tmp/estragon-native-ZE8T3o/godot --path /tmp/estragon-native-ZE8T3o/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11385 --position 410,302 res://examples/constraint_layout/Constraints.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+LAYOUT01_EDITOR_CHECK current invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: false
+LAYOUT01_EDITOR_CHECK current invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: false
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 600: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 600: true
+LAYOUT01_GAME definite fr Body gets real remainder 600: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 600: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 600: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 600: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME unrelated fixed sibling keeps measurement cache: true
+LAYOUT01_GAME actual post-layout clipped native pointer target activates once: true
+LAYOUT01_GAME retained native focus owns exactly one keyboard activation: true
+LAYOUT01_GAME resize preserves valid native scroll offset: true
+LAYOUT01_GAME observable keyed insert/reorder retains native focus and identities: true
+LAYOUT01_GAME deep collection item edit updates only affected row view: true
+LAYOUT01_GAME observable removal reflows current content: true
+LAYOUT01_GAME conditional removes auto track contributor and retains Body/Input: true
+LAYOUT01_GAME conditional remount remeasures from existing 290px cell: true
+LAYOUT01_GAME settled idle has zero render/measure/arrange work: true
+LAYOUT01_GAME native pack/reopen restores constrained source composition: true
+LAYOUT01_GAME original retained composition remains active after independent reopened cleanup: true
+Running: /tmp/estragon-native-ZE8T3o/godot --path /tmp/estragon-native-ZE8T3o/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11385 --position 410,302 res://examples/constraint_layout/Constraints.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+LAYOUT01_EDITOR_CHECK current actual rendered layout game and native input at two sizes: true
+LAYOUT01_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/constraint_layout/Constraints.gogo:21:15: Unknown, read-only or reserved Node property/signal bad_constraint_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+LAYOUT01_EDITOR_CHECK main invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: true
+LAYOUT01_EDITOR_CHECK main invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: true
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+LAYOUT01_EXPECTED_PLAY_REJECTION_BEGIN
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Node not found: "UI/Grid" (relative to "/root/Constraints").
+   at: get_node (scene/main/node.cpp:1375)
+Running: /tmp/estragon-native-ZE8T3o/godot --path /tmp/estragon-native-ZE8T3o/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11385 --position 410,302 res://examples/constraint_layout/Constraints.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+LAYOUT01_EDITOR_CHECK main invalid unsaved LAYOUT01 blocks stale Play with authored diagnostic: false
+LAYOUT01_EDITOR_CHECK main invalid LAYOUT01 retains code/map/UID/timestamp/cached Script: false
+LAYOUT01_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 600: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 600: true
+LAYOUT01_GAME definite fr Body gets real remainder 600: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 600: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 600: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 600: true
+LAYOUT01_GAME transparent nested Wrap uses actual Grid cell 460: true
+LAYOUT01_GAME dependent height propagates through auto VBox and spanning Body row 460: true
+LAYOUT01_GAME definite fr Body gets real remainder 460: true
+LAYOUT01_GAME layout resize never reruns Gogo view functions 460: true
+LAYOUT01_GAME native caret/selection/focus retained across constraint changes 460: true
+LAYOUT01_GAME scroll extent agrees with post-gutter viewport 460: true
+LAYOUT01_GAME unrelated fixed sibling keeps measurement cache: true
+LAYOUT01_GAME actual post-layout clipped native pointer target activates once: true
+LAYOUT01_GAME retained native focus owns exactly one keyboard activation: true
+LAYOUT01_GAME resize preserves valid native scroll offset: true
+LAYOUT01_GAME observable keyed insert/reorder retains native focus and identities: true
+LAYOUT01_GAME deep collection item edit updates only affected row view: true
+LAYOUT01_GAME observable removal reflows current content: true
+LAYOUT01_GAME conditional removes auto track contributor and retains Body/Input: true
+LAYOUT01_GAME conditional remount remeasures from existing 290px cell: true
+LAYOUT01_GAME settled idle has zero render/measure/arrange work: true
+LAYOUT01_GAME native pack/reopen restores constrained source composition: true
+LAYOUT01_GAME original retained composition remains active after independent reopened cleanup: true
+Running: /tmp/estragon-native-ZE8T3o/godot --path /tmp/estragon-native-ZE8T3o/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 11385 --position 410,302 res://examples/constraint_layout/Constraints.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+LAYOUT01_EDITOR_CHECK actual native LAYOUT01 game: false
+LAYOUT01_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+LAYOUT01_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+LAYOUT01_EDITOR_ASSERTIONS 18 failed=true
