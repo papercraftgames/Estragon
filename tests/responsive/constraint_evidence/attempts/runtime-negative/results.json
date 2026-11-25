@@ -1,0 +1,284 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-ZE8T3o/yarn-cache",
+      "file:/tmp/layout01-acceptance-b/packed/constraint-layout-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.04,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/constraint_build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 11.39,
+    "godot_pid": 10533,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "math": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/math.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.48,
+    "godot_pid": 10646,
+    "log": "math.log",
+    "diagnostics": []
+  },
+  "constraints": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/constraints.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 3.59,
+    "godot_pid": 10668,
+    "log": "constraints.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "l12": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/lengths/proportions.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.48,
+    "godot_pid": 10726,
+    "log": "l12.log",
+    "diagnostics": [
+      "     at: push_warning (core/variant/variant_utility.cpp:923)"
+    ]
+  },
+  "gutters": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/scrollbars/geometry.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.48,
+    "godot_pid": 10745,
+    "log": "gutters.log",
+    "diagnostics": []
+  },
+  "chrome": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/scrollbars/placement_geometry.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.38,
+    "godot_pid": 10764,
+    "log": "chrome.log",
+    "diagnostics": []
+  },
+  "data-frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/data/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.96,
+    "godot_pid": 10783,
+    "log": "data-frontend.log",
+    "diagnostics": []
+  },
+  "data-runtime": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--headless",
+      "--script",
+      "res://tests/data/runtime.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.86,
+    "godot_pid": 10841,
+    "log": "data-runtime.log",
+    "diagnostics": [
+      "ERROR: ArrayCollection: ArrayCollection[1].id: incompatible value type 4",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: ArrayCollection: insert index out of range",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: fixture.gogo:1:1.items[1]: unknown field unknown",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Invalid composition output or foreign boundary conflict; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)"
+    ]
+  },
+  "graphics": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/responsive/constraint_graphics.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 4.99,
+    "godot_pid": 10860,
+    "log": "graphics.log",
+    "diagnostics": []
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 10.44,
+    "godot_pid": 10961,
+    "log": "import.log",
+    "diagnostics": [
+      "     at: cursor_set_custom_image (servers/display_server.cpp:480)",
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)"
+    ],
+    "evidence": {
+      "class_registry_sha256": "4d462ff208798559d4debae567f91261c85dda03b882d84676f93c0ace2fc702",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-ZE8T3o/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-ZE8T3o/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 1,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 163.96,
+    "godot_pid": 11385,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: _editor_init (modules/gltf/register_types.cpp:70)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Node not found: \"UI/Grid\" (relative to \"/root/Constraints\").",
+      "   at: get_node (scene/main/node.cpp:1375)",
+      "     at: push_warning (core/variant/variant_utility.cpp:923)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:6553)",
+      "ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:903)",
+      "ERROR: Node not found: \"UI/Grid\" (relative to \"/root/Constraints\").",
+      "   at: get_node (scene/main/node.cpp:1375)"
+    ],
+    "reason": "{\"unexpected\":[\"ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained\",\"ERROR: Node not found: \\\"UI/Grid\\\" (relative to \\\"/root/Constraints\\\").\",\"ERROR: examples/constraint_layout/Constraints.gogo:21:9: attribute 'columns': fr track weight must be finite and positive; previous tree retained\",\"ERROR: Node not found: \\\"UI/Grid\\\" (relative to \\\"/root/Constraints\\\").\"],\"counts\":[2],\"expected\":4}"
+  }
+}

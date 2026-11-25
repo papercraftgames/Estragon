@@ -1,0 +1,4 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+SCRIPT ERROR: Parse Error: Expected "func" after "static".
+          at: GDScript::reload (res://examples/constraint_layout/generated/Constraints.gd:63)

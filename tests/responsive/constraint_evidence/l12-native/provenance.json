@@ -1,0 +1,10 @@
+{
+  "sourceHead": "c6107822fc0c5062366e4d56c070a9f5da2b65ce",
+  "core_bytes_verified": true,
+  "files": {
+    "addons/estragon/runtime/node/internal/layout_core.gd": "d51bc40d6880ef65340a10c4b705b923737f0d717ee01d7b9664e0ec20549d82",
+    "addons/estragon/runtime/node/internal/grid_policy.gd": "6dc2d711d5db9115111c34aa4232af647a4e97ad473885d7f58f29e86466b886"
+  },
+  "engine": "4.7.stable.official.5b4e0cb0f",
+  "command": "Godot --headless --path /tmp/layout01-l12-native --script res://tests/lengths/build.gd; Xvfb Godot --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3 --path /tmp/layout01-l12-native --script res://tests/lengths/proportion_runtime.gd"
+}

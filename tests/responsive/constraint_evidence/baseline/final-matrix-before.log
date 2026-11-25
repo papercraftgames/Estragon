@@ -1,0 +1,64 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+LAYOUT01_NATIVE direct220 cross48 axis0: true
+LAYOUT01_NATIVE actual second line offset28 axis0: true
+LAYOUT01_NATIVE direct290 cross20 axis0: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis0: false
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis0: false
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: false
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: false
+LAYOUT01_NATIVE resize retains native children axis0: true
+LAYOUT01_NATIVE same size and idle stay quiet axis0: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis0: false
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis0: false
+LAYOUT01_NATIVE removed authority clears cached allocation axis0: true
+LAYOUT01_NATIVE direct220 cross48 axis1: true
+LAYOUT01_NATIVE actual second line offset28 axis1: true
+LAYOUT01_NATIVE direct290 cross20 axis1: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis1: false
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis1: false
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: false
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: false
+LAYOUT01_NATIVE resize retains native children axis1: true
+LAYOUT01_NATIVE same size and idle stay quiet axis1: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis1: false
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis1: false
+LAYOUT01_NATIVE removed authority clears cached allocation axis1: true
+LAYOUT01_NATIVE spanning fixed tracks220 determine auto row48: false
+LAYOUT01_NATIVE asymmetric inside20/24 plus outside10 counted once: false
+LAYOUT01_NATIVE actual child origin includes leading border/padding once: true
+LAYOUT01_NATIVE explicit cross maximum caps geometry without hiding natural overflow: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+LAYOUT01_NATIVE authored minimum wins conflicting maximum: true
+LAYOUT01_NATIVE unbounded fr floor supplies capacity through nested VBox without percentage authority: false
+LAYOUT01_NATIVE intrinsic fr floor capacity remains separate from percentage authority: true
+LAYOUT01_NATIVE scrolling main axis remains unbounded for auto Wrap capacity: false
+LAYOUT01_NATIVE fractional free space cannot shrink dependent wrapped cross floor48 into30: true
+LAYOUT01_NATIVE immediate body210 minus padding40 and gutter12 yields158: true
+LAYOUT01_NATIVE nested percentage uses post-gutter immediate parent: true
+LAYOUT01_NATIVE gutter change refreshes allocated basis once: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport false: true
+LAYOUT01_NATIVE scroll range uses actual viewport false: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport true: true
+LAYOUT01_NATIVE scroll range uses actual viewport true: true
+LAYOUT01_NATIVE real native minimum and explicit multiline font measurement: true
+LAYOUT01_NATIVE font/native minimum event updates auto ancestor: true
+LAYOUT01_NATIVE native theme change preserves true minimum: true
+LAYOUT01_NATIVE unrelated fixed/native sibling change keeps Text measure cached: true
+LAYOUT01_NATIVE hidden participant removes its wrap line: true
+LAYOUT01_NATIVE restored participant rebuilds current wrap lines: true
+LAYOUT01_NATIVE empty Wrap has zero natural cross extent: true
+LAYOUT01_NATIVE unbreakable fixed item overflows forward without shrink: true
+LAYOUT01_NATIVE native reparent detaches old measure ownership and retains item: true
+LAYOUT01_NATIVE fractional allocated constraints and physical gaps stay unrounded: false
+LAYOUT01_NATIVE native minimum is never shrunk to fit fr budget: true
+LAYOUT01_NATIVE intentional native floor overflow has explicit 530px numeric cause: true
+LAYOUT01_NATIVE native Label minimum follows actual assigned width via public signals: true
+LAYOUT01_NATIVE native width-affected minimum remeasures without invented height-for-width API: true
+LAYOUT01_NATIVE native Control adapters clean after unmount: true
+LAYOUT01_NATIVE_CHECKS 59 failed=true

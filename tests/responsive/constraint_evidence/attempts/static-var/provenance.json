@@ -1,0 +1,19 @@
+{
+  "sourceHead": "57eaec2691e62651b41839ae6b7323a878e4b7a1",
+  "sourceDirty": false,
+  "version": "4.0.4.stable.official.fc0b241c9",
+  "binary_sha256": "e9a0db9798cf53385693898af39f98d0065552c0808b9e7eb82cfcb0da880ae9",
+  "command": [
+    "/usr/local/bin/node",
+    "/repo/tools/check-responsive.ts",
+    "--constraints",
+    "--editor",
+    "--engine",
+    "4.0.4=/evidence/engine404/Godot_v4.0.4-stable_linux.x86_64",
+    "--engine",
+    "4.7=/evidence/engine47/Godot_v4.7-stable_linux.x86_64",
+    "--output",
+    "/tmp/layout01-acceptance-a"
+  ],
+  "tarball_sha256": "c624ae221cf190944db1deab3b45494b5293ff59e68ff674db8517b5ef80da41"
+}

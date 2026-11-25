@@ -1,0 +1,10 @@
+{
+  "sourceHead": "5df9e084c54fc0971cfcec30655e4e7ccc5ed5db",
+  "fixtures": "dc8a31eec5beeef34973fb9b49b864b2633b5052",
+  "engine": "4.0.4.stable.official.fc0b241c9",
+  "baseline_core_hashes": {
+    "addons/estragon/runtime/node/internal/layout_core.gd": "3bf98cb27aabf04e3973d65fe45fb3f9be33ad22efcea8ae184b6b9e84d29488",
+    "addons/estragon/runtime/node/internal/grid_policy.gd": "ff4dbb5b4d62cc196a6e185301db361b35e092c3452c6b0f6b6c38f1834f0eb6"
+  },
+  "expectation": "Known reproduced failures; never treated as PASS"
+}

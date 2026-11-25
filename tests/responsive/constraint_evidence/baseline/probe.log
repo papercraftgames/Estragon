@@ -1,0 +1,20 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+LAYOUT01_BASELINE direct220 axis0 {"allocation":"(-1, -1, -1)","columns":[],"content":"(220, -1, -1)","measured":"(220, 48, 0)","natural":"(190, 48, 0)","rows":[],"size":"(220, 48)"}
+LAYOUT01_BASELINE grid axis0 definite=false {"allocation":"(-1, -1, -1)","columns":[220],"content":"(220, -1, -1)","measured":"(220, 48, 0)","natural":"(220, 48, 0)","rows":[48],"size":"(220, 48)"}
+LAYOUT01_BASELINE grid child {"allocation":"(220, -1, -1)","columns":[],"content":"(220, -1, -1)","measured":"(190, 48, 0)","natural":"(190, 48, 0)","rows":[],"size":"(220, 48)"}
+LAYOUT01_BASELINE grid290 {"allocation":"(-1, -1, -1)","columns":[290],"content":"(290, -1, -1)","measured":"(290, 20, 0)","natural":"(290, 20, 0)","rows":[20],"size":"(290, 20)"}
+LAYOUT01_BASELINE child290 {"allocation":"(290, -1, -1)","columns":[],"content":"(290, -1, -1)","measured":"(290, 20, 0)","natural":"(290, 20, 0)","rows":[],"size":"(290, 20)"}
+LAYOUT01_BASELINE grid axis0 definite=true {"allocation":"(-1, -1, -1)","columns":[220],"content":"(220, 200, -1)","measured":"(220, 200, 0)","natural":"(220, 48, 0)","rows":[48],"size":"(220, 200)"}
+LAYOUT01_BASELINE grid child {"allocation":"(220, 48, -1)","columns":[],"content":"(220, 48, -1)","measured":"(190, 48, 0)","natural":"(190, 48, 0)","rows":[],"size":"(220, 48)"}
+LAYOUT01_BASELINE grid290 {"allocation":"(-1, -1, -1)","columns":[290],"content":"(290, 200, -1)","measured":"(290, 200, 0)","natural":"(290, 20, 0)","rows":[20],"size":"(290, 200)"}
+LAYOUT01_BASELINE child290 {"allocation":"(290, 20, -1)","columns":[],"content":"(290, 20, -1)","measured":"(290, 20, 0)","natural":"(290, 20, 0)","rows":[],"size":"(290, 20)"}
+LAYOUT01_BASELINE direct220 axis1 {"allocation":"(-1, -1, -1)","columns":[],"content":"(-1, 220, -1)","measured":"(48, 220, 0)","natural":"(48, 190, 0)","rows":[],"size":"(48, 220)"}
+LAYOUT01_BASELINE grid axis1 definite=false {"allocation":"(-1, -1, -1)","columns":[76],"content":"(-1, 220, -1)","measured":"(76, 220, 0)","natural":"(76, 90, 0)","rows":[90],"size":"(76, 220)"}
+LAYOUT01_BASELINE grid child {"allocation":"(-1, 90, -1)","columns":[],"content":"(-1, 90, -1)","measured":"(76, 190, 0)","natural":"(76, 90, 0)","rows":[],"size":"(76, 90)"}
+LAYOUT01_BASELINE grid290 {"allocation":"(-1, -1, -1)","columns":[76],"content":"(-1, 290, -1)","measured":"(76, 290, 0)","natural":"(76, 90, 0)","rows":[90],"size":"(76, 290)"}
+LAYOUT01_BASELINE child290 {"allocation":"(-1, 90, -1)","columns":[],"content":"(-1, 90, -1)","measured":"(76, 290, 0)","natural":"(76, 90, 0)","rows":[],"size":"(76, 90)"}
+LAYOUT01_BASELINE grid axis1 definite=true {"allocation":"(-1, -1, -1)","columns":[200],"content":"(200, 220, -1)","measured":"(200, 220, 0)","natural":"(200, 90, 0)","rows":[90],"size":"(200, 220)"}
+LAYOUT01_BASELINE grid child {"allocation":"(200, 90, -1)","columns":[],"content":"(200, 90, -1)","measured":"(48, 190, 0)","natural":"(76, 90, 0)","rows":[],"size":"(200, 90)"}
+LAYOUT01_BASELINE grid290 {"allocation":"(-1, -1, -1)","columns":[200],"content":"(200, 290, -1)","measured":"(200, 290, 0)","natural":"(200, 90, 0)","rows":[90],"size":"(200, 290)"}
+LAYOUT01_BASELINE child290 {"allocation":"(200, 90, -1)","columns":[],"content":"(200, 90, -1)","measured":"(20, 290, 0)","natural":"(76, 90, 0)","rows":[],"size":"(200, 90)"}

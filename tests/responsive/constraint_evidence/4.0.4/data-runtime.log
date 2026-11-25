@@ -1,0 +1,56 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+CORE02 recursive typed hydration: true
+CORE02 declared and native defaults; nullable model: true
+CORE02 real parsed JSON numeric fields hydrate: true
+CORE02 recursive serialization: true
+CORE02 grandchild same-identity upward notification: true
+CORE02 shared child diamond emits once at root: true
+CORE02 reentrant listener settles without notification storm: true
+CORE02 duplicate instance membership subscribes once: true
+CORE02 duplicate remaining membership stays observed: true
+CORE02 last membership removal detaches: true
+CORE02 one structural notification for mutation batch: true
+CORE02 replacement detaches nested graph: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: ArrayCollection: ArrayCollection[1].id: incompatible value type 4
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: ArrayCollection: insert index out of range
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02 invalid reset rejected: true
+CORE02 invalid index rejected: true
+ERROR: fixture.gogo:1:1.items[1]: unknown field unknown
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02_EXPECTED_REJECTION_END
+CORE02 failed collection and hydration keep prior state atomically: true
+CORE02 plain-data cycles rejected: true
+CORE02 unsupported native values rejected: true
+CORE02 malformed collection rejected: true
+CORE02 deeply nested typed collections hydrate: true
+CORE02 nested collections bubble grandchild changes: true
+CORE02 model JSON-like round trip: true
+CORE02 null scalar rejected: true
+CORE02 nullable model and collection references: true
+CORE02 parent GC disconnects child subscriptions: true
+CORE02 real keyed GGX mounts: true
+CORE02 raw Array and Dictionary in-place mutations remain unobserved: true
+CORE02 raw reference replacement stays native and observable: true
+CORE02 same root argument invalidates opaque summary: true
+CORE02 only affected row recomputes: true
+CORE02 leaf edits retain native nodes and handlers: true
+CORE02 burst leaf edits coalesce in the existing scheduler: true
+CORE02 reordering retains keyed identities: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02_EXPECTED_REJECTION_END
+CORE02 duplicate keys reject before native changes: true
+CORE02 idle has no row computations: true
+CORE02 compiled property Array assignment hydrates: true
+CORE02 compiled model reassignment hydrates and updates native UI: true
+CORE02 conditional removes rows: true
+CORE02 empty collection renders: true
+CORE02 unmount removes render computations: true
+CORE02 unmount disconnects render subscriptions: true
+CORE02_CHECKS 40 ERRORS 0
+CORE02_RUNTIME_OK

@@ -1,0 +1,46 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-1RwmtL/yarn-cache",
+      "file:/tmp/layout01-acceptance-a/packed/constraint-layout-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 0.98,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "FAIL",
+    "command": [
+      "/tmp/estragon-native-1RwmtL/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-1RwmtL/project",
+      "--headless",
+      "--script",
+      "res://tests/responsive/constraint_build.gd"
+    ],
+    "exit_code": null,
+    "timeout": false,
+    "aborted_on_error": true,
+    "seconds": 9.81,
+    "godot_pid": 10364,
+    "log": "build.log",
+    "diagnostics": [
+      "SCRIPT ERROR: Parse Error: Expected \"func\" after \"static\".",
+      "          at: GDScript::reload (res://examples/constraint_layout/generated/Constraints.gd:63)"
+    ]
+  }
+}
