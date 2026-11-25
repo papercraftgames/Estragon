@@ -42,9 +42,11 @@ for(const selection of options.engines){
   const addon='node_modules/@papercraftgames/estragon/addons/estragon',installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
   const suites=['radio','input','checkbox','focus'];
   for(const suite of suites){
-   for(const folder of ['tests/'+suite,'examples/'+suite]){
+   for(const folder of ['tests/'+suite,...(suite==='focus'?[]:['examples/'+suite])]){
     fs.mkdirSync(path.join(box.project,folder),{recursive:true});
     for(const entry of fs.readdirSync(path.join(ROOT,folder),{withFileTypes:true}))if(entry.isFile()){
+     const fixtures=suite==='input'?['frontend','game','scene']:suite==='checkbox'?['game','scene']:['runtime'];
+     if(folder.startsWith('tests/')&&suite!=='radio'&&!fixtures.some(name=>[name+'.gd',name+'.gd.uid'].includes(entry.name)))continue;
      let text=fs.readFileSync(path.join(ROOT,folder,entry.name),'utf8').replaceAll('res://addons/estragon','res://'+addon);
      if(entry.name.endsWith('.gogo'))text=text.replaceAll('../../../addons/estragon','../../../'+addon);
      if(folder.startsWith('examples/')&&entry.name.endsWith('.gd'))text=text.replaceAll('../../addons/estragon','../../'+addon);
@@ -61,10 +63,10 @@ for(const selection of options.engines){
   fs.mkdirSync(path.join(box.project,'examples/scrollbars/generated'),{recursive:true});
   for(const entry of fs.readdirSync(path.join(ROOT,'examples/scrollbars'),{withFileTypes:true}))if(entry.isFile())fs.writeFileSync(path.join(box.project,'examples/scrollbars',entry.name),fs.readFileSync(path.join(ROOT,'examples/scrollbars',entry.name),'utf8').replaceAll('../../../addons/estragon','../../../'+addon));
   for(const name of fs.readdirSync(path.join(ROOT,'examples/scrollbars/generated')).filter(name=>name.endsWith('.gd.uid')))fs.copyFileSync(path.join(ROOT,'examples/scrollbars/generated',name),path.join(box.project,'examples/scrollbars/generated',name));
-  for(const file of ['examples/godot_button.gd','examples/godot_button.gd.uid','tests/responsive/math.gd','tests/responsive/math.gd.uid','tests/responsive/constraints.gd','tests/responsive/constraints.gd.uid','tests/scrollbars/placement_runtime.gd','tests/scrollbars/placement_runtime.gd.uid','tests/scrollbars/placement_game.gd','tests/scrollbars/placement_game.gd.uid']){
+  for(const file of ['examples/godot_button.gd','examples/godot_button.gd.uid','tests/responsive/math.gd','tests/responsive/math.gd.uid','tests/responsive/constraints.gd','tests/responsive/constraints.gd.uid','tests/scrollbars/placement_runtime.gd','tests/scrollbars/placement_runtime.gd.uid','tests/scrollbars/placement_game.gd','tests/scrollbars/placement_game.gd.uid','tests/scrollbars/game.gd','tests/scrollbars/game.gd.uid']){
    const target=path.join(box.project,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,fs.readFileSync(path.join(ROOT,file),'utf8').replaceAll('res://addons/estragon','res://'+addon).replaceAll('app/','examples/scrollbars/'));
   }
-  writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:[...suites.map(suite=>'examples/'+suite),'examples/scrollbars']});
+  writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:[...suites.filter(suite=>suite!=='focus').map(suite=>'examples/'+suite),'examples/scrollbars']});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI04 native choices"\nrun/main_scene="res://examples/radio/Radios.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=740\nwindow/size/viewport_height=680\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('build',[...args,'--headless','--script','res://tests/radio/build.gd'],'UI04_BUILD_OK');
