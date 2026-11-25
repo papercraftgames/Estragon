@@ -1,0 +1,390 @@
+{
+  "status": "PASS",
+  "checks": {
+    "install": {
+      "status": "PASS",
+      "command": [
+        "corepack",
+        "yarn@1.22.22",
+        "add",
+        "--offline",
+        "--exact",
+        "--ignore-scripts",
+        "--non-interactive",
+        "--cache-folder",
+        "/tmp/estragon-native-GZZpzK/yarn-cache",
+        "file:/tmp/ui04-complete-pair/packed/radio-dev.tgz"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.89,
+      "log": "install.log",
+      "diagnostics": []
+    },
+    "build": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--headless",
+        "--script",
+        "res://tests/radio/build.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.97,
+      "godot_pid": 6707,
+      "log": "build.log",
+      "diagnostics": []
+    },
+    "frontend": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--headless",
+        "--script",
+        "res://tests/radio/frontend.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.4,
+      "godot_pid": 6724,
+      "log": "frontend.log",
+      "diagnostics": []
+    },
+    "input-frontend": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--headless",
+        "--script",
+        "res://tests/input/frontend.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.32,
+      "godot_pid": 6741,
+      "log": "input-frontend.log",
+      "diagnostics": []
+    },
+    "layout-math": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--headless",
+        "--script",
+        "res://tests/responsive/math.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 0.38,
+      "godot_pid": 6758,
+      "log": "layout-math.log",
+      "diagnostics": []
+    },
+    "layout-native": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--headless",
+        "--script",
+        "res://tests/responsive/constraints.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 3.48,
+      "godot_pid": 6775,
+      "log": "layout-native.log",
+      "diagnostics": [
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)"
+      ]
+    },
+    "graphics": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/radio/scene.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 13.68,
+      "godot_pid": 6792,
+      "log": "graphics.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "rejections": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/radio/rejections.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.32,
+      "godot_pid": 6833,
+      "log": "rejections.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+        "ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': duplicate Radio identifier b; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': Radio requires a nonempty String identifier; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': Radio requires a nonempty String identifier; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: examples/radio/Radios.gogo:36:95 (spread key 'value'): attribute 'value': RadioGroup requires String; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: Estragon Radio.value requires a nonempty unique String identifier",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: Estragon Radio.value requires a nonempty unique String identifier",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: examples/radio/Null.gogo:7:83: invalid observable String binding endpoint; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)",
+        "ERROR: examples/radio/Nested.gogo:5:38: attribute 'value': duplicate Radio identifier a; previous tree retained",
+        "   at: push_error (core/variant/variant_utility.cpp:1023)"
+      ]
+    },
+    "input-native": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/input/scene.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 5.75,
+      "godot_pid": 6874,
+      "log": "input-native.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "checkbox-native": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/checkbox/scene.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 5.2,
+      "godot_pid": 6915,
+      "log": "checkbox-native.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "focus-native": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/focus/runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 2.2,
+      "godot_pid": 6956,
+      "log": "focus-native.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "scrollbar-native": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/scrollbars/placement_runtime.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 4.74,
+      "godot_pid": 6997,
+      "log": "scrollbar-native.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "import": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--headless",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--editor",
+        "--audio-driver",
+        "Dummy"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 6.14,
+      "godot_pid": 7038,
+      "log": "import.log",
+      "diagnostics": [],
+      "evidence": {
+        "class_registry_sha256": "8eb3a3dd53a17eb799b7a6934f4cbdfe1be3b7416652b2f38f6e8b7d70567609",
+        "class_registry_log": "import.classes.json"
+      }
+    },
+    "editor": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 53.65,
+      "godot_pid": 7282,
+      "log": "editor.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "ERROR: An EditorPlugin build callback failed.",
+        "   at: call_build (editor/editor_node.cpp:7679)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "ERROR: An EditorPlugin build callback failed.",
+        "   at: call_build (editor/editor_node.cpp:7679)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "ERROR: An EditorPlugin build callback failed.",
+        "   at: call_build (editor/editor_node.cpp:7679)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "ERROR: An EditorPlugin build callback failed.",
+        "   at: call_build (editor/editor_node.cpp:7679)",
+        "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    },
+    "editor-restart": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-GZZpzK/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-GZZpzK/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--editor"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 31.14,
+      "godot_pid": 7641,
+      "log": "editor-restart.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    }
+  },
+  "tarball_sha256": "3d83097f0db412b4337a463e5d877054b793007e1d04d52c1ab523b069e3b34e",
+  "canonical_uids": 90,
+  "installed_bytes_unchanged": true,
+  "manual_interactive_smoke": "UNTESTED",
+  "os_ime": "UNTESTED",
+  "assistive_technology": "UNTESTED"
+}

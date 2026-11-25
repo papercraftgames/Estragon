@@ -1,0 +1,2 @@
+# Preserve exact native engine output, including Godot's progress whitespace.
+*.log -whitespace

@@ -30,6 +30,10 @@ func cancel() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if not event is InputEventKey: return
 	if not Focus.eligible(self): cancel(); release_focus(); return
+	var target = _estragon_focus_host()
+	if target.has_method("_focus_key") and target._focus_key(event):
+		accept_event()
+		return
 	if event.is_action("ui_cancel"):
 		cancel()
 		accept_event()

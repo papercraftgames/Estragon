@@ -57,3 +57,5 @@ Compiler-owned Script constants describe authored bindable fields, just as Scrip
 No collection mutation observation or actual OS IME validation, automatic label style inheritance, additional scheduler or scene system is included. [Checkbox drawing/geometry](CHECKBOX.md), [shared native focus and keyboard path](FOCUS_KEYBOARD.md).
 
 UI-03 extends exactly these compiler and mounted Binding records to String, with native typed String writers and source/destination type matching; Bool remains unchanged. `tools/check-input.ts` covers native editing/caret/selection/clipboard and String lifecycle through the same path. See [Input](INPUT.md) for Enter/Escape, read-only/disabled and native delegation limits.
+
+UI-04 [RadioGroup/Radio](RADIO.md) reuses this same String binding and native focus contract. Only the group selection value binds two ways; option identities remain one-way. Row/column arrows and one logical group Tab stop extend the shared endpoint/registry.

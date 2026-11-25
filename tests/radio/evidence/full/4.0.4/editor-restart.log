@@ -1,0 +1,76 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UI04_EDITOR_CHECK real native authored UI04 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI04_GAME_CHECK baseline: independent Toggle booleans permit two selected options: true
+UI04_GAME_CHECK row has exactly one initial model-derived selection; column defaults vertical: true
+UI04_GAME_CHECK empty group selects nothing with first eligible Tab stop: true
+UI04_GAME_CHECK native Box row geometry and native border-box endpoint: true
+UI04_GAME_CHECK pointer selects once and writes one model transition: true
+UI04_GAME_CHECK same selected click has no extra change; real focus owner follows pointer: true
+UI04_GAME_CHECK independent programmatic group write synchronously notifies source: true
+UI04_GAME_CHECK model projection emits once without source feedback: true
+UI04_GAME_CHECK equal group assignment is quiet: true
+UI04_GAME_CHECK Tab enters selected eligible option as one logical stop: true
+UI04_GAME_CHECK Tab leaves whole row for first vertical option: true
+UI04_GAME_CHECK Shift Tab returns once to selected row option: true
+UI04_GAME_CHECK row Right selects and moves native focus: true
+UI04_GAME_CHECK row wraps and skips authored disabled option: true
+UI04_GAME_CHECK row Left wraps to last eligible: true
+UI04_GAME_CHECK Home chooses first eligible: true
+UI04_GAME_CHECK End chooses last eligible: true
+UI04_GAME_CHECK column Down selects second native endpoint: true
+UI04_GAME_CHECK column arrows wrap and skip disabled: true
+UI04_GAME_CHECK accept on selected option emits no extra choice: true
+UI04_GAME_CHECK consumed Radio arrow press/release never reaches game unhandled keys: true
+UI04_GAME_CHECK effective group disable blocks pointer/focus and preserves authored flags/value: true
+UI04_GAME_CHECK reenable restores selected visual and authored disabled option: true
+UI04_GAME_CHECK hide retains pending value and falls focus to next eligible: true
+UI04_GAME_CHECK show restores selection without mutating model: true
+UI04_GAME_CHECK keyed collection reorder retains native identity/focus and logical order: true
+UI04_GAME_CHECK arrow follows reordered logical order: true
+UI04_GAME_CHECK remove selected option retains valid pending model String: true
+UI04_GAME_CHECK restored identifier restores selected visual on new native option: true
+UI04_GAME_CHECK local snapshot is one-way despite group String signal: true
+UI04_GAME_CHECK next relevant render projects snapshot model authority: true
+UI04_GAME_CHECK reentrant model repair restores mounted group through existing projection guard: true
+UI04_GAME_CHECK source replacement disconnects old String writer: true
+UI04_GAME_CHECK mismatched release cancels hold without selection: true
+UI04_GAME_CHECK overlapping native Control wins GUI pointer precedence: true
+UI04_GAME_CHECK foreign LineEdit arrows remain native and do not select Radio: true
+UI04_GAME_CHECK Estragon Input arrows remain native: true
+UI04_GAME_CHECK shared Tab leaves native Godot Button for native LineEdit: true
+UI04_GAME_CHECK shared Shift Tab preserves foreign native Controls: true
+UI04_GAME_CHECK fully clipped option has no focus or selected display: true
+UI04_GAME_CHECK scroll reveal restores pending selection and native focus: true
+UI04_GAME_CHECK scrolling focused option out of clip releases stale focus and retains selection String: true
+UI04_GAME_CHECK revealing again restores selected state through shared geometry refresh: true
+UI04_GAME_CHECK individual disable retains value and falls focus forward: true
+UI04_GAME_CHECK fallback option remains one logical Tab stop even without eligible selected option: true
+UI04_GAME_CHECK restoration does not steal unrelated Input focus: true
+UI04_GAME_CHECK group disable cancels native pointer capture immediately: true
+UI04_GAME_CHECK focus-none option remains a pointer-selectable native Button: true
+UI04_GAME_CHECK alternate viewport keeps percent/Grid/wrapped native geometry: true
+UI04_GAME_CHECK resized wrapped option remains clickable: true
+UI04_GAME_CHECK actual selected indicator center is rendered: true
+UI04_GAME_CHECK actual unselected indicator center remains hollow: true
+UI04_GAME_CHECK both physical direction groups are visible within Grid tracks: true
+UI04_GAME_CHECK neutral default selected indicator: true
+UI04_GAME_CHECK idle and repeated equal writes cause no Gogo render or layout work: true
+UI04_GAME_CHECK nested independent Entry deduplicates shared key routing; non-Radio children are ignored: true
+UI04_GAME_CHECK reparent joins nearest new group without stale selection callbacks: true
+UI04_GAME_CHECK orphan Radio has no independent model or activation: true
+UI04_GAME_CHECK Gogo host packs with transient output excluded: true
+UI04_GAME_CHECK pack/reopen reconstructs one selection and endpoints from authored defaults: true
+UI04_GAME_CHECK conditional unmount frees options and group: true
+UI04_GAME_CHECK remount projects current model with one option set: true
+Running: /tmp/estragon-native-2YOUQa/godot --path /tmp/estragon-native-2YOUQa/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 6252 --position 270,172 res://examples/radio/Radios.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UI04_EDITOR_CHECK main actual radio selection/input/focus game at two sizes: true
+UI04_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UI04_EDITOR_ASSERTIONS 3 failed=false
+UI04_EDITOR_OK

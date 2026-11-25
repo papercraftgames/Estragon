@@ -83,7 +83,9 @@ func run(host: Node):
 	bound.disabled = false
 	bound.hide()
 	await click(bound)
-	check(host.model.flag and host.presses==2,"hidden Checkbox cannot activate")
+	# Hiding removes its layout slot; a visible sibling may move into the old
+	# hit rectangle and legitimately edit their shared model. Assert this target.
+	check(host.presses==2 and not bound.has_focus() and not bound.is_visible_in_tree(),"hidden Checkbox cannot activate or focus; exposed siblings retain pointer routing")
 	bound.show()
 	var reentrant: Callable = func(_before,next):
 		if next: host.model.flag = false

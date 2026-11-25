@@ -1,0 +1,92 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': duplicate Radio identifier b; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK invalid desired option set retains mounted identity/focus/value atomically { "c": { "value": "b" } }: true
+UI04_REJECTION_CHECK repair reuses prior native options: true
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': Radio requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK invalid desired option set retains mounted identity/focus/value atomically { "c": { "value": "" } }: true
+UI04_REJECTION_CHECK repair reuses prior native options: true
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Radios.gogo:28:116 (spread key 'value'): attribute 'value': Radio requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK invalid desired option set retains mounted identity/focus/value atomically { "c": { "value": false } }: true
+UI04_REJECTION_CHECK repair reuses prior native options: true
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Radios.gogo:36:95 (spread key 'value'): attribute 'value': RadioGroup requires String; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK wrong group String type rejected before any mounted mutation: true
+UI04_EXPECTED_BEGIN
+UI04_EXPECTED_END
+ERROR: Estragon Radio.value requires a nonempty unique String identifier
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @value_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/radio.gd:12)
+       [1] run (res://tests/radio/rejections.gd:39)
+       [2] frames (res://tests/radio/rejections.gd:9)
+UI04_REJECTION_CHECK native duplicate assignment rejects and preserves identity/selection: true
+UI04_EXPECTED_BEGIN
+ERROR: Estragon Radio.value requires a nonempty unique String identifier
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @value_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/radio.gd:12)
+       [1] run (res://tests/radio/rejections.gd:43)
+       [2] frames (res://tests/radio/rejections.gd:9)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK native empty identity rejects: true
+UI04_EXPECTED_BEGIN
+ERROR: Estragon Radio.value requires a nonempty unique String identifier
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] @value_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/radio.gd:12)
+       [1] run (res://tests/radio/rejections.gd:55)
+       [2] frames (res://tests/radio/rejections.gd:9)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK native duplicate setter rejects after membership changes outside SceneTree: true
+UI04_REJECTION_CHECK valid simultaneous identity swap commits without transient duplicate setter rejection: true
+UI04_REJECTION_CHECK unknown String is a valid stable pending selection: true
+UI04_REJECTION_CHECK unmatched pending value has no warning or invalidation loop: true
+UI04_REJECTION_CHECK present null source fixture has native typed String contract: true
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Null.gogo:7:83: invalid observable String binding endpoint; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK present null String source rejects and retains mounted output: true
+UI04_REJECTION_CHECK null path repair retains native group: true
+UI04_REJECTION_CHECK nested reactive option compiles through existing GGX host: true
+UI04_EXPECTED_BEGIN
+ERROR: examples/radio/Nested.gogo:5:38: attribute 'value': duplicate Radio identifier a; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI04_EXPECTED_END
+UI04_REJECTION_CHECK child composition rejects collisions against nearest native group's retained siblings: true
+UI04_REJECTION_CHECK nested identity repair retains node and pending group selection: true
+UI04_REJECTION_ASSERTIONS 19 ok=true
+UI04_REJECTIONS_OK

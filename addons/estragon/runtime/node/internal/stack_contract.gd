@@ -24,6 +24,10 @@ static func grid_capable(script) -> bool:
 		script = script.get_base_script()
 	return false
 static func initial(script) -> String:
+	var base = script
+	while base is Script:
+		if base.get_script_constant_map().has("ESTRAGON_STACK_INITIAL"): return base.get_script_constant_map().ESTRAGON_STACK_INITIAL
+		base = base.get_base_script()
 	return "grid" if grid_capable(script) else (preset(script) if not preset(script).is_empty() else "row")
 static func error(name: String, value, direction: String, fixed: String = "", grid: bool = false) -> String:
 	if name=="align_content":

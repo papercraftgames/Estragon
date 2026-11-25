@@ -57,6 +57,12 @@ func _component(node: Model.Component) -> void:
 		script = script.get_base_script()
 	properties.merge(resolved.get("properties",{}),true)
 	signals.merge(resolved.get("signals",{}),true)
+	if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO") and not node.attributes.any(func(attribute): return attribute.name=="value" or attribute.kind=="spread"):
+		_error("Radio requires a nonempty String value identifier",node.name_span)
+		return
+	if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO_GROUP"):
+		_static_radio_identities(node,{})
+		if not file.diagnostics.is_empty(): return
 	var stack_direction := StackContract.initial(resolved.script)
 	for attribute in node.attributes:
 		if attribute.name=="direction": stack_direction = str(attribute.value.value) if attribute.value is Model.Literal else StackContract.preset(resolved.script)
@@ -71,6 +77,9 @@ func _component(node: Model.Component) -> void:
 			_node(attribute.value)
 			continue
 		var name := attribute.name
+		if name=="value" and VisualStyle.marked(resolved.script,"ESTRAGON_RADIO") and attribute.value is Model.Literal and str(attribute.value.value).is_empty():
+			_error("Radio requires a nonempty String value identifier",attribute.value.span)
+			return
 		if VisualStyle.marked(resolved.script,"ESTRAGON_SCROLL_2D") and name in ["scroll_range","content_extent"]:
 			_error("Read-only scrolling measurement: "+name,attribute.name_span)
 			return
@@ -430,3 +439,22 @@ func _body_whitespace(value: String) -> String:
 		if index<lines.size()-1: line = line.strip_edges(false,true)
 		if not line.is_empty(): words.append(line)
 	return " ".join(words)
+
+func _static_radio_identities(node: Model.Component, identities: Dictionary) -> void:
+	# Only unconditional native descendants. Dynamic islands/conditional branches
+	# are checked together by the desired-description transaction at runtime.
+	for child in node.children:
+		if not child is Model.Component: continue
+		var resolved: Dictionary = resolver.resolve(child.name,child.name_span)
+		if resolved.is_empty(): return
+		if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO_GROUP"): continue
+		if VisualStyle.marked(resolved.script,"ESTRAGON_RADIO"):
+			if child.attributes.any(func(attribute): return attribute.kind=="spread"): continue
+			for attribute in child.attributes:
+				if attribute.name!="value" or not attribute.value is Model.Literal: continue
+				var identity = attribute.value.value
+				if identities.has(identity):
+					_error("Duplicate Radio option identifier "+str(identity),attribute.value.span)
+					return
+				identities[identity] = true
+		else: _static_radio_identities(child,identities)
