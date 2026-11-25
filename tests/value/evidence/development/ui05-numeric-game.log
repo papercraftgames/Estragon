@@ -1,0 +1,35 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: false
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000, "max_value": 1000000000000000, "step": 1, "value": 100000000000000 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0, "value": 0.333 }: true
+UI05_NUMERIC_RESULT {"checks":31,"ok":false}

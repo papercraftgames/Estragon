@@ -1,0 +1,2305 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:7236) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.95s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI05_BUILD {"changed":["examples/checkbox/generated/Model.gd","examples/checkbox/generated/Model.gd.map.json","examples/checkbox/generated/Checkboxes.gd","examples/checkbox/generated/Checkboxes.gd.map.json","examples/data/generated/Details.gd","examples/data/generated/Details.gd.map.json","examples/data/generated/Item.gd","examples/data/generated/Item.gd.map.json","examples/data/generated/Inventory.gd","examples/data/generated/Inventory.gd.map.json","examples/data/generated/Gallery.gd","examples/data/generated/Gallery.gd.map.json","examples/input/generated/Model.gd","examples/input/generated/Model.gd.map.json","examples/input/generated/Inputs.gd","examples/input/generated/Inputs.gd.map.json","examples/radio/generated/Item.gd","examples/radio/generated/Item.gd.map.json","examples/radio/generated/Model.gd","examples/radio/generated/Model.gd.map.json","examples/radio/generated/Radios.gd","examples/radio/generated/Radios.gd.map.json","examples/scrollbars/generated/ScrollPanel.gd","examples/scrollbars/generated/ScrollPanel.gd.map.json","examples/scrollbars/generated/Scrollbars.gd","examples/scrollbars/generated/Scrollbars.gd.map.json","examples/values/generated/Item.gd","examples/values/generated/Item.gd.map.json","examples/values/generated/Model.gd","examples/values/generated/Model.gd.map.json","examples/values/generated/Values.gd","examples/values/generated/Values.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"Unavailable native path API; mandatory transactional actual-path validation used instead","status":"BLOCKED"},"ok":true,"outputs":["examples/checkbox/generated/Model.gd","examples/checkbox/generated/Checkboxes.gd","examples/data/generated/Details.gd","examples/data/generated/Item.gd","examples/data/generated/Inventory.gd","examples/data/generated/Gallery.gd","examples/input/generated/Model.gd","examples/input/generated/Inputs.gd","examples/radio/generated/Item.gd","examples/radio/generated/Model.gd","examples/radio/generated/Radios.gd","examples/scrollbars/generated/ScrollPanel.gd","examples/scrollbars/generated/Scrollbars.gd","examples/values/generated/Item.gd","examples/values/generated/Model.gd","examples/values/generated/Values.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"BLOCKED"}}
+UI05_BUILD_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI05_FRONTEND all native value aliases compile with typed metadata: true
+UI05_FRONTEND actual-path numeric writer semantics: true
+UI05_FRONTEND exact typed binding decimal_view: true
+UI05_FRONTEND exact typed binding number_view: true
+UI05_FRONTEND exact typed binding integer_view: true
+UI05_FRONTEND exact typed binding choice_view: true
+UI05_FRONTEND Option identity never becomes two-way: true
+UI05_FRONTEND numeric snapshots/computed expressions stay one-way: true
+UI05_FRONTEND deterministic maps and exact authored content: true
+UI05_FRONTEND typed float and int source writers in the single emitter: true
+UI05_FRONTEND mapped static rejection <Option />: true
+UI05_FRONTEND mapped static rejection <Option value=""/>: true
+UI05_FRONTEND mapped static rejection <Select><Option value="a"/><Option value="a" disabled/></Select>: true
+UI05_FRONTEND mapped static rejection <Slider orientation="diagonal"/>: true
+UI05_FRONTEND mapped static rejection <Slider min_value={2.0} max_value={1.0}/>: true
+UI05_FRONTEND mapped static rejection <Slider step={-0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={NAN}/>: true
+UI05_FRONTEND mapped static rejection <NumberInput value={INF}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput step={0}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput value={0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={0.53} min_value={0.0} max_value={1.0} step={0.05}/>: true
+UI05_FRONTEND mapped static rejection <Slider bind:value={self.decimal}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput bad_numeric_property="bad"/>: true
+UI05_FRONTEND_ASSERTIONS 23 ok=true
+UI05_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI03_FRONTEND String fixture compiles with exact installed Input alias: true
+UI03_FRONTEND actual native String semantic validation: true
+UI03_FRONTEND String candidate has typed source metadata and snapshot: true
+UI03_FRONTEND direct parameter path shares implicit String linkage: true
+UI03_FRONTEND one-way snapshot: true
+UI03_FRONTEND one-way computed: true
+UI03_FRONTEND one-way unobserved: true
+UI03_FRONTEND one-way readonly: true
+UI03_FRONTEND one-way dictionary: true
+UI03_FRONTEND one-way literal: true
+UI03_FRONTEND one-way spread: true
+UI03_FRONTEND Dictionary parameter is a one-way native value: true
+UI03_FRONTEND original value getter executes once: true
+UI03_FRONTEND String code/maps/contract deterministic: true
+UI03_FRONTEND typed String writer retains source map content: true
+UI03_FRONTEND mapped static rejection bind:value={self.text}: true
+UI03_FRONTEND mapped static rejection value: true
+UI03_FRONTEND mapped static rejection placeholder: true
+UI03_FRONTEND mapped static rejection disabled="bad": true
+UI03_FRONTEND mapped static rejection invalid="bad": true
+UI03_FRONTEND mapped static rejection value="one" value="two": true
+UI03_FRONTEND mapped static rejection font_size="bad": true
+UI03_FRONTEND_ASSERTIONS 22 failed=false
+UI03_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+CORE02_FRONTEND typed declarations, reassignment, nested members and self member: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND hydration executes and sibling lexical shadow remains native: true
+CORE02_FRONTEND typed parameter member boundary hydrates: true
+CORE02_FRONTEND typed local collection lowers: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native collection iteration and insertion hydration: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND uninitialized fields keep native typed defaults: true
+CORE02_FRONTEND inherited data shape compiles: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND inherited fields and defaults serialize: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native typed Array fields hydrate atomically and stay native: true
+CORE02_FRONTEND authored notification method retained with cleanup: true
+CORE02_FRONTEND invalid native typed Array element rejected before setter: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND observable ownership cycle detected before attachment: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND self-qualified typed collection uses safe native iteration: true
+CORE02_FRONTEND hydrated writes retain native member-assignment semantic proof: true
+CORE02_FRONTEND_CHECKS 23 ERRORS 0
+CORE02_FRONTEND_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+CORE02 recursive typed hydration: true
+CORE02 declared and native defaults; nullable model: true
+CORE02 real parsed JSON numeric fields hydrate: true
+CORE02 recursive serialization: true
+CORE02 grandchild same-identity upward notification: true
+CORE02 shared child diamond emits once at root: true
+CORE02 reentrant listener settles without notification storm: true
+CORE02 duplicate instance membership subscribes once: true
+CORE02 duplicate remaining membership stays observed: true
+CORE02 last membership removal detaches: true
+CORE02 one structural notification for mutation batch: true
+CORE02 replacement detaches nested graph: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: ArrayCollection: ArrayCollection[1].id: incompatible value type 4
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02 invalid reset rejected: true
+CORE02 invalid index rejected: true
+ERROR: ArrayCollection: insert index out of range
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: fixture.gogo:1:1.items[1]: unknown field unknown
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02_EXPECTED_REJECTION_END
+CORE02 failed collection and hydration keep prior state atomically: true
+CORE02 plain-data cycles rejected: true
+CORE02 unsupported native values rejected: true
+CORE02 malformed collection rejected: true
+CORE02 deeply nested typed collections hydrate: true
+CORE02 nested collections bubble grandchild changes: true
+CORE02 model JSON-like round trip: true
+CORE02 null scalar rejected: true
+CORE02 nullable model and collection references: true
+CORE02 parent GC disconnects child subscriptions: true
+CORE02 real keyed GGX mounts: true
+CORE02 raw Array and Dictionary in-place mutations remain unobserved: true
+CORE02 raw reference replacement stays native and observable: true
+CORE02 same root argument invalidates opaque summary: true
+CORE02 only affected row recomputes: true
+CORE02 leaf edits retain native nodes and handlers: true
+CORE02 burst leaf edits coalesce in the existing scheduler: true
+CORE02 reordering retains keyed identities: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+CORE02_EXPECTED_REJECTION_END
+CORE02 duplicate keys reject before native changes: true
+CORE02 idle has no row computations: true
+CORE02 compiled property Array assignment hydrates: true
+CORE02 compiled model reassignment hydrates and updates native UI: true
+CORE02 conditional removes rows: true
+CORE02 empty collection renders: true
+CORE02 unmount removes render computations: true
+CORE02 unmount disconnects render subscriptions: true
+CORE02_CHECKS 40 ERRORS 0
+CORE02_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+L0910_MATH_CHECK 160 transposed exact slots axis0: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK 160 transposed exact slots axis1: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK align_content exact start: true
+L0910_MATH_CHECK single line start: true
+L0910_MATH_CHECK align_content exact center: true
+L0910_MATH_CHECK single line center: true
+L0910_MATH_CHECK align_content exact end: true
+L0910_MATH_CHECK single line end: true
+L0910_MATH_CHECK align_content exact space-between: true
+L0910_MATH_CHECK single line space-between: true
+L0910_MATH_CHECK align_content exact space-around: true
+L0910_MATH_CHECK single line space-around: true
+L0910_MATH_CHECK align_content exact space-evenly: true
+L0910_MATH_CHECK single line space-evenly: true
+L0910_MATH_CHECK align_content exact stretch: true
+L0910_MATH_CHECK single line stretch: true
+L0910_MATH_CHECK grow before per-line space-between: true
+L0910_MATH_CHECK grow before per-line space-around: true
+L0910_MATH_CHECK grow before per-line space-evenly: true
+L0910_MATH_CHECK line alignment start: true
+L0910_MATH_CHECK line alignment center: true
+L0910_MATH_CHECK line alignment end: true
+L0910_MATH_CHECK line alignment space-between: true
+L0910_MATH_CHECK line alignment space-around: true
+L0910_MATH_CHECK line alignment space-evenly: true
+L0910_MATH_CHECK line alignment stretch: true
+L0910_MATH_CHECK implicit row growth: true
+L0910_MATH_CHECK equal tracks and row-major 320: true
+L0910_MATH_CHECK equal tracks and row-major 620: true
+L0910_MATH_CHECK fixed100/1fr/2fr exact fractional tracks: true
+L0910_MATH_CHECK template canonical equivalence: true
+L0910_MATH_CHECK named spans and physical cells: true
+L0910_MATH_CHECK explicit before auto reservation: true
+L0910_MATH_CHECK invalid tracks 0: true
+L0910_MATH_CHECK invalid tracks -1: true
+L0910_MATH_CHECK invalid tracks 257: true
+L0910_MATH_CHECK invalid tracks []: true
+L0910_MATH_CHECK invalid tracks ["0fr"]: true
+L0910_MATH_CHECK invalid tracks ["-1fr"]: true
+L0910_MATH_CHECK invalid tracks ["NaNfr"]: true
+L0910_MATH_CHECK invalid tracks ["1em"]: true
+L0910_MATH_CHECK invalid tracks [-1]: true
+L0910_MATH_CHECK invalid tracks [inf]: true
+L0910_MATH_CHECK placement rejection [{ "row": -1 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0.5 }]: true
+L0910_MATH_CHECK placement rejection [{ "row_span": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "column_span": 4 }]: true
+L0910_MATH_CHECK placement rejection [{ "area": "missing" }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "column": 0 }, { "row": 0, "column": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "area": "x" }]: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK nonrectangle rejection: true
+L0910_MATH_CHECK template explicit ambiguity: true
+L0910_MATH_CHECK duplicate column declaration: true
+L0910_MATH_CHECK malformed named area rectangle ["a a", "a b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a", "b b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a b", "b a"]: true
+L0910_MATH_CHECK ambiguous template and explicit tracks: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK spanning natural floor split and fractional remainder: true
+L0910_MATH_CHECK percentage parent content/fixed auto/fr ordering: true
+L0910_MATH_CHECK physical cell alignment start: true
+L0910_MATH_CHECK physical cell alignment center: true
+L0910_MATH_CHECK physical cell alignment end: true
+L0910_MATH_CHECK physical cell alignment stretch: true
+L0910_MATH_CHECK nested allocated auto width remeasures wrap height in same core: true
+L0910_MATH_CHECK nested arranged third child: true
+L0910_MATH_CHECK idle unchanged core quiet: true
+L0910_MATH_CHECK Grid percent child uses usable total300, never its own cell: true
+L0910_MATH_CHECK fraction water-fill honors authored/native floors without double shares: true
+L0910_MATH_CHECK cell physical align includes asymmetric leading/outer margins once: true
+L0910_MATH_CHECK percentage gap physical fallback X/Y: true
+L0910_MATH_CHECK cross-only containing resize invalidates shorthand gap reference: true
+L0910_MATH_ASSERTIONS 95 failed=false
+L0910_MATH_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+LAYOUT01_NATIVE direct220 cross48 axis0: true
+LAYOUT01_NATIVE actual second line offset28 axis0: true
+LAYOUT01_NATIVE direct290 cross20 axis0: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis0: true
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis0: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: true
+LAYOUT01_NATIVE resize retains native children axis0: true
+LAYOUT01_NATIVE same size and idle stay quiet axis0: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis0: true
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis0: true
+LAYOUT01_NATIVE removed authority clears cached allocation axis0: true
+LAYOUT01_NATIVE direct220 cross48 axis1: true
+LAYOUT01_NATIVE actual second line offset28 axis1: true
+LAYOUT01_NATIVE direct290 cross20 axis1: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis1: true
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis1: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: true
+LAYOUT01_NATIVE resize retains native children axis1: true
+LAYOUT01_NATIVE same size and idle stay quiet axis1: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis1: true
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis1: true
+LAYOUT01_NATIVE removed authority clears cached allocation axis1: true
+LAYOUT01_NATIVE spanning fixed tracks220 determine auto row48: true
+LAYOUT01_NATIVE asymmetric inside20/24 plus outside10 counted once: true
+LAYOUT01_NATIVE actual child origin includes leading border/padding once: true
+LAYOUT01_NATIVE explicit cross maximum caps geometry without hiding natural overflow: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:923)
+LAYOUT01_NATIVE authored minimum wins conflicting maximum: true
+LAYOUT01_NATIVE unbounded fr floor supplies capacity through nested VBox without percentage authority: true
+LAYOUT01_NATIVE intrinsic fr floor capacity remains separate from percentage authority: true
+LAYOUT01_NATIVE scrolling main axis remains unbounded for auto Wrap capacity: true
+LAYOUT01_NATIVE fractional free space cannot shrink dependent wrapped cross floor48 into30: true
+LAYOUT01_NATIVE immediate body210 minus padding40 and gutter12 yields158: true
+LAYOUT01_NATIVE nested percentage uses post-gutter immediate parent: true
+LAYOUT01_NATIVE gutter change refreshes allocated basis once: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport false: true
+LAYOUT01_NATIVE scroll range uses actual viewport false: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport true: true
+LAYOUT01_NATIVE scroll range uses actual viewport true: true
+LAYOUT01_NATIVE real native minimum and explicit multiline font measurement: true
+LAYOUT01_NATIVE font/native minimum event updates auto ancestor: true
+LAYOUT01_NATIVE native theme change preserves true minimum: true
+LAYOUT01_NATIVE unrelated fixed/native sibling change keeps Text measure cached: true
+LAYOUT01_NATIVE hidden participant removes its wrap line: true
+LAYOUT01_NATIVE restored participant rebuilds current wrap lines: true
+LAYOUT01_NATIVE empty Wrap has zero natural cross extent: true
+LAYOUT01_NATIVE unbreakable fixed item overflows forward without shrink: true
+LAYOUT01_NATIVE native reparent detaches old measure ownership and retains item: true
+LAYOUT01_NATIVE fractional allocated constraints and physical gaps stay unrounded: true
+LAYOUT01_NATIVE native minimum is never shrunk to fit fr budget: true
+LAYOUT01_NATIVE intentional native floor overflow has explicit 530px numeric cause: true
+LAYOUT01_NATIVE native Label minimum follows actual assigned width via public signals: true
+LAYOUT01_NATIVE native width-affected minimum remeasures without invented height-for-width API: true
+LAYOUT01_NATIVE native Control adapters clean after unmount: true
+LAYOUT01_NATIVE_CHECKS 59 failed=false
+LAYOUT01_NATIVE_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000, "max_value": 1000000000000000, "step": 1, "value": 100000000000000 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+UI05_GAME_RESULT {"checks":79,"ok":true}
+UI05_GRAPHICS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_WHEEL editable native Slider receives one real wheel edit before ancestor scroll: true
+UI05_WHEEL read-only native Slider yields wheel to parent without numeric edit: true
+UI05_WHEEL wheel ownership uses existing weak lifetime registry and releases on unmount: true
+UI05_WHEEL_ASSERTIONS 3 ok=true
+UI05_WHEEL_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': duplicate Option identifier explore; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'min_value'): attribute 'min_value': requires min_value <= max_value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "min_value": 2, "max_value": 1 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'step'): attribute 'step': requires step >= 0; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "step": -0.05 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": nan }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": inf }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 0.53 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 3 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'orientation'): attribute 'orientation': requires horizontal or vertical; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "orientation": "diagonal" }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'bad_numeric_property'): attribute 'bad_numeric_property': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "bad_numeric_property": true }: true
+UI05_EXPECTED_BEGIN
+UI05_EXPECTED_END
+UI05_REJECTION native negative step rejects without transition: true
+UI05_EXPECTED_BEGIN
+UI05_EXPECTED_END
+UI05_REJECTION native NaN rejects without transition: true
+ERROR: Estragon numeric step: requires step >= 0
+   at: push_error (core/variant/variant_utility.cpp:903)
+ERROR: Estragon numeric value: requires finite numeric value
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_REJECTION negative binding fixture has native semantic/type metadata proof: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:147: attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION int model cannot silently bind float endpoint; prior tree retained: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: invalid observable float binding endpoint; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION null numeric source rejects whole transaction: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:903)
+UI05_EXPECTED_END
+UI05_REJECTION noncanonical source retained as authored; no silent control-to-source normalization: true
+UI05_REJECTION invalid source does not schedule an infinite projection repair loop: true
+UI05_REJECTION canonical source repair reuses mounted native endpoint: true
+UI05_REJECTION unmount releases all mounted bindings and computations: true
+UI05_REJECTION_ASSERTIONS 20 ok=true
+UI05_REJECTIONS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI04_GAME_CHECK baseline: independent Toggle booleans permit two selected options: true
+UI04_GAME_CHECK row has exactly one initial model-derived selection; column defaults vertical: true
+UI04_GAME_CHECK empty group selects nothing with first eligible Tab stop: true
+UI04_GAME_CHECK native Box row geometry and native border-box endpoint: true
+UI04_GAME_CHECK pointer selects once and writes one model transition: true
+UI04_GAME_CHECK same selected click has no extra change; real focus owner follows pointer: true
+UI04_GAME_CHECK independent programmatic group write synchronously notifies source: true
+UI04_GAME_CHECK model projection emits once without source feedback: true
+UI04_GAME_CHECK equal group assignment is quiet: true
+UI04_GAME_CHECK Tab enters selected eligible option as one logical stop: true
+UI04_GAME_CHECK Tab leaves whole row for first vertical option: true
+UI04_GAME_CHECK Shift Tab returns once to selected row option: true
+UI04_GAME_CHECK row Right selects and moves native focus: true
+UI04_GAME_CHECK row wraps and skips authored disabled option: true
+UI04_GAME_CHECK row Left wraps to last eligible: true
+UI04_GAME_CHECK Home chooses first eligible: true
+UI04_GAME_CHECK End chooses last eligible: true
+UI04_GAME_CHECK column Down selects second native endpoint: true
+UI04_GAME_CHECK column arrows wrap and skip disabled: true
+UI04_GAME_CHECK accept on selected option emits no extra choice: true
+UI04_GAME_CHECK consumed Radio arrow press/release never reaches game unhandled keys: true
+UI04_GAME_CHECK effective group disable blocks pointer/focus and preserves authored flags/value: true
+UI04_GAME_CHECK reenable restores selected visual and authored disabled option: true
+UI04_GAME_CHECK hide retains pending value and falls focus to next eligible: true
+UI04_GAME_CHECK show restores selection without mutating model: true
+UI04_GAME_CHECK keyed collection reorder retains native identity/focus and logical order: true
+UI04_GAME_CHECK arrow follows reordered logical order: true
+UI04_GAME_CHECK remove selected option retains valid pending model String: true
+UI04_GAME_CHECK restored identifier restores selected visual on new native option: true
+UI04_GAME_CHECK local snapshot is one-way despite group String signal: true
+UI04_GAME_CHECK next relevant render projects snapshot model authority: true
+UI04_GAME_CHECK reentrant model repair restores mounted group through existing projection guard: true
+UI04_GAME_CHECK source replacement disconnects old String writer: true
+UI04_GAME_CHECK mismatched release cancels hold without selection: true
+UI04_GAME_CHECK overlapping native Control wins GUI pointer precedence: true
+UI04_GAME_CHECK foreign LineEdit arrows remain native and do not select Radio: true
+UI04_GAME_CHECK Estragon Input arrows remain native: true
+UI04_GAME_CHECK shared Tab leaves native Godot Button for native LineEdit: true
+UI04_GAME_CHECK shared Shift Tab preserves foreign native Controls: true
+UI04_GAME_CHECK fully clipped option has no focus or selected display: true
+UI04_GAME_CHECK scroll reveal restores pending selection and native focus: true
+UI04_GAME_CHECK scrolling focused option out of clip releases stale focus and retains selection String: true
+UI04_GAME_CHECK revealing again restores selected state through shared geometry refresh: true
+UI04_GAME_CHECK individual disable retains value and falls focus forward: true
+UI04_GAME_CHECK fallback option remains one logical Tab stop even without eligible selected option: true
+UI04_GAME_CHECK restoration does not steal unrelated Input focus: true
+UI04_GAME_CHECK deferred fallback never steals a valid native focus chosen by another control: true
+UI04_GAME_CHECK group disable cancels native pointer capture immediately: true
+UI04_GAME_CHECK focus-none option remains a pointer-selectable native Button: true
+UI04_GAME_CHECK selected click-only option falls back to first Tab-eligible option without changing selection: true
+UI04_GAME_CHECK click-only selection still leaves the group in one Tab step: true
+UI04_GAME_CHECK alternate viewport keeps percent/Grid/wrapped native geometry: true
+UI04_GAME_CHECK resized wrapped option remains clickable: true
+UI04_GAME_CHECK actual selected indicator center is rendered: true
+UI04_GAME_CHECK actual unselected indicator center remains hollow: true
+UI04_GAME_CHECK both physical direction groups are visible within Grid tracks: true
+UI04_GAME_CHECK neutral default selected indicator: true
+UI04_GAME_CHECK idle and repeated equal writes cause no Gogo render or layout work: true
+UI04_GAME_CHECK nested independent Entry deduplicates shared key routing; non-Radio children are ignored: true
+UI04_GAME_CHECK reparent joins nearest new group without stale selection callbacks: true
+UI04_GAME_CHECK orphan Radio has no independent model or activation: true
+UI04_GAME_CHECK Gogo host packs with transient output excluded: true
+UI04_GAME_CHECK pack/reopen reconstructs one selection and endpoints from authored defaults: true
+UI04_GAME_CHECK conditional unmount frees options and group: true
+UI04_GAME_CHECK remount projects current model with one option set: true
+UI04_GAME_RESULT {"checks":65,"ok":true}
+UI04_GRAPHICS_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK explicit GGX Input background updates getter/cache: true
+UI03_GAME_CHECK unchanged GGX preserves an independent Input background override: true
+UI03_GAME_CHECK owned background removal restores neutral class default: true
+UI03_GAME_CHECK unstyled GGX Input and explicitly imported Button share neutral defaults: true
+UI03_GAME_CHECK rendered unfocused GGX Input/Button surfaces match383838: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":52,"ok":true,"submits":1}
+UI03_SCENE_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI02_GAME_CHECK handler references are not invoked during render; initial Bool projection: true
+UI02_GAME_CHECK pointer edit updates one model synchronously and projects peers once: true
+UI02_GAME_CHECK Checkbox shares native pointer focus and exact hit rectangle: true
+UI02_GAME_CHECK independent native control assignment notifies and writes source synchronously: true
+UI02_GAME_CHECK independent write schedules one coalesced view: true
+UI02_GAME_CHECK reconciliation notifies value observers without reciprocal source writes: true
+UI02_GAME_CHECK same-value control assignment is quiet: true
+UI02_GAME_CHECK snapshot and computed controls are one-way: true
+UI02_GAME_CHECK one-way values project from current snapshot on relevant rerender: true
+UI02_GAME_CHECK direct typed parameter property path is implicitly two-way: true
+UI02_GAME_CHECK keyboard press/repeat do not activate before completed release: true
+UI02_GAME_CHECK completed focused keyboard activation exactly once: true
+UI02_GAME_CHECK cancel consumes held key without activation: true
+UI02_GAME_CHECK disabled Checkbox cannot activate or retain focus: true
+UI02_GAME_CHECK hidden Checkbox cannot activate or focus; exposed siblings retain pointer routing: true
+UI02_GAME_CHECK reentrant source restore wins without binding feedback loop: true
+UI02_GAME_CHECK stale bound self-path callback inert before replacement commit: true
+UI02_GAME_CHECK replacement retains native Checkbox and one binding plus observer: true
+UI02_GAME_CHECK replacement releases previous model and parameter-path linkage: true
+UI02_GAME_CHECK captured disconnected callback stays inert after replacement: true
+UI02_GAME_CHECK keyed reorder retains Checkbox identity and focus: true
+UI02_GAME_CHECK natural square/label dimensions participate in Box/Grid/Wrap: true
+UI02_GAME_CHECK label styling remains local, with no inherited automatic style: true
+UI02_GAME_CHECK null source condition unmounts bound inputs cleanly: true
+UI02_GAME_CHECK repair creates one clean implicit binding: true
+UI02_GAME_CHECK unmount disconnects old control callbacks: true
+UI02_GAME_CHECK zero idle composition work: true
+UI02_GAME {"checks":27,"ok":true,"presses":2}
+UI02_SCENE_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI01_RUNTIME one mixed eligible traversal across Node2D/native GUI roots, disabled skipped: true
+UI01_RUNTIME native focus endpoint is not acquired or positioned by the layout adapter: true
+UI01_RUNTIME actual pointer focuses native endpoint and emits exactly once: true
+UI01_RUNTIME Tab from custom Button to Toggle: true
+UI01_RUNTIME accept repeat stays held without duplicate user edits: true
+UI01_RUNTIME accept release activates exactly once: true
+UI01_RUNTIME Escape cancels held activation: true
+UI01_RUNTIME Tab skips disabled and focus loss cancels held key: true
+UI01_RUNTIME native GUI owns native button keyboard activation without duplicates: true
+UI01_RUNTIME Tab reaches real native text endpoint: true
+UI01_RUNTIME native delegate receives Unicode through actual viewport GUI input: true
+UI01_RUNTIME native delegate owns select-all shortcut: true
+UI01_RUNTIME native clipboard paste replaces native selection: true
+UI01_RUNTIME native editing and activation key presses do not also reach raw game key handlers: true
+UI01_RUNTIME mixed traversal wraps: true
+UI01_RUNTIME Shift-Tab reverses across native roots: true
+UI01_RUNTIME authored native focus_next path wins over traversal order: true
+UI01_RUNTIME click-only mode accepts focus but skips Tab: true
+UI01_RUNTIME focus-none mode still accepts pointer activation without taking focus: true
+UI01_RUNTIME disabling focused custom target immediately releases native focus: true
+UI01_RUNTIME hidden target releases and skips traversal: true
+UI01_RUNTIME native reorder is live traversal order, retained focused identity: true
+UI01_RUNTIME unmount drops focus and native endpoint without stale registration: true
+UI01_RUNTIME reentry creates exactly one live focus endpoint: true
+UI01_RUNTIME native Control GUI click wins overlapping custom picker: true
+UI01_RUNTIME GUI-consumed release cancels custom capture without stale click: true
+UI01_RUNTIME Window focus loss cancels pointer capture: true
+UI01_RUNTIME Window focus loss cancels keyboard hold: true
+UI01_RUNTIME raw custom key prototype appends Unicode but provides no native clipboard/selection/IME contract: true
+UI01_RUNTIME partly clipped focus rectangle equals native layout hit rectangle: true
+UI01_RUNTIME scroll hides fully clipped target while retaining visible focus: true
+UI01_RUNTIME fully clipped target refuses explicit focus: true
+UI01_RUNTIME scrolling focused rectangle fully out of clip releases focus eventfully: true
+UI01_RUNTIME overlapping Estragon Entries share one winning pointer capture: true
+UI01_RUNTIME inherited native Z selects one custom target across Entries: true
+UI01_RUNTIME native CanvasLayer ordering takes priority over custom Z: true
+UI01_RUNTIME one Tab crosses Entry scopes and skips fully clipped sibling: true
+UI01_RUNTIME SubViewport uses native GUI focus and a separate traversal scope: true
+UI01_RUNTIME idle frames perform no focus refresh work: true
+UI01_RUNTIME native authored mixed controls pack: true
+UI01_RUNTIME pack reload reconstructs one runtime-only focus endpoint: true
+UI01_RUNTIME all entries unmount releases shared weak registry and tree subscriptions: true
+UI01_RUNTIME_ASSERTIONS 42 failed=false
+UI01_RUNTIME_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+U04_NATIVE A content and owner unchanged: true
+U04_NATIVE A bar abuts border and spans top/bottom padding: true
+U04_NATIVE old track band is padding, never content or bar hit: true
+U04_NATIVE right edge content remains clickable before padding gap: true
+U04_NATIVE native hover in new top-padding track region: true
+U04_NATIVE native pressed skin at new coordinates: true
+U04_NATIVE native thumb drag at new border edge: true
+U04_NATIVE new border-edge track click scrolls without activating content: true
+U04_NATIVE B exact dual native clip/tracks/corner: true
+U04_NATIVE B unchanged native page/range from V: true
+U04_NATIVE horizontal track click beside bottom border: true
+U04_NATIVE neutral corner neither content nor overlapping bars: true
+U04_NATIVE horizontal-only native track spans B width: true
+U04_NATIVE disabled axes release gutters and physical chrome: true
+U04_NATIVE tracks and clip fixed at offset 0: true
+U04_NATIVE unchanged content translation and extent at 0: true
+U04_NATIVE padding band stays background at 0: true
+U04_NATIVE tracks and clip fixed at offset 235: true
+U04_NATIVE unchanged content translation and extent at 235: true
+U04_NATIVE padding band stays background at 235: true
+U04_NATIVE tracks and clip fixed at offset 470: true
+U04_NATIVE unchanged content translation and extent at 470: true
+U04_NATIVE padding band stays background at 470: true
+U04_NATIVE start/end contents align V edges; no moving inset bands added: true
+U04_NATIVE nested wheel still chooses inner viewport: true
+U04_NATIVE exhausted nested viewport bubbles outer: true
+U04_NATIVE responsive Wrap uses same reduced V while track follows border: true
+U04_NATIVE unrelated sibling remains settled: true
+U04_NATIVE padding moves content only, no track/style churn: true
+U04_NATIVE hidden no-overflow bar keeps same gutter: true
+U04_NATIVE hidden track never clicks obscured authored content: true
+U04_NATIVE zero has no physical track, wheel/programmatic scroll retained: true
+U04_NATIVE percentage basis P350 retained at border position: true
+U04_NATIVE custom texture/minimum retains identity within border strip: true
+U04_NATIVE custom expansion never paints over border or padding: true
+U04_NATIVE oversized thickness caps to P while physical chrome stays inside B: true
+U04_NATIVE native asymmetric fractional rectangles match pure snapshot: true
+U04_NATIVE unchanged targets and idle do no layout/parse/skin work: true
+U04_NATIVE native identities retained through all runtime changes: true
+U04_NATIVE tiny actual owner has no physical hit tracks or negative clip: true
+U04_NATIVE padded native scroll scene packs: true
+U04_NATIVE scene reload retains owner/offset and new border-edge track: true
+U04_NATIVE GGX thickness re-render retains border geometry, caret/focus/offset: true
+U04_NATIVE GGX unrelated re-render retains native chrome and inputs: true
+U04_NATIVE_ASSERTIONS 44 ok=true
+U04_NATIVE_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UI05_EDITOR_CHECK real native authored UI05 scene imports: true
+UI05_EDITOR_CHECK native authored buffer edit: true
+UI05_EDITOR_CHECK native source edit undo preserves call-site source: true
+UI05_EDITOR_CHECK native source edit redo: true
+UI05_EDITOR_CHECK native Gogo highlighter attached to actual UI05 source: true
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:17: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+UI05_EDITOR_CHECK current invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK current invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:80: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+UI05_EDITOR_CHECK current invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK current invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000, "max_value": 1000000000000000, "step": 1, "value": 100000000000000 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+Running: /tmp/estragon-native-cKUo7W/godot --path /tmp/estragon-native-cKUo7W/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8523 --position 220,92 res://examples/values/Values.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UI05_EDITOR_CHECK current actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:17: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+UI05_EDITOR_CHECK main invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK main invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:80: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+UI05_EDITOR_CHECK main invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK main invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000, "max_value": 1000000000000000, "step": 1, "value": 100000000000000 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+Running: /tmp/estragon-native-cKUo7W/godot --path /tmp/estragon-native-cKUo7W/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 8523 --position 220,92 res://examples/values/Values.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UI05_EDITOR_CHECK main actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+UI05_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UI05_EDITOR_ASSERTIONS 18 failed=false
+UI05_EDITOR_OK
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+UI05_EDITOR_CHECK real native authored UI05 scene imports: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000, "max_value": 1000000000000000, "step": 1, "value": 100000000000000 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0, "max_value": 1, "step": 0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+Running: /tmp/estragon-native-cKUo7W/godot --path /tmp/estragon-native-cKUo7W/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 9214 --position 220,92 res://examples/values/Values.tscn --audio-driver Dummy --rendering-method gl_compatibility --rendering-driver opengl3
+UI05_EDITOR_CHECK main actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UI05_EDITOR_ASSERTIONS 3 failed=false
+UI05_EDITOR_OK
+yarn add v1.22.22
+info No lockfile found.
+(node:10224) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.83s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+UI05_BUILD {"changed":["examples/checkbox/generated/Model.gd","examples/checkbox/generated/Model.gd.map.json","examples/checkbox/generated/Checkboxes.gd","examples/checkbox/generated/Checkboxes.gd.map.json","examples/data/generated/Details.gd","examples/data/generated/Details.gd.map.json","examples/data/generated/Item.gd","examples/data/generated/Item.gd.map.json","examples/data/generated/Inventory.gd","examples/data/generated/Inventory.gd.map.json","examples/data/generated/Gallery.gd","examples/data/generated/Gallery.gd.map.json","examples/input/generated/Model.gd","examples/input/generated/Model.gd.map.json","examples/input/generated/Inputs.gd","examples/input/generated/Inputs.gd.map.json","examples/radio/generated/Item.gd","examples/radio/generated/Item.gd.map.json","examples/radio/generated/Model.gd","examples/radio/generated/Model.gd.map.json","examples/radio/generated/Radios.gd","examples/radio/generated/Radios.gd.map.json","examples/scrollbars/generated/ScrollPanel.gd","examples/scrollbars/generated/ScrollPanel.gd.map.json","examples/scrollbars/generated/Scrollbars.gd","examples/scrollbars/generated/Scrollbars.gd.map.json","examples/values/generated/Item.gd","examples/values/generated/Item.gd.map.json","examples/values/generated/Model.gd","examples/values/generated/Model.gd.map.json","examples/values/generated/Values.gd","examples/values/generated/Values.gd.map.json"],"diagnostics":[],"isolated_preflight":{"reason":"","status":"PASS"},"ok":true,"outputs":["examples/checkbox/generated/Model.gd","examples/checkbox/generated/Checkboxes.gd","examples/data/generated/Details.gd","examples/data/generated/Item.gd","examples/data/generated/Inventory.gd","examples/data/generated/Gallery.gd","examples/input/generated/Model.gd","examples/input/generated/Inputs.gd","examples/radio/generated/Item.gd","examples/radio/generated/Model.gd","examples/radio/generated/Radios.gd","examples/scrollbars/generated/ScrollPanel.gd","examples/scrollbars/generated/Scrollbars.gd","examples/values/generated/Item.gd","examples/values/generated/Model.gd","examples/values/generated/Values.gd"],"source_diagnostics":[],"symlink_checks":{"reason":"Symlink-free source/output paths are required; older engines cannot introspect links. Lexical path containment remains enforced.","status":"PASS"}}
+UI05_BUILD_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+UI05_FRONTEND all native value aliases compile with typed metadata: true
+UI05_FRONTEND actual-path numeric writer semantics: true
+UI05_FRONTEND exact typed binding decimal_view: true
+UI05_FRONTEND exact typed binding number_view: true
+UI05_FRONTEND exact typed binding integer_view: true
+UI05_FRONTEND exact typed binding choice_view: true
+UI05_FRONTEND Option identity never becomes two-way: true
+UI05_FRONTEND numeric snapshots/computed expressions stay one-way: true
+UI05_FRONTEND deterministic maps and exact authored content: true
+UI05_FRONTEND typed float and int source writers in the single emitter: true
+UI05_FRONTEND mapped static rejection <Option />: true
+UI05_FRONTEND mapped static rejection <Option value=""/>: true
+UI05_FRONTEND mapped static rejection <Select><Option value="a"/><Option value="a" disabled/></Select>: true
+UI05_FRONTEND mapped static rejection <Slider orientation="diagonal"/>: true
+UI05_FRONTEND mapped static rejection <Slider min_value={2.0} max_value={1.0}/>: true
+UI05_FRONTEND mapped static rejection <Slider step={-0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={NAN}/>: true
+UI05_FRONTEND mapped static rejection <NumberInput value={INF}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput step={0}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput value={0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={0.53} min_value={0.0} max_value={1.0} step={0.05}/>: true
+UI05_FRONTEND mapped static rejection <Slider bind:value={self.decimal}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput bad_numeric_property="bad"/>: true
+UI05_FRONTEND_ASSERTIONS 23 ok=true
+UI05_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+UI03_FRONTEND String fixture compiles with exact installed Input alias: true
+UI03_FRONTEND actual native String semantic validation: true
+UI03_FRONTEND String candidate has typed source metadata and snapshot: true
+UI03_FRONTEND direct parameter path shares implicit String linkage: true
+UI03_FRONTEND one-way snapshot: true
+UI03_FRONTEND one-way computed: true
+UI03_FRONTEND one-way unobserved: true
+UI03_FRONTEND one-way readonly: true
+UI03_FRONTEND one-way dictionary: true
+UI03_FRONTEND one-way literal: true
+UI03_FRONTEND one-way spread: true
+UI03_FRONTEND Dictionary parameter is a one-way native value: true
+UI03_FRONTEND original value getter executes once: true
+UI03_FRONTEND String code/maps/contract deterministic: true
+UI03_FRONTEND typed String writer retains source map content: true
+UI03_FRONTEND mapped static rejection bind:value={self.text}: true
+UI03_FRONTEND mapped static rejection value: true
+UI03_FRONTEND mapped static rejection placeholder: true
+UI03_FRONTEND mapped static rejection disabled="bad": true
+UI03_FRONTEND mapped static rejection invalid="bad": true
+UI03_FRONTEND mapped static rejection value="one" value="two": true
+UI03_FRONTEND mapped static rejection font_size="bad": true
+UI03_FRONTEND_ASSERTIONS 22 failed=false
+UI03_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+CORE02_FRONTEND typed declarations, reassignment, nested members and self member: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND hydration executes and sibling lexical shadow remains native: true
+CORE02_FRONTEND typed parameter member boundary hydrates: true
+CORE02_FRONTEND typed local collection lowers: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native collection iteration and insertion hydration: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND uninitialized fields keep native typed defaults: true
+CORE02_FRONTEND inherited data shape compiles: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND inherited fields and defaults serialize: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native typed Array fields hydrate atomically and stay native: true
+CORE02_FRONTEND authored notification method retained with cleanup: true
+CORE02_FRONTEND invalid native typed Array element rejected before setter: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND observable ownership cycle detected before attachment: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND self-qualified typed collection uses safe native iteration: true
+CORE02_FRONTEND hydrated writes retain native member-assignment semantic proof: true
+CORE02_FRONTEND_CHECKS 23 ERRORS 0
+CORE02_FRONTEND_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+CORE02 recursive typed hydration: true
+CORE02 declared and native defaults; nullable model: true
+CORE02 real parsed JSON numeric fields hydrate: true
+CORE02 recursive serialization: true
+CORE02 grandchild same-identity upward notification: true
+CORE02 shared child diamond emits once at root: true
+CORE02 reentrant listener settles without notification storm: true
+CORE02 duplicate instance membership subscribes once: true
+CORE02 duplicate remaining membership stays observed: true
+CORE02 last membership removal detaches: true
+CORE02 one structural notification for mutation batch: true
+CORE02 replacement detaches nested graph: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: ArrayCollection: ArrayCollection[1].id: incompatible value type 4
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _reject (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/data/array_collection.gd:108)
+       [1] reset (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/data/array_collection.gd:82)
+       [2] run (res://tests/data/runtime.gd:68)
+CORE02 invalid reset rejected: true
+ERROR: ArrayCollection: insert index out of range
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _reject (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/data/array_collection.gd:108)
+       [1] insert (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/data/array_collection.gd:50)
+       [2] run (res://tests/data/runtime.gd:69)
+CORE02 invalid index rejected: true
+ERROR: fixture.gogo:1:1.items[1]: unknown field unknown
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] assign (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/data/state.gd:208)
+       [1] run (res://tests/data/runtime.gd:70)
+CORE02_EXPECTED_REJECTION_END
+CORE02 failed collection and hydration keep prior state atomically: true
+CORE02 plain-data cycles rejected: true
+CORE02 unsupported native values rejected: true
+CORE02 malformed collection rejected: true
+CORE02 deeply nested typed collections hydrate: true
+CORE02 nested collections bubble grandchild changes: true
+CORE02 model JSON-like round trip: true
+CORE02 null scalar rejected: true
+CORE02 nullable model and collection references: true
+CORE02 parent GC disconnects child subscriptions: true
+CORE02 real keyed GGX mounts: true
+CORE02 raw Array and Dictionary in-place mutations remain unobserved: true
+CORE02 raw reference replacement stays native and observable: true
+CORE02 same root argument invalidates opaque summary: true
+CORE02 only affected row recomputes: true
+CORE02 leaf edits retain native nodes and handlers: true
+CORE02 burst leaf edits coalesce in the existing scheduler: true
+CORE02 reordering retains keyed identities: true
+CORE02_EXPECTED_REJECTION_BEGIN
+ERROR: Invalid composition output or foreign boundary conflict; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+CORE02_EXPECTED_REJECTION_END
+CORE02 duplicate keys reject before native changes: true
+CORE02 idle has no row computations: true
+CORE02 compiled property Array assignment hydrates: true
+CORE02 compiled model reassignment hydrates and updates native UI: true
+CORE02 conditional removes rows: true
+CORE02 empty collection renders: true
+CORE02 unmount removes render computations: true
+CORE02 unmount disconnects render subscriptions: true
+CORE02_CHECKS 40 ERRORS 0
+CORE02_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+L0910_MATH_CHECK 160 transposed exact slots axis0: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK 160 transposed exact slots axis1: true
+L0910_MATH_CHECK natural auto cross contains lines: true
+L0910_MATH_CHECK 230 one line: true
+L0910_MATH_CHECK oversize finite single overflowing lines: true
+L0910_MATH_CHECK unanchored one finite line: true
+L0910_MATH_CHECK empty start: true
+L0910_MATH_CHECK empty center: true
+L0910_MATH_CHECK empty end: true
+L0910_MATH_CHECK empty space-between: true
+L0910_MATH_CHECK empty space-around: true
+L0910_MATH_CHECK empty space-evenly: true
+L0910_MATH_CHECK empty stretch: true
+L0910_MATH_CHECK align_content exact start: true
+L0910_MATH_CHECK single line start: true
+L0910_MATH_CHECK align_content exact center: true
+L0910_MATH_CHECK single line center: true
+L0910_MATH_CHECK align_content exact end: true
+L0910_MATH_CHECK single line end: true
+L0910_MATH_CHECK align_content exact space-between: true
+L0910_MATH_CHECK single line space-between: true
+L0910_MATH_CHECK align_content exact space-around: true
+L0910_MATH_CHECK single line space-around: true
+L0910_MATH_CHECK align_content exact space-evenly: true
+L0910_MATH_CHECK single line space-evenly: true
+L0910_MATH_CHECK align_content exact stretch: true
+L0910_MATH_CHECK single line stretch: true
+L0910_MATH_CHECK grow before per-line space-between: true
+L0910_MATH_CHECK grow before per-line space-around: true
+L0910_MATH_CHECK grow before per-line space-evenly: true
+L0910_MATH_CHECK line alignment start: true
+L0910_MATH_CHECK line alignment center: true
+L0910_MATH_CHECK line alignment end: true
+L0910_MATH_CHECK line alignment space-between: true
+L0910_MATH_CHECK line alignment space-around: true
+L0910_MATH_CHECK line alignment space-evenly: true
+L0910_MATH_CHECK line alignment stretch: true
+L0910_MATH_CHECK implicit row growth: true
+L0910_MATH_CHECK equal tracks and row-major 320: true
+L0910_MATH_CHECK equal tracks and row-major 620: true
+L0910_MATH_CHECK fixed100/1fr/2fr exact fractional tracks: true
+L0910_MATH_CHECK template canonical equivalence: true
+L0910_MATH_CHECK named spans and physical cells: true
+L0910_MATH_CHECK explicit before auto reservation: true
+L0910_MATH_CHECK invalid tracks 0: true
+L0910_MATH_CHECK invalid tracks -1: true
+L0910_MATH_CHECK invalid tracks 257: true
+L0910_MATH_CHECK invalid tracks []: true
+L0910_MATH_CHECK invalid tracks ["0fr"]: true
+L0910_MATH_CHECK invalid tracks ["-1fr"]: true
+L0910_MATH_CHECK invalid tracks ["NaNfr"]: true
+L0910_MATH_CHECK invalid tracks ["1em"]: true
+L0910_MATH_CHECK invalid tracks [-1]: true
+L0910_MATH_CHECK invalid tracks [inf]: true
+L0910_MATH_CHECK placement rejection [{ "row": -1 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0.5 }]: true
+L0910_MATH_CHECK placement rejection [{ "row_span": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "column_span": 4 }]: true
+L0910_MATH_CHECK placement rejection [{ "area": "missing" }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "column": 0 }, { "row": 0, "column": 0 }]: true
+L0910_MATH_CHECK placement rejection [{ "row": 0, "area": "x" }]: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK nonrectangle rejection: true
+L0910_MATH_CHECK template explicit ambiguity: true
+L0910_MATH_CHECK duplicate column declaration: true
+L0910_MATH_CHECK malformed named area rectangle ["a a", "a b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a", "b b"]: true
+L0910_MATH_CHECK malformed named area rectangle ["a b", "b a"]: true
+L0910_MATH_CHECK ambiguous template and explicit tracks: true
+L0910_MATH_CHECK explicit finite rows reject overflow: true
+L0910_MATH_CHECK spanning natural floor split and fractional remainder: true
+L0910_MATH_CHECK percentage parent content/fixed auto/fr ordering: true
+L0910_MATH_CHECK physical cell alignment start: true
+L0910_MATH_CHECK physical cell alignment center: true
+L0910_MATH_CHECK physical cell alignment end: true
+L0910_MATH_CHECK physical cell alignment stretch: true
+L0910_MATH_CHECK nested allocated auto width remeasures wrap height in same core: true
+L0910_MATH_CHECK nested arranged third child: true
+L0910_MATH_CHECK idle unchanged core quiet: true
+L0910_MATH_CHECK Grid percent child uses usable total300, never its own cell: true
+L0910_MATH_CHECK fraction water-fill honors authored/native floors without double shares: true
+L0910_MATH_CHECK cell physical align includes asymmetric leading/outer margins once: true
+L0910_MATH_CHECK percentage gap physical fallback X/Y: true
+L0910_MATH_CHECK cross-only containing resize invalidates shorthand gap reference: true
+L0910_MATH_ASSERTIONS 95 failed=false
+L0910_MATH_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+LAYOUT01_NATIVE direct220 cross48 axis0: true
+LAYOUT01_NATIVE actual second line offset28 axis0: true
+LAYOUT01_NATIVE direct290 cross20 axis0: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis0: true
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis0: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis0: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis0: true
+LAYOUT01_NATIVE resize retains native children axis0: true
+LAYOUT01_NATIVE same size and idle stay quiet axis0: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis0: true
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis0: true
+LAYOUT01_NATIVE removed authority clears cached allocation axis0: true
+LAYOUT01_NATIVE direct220 cross48 axis1: true
+LAYOUT01_NATIVE actual second line offset28 axis1: true
+LAYOUT01_NATIVE direct290 cross20 axis1: true
+LAYOUT01_NATIVE definite Grid auto cross track uses actual220 slot axis1: true
+LAYOUT01_NATIVE auto cross track does not acquire parent definite authority axis1: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 20 axis1: true
+LAYOUT01_NATIVE repeat constrained cross 48 axis1: true
+LAYOUT01_NATIVE resize retains native children axis1: true
+LAYOUT01_NATIVE same size and idle stay quiet axis1: true
+LAYOUT01_NATIVE fixed track supplies authority inside auto parent axis1: true
+LAYOUT01_NATIVE clearing fixed constraint restores natural auto track axis1: true
+LAYOUT01_NATIVE removed authority clears cached allocation axis1: true
+LAYOUT01_NATIVE spanning fixed tracks220 determine auto row48: true
+LAYOUT01_NATIVE asymmetric inside20/24 plus outside10 counted once: true
+LAYOUT01_NATIVE actual child origin includes leading border/padding once: true
+LAYOUT01_NATIVE explicit cross maximum caps geometry without hiding natural overflow: true
+WARNING: Estragon minimum exceeds maximum; minimum/native floor wins
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] constrain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:215)
+         [1] _capacity_basis (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:409)
+         [2] measure (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:530)
+         [3] measure (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:535)
+         [4] measure (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/layout_core.gd:535)
+         [5] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/coordinator.gd:202)
+LAYOUT01_NATIVE authored minimum wins conflicting maximum: true
+LAYOUT01_NATIVE unbounded fr floor supplies capacity through nested VBox without percentage authority: true
+LAYOUT01_NATIVE intrinsic fr floor capacity remains separate from percentage authority: true
+LAYOUT01_NATIVE scrolling main axis remains unbounded for auto Wrap capacity: true
+LAYOUT01_NATIVE fractional free space cannot shrink dependent wrapped cross floor48 into30: true
+LAYOUT01_NATIVE immediate body210 minus padding40 and gutter12 yields158: true
+LAYOUT01_NATIVE nested percentage uses post-gutter immediate parent: true
+LAYOUT01_NATIVE gutter change refreshes allocated basis once: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport false: true
+LAYOUT01_NATIVE scroll range uses actual viewport false: true
+LAYOUT01_NATIVE auto vs definite fr scroll viewport true: true
+LAYOUT01_NATIVE scroll range uses actual viewport true: true
+LAYOUT01_NATIVE real native minimum and explicit multiline font measurement: true
+LAYOUT01_NATIVE font/native minimum event updates auto ancestor: true
+LAYOUT01_NATIVE native theme change preserves true minimum: true
+LAYOUT01_NATIVE unrelated fixed/native sibling change keeps Text measure cached: true
+LAYOUT01_NATIVE hidden participant removes its wrap line: true
+LAYOUT01_NATIVE restored participant rebuilds current wrap lines: true
+LAYOUT01_NATIVE empty Wrap has zero natural cross extent: true
+LAYOUT01_NATIVE unbreakable fixed item overflows forward without shrink: true
+LAYOUT01_NATIVE native reparent detaches old measure ownership and retains item: true
+LAYOUT01_NATIVE fractional allocated constraints and physical gaps stay unrounded: true
+LAYOUT01_NATIVE native minimum is never shrunk to fit fr budget: true
+LAYOUT01_NATIVE intentional native floor overflow has explicit 530px numeric cause: true
+LAYOUT01_NATIVE native Label minimum follows actual assigned width via public signals: true
+LAYOUT01_NATIVE native width-affected minimum remeasures without invented height-for-width API: true
+LAYOUT01_NATIVE native Control adapters clean after unmount: true
+LAYOUT01_NATIVE_CHECKS 59 failed=false
+LAYOUT01_NATIVE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300.0: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8.0, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000.0, "max_value": 1000000000000000.0, "step": 1.0, "value": 100000000000000.0 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+UI05_GAME_RESULT {"checks":79,"ok":true}
+UI05_GRAPHICS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_WHEEL editable native Slider receives one real wheel edit before ancestor scroll: true
+UI05_WHEEL read-only native Slider yields wheel to parent without numeric edit: true
+UI05_WHEEL wheel ownership uses existing weak lifetime registry and releases on unmount: true
+UI05_WHEEL_ASSERTIONS 3 ok=true
+UI05_WHEEL_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': duplicate Option identifier explore; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid Option desired set atomically retains popup trigger/focus/value: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'min_value'): attribute 'min_value': requires min_value <= max_value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "min_value": 2.0, "max_value": 1.0 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'step'): attribute 'step': requires step >= 0; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "step": -0.05 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": nan }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": inf }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 0.53 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "value": 3 }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'orientation'): attribute 'orientation': requires horizontal or vertical; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "orientation": "diagonal" }: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Values.gogo:38:127 (spread key 'bad_numeric_property'): attribute 'bad_numeric_property': unknown, read-only or reserved native property; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION invalid desired numeric config preserves whole mounted view/model { "bad_numeric_property": true }: true
+UI05_EXPECTED_BEGIN
+ERROR: Estragon numeric step: requires step >= 0
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _range_field (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/numeric_control.gd:17)
+       [1] @step_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd:19)
+       [2] run (res://tests/value/rejections.gd:26)
+       [3] frames (res://tests/value/rejections.gd:9)
+UI05_EXPECTED_END
+UI05_REJECTION native negative step rejects without transition: true
+UI05_EXPECTED_BEGIN
+ERROR: Estragon numeric value: requires finite numeric value
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _numeric_value (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/internal/numeric_control.gd:24)
+       [1] @value_setter (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd:24)
+       [2] run (res://tests/value/rejections.gd:28)
+       [3] frames (res://tests/value/rejections.gd:9)
+UI05_EXPECTED_END
+UI05_REJECTION native NaN rejects without transition: true
+UI05_REJECTION negative binding fixture has native semantic/type metadata proof: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:147: attribute 'value': requires exact float value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION int model cannot silently bind float endpoint; prior tree retained: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: invalid observable float binding endpoint; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION null numeric source rejects whole transaction: true
+UI05_EXPECTED_BEGIN
+ERROR: examples/values/Negative.gogo:10:54: attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _flush (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/computation.gd:147)
+       [1] drain (res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/composition/state.gd:38)
+UI05_EXPECTED_END
+UI05_REJECTION noncanonical source retained as authored; no silent control-to-source normalization: true
+UI05_REJECTION invalid source does not schedule an infinite projection repair loop: true
+UI05_REJECTION canonical source repair reuses mounted native endpoint: true
+UI05_REJECTION unmount releases all mounted bindings and computations: true
+UI05_REJECTION_ASSERTIONS 20 ok=true
+UI05_REJECTIONS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI04_GAME_CHECK baseline: independent Toggle booleans permit two selected options: true
+UI04_GAME_CHECK row has exactly one initial model-derived selection; column defaults vertical: true
+UI04_GAME_CHECK empty group selects nothing with first eligible Tab stop: true
+UI04_GAME_CHECK native Box row geometry and native border-box endpoint: true
+UI04_GAME_CHECK pointer selects once and writes one model transition: true
+UI04_GAME_CHECK same selected click has no extra change; real focus owner follows pointer: true
+UI04_GAME_CHECK independent programmatic group write synchronously notifies source: true
+UI04_GAME_CHECK model projection emits once without source feedback: true
+UI04_GAME_CHECK equal group assignment is quiet: true
+UI04_GAME_CHECK Tab enters selected eligible option as one logical stop: true
+UI04_GAME_CHECK Tab leaves whole row for first vertical option: true
+UI04_GAME_CHECK Shift Tab returns once to selected row option: true
+UI04_GAME_CHECK row Right selects and moves native focus: true
+UI04_GAME_CHECK row wraps and skips authored disabled option: true
+UI04_GAME_CHECK row Left wraps to last eligible: true
+UI04_GAME_CHECK Home chooses first eligible: true
+UI04_GAME_CHECK End chooses last eligible: true
+UI04_GAME_CHECK column Down selects second native endpoint: true
+UI04_GAME_CHECK column arrows wrap and skip disabled: true
+UI04_GAME_CHECK accept on selected option emits no extra choice: true
+UI04_GAME_CHECK consumed Radio arrow press/release never reaches game unhandled keys: true
+UI04_GAME_CHECK effective group disable blocks pointer/focus and preserves authored flags/value: true
+UI04_GAME_CHECK reenable restores selected visual and authored disabled option: true
+UI04_GAME_CHECK hide retains pending value and falls focus to next eligible: true
+UI04_GAME_CHECK show restores selection without mutating model: true
+UI04_GAME_CHECK keyed collection reorder retains native identity/focus and logical order: true
+UI04_GAME_CHECK arrow follows reordered logical order: true
+UI04_GAME_CHECK remove selected option retains valid pending model String: true
+UI04_GAME_CHECK restored identifier restores selected visual on new native option: true
+UI04_GAME_CHECK local snapshot is one-way despite group String signal: true
+UI04_GAME_CHECK next relevant render projects snapshot model authority: true
+UI04_GAME_CHECK reentrant model repair restores mounted group through existing projection guard: true
+UI04_GAME_CHECK source replacement disconnects old String writer: true
+UI04_GAME_CHECK mismatched release cancels hold without selection: true
+UI04_GAME_CHECK overlapping native Control wins GUI pointer precedence: true
+UI04_GAME_CHECK foreign LineEdit arrows remain native and do not select Radio: true
+UI04_GAME_CHECK Estragon Input arrows remain native: true
+UI04_GAME_CHECK shared Tab leaves native Godot Button for native LineEdit: true
+UI04_GAME_CHECK shared Shift Tab preserves foreign native Controls: true
+UI04_GAME_CHECK fully clipped option has no focus or selected display: true
+UI04_GAME_CHECK scroll reveal restores pending selection and native focus: true
+UI04_GAME_CHECK scrolling focused option out of clip releases stale focus and retains selection String: true
+UI04_GAME_CHECK revealing again restores selected state through shared geometry refresh: true
+UI04_GAME_CHECK individual disable retains value and falls focus forward: true
+UI04_GAME_CHECK fallback option remains one logical Tab stop even without eligible selected option: true
+UI04_GAME_CHECK restoration does not steal unrelated Input focus: true
+UI04_GAME_CHECK deferred fallback never steals a valid native focus chosen by another control: true
+UI04_GAME_CHECK group disable cancels native pointer capture immediately: true
+UI04_GAME_CHECK focus-none option remains a pointer-selectable native Button: true
+UI04_GAME_CHECK selected click-only option falls back to first Tab-eligible option without changing selection: true
+UI04_GAME_CHECK click-only selection still leaves the group in one Tab step: true
+UI04_GAME_CHECK alternate viewport keeps percent/Grid/wrapped native geometry: true
+UI04_GAME_CHECK resized wrapped option remains clickable: true
+UI04_GAME_CHECK actual selected indicator center is rendered: true
+UI04_GAME_CHECK actual unselected indicator center remains hollow: true
+UI04_GAME_CHECK both physical direction groups are visible within Grid tracks: true
+UI04_GAME_CHECK neutral default selected indicator: true
+UI04_GAME_CHECK idle and repeated equal writes cause no Gogo render or layout work: true
+UI04_GAME_CHECK nested independent Entry deduplicates shared key routing; non-Radio children are ignored: true
+UI04_GAME_CHECK reparent joins nearest new group without stale selection callbacks: true
+UI04_GAME_CHECK orphan Radio has no independent model or activation: true
+UI04_GAME_CHECK Gogo host packs with transient output excluded: true
+UI04_GAME_CHECK pack/reopen reconstructs one selection and endpoints from authored defaults: true
+UI04_GAME_CHECK conditional unmount frees options and group: true
+UI04_GAME_CHECK remount projects current model with one option set: true
+UI04_GAME_RESULT {"checks":65,"ok":true}
+UI04_GRAPHICS_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI03_GAME_CHECK one private native LineEdit, not an authored wrapper or layout child: true
+UI03_GAME_CHECK native editing hit/focus rect exactly occupies the arranged border-box: true
+UI03_GAME_CHECK initial projection and named handlers do not execute during render: true
+UI03_GAME_CHECK explicit GGX Input background updates getter/cache: true
+UI03_GAME_CHECK unchanged GGX preserves an independent Input background override: true
+UI03_GAME_CHECK owned background removal restores neutral class default: true
+UI03_GAME_CHECK unstyled GGX Input and explicitly imported Button share neutral defaults: true
+UI03_GAME_CHECK rendered unfocused GGX Input/Button surfaces match383838: true
+UI03_GAME_CHECK actual pointer focuses the native editing endpoint: true
+UI03_GAME_CHECK Input padding belongs to its native hit target: true
+UI03_GAME_CHECK native keyboard select-all: true
+UI03_GAME_CHECK native editing owns text key delivery before game fallback: true
+UI03_GAME_CHECK real Unicode typing edits one source and notifies once per native edit: true
+UI03_GAME_CHECK native backspace: true
+UI03_GAME_CHECK native Home/Delete navigation: true
+UI03_GAME_CHECK native shift navigation selects Unicode text: true
+UI03_GAME_CHECK backspace deletes the native selection: true
+UI03_GAME_CHECK native copy uses platform clipboard: true
+UI03_GAME_CHECK native cut edits exactly once: true
+UI03_GAME_CHECK native paste edits exactly once: true
+UI03_GAME_CHECK native mouse drag selects text: true
+UI03_GAME_CHECK parent recompute retains native identity, caret and selection: true
+UI03_GAME_CHECK native Enter submits once without a value write: true
+UI03_GAME_CHECK Escape emits cancel once and releases focus without implicit rollback: true
+UI03_GAME_CHECK independent Input value assignment writes source synchronously: true
+UI03_GAME_CHECK independent write coalesces to one view commit: true
+UI03_GAME_CHECK model projection notifies native value without reciprocal source write: true
+UI03_GAME_CHECK same String value is quiet: true
+UI03_GAME_CHECK snapshot/computed controls stay one-way: true
+UI03_GAME_CHECK relevant render restores one-way model projection: true
+UI03_GAME_CHECK typed direct parameter String path is two-way: true
+UI03_GAME_CHECK read-only retains native focus, selection and copy: true
+UI03_GAME_CHECK read-only rejects keyboard edits: true
+UI03_GAME_CHECK disabled cannot focus or edit: true
+UI03_GAME_CHECK hidden Input loses native focus: true
+UI03_GAME_CHECK disabled source-bound Input refuses explicit focus: true
+UI03_GAME_CHECK reentrant model restore wins without feedback: true
+UI03_GAME_CHECK replaced-path edit callback inert before deferred commit: true
+UI03_GAME_CHECK replacement retains Input/editor and exactly one mounted binding: true
+UI03_GAME_CHECK replacement releases former model and parameter linkage: true
+UI03_GAME_CHECK captured disconnected edit cannot update replacement: true
+UI03_GAME_CHECK keyed conditional move retains Input, native caret/selection and focus: true
+UI03_GAME_CHECK shared Tab follows keyed Input order to read-only native endpoint: true
+UI03_GAME_CHECK shared Tab skips disabled Input: true
+UI03_GAME_CHECK natural sizes and exact native border-box geometry in nested Box/Grid: true
+UI03_GAME_CHECK native ancestor clip excludes outside Input hit area: true
+UI03_GAME_CHECK visible clipped Input remains natively editable: true
+UI03_GAME_CHECK delegate has no layout adapter or scene owner: true
+UI03_NATIVE_TEXT backend=X11 ime_capability=true actual_os_composition=UNTESTED
+UI03_GAME_CHECK null conditional unmount releases Input and native editor: true
+UI03_GAME_CHECK repair mounts one clean String binding: true
+UI03_GAME_CHECK unmount disconnects stale edits: true
+UI03_GAME_CHECK zero idle composition work: true
+UI03_GAME {"cancels":1,"checks":52,"ok":true,"submits":1}
+UI03_SCENE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI02_GAME_CHECK handler references are not invoked during render; initial Bool projection: true
+UI02_GAME_CHECK pointer edit updates one model synchronously and projects peers once: true
+UI02_GAME_CHECK Checkbox shares native pointer focus and exact hit rectangle: true
+UI02_GAME_CHECK independent native control assignment notifies and writes source synchronously: true
+UI02_GAME_CHECK independent write schedules one coalesced view: true
+UI02_GAME_CHECK reconciliation notifies value observers without reciprocal source writes: true
+UI02_GAME_CHECK same-value control assignment is quiet: true
+UI02_GAME_CHECK snapshot and computed controls are one-way: true
+UI02_GAME_CHECK one-way values project from current snapshot on relevant rerender: true
+UI02_GAME_CHECK direct typed parameter property path is implicitly two-way: true
+UI02_GAME_CHECK keyboard press/repeat do not activate before completed release: true
+UI02_GAME_CHECK completed focused keyboard activation exactly once: true
+UI02_GAME_CHECK cancel consumes held key without activation: true
+UI02_GAME_CHECK disabled Checkbox cannot activate or retain focus: true
+UI02_GAME_CHECK hidden Checkbox cannot activate or focus; exposed siblings retain pointer routing: true
+UI02_GAME_CHECK reentrant source restore wins without binding feedback loop: true
+UI02_GAME_CHECK stale bound self-path callback inert before replacement commit: true
+UI02_GAME_CHECK replacement retains native Checkbox and one binding plus observer: true
+UI02_GAME_CHECK replacement releases previous model and parameter-path linkage: true
+UI02_GAME_CHECK captured disconnected callback stays inert after replacement: true
+UI02_GAME_CHECK keyed reorder retains Checkbox identity and focus: true
+UI02_GAME_CHECK natural square/label dimensions participate in Box/Grid/Wrap: true
+UI02_GAME_CHECK label styling remains local, with no inherited automatic style: true
+UI02_GAME_CHECK null source condition unmounts bound inputs cleanly: true
+UI02_GAME_CHECK repair creates one clean implicit binding: true
+UI02_GAME_CHECK unmount disconnects old control callbacks: true
+UI02_GAME_CHECK zero idle composition work: true
+UI02_GAME {"checks":27,"ok":true,"presses":2}
+UI02_SCENE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI01_RUNTIME one mixed eligible traversal across Node2D/native GUI roots, disabled skipped: true
+UI01_RUNTIME native focus endpoint is not acquired or positioned by the layout adapter: true
+UI01_RUNTIME actual pointer focuses native endpoint and emits exactly once: true
+UI01_RUNTIME Tab from custom Button to Toggle: true
+UI01_RUNTIME accept repeat stays held without duplicate user edits: true
+UI01_RUNTIME accept release activates exactly once: true
+UI01_RUNTIME Escape cancels held activation: true
+UI01_RUNTIME Tab skips disabled and focus loss cancels held key: true
+UI01_RUNTIME native GUI owns native button keyboard activation without duplicates: true
+UI01_RUNTIME Tab reaches real native text endpoint: true
+UI01_RUNTIME native delegate receives Unicode through actual viewport GUI input: true
+UI01_RUNTIME native delegate owns select-all shortcut: true
+UI01_RUNTIME native clipboard paste replaces native selection: true
+UI01_RUNTIME native editing and activation key presses do not also reach raw game key handlers: true
+UI01_RUNTIME mixed traversal wraps: true
+UI01_RUNTIME Shift-Tab reverses across native roots: true
+UI01_RUNTIME authored native focus_next path wins over traversal order: true
+UI01_RUNTIME click-only mode accepts focus but skips Tab: true
+UI01_RUNTIME focus-none mode still accepts pointer activation without taking focus: true
+UI01_RUNTIME disabling focused custom target immediately releases native focus: true
+UI01_RUNTIME hidden target releases and skips traversal: true
+UI01_RUNTIME native reorder is live traversal order, retained focused identity: true
+UI01_RUNTIME unmount drops focus and native endpoint without stale registration: true
+UI01_RUNTIME reentry creates exactly one live focus endpoint: true
+UI01_RUNTIME native Control GUI click wins overlapping custom picker: true
+UI01_RUNTIME GUI-consumed release cancels custom capture without stale click: true
+UI01_RUNTIME Window focus loss cancels pointer capture: true
+UI01_RUNTIME Window focus loss cancels keyboard hold: true
+UI01_RUNTIME raw custom key prototype appends Unicode but provides no native clipboard/selection/IME contract: true
+UI01_RUNTIME partly clipped focus rectangle equals native layout hit rectangle: true
+UI01_RUNTIME scroll hides fully clipped target while retaining visible focus: true
+UI01_RUNTIME fully clipped target refuses explicit focus: true
+UI01_RUNTIME scrolling focused rectangle fully out of clip releases focus eventfully: true
+UI01_RUNTIME overlapping Estragon Entries share one winning pointer capture: true
+UI01_RUNTIME inherited native Z selects one custom target across Entries: true
+UI01_RUNTIME native CanvasLayer ordering takes priority over custom Z: true
+UI01_RUNTIME one Tab crosses Entry scopes and skips fully clipped sibling: true
+UI01_RUNTIME SubViewport uses native GUI focus and a separate traversal scope: true
+UI01_RUNTIME idle frames perform no focus refresh work: true
+UI01_RUNTIME native authored mixed controls pack: true
+UI01_RUNTIME pack reload reconstructs one runtime-only focus endpoint: true
+UI01_RUNTIME all entries unmount releases shared weak registry and tree subscriptions: true
+UI01_RUNTIME_ASSERTIONS 42 failed=false
+UI01_RUNTIME_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U04_NATIVE A content and owner unchanged: true
+U04_NATIVE A bar abuts border and spans top/bottom padding: true
+U04_NATIVE old track band is padding, never content or bar hit: true
+U04_NATIVE right edge content remains clickable before padding gap: true
+U04_NATIVE native hover in new top-padding track region: true
+U04_NATIVE native pressed skin at new coordinates: true
+U04_NATIVE native thumb drag at new border edge: true
+U04_NATIVE new border-edge track click scrolls without activating content: true
+U04_NATIVE B exact dual native clip/tracks/corner: true
+U04_NATIVE B unchanged native page/range from V: true
+U04_NATIVE horizontal track click beside bottom border: true
+U04_NATIVE neutral corner neither content nor overlapping bars: true
+U04_NATIVE horizontal-only native track spans B width: true
+U04_NATIVE disabled axes release gutters and physical chrome: true
+U04_NATIVE tracks and clip fixed at offset 0: true
+U04_NATIVE unchanged content translation and extent at 0: true
+U04_NATIVE padding band stays background at 0: true
+U04_NATIVE tracks and clip fixed at offset 235.0: true
+U04_NATIVE unchanged content translation and extent at 235.0: true
+U04_NATIVE padding band stays background at 235.0: true
+U04_NATIVE tracks and clip fixed at offset 470.0: true
+U04_NATIVE unchanged content translation and extent at 470.0: true
+U04_NATIVE padding band stays background at 470.0: true
+U04_NATIVE start/end contents align V edges; no moving inset bands added: true
+U04_NATIVE nested wheel still chooses inner viewport: true
+U04_NATIVE exhausted nested viewport bubbles outer: true
+U04_NATIVE responsive Wrap uses same reduced V while track follows border: true
+U04_NATIVE unrelated sibling remains settled: true
+U04_NATIVE padding moves content only, no track/style churn: true
+U04_NATIVE hidden no-overflow bar keeps same gutter: true
+U04_NATIVE hidden track never clicks obscured authored content: true
+U04_NATIVE zero has no physical track, wheel/programmatic scroll retained: true
+U04_NATIVE percentage basis P350 retained at border position: true
+U04_NATIVE custom texture/minimum retains identity within border strip: true
+U04_NATIVE custom expansion never paints over border or padding: true
+U04_NATIVE oversized thickness caps to P while physical chrome stays inside B: true
+U04_NATIVE native asymmetric fractional rectangles match pure snapshot: true
+U04_NATIVE unchanged targets and idle do no layout/parse/skin work: true
+U04_NATIVE native identities retained through all runtime changes: true
+U04_NATIVE tiny actual owner has no physical hit tracks or negative clip: true
+U04_NATIVE padded native scroll scene packs: true
+U04_NATIVE scene reload retains owner/offset and new border-edge track: true
+U04_NATIVE GGX thickness re-render retains border geometry, caret/focus/offset: true
+U04_NATIVE GGX unrelated re-render retains native chrome and inputs: true
+U04_NATIVE_ASSERTIONS 44 ok=true
+U04_NATIVE_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_EDITOR_CHECK real native authored UI05 scene imports: true
+UI05_EDITOR_CHECK native authored buffer edit: true
+UI05_EDITOR_CHECK native source edit undo preserves call-site source: true
+UI05_EDITOR_CHECK native source edit redo: true
+UI05_EDITOR_CHECK native Gogo highlighter attached to actual UI05 source: true
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:11: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/value/editor.gd:86)
+         [5] completion_proof (res://tests/value/editor.gd:122)
+         [6] wait (res://tests/value/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/value/editor.gd:86)
+       [1] completion_proof (res://tests/value/editor.gd:122)
+       [2] wait (res://tests/value/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:11: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+UI05_EDITOR_CHECK current invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK current invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:68: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/value/editor.gd:86)
+         [5] wait (res://tests/value/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/value/editor.gd:86)
+       [1] wait (res://tests/value/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:68: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+UI05_EDITOR_CHECK current invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK current invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300.0: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8.0, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000.0, "max_value": 1000000000000000.0, "step": 1.0, "value": 100000000000000.0 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+UI05_EDITOR_CHECK current actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK current repair saves latest authored Gogo before actual Play: true
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:11: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/value/editor.gd:85)
+         [5] play (res://tests/value/editor.gd:53)
+         [6] until (res://tests/value/editor.gd:18)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/value/editor.gd:85)
+       [1] play (res://tests/value/editor.gd:53)
+       [2] until (res://tests/value/editor.gd:18)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:33:11: Unknown, read-only or reserved Node property/signal bad_value_property
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+UI05_EDITOR_CHECK main invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK main invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+UI05_EXPECTED_PLAY_REJECTION_BEGIN
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:68: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:177)
+         [4] run (res://tests/value/editor.gd:85)
+         [5] wait (res://tests/value/editor.gd:14)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/value/editor.gd:85)
+       [1] wait (res://tests/value/editor.gd:14)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/values/Values.gogo:39:68: Numeric min_value: requires min_value <= max_value
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://node_modules/@papercraftgames/estragon/addons/estragon/editor/plugin.gd:173)
+UI05_EDITOR_CHECK main invalid unsaved UI05 blocks stale Play with authored diagnostic: true
+UI05_EDITOR_CHECK main invalid UI05 retains code/map/UID/timestamp/cached Script: true
+UI05_EXPECTED_PLAY_REJECTION_END
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300.0: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8.0, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000.0, "max_value": 1000000000000000.0, "step": 1.0, "value": 100000000000000.0 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+UI05_EDITOR_CHECK main actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK main repair saves latest authored Gogo before actual Play: true
+UI05_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UI05_EDITOR_ASSERTIONS 18 failed=false
+UI05_EDITOR_OK
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_EDITOR_CHECK real native authored UI05 scene imports: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_SELECT initial String projection has no fabricated change: true
+UI05_SELECT nonvisual option records have no measured rows: true
+UI05_SELECT clear stays empty without forced first selection: true
+UI05_SELECT actual native keyboard opens owned popup: true
+UI05_SELECT popup keyboard selects String identity once: true
+UI05_SELECT keyed reorder retains trigger and String authority: true
+UI05_SELECT label projection never edits value: true
+UI05_SELECT hidden selected ID stays pending: true
+UI05_SELECT eligible restored ID restores label: true
+UI05_SELECT disabled selected ID stays pending: true
+UI05_SELECT read-only retains native focus and prevents popup edits: true
+UI05_SELECT disabled refuses focus and popup: true
+UI05_SELECT actual native pointer opens popup: true
+UI05_SELECT actual native popup item pointer maps index to String ID: true
+UI05_SELECT Escape closes native popup and returns eligible focus: true
+UI05_SELECT membership change closes old popup indices safely: true
+UI05_SELECT same-valued source replacement closes popup and retains trigger: true
+UI05_SELECT replacement disconnects old String source writer: true
+UI05_SELECT unknown String remains pending without fabricated selection: true
+UI05_SELECT native popup opens from nested padded scroll trigger: true
+UI05_SELECT fully clipped Select cannot focus or open popup: true
+UI05_SELECT nested percent/gutter trigger width 220: true
+UI05_SELECT nested percent/gutter trigger width 290: true
+UI05_SELECT zero Options projects neutral placeholder and never selects first: true
+UI05_SELECT empty list retains authored pending String: true
+UI05_SELECT option registration follows logical children under native content adoption: true
+UI05_SELECT native Select and authored nonvisual Option pack: true
+UI05_SELECT native scene reopen retains IDs/label/selection with one new private trigger: true
+UI05_NUMERIC actual horizontal/vertical Range and SpinBox delegates: true
+UI05_NUMERIC initial exact float/int projection: true
+UI05_NUMERIC native endpoints occupy host content rect on both physical axes: true
+UI05_NUMERIC programmatic float setter snaps once and synchronizes exact model/peers: true
+UI05_NUMERIC same canonical value is quiet: true
+UI05_NUMERIC model projection notifies once without source feedback: true
+UI05_NUMERIC horizontal native keyboard edits float model: true
+UI05_NUMERIC vertical native keyboard edits same float model: true
+UI05_NUMERIC vertical native Home chooses minimum: true
+UI05_NUMERIC vertical native End chooses maximum: true
+UI05_NUMERIC horizontal track pointer edits real native Range: true
+UI05_NUMERIC vertical track pointer edits opposite physical axis: true
+UI05_NUMERIC horizontal native drag/capture synchronizes peer: true
+UI05_NUMERIC partial minus stays native text without publishing invalid model: true
+UI05_NUMERIC unrelated Gogo render retains partial edit/caret/native focus: true
+UI05_NUMERIC Escape reverts partial edit and releases focus: true
+UI05_NUMERIC native SpinBox Enter applies valid decimal transaction: true
+UI05_NUMERIC IntegerInput publishes exact int from native editing: true
+UI05_NUMERIC integer programmatic notification/equality uses same binding: true
+UI05_NUMERIC read-only native editor permits focus/selection but no edits: true
+UI05_NUMERIC disabled numeric editor refuses focus/edits: true
+UI05_NUMERIC read-only Slider does not commit pointer or key changes: true
+UI05_NUMERIC runtime orientation retains host, replaces only private endpoint and transfers focus: true
+UI05_NUMERIC numeric reentrant model repair wins without projection echo: true
+UI05_NUMERIC numeric local snapshot has no implicit writer: true
+UI05_NUMERIC snapshot reprojects canonical model on relevant render: true
+UI05_NUMERIC actual native SpinBox increment button publishes one integer step: true
+UI05_NUMERIC float source replacement disconnects stale model: true
+UI05_NUMERIC int source replacement disconnects stale model: true
+UI05_NUMERIC fully clipped Slider is ineligible: true
+UI05_NUMERIC scroll reveal enables actual Slider native keyboard: true
+UI05_NUMERIC clipped movement releases stale native Slider focus: true
+UI05_NUMERIC value gallery packs authored host without private delegates: true
+UI05_NUMERIC pack/reopen reconstructs one native endpoint and authored default: true
+UI05_NUMERIC equal writes/idle perform no render or layout work: true
+UI05_NUMERIC coherent native min-offset range/value transaction notifies once: true
+UI05_NUMERIC min equals max is one immobile actual value: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd -300.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd 200: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd -300: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd 200.0: true
+UI05_NUMERIC native scene restores complete typed range atomically res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd -300.0: true
+UI05_NUMERIC canonical midpoint rounding matches actual native Range including negative ties: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.05, "value": 0.3 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": -8.0, "max_value": -5.5, "step": 0.25, "value": -6.25 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 0.00000001, "step": 0.0000000001, "value": 0.0000000003 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 100000000000000.0, "max_value": 1000000000000000.0, "step": 1.0, "value": 100000000000000.0 }: true
+UI05_NUMERIC finite decimal/small/large/continuous range { "min_value": 0.0, "max_value": 1.0, "step": 0.0, "value": 0.333 }: true
+UI05_NUMERIC actual horizontal thumb pixels follow normalized float value: true
+UI05_NUMERIC actual vertical thumb pixels follow reversed physical axis: true
+UI05_EDITOR_CHECK main actual value controls/input/focus game at two sizes: true
+UI05_EDITOR_CHECK native editor scene has no transient managed output persisted: true
+UI05_EDITOR_ASSERTIONS 3 failed=false
+UI05_EDITOR_OK
+UI05_ACCEPTANCE_OK
+Done in 568.99s.

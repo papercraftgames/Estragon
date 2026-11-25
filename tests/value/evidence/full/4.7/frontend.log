@@ -1,0 +1,27 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+UI05_FRONTEND all native value aliases compile with typed metadata: true
+UI05_FRONTEND actual-path numeric writer semantics: true
+UI05_FRONTEND exact typed binding decimal_view: true
+UI05_FRONTEND exact typed binding number_view: true
+UI05_FRONTEND exact typed binding integer_view: true
+UI05_FRONTEND exact typed binding choice_view: true
+UI05_FRONTEND Option identity never becomes two-way: true
+UI05_FRONTEND numeric snapshots/computed expressions stay one-way: true
+UI05_FRONTEND deterministic maps and exact authored content: true
+UI05_FRONTEND typed float and int source writers in the single emitter: true
+UI05_FRONTEND mapped static rejection <Option />: true
+UI05_FRONTEND mapped static rejection <Option value=""/>: true
+UI05_FRONTEND mapped static rejection <Select><Option value="a"/><Option value="a" disabled/></Select>: true
+UI05_FRONTEND mapped static rejection <Slider orientation="diagonal"/>: true
+UI05_FRONTEND mapped static rejection <Slider min_value={2.0} max_value={1.0}/>: true
+UI05_FRONTEND mapped static rejection <Slider step={-0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={NAN}/>: true
+UI05_FRONTEND mapped static rejection <NumberInput value={INF}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput step={0}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput value={0.5}/>: true
+UI05_FRONTEND mapped static rejection <Slider value={0.53} min_value={0.0} max_value={1.0} step={0.05}/>: true
+UI05_FRONTEND mapped static rejection <Slider bind:value={self.decimal}/>: true
+UI05_FRONTEND mapped static rejection <IntegerInput bad_numeric_property="bad"/>: true
+UI05_FRONTEND_ASSERTIONS 23 ok=true
+UI05_FRONTEND_OK

@@ -1,0 +1,63 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:13786) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.99s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+ 
+UI05_GEOMETRY long selected label clips inside stable native trigger allocation: true
+UI05_GEOMETRY label replacement does not change natural trigger geometry: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd: true
+UI05_GEOMETRY_ASSERTIONS 8 ok=true
+UI05_GEOMETRY_OK
+yarn add v1.22.22
+info No lockfile found.
+(node:13841) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.92s.
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+UI05_GEOMETRY long selected label clips inside stable native trigger allocation: true
+UI05_GEOMETRY label replacement does not change natural trigger geometry: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/number_input.gd: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/integer_input.gd: true
+UI05_GEOMETRY undersized content hides native minimum instead of overflowing hit rect res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd: true
+UI05_GEOMETRY resized styled content restores exact native geometry res://node_modules/@papercraftgames/estragon/addons/estragon/runtime/node/slider.gd: true
+UI05_GEOMETRY_ASSERTIONS 8 ok=true
+UI05_GEOMETRY_OK
+UI05_ACCEPTANCE_OK
+Done in 15.07s.

@@ -31,7 +31,11 @@ func native_key(viewport: Viewport, event: InputEvent) -> bool:
 	# unhandled keys. Consume native BaseButton's unhandled accept without
 	# suppressing its activation or forwarding/re-emitting a second event.
 	var owner := viewport.gui_get_focus_owner()
-	return owner is BaseButton and contains(owner) and event is InputEventKey and event.is_action("ui_accept")
+	if owner==null or not contains(owner) or not event is InputEventKey: return false
+	if owns(owner):
+		var host = owner._estragon_focus_host()
+		if host!=null and host.has_method("_native_value_key") and host._native_value_key(event): return true
+	return owner is BaseButton and event.is_action("ui_accept")
 func refresh() -> void:
 	if queued: return
 	queued = true
@@ -70,7 +74,7 @@ static func intersect(region: Array, boundary: PackedVector2Array) -> Array:
 static func eligible(control: Control, tab: bool = false, require_focus: bool = true) -> bool:
 	if not is_instance_valid(control) or not control.is_inside_tree() or control.is_queued_for_deletion() or not control.is_visible_in_tree() or not control.can_process(): return false
 	if require_focus and (control.focus_mode==Control.FOCUS_NONE or tab and control.focus_mode!=Control.FOCUS_ALL): return false
-	if control is BaseButton and control.disabled: return false
+	if control is BaseButton and control.disabled and not owns(control): return false
 	if owns(control):
 		var host = control._estragon_focus_host()
 		if host==null or (host._input_disabled() if host.has_method("_input_disabled") else host.disabled) or host.is_queued_for_deletion(): return false

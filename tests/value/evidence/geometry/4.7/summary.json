@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "scope": "geometry-only",
+  "checks": {
+    "install": {
+      "status": "PASS",
+      "command": [
+        "corepack",
+        "yarn@1.22.22",
+        "add",
+        "--offline",
+        "--exact",
+        "--ignore-scripts",
+        "--non-interactive",
+        "--cache-folder",
+        "/tmp/estragon-native-aHK1om/yarn-cache",
+        "file:/tmp/ui05-geometry-final/packed/values-dev.tgz"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 1.15,
+      "log": "install.log",
+      "diagnostics": []
+    },
+    "geometry": {
+      "status": "PASS",
+      "command": [
+        "/tmp/estragon-native-aHK1om/godot",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/tmp/estragon-native-aHK1om/project",
+        "--rendering-method",
+        "gl_compatibility",
+        "--rendering-driver",
+        "opengl3",
+        "--script",
+        "res://tests/value/geometry.gd"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "aborted_on_error": false,
+      "seconds": 2.63,
+      "godot_pid": 13852,
+      "log": "geometry.log",
+      "diagnostics": [
+        "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+      ]
+    }
+  },
+  "tarball_sha256": "220b66a08a10dcf7097aad04764c65c74e4f0ca7b69a42931ac0ce95c2daa23d",
+  "canonical_uids": 102,
+  "installed_bytes_unchanged": true
+}

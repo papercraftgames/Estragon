@@ -1,0 +1,2 @@
+# Preserve exact native engine output, including progress whitespace.
+*.log -whitespace

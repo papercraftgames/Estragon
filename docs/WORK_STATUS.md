@@ -1,6 +1,8 @@
 # Estragon work status and session handoff
 
-> **UI-04 #202 — review-ready candidate, owner merge pending:** native Box-derived RadioGroup with one observable String selection, Button-derived Radio identities, shared native focus/keyboard and atomic desired-group validation. Base is owner-merged LAYOUT-01 PR #227 (`0b581c6`). [Contract/gallery](RADIO.md), [paired native evidence](evidence/UI04_RADIO.md); live issue/sole PR owns exact source, verification and review state. Select/Slider remains #203.
+> **UI-05 #203 — review candidate, owner merge pending:** native Select/Option, both-axis float Slider, float NumberInput and true int IntegerInput through the existing typed binding manager. Base is owner-merged UI-04 PR #228 (`402e54e`). [Selection](SELECT.md), [numeric controls](NUMERIC_INPUT.md), [paired evidence](evidence/UI05_VALUES.md); live issue/sole PR owns exact evidence/state. No merge/publication authorization.
+
+> **UI-04 #202 — Done (owner-merged PR #228, `402e54e`):** native Box-derived RadioGroup with one observable String selection, Button-derived Radio identities, shared native focus/keyboard and atomic desired-group validation. Base is owner-merged LAYOUT-01 PR #227 (`0b581c6`). [Contract/gallery](RADIO.md), [paired native evidence](evidence/UI04_RADIO.md); live issue/sole PR owns exact source, verification and review state. Select/Slider remains #203.
 
 > **LAYOUT-01 #201 — Done (owner-merged PR #227, `0b581c6`):** constraint-aware natural measurements through actual allocated Grid/Wrap/stack capacities, retaining L12/U04/CORE-02. Base is owner-merged CORE-02 PR #226 (`5df9e08`). [Contract](RESPONSIVE_LAYOUT.md#layout-01--allocated-constraints-and-dependent-natural-dimensions), [source-qualified evidence](evidence/LAYOUT01_CONSTRAINTS.md); live issue/sole PR owns exact source, evidence and review state. Text automatic word wrapping stays #205.
 

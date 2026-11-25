@@ -1,0 +1,282 @@
+{
+  "install": {
+    "status": "PASS",
+    "command": [
+      "corepack",
+      "yarn@1.22.22",
+      "add",
+      "--offline",
+      "--exact",
+      "--ignore-scripts",
+      "--non-interactive",
+      "--cache-folder",
+      "/tmp/estragon-native-j95zLO/yarn-cache",
+      "file:/tmp/ui05-reviewed-controls/packed/values-dev.tgz"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.18,
+    "log": "install.log",
+    "diagnostics": []
+  },
+  "build": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--headless",
+      "--script",
+      "res://tests/value/build.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.04,
+    "godot_pid": 12542,
+    "log": "build.log",
+    "diagnostics": []
+  },
+  "frontend": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--headless",
+      "--script",
+      "res://tests/value/frontend.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 2.09,
+    "godot_pid": 12569,
+    "log": "frontend.log",
+    "diagnostics": []
+  },
+  "graphics": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/value/scene.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 19.96,
+    "godot_pid": 12586,
+    "log": "graphics.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "wheel": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/value/wheel.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.73,
+    "godot_pid": 12631,
+    "log": "wheel.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "geometry": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/value/geometry.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 1.77,
+    "godot_pid": 12672,
+    "log": "geometry.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "rejections": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--script",
+      "res://tests/value/rejections.gd"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 8.6,
+    "godot_pid": 12713,
+    "log": "rejections.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': duplicate Option identifier explore; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:28:129 (spread key 'value'): attribute 'value': Option requires a nonempty String identifier; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'min_value'): attribute 'min_value': requires min_value <= max_value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'step'): attribute 'step': requires step >= 0; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires finite numeric value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': source value must already be clamped and step-aligned; assign a canonical model value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'value'): attribute 'value': requires exact float value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'orientation'): attribute 'orientation': requires horizontal or vertical; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Values.gogo:38:127 (spread key 'bad_numeric_property'): attribute 'bad_numeric_property': unknown, read-only or reserved native property; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon numeric step: requires step >= 0",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: Estragon numeric value: requires finite numeric value",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Negative.gogo:10:147: attribute 'value': requires exact float value; previous tree retained",
+      "   at: push_error (core/variant/variant_utility.cpp:1023)",
+      "ERROR: examples/values/Negative.gogo:10:54: invalid observable float binding endpoint; previous tree retained"
+    ]
+  },
+  "import": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--headless",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--editor",
+      "--audio-driver",
+      "Dummy"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 6.18,
+    "godot_pid": 12754,
+    "log": "import.log",
+    "diagnostics": [],
+    "evidence": {
+      "class_registry_sha256": "62421d3455349b9df64dd32828069ad4e69472e7d2700609ff8508e9b27089c8",
+      "class_registry_log": "import.classes.json"
+    }
+  },
+  "editor": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 80.81,
+    "godot_pid": 12998,
+    "log": "editor.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "ERROR: An EditorPlugin build callback failed.",
+      "   at: call_build (editor/editor_node.cpp:7679)",
+      "     at: push_warning (core/variant/variant_utility.cpp:1033)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  },
+  "editor-restart": {
+    "status": "PASS",
+    "command": [
+      "/tmp/estragon-native-j95zLO/godot",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      "/tmp/estragon-native-j95zLO/project",
+      "--rendering-method",
+      "gl_compatibility",
+      "--rendering-driver",
+      "opengl3",
+      "--editor"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "aborted_on_error": false,
+    "seconds": 44.34,
+    "godot_pid": 13366,
+    "log": "editor-restart.log",
+    "diagnostics": [
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)",
+      "     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)"
+    ]
+  }
+}

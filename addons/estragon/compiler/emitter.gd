@@ -404,7 +404,7 @@ func _binding_argument(argument: Argument) -> void:
 	for name in path:
 		original += "."+str(name)
 		original_checks.append(original+" != null")
-	_writer.append(") if "+" and ".join(original_checks)+" else null"+(", TYPE_STRING" if argument.binding_type=="String" else "")+")",argument.expression.span)
+	_writer.append(") if "+" and ".join(original_checks)+" else null"+("" if argument.binding_type=="bool" else ", "+{"String":"TYPE_STRING","float":"TYPE_FLOAT","int":"TYPE_INT"}[argument.binding_type])+")",argument.expression.span)
 
 func _render_call(node: Model.RenderCall) -> void:
 	var cast: String = node.result_type

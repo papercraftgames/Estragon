@@ -1,0 +1,51 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+U04_NATIVE A content and owner unchanged: true
+U04_NATIVE A bar abuts border and spans top/bottom padding: true
+U04_NATIVE old track band is padding, never content or bar hit: true
+U04_NATIVE right edge content remains clickable before padding gap: true
+U04_NATIVE native hover in new top-padding track region: true
+U04_NATIVE native pressed skin at new coordinates: true
+U04_NATIVE native thumb drag at new border edge: true
+U04_NATIVE new border-edge track click scrolls without activating content: true
+U04_NATIVE B exact dual native clip/tracks/corner: true
+U04_NATIVE B unchanged native page/range from V: true
+U04_NATIVE horizontal track click beside bottom border: true
+U04_NATIVE neutral corner neither content nor overlapping bars: true
+U04_NATIVE horizontal-only native track spans B width: true
+U04_NATIVE disabled axes release gutters and physical chrome: true
+U04_NATIVE tracks and clip fixed at offset 0: true
+U04_NATIVE unchanged content translation and extent at 0: true
+U04_NATIVE padding band stays background at 0: true
+U04_NATIVE tracks and clip fixed at offset 235.0: true
+U04_NATIVE unchanged content translation and extent at 235.0: true
+U04_NATIVE padding band stays background at 235.0: true
+U04_NATIVE tracks and clip fixed at offset 470.0: true
+U04_NATIVE unchanged content translation and extent at 470.0: true
+U04_NATIVE padding band stays background at 470.0: true
+U04_NATIVE start/end contents align V edges; no moving inset bands added: true
+U04_NATIVE nested wheel still chooses inner viewport: true
+U04_NATIVE exhausted nested viewport bubbles outer: true
+U04_NATIVE responsive Wrap uses same reduced V while track follows border: true
+U04_NATIVE unrelated sibling remains settled: true
+U04_NATIVE padding moves content only, no track/style churn: true
+U04_NATIVE hidden no-overflow bar keeps same gutter: true
+U04_NATIVE hidden track never clicks obscured authored content: true
+U04_NATIVE zero has no physical track, wheel/programmatic scroll retained: true
+U04_NATIVE percentage basis P350 retained at border position: true
+U04_NATIVE custom texture/minimum retains identity within border strip: true
+U04_NATIVE custom expansion never paints over border or padding: true
+U04_NATIVE oversized thickness caps to P while physical chrome stays inside B: true
+U04_NATIVE native asymmetric fractional rectangles match pure snapshot: true
+U04_NATIVE unchanged targets and idle do no layout/parse/skin work: true
+U04_NATIVE native identities retained through all runtime changes: true
+U04_NATIVE tiny actual owner has no physical hit tracks or negative clip: true
+U04_NATIVE padded native scroll scene packs: true
+U04_NATIVE scene reload retains owner/offset and new border-edge track: true
+U04_NATIVE GGX thickness re-render retains border geometry, caret/focus/offset: true
+U04_NATIVE GGX unrelated re-render retains native chrome and inputs: true
+U04_NATIVE_ASSERTIONS 44 ok=true
+U04_NATIVE_OK

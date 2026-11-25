@@ -1,0 +1,26 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+UI03_FRONTEND String fixture compiles with exact installed Input alias: true
+UI03_FRONTEND actual native String semantic validation: true
+UI03_FRONTEND String candidate has typed source metadata and snapshot: true
+UI03_FRONTEND direct parameter path shares implicit String linkage: true
+UI03_FRONTEND one-way snapshot: true
+UI03_FRONTEND one-way computed: true
+UI03_FRONTEND one-way unobserved: true
+UI03_FRONTEND one-way readonly: true
+UI03_FRONTEND one-way dictionary: true
+UI03_FRONTEND one-way literal: true
+UI03_FRONTEND one-way spread: true
+UI03_FRONTEND Dictionary parameter is a one-way native value: true
+UI03_FRONTEND original value getter executes once: true
+UI03_FRONTEND String code/maps/contract deterministic: true
+UI03_FRONTEND typed String writer retains source map content: true
+UI03_FRONTEND mapped static rejection bind:value={self.text}: true
+UI03_FRONTEND mapped static rejection value: true
+UI03_FRONTEND mapped static rejection placeholder: true
+UI03_FRONTEND mapped static rejection disabled="bad": true
+UI03_FRONTEND mapped static rejection invalid="bad": true
+UI03_FRONTEND mapped static rejection value="one" value="two": true
+UI03_FRONTEND mapped static rejection font_size="bad": true
+UI03_FRONTEND_ASSERTIONS 22 failed=false
+UI03_FRONTEND_OK
