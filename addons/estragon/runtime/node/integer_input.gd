@@ -5,22 +5,22 @@ signal value_changed(previous: int, value: int)
 const _GOGO_BINDABLE_PROPERTIES_NATIVE := {"value":"int"}
 const State = preload("../composition/state.tres")
 const ESTRAGON_INTEGER := true
-@export var min_value: int = 0:
+var min_value: int = 0:
 	set(next):
 		if min_value==next or not _range_field("min_value",next): return
 		min_value = next
 		_range_changed()
-@export var max_value: int = 100:
+var max_value: int = 100:
 	set(next):
 		if max_value==next or not _range_field("max_value",next): return
 		max_value = next
 		_range_changed()
-@export var step: int = 1:
+var step: int = 1:
 	set(next):
 		if step==next or not _range_field("step",next): return
 		step = next
 		_range_changed()
-@export var value: int = 0:
+var value: int = 0:
 	set(next):
 		var parsed := _numeric_value(next)
 		if parsed.has("error") or value==parsed.value: return

@@ -76,6 +76,20 @@ func run(host):
 	for width in [220,290]:
 		clip.width=width;await frames(tree)
 		check(endpoint.size.x==clipped.get_content_rect().size.x and clipped.layout_size.x==clip._scroll._clip.size.x,"nested percent/gutter trigger width "+str(width))
+	var empty=preload("res://addons/estragon/runtime/node/select.gd").new()
+	host.get_node("UI").add_child(empty);await frames(tree)
+	check(empty.get_native_control().selected==-1 and empty.get_native_control().text==empty.placeholder and empty.value=="","zero Options projects neutral placeholder and never selects first")
+	empty.value="pending";await frames(tree)
+	check(empty.get_native_control().text==empty.placeholder and empty.value=="pending","empty list retains authored pending String")
+	var option=preload("res://addons/estragon/runtime/node/option.gd").new()
+	option.value="pending";option.text="Arrived";empty.add_child(option);option.owner=empty
+	empty.vertical_scroll=true;await frames(tree)
+	check(empty.get_native_control().text=="Arrived" and empty._select_options().size()==1,"option registration follows logical children under native content adoption")
+	var saved:=PackedScene.new()
+	check(saved.pack(empty)==OK,"native Select and authored nonvisual Option pack")
+	var restored=saved.instantiate();host.get_node("UI").add_child(restored);await frames(tree)
+	check(restored.value=="pending" and restored._select_options().size()==1 and restored.get_native_control().text=="Arrived","native scene reopen retains IDs/label/selection with one new private trigger")
+	empty.free();restored.free();await frames(tree)
 	await RenderingServer.frame_post_draw
 	tree.root.get_texture().get_image().save_png("res://select-gallery.png")
 	return {"ok":ok,"checks":checks}

@@ -128,3 +128,28 @@ func _change_orientation() -> void:
 	_remove_endpoint()
 	_install_endpoint()
 	if focused: grab_focus()
+
+func _get_property_list() -> Array[Dictionary]:
+	var result: Array[Dictionary] = super._get_property_list()
+	result.append({"name":"_numeric_configuration","type":TYPE_DICTIONARY,"usage":PROPERTY_USAGE_STORAGE})
+	for field in Contract.FIELDS: result.append({"name":field,"type":TYPE_INT if _integer() else TYPE_FLOAT,"usage":PROPERTY_USAGE_EDITOR})
+	return result
+func _get(property: StringName):
+	if property==&"_numeric_configuration": return _range_values()
+	return null
+func _set(property: StringName, next) -> bool:
+	if property!=&"_numeric_configuration": return false
+	if not next is Dictionary:
+		push_error("Estragon numeric scene configuration requires Dictionary")
+		return true
+	var parsed := Contract.configuration(next,_integer(),true)
+	if parsed.has("error"): push_error("Estragon numeric scene: "+parsed.error)
+	else: _apply_numeric(parsed)
+	return true
+
+func _remove_endpoint() -> void:
+	# Removing a focused SpinBox must not commit a pending edit into a departing
+	# mounted writer. Godot may apply LineEdit text during native focus exit.
+	_native_projection = true
+	super._remove_endpoint()
+	_native_projection = false

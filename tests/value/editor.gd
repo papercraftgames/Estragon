@@ -48,7 +48,7 @@ func play(mode: String) -> void:
 	else: interface.play_current_scene()
 	if await until(game_ready,"actual native UI05 game",60000):
 		var result = JSON.parse_string(FileAccess.get_file_as_string(file))
-		check(result.ok and result.checks==68,mode+" actual value controls/input/focus game at two sizes")
+		check(result.ok and result.checks==79,mode+" actual value controls/input/focus game at two sizes")
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
 func run() -> void:

@@ -3,7 +3,8 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject,ERROR} from './compat-kit.ts';
 import {buttonImportsPackage} from './button-imports-package.ts';
-const options=parseCLI(process.argv.slice(2),{editor:true});
+const controlsOnly=process.argv.includes("--controls-only");
+const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=="--controls-only"),{editor:true});
 if(process.platform!=='linux')throw Error('Approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 const packed=buttonImportsPackage(path.join(options.output,'packed'),'values');
@@ -43,7 +44,7 @@ for(const selection of options.engines){
   writeJSON(path.join(box.project,'package.json'),{name:'values-consumer',private:true,packageManager:'yarn@1.22.22'});
   await run('install',['corepack','yarn@1.22.22','add','--offline','--exact','--ignore-scripts','--non-interactive','--cache-folder',path.join(box.workspace,'yarn-cache'),'file:'+packed.tarball],undefined,process.env);
   const addon='node_modules/@papercraftgames/estragon/addons/estragon',installed=path.join(box.project,'node_modules/@papercraftgames/estragon');
-  const suites=['value','radio','input','checkbox','focus','data'];
+  const suites=controlsOnly?['value']:['value','radio','input','checkbox','focus','data'];
   for(const suite of suites){
    for(const folder of ['tests/'+suite,...(suite==='focus'?[]:['examples/'+(suite==='value'?'values':suite)])]){
     fs.mkdirSync(path.join(box.project,folder),{recursive:true});
@@ -63,34 +64,34 @@ for(const selection of options.engines){
     }
    }
   }
-  {
+  if(!controlsOnly){
   fs.mkdirSync(path.join(box.project,'examples/scrollbars/generated'),{recursive:true});
   for(const entry of fs.readdirSync(path.join(ROOT,'examples/scrollbars'),{withFileTypes:true}))if(entry.isFile())fs.writeFileSync(path.join(box.project,'examples/scrollbars',entry.name),fs.readFileSync(path.join(ROOT,'examples/scrollbars',entry.name),'utf8').replaceAll('../../../addons/estragon','../../../'+addon));
   for(const name of fs.readdirSync(path.join(ROOT,'examples/scrollbars/generated')).filter(name=>name.endsWith('.gd.uid')))fs.copyFileSync(path.join(ROOT,'examples/scrollbars/generated',name),path.join(box.project,'examples/scrollbars/generated',name));
   }
-  for(const file of ['examples/godot_button.gd','examples/godot_button.gd.uid',...['tests/responsive/math.gd','tests/responsive/math.gd.uid','tests/responsive/constraints.gd','tests/responsive/constraints.gd.uid','tests/scrollbars/placement_runtime.gd','tests/scrollbars/placement_runtime.gd.uid','tests/scrollbars/placement_game.gd','tests/scrollbars/placement_game.gd.uid','tests/scrollbars/game.gd','tests/scrollbars/game.gd.uid']]){
+  for(const file of ['examples/godot_button.gd','examples/godot_button.gd.uid',...(!controlsOnly?['tests/responsive/math.gd','tests/responsive/math.gd.uid','tests/responsive/constraints.gd','tests/responsive/constraints.gd.uid','tests/scrollbars/placement_runtime.gd','tests/scrollbars/placement_runtime.gd.uid','tests/scrollbars/placement_game.gd','tests/scrollbars/placement_game.gd.uid','tests/scrollbars/game.gd','tests/scrollbars/game.gd.uid']:[])]){
    const target=path.join(box.project,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,fs.readFileSync(path.join(ROOT,file),'utf8').replaceAll('res://addons/estragon','res://'+addon).replaceAll('app/','examples/scrollbars/'));
   }
-  writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:[...suites.filter(suite=>suite!=='focus').map(suite=>'examples/'+(suite==='value'?'values':suite)),...['examples/scrollbars']]});
+  writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:[...suites.filter(suite=>suite!=='focus').map(suite=>'examples/'+(suite==='value'?'values':suite)),...(!controlsOnly?['examples/scrollbars']:[])]});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI05 native choices"\nrun/main_scene="res://examples/values/Values.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=840\nwindow/size/viewport_height=840\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
   await run('build',[...args,'--headless','--script','res://tests/value/build.gd'],'UI05_BUILD_OK');
   for(const [name,script,marker]of [
    ['frontend','tests/value/frontend.gd','UI05_FRONTEND_OK'],
-   ...[['input-frontend','tests/input/frontend.gd','UI03_FRONTEND_OK'],
+   ...(!controlsOnly?[['input-frontend','tests/input/frontend.gd','UI03_FRONTEND_OK'],
    ['data-frontend','tests/data/frontend.gd','CORE02_FRONTEND_OK'],
    ['data-runtime','tests/data/runtime.gd','CORE02_RUNTIME_OK'],
    ['layout-math','tests/responsive/math.gd','L0910_MATH_OK'],
-   ['layout-native','tests/responsive/constraints.gd','LAYOUT01_NATIVE_OK']],
+   ['layout-native','tests/responsive/constraints.gd','LAYOUT01_NATIVE_OK']]:[]),
   ])await run(name!,[...args,'--headless','--script','res://'+script],marker);
   for(const [name,script,marker]of [
    ['graphics','tests/value/scene.gd','UI05_GRAPHICS_OK'],
    ['rejections','tests/value/rejections.gd','UI05_REJECTIONS_OK'],
-   ...[['radio-native','tests/radio/scene.gd','UI04_GRAPHICS_OK'],
+   ...(!controlsOnly?[['radio-native','tests/radio/scene.gd','UI04_GRAPHICS_OK'],
    ['input-native','tests/input/scene.gd','UI03_SCENE_OK'],
    ['checkbox-native','tests/checkbox/scene.gd','UI02_SCENE_OK'],
    ['focus-native','tests/focus/runtime.gd','UI01_RUNTIME_OK'],
-   ['scrollbar-native','tests/scrollbars/placement_runtime.gd','U04_NATIVE_OK']],
+   ['scrollbar-native','tests/scrollbars/placement_runtime.gd','U04_NATIVE_OK']]:[]),
   ])await run(name!,[...args,...graphics,'--script','res://'+script],marker);
   if(options.editor){
    writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['examples/values']});
@@ -109,7 +110,7 @@ for(const selection of options.engines){
    writeJSON(path.join(out,name+'-map.json'),{source:sha256(source),generated:sha256(generated),map:sha256(generated+'.map.json'),uid:sha256(generated+'.uid'),verified:true});
   }
   for(const name of fs.readdirSync(box.project).filter(name=>name.endsWith('.png')))fs.copyFileSync(path.join(box.project,name),path.join(out,name));
-  writeJSON(path.join(out,'summary.json'),{status:'PASS',scope:'full',checks:results,tarball_sha256:packed.manifest.tarball_sha256,canonical_uids:packed.manifest.canonical_uids,installed_bytes_unchanged:true,manual_interactive_smoke:'UNTESTED',os_ime:'UNTESTED',assistive_technology:'UNTESTED'});
+  writeJSON(path.join(out,'summary.json'),{status:'PASS',scope:controlsOnly?'controls-only':'full',checks:results,tarball_sha256:packed.manifest.tarball_sha256,canonical_uids:packed.manifest.canonical_uids,installed_bytes_unchanged:true,manual_interactive_smoke:'UNTESTED',os_ime:'UNTESTED',assistive_technology:'UNTESTED'});
  }finally{box.dispose();}
 }
 console.log('UI05_ACCEPTANCE_OK');

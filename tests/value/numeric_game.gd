@@ -127,6 +127,20 @@ func run(host):
 	standalone._apply_numeric({"min_value":7.0,"max_value":7.0,"step":0.25})
 	check(near(standalone.value,7.0) and range_events.size()==2 and coherent==[true,true],"min equals max is one immobile actual value")
 	standalone.free()
+	for kind in [preload("res://addons/estragon/runtime/node/number_input.gd"),preload("res://addons/estragon/runtime/node/integer_input.gd"),preload("res://addons/estragon/runtime/node/slider.gd")]:
+		var authored=kind.new()
+		var integral:bool=Contract.integer(kind)
+		var positive={"min_value":200,"max_value":300,"step":1,"value":201} if integral else {"min_value":200.0,"max_value":300.0,"step":0.25,"value":201.5}
+		var negative={"min_value":-300,"max_value":-200,"step":1,"value":-201} if integral else {"min_value":-300.0,"max_value":-200.0,"step":0.25,"value":-201.5}
+		for configuration in [positive,negative]:
+			authored._apply_numeric(configuration)
+			var scene:=PackedScene.new()
+			var saved:bool=scene.pack(authored)==OK
+			var restored=scene.instantiate()
+			check(saved and restored.min_value==configuration.min_value and restored.max_value==configuration.max_value and restored.step==configuration.step and restored.value==configuration.value,"native scene restores complete typed range atomically "+kind.resource_path+" "+str(configuration.min_value))
+			restored.free()
+		authored.free()
+
 	var native_range:=HSlider.new()
 	native_range.min_value=-10;native_range.max_value=10;native_range.step=0.25
 	var native_equal:=true

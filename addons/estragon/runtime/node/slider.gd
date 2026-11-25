@@ -4,22 +4,22 @@ extends "internal/numeric_control.gd"
 signal value_changed(previous: float, value: float)
 const _GOGO_BINDABLE_PROPERTIES_NATIVE := {"value":"float"}
 const State = preload("../composition/state.tres")
-@export var min_value: float = 0.0:
+var min_value: float = 0.0:
 	set(next):
 		if min_value==next or not _range_field("min_value",next): return
 		min_value = next
 		_range_changed()
-@export var max_value: float = 100.0:
+var max_value: float = 100.0:
 	set(next):
 		if max_value==next or not _range_field("max_value",next): return
 		max_value = next
 		_range_changed()
-@export var step: float = 1.0:
+var step: float = 1.0:
 	set(next):
 		if step==next or not _range_field("step",next): return
 		step = next
 		_range_changed()
-@export var value: float = 0.0:
+var value: float = 0.0:
 	set(next):
 		var parsed := _numeric_value(next)
 		if parsed.has("error") or value==parsed.value: return

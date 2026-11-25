@@ -39,7 +39,7 @@ func _exit_tree() -> void:
 	_projection.clear()
 	super._exit_tree()
 func _collect(node: Node, result: Array) -> void:
-	for child in node.get_children():
+	for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
 		if child.has_method("_select_options"): continue
 		if child.has_method("_select_owner"): result.append(child)
 		_collect(child,result)
@@ -67,7 +67,9 @@ func _refresh_options() -> void:
 			return
 		known[option.value] = true
 		next.append([option.value,option.text,option.disabled,option.hidden])
-	if next==_projection: return
+	if next==_projection:
+		_project_selection()
+		return
 	_close_endpoint()
 	_projection = next
 	_endpoint.clear()
