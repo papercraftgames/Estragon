@@ -1,0 +1,58 @@
+extends Node2D
+const Element = preload("../../../addons/estragon/runtime/composition/element.gd")
+const Entry = preload("../../../addons/estragon/runtime/node/estragon_2d.gd")
+const Grid = preload("../../../addons/estragon/runtime/node/grid.gd")
+const VBox = preload("../../../addons/estragon/runtime/node/vbox.gd")
+const Text = preload("../../../addons/estragon/runtime/node/text.gd")
+const Button = preload("../../../addons/estragon/runtime/node/button.gd")
+const Checkbox = preload("../../../addons/estragon/runtime/node/checkbox.gd")
+const Input = preload("../../../addons/estragon/runtime/node/input.gd")
+const RadioGroup = preload("../../../addons/estragon/runtime/node/radio_group.gd")
+const Radio = preload("../../../addons/estragon/runtime/node/radio.gd")
+const BaseButton = preload("../../godot_button.gd")
+const Model = preload("Model.gd")
+const Item = preload("Item.gd")
+@bindable var model: Model = Model.new()
+@bindable var items: ArrayCollection[Item] = [{"id":"a","label":"Build"},{"id":"b","label":"Explore"},{"id":"c","label":"Repair"},{"id":"d","label":"Unavailable","disabled":true}]
+@bindable var column: String = ""
+@bindable var caption: String = "Native input"
+@bindable var flag: bool = false
+@bindable var revision: int = 0
+@bindable var group_props: Dictionary = {}
+@bindable var option_values: Dictionary = {}
+@bindable var show: bool = true
+var calls: int = 0
+func reset() -> void: model.choice = "b"
+func replace() -> void: model = Model.new()
+func option(item: Item) -> Element:
+    return <Radio key={item.id} name={"Option"+item.id} value={item.id} text={item.label} disabled={item.disabled} {...self.option_values.get(item.id,{})} />
+func build_view() -> Element:
+    calls += 1
+    var snapshot: String = self.model.choice if self.model != null else ""
+    return <Entry name="UI" width="100%" height="100%" direction="column" padding="16px" gap="12px" background_color="#202020">
+        <Text text="Radio choices — one String value" font_size={24} />
+        <Input name="Before" value={self.caption} width="240px" />
+        <Grid name="Grid" columns={["2fr","1fr"]} width="100%" column_gap="20px">
+            {<RadioGroup name="Row" direction="row" wrap gap="12px" value={self.model.choice} {...self.group_props}>
+                {self.items.map(self.option)}
+            </RadioGroup> if self.show and self.model != null else null}
+            <RadioGroup name="Column" gap="6px" value={self.column}>
+                <Radio name="X" value="x">North</Radio>
+                <Radio name="Y" value="y">South</Radio>
+                <Radio name="Z" value="z" disabled>Disabled</Radio>
+            </RadioGroup>
+        </Grid>
+        <VBox name="Scroll" height="80px" width="100%" vertical_scroll padding="4px" border_width="1px" border_color="#777777">
+            <RadioGroup name="Snapshot" value={snapshot} gap="8px">
+                <Radio name="A" value="a">One-way snapshot: Build</Radio>
+                <Radio name="B" value="b">One-way snapshot: Explore</Radio>
+                <Radio name="C" value="c">One-way snapshot: Repair</Radio>
+            </RadioGroup>
+        </VBox>
+        <Checkbox name="After" value={self.flag}>Other shared focus stop</Checkbox>
+        <Button name="Reset" pressed={self.reset}>Reset from model</Button>
+        <Button name="Replace" pressed={self.replace}>Replace source</Button>
+        <Text text={"Selected: "+snapshot+" / column: "+self.column+" / revision: "+str(self.revision)} />
+        <BaseButton name="Native" text="Native Godot Button" />
+        <LineEdit name="NativeEdit" text="Foreign native LineEdit" />
+    </Entry>

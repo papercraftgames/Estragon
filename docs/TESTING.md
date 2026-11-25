@@ -239,3 +239,17 @@ Run the existing Input collector with `--proportions` through documented Yarn/No
 ## LAYOUT-01 allocated constraint measurement
 
 `corepack yarn@1.22.22 node --experimental-strip-types tools/check-responsive.ts --constraints --editor --engine 4.0.4=/absolute/official/linux/godot --engine 4.7=/absolute/pinned/linux/godot --output /new/absolute/evidence` extends the responsive runner with the native allocated-constraint matrix and repo-owned nested Gogo gallery. It tests one immutable direct-Yarn package on both approved engines, existing L12/U03/U04/CORE-02 controls, real rendered input/focus/caret/scroll/pack/reopen, isolated current/main Play rejection/repair/restart, and unchanged installed bytes/maps/UIDs. Use Xvfb/software graphics and isolated settings as above. Live editor source_roots are the five-source subject gallery after wider regression consumers build/test. No Text word-wrap, external-demo changes, physical-key requirement, additional engine/platform or routine-CI expansion. [Exact source-qualified results and limitations](evidence/LAYOUT01_CONSTRAINTS.md).
+
+## UI-04 RadioGroup acceptance
+
+Run the opt-in proof under Linux Xvfb/software OpenGL, using only the approved binaries and a new absolute output directory:
+
+```sh
+LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=2 COREPACK_ENABLE_PROJECT_SPEC=0 \
+xvfb-run -a corepack yarn@1.22.22 node --experimental-strip-types tools/check-radio.ts --editor \
+  --engine 4.0.4=/absolute/Godot_v4.0.4-stable_linux.x86_64 \
+  --engine 4.7=/absolute/Godot_v4.7-stable_linux.x86_64 \
+  --output /absolute/new-ui04-evidence
+```
+
+The focused runner installs one immutable direct Yarn payload and checks native Radio/compiler/game/negative cases plus existing Input/Checkbox/focus/layout/scrollbar regressions. Isolated editor current/main Play rejects invalid unsaved properties and duplicate IDs, preserves code/map/UID/timestamp/cache, repairs, runs the actual graphical probe and restarts. No user editor preferences change. It verifies installed bytes and source maps/UIDs after editor use. `tests/radio/baseline.gd` is an intentionally failing pre-UI04 reproduction (native pointer clicks leave two independent Toggles selected); it is not an acceptance success fixture. [Public API](RADIO.md).

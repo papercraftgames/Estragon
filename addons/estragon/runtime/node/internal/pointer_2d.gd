@@ -82,14 +82,14 @@ func input(event: InputEvent) -> bool:
 		return held != null
 	if not event is InputEventMouseButton or event.button_index != MOUSE_BUTTON_LEFT: return false
 	if event.pressed:
-		if held == null and hovered != null and not hovered.disabled:
+		if held == null and hovered != null and not hovered._input_disabled():
 			hovered.grab_focus()
 			_captured = weakref(hovered)
 			hovered._set_pointer_state(true,true)
 		return hovered != null
 	if held == null: return hovered != null
 	_captured = null
-	var activate: bool = held==hovered and not held.disabled and held.is_visible_in_tree()
+	var activate: bool = held==hovered and not held._input_disabled() and held.is_visible_in_tree()
 	held._set_pointer_state(held==hovered,false)
 	if activate: held.pressed.emit()
 	return true

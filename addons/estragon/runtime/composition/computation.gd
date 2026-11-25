@@ -412,7 +412,8 @@ func _apply(desired: Element, record: Mounted) -> void:
 	for key in desired.properties:
 		if scroll and key=="scroll_offset": continue
 		if not record.properties.has(key) or not is_same(record.properties[key],desired.properties[key]) or key=="value" and Binding.declared(node.get_script(),"value",typeof(desired.properties[key])) and not is_same(node.get(key),desired.properties[key]):
-			if not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
+			if key=="value" and VisualStyle.marked(desired.type,"ESTRAGON_RADIO"): node._apply_radio_identity(desired.properties[key])
+			elif not stack or key not in ["direction","horizontal_align","vertical_align"]: node.set(key,desired.properties[key])
 			writes += 1
 			if Profile.is_enabled(): Profile.add("property_writes")
 	# Apply the effective authored offset after geometry/axis flags. A dirty
@@ -589,6 +590,7 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 	if Profile.is_enabled(): Profile.add("preflights")
 	if desired == null: return true
 	if desired.borrowed != null: return desired.borrowed.get_ref() != null
+	if parent!=null and not _radio_context(desired,previous,parent): return false
 	# Cache only within this synchronous desired-tree validation. No Script
 	# contracts survive a commit or hide editor reload/metadata changes.
 	if contracts==null: contracts = {}
@@ -609,6 +611,12 @@ func _preflight(desired, previous, parent: Node, contracts: Variant = null) -> b
 		contracts[desired.type] = {"properties":properties,"signals":signals}
 	var properties: Dictionary = contracts[desired.type].properties
 	var signals: Dictionary = contracts[desired.type].signals
+	if VisualStyle.marked(desired.type,"ESTRAGON_RADIO"):
+		var identity = desired.properties.get("value","")
+		if not identity is String or identity.is_empty(): return _invalid_attribute(desired,"value","Radio requires a nonempty String identifier")
+	if VisualStyle.marked(desired.type,"ESTRAGON_RADIO_GROUP"):
+		if desired.properties.has("value") and not desired.properties.value is String: return _invalid_attribute(desired,"value","RadioGroup requires String")
+		if not _radio_identities(desired,{},previous): return false
 	if StackContract.registered(desired.type):
 		var policy: Dictionary = previous.properties.duplicate() if previous!=null and _compatible(desired,previous) else {}
 		policy.merge(_spread_resets(desired,previous),true)
@@ -835,3 +843,51 @@ func _connect_observer(key: String, pair: Array) -> void:
 	notification_callbacks[key] = callback
 	if Profile.is_enabled(): Profile.add("subscription_connects")
 	if source.connect(pair[1],callback)!=OK: push_error("Composition observation connection failed")
+
+# Include retained opaque component output and foreign native children, while
+# replacing only the old managed description region in the current transaction.
+func _radio_native(node: Node, identities: Dictionary) -> bool:
+	if not is_instance_valid(node): return false
+	if node.has_method("_radio_group"): return true
+	if node.has_method("_radio_owner"):
+		if node.value.is_empty() or identities.has(node.value): return false
+		identities[node.value] = true
+	for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
+		if not _radio_native(child,identities): return false
+	return true
+func _radio_context(desired, previous, parent: Node) -> bool:
+	var group = parent
+	while group!=null and not group.has_method("_radio_group"): group = group.get_parent()
+	if group==null or VisualStyle.marked(desired.type,"ESTRAGON_RADIO_GROUP"): return true
+	var old: Node = previous.node.get_ref() if previous!=null else null
+	var identities := {}
+	for option in group.options():
+		if old!=null and (option==old or old.is_ancestor_of(option)): continue
+		if option.value.is_empty() or identities.has(option.value): return _invalid_attribute(desired,"value","existing group has invalid Radio identifiers")
+		identities[option.value] = true
+	return _radio_desired(desired,previous,identities)
+func _radio_desired(desired, previous, identities: Dictionary) -> bool:
+	if desired==null: return true
+	if desired.borrowed!=null: return _radio_native(desired.borrowed.get_ref(),identities)
+	if VisualStyle.marked(desired.type,"ESTRAGON_RADIO_GROUP"): return true
+	if VisualStyle.marked(desired.type,"ESTRAGON_RADIO"):
+		var identity = desired.properties.get("value","")
+		if not identity is String or identity.is_empty(): return _invalid_attribute(desired,"value","Radio requires a nonempty String identifier")
+		if identities.has(identity): return _invalid_attribute(desired,"value","duplicate Radio identifier "+identity)
+		identities[identity] = true
+	return _radio_identities(desired,identities,previous)
+func _radio_identities(desired, identities: Dictionary, previous = null) -> bool:
+	var retained = previous if _compatible(desired,previous) else null
+	var old_children: Array = retained.children if retained!=null else []
+	var matches := _matches(desired.children,old_children)
+	for index in range(desired.children.size()):
+		if not _radio_desired(desired.children[index],matches[index],identities): return false
+	if retained!=null:
+		var node: Node = retained.node.get_ref()
+		var known: Array = []
+		for child in old_children:
+			if child!=null: known.append(child.node.get_ref())
+		for child in (node._layout_children() if node.has_method("_layout_children") else node.get_children()):
+			if known.has(child) or node.has_method("_composition_is_private") and node._composition_is_private(child): continue
+			if not _radio_native(child,identities): return _invalid_attribute(desired,"value","duplicate or empty retained native Radio identifier")
+	return true

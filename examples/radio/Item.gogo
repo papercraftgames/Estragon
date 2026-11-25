@@ -1,0 +1,5 @@
+@bindable
+extends RefCounted
+var id: String = ""
+var label: String = ""
+var disabled: bool = false

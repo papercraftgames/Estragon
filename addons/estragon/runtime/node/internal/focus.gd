@@ -2,6 +2,7 @@
 extends Resource
 ## One native GUI focus owner. This registry only joins native GUI roots for Tab.
 ## Weak Entries; no retained focus graph, Node metadata or frame callbacks.
+signal geometry_changed
 const Pointer = preload("pointer_2d.gd")
 var viewports: Dictionary = {}
 var refreshes := 0
@@ -42,7 +43,9 @@ func _validate() -> void:
 		var viewport = record.viewport.get_ref()
 		if viewport==null: continue
 		var owner = viewport.gui_get_focus_owner()
-		if owner!=null and contains(owner) and not eligible(owner): owner.release_focus()
+		if owner!=null and contains(owner) and not eligible(owner):
+			owner.release_focus()
+	geometry_changed.emit()
 func contains(control: Control) -> bool:
 	var record: Dictionary = viewports.get(control.get_viewport().get_instance_id(),{})
 	for reference in record.get("entries",[]):
@@ -64,13 +67,13 @@ static func intersect(region: Array, boundary: PackedVector2Array) -> Array:
 			for index in range(clipped.size()): area += clipped[index].cross(clipped[(index+1)%clipped.size()])
 			if not is_zero_approx(area): result.append(clipped)
 	return result
-static func eligible(control: Control, tab: bool = false) -> bool:
+static func eligible(control: Control, tab: bool = false, require_focus: bool = true) -> bool:
 	if not is_instance_valid(control) or not control.is_inside_tree() or control.is_queued_for_deletion() or not control.is_visible_in_tree() or not control.can_process(): return false
-	if control.focus_mode==Control.FOCUS_NONE or tab and control.focus_mode!=Control.FOCUS_ALL: return false
+	if require_focus and (control.focus_mode==Control.FOCUS_NONE or tab and control.focus_mode!=Control.FOCUS_ALL): return false
 	if control is BaseButton and control.disabled: return false
 	if owns(control):
 		var host = control._estragon_focus_host()
-		if host==null or host.disabled or host.is_queued_for_deletion(): return false
+		if host==null or (host._input_disabled() if host.has_method("_input_disabled") else host.disabled) or host.is_queued_for_deletion(): return false
 	if control.size.x<=0 or control.size.y<=0: return false
 	var transform := control.get_global_transform_with_canvas()
 	if is_zero_approx(transform.x.cross(transform.y)): return false
@@ -88,7 +91,9 @@ static func eligible(control: Control, tab: bool = false) -> bool:
 	return true
 func _collect(node: Node, viewport: Viewport, output: Array) -> void:
 	if node.get_viewport()!=viewport: return
-	if node is Control and eligible(node,true) and not output.has(node): output.append(node)
+	if node is Control and eligible(node,true) and not output.has(node):
+		var host = node._estragon_focus_host() if owns(node) else null
+		if host==null or not host.has_method("_focus_tab_stop") or host._focus_tab_stop(): output.append(node)
 	for child in node.get_children(true): _collect(child,viewport,output)
 func candidates(viewport: Viewport) -> Array:
 	var output: Array = []
@@ -111,7 +116,11 @@ func key(viewport: Viewport, event: InputEvent) -> bool:
 	if owner!=null and not path.is_empty():
 		var explicit = owner.get_node_or_null(path)
 		if explicit is Control and eligible(explicit,true): explicit.grab_focus(); return true
-	var index := list.find(owner)
+	var logical_owner := owner
+	if owner!=null and owns(owner):
+		var host = owner._estragon_focus_host()
+		if host!=null and host.has_method("_focus_tab_control"): logical_owner = host._focus_tab_control()
+	var index := list.find(logical_owner)
 	if index<0 and owner!=null:
 		var ordered := list.duplicate()
 		if event.shift_pressed: ordered.reverse()
