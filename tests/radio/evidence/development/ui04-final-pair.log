@@ -1,0 +1,39 @@
+yarn node v1.22.22
+yarn add v1.22.22
+info No lockfile found.
+(node:3791) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+warning Ignored scripts due to flag.
+success Saved lockfile.
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+info All dependencies
+└─ @papercraftgames/estragon@0.0.0-dev
+Done in 0.83s.
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+SCRIPT ERROR: Parse Error: Could not resolve super class path "res://addons/estragon/runtime/node/component_2d.gd".
+          at: GDScript::reload (res://examples/focus/TextDelegate.gd:0)
+file:///repo/tools/check-radio.ts:36
+   if(result.status!=='PASS')throw Error('UI04 '+name+' failed: '+result.reason);
+                                   ^
+
+Error: UI04 build failed: undefined
+    at run (file:///repo/tools/check-radio.ts:36:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///repo/tools/check-radio.ts:69:3
+
+Node.js v24.22.2
+info Visit https://yarnpkg.com/en/docs/cli/node for documentation about this command.
+error Command failed.
+Exit code: 1
+Command: /usr/local/bin/node
+Arguments: --experimental-strip-types /repo/tools/check-radio.ts --editor --engine 4.0.4=/evidence/engine404/Godot_v4.0.4-stable_linux.x86_64 --engine 4.7=/evidence/engine47/Godot_v4.7-stable_linux.x86_64 --output /tmp/ui04-final-pair
+Directory: /repo
+Output:
+

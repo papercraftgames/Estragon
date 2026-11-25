@@ -1,0 +1,181 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (119 steps)
+[   0% ] update_scripts_classes | 
+[   0% ] update_scripts_classes | 
+[   1% ] update_scripts_classes | 
+[   2% ] update_scripts_classes | 
+[   3% ] update_scripts_classes | 
+[   4% ] update_scripts_classes | 
+[   5% ] update_scripts_classes | 
+[   5% ] update_scripts_classes | 
+[   6% ] update_scripts_classes | 
+[   7% ] update_scripts_classes | 
+[   8% ] update_scripts_classes | 
+[   9% ] update_scripts_classes | 
+[  10% ] update_scripts_classes | 
+[  10% ] update_scripts_classes | 
+[  11% ] update_scripts_classes | 
+[  12% ] update_scripts_classes | 
+[  13% ] update_scripts_classes | 
+[  14% ] update_scripts_classes | 
+[  15% ] update_scripts_classes | 
+[  15% ] update_scripts_classes | 
+[  16% ] update_scripts_classes | 
+[  17% ] update_scripts_classes | 
+[  18% ] update_scripts_classes | 
+[  19% ] update_scripts_classes | 
+[  20% ] update_scripts_classes | 
+[  20% ] update_scripts_classes | 
+[  21% ] update_scripts_classes | 
+[  22% ] update_scripts_classes | 
+[  23% ] update_scripts_classes | 
+[  24% ] update_scripts_classes | 
+[  25% ] update_scripts_classes | 
+[  25% ] update_scripts_classes | 
+[  26% ] update_scripts_classes | 
+[  27% ] update_scripts_classes | 
+[  28% ] update_scripts_classes | 
+[  29% ] update_scripts_classes | 
+[  30% ] update_scripts_classes | 
+[  30% ] update_scripts_classes | 
+[  31% ] update_scripts_classes | 
+[  32% ] update_scripts_classes | 
+[  33% ] update_scripts_classes | 
+[  34% ] update_scripts_classes | 
+[  35% ] update_scripts_classes | 
+[  35% ] update_scripts_classes | 
+[  36% ] update_scripts_classes | 
+[  37% ] update_scripts_classes | 
+[  38% ] update_scripts_classes | 
+[  39% ] update_scripts_classes | 
+[  40% ] update_scripts_classes | 
+[  40% ] update_scripts_classes | 
+[  41% ] update_scripts_classes | 
+[  42% ] update_scripts_classes | 
+[  43% ] update_scripts_classes | 
+[  44% ] update_scripts_classes | 
+[  45% ] update_scripts_classes | 
+[  45% ] update_scripts_classes | 
+[  46% ] update_scripts_classes | 
+[  47% ] update_scripts_classes | 
+[  48% ] update_scripts_classes | 
+[  49% ] update_scripts_classes | 
+[  50% ] update_scripts_classes | 
+[  50% ] update_scripts_classes | 
+[  51% ] update_scripts_classes | 
+[  52% ] update_scripts_classes | 
+[  53% ] update_scripts_classes | 
+[  54% ] update_scripts_classes | 
+[  55% ] update_scripts_classes | 
+[  55% ] update_scripts_classes | 
+[  56% ] update_scripts_classes | 
+[  57% ] update_scripts_classes | 
+[  58% ] update_scripts_classes | 
+[  59% ] update_scripts_classes | 
+[  60% ] update_scripts_classes | 
+[  60% ] update_scripts_classes | 
+[  61% ] update_scripts_classes | 
+[  62% ] update_scripts_classes | 
+[  63% ] update_scripts_classes | 
+[  64% ] update_scripts_classes | 
+[  65% ] update_scripts_classes | 
+[  65% ] update_scripts_classes | 
+[  66% ] update_scripts_classes | 
+[  67% ] update_scripts_classes | EstragonBox
+[  68% ] update_scripts_classes | EstragonButton
+[  69% ] update_scripts_classes | EstragonCheckbox
+[  70% ] update_scripts_classes | EstragonComponent2D
+[  70% ] update_scripts_classes | EstragonComponent3D
+[  71% ] update_scripts_classes | Estragon2D
+[  72% ] update_scripts_classes | Estragon3D
+[  73% ] update_scripts_classes | EstragonGrid
+[  74% ] update_scripts_classes | EstragonHBox
+[  75% ] update_scripts_classes | EstragonInput
+[  75% ] update_scripts_classes | EstragonNative2D
+[  76% ] update_scripts_classes | EstragonNative3D
+[  77% ] update_scripts_classes | EstragonRadio
+[  78% ] update_scripts_classes | EstragonRadioGroup
+[  79% ] update_scripts_classes | EstragonRect
+[  80% ] update_scripts_classes | EstragonSpacer
+[  80% ] update_scripts_classes | EstragonText
+[  81% ] update_scripts_classes | EstragonToggle
+[  82% ] update_scripts_classes | EstragonVBox
+[  83% ] update_scripts_classes | 
+[  84% ] update_scripts_classes | 
+[  85% ] update_scripts_classes | 
+[  85% ] update_scripts_classes | 
+[  86% ] update_scripts_classes | 
+[  87% ] update_scripts_classes | 
+[  88% ] update_scripts_classes | 
+[  89% ] update_scripts_classes | 
+[  90% ] update_scripts_classes | 
+[  90% ] update_scripts_classes | 
+[  91% ] update_scripts_classes | 
+[  92% ] update_scripts_classes | 
+[  93% ] update_scripts_classes | 
+[  94% ] update_scripts_classes | 
+[  95% ] update_scripts_classes | 
+[  95% ] update_scripts_classes | 
+[  96% ] update_scripts_classes | 
+[  97% ] update_scripts_classes | 
+[  98% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started Scanning actions... (10 steps)
+[   0% ] _update_scan_actions | checkbox-640.png
+[   9% ] _update_scan_actions | checkbox-1000.png
+[  18% ] _update_scan_actions | focus-runtime.png
+[  27% ] _update_scan_actions | input-640.png
+[  36% ] _update_scan_actions | input-1000.png
+[  45% ] _update_scan_actions | radio-gallery.png
+[  54% ] _update_scan_actions | u04-ggx.png
+[  63% ] _update_scan_actions | u04-offset-0.png
+[  72% ] _update_scan_actions | u04-offset-235.png
+[  81% ] _update_scan_actions | u04-offset-470.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started (Re)Importing Assets (10 steps)
+[   0% ] reimport | Preparing files to reimport...
+[   9% ] reimport | Preparing files to reimport...
+[  18% ] reimport | Preparing files to reimport...
+[  27% ] reimport | Preparing files to reimport...
+[  36% ] reimport | Preparing files to reimport...
+[  45% ] reimport | Preparing files to reimport...
+[  54% ] reimport | Preparing files to reimport...
+[  63% ] reimport | Preparing files to reimport...
+[  72% ] reimport | Preparing files to reimport...
+[  81% ] reimport | Preparing files to reimport...
+[   0% ] reimport | Executing pre-reimport operations...
+[   0% ] reimport | checkbox-640.png
+[   9% ] reimport | checkbox-1000.png
+[  18% ] reimport | focus-runtime.png
+[  27% ] reimport | input-640.png
+[  36% ] reimport | input-1000.png
+[  45% ] reimport | radio-gallery.png
+[  54% ] reimport | u04-ggx.png
+[  63% ] reimport | u04-offset-0.png
+[  72% ] reimport | u04-offset-235.png
+[  81% ] reimport | u04-offset-470.png
+[  90% ] reimport | Finalizing Asset Import...
+[ DONE ] reimport
+
+[   0% ] reimport | Started (Re)Importing Assets (10 steps)
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+C01_PROJECT_INDEX_READY
