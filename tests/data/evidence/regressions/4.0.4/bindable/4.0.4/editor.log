@@ -1,0 +1,199 @@
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+WARNING: Custom cursor shape not supported by this display server.
+     at: cursor_set_custom_image (servers/display_server.cpp:480)
+WARNING: Blend file import is enabled in the project settings, but no Blender path is configured in the editor settings. Blend files will not be imported.
+     at: _editor_init (modules/gltf/register_types.cpp:70)
+BINDABLE_EDITOR_CHECK real native Gogo CodeEdit: true
+BINDABLE_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=7 final=9 observed=[[7, 8], [8, 9]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 1.239
+BINDABLE_EDITOR_CHECK normal Play saves latest bindable model: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.78
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.017
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: exact authored location unavailable: true
+BINDABLE_EDITOR_CHECK project reports useful failure: exact authored location unavailable: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.055
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.865
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 1.203
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/bindable/Model.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.66
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.972
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=7 final=9 observed=[[7, 8], [8, 9]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 1.018
+BINDABLE_EDITOR_CHECK normal Play saves latest bindable model: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.75
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 1.029
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: exact authored location unavailable: true
+BINDABLE_EDITOR_CHECK current reports useful failure: exact authored location unavailable: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 1.033
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.884
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 1.168
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/bindable/Model.gogo:1:1: Cannot save latest Gogo buffer (Can't open file); Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.646
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6007 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 1.031
+BINDABLE_EDITOR_CHECK derived model Gogo editor: true
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:16)
+SCRIPT ERROR: Parse Error: The member "count" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.093
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6008 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 1.068
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:1:1: Godot rejected generated GDScript (Parse error); exact authored location unavailable here, inspect native engine diagnostics
+     at: push_warning (core/variant/variant_utility.cpp:923)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:6553)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.211
+Godot Engine v4.0.4.stable.official.fc0b241c9 - https://godotengine.org
+ 
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+Running: /tmp/estragon-native-hnTnBx/godot --path /tmp/estragon-native-hnTnBx/project --remote-debug tcp://127.0.0.1:6008 --editor-pid 2777 res://examples/bindable/Demo.tscn --headless --audio-driver Dummy
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 1.213
+BINDABLE_EDITOR_ASSERTIONS 61
+BINDABLE_EDITOR_OK

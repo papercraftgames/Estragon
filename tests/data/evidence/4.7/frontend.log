@@ -1,0 +1,30 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 22.3.6 - Compatibility - Using Device: Mesa/X.org - llvmpipe (LLVM 15.0.6, 256 bits)
+
+CORE02_FRONTEND typed declarations, reassignment, nested members and self member: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND hydration executes and sibling lexical shadow remains native: true
+CORE02_FRONTEND typed parameter member boundary hydrates: true
+CORE02_FRONTEND typed local collection lowers: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native collection iteration and insertion hydration: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND authored reserved-method/signal collision diagnostic: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND uninitialized fields keep native typed defaults: true
+CORE02_FRONTEND inherited data shape compiles: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND inherited fields and defaults serialize: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND native typed Array fields hydrate atomically and stay native: true
+CORE02_FRONTEND authored notification method retained with cleanup: true
+CORE02_FRONTEND invalid native typed Array element rejected before setter: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND observable ownership cycle detected before attachment: true
+CORE02_FRONTEND native 4.0-compatible emitted semantics: true
+CORE02_FRONTEND self-qualified typed collection uses safe native iteration: true
+CORE02_FRONTEND hydrated writes retain native member-assignment semantic proof: true
+CORE02_FRONTEND_CHECKS 23 ERRORS 0
+CORE02_FRONTEND_OK

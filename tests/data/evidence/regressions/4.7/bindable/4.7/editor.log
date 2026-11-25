@@ -1,0 +1,698 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+BINDABLE_EDITOR_CHECK real native Gogo CodeEdit: true
+BINDABLE_EDITOR_CHECK real Gogo tab associated with native highlighter: true
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=7 final=9 observed=[[7, 8], [8, 9]]
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.918
+BINDABLE_EDITOR_CHECK normal Play saves latest bindable model: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:137)
+         [7] _success (res://tests/bindable/editor/driver.gd:94)
+         [8] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:137)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.733
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:139)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands "int" and "String" for assignment operator.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:139)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:139)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands "int" and "String" for assignment operator.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.03
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:142)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:142)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type "String" as "int".
+
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:142)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:142)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type "String" as "int".
+
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:5:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:5:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 1.082
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:144)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:144)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.818
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.903
+ERROR: Cannot save text file 'res://examples/bindable/Model.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://addons/estragon/editor/plugin.gd:190)
+       [2] _build (res://addons/estragon/editor/plugin.gd:177)
+       [3] _play (res://tests/bindable/editor/driver.gd:79)
+       [4] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [5] _run (res://tests/bindable/editor/driver.gd:151)
+       [6] _success (res://tests/bindable/editor/driver.gd:94)
+       [7] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/bindable/Model.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [2] _build (res://addons/estragon/editor/plugin.gd:177)
+         [3] _play (res://tests/bindable/editor/driver.gd:79)
+         [4] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [5] _run (res://tests/bindable/editor/driver.gd:151)
+         [6] _success (res://tests/bindable/editor/driver.gd:94)
+         [7] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:151)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.652
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.875
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=7 final=9 observed=[[7, 8], [8, 9]]
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 0.815
+BINDABLE_EDITOR_CHECK normal Play saves latest bindable model: true
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:80)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:137)
+         [7] _success (res://tests/bindable/editor/driver.gd:94)
+         [8] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:80)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:137)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:1:1: Only lowercase @bindable is supported
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.752
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:80)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:139)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands "int" and "String" for assignment operator.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:80)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:139)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:80)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:139)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Invalid operands "int" and "String" for assignment operator.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:81)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:11:1: Parse Error: Invalid operands "int" and "String" for assignment operator.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 1.035
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:80)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:142)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:80)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:142)
+              [10] _blocked (res://tests/bindable/editor/driver.gd:112)
+              [11] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type "String" as "int".
+
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:80)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:142)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:80)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:142)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type "String" as "int".
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+SCRIPT ERROR: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+          at: GDScript::reload (res://examples/bindable/generated/Model.gd:6)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type "String" as "int".
+
+examples/bindable/Model.gogo:5:11: Parse Error: Cannot assign a value of type String to variable "count" with specified type int.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:5:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:5:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 1.133
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:80)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:144)
+         [7] _blocked (res://tests/bindable/editor/driver.gd:112)
+         [8] _wait (res://tests/bindable/editor/driver.gd:26)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:80)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:144)
+       [3] _blocked (res://tests/bindable/editor/driver.gd:112)
+       [4] _wait (res://tests/bindable/editor/driver.gd:26)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Model.gogo:4:16: @bindable does not support multiple declarations or custom accessors
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.865
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 0.948
+ERROR: Cannot save text file 'res://examples/bindable/Model.gogo'.
+   at: _save_text_file (editor/script/script_editor_plugin.cpp:2179)
+   GDScript backtrace (most recent call first):
+       [0] save_and_verify (res://addons/estragon/editor/buffer_guard.gd:49)
+       [1] _build_sources (res://addons/estragon/editor/plugin.gd:190)
+       [2] _build (res://addons/estragon/editor/plugin.gd:177)
+       [3] _play (res://tests/bindable/editor/driver.gd:80)
+       [4] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [5] _run (res://tests/bindable/editor/driver.gd:151)
+       [6] _success (res://tests/bindable/editor/driver.gd:94)
+       [7] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+res://examples/bindable/Model.gogo:1:1: Cannot read saved Gogo source; Play blocked.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _build_sources (res://addons/estragon/editor/plugin.gd:196)
+         [2] _build (res://addons/estragon/editor/plugin.gd:177)
+         [3] _play (res://tests/bindable/editor/driver.gd:80)
+         [4] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [5] _run (res://tests/bindable/editor/driver.gd:151)
+         [6] _success (res://tests/bindable/editor/driver.gd:94)
+         [7] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:80)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:151)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+BINDABLE_EDITOR_CHECK current blocks stale child execution: Model.gogo:: true
+BINDABLE_EDITOR_CHECK current reports useful failure: Model.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_current 0.635
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK current executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_current 0.857
+BINDABLE_EDITOR_CHECK derived model Gogo editor: true
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:16)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:167)
+              [10] _success (res://tests/bindable/editor/driver.gd:94)
+              [11] _until (res://tests/bindable/editor/driver.gd:31)
+SCRIPT ERROR: Parse Error: The member "count" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:167)
+              [10] _success (res://tests/bindable/editor/driver.gd:94)
+              [11] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:6:15: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+
+examples/bindable/Derived.gogo:6:11: Parse Error: The member "count" already exists in parent class BindableExampleModel.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:167)
+         [7] _success (res://tests/bindable/editor/driver.gd:94)
+         [8] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:167)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:16)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+SCRIPT ERROR: Parse Error: The member "count" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:6:15: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+
+examples/bindable/Derived.gogo:6:11: Parse Error: The member "count" already exists in parent class BindableExampleModel.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.931
+[   0% ] update_scripts_classes | Started Registering global classes... (2 steps)
+[   0% ] update_scripts_classes | 
+[  33% ] update_scripts_classes | BindableExampleModel
+[ DONE ] update_scripts_classes
+
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.866
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+              [6] _build (res://addons/estragon/editor/plugin.gd:177)
+              [7] _play (res://tests/bindable/editor/driver.gd:79)
+              [8] _blocked (res://tests/bindable/editor/driver.gd:105)
+              [9] _run (res://tests/bindable/editor/driver.gd:167)
+              [10] _success (res://tests/bindable/editor/driver.gd:94)
+              [11] _until (res://tests/bindable/editor/driver.gd:31)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:6:11: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _build_sources (res://addons/estragon/editor/plugin.gd:198)
+         [3] _build (res://addons/estragon/editor/plugin.gd:177)
+         [4] _play (res://tests/bindable/editor/driver.gd:79)
+         [5] _blocked (res://tests/bindable/editor/driver.gd:105)
+         [6] _run (res://tests/bindable/editor/driver.gd:167)
+         [7] _success (res://tests/bindable/editor/driver.gd:94)
+         [8] _until (res://tests/bindable/editor/driver.gd:31)
+ERROR: An EditorPlugin build callback failed.
+   at: call_build (editor/editor_node.cpp:7679)
+   GDScript backtrace (most recent call first):
+       [0] _play (res://tests/bindable/editor/driver.gd:79)
+       [1] _blocked (res://tests/bindable/editor/driver.gd:105)
+       [2] _run (res://tests/bindable/editor/driver.gd:167)
+       [3] _success (res://tests/bindable/editor/driver.gd:94)
+       [4] _until (res://tests/bindable/editor/driver.gd:31)
+SCRIPT ERROR: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+          at: GDScript::reload (res://examples/bindable/generated/Derived.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] reload_script (res://addons/estragon/compiler/script_validation.gd:61)
+              [1] validate (res://addons/estragon/compiler/script_validation.gd:49)
+              [2] _run (res://addons/estragon/editor/build_service.gd:137)
+              [3] run_build (res://addons/estragon/editor/build_service.gd:20)
+              [4] _compile (res://addons/estragon/editor/plugin.gd:211)
+              [5] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+WARNING: Estragon: Gogo compilation failed; Play blocked.
+examples/bindable/Derived.gogo:6:11: Parse Error: The member "count_changed" already exists in parent class BindableExampleModel.
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _show_report (res://addons/estragon/editor/plugin.gd:248)
+         [1] _compile (res://addons/estragon/editor/plugin.gd:213)
+         [2] _compile_saved (res://addons/estragon/editor/plugin.gd:173)
+BINDABLE_EDITOR_CHECK project blocks stale child execution: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK project reports useful failure: Derived.gogo:: true
+BINDABLE_EDITOR_CHECK failed Play preserves generated code/map/UID/timestamp: true
+BINDABLE_EDITOR_CHECK failed Play preserves Script identity/source: true
+CI_EDITOR_TIMING rejected_project 0.949
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Bindable model initial=3 final=5 observed=[[3, 4], [4, 5]]
+BINDABLE_EDITOR_CHECK project executes newest Gogo model and callbacks: true
+CI_EDITOR_TIMING success_project 0.842
+BINDABLE_EDITOR_ASSERTIONS 61
+BINDABLE_EDITOR_OK

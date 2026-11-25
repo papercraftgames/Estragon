@@ -1,0 +1,7 @@
+@bindable
+extends RefCounted
+const Details = preload("Details.gd")
+var id: int
+var name: String = "Unnamed"
+var quantity: int = 1
+var details: Details = {}
