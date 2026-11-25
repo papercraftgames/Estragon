@@ -3,8 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import {ROOT,parseCLI,newSandbox,runCommand,writeJSON,sha256,indexProject,ERROR} from './compat-kit.ts';
 import {buttonImportsPackage} from './button-imports-package.ts';
-const controlsOnly=process.argv.includes("--controls-only");
-const options=parseCLI(process.argv.slice(2).filter(arg=>arg!=="--controls-only"),{editor:true});
+const geometryOnly=process.argv.includes("--geometry-only");
+const controlsOnly=geometryOnly||process.argv.includes("--controls-only");
+const options=parseCLI(process.argv.slice(2).filter(arg=>!["--controls-only","--geometry-only"].includes(arg)),{editor:true});
+if(geometryOnly&&options.editor)throw Error("Geometry-only mode is a native fixture check, not editor acceptance");
 if(process.platform!=='linux')throw Error('Approved Linux engines only');
 fs.mkdirSync(options.output,{recursive:true});
 const packed=buttonImportsPackage(path.join(options.output,'packed'),'values');
@@ -75,6 +77,12 @@ for(const selection of options.engines){
   writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:[...suites.filter(suite=>suite!=='focus').map(suite=>'examples/'+(suite==='value'?'values':suite)),...(!controlsOnly?['examples/scrollbars']:[])]});
   fs.writeFileSync(path.join(box.project,'project.godot'),'config_version=5\n[application]\nconfig/name="UI05 native choices"\nrun/main_scene="res://examples/values/Values.tscn"\nconfig/features=PackedStringArray("4.0", "GL Compatibility")\n[display]\nwindow/size/viewport_width=840\nwindow/size/viewport_height=840\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n');
   const args=[box.binary,'--audio-driver','Dummy','--path',box.project],graphics=['--rendering-method','gl_compatibility','--rendering-driver','opengl3'];
+  if(geometryOnly){
+   await run('geometry',[...args,...graphics,'--script','res://tests/value/geometry.gd'],'UI05_GEOMETRY_OK');
+   for(const [file,hash]of Object.entries(packed.manifest.files))if(sha256(path.join(installed,file))!==hash)throw Error('Installed bytes changed: '+file);
+   writeJSON(path.join(out,'summary.json'),{status:'PASS',scope:'geometry-only',checks:results,tarball_sha256:packed.manifest.tarball_sha256,canonical_uids:packed.manifest.canonical_uids,installed_bytes_unchanged:true});
+   continue;
+  }
   await run('build',[...args,'--headless','--script','res://tests/value/build.gd'],'UI05_BUILD_OK');
   for(const [name,script,marker]of [
    ['frontend','tests/value/frontend.gd','UI05_FRONTEND_OK'],

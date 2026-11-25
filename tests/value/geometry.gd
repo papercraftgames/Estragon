@@ -16,7 +16,7 @@ func run():
 	option.text="Short";await frames()
 	check(select.layout_size.x==220 and native.size==select.get_content_rect().size,"label replacement does not change natural trigger geometry")
 	for script in [preload("res://addons/estragon/runtime/node/number_input.gd"),preload("res://addons/estragon/runtime/node/integer_input.gd"),preload("res://addons/estragon/runtime/node/slider.gd")]:
-		var control=script.new();control.width=16;control.height=16;entry.add_child(control);await frames()
+		var control=script.new();control.width=40;control.height=30;entry.add_child(control);await frames()
 		check(not control.get_native_control().visible and not control.has_focus(),"undersized content hides native minimum instead of overflowing hit rect "+script.resource_path)
 		control.width=250;control.height=70;control.font_size=28;await frames()
 		check(control.get_native_control().visible and control.get_native_control().size==control.get_content_rect().size,"resized styled content restores exact native geometry "+script.resource_path)
