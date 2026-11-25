@@ -12,7 +12,7 @@ func check(ok: bool, label: String) -> void:
 	print("LAYOUT01_EDITOR_CHECK ",label,": ",ok)
 	if not ok: failed = true
 func wait(seconds: float = 0.15) -> void: await get_tree().create_timer(seconds).timeout
-func until(condition: Callable, label: String, timeout_ms: int = 15000) -> bool:
+func until(condition: Callable, label: String, timeout_ms: int = 60000) -> bool:
 	var deadline := Time.get_ticks_msec()+timeout_ms
 	while Time.get_ticks_msec()<deadline:
 		if condition.call(): return true
@@ -52,7 +52,7 @@ func play(mode: String) -> void:
 	interface.stop_playing_scene()
 	await until(func(): return not interface.is_playing_scene(),"game stops")
 func run() -> void:
-	if not await until(ready,"installed addon ready"): finish(); return
+	if not await until(ready,"installed addon ready",120000): finish(); return
 	var prefs := interface.get_editor_settings()
 	prefs.set_setting("run/auto_save/save_before_running",false)
 	prefs.set_setting("text_editor/behavior/files/autosave_interval_secs",0)

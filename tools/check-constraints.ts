@@ -77,6 +77,9 @@ export async function runConstraints(argv:string[]){
    await run('graphics',[...args,...graphics,'--script','res://tests/responsive/constraint_graphics.gd'],'LAYOUT01_GRAPHICS_OK');
    await run('chrome-native',[...args,...graphics,'--script','res://tests/scrollbars/placement_runtime.gd'],'U04_NATIVE_OK');
    if(editor){
+    // Regression consumers were built/tested above. Keep the editor's live
+    // compile-before-Play scope on the actual five-source layout example.
+    writeJSON(path.join(box.project,'gogo.config.json'),{version:1,source_roots:['examples/constraint_layout']});
     results.import=await indexProject(box,box.project,path.join(out,'import.log'),['--audio-driver','Dummy']);
     writeJSON(path.join(out,'results.json'),results);
     if(results.import.status!=='PASS')throw Error('LAYOUT01 clean import failed');
