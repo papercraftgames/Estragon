@@ -45,7 +45,7 @@ export async function runConstraints(argv:string[]){
      if(folder==='tests/responsive'&&!entry.name.startsWith('constraint')&&!['math.gd','math.gd.uid'].includes(entry.name))continue;
      let text=fs.readFileSync(path.join(ROOT,folder,entry.name),'utf8').replaceAll('res://addons/estragon','res://'+addon);
      if(entry.name.endsWith('.gogo'))text=text.replaceAll('../../../addons/estragon','../../../'+addon);
-     if(folder==='examples/constraint_layout'&&entry.name==='Constraints.gogo')text+='\nstatic var _layout01_probing: bool = false\nfunc _ready() -> void:\n    if OS.get_environment("LAYOUT01_EDITOR")=="1" and not _layout01_probing:\n        _layout01_probing = true\n        _constraint_probe.call_deferred()\nfunc _constraint_probe() -> void:\n    var probe=preload("res://tests/responsive/constraint_game.gd").new()\n    var result=await probe.run(self)\n    var file=FileAccess.open("res://.godot/layout01-game.json",FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
+     if(folder==='examples/constraint_layout'&&entry.name==='Constraints.gogo')text+='\nfunc _ready() -> void:\n    if OS.get_environment("LAYOUT01_EDITOR")=="1":\n        _constraint_probe.call_deferred()\nfunc _constraint_probe() -> void:\n    var probe=preload("res://tests/responsive/constraint_game.gd").new()\n    var result=await probe.run(self)\n    var file=FileAccess.open("res://.godot/layout01-game.json",FileAccess.WRITE)\n    file.store_string(JSON.stringify(result))\n    file.close()\n';
      fs.writeFileSync(path.join(box.project,folder,entry.name),text);
     }
     if(folder.startsWith('examples/')){

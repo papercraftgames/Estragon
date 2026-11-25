@@ -94,7 +94,12 @@ func run(host: Node) -> Dictionary:
     var packed=PackedScene.new()
     var packed_ok=packed.pack(host)==OK and ResourceSaver.save(packed,"res://constraint-packed.tscn")==OK
     var reopened=load("res://constraint-packed.tscn").instantiate() if packed_ok else null
+    # The editor fixture injects a ready probe. Reopening the scene exercises
+    # native composition without recursively starting another fixture probe.
+    var editor_proof=OS.get_environment("LAYOUT01_EDITOR")
+    OS.set_environment("LAYOUT01_EDITOR","0")
     if reopened!=null: tree.root.add_child(reopened)
+    OS.set_environment("LAYOUT01_EDITOR",editor_proof)
     await frames(tree)
     check(reopened!=null and reopened.has_node("UI/Grid/Title") and near(reopened.get_node("UI/Grid/Title/Header").layout_size.y,36),"native pack/reopen restores constrained source composition")
     if reopened!=null: reopened.free()
